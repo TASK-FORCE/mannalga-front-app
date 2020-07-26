@@ -1,3 +1,9 @@
+function offRules(ruleNames) {
+    const rules = {};
+    ruleNames.forEach(name => { rules[name] = ['off']; });
+    return rules;
+}
+
 module.exports = {
     root: true,
     env: {
@@ -13,7 +19,12 @@ module.exports = {
     rules: {
         'no-console': process.env.NODE_ENV === 'production' ? ['error', { allow: ['warn', 'error'] }] : 'off', // production 환경에선 warn, error 로그만 허용한다.
         'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off', // production 환경에선 debugger 금지
-        'import/extensions': ['off'],
+        ...offRules([
+            'import/extensions',
+            'global-require',
+            'import/no-dynamic-require',
+            'arrow-parens',
+        ]),
         'indent': ['error', 4],
         'max-len': ['error', {
             'code': 200,
