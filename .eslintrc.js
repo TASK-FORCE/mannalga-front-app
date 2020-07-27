@@ -23,8 +23,11 @@ module.exports = {
             'import/extensions',
             'global-require',
             'import/no-dynamic-require',
+            'import/prefer-default-export',
             'arrow-parens',
+            'no-use-before-define',
         ]),
+        'no-shadow': ['error', { 'allow': ['state'] }],
         'indent': ['error', 4],
         'max-len': ['error', {
             'code': 200,
