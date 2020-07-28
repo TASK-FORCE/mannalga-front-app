@@ -4,9 +4,7 @@
             <v-img height="200"
                    src="../images/vue.png"
             />
-            <div class="text-center"
-                 style="margin-top: 3rem; margin-bottom: 3rem"
-            >
+            <div class="text-center my-10">
                 <p class="display-1">서비스명</p>
             </div>
             <div class="text-center">
@@ -22,52 +20,57 @@
                 </v-btn>
             </div>
         </div>
+
+        <BaseSnackBar text='로그인이 필요합니다.'
+                      :open="openSnackbar"
+                      @close="openSnackbar = false"
+        />
     </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import { moveToKakaoLoginPage } from '../utils/kakao/utlls.js';
+import BaseSnackBar from '../components/BaseSnackBar.vue';
 
 export default {
     name: 'Login',
+    components: { BaseSnackBar },
     data() {
         return {
             loading: false,
+            openSnackbar: false,
         };
     },
     computed: {
-        ...mapGetters('user', [
-            'hasToken',
-        ]),
+        ...mapGetters('auth', ['isAuth']),
         code() {
             return this.$route.query.code;
         },
+        validationFail() {
+            return !!this.$route.query.validationFail;
+        },
     },
     created() {
+        if (this.validationFail) {
+            this.openSnackbar = true;
+        }
+
         if (this.code) {
-            this.loading = true;
-            this.requestKakaoToken(this.code);
+            this.startLoading();
+            this.requestKakaoTokenByCode(this.code);
         }
     },
     methods: {
-        ...mapActions('user', [
-            'requestKakaoToken',
+        ...mapActions('auth', [
+            'requestKakaoTokenByCode',
         ]),
         login() {
-            this.loading = true;
-
-            if (this.hasAppToken) {
-                // TODO 메인 메뉴로 이동
-                return;
-            }
-
-            if (this.hasKakaoToken) {
-                // TODO App 토큰 발급
-                return;
-            }
-
+            this.startLoading();
             moveToKakaoLoginPage();
+        },
+        startLoading() {
+            this.loading = true;
         },
     },
 };

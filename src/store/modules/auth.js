@@ -1,60 +1,59 @@
 import { requestKakaoToken, saveKakaTokenAndGetAppToken } from '../../apis/login.js';
 import router from '../../router';
-import { KAKAO } from '../../utils/kakao/utlls.js';
 
 const state = {
-    token: '',
+    accessToken: getAccessToken(),
 };
 
 const getters = {
-    hasToken(state) {
-        return state && state.length > 0;
+    isAuth(state) {
+        return !!state.accessToken;
     },
 };
 
-const mutations = {};
+const mutations = {
+    setAppToken(state, { accessToken, refreshToken }) {
+        state.accessToken = accessToken;
+        saveAppTokenToLocalStorage(accessToken, refreshToken);
+    },
+};
 
 const actions = {
-    async requestKakaoToken({ dispatch }, code) {
+    async requestKakaoTokenByCode({ dispatch }, code) {
         try {
             const result = await requestKakaoToken(code);
-            const tokenInfo = result.data;
-            saveKakaoTokenToLocalStorage(tokenInfo);
-            dispatch('saveKakaoToken', tokenInfo);
+            const kakaoTokenInfo = result.data;
+            dispatch('requestAppTokenByKakaoToken', kakaoTokenInfo);
         } catch (e) {
-            await router.push('/login');
+            router.push('/login');
         }
     },
-    async saveKakaoToken(_, tokenInfo) {
+    async requestAppTokenByKakaoToken({ commit }, kakaoTokenInfo) {
         try {
-            const result = await saveKakaTokenAndGetAppToken(tokenInfo);
-            const appToken = result.data;
-            console.log(appToken);
-            saveAppTokenToLocalStorage(appToken);
-            removeKakaoTokenInLocalStorage();
-
-            // Check: 토큰 정보를 받을 떄 처음 로그인한 회원인지에 확인필요
-            await router.push('/register');
+            const result = await saveKakaTokenAndGetAppToken(kakaoTokenInfo);
+            const { appToken, isFirstIssue } = result.data;
+            commit('setAppToken', appToken);
+            if (isFirstIssue) {
+                router.push('/register');
+            } else {
+                router.push('/main');
+            }
         } catch (e) {
-            await router.push('/login');
+            router.push('/login');
         }
     },
 };
 
-// eslint-disable-next-line camelcase
-function saveKakaoTokenToLocalStorage({ access_token, refresh_token }) {
-    localStorage.setItem(KAKAO.ACCESS_TOKEN, access_token);
-    localStorage.setItem(KAKAO.REFRESH_TOKEN, refresh_token);
+const ACCESS_TOKEN = 'accessToken';
+const REFRESH_TOKEN = 'refreshToken';
+
+function saveAppTokenToLocalStorage(accessToken, refreshToken) {
+    localStorage.setItem(ACCESS_TOKEN, accessToken);
+    localStorage.setItem(REFRESH_TOKEN, refreshToken);
 }
 
-function removeKakaoTokenInLocalStorage() {
-    localStorage.removeItem(KAKAO.ACCESS_TOKEN);
-    localStorage.removeItem(KAKAO.REFRESH_TOKEN);
-}
-
-function saveAppTokenToLocalStorage({ accessToken, refreshToken }) {
-    localStorage.setItem('accessToken', accessToken);
-    localStorage.setItem('refreshToken', refreshToken);
+function getAccessToken() {
+    return localStorage.getItem(ACCESS_TOKEN);
 }
 
 export default {

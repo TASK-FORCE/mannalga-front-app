@@ -2,16 +2,17 @@ import Kakao from './sdk.js';
 
 function moveToKakaoLoginPage() {
     if (!Kakao.isInitialized()) {
-        Kakao.init('870d398df8472b4126a17391a04bc037'); // TODO
+        Kakao.init(process.env.VUE_APP_KAKAO_JS_APP_KEY);
     }
     Kakao.Auth.authorize({
-        redirectUri: 'http://localhost:8081/login', // TODO
+        redirectUri: KAKAO.REDIRECT_URL,
     });
 }
 
 const KAKAO = {
     ACCESS_TOKEN: 'kakaoAccessToken',
     REFRESH_TOKEN: 'kakaoRefreshToken',
+    REDIRECT_URL: `${process.env.VUE_APP_DOMAIN}/login`,
 };
 
 export {

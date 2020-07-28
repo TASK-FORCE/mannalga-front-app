@@ -17,6 +17,7 @@ module.exports = {
                     const stubPath = path.join(__dirname, 'stub', req.path);
                     const result = require(stubPath);
                     res.send(result[req.method.toLowerCase()](req));
+                    return;
                 }
                 next();
             });
