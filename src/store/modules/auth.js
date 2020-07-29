@@ -1,8 +1,7 @@
-import { requestKakaoToken, saveKakaTokenAndGetAppToken } from '../../apis/login.js';
-import router from '../../router';
+import { requestKakaoToken, saveKakaTokenAndGetAppToken } from '@/apis/login.js';
 
 const state = {
-    accessToken: getAccessToken(),
+    accessToken: '',
 };
 
 const getters = {
@@ -16,6 +15,10 @@ const mutations = {
         state.accessToken = accessToken;
         saveAppTokenToLocalStorage(accessToken, refreshToken);
     },
+    removeAppToken(state) {
+        state.accessToken = '';
+        removeAppTokenToLocalStorage();
+    },
 };
 
 const actions = {
@@ -23,9 +26,10 @@ const actions = {
         try {
             const result = await requestKakaoToken(code);
             const kakaoTokenInfo = result.data;
-            dispatch('requestAppTokenByKakaoToken', kakaoTokenInfo);
+            return dispatch('requestAppTokenByKakaoToken', kakaoTokenInfo);
         } catch (e) {
-            router.push('/login');
+            console.log(e);
+            return e;
         }
     },
     async requestAppTokenByKakaoToken({ commit }, kakaoTokenInfo) {
@@ -33,13 +37,11 @@ const actions = {
             const result = await saveKakaTokenAndGetAppToken(kakaoTokenInfo);
             const { appToken, isFirstIssue } = result.data;
             commit('setAppToken', appToken);
-            if (isFirstIssue) {
-                router.push('/register');
-            } else {
-                router.push('/main');
-            }
+            return isFirstIssue;
         } catch (e) {
-            router.push('/login');
+            console.log(e);
+            commit('removeAppToken');
+            return e;
         }
     },
 };
@@ -47,14 +49,15 @@ const actions = {
 const ACCESS_TOKEN = 'accessToken';
 const REFRESH_TOKEN = 'refreshToken';
 
-function saveAppTokenToLocalStorage(accessToken, refreshToken) {
+const saveAppTokenToLocalStorage = (accessToken, refreshToken) => {
     localStorage.setItem(ACCESS_TOKEN, accessToken);
     localStorage.setItem(REFRESH_TOKEN, refreshToken);
-}
+};
 
-function getAccessToken() {
-    return localStorage.getItem(ACCESS_TOKEN);
-}
+const removeAppTokenToLocalStorage = () => {
+    localStorage.removeItem(ACCESS_TOKEN);
+    localStorage.removeItem(REFRESH_TOKEN);
+};
 
 export default {
     state,

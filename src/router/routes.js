@@ -1,4 +1,4 @@
-import store from '../store';
+import store from '@/store';
 
 function validationAuthentication(to, from, next) {
     if (store.getters['auth/isAuth']) {

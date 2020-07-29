@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { KAKAO } from '../utils/kakao/utlls.js';
+import { KAKAO } from '@/utils/kakao/utlls.js';
 
 function requestKakaoToken(code) {
     return axios.post('https://kauth.kakao.com/oauth/token', {}, {

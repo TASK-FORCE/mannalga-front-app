@@ -21,6 +21,9 @@ function makeModules() {
         .forEach(fileName => {
             const definitions = requireModule(fileName).default;
             if (!definitions || !isObject(definitions)) {
+                if (process.env.NODE_ENV === 'test') {
+                    return;
+                }
                 console.error(`[vuex module] export default가 정의되지 않았거나 Object타입이 아닙니다. fileName: ${fileName}, definition: ${definitions}`);
                 return;
             }

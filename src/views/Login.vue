@@ -30,8 +30,8 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import { moveToKakaoLoginPage } from '../utils/kakao/utlls.js';
-import BaseSnackBar from '../components/BaseSnackBar.vue';
+import { moveToKakaoLoginPage } from '@/utils/kakao/utlls.js';
+import BaseSnackBar from '@/components/BaseSnackBar.vue';
 
 export default {
     name: 'Login',
@@ -58,7 +58,9 @@ export default {
 
         if (this.code) {
             this.startLoading();
-            this.requestKakaoTokenByCode(this.code);
+            this.requestKakaoTokenByCode(this.code)
+                .then(isFirstIssue => (isFirstIssue ? this.$router.push('/register') : this.$router.push('/main')))
+                .catch(() => this.$router.push('/login'));
         }
     },
     methods: {
