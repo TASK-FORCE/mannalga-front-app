@@ -2,7 +2,7 @@
     <v-snackbar v-model="open"
                 v-bind="safeLocation"
     >
-        {{ text }}
+        {{ message }}
 
         <template v-slot:action="{ attrs }">
             <v-btn
@@ -22,7 +22,7 @@ export default {
     name: 'BaseSnackBar',
     props: {
         open: Boolean,
-        text: String,
+        message: String,
         color: String,
         location: String,
     },

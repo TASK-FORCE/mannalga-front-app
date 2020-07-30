@@ -21,9 +21,9 @@
             </div>
         </div>
 
-        <BaseSnackBar text='로그인이 필요합니다.'
-                      :open="openSnackbar"
-                      @close="openSnackbar = false"
+        <BaseSnackBar :message='snackBarMessage'
+                      :open="snackBarOpen"
+                      @close="snackBarOpen = false"
         />
     </div>
 </template>
@@ -32,6 +32,7 @@
 import { mapActions, mapGetters } from 'vuex';
 import { moveToKakaoLoginPage } from '@/utils/kakao/utlls.js';
 import BaseSnackBar from '@/components/BaseSnackBar.vue';
+import { LOGIN_FAIL, LOGIN_REQUIRE } from '@/utils/constant/message.js';
 
 export default {
     name: 'Login',
@@ -39,7 +40,8 @@ export default {
     data() {
         return {
             loading: false,
-            openSnackbar: false,
+            snackBarOpen: false,
+            snackBarMessage: LOGIN_REQUIRE,
         };
     },
     computed: {
@@ -53,14 +55,12 @@ export default {
     },
     created() {
         if (this.validationFail) {
-            this.openSnackbar = true;
+            this.snackBarOpen = true;
         }
 
         if (this.code) {
             this.startLoading();
-            this.requestKakaoTokenByCode(this.code)
-                .then(isFirstIssue => (isFirstIssue ? this.$router.push('/register') : this.$router.push('/main')))
-                .catch(() => this.$router.push('/login'));
+            this.requestKakaoToken();
         }
     },
     methods: {
@@ -73,6 +73,15 @@ export default {
         },
         startLoading() {
             this.loading = true;
+        },
+        requestKakaoToken() {
+            this.requestKakaoTokenByCode(this.code)
+                .then(isFirstIssue => (isFirstIssue ? this.$router.push('/register') : this.$router.push('/main')))
+                .catch(() => this.triggerSnackbar(LOGIN_FAIL));
+        },
+        triggerSnackbar(message) {
+            this.snackBarMessage = message;
+            this.snackBarOpen = true;
         },
     },
 };
