@@ -1,8 +1,6 @@
 <template>
     <div>
-        <UserProfile v-show="!isLoading"
-                     :profile="this.profile"
-        />
+        <UserProfile />
         <GoBackBtnFooter :hideBackBtn="true"
                          @clickGoBtn="clickGoBtn"
         />
@@ -10,35 +8,28 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
 import UserProfile from '@/components/UserProfile.vue';
 import GoBackBtnFooter from '@/components/GoBackBtnFooter.vue';
-import { ruleValidationSuccess } from '@/utils/validationUtils.js';
+import { getValidationFailText, ruleValidationSuccess } from '@/utils/validationUtils.js';
+import { mapGetters, mapMutations } from 'vuex';
 import { NAME_RULES } from '@/utils/constant/rules.js';
+import { buildSnackBarMessage } from '@/utils/commonUtils.js';
 
 export default {
     name: 'RegistProfile',
     components: { GoBackBtnFooter, UserProfile },
     computed: {
-        ...mapGetters('user', ['profile', 'profileIsEmpty']),
-        ...mapGetters('common', ['isLoading']),
-    },
-    created() {
-        if (this.profileIsEmpty) {
-            this.startLoading();
-            this.requestProfile()
-                .then(() => this.endLoading())
-                .catch(() => this.$router.push('/login'));
-        }
+        ...mapGetters('user', ['profile']),
     },
     methods: {
-        ...mapActions('user', ['requestProfile']),
-        ...mapActions('common', ['startLoading', 'endLoading']),
+        ...mapMutations('common', ['openSnackBar']),
         clickGoBtn() {
-            if (ruleValidationSuccess(this.profile.name, NAME_RULES)) {
+            const { name } = this.profile;
+            if (ruleValidationSuccess(name, NAME_RULES)) {
                 this.$router.push('/register/location');
+                return;
             }
-            // 스낵바 -> getValidationFailText
+            this.openSnackBar(buildSnackBarMessage(getValidationFailText(name, NAME_RULES)));
         },
     },
 };

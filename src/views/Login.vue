@@ -20,28 +20,20 @@
                 </v-btn>
             </div>
         </div>
-
-        <BaseSnackBar :message='snackBarMessage'
-                      :open="snackBarOpen"
-                      @close="snackBarOpen = false"
-        />
     </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 import { moveToKakaoLoginPage } from '@/utils/kakao/utlls.js';
-import BaseSnackBar from '@/components/BaseSnackBar.vue';
 import { LOGIN_FAIL, LOGIN_REQUIRE } from '@/utils/constant/message.js';
+import { buildSnackBarMessage } from '@/utils/commonUtils.js';
 
 export default {
     name: 'Login',
-    components: { BaseSnackBar },
     data() {
         return {
             loading: false,
-            snackBarOpen: false,
-            snackBarMessage: LOGIN_REQUIRE,
         };
     },
     computed: {
@@ -55,18 +47,16 @@ export default {
     },
     created() {
         if (this.validationFail) {
-            this.snackBarOpen = true;
+            this.openSnackBar(buildSnackBarMessage(LOGIN_REQUIRE));
         }
-
         if (this.code) {
             this.startLoading();
             this.requestKakaoToken();
         }
     },
     methods: {
-        ...mapActions('auth', [
-            'requestKakaoTokenByCode',
-        ]),
+        ...mapActions('auth', ['requestKakaoTokenByCode']),
+        ...mapMutations('common', ['openSnackBar']),
         login() {
             this.startLoading();
             moveToKakaoLoginPage();
@@ -77,11 +67,7 @@ export default {
         requestKakaoToken() {
             this.requestKakaoTokenByCode(this.code)
                 .then(isFirstIssue => (isFirstIssue ? this.$router.push('/register') : this.$router.push('/main')))
-                .catch(() => this.triggerSnackbar(LOGIN_FAIL));
-        },
-        triggerSnackbar(message) {
-            this.snackBarMessage = message;
-            this.snackBarOpen = true;
+                .catch(() => this.openSnackBar(buildSnackBarMessage(LOGIN_FAIL)));
         },
     },
 };

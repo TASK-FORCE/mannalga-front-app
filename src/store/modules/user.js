@@ -5,6 +5,7 @@ const state = {
         name: '',
         gender: '',
         dayOfBirth: '',
+        img: '',
     },
 };
 
@@ -20,6 +21,9 @@ const getters = {
 const mutations = {
     setProfile(state, profile) {
         state.profile = profile;
+    },
+    changeName(state, name) {
+        state.profile.name = name;
     },
 };
 

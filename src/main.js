@@ -6,6 +6,7 @@ import store from './store';
 
 import '@mdi/font/css/materialdesignicons.css';
 import './font/roboto.css';
+import './style/style.css';
 
 Vue.config.productionTip = false;
 

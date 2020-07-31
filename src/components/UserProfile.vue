@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <v-container v-show="!isLoading">
         <v-row justify="center"
                class="mt-40"
         >
@@ -11,17 +11,18 @@
                           size=80
                 >
                     <img
-                        src="https://cdn.vuetifyjs.com/images/john.jpg"
+                        :src="profile.img"
                         alt="profile"
                     >
                 </v-avatar>
             </v-col>
             <!--     변경 가능한 이름만 더 강조?       -->
             <v-col cols="9">
-                <v-text-field v-model="profile.name"
+                <v-text-field :value="profile.name"
                               label="이름 | 닉네임"
                               :rules="nameRules"
                               hide-details="auto"
+                              @change="changeName"
                 ></v-text-field>
                 <v-text-field label="생년월일"
                               readonly
@@ -43,16 +44,31 @@
 
 <script>
 import { NAME_RULES } from '@/utils/constant/rules.js';
+import { mapMutations, mapActions, mapGetters } from 'vuex';
 
 export default {
     name: 'UserProfile',
-    props: {
-        profile: Object,
-    },
     data() {
         return {
             nameRules: NAME_RULES,
         };
+    },
+    computed: {
+        ...mapGetters('user', ['profile', 'profileIsEmpty']),
+        ...mapGetters('common', ['isLoading']),
+    },
+    created() {
+        if (this.profileIsEmpty) {
+            this.startLoading();
+            this.requestProfile()
+                .then(() => this.endLoading())
+                .catch(() => this.$router.push('/login'));
+        }
+    },
+    methods: {
+        ...mapActions('user', ['requestProfile']),
+        ...mapActions('common', ['startLoading', 'endLoading']),
+        ...mapMutations('user', ['changeName']),
     },
 };
 </script>

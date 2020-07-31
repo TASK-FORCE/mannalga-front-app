@@ -3,7 +3,7 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuex from 'vuex';
 import sinon from 'sinon';
 import Login from '@/views/Login.vue';
-import BaseSnackBar from '@/components/BaseSnackBar.vue';
+import CommonSnackBar from '@/components/common/CommonSnackBar.vue';
 import { LOGIN_FAIL, LOGIN_REQUIRE } from '@/utils/constant/message.js';
 
 const localVue = createLocalVue();
@@ -39,7 +39,7 @@ describe('Login.vue', () => {
 
         // when
         const wrapper = shallowMount(Login, option);
-        const snackBar = wrapper.findComponent(BaseSnackBar);
+        const snackBar = wrapper.findComponent(CommonSnackBar);
 
         // then
         expect(snackBar.props('open')).to.be.true;
@@ -122,7 +122,7 @@ describe('Login.vue', () => {
         const wrapper = shallowMount(Login, option);
         await wrapper.vm.$nextTick();
         await wrapper.vm.$nextTick();
-        const snackBar = await wrapper.findComponent(BaseSnackBar);
+        const snackBar = await wrapper.findComponent(CommonSnackBar);
 
         // then
         expect(actions.requestKakaoTokenByCode.called).to.be.true;
