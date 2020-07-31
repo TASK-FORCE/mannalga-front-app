@@ -1,5 +1,5 @@
 <template>
-    <v-snackbar v-model="open"
+    <v-snackbar v-model="isOpen"
                 v-bind="safeLocation"
     >
         {{ message }}
@@ -25,6 +25,11 @@ export default {
         message: String,
         color: String,
         location: String,
+    },
+    data() {
+        return {
+            isOpen: this.open,
+        };
     },
     computed: {
         safeLocation() {
