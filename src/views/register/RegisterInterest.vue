@@ -1,6 +1,6 @@
 <template>
     <div>
-        <UserInterest v-show="!isLoading"/>
+        <UserInterest v-show="!isLoading" />
         <GoBackBtnFooter :hideBackBtn="true"
                          @clickGoBtn="clickGoBtn"
         />
@@ -33,7 +33,6 @@ export default {
     },
     methods: {
         ...mapActions('user', ['postRegister']),
-        ...mapActions('common', ['startLoading', 'endLoading']),
         ...mapMutations('common', ['openSnackBar']),
         clickGoBtn() {
             const registerInfo = {
@@ -41,18 +40,11 @@ export default {
                 selectedLocations: this.selectedLocations,
                 selectedInterests: this.selectedInterests,
             };
-            this.startLoading();
             this.postRegister(registerInfo)
-                .then(() => {
-                    this.endLoading();
-                    return this.$router.push('/main')
-                        .then(() => this.openSnackBar(buildSnackBarMessage(SUCCESS_REGISTER)));
-                })
-                .catch(() => {
-                    this.endLoading();
-                    return this.$router.push('/register')
-                        .then(() => this.openSnackBar(buildSnackBarMessage(SERVER_INSTABILITY)));
-                });
+                .then(() => this.$router.push('/main')
+                    .then(() => this.openSnackBar(buildSnackBarMessage(SUCCESS_REGISTER))))
+                .catch(() => this.$router.push('/register')
+                    .then(() => this.openSnackBar(buildSnackBarMessage(SERVER_INSTABILITY))));
         },
     },
 };

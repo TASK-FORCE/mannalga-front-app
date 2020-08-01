@@ -19,11 +19,14 @@ const mutations = {
 const actions = {
     async requestLocationTemplate({ commit }) {
         try {
+            commit('common/changeLoading', true, { root: true });
             const response = await requestLocationTemplate();
             const { data } = response;
             commit('setLocationTemplate', data.locationTemplate);
         } catch (e) {
             console.warn(e);
+        } finally {
+            commit('common/changeLoading', false, { root: true });
         }
     },
 };

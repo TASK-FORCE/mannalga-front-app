@@ -68,15 +68,12 @@ export default {
     },
     created() {
         if (isEmpty(this.locationTemplate)) {
-            this.startLoading();
             this.requestLocationTemplate()
-                .then(() => this.endLoading())
                 .catch(() => this.$router.back()
                     .then(() => this.openSnackBar(buildSnackBarMessage(SERVER_INSTABILITY))));
         }
     },
     methods: {
-        ...mapActions('common', ['startLoading', 'endLoading']),
         ...mapActions('template', ['requestLocationTemplate']),
         ...mapMutations('common', ['openSnackBar']),
         ...mapMutations('user', ['changeSelectedLocations']),

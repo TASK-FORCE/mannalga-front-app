@@ -1,31 +1,5 @@
 import { expect } from 'chai';
-import sinon from 'sinon';
 import commonModule from '@/store/modules/common.js';
-
-describe('actions', () => {
-    let commit;
-    const { actions } = commonModule;
-
-    beforeEach(() => {
-        commit = sinon.spy();
-    });
-
-    it('startLoading 호출', () => {
-        // when
-        actions.startLoading({ commit });
-
-        // then
-        expect(commit.withArgs('changeLoading', true).calledOnce).to.be.true;
-    });
-
-    it('endLoading 호출', () => {
-        // when
-        actions.endLoading({ commit });
-
-        // then
-        expect(commit.withArgs('changeLoading', false).calledOnce).to.be.true;
-    });
-});
 
 describe('mutations', () => {
     const { mutations } = commonModule;

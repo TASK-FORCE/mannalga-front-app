@@ -60,15 +60,12 @@ export default {
     },
     created() {
         if (isEmpty(this.profile)) {
-            this.startLoading();
             this.requestProfile()
-                .then(() => this.endLoading())
                 .catch(() => this.$router.push('/login'));
         }
     },
     methods: {
         ...mapActions('user', ['requestProfile']),
-        ...mapActions('common', ['startLoading', 'endLoading']),
         ...mapMutations('user', ['changeName']),
     },
 };

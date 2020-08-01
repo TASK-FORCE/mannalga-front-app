@@ -32,14 +32,7 @@ const mutations = {
     },
 };
 
-const actions = {
-    startLoading({ commit }) {
-        commit('changeLoading', true);
-    },
-    endLoading({ commit }) {
-        commit('changeLoading', false);
-    },
-};
+const actions = {};
 
 export default {
     state,

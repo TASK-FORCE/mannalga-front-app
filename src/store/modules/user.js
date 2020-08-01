@@ -44,21 +44,27 @@ const mutations = {
 const actions = {
     async requestProfile({ commit }) {
         try {
+            commit('common/changeLoading', true, { root: true });
             const response = await requestProfile();
             const { profile } = response.data;
             commit('setProfile', profile);
         } catch (e) {
             console.warn(e);
+        } finally {
+            commit('common/changeLoading', false, { root: true });
         }
     },
-    async postRegister(_, registerInfo) {
+    async postRegister({ commit }, registerInfo) {
         try {
+            commit('common/changeLoading', true, { root: true });
             const response = await postRegister(registerInfo);
             const { success } = response.data;
             return success ? Promise.resolve() : Promise.reject();
         } catch (e) {
             console.warn(e);
             return Promise.reject();
+        } finally {
+            commit('common/changeLoading', false, { root: true });
         }
     },
 };
