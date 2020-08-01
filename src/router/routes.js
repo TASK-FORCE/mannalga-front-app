@@ -16,15 +16,12 @@ const routes = [
     {
         path: '/login',
         name: 'Login',
-        component: () => import('../views/Login.vue'),
-        beforeEnter: (to, from, next) => { // TODO DELETE
-            next();
-        },
+        component: () => import('@/views/Login.vue'),
     },
     {
         path: '/register',
         name: 'Register',
-        component: () => import('../views/register/RegisterMain.vue'),
+        component: () => import('@/views/register/RegisterMain.vue'),
         beforeEnter: validationAuthentication,
         children: [
             {
