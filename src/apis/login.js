@@ -12,11 +12,11 @@ function requestKakaoToken(code) {
     });
 }
 
-function saveKakaTokenAndGetAppToken(kakaoToken) {
+function saveKakaoTokenAndGetAppToken(kakaoToken) {
     return axios.post('/api/saveKakaoToken', kakaoToken);
 }
 
 export {
     requestKakaoToken,
-    saveKakaTokenAndGetAppToken,
+    saveKakaoTokenAndGetAppToken,
 };

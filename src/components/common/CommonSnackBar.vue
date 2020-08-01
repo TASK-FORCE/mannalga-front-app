@@ -1,6 +1,7 @@
 <template>
     <v-snackbar v-model="safeOpen"
                 v-bind="{[snackBarOption.location]: true}"
+                timeout="1000"
     >
         {{ snackBarOption.message }}
 

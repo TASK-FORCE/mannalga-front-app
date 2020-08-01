@@ -8,7 +8,7 @@
                              horizontal
         >
             <v-btn v-show="!safeHideBackBtn"
-                   @click="$emit('clickBackBtn')"
+                   @click="$router.back()"
             >
                 <v-icon x-large>mdi-arrow-left-bold</v-icon>
             </v-btn>

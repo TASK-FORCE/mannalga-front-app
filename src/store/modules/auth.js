@@ -1,4 +1,4 @@
-import { requestKakaoToken, saveKakaTokenAndGetAppToken } from '@/apis/login.js';
+import { requestKakaoToken, saveKakaoTokenAndGetAppToken } from '@/apis/login.js';
 import { getAccessToken, removeAppTokenToLocalStorage, saveAppTokenToLocalStorage } from '@/utils/authUtils.js';
 
 const state = {
@@ -38,7 +38,7 @@ const actions = {
     },
     async requestAppTokenByKakaoToken({ commit }, kakaoTokenInfo) {
         try {
-            const response = await saveKakaTokenAndGetAppToken(kakaoTokenInfo);
+            const response = await saveKakaoTokenAndGetAppToken(kakaoTokenInfo);
             const { appToken, isFirstIssue } = response.data;
             commit('setAppToken', appToken);
             return isFirstIssue;

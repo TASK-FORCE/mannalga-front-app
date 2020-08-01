@@ -7,20 +7,27 @@ describe('actions', () => {
     const { actions } = authModule;
 
     describe('requestAppTokenByKakaoToken', () => {
-        const kakaoAppTokenFunction = sinon.stub(authApi, 'saveKakaTokenAndGetAppToken');
         const kakaoTokenInfo = { token: 'access' };
+
+        let commit;
+        let saveKakaoTokenAndGetAppToken;
+
+        beforeEach(() => {
+            commit = sinon.spy();
+            saveKakaoTokenAndGetAppToken = sinon.stub(authApi, 'saveKakaoTokenAndGetAppToken');
+        });
+
+        afterEach(() => { saveKakaoTokenAndGetAppToken.restore(); });
+
         it('requestAppTokenByKakaoToken 정상 동작', async () => {
             // given
-            const commit = sinon.spy();
             const response = {
                 data: {
                     appToken: 'appToken',
                     isFirstIssue: true,
                 },
             };
-            response.data.isFirstIssue = false;
-            kakaoAppTokenFunction.withArgs(kakaoTokenInfo)
-                .returns(response);
+            saveKakaoTokenAndGetAppToken.withArgs(kakaoTokenInfo).returns(response);
 
             // when
             const isFirstIssue = await actions.requestAppTokenByKakaoToken({ commit }, kakaoTokenInfo);
@@ -32,8 +39,7 @@ describe('actions', () => {
 
         it('requestAppTokenByKakaoToken 예외 발생', async () => {
             // given
-            const commit = sinon.spy();
-            kakaoAppTokenFunction.withArgs(kakaoTokenInfo).throws('name');
+            saveKakaoTokenAndGetAppToken.withArgs(kakaoTokenInfo).throws('name');
 
             // when
             const { name } = await actions.requestAppTokenByKakaoToken({ commit }, kakaoTokenInfo);
@@ -51,9 +57,7 @@ describe('actions', () => {
         const response = {
             data: { accessToken: '123' },
         };
-        sinon.stub(authApi, 'requestKakaoToken')
-            .withArgs(code)
-            .returns(response);
+        sinon.stub(authApi, 'requestKakaoToken').withArgs(code).returns(response);
 
         // when
         await actions.requestKakaoTokenByCode({ dispatch }, code);
@@ -75,9 +79,18 @@ describe('mutations', () => {
         mutations.setAppToken(state, token);
 
         // then
-        expect(state.accessToken).to.be.equal('accessToken');
-        expect(localStorage.getItem('accessToken')).to.be.equal('accessToken');
-        expect(localStorage.getItem('refreshToken')).to.be.equal('refreshToken');
+        expect(state.accessToken)
+            .to
+            .be
+            .equal('accessToken');
+        expect(localStorage.getItem('accessToken'))
+            .to
+            .be
+            .equal('accessToken');
+        expect(localStorage.getItem('refreshToken'))
+            .to
+            .be
+            .equal('refreshToken');
     });
 
     it('토큰 제거', () => {

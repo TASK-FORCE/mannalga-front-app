@@ -1,6 +1,6 @@
 <template>
     <div>
-        <CommonHeader title="회원 가입" />
+        <CommonHeader title="회원가입" />
         <router-view />
     </div>
 </template>

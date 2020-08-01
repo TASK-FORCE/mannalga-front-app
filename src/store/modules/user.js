@@ -1,4 +1,4 @@
-import { requestProfile } from '@/apis/user.js';
+import { postRegister, requestProfile } from '@/apis/user.js';
 
 const state = {
     profile: {
@@ -7,14 +7,19 @@ const state = {
         dayOfBirth: '',
         img: '',
     },
+    selectedLocations: [],
+    selectedInterests: [],
 };
 
 const getters = {
     profile(state) {
         return state.profile;
     },
-    profileIsEmpty() {
-        return true;
+    selectedLocations(state) {
+        return state.selectedLocations;
+    },
+    selectedInterests(state) {
+        return state.selectedInterests;
     },
 };
 
@@ -24,6 +29,15 @@ const mutations = {
     },
     changeName(state, name) {
         state.profile.name = name;
+    },
+    changeSelectedLocations(state, { mainLocationId, subLocationId }) {
+        const lengthBeforeFilter = state.selectedLocations.length;
+        state.selectedLocations = state.selectedLocations.filter(ids => ids.mainLocationId !== mainLocationId || ids.subLocationId !== subLocationId);
+        const lengthAfterFilter = state.selectedLocations.length;
+        if (lengthBeforeFilter === lengthAfterFilter) {
+            state.selectedLocations.unshift({ mainLocationId, subLocationId });
+        }
+        state.selectedLocations = state.selectedLocations.filter((_, index) => index < 3);
     },
 };
 
@@ -35,6 +49,16 @@ const actions = {
             commit('setProfile', profile);
         } catch (e) {
             console.warn(e);
+        }
+    },
+    async postRegister(_, registerInfo) {
+        try {
+            const response = await postRegister(registerInfo);
+            const { success } = response.data;
+            return success ? Promise.resolve() : Promise.reject();
+        } catch (e) {
+            console.warn(e);
+            return Promise.reject();
         }
     },
 };

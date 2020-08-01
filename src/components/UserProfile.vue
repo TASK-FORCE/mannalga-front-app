@@ -45,6 +45,7 @@
 <script>
 import { NAME_RULES } from '@/utils/constant/rules.js';
 import { mapMutations, mapActions, mapGetters } from 'vuex';
+import { isEmpty } from '@/utils/commonUtils.js';
 
 export default {
     name: 'UserProfile',
@@ -54,11 +55,11 @@ export default {
         };
     },
     computed: {
-        ...mapGetters('user', ['profile', 'profileIsEmpty']),
+        ...mapGetters('user', ['profile']),
         ...mapGetters('common', ['isLoading']),
     },
     created() {
-        if (this.profileIsEmpty) {
+        if (isEmpty(this.profile)) {
             this.startLoading();
             this.requestProfile()
                 .then(() => this.endLoading())

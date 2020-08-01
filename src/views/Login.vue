@@ -66,7 +66,7 @@ export default {
         },
         requestKakaoToken() {
             this.requestKakaoTokenByCode(this.code)
-                .then(isFirstIssue => (isFirstIssue ? this.$router.push('/register') : this.$router.push('/main')))
+                .then(isFirstIssue => (isFirstIssue ? this.$router.push('/register/profile') : this.$router.push('/main')))
                 .catch(() => this.openSnackBar(buildSnackBarMessage(LOGIN_FAIL)));
         },
     },
