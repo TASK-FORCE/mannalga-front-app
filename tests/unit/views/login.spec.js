@@ -73,7 +73,7 @@ describe('Login.vue', () => {
         expect($router.push.withArgs('/register').calledOnce).to.be.true;
     });
 
-    it('페이지 진입 시 code가 존재하면 Token 요청 후 첫번째 발급이 아니라면 main으 routing 된다.', async () => {
+    it('페이지 진입 시 code가 존재하면 Token 요청 후 첫번째 발급이 아니라면 main으로 routing 된다.', async () => {
         // given
         const code = '123';
         const $router = {
@@ -100,7 +100,7 @@ describe('Login.vue', () => {
         expect($router.push.withArgs('/main').calledOnce).to.be.true;
     });
 
-    it('페이지 진입 시 code가 존재하면 Token 요청 후 예외가 발생하면 Snackbar가 보여진.', async () => {
+    it('페이지 진입 시 code가 존재하면 Token 요청 후 예외가 발생하면 Snackbar가 보여진다.', async () => {
         // given
         const code = '123';
         const $router = {
