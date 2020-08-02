@@ -1,12 +1,7 @@
 import { postRegister, requestProfile } from '@/apis/user.js';
 
 const state = {
-    profile: {
-        name: '',
-        gender: '',
-        dayOfBirth: '',
-        img: '',
-    },
+    profile: {},
     selectedLocations: [],
     selectedInterests: [],
 };
@@ -30,14 +25,11 @@ const mutations = {
     changeName(state, name) {
         state.profile.name = name;
     },
-    changeSelectedLocations(state, { mainLocationId, subLocationId }) {
-        const lengthBeforeFilter = state.selectedLocations.length;
-        state.selectedLocations = state.selectedLocations.filter(ids => ids.mainLocationId !== mainLocationId || ids.subLocationId !== subLocationId);
-        const lengthAfterFilter = state.selectedLocations.length;
-        if (lengthBeforeFilter === lengthAfterFilter) {
-            state.selectedLocations.unshift({ mainLocationId, subLocationId });
-        }
-        state.selectedLocations = state.selectedLocations.filter((_, index) => index < 3);
+    removeSelectedLocations(state, index) {
+        state.selectedLocations.splice(index, 1);
+    },
+    addSelectedLocations(state, targetLocations) {
+        state.selectedLocations.push(targetLocations);
     },
 };
 

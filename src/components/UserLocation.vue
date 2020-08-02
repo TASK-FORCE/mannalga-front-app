@@ -49,8 +49,9 @@
 
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex';
-import { buildSnackBarMessage, isEmpty } from '@/utils/commonUtils.js';
-import { SERVER_INSTABILITY } from '@/utils/constant/message.js';
+import { buildSnackBarMessage } from '@/utils/commonUtils.js';
+import { findIndex, isEmpty, isEqual } from '@/utils/lodashUtils.js';
+import { MESSAGE } from '@/utils/constant/message.js';
 
 export default {
     name: 'UserLocation',
@@ -70,15 +71,25 @@ export default {
         if (isEmpty(this.locationTemplate)) {
             this.requestLocationTemplate()
                 .catch(() => this.$router.back()
-                    .then(() => this.openSnackBar(buildSnackBarMessage(SERVER_INSTABILITY))));
+                    .then(() => this.openSnackBar(buildSnackBarMessage(MESSAGE.SERVER_INSTABILITY))));
         }
     },
     methods: {
         ...mapActions('template', ['requestLocationTemplate']),
         ...mapMutations('common', ['openSnackBar']),
-        ...mapMutations('user', ['changeSelectedLocations']),
+        ...mapMutations('user', ['changeSelectedLocations', 'removeSelectedLocations', 'addSelectedLocations']),
         toggleLocation(mainLocationId, subLocationId) {
-            this.changeSelectedLocations({ mainLocationId, subLocationId });
+            const targetLocation = { mainLocationId, subLocationId };
+            const indexToBeDeleted = findIndex(this.selectedLocations, location => isEqual(location, targetLocation));
+            if (indexToBeDeleted >= 0) {
+                this.removeSelectedLocations(indexToBeDeleted);
+                return;
+            }
+            if (this.selectedLocations.length >= 3) {
+                this.openSnackBar(buildSnackBarMessage(MESSAGE.SELECT_LOCATION_OVER_COUNT));
+                return;
+            }
+            this.addSelectedLocations(targetLocation);
         },
     },
 };

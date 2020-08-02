@@ -11,8 +11,9 @@
 import GoBackBtnFooter from '@/components/GoBackBtnFooter.vue';
 import UserInterest from '@/components/UserInterest.vue';
 import { mapActions, mapGetters, mapMutations } from 'vuex';
-import { buildSnackBarMessage, isEmpty } from '@/utils/commonUtils.js';
-import { SERVER_INSTABILITY, SUCCESS_REGISTER } from '@/utils/constant/message.js';
+import { buildSnackBarMessage } from '@/utils/commonUtils.js';
+import { MESSAGE } from '@/utils/constant/message.js';
+import { isEmpty } from '@/utils/lodashUtils.js';
 
 export default {
     name: 'RegisterInterest',
@@ -42,9 +43,9 @@ export default {
             };
             this.postRegister(registerInfo)
                 .then(() => this.$router.push('/main')
-                    .then(() => this.openSnackBar(buildSnackBarMessage(SUCCESS_REGISTER))))
+                    .then(() => this.openSnackBar(buildSnackBarMessage(MESSAGE.SUCCESS_REGISTER))))
                 .catch(() => this.$router.push('/register')
-                    .then(() => this.openSnackBar(buildSnackBarMessage(SERVER_INSTABILITY))));
+                    .then(() => this.openSnackBar(buildSnackBarMessage(MESSAGE.SERVER_INSTABILITY))));
         },
     },
 };

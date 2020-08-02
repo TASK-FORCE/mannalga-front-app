@@ -26,8 +26,8 @@
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 import { moveToKakaoLoginPage } from '@/utils/kakao/utlls.js';
-import { LOGIN_FAIL, LOGIN_REQUIRE } from '@/utils/constant/message.js';
 import { buildSnackBarMessage } from '@/utils/commonUtils.js';
+import { MESSAGE } from '@/utils/constant/message.js';
 
 export default {
     name: 'Login',
@@ -47,11 +47,14 @@ export default {
     },
     created() {
         if (this.validationFail) {
-            this.openSnackBar(buildSnackBarMessage(LOGIN_REQUIRE));
+            this.openSnackBar(buildSnackBarMessage(MESSAGE.LOGIN_REQUIRE));
         }
         if (this.code) {
             this.startLoading();
-            this.requestKakaoToken();
+            this.requestKakaoTokenByCode(this.code)
+                .then(isFirstIssue => (isFirstIssue ? this.$router.push('/register/profile') : this.$router.push('/main')))
+                .catch(() => this.openSnackBar(buildSnackBarMessage(MESSAGE.LOGIN_FAIL)))
+                .finally(() => this.endLoading());
         }
     },
     methods: {
@@ -64,10 +67,8 @@ export default {
         startLoading() {
             this.loading = true;
         },
-        requestKakaoToken() {
-            this.requestKakaoTokenByCode(this.code)
-                .then(isFirstIssue => (isFirstIssue ? this.$router.push('/register/profile') : this.$router.push('/main')))
-                .catch(() => this.openSnackBar(buildSnackBarMessage(LOGIN_FAIL)));
+        endLoading() {
+            this.loading = false;
         },
     },
 };

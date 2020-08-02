@@ -3,7 +3,7 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuex from 'vuex';
 import sinon from 'sinon';
 import Login from '@/views/Login.vue';
-import { LOGIN_FAIL, LOGIN_REQUIRE } from '@/utils/constant/message.js';
+import { MESSAGE } from '@/utils/constant/message.js';
 import { buildSnackBarMessage } from '@/utils/commonUtils.js';
 
 const localVue = createLocalVue();
@@ -58,7 +58,7 @@ describe('Login.vue', () => {
         shallowMount(Login, options);
 
         // then
-        expect(mutations.openSnackBar.withArgs({}, buildSnackBarMessage(LOGIN_REQUIRE)).calledOnce).to.be.true;
+        expect(mutations.openSnackBar.withArgs({}, buildSnackBarMessage(MESSAGE.LOGIN_REQUIRE)).calledOnce).to.be.true;
     });
 
     it('페이지 진입 시 code가 존재하면 Token 요청 후 첫번째 발급이라면 register로 routing 된다.', async () => {
@@ -101,6 +101,6 @@ describe('Login.vue', () => {
 
         // then
         expect(actions.requestKakaoTokenByCode.called).to.be.true;
-        expect(mutations.openSnackBar.withArgs({}, buildSnackBarMessage(LOGIN_FAIL)).calledOnce).to.be.true;
+        expect(mutations.openSnackBar.withArgs({}, buildSnackBarMessage(MESSAGE.LOGIN_FAIL)).calledOnce).to.be.true;
     });
 });

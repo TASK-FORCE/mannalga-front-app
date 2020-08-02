@@ -45,7 +45,7 @@
 <script>
 import { NAME_RULES } from '@/utils/constant/rules.js';
 import { mapMutations, mapActions, mapGetters } from 'vuex';
-import { isEmpty } from '@/utils/commonUtils.js';
+import { isEmpty } from '@/utils/lodashUtils.js';
 
 export default {
     name: 'UserProfile',

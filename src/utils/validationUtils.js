@@ -1,4 +1,4 @@
-import { isEmpty } from '@/utils/commonUtils.js';
+import { isEmpty } from '@/utils/lodashUtils.js';
 
 function ruleValidationSuccess(target, rules) {
     if (rules instanceof Array) {
