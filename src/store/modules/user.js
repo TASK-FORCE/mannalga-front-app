@@ -22,7 +22,7 @@ const mutations = {
     setProfile(state, profile) {
         state.profile = profile;
     },
-    changeName(state, name) {
+    changeProfileName(state, name) {
         state.profile.name = name;
     },
     removeSelectedLocations(state, index) {

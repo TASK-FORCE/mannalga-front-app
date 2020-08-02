@@ -6,9 +6,6 @@ const state = {
 };
 
 const getters = {
-    isAuth(state) {
-        return !!state.accessToken;
-    },
 };
 
 const mutations = {
@@ -19,9 +16,6 @@ const mutations = {
     removeAppToken(state) {
         state.accessToken = '';
         removeAppTokenToLocalStorage();
-    },
-    validationFail(state) {
-        state.validationFail = true;
     },
 };
 

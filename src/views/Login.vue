@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from 'vuex';
+import { mapActions, mapMutations } from 'vuex';
 import { moveToKakaoLoginPage } from '@/utils/kakao/utlls.js';
 import { buildSnackBarMessage } from '@/utils/commonUtils.js';
 import { MESSAGE } from '@/utils/constant/message.js';
@@ -37,7 +37,6 @@ export default {
         };
     },
     computed: {
-        ...mapGetters('auth', ['isAuth']),
         code() {
             return this.$route.query.code;
         },
