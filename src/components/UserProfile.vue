@@ -22,7 +22,7 @@
                               label="이름 | 닉네임"
                               :rules="nameRules"
                               hide-details="auto"
-                              @change="changeName"
+                              @change="changeProfileName"
                 ></v-text-field>
                 <v-text-field label="생년월일"
                               readonly
@@ -43,9 +43,9 @@
 </template>
 
 <script>
-import { NAME_RULES } from '@/utils/constant/rules.js';
-import { mapMutations, mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 import { isEmpty } from '@/utils/lodashUtils.js';
+import { NAME_RULES } from '@/utils/constant/rules.js';
 
 export default {
     name: 'UserProfile',
@@ -66,7 +66,7 @@ export default {
     },
     methods: {
         ...mapActions('user', ['requestProfile']),
-        ...mapMutations('user', ['changeName']),
+        ...mapMutations('user', ['changeProfileName']),
     },
 };
 </script>

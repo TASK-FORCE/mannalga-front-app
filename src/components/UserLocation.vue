@@ -77,7 +77,7 @@ export default {
     methods: {
         ...mapActions('template', ['requestLocationTemplate']),
         ...mapMutations('common', ['openSnackBar']),
-        ...mapMutations('user', ['changeSelectedLocations', 'removeSelectedLocations', 'addSelectedLocations']),
+        ...mapMutations('user', ['removeSelectedLocations', 'addSelectedLocations']),
         toggleLocation(mainLocationId, subLocationId) {
             const targetLocation = { mainLocationId, subLocationId };
             const indexToBeDeleted = findIndex(this.selectedLocations, location => isEqual(location, targetLocation));

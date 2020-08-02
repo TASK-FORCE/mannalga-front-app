@@ -28,10 +28,9 @@ function makeModules() {
                 return;
             }
 
-            const unExpectedKeys = Object.keys(definitions)
-                .filter(key => !expectedKeySet.has(key));
-            if (unExpectedKeys && unExpectedKeys.length > 0) {
-                console.error(`[vuex module] definitions의 key가 올바르지 않습니다. keys: ${unExpectedKeys}`);
+            const unexpectedKeys = Object.keys(definitions).filter(key => !expectedKeySet.has(key));
+            if (unexpectedKeys && unexpectedKeys.length > 0) {
+                console.error(`[vuex module] definitions의 key가 올바르지 않습니다. keys: ${unexpectedKeys}`);
                 return;
             }
 
