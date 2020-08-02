@@ -15,7 +15,7 @@ function makeModules() {
     const requireModule = require.context(
         '.',
         true,
-        /^((?!index).)*\.js$/,
+        /^((?!index|init).)*\.js$/,
     );
     requireModule.keys()
         .forEach(fileName => {

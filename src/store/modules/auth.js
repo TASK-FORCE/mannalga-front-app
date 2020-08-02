@@ -1,7 +1,8 @@
-import { requestKakaoToken, saveKakaTokenAndGetAppToken } from '@/apis/login.js';
+import { requestKakaoToken, saveKakaoTokenAndGetAppToken } from '@/apis/login.js';
+import { getAccessToken, removeAppTokenToLocalStorage, saveAppTokenToLocalStorage } from '@/utils/authUtils.js';
 
 const state = {
-    accessToken: '',
+    accessToken: getAccessToken(),
 };
 
 const getters = {
@@ -19,44 +20,34 @@ const mutations = {
         state.accessToken = '';
         removeAppTokenToLocalStorage();
     },
+    validationFail(state) {
+        state.validationFail = true;
+    },
 };
 
 const actions = {
     async requestKakaoTokenByCode({ dispatch }, code) {
         try {
-            const result = await requestKakaoToken(code);
-            const kakaoTokenInfo = result.data;
+            const response = await requestKakaoToken(code);
+            const kakaoTokenInfo = response.data;
             return dispatch('requestAppTokenByKakaoToken', kakaoTokenInfo);
         } catch (e) {
-            console.log(e);
+            console.warn(e);
             return e;
         }
     },
     async requestAppTokenByKakaoToken({ commit }, kakaoTokenInfo) {
         try {
-            const result = await saveKakaTokenAndGetAppToken(kakaoTokenInfo);
-            const { appToken, isFirstIssue } = result.data;
+            const response = await saveKakaoTokenAndGetAppToken(kakaoTokenInfo);
+            const { appToken, isFirstIssue } = response.data;
             commit('setAppToken', appToken);
             return isFirstIssue;
         } catch (e) {
-            console.log(e);
+            console.warn(e);
             commit('removeAppToken');
             return e;
         }
     },
-};
-
-const ACCESS_TOKEN = 'accessToken';
-const REFRESH_TOKEN = 'refreshToken';
-
-const saveAppTokenToLocalStorage = (accessToken, refreshToken) => {
-    localStorage.setItem(ACCESS_TOKEN, accessToken);
-    localStorage.setItem(REFRESH_TOKEN, refreshToken);
-};
-
-const removeAppTokenToLocalStorage = () => {
-    localStorage.removeItem(ACCESS_TOKEN);
-    localStorage.removeItem(REFRESH_TOKEN);
 };
 
 export default {
