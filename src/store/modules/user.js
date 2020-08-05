@@ -28,8 +28,8 @@ const mutations = {
     removeSelectedLocations(state, index) {
         state.selectedLocations.splice(index, 1);
     },
-    addSelectedLocations(state, targetLocations) {
-        state.selectedLocations.push(targetLocations);
+    addSelectedLocations(state, stateNameWithRoot) {
+        state.selectedLocations.push(stateNameWithRoot);
     },
 };
 

@@ -1,28 +1,34 @@
 import { requestLocationTemplate } from '@/apis/template.js';
 
 const state = {
-    locationTemplate: [],
+    /**
+     * @field level: int
+     * @field name: str
+     * @field subStates: []
+     * @field superStateRoot: str
+     */
+    rootStates: [],
 };
 
 const getters = {
-    locationTemplate(state) {
-        return state.locationTemplate;
+    rootStates(state) {
+        return state.rootStates;
     },
 };
 
 const mutations = {
-    setLocationTemplate(state, locationTemplate) {
-        state.locationTemplate = locationTemplate;
+    setLocationTemplate(state, rootStates) {
+        state.rootStates = rootStates;
     },
 };
 
 const actions = {
-    async requestLocationTemplate({ commit }) {
+    async requestStates({ commit }) {
         try {
             commit('common/changeLoading', true, { root: true });
             const response = await requestLocationTemplate();
-            const { data } = response;
-            commit('setLocationTemplate', data.locationTemplate);
+            const rootStates = response.data;
+            commit('setLocationTemplate', rootStates);
         } catch (e) {
             console.warn(e);
         } finally {

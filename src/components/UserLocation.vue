@@ -1,45 +1,47 @@
 <template>
     <div v-show="!isLoading">
-        <div class="text-center">
-            모임에 참여할 지역을 선택 해주세요. <br>
-            (원하는 지역은 <b>최대 3개까지</b> 가능합니다)
-        </div>
-        <div class="text-center mt-3">
-            <v-chip v-for="title in selectedLocationTitles"
-                    :key="title"
-                    small
-                    class="mx-1 white--text lighten-1"
-                    color="indigo"
-            >
-                {{title}}
-            </v-chip>
+        <div>
+            <div class="text-center">
+                모임에 참여할 지역을 선택 해주세요. <br>
+                (원하는 지역은 <b>최대 3개까지</b> 가능합니다)
+            </div>
+            <div class="text-center mt-3">
+                <v-chip v-for="title in selectedLocations"
+                        :key="title"
+                        small
+                        class="mx-1 white--text lighten-1"
+                        color="indigo"
+                >
+                    {{title}}
+                </v-chip>
+            </div>
         </div>
         <v-list>
-            <v-list-group v-for="mainLocation in locationTemplate"
-                          :key="mainLocation.title"
+            <v-list-group v-for="rootState in rootStates"
+                          :key="rootState.superStateRoot"
                           no-action
             >
                 <template v-slot:activator>
                     <v-list-item-content>
-                        <v-list-item-title v-text="mainLocation.title"></v-list-item-title>
+                        <v-list-item-title v-text="rootState.name"></v-list-item-title>
                     </v-list-item-content>
                 </template>
 
                 <v-list-item
-                    v-for="subLocation in mainLocation.subLocations"
-                    :key="subLocation.id"
-                    @click="toggleLocation(mainLocation.id, subLocation.id)"
+                    v-for="subState in rootState.subStates"
+                    :key="subState.superStateRoot"
+                    @click="toggleLocation(subState.superStateRoot)"
                 >
                     <v-list-item-action>
                         <v-checkbox
                             v-model="selectedLocations"
-                            :value="{ mainLocationId: mainLocation.id, subLocationId: subLocation.id }"
+                            :value="subState.superStateRoot"
                             color="primary"
-                            @click="toggleLocation(mainLocation.id, subLocation.id)"
+                            @click="toggleLocation(rootState.name, subState.name)"
                         ></v-checkbox>
                     </v-list-item-action>
                     <v-list-item-content>
-                        <v-list-item-title v-text="subLocation.title"></v-list-item-title>
+                        <v-list-item-title v-text="subState.name"></v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
             </v-list-group>
@@ -56,31 +58,23 @@ import { MESSAGE } from '@/utils/constant/message.js';
 export default {
     name: 'UserLocation',
     computed: {
-        ...mapGetters('template', ['locationTemplate']),
+        ...mapGetters('template', ['rootStates']),
         ...mapGetters('user', ['selectedLocations']),
         ...mapGetters('common', ['isLoading']),
-        selectedLocationTitles() {
-            return this.selectedLocations.map(({ mainLocationId, subLocationId }) => {
-                const mainLocation = this.locationTemplate.find(({ id }) => id === mainLocationId);
-                const subLocation = mainLocation.subLocations.find(({ id }) => id === subLocationId);
-                return `${mainLocation.title} | ${subLocation.title}`;
-            });
-        },
     },
     created() {
-        if (isEmpty(this.locationTemplate)) {
-            this.requestLocationTemplate()
+        if (isEmpty(this.rootStates)) {
+            this.requestStates()
                 .catch(() => this.$router.back()
                     .then(() => this.openSnackBar(buildSnackBarMessage(MESSAGE.SERVER_INSTABILITY))));
         }
     },
     methods: {
-        ...mapActions('template', ['requestLocationTemplate']),
+        ...mapActions('template', ['requestStates']),
         ...mapMutations('common', ['openSnackBar']),
         ...mapMutations('user', ['removeSelectedLocations', 'addSelectedLocations']),
-        toggleLocation(mainLocationId, subLocationId) {
-            const targetLocation = { mainLocationId, subLocationId };
-            const indexToBeDeleted = findIndex(this.selectedLocations, location => isEqual(location, targetLocation));
+        toggleLocation(stateNameWithRoot) {
+            const indexToBeDeleted = findIndex(this.selectedLocations, stateName => isEqual(stateName, stateNameWithRoot));
             if (indexToBeDeleted >= 0) {
                 this.removeSelectedLocations(indexToBeDeleted);
                 return;
@@ -89,12 +83,11 @@ export default {
                 this.openSnackBar(buildSnackBarMessage(MESSAGE.SELECT_LOCATION_OVER_COUNT));
                 return;
             }
-            this.addSelectedLocations(targetLocation);
+            this.addSelectedLocations(stateNameWithRoot);
         },
     },
 };
 </script>
 
 <style scoped>
-
 </style>
