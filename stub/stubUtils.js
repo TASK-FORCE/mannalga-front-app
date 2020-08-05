@@ -1,18 +1,18 @@
-function findNotStubMethod(notStubMethods, method) {
-    // notStubMethods가 비어있으면 Stub 대상이 아닌것으로 판단한다.
-    if (!notStubMethods || notStubMethods.length === 0) {
+function findStubMethod(stubMethods, actualMethod) {
+    // stubMethods가 비어있으면 Stub 대상으로 판단
+    if (!stubMethods || stubMethods.length === 0) {
         return true;
     }
-    return !!notStubMethods.find(notStubMethod => notStubMethod.toUpperCase() === method);
+    return !!stubMethods.find(stubMethod => stubMethod.toUpperCase() === actualMethod);
 }
 
-function isNotStubRequest({ path, method }, notStubRequests) {
-    const notStubRequest = notStubRequests.find(value => value.path === path);
-    return notStubRequest ? findNotStubMethod(notStubRequest.methods, method) : false;
+function isStubRequest({ path, method }, stubRequests) {
+    const stubRequest = stubRequests.find(value => value.path === path);
+    return stubRequest ? findStubMethod(stubRequest.methods, method) : false;
 }
 
 module.exports = {
-    isStubRequest(request, notStubRequests) {
-        return !isNotStubRequest(request, notStubRequests);
+    isStubRequest(request, stubRequests) {
+        return isStubRequest(request, stubRequests);
     },
 };
