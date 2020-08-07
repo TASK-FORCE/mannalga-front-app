@@ -1,9 +1,7 @@
 <template>
     <div>
         <UserInterest v-show="!isLoading" />
-        <GoBackBtnFooter :hideBackBtn="true"
-                         @clickGoBtn="clickGoBtn"
-        />
+        <GoBackBtnFooter @clickGoBtn="clickGoBtn" />
     </div>
 </template>
 
@@ -11,7 +9,7 @@
 import GoBackBtnFooter from '@/components/GoBackBtnFooter.vue';
 import UserInterest from '@/components/UserInterest.vue';
 import { mapActions, mapGetters, mapMutations } from 'vuex';
-import { buildSnackBarMessage } from '@/utils/commonUtils.js';
+import { buildSnackBarOption } from '@/utils/commonUtils.js';
 import { MESSAGE } from '@/utils/constant/message.js';
 import { isEmpty } from '@/utils/lodashUtils.js';
 
@@ -43,9 +41,9 @@ export default {
             };
             this.postRegister(registerInfo)
                 .then(() => this.$router.push('/main')
-                    .then(() => this.openSnackBar(buildSnackBarMessage(MESSAGE.SUCCESS_REGISTER))))
+                    .then(() => this.openSnackBar(buildSnackBarOption(MESSAGE.SUCCESS_REGISTER))))
                 .catch(() => this.$router.push('/register')
-                    .then(() => this.openSnackBar(buildSnackBarMessage(MESSAGE.SERVER_INSTABILITY))));
+                    .then(() => this.openSnackBar(buildSnackBarOption(MESSAGE.SERVER_INSTABILITY))));
         },
     },
 };

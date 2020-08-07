@@ -1,7 +1,7 @@
 <template>
     <v-snackbar v-model="safeOpen"
                 v-bind="{[snackBarOption.location]: true}"
-                timeout="1500"
+                :timeout="snackBarOption.time"
     >
         {{ snackBarOption.message }}
 
@@ -36,6 +36,12 @@ export default {
     },
     methods: {
         ...mapMutations('common', ['closeSnackBar']),
+        calculateWidth() {
+            if (window.innerWidth < 370) {
+                return window.innerWidth - (window.innerWidth / 10);
+            }
+            return 375;
+        },
     },
 };
 </script>

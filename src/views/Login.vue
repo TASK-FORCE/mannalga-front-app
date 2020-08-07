@@ -26,7 +26,7 @@
 <script>
 import { mapActions, mapMutations } from 'vuex';
 import { moveToKakaoLoginPage } from '@/utils/kakao/utlls.js';
-import { buildSnackBarMessage } from '@/utils/commonUtils.js';
+import { buildSnackBarOption } from '@/utils/commonUtils.js';
 import { MESSAGE } from '@/utils/constant/message.js';
 
 export default {
@@ -46,13 +46,13 @@ export default {
     },
     created() {
         if (this.validationFail) {
-            this.openSnackBar(buildSnackBarMessage(MESSAGE.LOGIN_REQUIRE));
+            this.openSnackBar(buildSnackBarOption(MESSAGE.LOGIN_REQUIRE));
         }
         if (this.code) {
             this.startLoading();
             this.requestKakaoTokenByCode(this.code)
                 .then(isFirstIssue => (isFirstIssue ? this.$router.push('/register/profile') : this.$router.push('/main')))
-                .catch(() => this.openSnackBar(buildSnackBarMessage(MESSAGE.LOGIN_FAIL)))
+                .catch(() => this.openSnackBar(buildSnackBarOption(MESSAGE.LOGIN_FAIL)))
                 .finally(() => this.endLoading());
         }
     },

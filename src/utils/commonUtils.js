@@ -4,31 +4,28 @@ const SNACKBAR_LOCATION = {
 };
 
 const DEFAULT_SNACKBAR_OPTION = {
-    message: '요청에 실패했습니다.',
-    location: SNACKBAR_LOCATION.BOTTOM,
-    color: 'blue',
+    MESSAGE: '요청에 실패했습니다.',
+    LOCATION: SNACKBAR_LOCATION.BOTTOM,
+    COLOR: 'blue',
+    TIME: 1000,
 };
 
-function buildSnackBarMessage(message) {
-    if (message) {
-        return { message };
-    }
-    return DEFAULT_SNACKBAR_OPTION;
-}
-
-function buildSnackBarOption(message, location, color) {
-    if (message && location && color) {
-        return {
-            message,
-            location,
-            color,
-        };
-    }
-    return DEFAULT_SNACKBAR_OPTION;
+function buildSnackBarOption(
+    message = DEFAULT_SNACKBAR_OPTION.MESSAGE,
+    location = DEFAULT_SNACKBAR_OPTION.LOCATION,
+    color = DEFAULT_SNACKBAR_OPTION.COLOR,
+    time = DEFAULT_SNACKBAR_OPTION.TIME,
+) {
+    console.log(location);
+    return {
+        message,
+        location,
+        color,
+        time,
+    };
 }
 
 export {
     SNACKBAR_LOCATION,
     buildSnackBarOption,
-    buildSnackBarMessage,
 };

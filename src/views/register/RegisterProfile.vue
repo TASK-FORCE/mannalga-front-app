@@ -13,7 +13,7 @@ import GoBackBtnFooter from '@/components/GoBackBtnFooter.vue';
 import { getValidationFailText, ruleValidationSuccess } from '@/utils/validationUtils.js';
 import { mapGetters, mapMutations } from 'vuex';
 import { NAME_RULES } from '@/utils/constant/rules.js';
-import { buildSnackBarMessage } from '@/utils/commonUtils.js';
+import { buildSnackBarOption } from '@/utils/commonUtils.js';
 
 export default {
     name: 'RegistProfile',
@@ -29,7 +29,7 @@ export default {
                 this.$router.push('/register/location');
                 return;
             }
-            this.openSnackBar(buildSnackBarMessage(getValidationFailText(name, NAME_RULES)));
+            this.openSnackBar(buildSnackBarOption(getValidationFailText(name, NAME_RULES)));
         },
     },
 };

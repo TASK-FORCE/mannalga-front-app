@@ -9,7 +9,7 @@
 import GoBackBtnFooter from '@/components/GoBackBtnFooter.vue';
 import { mapGetters, mapMutations } from 'vuex';
 import UserLocation from '@/components/UserLocation.vue';
-import { buildSnackBarMessage } from '@/utils/commonUtils.js';
+import { buildSnackBarOption } from '@/utils/commonUtils.js';
 import { isEmpty } from '@/utils/lodashUtils.js';
 import { MESSAGE } from '@/utils/constant/message.js';
 
@@ -37,7 +37,7 @@ export default {
                 this.$router.push('/register/interest');
                 return;
             }
-            this.openSnackBar(buildSnackBarMessage(MESSAGE.SELECT_LOCATION_REQUIRE));
+            this.openSnackBar(buildSnackBarOption(MESSAGE.SELECT_LOCATION_REQUIRE));
         },
     },
 };

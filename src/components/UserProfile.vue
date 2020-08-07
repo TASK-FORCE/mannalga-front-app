@@ -8,7 +8,7 @@
             >
                 <!--      사진도 커스텀하게 선택 가능하게?        -->
                 <v-avatar class="top-50"
-                          size=80
+                          size=70
                 >
                     <img
                         :src="profile.img"

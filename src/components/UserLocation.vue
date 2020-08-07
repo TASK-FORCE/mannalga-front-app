@@ -5,14 +5,16 @@
                 모임에 참여할 지역을 선택 해주세요. <br>
                 (원하는 지역은 <b>최대 3개까지</b> 가능합니다)
             </div>
-            <div class="text-center mt-3">
-                <v-chip v-for="title in selectedLocations"
-                        :key="title"
+            <div class="text-center mt-1">
+                <v-chip v-for="stateNameWithRoot in selectedLocations"
+                        :key="stateNameWithRoot"
                         small
-                        class="mx-1 white--text lighten-1"
+                        close
+                        class="mx-1 white--text lighten-1 mt-1"
                         color="indigo"
+                        @click:close="toggleLocation(stateNameWithRoot)"
                 >
-                    {{title}}
+                    {{stateNameWithRoot}}
                 </v-chip>
             </div>
         </div>
@@ -51,23 +53,37 @@
 
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex';
-import { buildSnackBarMessage } from '@/utils/commonUtils.js';
+import { buildSnackBarOption } from '@/utils/commonUtils.js';
 import { findIndex, isEmpty, isEqual } from '@/utils/lodashUtils.js';
 import { MESSAGE } from '@/utils/constant/message.js';
 
 export default {
     name: 'UserLocation',
+    data() {
+        return {
+            paddingTop: 30,
+        };
+    },
     computed: {
         ...mapGetters('template', ['rootStates']),
         ...mapGetters('user', ['selectedLocations']),
         ...mapGetters('common', ['isLoading']),
+        someStyle() {
+            return {
+                'padding-top': this.paddingTop,
+            };
+        },
     },
     created() {
         if (isEmpty(this.rootStates)) {
             this.requestStates()
                 .catch(() => this.$router.back()
-                    .then(() => this.openSnackBar(buildSnackBarMessage(MESSAGE.SERVER_INSTABILITY))));
+                    .then(() => this.openSnackBar(buildSnackBarOption(MESSAGE.SERVER_INSTABILITY))));
         }
+    },
+    beforeMount() {
+        const fixedHeader = document.querySelector('#location-fixed-header');
+        console.log(fixedHeader.clientHeight);
     },
     methods: {
         ...mapActions('template', ['requestStates']),
@@ -80,7 +96,8 @@ export default {
                 return;
             }
             if (this.selectedLocations.length >= 3) {
-                this.openSnackBar(buildSnackBarMessage(MESSAGE.SELECT_LOCATION_OVER_COUNT));
+                this.openSnackBar(buildSnackBarOption(MESSAGE.SELECT_LOCATION_OVER_COUNT, undefined, undefined, 30000));
+                window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
                 return;
             }
             this.addSelectedLocations(stateNameWithRoot);
@@ -90,4 +107,8 @@ export default {
 </script>
 
 <style scoped>
+#location-fixed-header {
+    position: fixed;
+    width: 100%;
+}
 </style>
