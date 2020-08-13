@@ -44,7 +44,7 @@
 
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex';
-import { isEmpty } from '@/utils/lodashUtils.js';
+import _ from '@/utils/lodashWrapper.js';
 import { NAME_RULES } from '@/utils/constant/rules.js';
 
 export default {
@@ -59,7 +59,7 @@ export default {
         ...mapGetters('common', ['isLoading']),
     },
     created() {
-        if (isEmpty(this.profile)) {
+        if (_.isDeepEmpty(this.profile)) {
             this.requestProfile()
                 .catch(() => this.$router.push('/login'));
         }

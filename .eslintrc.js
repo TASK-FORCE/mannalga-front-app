@@ -27,6 +27,7 @@ module.exports = {
             'arrow-parens',
             'no-use-before-define',
             'no-unused-expressions',
+            'no-restricted-syntax',
         ]),
         'no-shadow': ['error', { 'allow': ['state'] }],
         'indent': ['error', 4],

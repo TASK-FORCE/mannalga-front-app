@@ -1,7 +1,8 @@
 import { postRegister, requestProfile } from '@/apis/user.js';
+import { DEFAULT_PROFILE } from '@/store/type.js';
 
 const state = {
-    profile: {},
+    profile: DEFAULT_PROFILE,
     selectedLocations: [],
     selectedInterests: [],
 };
@@ -42,6 +43,7 @@ const actions = {
             commit('setProfile', profile);
         } catch (e) {
             console.warn(e);
+            throw e;
         } finally {
             commit('common/changeLoading', false, { root: true });
         }

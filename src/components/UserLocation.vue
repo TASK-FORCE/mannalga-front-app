@@ -53,49 +53,37 @@
 
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex';
-import { buildSnackBarOption } from '@/utils/commonUtils.js';
-import { findIndex, isEmpty, isEqual } from '@/utils/lodashUtils.js';
+import { buildSnackBarOption } from '@/utils/snackbarUtils.js';
+import _ from '@/utils/lodashWrapper.js';
 import { MESSAGE } from '@/utils/constant/message.js';
+
+const MAXIMUM_SELECTABLE_COUNT = 3;
 
 export default {
     name: 'UserLocation',
-    data() {
-        return {
-            paddingTop: 30,
-        };
-    },
     computed: {
         ...mapGetters('template', ['rootStates']),
         ...mapGetters('user', ['selectedLocations']),
         ...mapGetters('common', ['isLoading']),
-        someStyle() {
-            return {
-                'padding-top': this.paddingTop,
-            };
-        },
     },
     created() {
-        if (isEmpty(this.rootStates)) {
+        if (_.isEmpty(this.rootStates)) {
             this.requestStates()
                 .catch(() => this.$router.back()
                     .then(() => this.openSnackBar(buildSnackBarOption(MESSAGE.SERVER_INSTABILITY))));
         }
-    },
-    beforeMount() {
-        const fixedHeader = document.querySelector('#location-fixed-header');
-        console.log(fixedHeader.clientHeight);
     },
     methods: {
         ...mapActions('template', ['requestStates']),
         ...mapMutations('common', ['openSnackBar']),
         ...mapMutations('user', ['removeSelectedLocations', 'addSelectedLocations']),
         toggleLocation(stateNameWithRoot) {
-            const indexToBeDeleted = findIndex(this.selectedLocations, stateName => isEqual(stateName, stateNameWithRoot));
+            const indexToBeDeleted = _.findIndex(this.selectedLocations, stateName => _.isEqual(stateName, stateNameWithRoot));
             if (indexToBeDeleted >= 0) {
                 this.removeSelectedLocations(indexToBeDeleted);
                 return;
             }
-            if (this.selectedLocations.length >= 3) {
+            if (this.selectedLocations.length >= MAXIMUM_SELECTABLE_COUNT) {
                 this.openSnackBar(buildSnackBarOption(MESSAGE.SELECT_LOCATION_OVER_COUNT, undefined, undefined, 30000));
                 window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
                 return;
@@ -107,8 +95,4 @@ export default {
 </script>
 
 <style scoped>
-#location-fixed-header {
-    position: fixed;
-    width: 100%;
-}
 </style>

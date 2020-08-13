@@ -9,8 +9,8 @@
 import GoBackBtnFooter from '@/components/GoBackBtnFooter.vue';
 import { mapGetters, mapMutations } from 'vuex';
 import UserLocation from '@/components/UserLocation.vue';
-import { buildSnackBarOption } from '@/utils/commonUtils.js';
-import { isEmpty } from '@/utils/lodashUtils.js';
+import { buildSnackBarOption } from '@/utils/snackbarUtils.js';
+import _ from '@/utils/lodashWrapper.js';
 import { MESSAGE } from '@/utils/constant/message.js';
 
 export default {
@@ -26,14 +26,14 @@ export default {
         ...mapGetters('user', ['profile', 'selectedLocations']),
     },
     created() {
-        if (isEmpty(this.profile)) {
+        if (_.isEmpty(this.profile)) {
             this.$router.push('/register/profile');
         }
     },
     methods: {
         ...mapMutations('common', ['openSnackBar']),
         clickGoBtn() {
-            if (!isEmpty(this.selectedLocations)) {
+            if (_.isNotEmpty(this.selectedLocations)) {
                 this.$router.push('/register/interest');
                 return;
             }

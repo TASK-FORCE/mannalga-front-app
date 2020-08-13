@@ -9,9 +9,9 @@
 import GoBackBtnFooter from '@/components/GoBackBtnFooter.vue';
 import UserInterest from '@/components/UserInterest.vue';
 import { mapActions, mapGetters, mapMutations } from 'vuex';
-import { buildSnackBarOption } from '@/utils/commonUtils.js';
+import { buildSnackBarOption } from '@/utils/snackbarUtils.js';
 import { MESSAGE } from '@/utils/constant/message.js';
-import { isEmpty } from '@/utils/lodashUtils.js';
+import _ from '@/utils/lodashWrapper.js';
 
 export default {
     name: 'RegisterInterest',
@@ -21,12 +21,12 @@ export default {
         ...mapGetters('common', ['isLoading']),
     },
     created() {
-        if (isEmpty(this.profile)) {
+        if (_.isEmpty(this.profile)) {
             this.$router.push('/register/profile');
             return;
         }
 
-        if (isEmpty(this.selectedLocations)) {
+        if (_.isEmpty(this.selectedLocations)) {
             this.$router.push('/register/location');
         }
     },

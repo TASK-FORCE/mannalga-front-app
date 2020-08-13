@@ -16,7 +16,6 @@ function buildSnackBarOption(
     color = DEFAULT_SNACKBAR_OPTION.COLOR,
     time = DEFAULT_SNACKBAR_OPTION.TIME,
 ) {
-    console.log(location);
     return {
         message,
         location,

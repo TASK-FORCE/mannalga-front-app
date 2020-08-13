@@ -25,6 +25,7 @@ const mutations = {
         state.snackBarOption.message = snackBarOption.message || state.snackBarOption.message;
         state.snackBarOption.color = snackBarOption.color || state.snackBarOption.color;
         state.snackBarOption.location = snackBarOption.location || state.snackBarOption.location;
+        state.snackBarOption.time = snackBarOption.time || state.snackBarOption.time;
         state.snackBarOption.open = true;
     },
     closeSnackBar(state) {

@@ -1,8 +1,8 @@
-import { isEmpty } from '@/utils/lodashUtils.js';
+import _ from '@/utils/lodashWrapper.js';
 
 function ruleValidationSuccess(target, rules) {
     if (rules instanceof Array) {
-        return isEmpty(getValidationFailTexts(target, rules));
+        return _.isEmpty(getValidationFailTexts(target, rules));
     }
     return false;
 }
@@ -10,7 +10,7 @@ function ruleValidationSuccess(target, rules) {
 function getValidationFailText(target, rules) {
     if (rules instanceof Array) {
         const validationFailTexts = getValidationFailTexts(target, rules);
-        return isEmpty(validationFailTexts) ? '' : validationFailTexts[0];
+        return _.isEmpty(validationFailTexts) ? '' : validationFailTexts[0];
     }
     return '검증에 실패했습니다.';
 }

@@ -26,7 +26,7 @@
 <script>
 import { mapActions, mapMutations } from 'vuex';
 import { moveToKakaoLoginPage } from '@/utils/kakao/utlls.js';
-import { buildSnackBarOption } from '@/utils/commonUtils.js';
+import { buildSnackBarOption } from '@/utils/snackbarUtils.js';
 import { MESSAGE } from '@/utils/constant/message.js';
 
 export default {

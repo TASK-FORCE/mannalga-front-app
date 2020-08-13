@@ -13,7 +13,7 @@ import GoBackBtnFooter from '@/components/GoBackBtnFooter.vue';
 import { getValidationFailText, ruleValidationSuccess } from '@/utils/validationUtils.js';
 import { mapGetters, mapMutations } from 'vuex';
 import { NAME_RULES } from '@/utils/constant/rules.js';
-import { buildSnackBarOption } from '@/utils/commonUtils.js';
+import { buildSnackBarOption } from '@/utils/snackbarUtils.js';
 
 export default {
     name: 'RegistProfile',

@@ -4,7 +4,7 @@ import Vuex from 'vuex';
 import sinon from 'sinon';
 import Login from '@/views/Login.vue';
 import { MESSAGE } from '@/utils/constant/message.js';
-import { buildSnackBarOption } from '@/utils/commonUtils.js';
+import { buildSnackBarOption } from '@/utils/snackbarUtils.js';
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
