@@ -14,6 +14,7 @@ import _ from '@/utils/lodashWrapper.js';
 import { MESSAGE } from '@/utils/constant/message.js';
 import { COMMON, OPEN_SNACKBAR } from '@/store/type/common_type.js';
 import { PROFILE, SELECTED_LOCATION_SEQS, USER } from '@/store/type/user_type.js';
+import { REGISTER } from '@/router/route_path_type.js';
 
 export default {
     name: 'RegisterLocation',
@@ -29,14 +30,14 @@ export default {
     },
     created() {
         if (_.isEmpty(this.profile)) {
-            this.$router.push('/register/profile');
+            this.$router.push(REGISTER.PROFILE_PATH);
         }
     },
     methods: {
         ...mapMutations(COMMON, [OPEN_SNACKBAR]),
         clickGoBtn() {
             if (_.isNotEmpty(this[SELECTED_LOCATION_SEQS])) {
-                this.$router.push('/register/interest');
+                this.$router.push(REGISTER.INTEREST_PATH);
                 return;
             }
             this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.SELECT_LOCATION_REQUIRE));

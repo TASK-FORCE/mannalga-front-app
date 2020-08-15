@@ -16,6 +16,7 @@ import { NAME_RULES } from '@/utils/constant/rules.js';
 import { buildSnackBarOption } from '@/utils/snackbarUtils.js';
 import { COMMON, OPEN_SNACKBAR } from '@/store/type/common_type.js';
 import { PROFILE, USER } from '@/store/type/user_type.js';
+import { REGISTER } from '@/router/route_path_type.js';
 
 export default {
     name: 'RegistProfile',
@@ -28,7 +29,7 @@ export default {
         clickGoBtn() {
             const { name } = this[PROFILE];
             if (ruleValidationSuccess(name, NAME_RULES)) {
-                this.$router.push('/register/location');
+                this.$router.push(REGISTER.LOCATION_PATH);
                 return;
             }
             this[OPEN_SNACKBAR](buildSnackBarOption(getValidationFailText(name, NAME_RULES)));

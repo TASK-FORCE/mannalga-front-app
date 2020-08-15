@@ -30,6 +30,7 @@ import { buildSnackBarOption } from '@/utils/snackbarUtils.js';
 import { MESSAGE } from '@/utils/constant/message.js';
 import { COMMON, OPEN_SNACKBAR } from '@/store/type/common_type.js';
 import { AUTH, REQUEST_KAKAO_TOKEN_BY_CODE } from '@/store/type/auth_type.js';
+import { MAIN_PATH, REGISTER } from '@/router/route_path_type.js';
 
 export default {
     name: 'Login',
@@ -53,7 +54,7 @@ export default {
         if (this.code) {
             this.startLoading();
             this[REQUEST_KAKAO_TOKEN_BY_CODE](this.code)
-                .then(isFirstIssue => (isFirstIssue ? this.$router.push('/register/profile') : this.$router.push('/main')))
+                .then(isFirstIssue => (isFirstIssue ? this.$router.push(REGISTER.PROFILE_PATH) : this.$router.push(MAIN_PATH)))
                 .catch(() => this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.LOGIN_FAIL)))
                 .finally(() => this.endLoading());
         }

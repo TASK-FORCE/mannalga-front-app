@@ -47,10 +47,8 @@ import { mapActions, mapGetters, mapMutations } from 'vuex';
 import _ from '@/utils/lodashWrapper.js';
 import { NAME_RULES } from '@/utils/constant/rules.js';
 import { COMMON, IS_LOADING } from '@/store/type/common_type.js';
-import {
-    CHANGE_PROFILE_NAME, PROFILE,
-    REQUEST_PROFILE, USER,
-} from '@/store/type/user_type.js';
+import { CHANGE_PROFILE_NAME, PROFILE, REQUEST_PROFILE, USER } from '@/store/type/user_type.js';
+import { LOGIN_PATH } from '@/router/route_path_type.js';
 
 export default {
     name: 'UserProfile',
@@ -66,7 +64,7 @@ export default {
     created() {
         if (_.isDeepEmpty(this.profile)) {
             this[REQUEST_PROFILE]()
-                .catch(() => this.$router.push('/login'));
+                .catch(() => this.$router.push(LOGIN_PATH));
         }
     },
     methods: {

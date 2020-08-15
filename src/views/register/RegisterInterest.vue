@@ -14,6 +14,7 @@ import { MESSAGE } from '@/utils/constant/message.js';
 import _ from '@/utils/lodashWrapper.js';
 import { COMMON, IS_LOADING, OPEN_SNACKBAR } from '@/store/type/common_type.js';
 import { POST_REGISTER, PROFILE, SELECTED_INTERESTS, SELECTED_LOCATION_SEQS, USER } from '@/store/type/user_type.js';
+import { MAIN_PATH, REGISTER } from '@/router/route_path_type.js';
 
 export default {
     name: 'RegisterInterest',
@@ -24,12 +25,12 @@ export default {
     },
     created() {
         if (_.isEmpty(this.profile)) {
-            this.$router.push('/register/profile');
+            this.$router.push(REGISTER.PROFILE_PATH);
             return;
         }
 
         if (_.isEmpty(this.selectedLocationSeqs)) {
-            this.$router.push('/register/location');
+            this.$router.push(REGISTER.LOCATION_PATH);
         }
     },
     methods: {
@@ -42,9 +43,9 @@ export default {
                 selectedInterests: this[SELECTED_INTERESTS],
             };
             this[POST_REGISTER](registerInfo)
-                .then(() => this.$router.push('/main')
+                .then(() => this.$router.push(MAIN_PATH)
                     .then(() => this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.SUCCESS_REGISTER))))
-                .catch(() => this.$router.push('/register/profile')
+                .catch(() => this.$router.push(REGISTER.PROFILE_PATH)
                     .then(() => this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.SERVER_INSTABILITY))));
         },
     },

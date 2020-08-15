@@ -7,6 +7,7 @@ import {
     CHANGE_PROFILE_NAME, DEFAULT_PROFILE,
     PROFILE, REQUEST_PROFILE,
 } from '@/store/type/user_type.js';
+import { LOGIN_PATH } from '@/router/route_path_type.js';
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
@@ -64,7 +65,7 @@ describe('UserProfile.Vue', () => {
 
         // then
         expect(actions[REQUEST_PROFILE].called).to.be.true;
-        expect($router.push.withArgs('/login').notCalled).to.be.true;
+        expect($router.push.withArgs(LOGIN_PATH).notCalled).to.be.true;
     });
 
     it('페이지 진입 시 profile이 비어있지 않다면 profile을 요청하지 않는다.', () => {
@@ -91,6 +92,6 @@ describe('UserProfile.Vue', () => {
 
         // then
         expect(actions[REQUEST_PROFILE].called).to.be.true;
-        expect($router.push.withArgs('/login').calledOnce).to.be.true;
+        expect($router.push.withArgs(LOGIN_PATH).calledOnce).to.be.true;
     });
 });

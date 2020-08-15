@@ -7,6 +7,7 @@ import { MESSAGE } from '@/utils/constant/message.js';
 import { buildSnackBarOption } from '@/utils/snackbarUtils.js';
 import { OPEN_SNACKBAR } from '@/store/type/common_type.js';
 import { REQUEST_KAKAO_TOKEN_BY_CODE } from '@/store/type/auth_type.js';
+import { MAIN_PATH, REGISTER } from '@/router/route_path_type.js';
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
@@ -74,7 +75,7 @@ describe('Login.vue', () => {
 
         // then
         expect(actions[REQUEST_KAKAO_TOKEN_BY_CODE].called).to.be.true;
-        expect($router.push.withArgs('/register/profile').calledOnce).to.be.true;
+        expect($router.push.withArgs(REGISTER.PROFILE_PATH).calledOnce).to.be.true;
     });
 
     it('페이지 진입 시 code가 존재하면 Token 요청 후 첫번째 발급이 아니라면 main으로 routing 된다.', async () => {
@@ -88,7 +89,7 @@ describe('Login.vue', () => {
 
         // then
         expect(actions[REQUEST_KAKAO_TOKEN_BY_CODE].called).to.be.true;
-        expect($router.push.withArgs('/main').calledOnce).to.be.true;
+        expect($router.push.withArgs(MAIN_PATH).calledOnce).to.be.true;
     });
 
     it('페이지 진입 시 code가 존재하면 Token 요청 후 예외가 발생하면 Snackbar가 호출된다.', async () => {
