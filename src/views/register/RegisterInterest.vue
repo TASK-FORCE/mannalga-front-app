@@ -17,7 +17,7 @@ export default {
     name: 'RegisterInterest',
     components: { UserInterest, GoBackBtnFooter },
     computed: {
-        ...mapGetters('user', ['profile', 'selectedLocations', 'selectedInterests']),
+        ...mapGetters('user', ['profile', 'selectedLocationSeqs', 'selectedInterests']),
         ...mapGetters('common', ['isLoading']),
     },
     created() {
@@ -26,7 +26,7 @@ export default {
             return;
         }
 
-        if (_.isEmpty(this.selectedLocations)) {
+        if (_.isEmpty(this.selectedLocationSeqs)) {
             this.$router.push('/register/location');
         }
     },
@@ -36,13 +36,13 @@ export default {
         clickGoBtn() {
             const registerInfo = {
                 profile: this.profile,
-                selectedLocations: this.selectedLocations,
+                selectedLocationSeqs: this.selectedLocationSeqs,
                 selectedInterests: this.selectedInterests,
             };
             this.postRegister(registerInfo)
                 .then(() => this.$router.push('/main')
                     .then(() => this.openSnackBar(buildSnackBarOption(MESSAGE.SUCCESS_REGISTER))))
-                .catch(() => this.$router.push('/register')
+                .catch(() => this.$router.push('/register/profile')
                     .then(() => this.openSnackBar(buildSnackBarOption(MESSAGE.SERVER_INSTABILITY))));
         },
     },

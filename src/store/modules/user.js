@@ -3,7 +3,7 @@ import { DEFAULT_PROFILE } from '@/store/type.js';
 
 const state = {
     profile: DEFAULT_PROFILE,
-    selectedLocations: [],
+    selectedLocationSeqs: [],
     selectedInterests: [],
 };
 
@@ -11,8 +11,8 @@ const getters = {
     profile(state) {
         return state.profile;
     },
-    selectedLocations(state) {
-        return state.selectedLocations;
+    selectedLocationSeqs(state) {
+        return state.selectedLocationSeqs;
     },
     selectedInterests(state) {
         return state.selectedInterests;
@@ -26,11 +26,11 @@ const mutations = {
     changeProfileName(state, name) {
         state.profile.name = name;
     },
-    removeSelectedLocations(state, index) {
-        state.selectedLocations.splice(index, 1);
+    removeSelectedLocationSeq(state, index) {
+        state.selectedLocationSeqs.splice(index, 1);
     },
-    addSelectedLocations(state, stateNameWithRoot) {
-        state.selectedLocations.push(stateNameWithRoot);
+    addSelectedLocationSeqs(state, stateNameWithRoot) {
+        state.selectedLocationSeqs.push(stateNameWithRoot);
     },
 };
 

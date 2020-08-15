@@ -23,7 +23,7 @@ export default {
         };
     },
     computed: {
-        ...mapGetters('user', ['profile', 'selectedLocations']),
+        ...mapGetters('user', ['profile', 'selectedLocationSeqs']),
     },
     created() {
         if (_.isEmpty(this.profile)) {
@@ -33,7 +33,7 @@ export default {
     methods: {
         ...mapMutations('common', ['openSnackBar']),
         clickGoBtn() {
-            if (_.isNotEmpty(this.selectedLocations)) {
+            if (_.isNotEmpty(this.selectedLocationSeqs)) {
                 this.$router.push('/register/interest');
                 return;
             }

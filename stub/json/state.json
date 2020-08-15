@@ -1,1 +1,1734 @@
-[{"name":"서울특별시","superStateRoot":"서울특별시","level":1,"subStates":[{"name":"종로구","superStateRoot":"서울특별시/종로구","level":2,"subStates":[]},{"name":"중구","superStateRoot":"서울특별시/중구","level":2,"subStates":[]},{"name":"용산구","superStateRoot":"서울특별시/용산구","level":2,"subStates":[]},{"name":"성동구","superStateRoot":"서울특별시/성동구","level":2,"subStates":[]},{"name":"광진구","superStateRoot":"서울특별시/광진구","level":2,"subStates":[]},{"name":"동대문구","superStateRoot":"서울특별시/동대문구","level":2,"subStates":[]},{"name":"중랑구","superStateRoot":"서울특별시/중랑구","level":2,"subStates":[]},{"name":"성북구","superStateRoot":"서울특별시/성북구","level":2,"subStates":[]},{"name":"강북구","superStateRoot":"서울특별시/강북구","level":2,"subStates":[]},{"name":"도봉구","superStateRoot":"서울특별시/도봉구","level":2,"subStates":[]},{"name":"노원구","superStateRoot":"서울특별시/노원구","level":2,"subStates":[]},{"name":"은평구","superStateRoot":"서울특별시/은평구","level":2,"subStates":[]},{"name":"서대문구","superStateRoot":"서울특별시/서대문구","level":2,"subStates":[]},{"name":"마포구","superStateRoot":"서울특별시/마포구","level":2,"subStates":[]},{"name":"양천구","superStateRoot":"서울특별시/양천구","level":2,"subStates":[]},{"name":"강서구","superStateRoot":"서울특별시/강서구","level":2,"subStates":[]},{"name":"구로구","superStateRoot":"서울특별시/구로구","level":2,"subStates":[]},{"name":"금천구","superStateRoot":"서울특별시/금천구","level":2,"subStates":[]},{"name":"영등포구","superStateRoot":"서울특별시/영등포구","level":2,"subStates":[]},{"name":"동작구","superStateRoot":"서울특별시/동작구","level":2,"subStates":[]},{"name":"관악구","superStateRoot":"서울특별시/관악구","level":2,"subStates":[]},{"name":"서초구","superStateRoot":"서울특별시/서초구","level":2,"subStates":[]},{"name":"강남구","superStateRoot":"서울특별시/강남구","level":2,"subStates":[]},{"name":"송파구","superStateRoot":"서울특별시/송파구","level":2,"subStates":[]},{"name":"강동구","superStateRoot":"서울특별시/강동구","level":2,"subStates":[]}]},{"name":"부산광역시","superStateRoot":"부산광역시","level":1,"subStates":[{"name":"중구","superStateRoot":"부산광역시/중구","level":2,"subStates":[]},{"name":"서구","superStateRoot":"부산광역시/서구","level":2,"subStates":[]},{"name":"동구","superStateRoot":"부산광역시/동구","level":2,"subStates":[]},{"name":"영도구","superStateRoot":"부산광역시/영도구","level":2,"subStates":[]},{"name":"부산진구","superStateRoot":"부산광역시/부산진구","level":2,"subStates":[]},{"name":"동래구","superStateRoot":"부산광역시/동래구","level":2,"subStates":[]},{"name":"남구","superStateRoot":"부산광역시/남구","level":2,"subStates":[]},{"name":"북구","superStateRoot":"부산광역시/북구","level":2,"subStates":[]},{"name":"강서구","superStateRoot":"부산광역시/강서구","level":2,"subStates":[]},{"name":"해운대구","superStateRoot":"부산광역시/해운대구","level":2,"subStates":[]},{"name":"사하구","superStateRoot":"부산광역시/사하구","level":2,"subStates":[]},{"name":"금정구","superStateRoot":"부산광역시/금정구","level":2,"subStates":[]},{"name":"연제구","superStateRoot":"부산광역시/연제구","level":2,"subStates":[]},{"name":"수영구","superStateRoot":"부산광역시/수영구","level":2,"subStates":[]},{"name":"사상구","superStateRoot":"부산광역시/사상구","level":2,"subStates":[]},{"name":"기장군","superStateRoot":"부산광역시/기장군","level":2,"subStates":[]}]},{"name":"대구광역시","superStateRoot":"대구광역시","level":1,"subStates":[{"name":"중구","superStateRoot":"대구광역시/중구","level":2,"subStates":[]},{"name":"동구","superStateRoot":"대구광역시/동구","level":2,"subStates":[]},{"name":"서구","superStateRoot":"대구광역시/서구","level":2,"subStates":[]},{"name":"남구","superStateRoot":"대구광역시/남구","level":2,"subStates":[]},{"name":"북구","superStateRoot":"대구광역시/북구","level":2,"subStates":[]},{"name":"수성구","superStateRoot":"대구광역시/수성구","level":2,"subStates":[]},{"name":"달서구","superStateRoot":"대구광역시/달서구","level":2,"subStates":[]},{"name":"달성군","superStateRoot":"대구광역시/달성군","level":2,"subStates":[]}]},{"name":"인천광역시","superStateRoot":"인천광역시","level":1,"subStates":[{"name":"중구","superStateRoot":"인천광역시/중구","level":2,"subStates":[]},{"name":"동구","superStateRoot":"인천광역시/동구","level":2,"subStates":[]},{"name":"미추홀구","superStateRoot":"인천광역시/미추홀구","level":2,"subStates":[]},{"name":"연수구","superStateRoot":"인천광역시/연수구","level":2,"subStates":[]},{"name":"남동구","superStateRoot":"인천광역시/남동구","level":2,"subStates":[]},{"name":"부평구","superStateRoot":"인천광역시/부평구","level":2,"subStates":[]},{"name":"계양구","superStateRoot":"인천광역시/계양구","level":2,"subStates":[]},{"name":"서구","superStateRoot":"인천광역시/서구","level":2,"subStates":[]},{"name":"강화군","superStateRoot":"인천광역시/강화군","level":2,"subStates":[]},{"name":"옹진군","superStateRoot":"인천광역시/옹진군","level":2,"subStates":[]}]},{"name":"광주광역시","superStateRoot":"광주광역시","level":1,"subStates":[{"name":"동구","superStateRoot":"광주광역시/동구","level":2,"subStates":[]},{"name":"서구","superStateRoot":"광주광역시/서구","level":2,"subStates":[]},{"name":"남구","superStateRoot":"광주광역시/남구","level":2,"subStates":[]},{"name":"북구","superStateRoot":"광주광역시/북구","level":2,"subStates":[]},{"name":"광산구","superStateRoot":"광주광역시/광산구","level":2,"subStates":[]}]},{"name":"대전광역시","superStateRoot":"대전광역시","level":1,"subStates":[{"name":"동구","superStateRoot":"대전광역시/동구","level":2,"subStates":[]},{"name":"중구","superStateRoot":"대전광역시/중구","level":2,"subStates":[]},{"name":"서구","superStateRoot":"대전광역시/서구","level":2,"subStates":[]},{"name":"유성구","superStateRoot":"대전광역시/유성구","level":2,"subStates":[]},{"name":"대덕구","superStateRoot":"대전광역시/대덕구","level":2,"subStates":[]}]},{"name":"울산광역시","superStateRoot":"울산광역시","level":1,"subStates":[{"name":"중구","superStateRoot":"울산광역시/중구","level":2,"subStates":[]},{"name":"남구","superStateRoot":"울산광역시/남구","level":2,"subStates":[]},{"name":"동구","superStateRoot":"울산광역시/동구","level":2,"subStates":[]},{"name":"북구","superStateRoot":"울산광역시/북구","level":2,"subStates":[]},{"name":"울주군","superStateRoot":"울산광역시/울주군","level":2,"subStates":[]}]},{"name":"세종특별자치시","superStateRoot":"세종특별자치시","level":1,"subStates":[{"name":"세종특별자치시","superStateRoot":"세종특별자치시/세종특별자치시","level":2,"subStates":[]}]},{"name":"경기도","superStateRoot":"경기도","level":1,"subStates":[{"name":"수원시","superStateRoot":"경기도/수원시","level":2,"subStates":[]},{"name":"성남시","superStateRoot":"경기도/성남시","level":2,"subStates":[]},{"name":"안양시","superStateRoot":"경기도/안양시","level":2,"subStates":[]},{"name":"안산시","superStateRoot":"경기도/안산시","level":2,"subStates":[]},{"name":"용인시","superStateRoot":"경기도/용인시","level":2,"subStates":[]},{"name":"부천시","superStateRoot":"경기도/부천시","level":2,"subStates":[]},{"name":"광명시","superStateRoot":"경기도/광명시","level":2,"subStates":[]},{"name":"평택시","superStateRoot":"경기도/평택시","level":2,"subStates":[]},{"name":"과천시","superStateRoot":"경기도/과천시","level":2,"subStates":[]},{"name":"오산시","superStateRoot":"경기도/오산시","level":2,"subStates":[]},{"name":"시흥시","superStateRoot":"경기도/시흥시","level":2,"subStates":[]},{"name":"군포시","superStateRoot":"경기도/군포시","level":2,"subStates":[]},{"name":"의왕시","superStateRoot":"경기도/의왕시","level":2,"subStates":[]},{"name":"하남시","superStateRoot":"경기도/하남시","level":2,"subStates":[]},{"name":"이천시","superStateRoot":"경기도/이천시","level":2,"subStates":[]},{"name":"안성시","superStateRoot":"경기도/안성시","level":2,"subStates":[]},{"name":"김포시","superStateRoot":"경기도/김포시","level":2,"subStates":[]},{"name":"화성시","superStateRoot":"경기도/화성시","level":2,"subStates":[]},{"name":"광주시","superStateRoot":"경기도/광주시","level":2,"subStates":[]},{"name":"여주시","superStateRoot":"경기도/여주시","level":2,"subStates":[]},{"name":"양평군","superStateRoot":"경기도/양평군","level":2,"subStates":[]},{"name":"고양시","superStateRoot":"경기도/고양시","level":2,"subStates":[]},{"name":"의정부시","superStateRoot":"경기도/의정부시","level":2,"subStates":[]},{"name":"동두천시","superStateRoot":"경기도/동두천시","level":2,"subStates":[]},{"name":"남양주시","superStateRoot":"경기도/남양주시","level":2,"subStates":[]},{"name":"파주시","superStateRoot":"경기도/파주시","level":2,"subStates":[]},{"name":"양주시","superStateRoot":"경기도/양주시","level":2,"subStates":[]},{"name":"포천시","superStateRoot":"경기도/포천시","level":2,"subStates":[]},{"name":"연천군","superStateRoot":"경기도/연천군","level":2,"subStates":[]},{"name":"가평군","superStateRoot":"경기도/가평군","level":2,"subStates":[]}]},{"name":"강원도","superStateRoot":"강원도","level":1,"subStates":[{"name":"춘천시","superStateRoot":"강원도/춘천시","level":2,"subStates":[]},{"name":"원주시","superStateRoot":"강원도/원주시","level":2,"subStates":[]},{"name":"강릉시","superStateRoot":"강원도/강릉시","level":2,"subStates":[]},{"name":"동해시","superStateRoot":"강원도/동해시","level":2,"subStates":[]},{"name":"태백시","superStateRoot":"강원도/태백시","level":2,"subStates":[]},{"name":"속초시","superStateRoot":"강원도/속초시","level":2,"subStates":[]},{"name":"삼척시","superStateRoot":"강원도/삼척시","level":2,"subStates":[]},{"name":"홍천군","superStateRoot":"강원도/홍천군","level":2,"subStates":[]},{"name":"횡성군","superStateRoot":"강원도/횡성군","level":2,"subStates":[]},{"name":"영월군","superStateRoot":"강원도/영월군","level":2,"subStates":[]},{"name":"평창군","superStateRoot":"강원도/평창군","level":2,"subStates":[]},{"name":"정선군","superStateRoot":"강원도/정선군","level":2,"subStates":[]},{"name":"철원군","superStateRoot":"강원도/철원군","level":2,"subStates":[]},{"name":"화천군","superStateRoot":"강원도/화천군","level":2,"subStates":[]},{"name":"양구군","superStateRoot":"강원도/양구군","level":2,"subStates":[]},{"name":"인제군","superStateRoot":"강원도/인제군","level":2,"subStates":[]},{"name":"고성군","superStateRoot":"강원도/고성군","level":2,"subStates":[]},{"name":"양양군","superStateRoot":"강원도/양양군","level":2,"subStates":[]}]},{"name":"충청북도","superStateRoot":"충청북도","level":1,"subStates":[{"name":"청주시","superStateRoot":"충청북도/양양군","level":2,"subStates":[]},{"name":"충주시","superStateRoot":"충청북도/충주시","level":2,"subStates":[]},{"name":"제천시","superStateRoot":"충청북도/제천시","level":2,"subStates":[]},{"name":"보은군","superStateRoot":"충청북도/보은군","level":2,"subStates":[]},{"name":"옥천군","superStateRoot":"충청북도/옥천군","level":2,"subStates":[]},{"name":"영동군","superStateRoot":"충청북도/영동군","level":2,"subStates":[]},{"name":"증평군","superStateRoot":"충청북도/증평군","level":2,"subStates":[]},{"name":"진천군","superStateRoot":"충청북도/진천군","level":2,"subStates":[]},{"name":"괴산군","superStateRoot":"충청북도/괴산군","level":2,"subStates":[]},{"name":"음성군","superStateRoot":"충청북도/음성군","level":2,"subStates":[]},{"name":"단양군","superStateRoot":"충청북도/단양군","level":2,"subStates":[]}]},{"name":"충청남도","superStateRoot":"충청남도","level":1,"subStates":[{"name":"천안시","superStateRoot":"충청북도/천안시","level":2,"subStates":[]},{"name":"공주시","superStateRoot":"충청북도/공주시","level":2,"subStates":[]},{"name":"보령시","superStateRoot":"충청북도/보령시","level":2,"subStates":[]},{"name":"아산시","superStateRoot":"충청북도/아산시","level":2,"subStates":[]},{"name":"서산시","superStateRoot":"충청북도/서산시","level":2,"subStates":[]},{"name":"논산시","superStateRoot":"충청북도/논산시","level":2,"subStates":[]},{"name":"계룡시","superStateRoot":"충청북도/계룡시","level":2,"subStates":[]},{"name":"당진시","superStateRoot":"충청북도/당진시","level":2,"subStates":[]},{"name":"금산군","superStateRoot":"충청북도/금산군","level":2,"subStates":[]},{"name":"부여군","superStateRoot":"충청북도/부여군","level":2,"subStates":[]},{"name":"서천군","superStateRoot":"충청북도/서천군","level":2,"subStates":[]},{"name":"청양군","superStateRoot":"충청북도/청양군","level":2,"subStates":[]},{"name":"홍성군","superStateRoot":"충청북도/홍성군","level":2,"subStates":[]},{"name":"홍성군","superStateRoot":"충청북도/홍성군","level":2,"subStates":[]},{"name":"예산군","superStateRoot":"충청북도/예산군","level":2,"subStates":[]},{"name":"태안군","superStateRoot":"충청북도/태안군","level":2,"subStates":[]}]},{"name":"전라북도","superStateRoot":"전라북도","level":1,"subStates":[{"name":"전주시","superStateRoot":"전라북도/전주시","level":2,"subStates":[]},{"name":"군산시","superStateRoot":"전라북도/군산시","level":2,"subStates":[]},{"name":"익산시","superStateRoot":"전라북도/익산시","level":2,"subStates":[]},{"name":"정읍시","superStateRoot":"전라북도/정읍시","level":2,"subStates":[]},{"name":"남원시","superStateRoot":"전라북도/남원시","level":2,"subStates":[]},{"name":"완주군","superStateRoot":"전라북도/완주군","level":2,"subStates":[]},{"name":"진안군","superStateRoot":"전라북도/진안군","level":2,"subStates":[]},{"name":"무주군","superStateRoot":"전라북도/무주군","level":2,"subStates":[]},{"name":"장수군","superStateRoot":"전라북도/장수군","level":2,"subStates":[]},{"name":"임실군","superStateRoot":"전라북도/임실군","level":2,"subStates":[]},{"name":"순창군","superStateRoot":"전라북도/순창군","level":2,"subStates":[]},{"name":"고창군","superStateRoot":"전라북도/고창군","level":2,"subStates":[]},{"name":"부안군","superStateRoot":"전라북도/부안군","level":2,"subStates":[]}]},{"name":"전라남도","superStateRoot":"전라남도","level":1,"subStates":[{"name":"목포시","superStateRoot":"전라남도/목포시","level":2,"subStates":[]},{"name":"여수시","superStateRoot":"전라남도/여수시","level":2,"subStates":[]},{"name":"순천시","superStateRoot":"전라남도/순천시","level":2,"subStates":[]},{"name":"나주시","superStateRoot":"전라남도/나주시","level":2,"subStates":[]},{"name":"광양시","superStateRoot":"전라남도/광양시","level":2,"subStates":[]},{"name":"담양군","superStateRoot":"전라남도/담양군","level":2,"subStates":[]},{"name":"곡성군","superStateRoot":"전라남도/곡성군","level":2,"subStates":[]},{"name":"구례군","superStateRoot":"전라남도/구례군","level":2,"subStates":[]},{"name":"고흥군","superStateRoot":"전라남도/고흥군","level":2,"subStates":[]},{"name":"보성군","superStateRoot":"전라남도/보성군","level":2,"subStates":[]},{"name":"화순군","superStateRoot":"전라남도/화순군","level":2,"subStates":[]},{"name":"장흥군","superStateRoot":"전라남도/장흥군","level":2,"subStates":[]},{"name":"강진군","superStateRoot":"전라남도/강진군","level":2,"subStates":[]},{"name":"해남군","superStateRoot":"전라남도/해남군","level":2,"subStates":[]},{"name":"영암군","superStateRoot":"전라남도/영암군","level":2,"subStates":[]},{"name":"무안군","superStateRoot":"전라남도/무안군","level":2,"subStates":[]},{"name":"함평군","superStateRoot":"전라남도/함평군","level":2,"subStates":[]},{"name":"영광군","superStateRoot":"전라남도/영광군","level":2,"subStates":[]},{"name":"장성군","superStateRoot":"전라남도/장성군","level":2,"subStates":[]},{"name":"완도군","superStateRoot":"전라남도/완도군","level":2,"subStates":[]},{"name":"진도군","superStateRoot":"전라남도/진도군","level":2,"subStates":[]},{"name":"신안군","superStateRoot":"전라남도/신안군","level":2,"subStates":[]}]},{"name":"경상북도","superStateRoot":"경상북도","level":1,"subStates":[{"name":"포항시","superStateRoot":"경상북도/포항시","level":2,"subStates":[]},{"name":"경주시","superStateRoot":"경상북도/경주시","level":2,"subStates":[]},{"name":"김천시","superStateRoot":"경상북도/김천시","level":2,"subStates":[]},{"name":"안동시","superStateRoot":"경상북도/안동시","level":2,"subStates":[]},{"name":"구미시","superStateRoot":"경상북도/구미시","level":2,"subStates":[]},{"name":"영주시","superStateRoot":"경상북도/영주시","level":2,"subStates":[]},{"name":"영천시","superStateRoot":"경상북도/영천시","level":2,"subStates":[]},{"name":"상주시","superStateRoot":"경상북도/상주시","level":2,"subStates":[]},{"name":"문경시","superStateRoot":"경상북도/문경시","level":2,"subStates":[]},{"name":"경산시","superStateRoot":"경상북도/경산시","level":2,"subStates":[]},{"name":"군위군","superStateRoot":"경상북도/군위군","level":2,"subStates":[]},{"name":"의성군","superStateRoot":"경상북도/의성군","level":2,"subStates":[]},{"name":"청송군","superStateRoot":"경상북도/청송군","level":2,"subStates":[]},{"name":"영양군","superStateRoot":"경상북도/영양군","level":2,"subStates":[]},{"name":"영덕군","superStateRoot":"경상북도/영덕군","level":2,"subStates":[]},{"name":"청도군","superStateRoot":"경상북도/청도군","level":2,"subStates":[]},{"name":"고령군","superStateRoot":"경상북도/고령군","level":2,"subStates":[]},{"name":"성주군","superStateRoot":"경상북도/성주군","level":2,"subStates":[]},{"name":"칠곡군","superStateRoot":"경상북도/칠곡군","level":2,"subStates":[]},{"name":"예천군","superStateRoot":"경상북도/예천군","level":2,"subStates":[]},{"name":"봉화군","superStateRoot":"경상북도/봉화군","level":2,"subStates":[]},{"name":"울진군","superStateRoot":"경상북도/울진군","level":2,"subStates":[]},{"name":"울릉군","superStateRoot":"경상북도/울릉군","level":2,"subStates":[]}]},{"name":"경상남도","superStateRoot":"경상남도","level":1,"subStates":[{"name":"창원시","superStateRoot":"경상남도/창원시","level":2,"subStates":[]},{"name":"진주시","superStateRoot":"경상남도/진주시","level":2,"subStates":[]},{"name":"통영시","superStateRoot":"경상남도/통영시","level":2,"subStates":[]},{"name":"사천시","superStateRoot":"경상남도/사천시","level":2,"subStates":[]},{"name":"김해시","superStateRoot":"경상남도/김해시","level":2,"subStates":[]},{"name":"밀양시","superStateRoot":"경상남도/밀양시","level":2,"subStates":[]},{"name":"거제시","superStateRoot":"경상남도/거제시","level":2,"subStates":[]},{"name":"양산시","superStateRoot":"경상남도/양산시","level":2,"subStates":[]},{"name":"의령군","superStateRoot":"경상남도/의령군","level":2,"subStates":[]},{"name":"함안군","superStateRoot":"경상남도/함안군","level":2,"subStates":[]},{"name":"창녕군","superStateRoot":"경상남도/창녕군","level":2,"subStates":[]},{"name":"고성군","superStateRoot":"경상남도/고성군","level":2,"subStates":[]},{"name":"남해군","superStateRoot":"경상남도/남해군","level":2,"subStates":[]},{"name":"하동군","superStateRoot":"경상남도/하동군","level":2,"subStates":[]},{"name":"산청군","superStateRoot":"경상남도/산청군","level":2,"subStates":[]},{"name":"함양군","superStateRoot":"경상남도/함양군","level":2,"subStates":[]},{"name":"거창군","superStateRoot":"경상남도/거창군","level":2,"subStates":[]},{"name":"합천군","superStateRoot":"경상남도/합천군","level":2,"subStates":[]},{"name":"합천군","superStateRoot":"경상남도/합천군","level":2,"subStates":[]}]},{"name":"제주특별자치도","superStateRoot":"제주특별자치도","level":1,"subStates":[{"name":"제주시","superStateRoot":"제주특별자치도/제주시","level":2,"subStates":[]},{"name":"서귀포시","superStateRoot":"제주특별자치도/서귀포시","level":2,"subStates":[]}]}]
+[
+  {
+    "seq": 1,
+    "name": "서울특별시",
+    "superStateRoot": "서울특별시",
+    "level": 1,
+    "subStates": [
+      {
+        "seq": 101,
+        "name": "종로구",
+        "superStateRoot": "서울특별시/종로구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 102,
+        "name": "중구",
+        "superStateRoot": "서울특별시/중구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 103,
+        "name": "용산구",
+        "superStateRoot": "서울특별시/용산구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 104,
+        "name": "성동구",
+        "superStateRoot": "서울특별시/성동구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 105,
+        "name": "광진구",
+        "superStateRoot": "서울특별시/광진구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 106,
+        "name": "동대문구",
+        "superStateRoot": "서울특별시/동대문구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 107,
+        "name": "중랑구",
+        "superStateRoot": "서울특별시/중랑구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 108,
+        "name": "성북구",
+        "superStateRoot": "서울특별시/성북구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 109,
+        "name": "강북구",
+        "superStateRoot": "서울특별시/강북구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 110,
+        "name": "도봉구",
+        "superStateRoot": "서울특별시/도봉구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 111,
+        "name": "노원구",
+        "superStateRoot": "서울특별시/노원구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 112,
+        "name": "은평구",
+        "superStateRoot": "서울특별시/은평구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 113,
+        "name": "서대문구",
+        "superStateRoot": "서울특별시/서대문구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 114,
+        "name": "마포구",
+        "superStateRoot": "서울특별시/마포구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 115,
+        "name": "양천구",
+        "superStateRoot": "서울특별시/양천구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 116,
+        "name": "강서구",
+        "superStateRoot": "서울특별시/강서구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 117,
+        "name": "구로구",
+        "superStateRoot": "서울특별시/구로구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 118,
+        "name": "금천구",
+        "superStateRoot": "서울특별시/금천구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 119,
+        "name": "영등포구",
+        "superStateRoot": "서울특별시/영등포구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 120,
+        "name": "동작구",
+        "superStateRoot": "서울특별시/동작구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 121,
+        "name": "관악구",
+        "superStateRoot": "서울특별시/관악구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 122,
+        "name": "서초구",
+        "superStateRoot": "서울특별시/서초구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 123,
+        "name": "강남구",
+        "superStateRoot": "서울특별시/강남구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 124,
+        "name": "송파구",
+        "superStateRoot": "서울특별시/송파구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 125,
+        "name": "강동구",
+        "superStateRoot": "서울특별시/강동구",
+        "level": 2,
+        "subStates": []
+      }
+    ]
+  },
+  {
+    "seq": 2,
+    "name": "부산광역시",
+    "superStateRoot": "부산광역시",
+    "level": 1,
+    "subStates": [
+      {
+        "seq": 201,
+        "name": "중구",
+        "superStateRoot": "부산광역시/중구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 202,
+        "name": "서구",
+        "superStateRoot": "부산광역시/서구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 203,
+        "name": "동구",
+        "superStateRoot": "부산광역시/동구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 204,
+        "name": "영도구",
+        "superStateRoot": "부산광역시/영도구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 205,
+        "name": "부산진구",
+        "superStateRoot": "부산광역시/부산진구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 206,
+        "name": "동래구",
+        "superStateRoot": "부산광역시/동래구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 207,
+        "name": "남구",
+        "superStateRoot": "부산광역시/남구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 208,
+        "name": "북구",
+        "superStateRoot": "부산광역시/북구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 209,
+        "name": "강서구",
+        "superStateRoot": "부산광역시/강서구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 210,
+        "name": "해운대구",
+        "superStateRoot": "부산광역시/해운대구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 211,
+        "name": "사하구",
+        "superStateRoot": "부산광역시/사하구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 212,
+        "name": "금정구",
+        "superStateRoot": "부산광역시/금정구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 213,
+        "name": "연제구",
+        "superStateRoot": "부산광역시/연제구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 214,
+        "name": "수영구",
+        "superStateRoot": "부산광역시/수영구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 215,
+        "name": "사상구",
+        "superStateRoot": "부산광역시/사상구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 216,
+        "name": "기장군",
+        "superStateRoot": "부산광역시/기장군",
+        "level": 2,
+        "subStates": []
+      }
+    ]
+  },
+  {
+    "seq": 3,
+    "name": "대구광역시",
+    "superStateRoot": "대구광역시",
+    "level": 1,
+    "subStates": [
+      {
+        "seq": 301,
+        "name": "중구",
+        "superStateRoot": "대구광역시/중구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 302,
+        "name": "동구",
+        "superStateRoot": "대구광역시/동구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 303,
+        "name": "서구",
+        "superStateRoot": "대구광역시/서구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 304,
+        "name": "남구",
+        "superStateRoot": "대구광역시/남구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 305,
+        "name": "북구",
+        "superStateRoot": "대구광역시/북구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 306,
+        "name": "수성구",
+        "superStateRoot": "대구광역시/수성구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 307,
+        "name": "달서구",
+        "superStateRoot": "대구광역시/달서구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 308,
+        "name": "달성군",
+        "superStateRoot": "대구광역시/달성군",
+        "level": 2,
+        "subStates": []
+      }
+    ]
+  },
+  {
+    "seq": 4,
+    "name": "인천광역시",
+    "superStateRoot": "인천광역시",
+    "level": 1,
+    "subStates": [
+      {
+        "seq": 401,
+        "name": "중구",
+        "superStateRoot": "인천광역시/중구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 402,
+        "name": "동구",
+        "superStateRoot": "인천광역시/동구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 403,
+        "name": "미추홀구",
+        "superStateRoot": "인천광역시/미추홀구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 404,
+        "name": "연수구",
+        "superStateRoot": "인천광역시/연수구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 405,
+        "name": "남동구",
+        "superStateRoot": "인천광역시/남동구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 406,
+        "name": "부평구",
+        "superStateRoot": "인천광역시/부평구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 407,
+        "name": "계양구",
+        "superStateRoot": "인천광역시/계양구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 408,
+        "name": "서구",
+        "superStateRoot": "인천광역시/서구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 409,
+        "name": "강화군",
+        "superStateRoot": "인천광역시/강화군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 410,
+        "name": "옹진군",
+        "superStateRoot": "인천광역시/옹진군",
+        "level": 2,
+        "subStates": []
+      }
+    ]
+  },
+  {
+    "seq": 5,
+    "name": "광주광역시",
+    "superStateRoot": "광주광역시",
+    "level": 1,
+    "subStates": [
+      {
+        "seq": 501,
+        "name": "동구",
+        "superStateRoot": "광주광역시/동구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 502,
+        "name": "서구",
+        "superStateRoot": "광주광역시/서구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 503,
+        "name": "남구",
+        "superStateRoot": "광주광역시/남구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 504,
+        "name": "북구",
+        "superStateRoot": "광주광역시/북구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 505,
+        "name": "광산구",
+        "superStateRoot": "광주광역시/광산구",
+        "level": 2,
+        "subStates": []
+      }
+    ]
+  },
+  {
+    "seq": 6,
+    "name": "대전광역시",
+    "superStateRoot": "대전광역시",
+    "level": 1,
+    "subStates": [
+      {
+        "seq": 601,
+        "name": "동구",
+        "superStateRoot": "대전광역시/동구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 602,
+        "name": "중구",
+        "superStateRoot": "대전광역시/중구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 603,
+        "name": "서구",
+        "superStateRoot": "대전광역시/서구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 604,
+        "name": "유성구",
+        "superStateRoot": "대전광역시/유성구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 605,
+        "name": "대덕구",
+        "superStateRoot": "대전광역시/대덕구",
+        "level": 2,
+        "subStates": []
+      }
+    ]
+  },
+  {
+    "seq": 7,
+    "name": "울산광역시",
+    "superStateRoot": "울산광역시",
+    "level": 1,
+    "subStates": [
+      {
+        "seq": 701,
+        "name": "중구",
+        "superStateRoot": "울산광역시/중구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 702,
+        "name": "남구",
+        "superStateRoot": "울산광역시/남구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 703,
+        "name": "동구",
+        "superStateRoot": "울산광역시/동구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 704,
+        "name": "북구",
+        "superStateRoot": "울산광역시/북구",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 705,
+        "name": "울주군",
+        "superStateRoot": "울산광역시/울주군",
+        "level": 2,
+        "subStates": []
+      }
+    ]
+  },
+  {
+    "seq": 8,
+    "name": "세종특별자치시",
+    "superStateRoot": "세종특별자치시",
+    "level": 1,
+    "subStates": [
+      {
+        "seq": 801,
+        "name": "세종특별자치시",
+        "superStateRoot": "세종특별자치시/세종특별자치시",
+        "level": 2,
+        "subStates": []
+      }
+    ]
+  },
+  {
+    "seq": 9,
+    "name": "경기도",
+    "superStateRoot": "경기도",
+    "level": 1,
+    "subStates": [
+      {
+        "seq": 901,
+        "name": "수원시",
+        "superStateRoot": "경기도/수원시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 902,
+        "name": "성남시",
+        "superStateRoot": "경기도/성남시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 903,
+        "name": "안양시",
+        "superStateRoot": "경기도/안양시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 904,
+        "name": "안산시",
+        "superStateRoot": "경기도/안산시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 905,
+        "name": "용인시",
+        "superStateRoot": "경기도/용인시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 906,
+        "name": "부천시",
+        "superStateRoot": "경기도/부천시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 907,
+        "name": "광명시",
+        "superStateRoot": "경기도/광명시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 908,
+        "name": "평택시",
+        "superStateRoot": "경기도/평택시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 909,
+        "name": "과천시",
+        "superStateRoot": "경기도/과천시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 910,
+        "name": "오산시",
+        "superStateRoot": "경기도/오산시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 911,
+        "name": "시흥시",
+        "superStateRoot": "경기도/시흥시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 912,
+        "name": "군포시",
+        "superStateRoot": "경기도/군포시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 913,
+        "name": "의왕시",
+        "superStateRoot": "경기도/의왕시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 914,
+        "name": "하남시",
+        "superStateRoot": "경기도/하남시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 915,
+        "name": "이천시",
+        "superStateRoot": "경기도/이천시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 916,
+        "name": "안성시",
+        "superStateRoot": "경기도/안성시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 917,
+        "name": "김포시",
+        "superStateRoot": "경기도/김포시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 918,
+        "name": "화성시",
+        "superStateRoot": "경기도/화성시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 919,
+        "name": "광주시",
+        "superStateRoot": "경기도/광주시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 920,
+        "name": "여주시",
+        "superStateRoot": "경기도/여주시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 921,
+        "name": "양평군",
+        "superStateRoot": "경기도/양평군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 922,
+        "name": "고양시",
+        "superStateRoot": "경기도/고양시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 923,
+        "name": "의정부시",
+        "superStateRoot": "경기도/의정부시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 924,
+        "name": "동두천시",
+        "superStateRoot": "경기도/동두천시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 925,
+        "name": "남양주시",
+        "superStateRoot": "경기도/남양주시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 926,
+        "name": "파주시",
+        "superStateRoot": "경기도/파주시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 927,
+        "name": "양주시",
+        "superStateRoot": "경기도/양주시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 928,
+        "name": "포천시",
+        "superStateRoot": "경기도/포천시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 929,
+        "name": "연천군",
+        "superStateRoot": "경기도/연천군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 930,
+        "name": "가평군",
+        "superStateRoot": "경기도/가평군",
+        "level": 2,
+        "subStates": []
+      }
+    ]
+  },
+  {
+    "seq": 10,
+    "name": "강원도",
+    "superStateRoot": "강원도",
+    "level": 1,
+    "subStates": [
+      {
+        "seq": 1001,
+        "name": "춘천시",
+        "superStateRoot": "강원도/춘천시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1002,
+        "name": "원주시",
+        "superStateRoot": "강원도/원주시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1003,
+        "name": "강릉시",
+        "superStateRoot": "강원도/강릉시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1004,
+        "name": "동해시",
+        "superStateRoot": "강원도/동해시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1005,
+        "name": "태백시",
+        "superStateRoot": "강원도/태백시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1006,
+        "name": "속초시",
+        "superStateRoot": "강원도/속초시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1007,
+        "name": "삼척시",
+        "superStateRoot": "강원도/삼척시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1008,
+        "name": "홍천군",
+        "superStateRoot": "강원도/홍천군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1009,
+        "name": "횡성군",
+        "superStateRoot": "강원도/횡성군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1010,
+        "name": "영월군",
+        "superStateRoot": "강원도/영월군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1011,
+        "name": "평창군",
+        "superStateRoot": "강원도/평창군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1012,
+        "name": "정선군",
+        "superStateRoot": "강원도/정선군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1013,
+        "name": "철원군",
+        "superStateRoot": "강원도/철원군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1014,
+        "name": "화천군",
+        "superStateRoot": "강원도/화천군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1015,
+        "name": "양구군",
+        "superStateRoot": "강원도/양구군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1016,
+        "name": "인제군",
+        "superStateRoot": "강원도/인제군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1017,
+        "name": "고성군",
+        "superStateRoot": "강원도/고성군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1018,
+        "name": "양양군",
+        "superStateRoot": "강원도/양양군",
+        "level": 2,
+        "subStates": []
+      }
+    ]
+  },
+  {
+    "seq": 11,
+    "name": "충청북도",
+    "superStateRoot": "충청북도",
+    "level": 1,
+    "subStates": [
+      {
+        "seq": 1101,
+        "name": "청주시",
+        "superStateRoot": "충청북도/양양군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1102,
+        "name": "충주시",
+        "superStateRoot": "충청북도/충주시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1103,
+        "name": "제천시",
+        "superStateRoot": "충청북도/제천시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1104,
+        "name": "보은군",
+        "superStateRoot": "충청북도/보은군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1105,
+        "name": "옥천군",
+        "superStateRoot": "충청북도/옥천군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1106,
+        "name": "영동군",
+        "superStateRoot": "충청북도/영동군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1107,
+        "name": "증평군",
+        "superStateRoot": "충청북도/증평군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1108,
+        "name": "진천군",
+        "superStateRoot": "충청북도/진천군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1109,
+        "name": "괴산군",
+        "superStateRoot": "충청북도/괴산군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1110,
+        "name": "음성군",
+        "superStateRoot": "충청북도/음성군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1111,
+        "name": "단양군",
+        "superStateRoot": "충청북도/단양군",
+        "level": 2,
+        "subStates": []
+      }
+    ]
+  },
+  {
+    "seq": 12,
+    "name": "충청남도",
+    "superStateRoot": "충청남도",
+    "level": 1,
+    "subStates": [
+      {
+        "seq": 1201,
+        "name": "천안시",
+        "superStateRoot": "충청북도/천안시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1202,
+        "name": "공주시",
+        "superStateRoot": "충청북도/공주시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1203,
+        "name": "보령시",
+        "superStateRoot": "충청북도/보령시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1204,
+        "name": "아산시",
+        "superStateRoot": "충청북도/아산시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1205,
+        "name": "서산시",
+        "superStateRoot": "충청북도/서산시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1206,
+        "name": "논산시",
+        "superStateRoot": "충청북도/논산시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1207,
+        "name": "계룡시",
+        "superStateRoot": "충청북도/계룡시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1208,
+        "name": "당진시",
+        "superStateRoot": "충청북도/당진시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1209,
+        "name": "금산군",
+        "superStateRoot": "충청북도/금산군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1210,
+        "name": "부여군",
+        "superStateRoot": "충청북도/부여군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1211,
+        "name": "서천군",
+        "superStateRoot": "충청북도/서천군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1212,
+        "name": "청양군",
+        "superStateRoot": "충청북도/청양군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1213,
+        "name": "홍성군",
+        "superStateRoot": "충청북도/홍성군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1214,
+        "name": "홍성군",
+        "superStateRoot": "충청북도/홍성군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1215,
+        "name": "예산군",
+        "superStateRoot": "충청북도/예산군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1216,
+        "name": "태안군",
+        "superStateRoot": "충청북도/태안군",
+        "level": 2,
+        "subStates": []
+      }
+    ]
+  },
+  {
+    "seq": 13,
+    "name": "전라북도",
+    "superStateRoot": "전라북도",
+    "level": 1,
+    "subStates": [
+      {
+        "seq": 1301,
+        "name": "전주시",
+        "superStateRoot": "전라북도/전주시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1302,
+        "name": "군산시",
+        "superStateRoot": "전라북도/군산시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1303,
+        "name": "익산시",
+        "superStateRoot": "전라북도/익산시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1304,
+        "name": "정읍시",
+        "superStateRoot": "전라북도/정읍시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1305,
+        "name": "남원시",
+        "superStateRoot": "전라북도/남원시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1306,
+        "name": "완주군",
+        "superStateRoot": "전라북도/완주군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1307,
+        "name": "진안군",
+        "superStateRoot": "전라북도/진안군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1308,
+        "name": "무주군",
+        "superStateRoot": "전라북도/무주군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1309,
+        "name": "장수군",
+        "superStateRoot": "전라북도/장수군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1310,
+        "name": "임실군",
+        "superStateRoot": "전라북도/임실군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1311,
+        "name": "순창군",
+        "superStateRoot": "전라북도/순창군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1312,
+        "name": "고창군",
+        "superStateRoot": "전라북도/고창군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1313,
+        "name": "부안군",
+        "superStateRoot": "전라북도/부안군",
+        "level": 2,
+        "subStates": []
+      }
+    ]
+  },
+  {
+    "seq": 14,
+    "name": "전라남도",
+    "superStateRoot": "전라남도",
+    "level": 1,
+    "subStates": [
+      {
+        "seq": 1401,
+        "name": "목포시",
+        "superStateRoot": "전라남도/목포시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1402,
+        "name": "여수시",
+        "superStateRoot": "전라남도/여수시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1403,
+        "name": "순천시",
+        "superStateRoot": "전라남도/순천시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1404,
+        "name": "나주시",
+        "superStateRoot": "전라남도/나주시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1405,
+        "name": "광양시",
+        "superStateRoot": "전라남도/광양시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1406,
+        "name": "담양군",
+        "superStateRoot": "전라남도/담양군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1407,
+        "name": "곡성군",
+        "superStateRoot": "전라남도/곡성군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1408,
+        "name": "구례군",
+        "superStateRoot": "전라남도/구례군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1409,
+        "name": "고흥군",
+        "superStateRoot": "전라남도/고흥군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1410,
+        "name": "보성군",
+        "superStateRoot": "전라남도/보성군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1411,
+        "name": "화순군",
+        "superStateRoot": "전라남도/화순군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1412,
+        "name": "장흥군",
+        "superStateRoot": "전라남도/장흥군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1413,
+        "name": "강진군",
+        "superStateRoot": "전라남도/강진군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1414,
+        "name": "해남군",
+        "superStateRoot": "전라남도/해남군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1415,
+        "name": "영암군",
+        "superStateRoot": "전라남도/영암군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1416,
+        "name": "무안군",
+        "superStateRoot": "전라남도/무안군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1417,
+        "name": "함평군",
+        "superStateRoot": "전라남도/함평군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1418,
+        "name": "영광군",
+        "superStateRoot": "전라남도/영광군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1419,
+        "name": "장성군",
+        "superStateRoot": "전라남도/장성군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1420,
+        "name": "완도군",
+        "superStateRoot": "전라남도/완도군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1421,
+        "name": "진도군",
+        "superStateRoot": "전라남도/진도군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1422,
+        "name": "신안군",
+        "superStateRoot": "전라남도/신안군",
+        "level": 2,
+        "subStates": []
+      }
+    ]
+  },
+  {
+    "seq": 15,
+    "name": "경상북도",
+    "superStateRoot": "경상북도",
+    "level": 1,
+    "subStates": [
+      {
+        "seq": 1501,
+        "name": "포항시",
+        "superStateRoot": "경상북도/포항시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1502,
+        "name": "경주시",
+        "superStateRoot": "경상북도/경주시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1503,
+        "name": "김천시",
+        "superStateRoot": "경상북도/김천시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1504,
+        "name": "안동시",
+        "superStateRoot": "경상북도/안동시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1505,
+        "name": "구미시",
+        "superStateRoot": "경상북도/구미시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1506,
+        "name": "영주시",
+        "superStateRoot": "경상북도/영주시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1507,
+        "name": "영천시",
+        "superStateRoot": "경상북도/영천시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1508,
+        "name": "상주시",
+        "superStateRoot": "경상북도/상주시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1509,
+        "name": "문경시",
+        "superStateRoot": "경상북도/문경시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1510,
+        "name": "경산시",
+        "superStateRoot": "경상북도/경산시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1512,
+        "name": "군위군",
+        "superStateRoot": "경상북도/군위군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1513,
+        "name": "의성군",
+        "superStateRoot": "경상북도/의성군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1514,
+        "name": "청송군",
+        "superStateRoot": "경상북도/청송군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1516,
+        "name": "영양군",
+        "superStateRoot": "경상북도/영양군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1517,
+        "name": "영덕군",
+        "superStateRoot": "경상북도/영덕군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1518,
+        "name": "청도군",
+        "superStateRoot": "경상북도/청도군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1519,
+        "name": "고령군",
+        "superStateRoot": "경상북도/고령군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1520,
+        "name": "성주군",
+        "superStateRoot": "경상북도/성주군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1521,
+        "name": "칠곡군",
+        "superStateRoot": "경상북도/칠곡군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1522,
+        "name": "예천군",
+        "superStateRoot": "경상북도/예천군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1523,
+        "name": "봉화군",
+        "superStateRoot": "경상북도/봉화군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1524,
+        "name": "울진군",
+        "superStateRoot": "경상북도/울진군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1525,
+        "name": "울릉군",
+        "superStateRoot": "경상북도/울릉군",
+        "level": 2,
+        "subStates": []
+      }
+    ]
+  },
+  {
+    "seq": 16,
+    "name": "경상남도",
+    "superStateRoot": "경상남도",
+    "level": 1,
+    "subStates": [
+      {
+        "seq": 1601,
+        "name": "창원시",
+        "superStateRoot": "경상남도/창원시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1602,
+        "name": "진주시",
+        "superStateRoot": "경상남도/진주시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1603,
+        "name": "통영시",
+        "superStateRoot": "경상남도/통영시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1604,
+        "name": "사천시",
+        "superStateRoot": "경상남도/사천시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1605,
+        "name": "김해시",
+        "superStateRoot": "경상남도/김해시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1606,
+        "name": "밀양시",
+        "superStateRoot": "경상남도/밀양시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1607,
+        "name": "거제시",
+        "superStateRoot": "경상남도/거제시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1608,
+        "name": "양산시",
+        "superStateRoot": "경상남도/양산시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1609,
+        "name": "의령군",
+        "superStateRoot": "경상남도/의령군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1610,
+        "name": "함안군",
+        "superStateRoot": "경상남도/함안군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1611,
+        "name": "창녕군",
+        "superStateRoot": "경상남도/창녕군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1612,
+        "name": "고성군",
+        "superStateRoot": "경상남도/고성군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1613,
+        "name": "남해군",
+        "superStateRoot": "경상남도/남해군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1614,
+        "name": "하동군",
+        "superStateRoot": "경상남도/하동군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1615,
+        "name": "산청군",
+        "superStateRoot": "경상남도/산청군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1616,
+        "name": "함양군",
+        "superStateRoot": "경상남도/함양군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1617,
+        "name": "거창군",
+        "superStateRoot": "경상남도/거창군",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1618,
+        "name": "합천군",
+        "superStateRoot": "경상남도/합천군",
+        "level": 2,
+        "subStates": []
+      }
+    ]
+  },
+  {
+    "seq": 17,
+    "name": "제주특별자치도",
+    "superStateRoot": "제주특별자치도",
+    "level": 1,
+    "subStates": [
+      {
+        "seq": 1701,
+        "name": "제주시",
+        "superStateRoot": "제주특별자치도/제주시",
+        "level": 2,
+        "subStates": []
+      },
+      {
+        "seq": 1702,
+        "name": "서귀포시",
+        "superStateRoot": "제주특별자치도/서귀포시",
+        "level": 2,
+        "subStates": []
+      }
+    ]
+  }
+]

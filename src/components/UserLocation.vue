@@ -6,21 +6,21 @@
                 (원하는 지역은 <b>최대 3개까지</b> 가능합니다)
             </div>
             <div class="text-center mt-1">
-                <v-chip v-for="stateNameWithRoot in selectedLocations"
-                        :key="stateNameWithRoot"
+                <v-chip v-for="stateSeq in selectedLocationSeqs"
+                        :key="stateSeq"
                         small
                         close
                         class="mx-1 white--text lighten-1 mt-1"
                         color="indigo"
-                        @click:close="toggleLocation(stateNameWithRoot)"
+                        @click:close="toggleLocation(stateSeq)"
                 >
-                    {{stateNameWithRoot}}
+                    {{ stateTextWithParent(stateSeq) }}
                 </v-chip>
             </div>
         </div>
         <v-list>
             <v-list-group v-for="rootState in rootStates"
-                          :key="rootState.superStateRoot"
+                          :key="rootState.seq"
                           no-action
             >
                 <template v-slot:activator>
@@ -31,15 +31,15 @@
 
                 <v-list-item
                     v-for="subState in rootState.subStates"
-                    :key="subState.superStateRoot"
-                    @click="toggleLocation(subState.superStateRoot)"
+                    :key="subState.seq"
+                    @click="toggleLocation(subState.seq)"
                 >
                     <v-list-item-action>
                         <v-checkbox
-                            v-model="selectedLocations"
-                            :value="subState.superStateRoot"
+                            v-model="selectedLocationSeqs"
+                            :value="subState.seq"
                             color="primary"
-                            @click="toggleLocation(rootState.name, subState.name)"
+                            @click="toggleLocation(subState.seq)"
                         ></v-checkbox>
                     </v-list-item-action>
                     <v-list-item-content>
@@ -63,7 +63,7 @@ export default {
     name: 'UserLocation',
     computed: {
         ...mapGetters('template', ['rootStates']),
-        ...mapGetters('user', ['selectedLocations']),
+        ...mapGetters('user', ['selectedLocationSeqs']),
         ...mapGetters('common', ['isLoading']),
     },
     created() {
@@ -76,19 +76,29 @@ export default {
     methods: {
         ...mapActions('template', ['requestStates']),
         ...mapMutations('common', ['openSnackBar']),
-        ...mapMutations('user', ['removeSelectedLocations', 'addSelectedLocations']),
-        toggleLocation(stateNameWithRoot) {
-            const indexToBeDeleted = _.findIndex(this.selectedLocations, stateName => _.isEqual(stateName, stateNameWithRoot));
+        ...mapMutations('user', ['removeSelectedLocationSeq', 'addSelectedLocationSeqs']),
+        toggleLocation(targetStateSeq) {
+            const indexToBeDeleted = _.findIndex(this.selectedLocationSeqs, stateId => _.isEqual(stateId, targetStateSeq));
             if (indexToBeDeleted >= 0) {
-                this.removeSelectedLocations(indexToBeDeleted);
+                this.removeSelectedLocationSeq(indexToBeDeleted);
                 return;
             }
-            if (this.selectedLocations.length >= MAXIMUM_SELECTABLE_COUNT) {
+            if (this.selectedLocationSeqs.length >= MAXIMUM_SELECTABLE_COUNT) {
                 this.openSnackBar(buildSnackBarOption(MESSAGE.SELECT_LOCATION_OVER_COUNT, undefined, undefined, 30000));
                 window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
                 return;
             }
-            this.addSelectedLocations(stateNameWithRoot);
+            this.addSelectedLocationSeqs(targetStateSeq);
+        },
+        stateTextWithParent(targetStateSeq) {
+            const parentIndex = this.getRootStateIndex(targetStateSeq);
+            const rootState = this.rootStates[parentIndex];
+            const targetState = rootState.subStates.find(({ seq }) => seq === targetStateSeq);
+            return targetState.superStateRoot;
+        },
+        getRootStateIndex(targetStateSeq) {
+            const number = (parseInt(targetStateSeq, 10) / 100);
+            return parseInt(number - 1, 10);
         },
     },
 };

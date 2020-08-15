@@ -79,18 +79,9 @@ describe('mutations', () => {
         mutations.setAppToken(state, token);
 
         // then
-        expect(state.accessToken)
-            .to
-            .be
-            .equal('accessToken');
-        expect(localStorage.getItem('accessToken'))
-            .to
-            .be
-            .equal('accessToken');
-        expect(localStorage.getItem('refreshToken'))
-            .to
-            .be
-            .equal('refreshToken');
+        expect(state.accessToken).to.be.equal('accessToken');
+        expect(localStorage.getItem('accessToken')).to.be.equal('accessToken');
+        expect(localStorage.getItem('refreshToken')).to.be.equal('refreshToken');
     });
 
     it('토큰 제거', () => {
