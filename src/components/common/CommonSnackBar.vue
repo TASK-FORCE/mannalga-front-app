@@ -1,13 +1,13 @@
 <template>
     <v-snackbar v-model="safeOpen"
-                v-bind="{[snackBarOption.location]: true}"
-                :timeout="snackBarOption.time"
+                v-bind="{[snackBarOptions.location]: true}"
+                :timeout="snackBarOptions.time"
     >
-        {{ snackBarOption.message }}
+        {{ snackBarOptions.message }}
 
         <template v-slot:action="{ attrs }">
             <v-btn
-                :color="snackBarOption.color"
+                :color="snackBarOptions.color"
                 text
                 v-bind="attrs"
                 @click="closeSnackBar"
@@ -19,29 +19,24 @@
 </template>
 
 <script>
-import { mapMutations, mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
+import { CLOSE_SNACKBAR, COMMON, SNACKBAR_OPTIONS } from '@/store/type/common_type.js';
 
 export default {
     name: 'CommonSnackBar',
     computed: {
-        ...mapGetters('common', ['snackBarOption']),
+        ...mapGetters(COMMON, { snackBarOptions: SNACKBAR_OPTIONS }),
         safeOpen: {
             get() {
-                return this.snackBarOption.open;
+                return this.snackBarOptions.open;
             },
             set() {
-                this.closeSnackBar();
+                this[CLOSE_SNACKBAR]();
             },
         },
     },
     methods: {
-        ...mapMutations('common', ['closeSnackBar']),
-        calculateWidth() {
-            if (window.innerWidth < 370) {
-                return window.innerWidth - (window.innerWidth / 10);
-            }
-            return 375;
-        },
+        ...mapMutations(COMMON, { closeSnackBar: CLOSE_SNACKBAR }),
     },
 };
 </script>

@@ -12,6 +12,8 @@ import UserLocation from '@/components/UserLocation.vue';
 import { buildSnackBarOption } from '@/utils/snackbarUtils.js';
 import _ from '@/utils/lodashWrapper.js';
 import { MESSAGE } from '@/utils/constant/message.js';
+import { COMMON, OPEN_SNACKBAR } from '@/store/type/common_type.js';
+import { PROFILE, SELECTED_LOCATION_SEQS, USER } from '@/store/type/user_type.js';
 
 export default {
     name: 'RegisterLocation',
@@ -23,7 +25,7 @@ export default {
         };
     },
     computed: {
-        ...mapGetters('user', ['profile', 'selectedLocationSeqs']),
+        ...mapGetters(USER, [PROFILE, SELECTED_LOCATION_SEQS]),
     },
     created() {
         if (_.isEmpty(this.profile)) {
@@ -31,13 +33,13 @@ export default {
         }
     },
     methods: {
-        ...mapMutations('common', ['openSnackBar']),
+        ...mapMutations(COMMON, [OPEN_SNACKBAR]),
         clickGoBtn() {
-            if (_.isNotEmpty(this.selectedLocationSeqs)) {
+            if (_.isNotEmpty(this[SELECTED_LOCATION_SEQS])) {
                 this.$router.push('/register/interest');
                 return;
             }
-            this.openSnackBar(buildSnackBarOption(MESSAGE.SELECT_LOCATION_REQUIRE));
+            this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.SELECT_LOCATION_REQUIRE));
         },
     },
 };

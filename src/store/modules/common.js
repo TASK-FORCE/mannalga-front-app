@@ -1,35 +1,32 @@
+import { CHANGE_LOADING, CLOSE_SNACKBAR, DEFAULT_SNACKBAR_OPTIONS, IS_LOADING, OPEN_SNACKBAR, SNACKBAR_OPTIONS } from '@/store/type/common_type.js';
+
 const state = {
     loading: false,
-    snackBarOption: {
-        message: '',
-        open: false,
-        color: 'pink',
-        location: 'bottom',
-    },
+    [SNACKBAR_OPTIONS]: DEFAULT_SNACKBAR_OPTIONS,
 };
 
 const getters = {
-    isLoading(state) {
+    [IS_LOADING](state) {
         return state.loading;
     },
-    snackBarOption(state) {
-        return state.snackBarOption;
+    [SNACKBAR_OPTIONS](state) {
+        return state[SNACKBAR_OPTIONS];
     },
 };
 
 const mutations = {
-    changeLoading(state, value) {
+    [CHANGE_LOADING](state, value) {
         state.loading = !!value;
     },
-    openSnackBar(state, snackBarOption) {
-        state.snackBarOption.message = snackBarOption.message || state.snackBarOption.message;
-        state.snackBarOption.color = snackBarOption.color || state.snackBarOption.color;
-        state.snackBarOption.location = snackBarOption.location || state.snackBarOption.location;
-        state.snackBarOption.time = snackBarOption.time || state.snackBarOption.time;
-        state.snackBarOption.open = true;
+    [OPEN_SNACKBAR](state, snackBarOptions) {
+        state[SNACKBAR_OPTIONS].message = snackBarOptions.message || state[SNACKBAR_OPTIONS].message;
+        state[SNACKBAR_OPTIONS].color = snackBarOptions.color || state[SNACKBAR_OPTIONS].color;
+        state[SNACKBAR_OPTIONS].location = snackBarOptions.location || state[SNACKBAR_OPTIONS].location;
+        state[SNACKBAR_OPTIONS].time = snackBarOptions.time || state[SNACKBAR_OPTIONS].time;
+        state[SNACKBAR_OPTIONS].open = true;
     },
-    closeSnackBar(state) {
-        state.snackBarOption.open = false;
+    [CLOSE_SNACKBAR](state) {
+        state[SNACKBAR_OPTIONS].open = false;
     },
 };
 

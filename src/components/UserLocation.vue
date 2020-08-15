@@ -56,39 +56,45 @@ import { mapActions, mapGetters, mapMutations } from 'vuex';
 import { buildSnackBarOption } from '@/utils/snackbarUtils.js';
 import _ from '@/utils/lodashWrapper.js';
 import { MESSAGE } from '@/utils/constant/message.js';
+import { COMMON, IS_LOADING, OPEN_SNACKBAR } from '@/store/type/common_type.js';
+import {
+    ADD_SELECTED_LOCATION_SEQS, REMOVE_SELECTED_LOCATION_SEQS,
+    SELECTED_LOCATION_SEQS, USER,
+} from '@/store/type/user_type.js';
+import { REQUEST_STATES, ROOT_STATES, TEMPLATE } from '@/store/type/template_type.js';
 
 const MAXIMUM_SELECTABLE_COUNT = 3;
 
 export default {
     name: 'UserLocation',
     computed: {
-        ...mapGetters('template', ['rootStates']),
-        ...mapGetters('user', ['selectedLocationSeqs']),
-        ...mapGetters('common', ['isLoading']),
+        ...mapGetters(TEMPLATE, { rootStates: ROOT_STATES }),
+        ...mapGetters(USER, { selectedLocationSeqs: SELECTED_LOCATION_SEQS }),
+        ...mapGetters(COMMON, { isLoading: IS_LOADING }),
     },
     created() {
         if (_.isEmpty(this.rootStates)) {
             this.requestStates()
                 .catch(() => this.$router.back()
-                    .then(() => this.openSnackBar(buildSnackBarOption(MESSAGE.SERVER_INSTABILITY))));
+                    .then(() => this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.SERVER_INSTABILITY))));
         }
     },
     methods: {
-        ...mapActions('template', ['requestStates']),
-        ...mapMutations('common', ['openSnackBar']),
-        ...mapMutations('user', ['removeSelectedLocationSeq', 'addSelectedLocationSeqs']),
+        ...mapActions(TEMPLATE, [REQUEST_STATES]),
+        ...mapMutations(COMMON, [OPEN_SNACKBAR]),
+        ...mapMutations(USER, [REMOVE_SELECTED_LOCATION_SEQS, ADD_SELECTED_LOCATION_SEQS]),
         toggleLocation(targetStateSeq) {
             const indexToBeDeleted = _.findIndex(this.selectedLocationSeqs, stateId => _.isEqual(stateId, targetStateSeq));
             if (indexToBeDeleted >= 0) {
-                this.removeSelectedLocationSeq(indexToBeDeleted);
+                this[REMOVE_SELECTED_LOCATION_SEQS](indexToBeDeleted);
                 return;
             }
             if (this.selectedLocationSeqs.length >= MAXIMUM_SELECTABLE_COUNT) {
-                this.openSnackBar(buildSnackBarOption(MESSAGE.SELECT_LOCATION_OVER_COUNT, undefined, undefined, 30000));
+                this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.SELECT_LOCATION_OVER_COUNT, undefined, undefined, 30000));
                 window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
                 return;
             }
-            this.addSelectedLocationSeqs(targetStateSeq);
+            this[ADD_SELECTED_LOCATION_SEQS](targetStateSeq);
         },
         stateTextWithParent(targetStateSeq) {
             const parentIndex = this.getRootStateIndex(targetStateSeq);

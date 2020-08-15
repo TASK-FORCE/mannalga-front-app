@@ -16,12 +16,13 @@
 import { mapGetters } from 'vuex';
 import CommonSnackBar from '@/components/common/CommonSnackBar.vue';
 import CommonProgress from '@/components/common/CommonProgress.vue';
+import { COMMON, IS_LOADING } from '@/store/type/common_type.js';
 
 export default {
     name: 'App',
     components: { CommonProgress, CommonSnackBar },
     computed: {
-        ...mapGetters('common', ['isLoading']),
+        ...mapGetters(COMMON, { isLoading: IS_LOADING }),
     },
 };
 </script>

@@ -5,6 +5,8 @@ import sinon from 'sinon';
 import Login from '@/views/Login.vue';
 import { MESSAGE } from '@/utils/constant/message.js';
 import { buildSnackBarOption } from '@/utils/snackbarUtils.js';
+import { OPEN_SNACKBAR } from '@/store/type/common_type.js';
+import { REQUEST_KAKAO_TOKEN_BY_CODE } from '@/store/type/auth_type.js';
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
@@ -18,10 +20,10 @@ describe('Login.vue', () => {
 
     beforeEach(() => {
         actions = {
-            requestKakaoTokenByCode: sinon.stub(),
+            [REQUEST_KAKAO_TOKEN_BY_CODE]: sinon.stub(),
         };
         mutations = {
-            openSnackBar: sinon.spy(),
+            [OPEN_SNACKBAR]: sinon.spy(),
         };
         store = new Vuex.Store({
             modules: {
@@ -58,41 +60,41 @@ describe('Login.vue', () => {
         shallowMount(Login, options);
 
         // then
-        expect(mutations.openSnackBar.withArgs({}, buildSnackBarOption(MESSAGE.LOGIN_REQUIRE)).calledOnce).to.be.true;
+        expect(mutations[OPEN_SNACKBAR].withArgs({}, buildSnackBarOption(MESSAGE.LOGIN_REQUIRE)).calledOnce).to.be.true;
     });
 
     it('페이지 진입 시 code가 존재하면 Token 요청 후 첫번째 발급이라면 register로 routing 된다.', async () => {
         // given
         options.mocks.$route.query = { code: '123' };
-        actions.requestKakaoTokenByCode.returns(Promise.resolve(true));
+        actions[REQUEST_KAKAO_TOKEN_BY_CODE].returns(Promise.resolve(true));
 
         // when
         const wrapper = shallowMount(Login, options);
         await wrapper.vm.$nextTick();
 
         // then
-        expect(actions.requestKakaoTokenByCode.called).to.be.true;
+        expect(actions[REQUEST_KAKAO_TOKEN_BY_CODE].called).to.be.true;
         expect($router.push.withArgs('/register/profile').calledOnce).to.be.true;
     });
 
     it('페이지 진입 시 code가 존재하면 Token 요청 후 첫번째 발급이 아니라면 main으로 routing 된다.', async () => {
         // given
         options.mocks.$route.query = { code: '123' };
-        actions.requestKakaoTokenByCode.returns(Promise.resolve(false));
+        actions[REQUEST_KAKAO_TOKEN_BY_CODE].returns(Promise.resolve(false));
 
         // when
         const wrapper = shallowMount(Login, options);
         await wrapper.vm.$nextTick();
 
         // then
-        expect(actions.requestKakaoTokenByCode.called).to.be.true;
+        expect(actions[REQUEST_KAKAO_TOKEN_BY_CODE].called).to.be.true;
         expect($router.push.withArgs('/main').calledOnce).to.be.true;
     });
 
     it('페이지 진입 시 code가 존재하면 Token 요청 후 예외가 발생하면 Snackbar가 호출된다.', async () => {
         // given
         options.mocks.$route.query = { code: '123' };
-        actions.requestKakaoTokenByCode.returns(Promise.reject(Error));
+        actions[REQUEST_KAKAO_TOKEN_BY_CODE].returns(Promise.reject(Error));
 
         // when
         const wrapper = shallowMount(Login, options);
@@ -100,7 +102,7 @@ describe('Login.vue', () => {
         await wrapper.vm.$nextTick();
 
         // then
-        expect(actions.requestKakaoTokenByCode.called).to.be.true;
-        expect(mutations.openSnackBar.withArgs({}, buildSnackBarOption(MESSAGE.LOGIN_FAIL)).calledOnce).to.be.true;
+        expect(actions[REQUEST_KAKAO_TOKEN_BY_CODE].called).to.be.true;
+        expect(mutations[OPEN_SNACKBAR].withArgs({}, buildSnackBarOption(MESSAGE.LOGIN_FAIL)).calledOnce).to.be.true;
     });
 });

@@ -28,6 +28,8 @@ import { mapActions, mapMutations } from 'vuex';
 import { moveToKakaoLoginPage } from '@/utils/kakao/utlls.js';
 import { buildSnackBarOption } from '@/utils/snackbarUtils.js';
 import { MESSAGE } from '@/utils/constant/message.js';
+import { COMMON, OPEN_SNACKBAR } from '@/store/type/common_type.js';
+import { AUTH, REQUEST_KAKAO_TOKEN_BY_CODE } from '@/store/type/auth_type.js';
 
 export default {
     name: 'Login',
@@ -46,19 +48,19 @@ export default {
     },
     created() {
         if (this.validationFail) {
-            this.openSnackBar(buildSnackBarOption(MESSAGE.LOGIN_REQUIRE));
+            this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.LOGIN_REQUIRE));
         }
         if (this.code) {
             this.startLoading();
-            this.requestKakaoTokenByCode(this.code)
+            this[REQUEST_KAKAO_TOKEN_BY_CODE](this.code)
                 .then(isFirstIssue => (isFirstIssue ? this.$router.push('/register/profile') : this.$router.push('/main')))
-                .catch(() => this.openSnackBar(buildSnackBarOption(MESSAGE.LOGIN_FAIL)))
+                .catch(() => this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.LOGIN_FAIL)))
                 .finally(() => this.endLoading());
         }
     },
     methods: {
-        ...mapActions('auth', ['requestKakaoTokenByCode']),
-        ...mapMutations('common', ['openSnackBar']),
+        ...mapActions(AUTH, [REQUEST_KAKAO_TOKEN_BY_CODE]),
+        ...mapMutations(COMMON, [OPEN_SNACKBAR]),
         login() {
             this.startLoading();
             moveToKakaoLoginPage();

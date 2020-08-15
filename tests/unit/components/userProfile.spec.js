@@ -3,7 +3,10 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuex from 'vuex';
 import sinon from 'sinon';
 import UserProfile from '@/components/UserProfile.vue';
-import { DEFAULT_PROFILE } from '@/store/type.js';
+import {
+    CHANGE_PROFILE_NAME, DEFAULT_PROFILE,
+    PROFILE, REQUEST_PROFILE,
+} from '@/store/type/user_type.js';
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
@@ -18,13 +21,13 @@ describe('UserProfile.Vue', () => {
 
     beforeEach(() => {
         actions = {
-            requestProfile: sinon.stub(),
+            [REQUEST_PROFILE]: sinon.stub(),
         };
         mutations = {
-            changeProfileName: sinon.spy(),
+            [CHANGE_PROFILE_NAME]: sinon.spy(),
         };
         getters = {
-            profile: sinon.stub(),
+            [PROFILE]: sinon.stub(),
         };
         store = new Vuex.Store({
             modules: {
@@ -60,7 +63,7 @@ describe('UserProfile.Vue', () => {
         shallowMount(UserProfile, options);
 
         // then
-        expect(actions.requestProfile.called).to.be.true;
+        expect(actions[REQUEST_PROFILE].called).to.be.true;
         expect($router.push.withArgs('/login').notCalled).to.be.true;
     });
 
@@ -74,20 +77,20 @@ describe('UserProfile.Vue', () => {
         shallowMount(UserProfile, options);
 
         // then
-        expect(actions.requestProfile.called).to.be.false;
+        expect(actions[REQUEST_PROFILE].called).to.be.false;
     });
 
     it('profile 요청 시 예외가 발생하면 login으로 라우팅된다.', async () => {
         // given
         getters.profile.returns(DEFAULT_PROFILE);
-        actions.requestProfile.returns(Promise.reject());
+        actions[REQUEST_PROFILE].returns(Promise.reject());
 
         // when
         const wrapper = shallowMount(UserProfile, options);
         await wrapper.vm.$nextTick();
 
         // then
-        expect(actions.requestProfile.called).to.be.true;
+        expect(actions[REQUEST_PROFILE].called).to.be.true;
         expect($router.push.withArgs('/login').calledOnce).to.be.true;
     });
 });

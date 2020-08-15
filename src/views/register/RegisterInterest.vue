@@ -12,13 +12,15 @@ import { mapActions, mapGetters, mapMutations } from 'vuex';
 import { buildSnackBarOption } from '@/utils/snackbarUtils.js';
 import { MESSAGE } from '@/utils/constant/message.js';
 import _ from '@/utils/lodashWrapper.js';
+import { COMMON, IS_LOADING, OPEN_SNACKBAR } from '@/store/type/common_type.js';
+import { POST_REGISTER, PROFILE, SELECTED_INTERESTS, SELECTED_LOCATION_SEQS, USER } from '@/store/type/user_type.js';
 
 export default {
     name: 'RegisterInterest',
     components: { UserInterest, GoBackBtnFooter },
     computed: {
-        ...mapGetters('user', ['profile', 'selectedLocationSeqs', 'selectedInterests']),
-        ...mapGetters('common', ['isLoading']),
+        ...mapGetters(USER, [PROFILE, SELECTED_LOCATION_SEQS, [SELECTED_INTERESTS]]),
+        ...mapGetters(COMMON, { isLoading: IS_LOADING }),
     },
     created() {
         if (_.isEmpty(this.profile)) {
@@ -31,19 +33,19 @@ export default {
         }
     },
     methods: {
-        ...mapActions('user', ['postRegister']),
-        ...mapMutations('common', ['openSnackBar']),
+        ...mapActions(USER, [POST_REGISTER]),
+        ...mapMutations(COMMON, [OPEN_SNACKBAR]),
         clickGoBtn() {
             const registerInfo = {
                 profile: this.profile,
-                selectedLocationSeqs: this.selectedLocationSeqs,
-                selectedInterests: this.selectedInterests,
+                selectedLocationSeqs: this[SELECTED_LOCATION_SEQS],
+                selectedInterests: this[SELECTED_INTERESTS],
             };
-            this.postRegister(registerInfo)
+            this[POST_REGISTER](registerInfo)
                 .then(() => this.$router.push('/main')
-                    .then(() => this.openSnackBar(buildSnackBarOption(MESSAGE.SUCCESS_REGISTER))))
+                    .then(() => this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.SUCCESS_REGISTER))))
                 .catch(() => this.$router.push('/register/profile')
-                    .then(() => this.openSnackBar(buildSnackBarOption(MESSAGE.SERVER_INSTABILITY))));
+                    .then(() => this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.SERVER_INSTABILITY))));
         },
     },
 };
