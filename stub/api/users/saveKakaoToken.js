@@ -9,7 +9,7 @@ module.exports = {
                 accessToken: access_token,
                 refreshToken: refresh_token,
             },
-            isFirstIssue: true,
+            isFirst: true,
         };
     },
     put() {

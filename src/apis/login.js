@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { KAKAO } from '@/utils/kakao/utlls.js';
+import { kakaoTokenBuilder } from '@/utils/builder/builder.js';
 
 function requestKakaoToken(code) {
     return axios.post('https://kauth.kakao.com/oauth/token', {}, {
@@ -13,7 +14,8 @@ function requestKakaoToken(code) {
 }
 
 function saveKakaoTokenAndGetAppToken(kakaoToken) {
-    return axios.post('/saveKakaoToken', kakaoToken);
+    const requestDto = kakaoTokenBuilder.buildRequestDto(kakaoToken);
+    return axios.post('/users/saveKakaoToken', requestDto);
 }
 
 export {

@@ -1,3 +1,6 @@
+/**
+ * Stubbing 할 요청 PATH를 작성
+ */
 const STUB_REQUESTS = [
     {
         path: '/locations',
@@ -6,7 +9,7 @@ const STUB_REQUESTS = [
         path: '/profile',
     },
     {
-        path: '/saveKakaoToken',
+        path: '/users/saveKakaoToken',
     },
 ];
 

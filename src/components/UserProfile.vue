@@ -10,9 +10,8 @@
                 <v-avatar class="top-50"
                           size=70
                 >
-                    <img
-                        :src="profile.img"
-                        alt="profile"
+                    <img :src="profileImg"
+                         alt="profile"
                     >
                 </v-avatar>
             </v-col>
@@ -60,6 +59,12 @@ export default {
     computed: {
         ...mapGetters(USER, { profile: PROFILE }),
         ...mapGetters(COMMON, { isLoading: IS_LOADING }),
+        profileImg() {
+            if (_.isEmpty(this.profile.img)) {
+                return require('../images/default_profile_img.png');
+            }
+            return this.profile.img;
+        },
     },
     created() {
         if (_.isDeepEmpty(this.profile)) {

@@ -1,5 +1,8 @@
 export const AUTH = 'auth';
 
+// state & getters
+export const APP_TOKEN = 'appToken';
+
 // mutations
 export const SET_APP_TOKEN = 'setAppToken';
 export const REMOVE_APP_TOKEN = 'removeAppToken';
