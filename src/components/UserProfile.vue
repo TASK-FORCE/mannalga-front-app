@@ -8,7 +8,7 @@
             >
                 <!--      사진도 커스텀하게 선택 가능하게?        -->
                 <v-avatar class="top-50"
-                          size=80
+                          size=70
                 >
                     <img
                         :src="profile.img"
@@ -44,8 +44,11 @@
 
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex';
-import { isEmpty } from '@/utils/lodashUtils.js';
+import _ from '@/utils/lodashWrapper.js';
 import { NAME_RULES } from '@/utils/constant/rules.js';
+import { COMMON, IS_LOADING } from '@/store/type/common_type.js';
+import { CHANGE_PROFILE_NAME, PROFILE, REQUEST_PROFILE, USER } from '@/store/type/user_type.js';
+import { LOGIN_PATH } from '@/router/route_path_type.js';
 
 export default {
     name: 'UserProfile',
@@ -55,18 +58,18 @@ export default {
         };
     },
     computed: {
-        ...mapGetters('user', ['profile']),
-        ...mapGetters('common', ['isLoading']),
+        ...mapGetters(USER, { profile: PROFILE }),
+        ...mapGetters(COMMON, { isLoading: IS_LOADING }),
     },
     created() {
-        if (isEmpty(this.profile)) {
-            this.requestProfile()
-                .catch(() => this.$router.push('/login'));
+        if (_.isDeepEmpty(this.profile)) {
+            this[REQUEST_PROFILE]()
+                .catch(() => this.$router.push(LOGIN_PATH));
         }
     },
     methods: {
-        ...mapActions('user', ['requestProfile']),
-        ...mapMutations('user', ['changeProfileName']),
+        ...mapActions(USER, [REQUEST_PROFILE]),
+        ...mapMutations(USER, { changeProfileName: CHANGE_PROFILE_NAME }),
     },
 };
 </script>

@@ -1,32 +1,34 @@
 import { requestLocationTemplate } from '@/apis/template.js';
+import { CHANGE_LOADING, COMMON } from '@/store/type/common_type.js';
+import { REQUEST_STATES, SET_LOCATION_TEMPLATE, ROOT_STATES } from '@/store/type/template_type.js';
 
 const state = {
-    locationTemplate: [],
+    [ROOT_STATES]: [],
 };
 
 const getters = {
-    locationTemplate(state) {
-        return state.locationTemplate;
+    [ROOT_STATES](state) {
+        return state[ROOT_STATES];
     },
 };
 
 const mutations = {
-    setLocationTemplate(state, locationTemplate) {
-        state.locationTemplate = locationTemplate;
+    [SET_LOCATION_TEMPLATE](state, rootStates) {
+        state.rootStates = rootStates;
     },
 };
 
 const actions = {
-    async requestLocationTemplate({ commit }) {
+    async [REQUEST_STATES]({ commit }) {
         try {
-            commit('common/changeLoading', true, { root: true });
+            commit(`${COMMON}/${CHANGE_LOADING}`, true, { root: true });
             const response = await requestLocationTemplate();
-            const { data } = response;
-            commit('setLocationTemplate', data.locationTemplate);
+            const rootStates = response.data;
+            commit(SET_LOCATION_TEMPLATE, rootStates);
         } catch (e) {
             console.warn(e);
         } finally {
-            commit('common/changeLoading', false, { root: true });
+            commit(`${COMMON}/${CHANGE_LOADING}`, false, { root: true });
         }
     },
 };

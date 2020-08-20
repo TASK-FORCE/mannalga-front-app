@@ -13,7 +13,7 @@ function requestKakaoToken(code) {
 }
 
 function saveKakaoTokenAndGetAppToken(kakaoToken) {
-    return axios.post('/api/saveKakaoToken', kakaoToken);
+    return axios.post('/saveKakaoToken', kakaoToken);
 }
 
 export {

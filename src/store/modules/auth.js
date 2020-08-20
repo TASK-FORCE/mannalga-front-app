@@ -1,44 +1,44 @@
 import { requestKakaoToken, saveKakaoTokenAndGetAppToken } from '@/apis/login.js';
 import { getAccessToken, removeAppTokenToLocalStorage, saveAppTokenToLocalStorage } from '@/utils/authUtils.js';
+import { REMOVE_APP_TOKEN, REQUEST_APP_TOKEN_BY_KAKAO_TOKEN, REQUEST_KAKAO_TOKEN_BY_CODE, SET_APP_TOKEN } from '@/store/type/auth_type.js';
 
 const state = {
     accessToken: getAccessToken(),
 };
 
-const getters = {
-};
+const getters = {};
 
 const mutations = {
-    setAppToken(state, { accessToken, refreshToken }) {
+    [SET_APP_TOKEN](state, { accessToken, refreshToken }) {
         state.accessToken = accessToken;
         saveAppTokenToLocalStorage(accessToken, refreshToken);
     },
-    removeAppToken(state) {
+    [REMOVE_APP_TOKEN](state) {
         state.accessToken = '';
         removeAppTokenToLocalStorage();
     },
 };
 
 const actions = {
-    async requestKakaoTokenByCode({ dispatch }, code) {
+    async [REQUEST_KAKAO_TOKEN_BY_CODE]({ dispatch }, code) {
         try {
             const response = await requestKakaoToken(code);
             const kakaoTokenInfo = response.data;
-            return dispatch('requestAppTokenByKakaoToken', kakaoTokenInfo);
+            return dispatch(REQUEST_APP_TOKEN_BY_KAKAO_TOKEN, kakaoTokenInfo);
         } catch (e) {
             console.warn(e);
             return e;
         }
     },
-    async requestAppTokenByKakaoToken({ commit }, kakaoTokenInfo) {
+    async [REQUEST_APP_TOKEN_BY_KAKAO_TOKEN]({ commit }, kakaoTokenInfo) {
         try {
             const response = await saveKakaoTokenAndGetAppToken(kakaoTokenInfo);
             const { appToken, isFirstIssue } = response.data;
-            commit('setAppToken', appToken);
+            commit(SET_APP_TOKEN, appToken);
             return isFirstIssue;
         } catch (e) {
             console.warn(e);
-            commit('removeAppToken');
+            commit(REMOVE_APP_TOKEN);
             return e;
         }
     },

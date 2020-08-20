@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import authModule from '@/store/modules/auth.js';
 import * as authApi from '@/apis/login.js';
+import { REMOVE_APP_TOKEN, REQUEST_APP_TOKEN_BY_KAKAO_TOKEN, REQUEST_KAKAO_TOKEN_BY_CODE, SET_APP_TOKEN } from '@/store/type/auth_type.js';
 
 describe('actions', () => {
     const { actions } = authModule;
@@ -30,10 +31,10 @@ describe('actions', () => {
             saveKakaoTokenAndGetAppToken.withArgs(kakaoTokenInfo).returns(response);
 
             // when
-            const isFirstIssue = await actions.requestAppTokenByKakaoToken({ commit }, kakaoTokenInfo);
+            const isFirstIssue = await actions[REQUEST_APP_TOKEN_BY_KAKAO_TOKEN]({ commit }, kakaoTokenInfo);
 
             // then
-            expect(commit.withArgs('setAppToken', response.data.appToken).calledOnce).to.be.true;
+            expect(commit.withArgs(SET_APP_TOKEN, response.data.appToken).calledOnce).to.be.true;
             expect(isFirstIssue).to.be.equal(response.data.isFirstIssue);
         });
 
@@ -42,10 +43,10 @@ describe('actions', () => {
             saveKakaoTokenAndGetAppToken.withArgs(kakaoTokenInfo).throws('name');
 
             // when
-            const { name } = await actions.requestAppTokenByKakaoToken({ commit }, kakaoTokenInfo);
+            const { name } = await actions[REQUEST_APP_TOKEN_BY_KAKAO_TOKEN]({ commit }, kakaoTokenInfo);
 
             // then
-            expect(commit.withArgs('removeAppToken').calledOnce).to.be.true;
+            expect(commit.withArgs(REMOVE_APP_TOKEN).calledOnce).to.be.true;
             expect(name).to.be.equal('name');
         });
     });
@@ -60,10 +61,10 @@ describe('actions', () => {
         sinon.stub(authApi, 'requestKakaoToken').withArgs(code).returns(response);
 
         // when
-        await actions.requestKakaoTokenByCode({ dispatch }, code);
+        await actions[REQUEST_KAKAO_TOKEN_BY_CODE]({ dispatch }, code);
 
         // then
-        expect(dispatch.withArgs('requestAppTokenByKakaoToken', response.data).calledOnce).to.be.true;
+        expect(dispatch.withArgs(REQUEST_APP_TOKEN_BY_KAKAO_TOKEN, response.data).calledOnce).to.be.true;
     });
 });
 
@@ -76,21 +77,12 @@ describe('mutations', () => {
         const token = { accessToken: 'accessToken', refreshToken: 'refreshToken' };
 
         // when
-        mutations.setAppToken(state, token);
+        mutations[SET_APP_TOKEN](state, token);
 
         // then
-        expect(state.accessToken)
-            .to
-            .be
-            .equal('accessToken');
-        expect(localStorage.getItem('accessToken'))
-            .to
-            .be
-            .equal('accessToken');
-        expect(localStorage.getItem('refreshToken'))
-            .to
-            .be
-            .equal('refreshToken');
+        expect(state.accessToken).to.be.equal('accessToken');
+        expect(localStorage.getItem('accessToken')).to.be.equal('accessToken');
+        expect(localStorage.getItem('refreshToken')).to.be.equal('refreshToken');
     });
 
     it('토큰 제거', () => {

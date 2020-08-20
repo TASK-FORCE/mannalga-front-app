@@ -26,8 +26,11 @@
 <script>
 import { mapActions, mapMutations } from 'vuex';
 import { moveToKakaoLoginPage } from '@/utils/kakao/utlls.js';
-import { buildSnackBarMessage } from '@/utils/commonUtils.js';
+import { buildSnackBarOption } from '@/utils/snackbarUtils.js';
 import { MESSAGE } from '@/utils/constant/message.js';
+import { COMMON, OPEN_SNACKBAR } from '@/store/type/common_type.js';
+import { AUTH, REQUEST_KAKAO_TOKEN_BY_CODE } from '@/store/type/auth_type.js';
+import { MAIN_PATH, REGISTER } from '@/router/route_path_type.js';
 
 export default {
     name: 'Login',
@@ -46,19 +49,19 @@ export default {
     },
     created() {
         if (this.validationFail) {
-            this.openSnackBar(buildSnackBarMessage(MESSAGE.LOGIN_REQUIRE));
+            this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.LOGIN_REQUIRE));
         }
         if (this.code) {
             this.startLoading();
-            this.requestKakaoTokenByCode(this.code)
-                .then(isFirstIssue => (isFirstIssue ? this.$router.push('/register/profile') : this.$router.push('/main')))
-                .catch(() => this.openSnackBar(buildSnackBarMessage(MESSAGE.LOGIN_FAIL)))
+            this[REQUEST_KAKAO_TOKEN_BY_CODE](this.code)
+                .then(isFirstIssue => (isFirstIssue ? this.$router.push(REGISTER.PROFILE_PATH) : this.$router.push(MAIN_PATH)))
+                .catch(() => this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.LOGIN_FAIL)))
                 .finally(() => this.endLoading());
         }
     },
     methods: {
-        ...mapActions('auth', ['requestKakaoTokenByCode']),
-        ...mapMutations('common', ['openSnackBar']),
+        ...mapActions(AUTH, [REQUEST_KAKAO_TOKEN_BY_CODE]),
+        ...mapMutations(COMMON, [OPEN_SNACKBAR]),
         login() {
             this.startLoading();
             moveToKakaoLoginPage();

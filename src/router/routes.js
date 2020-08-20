@@ -1,40 +1,41 @@
 import { isAuth } from '@/utils/authUtils.js';
+import { LOGIN_PATH, REGISTER } from '@/router/route_path_type.js';
 
 function validationAuthentication(to, from, next) {
     if (isAuth()) {
         next();
     } else {
-        next('/login?validationFail=true');
+        next(`${LOGIN_PATH}?validationFail=true`);
     }
 }
 
 const routes = [
     {
         path: '/',
-        redirect: '/login',
+        redirect: LOGIN_PATH,
     },
     {
-        path: '/login',
+        path: LOGIN_PATH,
         name: 'Login',
         component: () => import('@/views/Login.vue'),
     },
     {
-        path: '/register',
+        path: REGISTER.ROOT,
         name: 'Register',
         component: () => import('@/views/register/RegisterMain.vue'),
         beforeEnter: validationAuthentication,
         children: [
             {
-                path: 'profile',
+                path: REGISTER.PROFILE,
                 component: () => import('@/views/register/RegisterProfile.vue'),
                 meta: { isFirstPage: true },
             },
             {
-                path: 'location',
+                path: REGISTER.LOCATION,
                 component: () => import('@/views/register/RegisterLocation.vue'),
             },
             {
-                path: 'interest',
+                path: REGISTER.INTEREST,
                 component: () => import('@/views/register/RegisterInterest.vue'),
                 meta: { isLastPage: true },
             },

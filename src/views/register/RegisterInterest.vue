@@ -1,9 +1,7 @@
 <template>
     <div>
         <UserInterest v-show="!isLoading" />
-        <GoBackBtnFooter :hideBackBtn="true"
-                         @clickGoBtn="clickGoBtn"
-        />
+        <GoBackBtnFooter @clickGoBtn="clickGoBtn" />
     </div>
 </template>
 
@@ -11,41 +9,44 @@
 import GoBackBtnFooter from '@/components/GoBackBtnFooter.vue';
 import UserInterest from '@/components/UserInterest.vue';
 import { mapActions, mapGetters, mapMutations } from 'vuex';
-import { buildSnackBarMessage } from '@/utils/commonUtils.js';
+import { buildSnackBarOption } from '@/utils/snackbarUtils.js';
 import { MESSAGE } from '@/utils/constant/message.js';
-import { isEmpty } from '@/utils/lodashUtils.js';
+import _ from '@/utils/lodashWrapper.js';
+import { COMMON, IS_LOADING, OPEN_SNACKBAR } from '@/store/type/common_type.js';
+import { POST_REGISTER, PROFILE, SELECTED_INTERESTS, SELECTED_LOCATION_SEQS, USER } from '@/store/type/user_type.js';
+import { MAIN_PATH, REGISTER } from '@/router/route_path_type.js';
 
 export default {
     name: 'RegisterInterest',
     components: { UserInterest, GoBackBtnFooter },
     computed: {
-        ...mapGetters('user', ['profile', 'selectedLocations', 'selectedInterests']),
-        ...mapGetters('common', ['isLoading']),
+        ...mapGetters(USER, [PROFILE, SELECTED_LOCATION_SEQS, [SELECTED_INTERESTS]]),
+        ...mapGetters(COMMON, { isLoading: IS_LOADING }),
     },
     created() {
-        if (isEmpty(this.profile)) {
-            this.$router.push('/register/profile');
+        if (_.isEmpty(this.profile)) {
+            this.$router.push(REGISTER.PROFILE_PATH);
             return;
         }
 
-        if (isEmpty(this.selectedLocations)) {
-            this.$router.push('/register/location');
+        if (_.isEmpty(this.selectedLocationSeqs)) {
+            this.$router.push(REGISTER.LOCATION_PATH);
         }
     },
     methods: {
-        ...mapActions('user', ['postRegister']),
-        ...mapMutations('common', ['openSnackBar']),
+        ...mapActions(USER, [POST_REGISTER]),
+        ...mapMutations(COMMON, [OPEN_SNACKBAR]),
         clickGoBtn() {
             const registerInfo = {
                 profile: this.profile,
-                selectedLocations: this.selectedLocations,
-                selectedInterests: this.selectedInterests,
+                selectedLocationSeqs: this[SELECTED_LOCATION_SEQS],
+                selectedInterests: this[SELECTED_INTERESTS],
             };
-            this.postRegister(registerInfo)
-                .then(() => this.$router.push('/main')
-                    .then(() => this.openSnackBar(buildSnackBarMessage(MESSAGE.SUCCESS_REGISTER))))
-                .catch(() => this.$router.push('/register')
-                    .then(() => this.openSnackBar(buildSnackBarMessage(MESSAGE.SERVER_INSTABILITY))));
+            this[POST_REGISTER](registerInfo)
+                .then(() => this.$router.push(MAIN_PATH)
+                    .then(() => this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.SUCCESS_REGISTER))))
+                .catch(() => this.$router.push(REGISTER.PROFILE_PATH)
+                    .then(() => this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.SERVER_INSTABILITY))));
         },
     },
 };
