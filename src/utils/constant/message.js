@@ -5,6 +5,7 @@ const MESSAGE = {
     SELECT_LOCATION_REQUIRE: '모임에 참여할 지역은 최소 1개 이상 선택해주세요.',
     SUCCESS_REGISTER: '회원가입 완료!',
     SELECT_LOCATION_OVER_COUNT: '관심지역은 최대 3개까지 선택할 수 있습니다.',
+    SELECT_INTEREST_OVER_COUNT: '관심사는 최대 5개까지 선택할 수 있습니다.',
 };
 
 export { MESSAGE };

@@ -1,0 +1,18 @@
+{
+  "id": "123123",
+  "properties": {
+    "nickname": "정준_ERIC",
+    "profile_image": "http://k.kakaocdn.net/dn/A1cab/btqGe6M1iji/MJsLWEwrqX72PLOtCxnCkk/img_640x640.jpg",
+    "thumbnail_image": "http://k.kakaocdn.net/dn/A1cab/btqGe6M1iji/MJsLWEwrqX72PLOtCxnCkk/img_110x110.jpg"
+  },
+  "kakao_account": {
+    "profile_needs_agreement": false,
+    "profile": {
+      "nickname": "정준_ERIC",
+      "thumbnail_image_url": "http://k.kakaocdn.net/dn/A1cab/btqGe6M1iji/MJsLWEwrqX72PLOtCxnCkk/img_110x110.jpg",
+      "profile_image_url": "http://k.kakaocdn.net/dn/A1cab/btqGe6M1iji/MJsLWEwrqX72PLOtCxnCkk/img_640x640.jpg"
+    },
+    "hasGender": false,
+    "gender_needs_agreement": false
+  }
+}

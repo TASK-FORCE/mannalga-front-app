@@ -61,7 +61,7 @@ import {
     ADD_SELECTED_LOCATION_SEQS, REMOVE_SELECTED_LOCATION_SEQS,
     SELECTED_LOCATION_SEQS, USER,
 } from '@/store/type/user_type.js';
-import { REQUEST_STATES, ROOT_STATES, TEMPLATE } from '@/store/type/template_type.js';
+import { REQUEST_STATE_TEMPLATE, ROOT_STATES, TEMPLATE } from '@/store/type/template_type.js';
 
 const MAXIMUM_SELECTABLE_COUNT = 3;
 
@@ -74,13 +74,13 @@ export default {
     },
     created() {
         if (_.isEmpty(this.rootStates)) {
-            this[REQUEST_STATES]()
+            this[REQUEST_STATE_TEMPLATE]()
                 .catch(() => this.$router.back()
                     .then(() => this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.SERVER_INSTABILITY))));
         }
     },
     methods: {
-        ...mapActions(TEMPLATE, [REQUEST_STATES]),
+        ...mapActions(TEMPLATE, [REQUEST_STATE_TEMPLATE]),
         ...mapMutations(COMMON, [OPEN_SNACKBAR]),
         ...mapMutations(USER, [REMOVE_SELECTED_LOCATION_SEQS, ADD_SELECTED_LOCATION_SEQS]),
         toggleLocation(targetStateSeq) {

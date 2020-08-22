@@ -1,35 +1,45 @@
-import { requestLocationTemplate } from '@/apis/template.js';
-import { CHANGE_LOADING, COMMON } from '@/store/type/common_type.js';
-import { REQUEST_STATES, SET_LOCATION_TEMPLATE, ROOT_STATES } from '@/store/type/template_type.js';
+import { requestInterestTemplate, requestLocationTemplate } from '@/apis/template.js';
+import { INTERESTS, REQUEST_INTEREST_TEMPLATE, REQUEST_STATE_TEMPLATE, ROOT_STATES, SET_INTEREST_TEMPLATE, SET_LOCATION_TEMPLATE } from '@/store/type/template_type.js';
+import { actionsLoadingTemplate } from '@/store/helper/helpler.js';
 
 const state = {
     [ROOT_STATES]: [],
+    [INTERESTS]: [],
 };
 
 const getters = {
     [ROOT_STATES](state) {
         return state[ROOT_STATES];
     },
+    [INTERESTS](state) {
+        return state[INTERESTS];
+    },
 };
 
 const mutations = {
     [SET_LOCATION_TEMPLATE](state, rootStates) {
-        state.rootStates = rootStates;
+        state[ROOT_STATES] = rootStates;
+    },
+    [SET_INTEREST_TEMPLATE](state, interests) {
+        state[INTERESTS] = interests;
     },
 };
 
 const actions = {
-    async [REQUEST_STATES]({ commit }) {
-        try {
-            commit(`${COMMON}/${CHANGE_LOADING}`, true, { root: true });
+    async [REQUEST_STATE_TEMPLATE]({ commit }) {
+        actionsLoadingTemplate(commit, async () => {
             const response = await requestLocationTemplate();
             const rootStates = response.data;
             commit(SET_LOCATION_TEMPLATE, rootStates);
-        } catch (e) {
-            console.warn(e);
-        } finally {
-            commit(`${COMMON}/${CHANGE_LOADING}`, false, { root: true });
-        }
+        });
+    },
+    async [REQUEST_INTEREST_TEMPLATE]({ commit }) {
+        console.log(REQUEST_INTEREST_TEMPLATE);
+        actionsLoadingTemplate(commit, async () => {
+            const response = await requestInterestTemplate();
+            const interests = response.data;
+            commit(SET_INTEREST_TEMPLATE, interests);
+        });
     },
 };
 

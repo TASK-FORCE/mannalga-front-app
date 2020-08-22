@@ -30,7 +30,8 @@
                               hide-details="auto"
                 ></v-text-field>
             </v-col>
-            <v-btn-toggle class="mt-5"
+            <v-btn-toggle v-if="profile.gender"
+                          class="mt-5"
                           mandatory
             >
                 <v-btn>
@@ -60,10 +61,10 @@ export default {
         ...mapGetters(USER, { profile: PROFILE }),
         ...mapGetters(COMMON, { isLoading: IS_LOADING }),
         profileImg() {
-            if (_.isEmpty(this.profile.img)) {
+            if (_.isEmpty(this.profile.imgUrl)) {
                 return require('../images/default_profile_img.png');
             }
-            return this.profile.img;
+            return this.profile.imgUrl;
         },
     },
     created() {

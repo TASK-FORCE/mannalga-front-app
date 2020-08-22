@@ -15,7 +15,7 @@ function requestKakaoToken(code) {
 
 function saveKakaoTokenAndGetAppToken(kakaoToken) {
     const requestDto = kakaoTokenBuilder.buildRequestDto(kakaoToken);
-    return axios.post('/users/saveKakaoToken', requestDto);
+    return axios.post('/api/users/saveKakaoToken', requestDto);
 }
 
 export {

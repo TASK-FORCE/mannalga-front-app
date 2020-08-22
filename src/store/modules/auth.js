@@ -27,7 +27,7 @@ const actions = {
             return dispatch(REQUEST_APP_TOKEN_BY_KAKAO_TOKEN, kakaoTokenInfo);
         } catch (e) {
             console.warn(e);
-            return e;
+            throw e;
         }
     },
     async [REQUEST_APP_TOKEN_BY_KAKAO_TOKEN]({ commit }, kakaoTokenInfo) {
@@ -39,7 +39,7 @@ const actions = {
         } catch (e) {
             console.warn(e);
             commit(REMOVE_APP_TOKEN);
-            return e;
+            throw e;
         }
     },
 };

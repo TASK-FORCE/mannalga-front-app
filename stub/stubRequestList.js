@@ -3,13 +3,16 @@
  */
 const STUB_REQUESTS = [
     {
-        path: '/locations',
+        path: '/api/states',
     },
     {
-        path: '/profile',
+        path: '/api/users/saveKakaoToken',
     },
     {
-        path: '/users/saveKakaoToken',
+        path: '/api/users/kakao-profile',
+    },
+    {
+        path: '/api/interestGroup/all',
     },
 ];
 

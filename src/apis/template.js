@@ -1,8 +1,14 @@
 import axios from 'axios';
-import { sleep } from '@/apis/delayUtil.js';
 
 function requestLocationTemplate() {
-    return sleep(1000).then(() => axios.get('/locations'));
+    return axios.get('/api/states');
 }
 
-export { requestLocationTemplate };
+function requestInterestTemplate() {
+    return axios.get('/api/interestGroup/all');
+}
+
+export {
+    requestLocationTemplate,
+    requestInterestTemplate,
+};

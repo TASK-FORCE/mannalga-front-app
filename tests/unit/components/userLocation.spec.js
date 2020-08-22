@@ -3,7 +3,7 @@ import Vuex from 'vuex';
 import sinon from 'sinon';
 import { expect } from 'chai';
 import UserLocation from '@/components/UserLocation.vue';
-import { DEFAULT_ROOT_STATES, REQUEST_STATES, ROOT_STATES } from '@/store/type/template_type.js';
+import { DEFAULT_ROOT_STATE, REQUEST_STATE_TEMPLATE, ROOT_STATES } from '@/store/type/template_type.js';
 import { IS_LOADING, OPEN_SNACKBAR } from '@/store/type/common_type.js';
 import { ADD_SELECTED_LOCATION_SEQS, REMOVE_SELECTED_LOCATION_SEQS, SELECTED_LOCATION_SEQS } from '@/store/type/user_type.js';
 
@@ -32,7 +32,7 @@ describe('UserLocation.vue', () => {
             [ROOT_STATES]: sinon.stub(),
         };
         templateActions = {
-            [REQUEST_STATES]: sinon.stub(),
+            [REQUEST_STATE_TEMPLATE]: sinon.stub(),
         };
         commonMutations = {
             [OPEN_SNACKBAR]: sinon.spy(),
@@ -77,13 +77,13 @@ describe('UserLocation.vue', () => {
         shallowMount(UserLocation, options);
 
         // then
-        expect(templateActions[REQUEST_STATES].calledOnce).to.be.true;
+        expect(templateActions[REQUEST_STATE_TEMPLATE].calledOnce).to.be.true;
     });
 
     it('랜딩 시 지역 정보가 존재하지 않아 지역 정보를 요청했을 때 에러가 발생하면 이전 페이지로 라우팅 된 후 스낵바가 나타난다.', async () => {
         // given
         templateGetters[ROOT_STATES].returns([]);
-        templateActions[REQUEST_STATES].returns(Promise.reject());
+        templateActions[REQUEST_STATE_TEMPLATE].returns(Promise.reject());
         $router.back.returns(Promise.resolve());
 
         // when
@@ -92,7 +92,7 @@ describe('UserLocation.vue', () => {
         await wrapper.vm.$nextTick();
 
         // then
-        expect(templateActions[REQUEST_STATES].calledOnce).to.be.true;
+        expect(templateActions[REQUEST_STATE_TEMPLATE].calledOnce).to.be.true;
         expect($router.back.calledOnce).to.be.true;
         expect(commonMutations[OPEN_SNACKBAR].calledOnce).to.be.true;
     });
@@ -100,7 +100,7 @@ describe('UserLocation.vue', () => {
     it('toggleLocation이 호출될 때 SelectedLocationSeq에 존재한다면 해당 Location을 제거한다.', () => {
         // given
         const targetLocationSeq = 1;
-        templateGetters[ROOT_STATES].returns([DEFAULT_ROOT_STATES]);
+        templateGetters[ROOT_STATES].returns([DEFAULT_ROOT_STATE]);
         userGetters[SELECTED_LOCATION_SEQS].returns([targetLocationSeq]);
 
         // when
@@ -116,7 +116,7 @@ describe('UserLocation.vue', () => {
         global.window = {
             scrollTo: sinon.spy(),
         };
-        templateGetters[ROOT_STATES].returns([DEFAULT_ROOT_STATES]);
+        templateGetters[ROOT_STATES].returns([DEFAULT_ROOT_STATE]);
         userGetters[SELECTED_LOCATION_SEQS].returns([1, 2, 3]);
 
         // when
@@ -130,7 +130,7 @@ describe('UserLocation.vue', () => {
 
     it('toggleLocation이 호출될 때 SelectedLocationSeq에 존재하지 않으면 추가한다.', () => {
         // given
-        templateGetters[ROOT_STATES].returns([DEFAULT_ROOT_STATES]);
+        templateGetters[ROOT_STATES].returns([DEFAULT_ROOT_STATE]);
         userGetters[SELECTED_LOCATION_SEQS].returns([1, 2]);
 
         // when
