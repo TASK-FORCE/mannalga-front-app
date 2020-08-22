@@ -1,13 +1,13 @@
-import { postRegister, requestProfile } from '@/apis/user.js';
+import { postRegister, requestProfile, requestRegisterStatus } from '@/apis/user.js';
 import { CHANGE_LOADING, COMMON } from '@/store/type/common_type.js';
 import {
     ADD_SELECTED_INTEREST_SEQS,
     ADD_SELECTED_LOCATION_SEQS, CHANGE_PROFILE_NAME, DEFAULT_PROFILE, POST_REGISTER, PROFILE,
-    REMOVE_SELECTED_LOCATION_SEQS, REQUEST_PROFILE, SELECTED_INTEREST_SEQS, SELECTED_LOCATION_SEQS, SET_PROFILE,
+    REMOVE_SELECTED_LOCATION_SEQS, REQUEST_PROFILE, REQUEST_REGISTER_STATUS, SELECTED_INTEREST_SEQS, SELECTED_LOCATION_SEQS, SET_PROFILE,
 } from '@/store/type/user_type.js';
 import { userBuilder } from '@/utils/builder/builder.js';
 import { REQUEST_INTEREST_TEMPLATE } from '@/store/type/template_type.js';
-import { actionsLoadingTemplate } from '@/store/helper/helpler.js';
+import { actionsLoadingTemplate } from '@/store/helper/helper.js';
 
 const state = {
     [PROFILE]: DEFAULT_PROFILE,
@@ -60,6 +60,12 @@ const actions = {
         return actionsLoadingTemplate(commit, async () => {
             const response = await postRegister(registerRequestDto);
             return response.state === 200 ? Promise.resolve() : Promise.reject();
+        });
+    },
+    async [REQUEST_REGISTER_STATUS]({ commit }, appToken) {
+        return actionsLoadingTemplate(commit, async () => {
+            const response = await requestRegisterStatus(appToken);
+            return response.data.isRegistered;
         });
     },
 };

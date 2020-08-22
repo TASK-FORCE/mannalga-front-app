@@ -31,7 +31,8 @@ module.exports = {
                         data: req.body,
                     };
                     const result = await axios.request(requestOption);
-                    res.send(result.data);
+                    res.status(result.status)
+                        .send(result.data);
                     return;
                 }
 

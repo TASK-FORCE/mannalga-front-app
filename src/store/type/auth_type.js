@@ -2,6 +2,7 @@ export const AUTH = 'auth';
 
 // state & getters
 export const APP_TOKEN = 'appToken';
+export const IS_AUTH = 'isAuth';
 
 // mutations
 export const SET_APP_TOKEN = 'setAppToken';

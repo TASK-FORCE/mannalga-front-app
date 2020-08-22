@@ -27,3 +27,4 @@ export const ADD_SELECTED_INTEREST_SEQS = 'addSelectedInterestSeqs';
 // actions
 export const REQUEST_PROFILE = 'requestProfile';
 export const POST_REGISTER = 'postRegister';
+export const REQUEST_REGISTER_STATUS = 'requestRegisterStatus';

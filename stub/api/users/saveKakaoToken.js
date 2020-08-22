@@ -5,7 +5,7 @@ module.exports = {
         const { access_token } = req.body;
         return {
             appToken: access_token,
-            isFirst: true,
+            isRegistered: false,
         };
     },
     put() {

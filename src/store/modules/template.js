@@ -1,6 +1,6 @@
 import { requestInterestTemplate, requestLocationTemplate } from '@/apis/template.js';
 import { INTERESTS, REQUEST_INTEREST_TEMPLATE, REQUEST_STATE_TEMPLATE, ROOT_STATES, SET_INTEREST_TEMPLATE, SET_LOCATION_TEMPLATE } from '@/store/type/template_type.js';
-import { actionsLoadingTemplate } from '@/store/helper/helpler.js';
+import { actionsLoadingTemplate } from '@/store/helper/helper.js';
 
 const state = {
     [ROOT_STATES]: [],
@@ -34,7 +34,6 @@ const actions = {
         });
     },
     async [REQUEST_INTEREST_TEMPLATE]({ commit }) {
-        console.log(REQUEST_INTEREST_TEMPLATE);
         actionsLoadingTemplate(commit, async () => {
             const response = await requestInterestTemplate();
             const interests = response.data;

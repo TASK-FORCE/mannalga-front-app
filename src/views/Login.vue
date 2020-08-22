@@ -24,13 +24,14 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from 'vuex';
+import { mapActions, mapMutations, mapGetters } from 'vuex';
 import { moveToKakaoLoginPage } from '@/utils/kakao/utlls.js';
 import { buildSnackBarOption } from '@/utils/snackbarUtils.js';
 import { MESSAGE } from '@/utils/constant/message.js';
 import { COMMON, OPEN_SNACKBAR } from '@/store/type/common_type.js';
-import { AUTH, REQUEST_KAKAO_TOKEN_BY_CODE } from '@/store/type/auth_type.js';
+import { APP_TOKEN, AUTH, IS_AUTH, REQUEST_KAKAO_TOKEN_BY_CODE } from '@/store/type/auth_type.js';
 import { MAIN_PATH, REGISTER } from '@/router/route_path_type.js';
+import { REQUEST_REGISTER_STATUS, USER } from '@/store/type/user_type.js';
 
 export default {
     name: 'Login',
@@ -40,6 +41,7 @@ export default {
         };
     },
     computed: {
+        ...mapGetters(AUTH, [IS_AUTH, APP_TOKEN]),
         code() {
             return this.$route.query.code;
         },
@@ -50,17 +52,34 @@ export default {
     created() {
         if (this.validationFail) {
             this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.LOGIN_REQUIRE));
+            return;
         }
+
+        if (this[IS_AUTH]) {
+            this.requestTemplateWithLoading(
+                async () => {
+                    const isRegistered = await this[REQUEST_REGISTER_STATUS](this[APP_TOKEN]);
+                    isRegistered ? this.$router.push(MAIN_PATH) : this.$router.push(REGISTER.PROFILE_PATH);
+                },
+            );
+        }
+
         if (this.code) {
-            this.startLoading();
-            this[REQUEST_KAKAO_TOKEN_BY_CODE](this.code)
-                .then(isFirstIssue => (isFirstIssue ? this.$router.push(REGISTER.PROFILE_PATH) : this.$router.push(MAIN_PATH)))
-                .catch(() => this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.LOGIN_FAIL)))
-                .finally(() => this.endLoading());
+            this.requestTemplateWithLoading(
+                async () => {
+                    try {
+                        const isRegistered = await this[REQUEST_KAKAO_TOKEN_BY_CODE](this.code);
+                        isRegistered ? this.$router.push(MAIN_PATH) : this.$router.push(REGISTER.PROFILE_PATH);
+                    } catch (e) {
+                        this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.LOGIN_FAIL));
+                    }
+                },
+            );
         }
     },
     methods: {
         ...mapActions(AUTH, [REQUEST_KAKAO_TOKEN_BY_CODE]),
+        ...mapActions(USER, [REQUEST_REGISTER_STATUS]),
         ...mapMutations(COMMON, [OPEN_SNACKBAR]),
         login() {
             this.startLoading();
@@ -71,6 +90,10 @@ export default {
         },
         endLoading() {
             this.loading = false;
+        },
+        requestTemplateWithLoading(callback) {
+            this.startLoading();
+            callback().finally(() => this.endLoading());
         },
     },
 };
