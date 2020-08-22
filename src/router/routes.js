@@ -1,8 +1,9 @@
-import { isAuth } from '@/utils/authUtils.js';
+import store from '@/store/index.js';
 import { LOGIN_PATH, REGISTER } from '@/router/route_path_type.js';
+import { AUTH, IS_AUTH } from '@/store/type/auth_type.js';
 
 function validationAuthentication(to, from, next) {
-    if (isAuth()) {
+    if (store.getters[`${AUTH}/${IS_AUTH}`]) {
         next();
     } else {
         next(`${LOGIN_PATH}?validationFail=true`);

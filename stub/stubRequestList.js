@@ -14,6 +14,9 @@ const STUB_REQUESTS = [
     {
         path: '/api/interestGroup/all',
     },
+    {
+        path: '/api/users/regist',
+    },
 ];
 
 module.exports = STUB_REQUESTS;

@@ -55,7 +55,7 @@ export default {
             return;
         }
 
-        if (this[IS_AUTH]) {
+        if (this[IS_AUTH] && false) {
             this.requestTemplateWithLoading(
                 async () => {
                     const isRegistered = await this[REQUEST_REGISTER_STATUS](this[APP_TOKEN]);

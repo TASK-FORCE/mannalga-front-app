@@ -59,7 +59,7 @@ const actions = {
     async [POST_REGISTER]({ commit }, registerRequestDto) {
         return actionsLoadingTemplate(commit, async () => {
             const response = await postRegister(registerRequestDto);
-            return response.state === 200 ? Promise.resolve() : Promise.reject();
+            return response.status === 200 ? Promise.resolve() : Promise.reject();
         });
     },
     async [REQUEST_REGISTER_STATUS]({ commit }, appToken) {

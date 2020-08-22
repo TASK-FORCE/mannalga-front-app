@@ -1,17 +1,17 @@
+import axios from 'axios';
 import { requestKakaoToken, saveKakaoTokenAndGetAppToken } from '@/apis/login.js';
-import { getAccessToken, removeAppTokenToLocalStorage, saveAppTokenToLocalStorage } from '@/utils/authUtils.js';
+import { getAppToken, removeAppTokenToLocalStorage, saveAppTokenToLocalStorage, setAppTokenAsDefaultHeader } from '@/utils/authUtils.js';
 import { APP_TOKEN, IS_AUTH, REMOVE_APP_TOKEN, REQUEST_APP_TOKEN_BY_KAKAO_TOKEN, REQUEST_KAKAO_TOKEN_BY_CODE, SET_APP_TOKEN } from '@/store/type/auth_type.js';
 import _ from '@/utils/lodashWrapper.js';
 import { actionsNormalTemplate } from '@/store/helper/helper.js';
 
 const state = {
-    [APP_TOKEN]: getAccessToken(),
+    [APP_TOKEN]: getAppToken(),
 };
 
 const getters = {
     [IS_AUTH](state) {
-        // return _.isNotEmpty(state[APP_TOKEN]);
-        return _.isNotEmpty(undefined);
+        return _.isNotEmpty(state[APP_TOKEN]);
     },
     [APP_TOKEN](state) {
         return state[APP_TOKEN];
@@ -22,6 +22,7 @@ const mutations = {
     [SET_APP_TOKEN](state, appToken) {
         state[APP_TOKEN] = appToken;
         saveAppTokenToLocalStorage(appToken);
+        setAppTokenAsDefaultHeader(axios.defaults.headers);
     },
     [REMOVE_APP_TOKEN](state) {
         state[APP_TOKEN] = '';
