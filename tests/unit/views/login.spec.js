@@ -3,7 +3,7 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuex from 'vuex';
 import sinon from 'sinon';
 import Login from '@/views/Login.vue';
-import { MESSAGE } from '@/utils/constant/message.js';
+import { MESSAGE } from '@/utils/constant/constant.js';
 import { buildSnackBarOption } from '@/utils/snackbarUtils.js';
 import { OPEN_SNACKBAR } from '@/store/type/common_type.js';
 import { REQUEST_KAKAO_TOKEN_BY_CODE } from '@/store/type/auth_type.js';

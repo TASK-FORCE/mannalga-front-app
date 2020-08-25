@@ -4,7 +4,7 @@ import Vuex from 'vuex';
 import sinon from 'sinon';
 import { OPEN_SNACKBAR } from '@/store/type/common_type.js';
 import { REGISTER } from '@/router/route_path_type.js';
-import { DEFAULT_PROFILE, PROFILE, SELECTED_LOCATION_SEQS } from '@/store/type/user_type.js';
+import { DEFAULT_PROFILE, PROFILE, SELECTED_LOCATIONS } from '@/store/type/user_type.js';
 import RegisterLocation from '@/views/register/RegisterLocation.vue';
 
 const localVue = createLocalVue();
@@ -20,7 +20,7 @@ describe('RegisterLocation.vue', () => {
     beforeEach(() => {
         getters = {
             [PROFILE]: sinon.stub(),
-            [SELECTED_LOCATION_SEQS]: sinon.stub(),
+            [SELECTED_LOCATIONS]: sinon.stub(),
         };
         mutations = {
             [OPEN_SNACKBAR]: sinon.spy(),
@@ -62,7 +62,7 @@ describe('RegisterLocation.vue', () => {
 
     it('Go Btn 클릭 시 선택된 지역이 하나도 없다면 Snackbar를 호출한다.', () => {
         // given
-        getters[SELECTED_LOCATION_SEQS].returns([]);
+        getters[SELECTED_LOCATIONS].returns([]);
 
         // when
         const wrapper = shallowMount(RegisterLocation, options);
@@ -74,7 +74,7 @@ describe('RegisterLocation.vue', () => {
 
     it('Go Btn 클릭 시 선택된 지역이 존재하면 관심사 페이지로 라우팅된다.', () => {
         // given
-        getters[SELECTED_LOCATION_SEQS].returns([{}, {}]);
+        getters[SELECTED_LOCATIONS].returns([{}, {}]);
 
         // when
         const wrapper = shallowMount(RegisterLocation, options);

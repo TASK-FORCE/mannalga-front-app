@@ -9,3 +9,4 @@ export const REGISTER = {
     INTEREST_PATH: '/register/interest',
 };
 export const MAIN_PATH = '/main';
+export const SELECT_LOCATION_PATH = '/select/location';

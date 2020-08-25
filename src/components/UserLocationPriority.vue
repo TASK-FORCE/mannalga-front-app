@@ -1,0 +1,66 @@
+<template>
+    <div class="absolute-center text-center w-100">
+        <div class="text-center mb-7">
+            모임에 참여할 지역을 선택 해주세요. <br>
+            (원하는 지역은 <b>최대 3개까지</b> 가능합니다)
+        </div>
+        <div v-for="priority in prioritySize"
+             :key="priority"
+        >
+            <v-btn outlined
+                   width="150"
+                   height="30"
+                   class="mt-5 mb-5"
+                   :color="getColor(priority)"
+                   @click="clickBtn(priority)"
+                   v-text="getText(priority)"
+            >
+            </v-btn>
+        </div>
+    </div>
+</template>
+
+<script>
+import { COLOR } from '@/utils/constant/constant.js';
+import { SELECT_LOCATION_PATH } from '@/router/route_path_type.js';
+import { mapGetters } from 'vuex';
+import { SELECTED_LOCATIONS, USER } from '@/store/type/user_type.js';
+
+export default {
+    name: 'UserLocationPriority',
+    data() {
+        return {
+            prioritySize: 3,
+        };
+    },
+    computed: {
+        ...mapGetters(USER, { selectedLocations: SELECTED_LOCATIONS }),
+    },
+    methods: {
+        getColor(priority) {
+            if (this.selectedLocations[priority]) {
+                return COLOR.SELECTED;
+            }
+            return COLOR.NOT_SELECTED;
+        },
+        getText(priority) {
+            if (this.selectedLocations[priority]) {
+                return this.selectedLocations[priority].name;
+            }
+            return `우선순위 ${priority}`;
+        },
+        clickBtn(priority) {
+            this.$router.push(`${SELECT_LOCATION_PATH}?priority=${priority}`);
+        },
+    },
+};
+</script>
+
+<style scoped>
+.absolute-center {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+}
+</style>

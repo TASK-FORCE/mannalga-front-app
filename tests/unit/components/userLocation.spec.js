@@ -5,7 +5,7 @@ import { expect } from 'chai';
 import UserLocation from '@/components/UserLocation.vue';
 import { DEFAULT_ROOT_STATE, REQUEST_STATE_TEMPLATE, ROOT_STATES } from '@/store/type/template_type.js';
 import { IS_LOADING, OPEN_SNACKBAR } from '@/store/type/common_type.js';
-import { ADD_SELECTED_LOCATION_SEQS, REMOVE_SELECTED_LOCATION_SEQS, SELECTED_LOCATION_SEQS } from '@/store/type/user_type.js';
+import { ADD_SELECTED_LOCATIONS, SELECTED_LOCATIONS } from '@/store/type/user_type.js';
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
@@ -22,11 +22,10 @@ describe('UserLocation.vue', () => {
 
     beforeEach(() => {
         userGetters = {
-            [SELECTED_LOCATION_SEQS]: sinon.stub(),
+            [SELECTED_LOCATIONS]: sinon.stub(),
         };
         userMutations = {
-            [ADD_SELECTED_LOCATION_SEQS]: sinon.spy(),
-            [REMOVE_SELECTED_LOCATION_SEQS]: sinon.spy(),
+            [ADD_SELECTED_LOCATIONS]: sinon.spy(),
         };
         templateGetters = {
             [ROOT_STATES]: sinon.stub(),
@@ -101,14 +100,14 @@ describe('UserLocation.vue', () => {
         // given
         const targetLocationSeq = 1;
         templateGetters[ROOT_STATES].returns([DEFAULT_ROOT_STATE]);
-        userGetters[SELECTED_LOCATION_SEQS].returns([targetLocationSeq]);
+        userGetters[SELECTED_LOCATIONS].returns([targetLocationSeq]);
 
         // when
         const wrapper = shallowMount(UserLocation, options);
         wrapper.vm.toggleLocation(targetLocationSeq);
 
         // then
-        expect(userMutations[REMOVE_SELECTED_LOCATION_SEQS].calledOnce).to.be.true;
+        expect(false).to.be.true;
     });
 
     it('toggleLocation이 호출될 때 SelectedLocationSeq가 이미 최대 갯수를 초과했다면 스낵바를 보여주고 최상단으로 스크롤 한다.', () => {
@@ -117,7 +116,7 @@ describe('UserLocation.vue', () => {
             scrollTo: sinon.spy(),
         };
         templateGetters[ROOT_STATES].returns([DEFAULT_ROOT_STATE]);
-        userGetters[SELECTED_LOCATION_SEQS].returns([1, 2, 3]);
+        userGetters[SELECTED_LOCATIONS].returns([1, 2, 3]);
 
         // when
         const wrapper = shallowMount(UserLocation, options);
@@ -131,13 +130,13 @@ describe('UserLocation.vue', () => {
     it('toggleLocation이 호출될 때 SelectedLocationSeq에 존재하지 않으면 추가한다.', () => {
         // given
         templateGetters[ROOT_STATES].returns([DEFAULT_ROOT_STATE]);
-        userGetters[SELECTED_LOCATION_SEQS].returns([1, 2]);
+        userGetters[SELECTED_LOCATIONS].returns([1, 2]);
 
         // when
         const wrapper = shallowMount(UserLocation, options);
         wrapper.vm.toggleLocation(4);
 
         // then
-        expect(userMutations[ADD_SELECTED_LOCATION_SEQS].calledOnce).to.be.true;
+        expect(userMutations[ADD_SELECTED_LOCATIONS].calledOnce).to.be.true;
     });
 });
