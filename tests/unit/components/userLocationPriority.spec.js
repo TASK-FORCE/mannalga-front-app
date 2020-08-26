@@ -52,7 +52,8 @@ describe('UserLocationPriority.vue', () => {
 
     it('priority와 매칭되는 selectedLocation이 존재하면 getColor는 green을 반환한다.', () => {
         // given
-        getters[SELECTED_LOCATIONS].returns({ 1: 'value' });
+        const selectedLocations = { 1: { name: '서울시/천호동' } };
+        getters[SELECTED_LOCATIONS].returns(selectedLocations);
 
         // when
         const wrapper = shallowMount(UserLocationPriority, options);
@@ -64,7 +65,8 @@ describe('UserLocationPriority.vue', () => {
 
     it('priority와 매칭되는 selectedLocation이 존재하지 않으면 getColor는 black을 반환한다.', () => {
         // given
-        getters[SELECTED_LOCATIONS].returns({ 1: 'value' });
+        const selectedLocations = { 1: { name: '서울시/천호동' } };
+        getters[SELECTED_LOCATIONS].returns(selectedLocations);
 
         // when
         const wrapper = shallowMount(UserLocationPriority, options);
@@ -74,7 +76,7 @@ describe('UserLocationPriority.vue', () => {
         expect(color).to.be.equals('black');
     });
 
-    it('priority와 매칭되는 selectedLocation이 존재하면 getText는 선택된 location의 정보를 반환한다.', () => {
+    it('priority와 매칭되는 selectedLocation이 존재하면 getText는 선택된 location의 name을 반환한다.', () => {
         // given
         const selectedLocations = { 1: { name: '서울시/천호동' } };
         getters[SELECTED_LOCATIONS].returns(selectedLocations);
@@ -87,9 +89,23 @@ describe('UserLocationPriority.vue', () => {
         expect(text).to.be.equals(selectedLocations[1].name);
     });
 
+    it('priority와 매칭되는 selectedLocation이 존재하면 getText는 선택된 location의 name이 겹치면 잘라서 반환한다.', () => {
+        // given
+        const selectedLocations = { 1: { name: '세종특별자치시/세종특별자치시' } };
+        getters[SELECTED_LOCATIONS].returns(selectedLocations);
+
+        // when
+        const wrapper = shallowMount(UserLocationPriority, options);
+        const text = wrapper.vm.getText(1);
+
+        // then
+        expect(text).to.be.equals('세종특별자치시');
+    });
+
     it('priority와 매칭되는 selectedLocation이 존재하지 않으면 getText는 우선순위를 반환한다.', () => {
         // given
-        getters[SELECTED_LOCATIONS].returns({ 1: 'value' });
+        const selectedLocations = { 1: { name: '서울시/천호동' } };
+        getters[SELECTED_LOCATIONS].returns(selectedLocations);
 
         // when
         const wrapper = shallowMount(UserLocationPriority, options);

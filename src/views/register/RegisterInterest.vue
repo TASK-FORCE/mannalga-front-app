@@ -48,7 +48,7 @@ export default {
                 .then(() => this.$router.push(MAIN_PATH)
                     .then(() => this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.SUCCESS_REGISTER))))
                 .catch(() => this.$router.push(REGISTER.PROFILE_PATH)
-                    .then(() => this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.constant))));
+                    .then(() => this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.SERVER_INSTABILITY))));
         },
     },
 };

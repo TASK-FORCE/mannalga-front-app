@@ -54,7 +54,7 @@ export default {
         if (_.isEmpty(this[INTERESTS])) {
             this[REQUEST_INTEREST_TEMPLATE]()
                 .catch(() => this.$router.back()
-                    .then(() => this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.constant))));
+                    .then(() => this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.SERVER_INSTABILITY))));
         }
     },
     methods: {

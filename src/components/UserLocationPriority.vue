@@ -45,7 +45,12 @@ export default {
         },
         getText(priority) {
             if (this.selectedLocations[priority]) {
-                return this.selectedLocations[priority].name;
+                const { name } = this.selectedLocations[priority];
+                const split = name.split('/');
+                if (split.length === 2 && split[0] === split[1]) {
+                    return split[0];
+                }
+                return name;
             }
             return `우선순위 ${priority}`;
         },

@@ -3,7 +3,7 @@
         <div v-if="selectedLocations[priority]"
              class="text-center"
         >
-            이전에 선택한 지역: {{selectedLocations[priority].name}}
+            이전에 선택한 지역: {{ selectedLocations[priority].name }}
         </div>
         <v-list>
             <v-list-group v-for="rootState in rootStates"
@@ -19,6 +19,7 @@
                 <v-list-item
                     v-for="subState in rootState.subStates"
                     :key="subState.seq"
+                    :disabled="alreadySelected(subState.seq)"
                     @click="toggleLocation(subState)"
                 >
                     <v-list-item-content>
@@ -53,7 +54,7 @@ export default {
         if (_.isEmpty(this.rootStates)) {
             this[REQUEST_STATE_TEMPLATE]()
                 .catch(() => this.$router.back()
-                    .then(() => this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.constant))));
+                    .then(() => this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.SERVER_INSTABILITY))));
         }
     },
     mounted() {
@@ -73,6 +74,14 @@ export default {
             };
             this[ADD_SELECTED_LOCATIONS](selectedLocation);
             this.$router.back();
+        },
+        alreadySelected(seq) {
+            for (const location of Object.values(this[SELECTED_LOCATIONS])) {
+                if (seq === location.seq) {
+                    return true;
+                }
+            }
+            return false;
         },
     },
 };
