@@ -6,6 +6,7 @@ import { OPEN_SNACKBAR } from '@/store/type/common_type.js';
 import { REGISTER } from '@/router/route_path_type.js';
 import { DEFAULT_PROFILE, PROFILE, SELECTED_LOCATIONS } from '@/store/type/user_type.js';
 import RegisterLocation from '@/views/register/RegisterLocation.vue';
+import { REQUEST_STATE_TEMPLATE, ROOT_STATES } from '@/store/type/template_type.js';
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
@@ -34,6 +35,15 @@ describe('RegisterLocation.vue', () => {
                 common: {
                     namespaced: true,
                     mutations,
+                },
+                template: {
+                    namespaced: true,
+                    getters: {
+                        [ROOT_STATES]: sinon.spy(),
+                    },
+                    actions: {
+                        [REQUEST_STATE_TEMPLATE]: sinon.spy(),
+                    },
                 },
             },
         });

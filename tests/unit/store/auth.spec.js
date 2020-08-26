@@ -25,29 +25,17 @@ describe('actions', () => {
             const response = {
                 data: {
                     appToken: 'appToken',
-                    isFirst: true,
+                    isRegistered: true,
                 },
             };
             saveKakaoTokenAndGetAppToken.withArgs(kakaoTokenInfo).returns(response);
 
             // when
-            const isFirstIssue = await actions[REQUEST_APP_TOKEN_BY_KAKAO_TOKEN]({ commit }, kakaoTokenInfo);
+            const isRegistered = await actions[REQUEST_APP_TOKEN_BY_KAKAO_TOKEN]({ commit }, kakaoTokenInfo);
 
             // then
             expect(commit.withArgs(SET_APP_TOKEN, response.data.appToken).calledOnce).to.be.true;
-            expect(isFirstIssue).to.be.equal(response.data.isFirst);
-        });
-
-        it('requestAppTokenByKakaoToken 예외 발생', async () => {
-            // given
-            saveKakaoTokenAndGetAppToken.withArgs(kakaoTokenInfo).throws('name');
-
-            // when
-            const { name } = await actions[REQUEST_APP_TOKEN_BY_KAKAO_TOKEN]({ commit }, kakaoTokenInfo);
-
-            // then
-            expect(commit.withArgs(REMOVE_APP_TOKEN).calledOnce).to.be.true;
-            expect(name).to.be.equal('name');
+            expect(isRegistered).to.be.equal(response.data.isRegistered);
         });
     });
 

@@ -64,8 +64,7 @@ export default {
         toggleInterest(targetSeq) {
             const toBeDeletedIndex = _.findIndex(this[SELECTED_INTEREST_SEQS], seq => seq === targetSeq);
             if (toBeDeletedIndex >= 0) {
-                this[
-                    REMOVE_SELECTED_INTEREST_SEQS](toBeDeletedIndex);
+                this[REMOVE_SELECTED_INTEREST_SEQS](toBeDeletedIndex);
                 return;
             }
 

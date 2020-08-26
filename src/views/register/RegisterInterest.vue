@@ -30,7 +30,7 @@ export default {
         ...mapGetters(USER, [PROFILE, SELECTED_LOCATIONS, [SELECTED_INTEREST_SEQS]]),
     },
     created() {
-        if (_.isEmpty(this[PROFILE])) {
+        if (_.isDeepEmpty(this[PROFILE])) {
             this.$router.push(REGISTER.PROFILE_PATH);
             return;
         }
