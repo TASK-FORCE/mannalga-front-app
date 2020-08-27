@@ -1,0 +1,100 @@
+[
+  {
+    "name": "아웃도어/여행",
+    "groupSeq": 1,
+    "interestList": [
+      {
+        "seq": 1,
+        "name": "해외여행"
+      },
+      {
+        "seq": 2,
+        "name": "국내여행"
+      },
+      {
+        "seq": 3,
+        "name": "당일치기"
+      }
+    ]
+  },
+  {
+    "name": "운동/스포츠",
+    "groupSeq": 2,
+    "interestList": [
+      {
+        "seq": 4,
+        "name": "자전거"
+      },
+      {
+        "seq": 5,
+        "name": "볼링"
+      },
+      {
+        "seq": 6,
+        "name": "배드민"
+      },
+      {
+        "seq": 7,
+        "name": "헬스"
+      },
+      {
+        "seq": 8,
+        "name": "크로스핏"
+      }
+    ]
+  },
+  {
+    "name": "인문학/책/글",
+    "groupSeq": 3,
+    "interestList": [
+      {
+        "seq": 9,
+        "name": "책읽기"
+      },
+      {
+        "seq": 10,
+        "name": "시 감상"
+      }
+    ]
+  },
+  {
+    "name": "외국/언어",
+    "groupSeq": 4,
+    "interestList": [
+      {
+        "seq": 11,
+        "name": "영어"
+      },
+      {
+        "seq": 12,
+        "name": "독일"
+      },
+      {
+        "seq": 13,
+        "name": "일본거"
+      }
+    ]
+  },
+  {
+    "name": "문화/공연/축제",
+    "groupSeq": 5,
+    "interestList": [
+      {
+        "seq": 14,
+        "name": "콘서트"
+      },
+      {
+        "seq": 15,
+        "name": "클래식"
+      },
+      {
+        "seq": 16,
+        "name": "오페라"
+      },
+      {
+        "seq": 17,
+        "name": "재즈"
+      }
+    ]
+  }
+]

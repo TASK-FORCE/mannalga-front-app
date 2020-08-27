@@ -1,15 +1,19 @@
 import axios from 'axios';
-import { sleep } from '@/apis/delayUtil.js';
 
 function requestProfile() {
-    return sleep(500).then(() => axios.get('/profile'));
+    return axios.get('/api/users/kakao-profile');
 }
 
-function postRegister(registerInfo) {
-    return sleep(500).then(() => axios.post('/register', registerInfo));
+function postRegister(registerRequestDto) {
+    return axios.post('/api/users/regist', registerRequestDto);
+}
+
+function requestRegisterStatus(appToken) {
+    return axios.get('/api/users/registStatus', { params: appToken });
 }
 
 export {
     requestProfile,
     postRegister,
+    requestRegisterStatus,
 };

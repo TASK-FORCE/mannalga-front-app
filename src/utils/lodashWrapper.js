@@ -24,10 +24,13 @@ const findIndex = (array, predicate) => _.findIndex(array, predicate);
 
 const isEqual = (value, other) => _.isEqual(value, other);
 
+const cloneDeep = (value) => _.cloneDeep(value);
+
 export default {
     isEmpty,
     isEqual,
     findIndex,
     isNotEmpty,
     isDeepEmpty,
+    cloneDeep,
 };

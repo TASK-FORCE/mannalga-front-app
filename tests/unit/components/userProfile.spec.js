@@ -3,10 +3,7 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuex from 'vuex';
 import sinon from 'sinon';
 import UserProfile from '@/components/UserProfile.vue';
-import {
-    CHANGE_PROFILE_NAME, DEFAULT_PROFILE,
-    PROFILE, REQUEST_PROFILE,
-} from '@/store/type/user_type.js';
+import { CHANGE_PROFILE_NAME, DEFAULT_PROFILE, PROFILE, REQUEST_PROFILE, } from '@/store/type/user_type.js';
 import { LOGIN_PATH } from '@/router/route_path_type.js';
 
 const localVue = createLocalVue();

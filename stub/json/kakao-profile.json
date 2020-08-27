@@ -1,0 +1,18 @@
+{
+  "id": "123123",
+  "properties": {
+    "nickname": "홍길동",
+    "profile_image": "",
+    "thumbnail_image": ""
+  },
+  "kakao_account": {
+    "profile_needs_agreement": false,
+    "profile": {
+      "nickname": "홍길동",
+      "thumbnail_image_url": "",
+      "profile_image_url": ""
+    },
+    "hasGender": false,
+    "gender_needs_agreement": false
+  }
+}

@@ -4,69 +4,75 @@
             관심사를 선택 해주세요. <br>
             (원하는 관심사는 최대 5개까지 가능합니다)
         </div>
-        <div v-for="interestCategory in interestCategories"
-             :key="interestCategory.mainCategory"
+        <div v-for="interest in interests"
+             :key="interest.groupSeq"
              class="mt-3"
         >
             <v-icon>mdi-music-circle-outline</v-icon>
-            {{interestCategory.mainCategory}}
+            {{interest.name}}
             <br>
-            <v-btn v-for="(subCategory, index) in interestCategory.subCategories"
-                   :key="subCategory"
-                   :class="include(index, interestCategory.id)"
+            <v-btn v-for="{seq, name} in interest.interestList"
+                   :key="seq"
                    outlined
+                   :class="isInclude(seq)"
                    class="ma-1"
                    small
-                   @click="toggleInterest(index, interestCategory.id)"
+                   @click="toggleInterest(seq)"
             >
-                {{subCategory}}
+                {{name}}
             </v-btn>
         </div>
     </div>
 </template>
 
 <script>
+import { INTERESTS, REQUEST_INTEREST_TEMPLATE, TEMPLATE } from '@/store/type/template_type.js';
+import { mapActions, mapMutations, mapGetters } from 'vuex';
+import _ from '@/utils/lodashWrapper.js';
+import { COMMON, OPEN_SNACKBAR } from '@/store/type/common_type.js';
+import { buildSnackBarOption } from '@/utils/snackbarUtils.js';
+import { MESSAGE } from '@/utils/constant/message.js';
+import { ADD_SELECTED_INTEREST_SEQS, REMOVE_SELECTED_INTEREST_SEQS, SELECTED_INTEREST_SEQS, USER } from '@/store/type/user_type.js';
+
+const MAXIMUM_SELECTABLE_COUNT = 5;
+
 export default {
     name: 'UserInterest',
-    data() {
-        return {
-            selectedIds: [],
-            interestCategories: [
-                { id: 1, mainCategory: '아웃도어/여행', subCategories: getSubInterestCategory() },
-                { id: 2, mainCategory: '운동/스포츠', subCategories: getSubInterestCategory() },
-                { id: 3, mainCategory: '인문학/책/글', subCategories: getSubInterestCategory() },
-                { id: 4, mainCategory: '외국/언어', subCategories: getSubInterestCategory() },
-                { id: 5, mainCategory: '문화/공연/축제', subCategories: getSubInterestCategory() },
-            ],
-        };
+    computed: {
+        ...mapGetters(TEMPLATE, { interests: INTERESTS }),
+        ...mapGetters(USER, { selectedInterestSeqs: SELECTED_INTEREST_SEQS }),
+    },
+    created() {
+        if (_.isEmpty(this[INTERESTS])) {
+            this[REQUEST_INTEREST_TEMPLATE]()
+                .catch(() => this.$router.back()
+                    .then(() => this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.SERVER_INSTABILITY))));
+        }
     },
     methods: {
-        toggleInterest(index, mainId) {
-            const selectedId = makeId(index, mainId);
-            const include = this.selectedIds.includes(selectedId);
-            if (include) {
-                this.selectedIds = this.selectedIds.filter(id => id !== selectedId);
-            } else {
-                this.selectedIds.unshift(selectedId);
+        ...mapActions(TEMPLATE, [REQUEST_INTEREST_TEMPLATE]),
+        ...mapMutations(COMMON, [OPEN_SNACKBAR]),
+        ...mapMutations(USER, [ADD_SELECTED_INTEREST_SEQS, REMOVE_SELECTED_INTEREST_SEQS]),
+        toggleInterest(targetSeq) {
+            const toBeDeletedIndex = _.findIndex(this[SELECTED_INTEREST_SEQS], seq => seq === targetSeq);
+            if (toBeDeletedIndex >= 0) {
+                this[REMOVE_SELECTED_INTEREST_SEQS](toBeDeletedIndex);
+                return;
             }
 
-            this.selectedIds = this.selectedIds.filter((_, _index) => _index < 5);
+            if (this[SELECTED_INTEREST_SEQS].length >= MAXIMUM_SELECTABLE_COUNT) {
+                this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.SELECT_INTEREST_OVER_COUNT));
+                return;
+            }
+
+            this[ADD_SELECTED_INTEREST_SEQS](targetSeq);
         },
-        include(index, mainId) {
-            const selectedId = makeId(index, mainId);
-            const include = this.selectedIds.includes(selectedId);
+        isInclude(seq) {
+            const include = this[SELECTED_INTEREST_SEQS].includes(seq);
             return include ? 'active' : '';
         },
     },
 };
-
-function makeId(index, mainId) {
-    return index + (getSubInterestCategory().length * mainId);
-}
-
-function getSubInterestCategory() {
-    return ['자전거', '배드민턴', '볼링', '독서', '인문학', '노래/보컬', '클래식', '재즈', '보육원'];
-}
 </script>
 
 <style scoped>

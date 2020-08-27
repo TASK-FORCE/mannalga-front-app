@@ -1,23 +1,26 @@
-const ACCESS_TOKEN = 'accessToken';
-const REFRESH_TOKEN = 'refreshToken';
+import { APP_TOKEN } from '@/store/type/auth_type.js';
 
-const isAuth = () => !!getAccessToken();
+const getAppToken = () => (process.browser ? localStorage.getItem(APP_TOKEN) : null);
 
-const getAccessToken = () => (process.browser ? localStorage.getItem(ACCESS_TOKEN) : null);
-
-const saveAppTokenToLocalStorage = (accessToken, refreshToken) => {
-    localStorage.setItem(ACCESS_TOKEN, accessToken);
-    localStorage.setItem(REFRESH_TOKEN, refreshToken);
+const saveAppTokenToLocalStorage = (appToken) => {
+    localStorage.setItem(APP_TOKEN, appToken);
 };
 
 const removeAppTokenToLocalStorage = () => {
-    localStorage.removeItem(ACCESS_TOKEN);
-    localStorage.removeItem(REFRESH_TOKEN);
+    localStorage.removeItem(APP_TOKEN);
+};
+
+const setAppTokenAsDefaultHeader = (headers) => {
+    const appToken = getAppToken();
+    if (appToken) {
+        // eslint-disable-next-line no-param-reassign
+        headers.common.Authorization = `Bearer ${appToken}`;
+    }
 };
 
 export {
-    isAuth,
-    getAccessToken,
+    getAppToken,
     saveAppTokenToLocalStorage,
     removeAppTokenToLocalStorage,
+    setAppTokenAsDefaultHeader,
 };

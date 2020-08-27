@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import authModule from '@/store/modules/auth.js';
 import * as authApi from '@/apis/login.js';
-import { REMOVE_APP_TOKEN, REQUEST_APP_TOKEN_BY_KAKAO_TOKEN, REQUEST_KAKAO_TOKEN_BY_CODE, SET_APP_TOKEN } from '@/store/type/auth_type.js';
+import { APP_TOKEN, REMOVE_APP_TOKEN, REQUEST_APP_TOKEN_BY_KAKAO_TOKEN, REQUEST_KAKAO_TOKEN_BY_CODE, SET_APP_TOKEN } from '@/store/type/auth_type.js';
 
 describe('actions', () => {
     const { actions } = authModule;
@@ -25,7 +25,7 @@ describe('actions', () => {
             const response = {
                 data: {
                     appToken: 'appToken',
-                    isFirstIssue: true,
+                    isFirst: true,
                 },
             };
             saveKakaoTokenAndGetAppToken.withArgs(kakaoTokenInfo).returns(response);
@@ -35,7 +35,7 @@ describe('actions', () => {
 
             // then
             expect(commit.withArgs(SET_APP_TOKEN, response.data.appToken).calledOnce).to.be.true;
-            expect(isFirstIssue).to.be.equal(response.data.isFirstIssue);
+            expect(isFirstIssue).to.be.equal(response.data.isFirst);
         });
 
         it('requestAppTokenByKakaoToken 예외 발생', async () => {
@@ -74,32 +74,29 @@ describe('mutations', () => {
     it('토큰 세팅', () => {
         // given
         const state = {};
-        const token = { accessToken: 'accessToken', refreshToken: 'refreshToken' };
+        const appToken = 'appToken';
 
         // when
-        mutations[SET_APP_TOKEN](state, token);
+        mutations[SET_APP_TOKEN](state, appToken);
 
         // then
-        expect(state.accessToken).to.be.equal('accessToken');
-        expect(localStorage.getItem('accessToken')).to.be.equal('accessToken');
-        expect(localStorage.getItem('refreshToken')).to.be.equal('refreshToken');
+        expect(state[APP_TOKEN]).to.be.equal(appToken);
+        expect(localStorage.getItem(APP_TOKEN)).to.be.equal(appToken);
     });
 
     it('토큰 제거', () => {
         // given
         const state = {
-            accessToken: 'accessToken',
+            [APP_TOKEN]: 'appToken',
         };
-        localStorage.setItem('accessToken', 'token');
-        localStorage.setItem('refreshToken', 'token');
+        localStorage.setItem(APP_TOKEN, 'token');
 
         // when
         mutations.removeAppToken(state);
 
         // then
-        expect(state.accessToken).to.be.empty;
-        expect(localStorage.getItem('accessToken')).to.be.undefined;
-        expect(localStorage.getItem('refreshToken')).to.be.undefined;
+        expect(state[APP_TOKEN]).to.be.empty;
+        expect(localStorage.getItem(APP_TOKEN)).to.be.undefined;
     });
 });
 

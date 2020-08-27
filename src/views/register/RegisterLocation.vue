@@ -29,7 +29,7 @@ export default {
         ...mapGetters(USER, [PROFILE, SELECTED_LOCATION_SEQS]),
     },
     created() {
-        if (_.isEmpty(this.profile)) {
+        if (_.isDeepEmpty(this[PROFILE])) {
             this.$router.push(REGISTER.PROFILE_PATH);
         }
     },
@@ -40,7 +40,8 @@ export default {
                 this.$router.push(REGISTER.INTEREST_PATH);
                 return;
             }
-            this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.SELECT_LOCATION_REQUIRE));
+            const snackBarOption = buildSnackBarOption(MESSAGE.SELECT_LOCATION_REQUIRE);
+            this[OPEN_SNACKBAR](snackBarOption);
         },
     },
 };

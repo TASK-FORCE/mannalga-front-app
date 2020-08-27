@@ -1,12 +1,21 @@
+/**
+ * Stubbing 할 요청 PATH를 작성
+ */
 const STUB_REQUESTS = [
     {
-        path: '/locations',
+        path: '/api/states',
     },
     {
-        path: '/profile',
+        path: '/api/users/saveKakaoToken',
     },
     {
-        path: '/saveKakaoToken',
+        path: '/api/users/kakao-profile',
+    },
+    {
+        path: '/api/interestGroup/all',
+    },
+    {
+        path: '/api/users/regist',
     },
 ];
 

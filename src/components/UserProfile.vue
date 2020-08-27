@@ -10,9 +10,8 @@
                 <v-avatar class="top-50"
                           size=70
                 >
-                    <img
-                        :src="profile.img"
-                        alt="profile"
+                    <img :src="profileImg"
+                         alt="profile"
                     >
                 </v-avatar>
             </v-col>
@@ -31,7 +30,8 @@
                               hide-details="auto"
                 ></v-text-field>
             </v-col>
-            <v-btn-toggle class="mt-5"
+            <v-btn-toggle v-if="profile.gender"
+                          class="mt-5"
                           mandatory
             >
                 <v-btn>
@@ -60,6 +60,12 @@ export default {
     computed: {
         ...mapGetters(USER, { profile: PROFILE }),
         ...mapGetters(COMMON, { isLoading: IS_LOADING }),
+        profileImg() {
+            if (_.isEmpty(this.profile.imgUrl)) {
+                return require('../images/default_profile_img.png');
+            }
+            return this.profile.imgUrl;
+        },
     },
     created() {
         if (_.isDeepEmpty(this.profile)) {

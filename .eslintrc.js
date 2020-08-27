@@ -28,7 +28,10 @@ module.exports = {
             'no-use-before-define',
             'no-unused-expressions',
             'no-restricted-syntax',
-            'object-curly-newline'
+            'object-curly-newline',
+            'no-unused-vars',
+            'no-trailing-spaces',
+            'camelcase',
         ]),
         'no-shadow': ['error', { 'allow': ['state'] }],
         'indent': ['error', 4],
