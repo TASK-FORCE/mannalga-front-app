@@ -1,5 +1,5 @@
 import store from '@/store/index.js';
-import { LOGIN_PATH, REGISTER } from '@/router/route_path_type.js';
+import { LOGIN_PATH, REGISTER, CLUB_PATH } from '@/router/route_path_type.js';
 import { AUTH, IS_AUTH } from '@/store/type/auth_type.js';
 
 function validationAuthentication(to, from, next) {
@@ -41,6 +41,11 @@ const routes = [
                 meta: { isLastPage: true },
             },
         ],
+    },
+    {
+        path: CLUB_PATH,
+        name: 'Club',
+        component: () => import('@/views/Club.vue'),
     },
 ];
 
