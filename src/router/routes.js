@@ -45,7 +45,7 @@ const routes = [
     {
         path: CLUB_PATH,
         name: 'Club',
-        component: () => import('@/views/Club.vue'),
+        component: () => import('@/views/club/ClubMain.vue'),
     },
 ];
 
