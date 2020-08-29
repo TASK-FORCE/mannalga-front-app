@@ -1,5 +1,5 @@
 <template>
-    <v-container v-show="!isLoading">
+    <div v-show="!isLoading">
         <v-row justify="center"
                class="mt-40"
         >
@@ -39,13 +39,13 @@
                 </v-btn>
             </v-btn-toggle>
         </v-row>
-    </v-container>
+    </div>
 </template>
 
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 import _ from '@/utils/lodashWrapper.js';
-import { NAME_RULES } from '@/utils/constant/rules.js';
+import { NAME_RULES } from '@/utils/constant/constant.js';
 import { COMMON, IS_LOADING } from '@/store/type/common_type.js';
 import { CHANGE_PROFILE_NAME, PROFILE, REQUEST_PROFILE, USER } from '@/store/type/user_type.js';
 import { LOGIN_PATH } from '@/router/route_path_type.js';

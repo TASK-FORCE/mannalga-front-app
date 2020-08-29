@@ -39,7 +39,7 @@ const actions = {
         });
     },
     async [REQUEST_APP_TOKEN_BY_KAKAO_TOKEN]({ commit }, kakaoTokenInfo) {
-        actionsNormalTemplate(
+        return actionsNormalTemplate(
             async () => {
                 const response = await saveKakaoTokenAndGetAppToken(kakaoTokenInfo);
                 const { appToken, isRegistered } = response.data;

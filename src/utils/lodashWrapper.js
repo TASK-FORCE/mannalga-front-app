@@ -24,6 +24,8 @@ const findIndex = (array, predicate) => _.findIndex(array, predicate);
 
 const isEqual = (value, other) => _.isEqual(value, other);
 
+const isNumber = (value) => _.isNumber(value);
+
 const cloneDeep = (value) => _.cloneDeep(value);
 
 export default {
@@ -33,4 +35,5 @@ export default {
     isNotEmpty,
     isDeepEmpty,
     cloneDeep,
+    isNumber,
 };

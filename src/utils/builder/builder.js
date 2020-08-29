@@ -25,8 +25,11 @@ const userBuilder = {
 
         return profile;
     },
-    buildRegisterRequestDto(profile, selectedLocationSeqs, selectedInterestSeqs) {
-        const userStates = appendPriority(selectedLocationSeqs);
+    buildRegisterRequestDto(profile, selectedLocations, selectedInterestSeqs) {
+        const userStates = [];
+        for (const [priority, value] of Object.entries(selectedLocations)) {
+            userStates.push({ priority, seq: value.seq });
+        }
         const userInterests = appendPriority(selectedInterestSeqs);
         return {
             userName: profile.name,

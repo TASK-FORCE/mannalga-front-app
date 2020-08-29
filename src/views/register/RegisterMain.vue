@@ -1,8 +1,8 @@
 <template>
-    <div>
+    <v-container>
         <CommonHeader title="회원가입" />
         <router-view />
-    </div>
+    </v-container>
 </template>
 
 <script>

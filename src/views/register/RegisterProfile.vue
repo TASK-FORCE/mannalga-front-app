@@ -12,7 +12,7 @@ import UserProfile from '@/components/UserProfile.vue';
 import GoBackBtnFooter from '@/components/GoBackBtnFooter.vue';
 import { getValidationFailText, ruleValidationSuccess } from '@/utils/validationUtils.js';
 import { mapGetters, mapMutations } from 'vuex';
-import { NAME_RULES } from '@/utils/constant/rules.js';
+import { NAME_RULES } from '@/utils/constant/constant.js';
 import { buildSnackBarOption } from '@/utils/snackbarUtils.js';
 import { COMMON, OPEN_SNACKBAR } from '@/store/type/common_type.js';
 import { PROFILE, USER } from '@/store/type/user_type.js';
