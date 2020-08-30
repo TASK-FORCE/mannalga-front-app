@@ -17,4 +17,6 @@ const NAME_RULES = [
     v => !/\s/.test(v) || '공백을 제거해주세요!',
 ];
 
-export { MESSAGE, COLOR, NAME_RULES };
+const TEMP_TIMEOUT = 1000;
+
+export { MESSAGE, COLOR, NAME_RULES, TEMP_TIMEOUT };

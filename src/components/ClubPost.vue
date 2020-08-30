@@ -31,14 +31,14 @@
                         <div class="mt-1"
                              style="font-size: 1.1rem"
                         >
-                            {{ meeting.title }}
+                            {{ meeting.id }} {{ meeting.title }}
                         </div>
                     </v-col>
                     <v-col align-self="center"
-                           class="pa-0"
+                           class="pa-0 text-body-2"
                     >
                         <div>
-                            {{ meeting.memberCount }}명
+                            {{ meeting.memberCurCount }}/{{ meeting.memberMaxCount }}
                         </div>
                     </v-col>
                 </v-row>

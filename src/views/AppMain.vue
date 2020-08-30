@@ -1,5 +1,5 @@
 <template>
-    <v-container class="pt-0">
+    <v-container class="py-0">
         <MainHeader />
         <AppMainClubTabs />
     </v-container>

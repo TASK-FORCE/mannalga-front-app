@@ -16,11 +16,12 @@
             <v-tab-item>
                 <SearchCondition />
                 <ClubList :meetingList="meetingList"
-                          @addMeetingLists="addMeetingLists"
+                          :needFetching="true"
+                          @addMeetingList="addMeetingList"
                 />
             </v-tab-item>
             <v-tab-item>
-                V2
+                <ClubList :meetingList="myMeetingList" />
             </v-tab-item>
         </v-tabs-items>
     </div>
@@ -29,6 +30,7 @@
 <script>
 import ClubList from '@/components/ClubList.vue';
 import SearchCondition from '@/components/SearchCondition.vue';
+import { TEMP_TIMEOUT } from '@/utils/constant/constant.js';
 
 export default {
     name: 'AppMainClubTabs',
@@ -36,21 +38,25 @@ export default {
     data() {
         return {
             tab: null,
-            meetingList: getMeetingList(0),
+            meetingList: getMeetingList(10),
+            myMeetingList: getMeetingList(10),
         };
     },
     methods: {
-        addMeetingLists() {
-            this.meetingList.push(...getMeetingList(0));
+        async addMeetingList() {
+            await new Promise(r => setTimeout(r, TEMP_TIMEOUT));
+            this.meetingList.push(...getMeetingList(10));
         },
     },
 };
-let req = 0;
+
+let seq = 0;
+
 function getMeetingList(size) {
     const list = [];
     for (let i = 0; i < size; i++) {
-        list.push({ id: req, title: '코딩 스터디', location: '강동구', memberCount: 30 });
-        req += 1;
+        list.push({ id: seq, title: '코딩 스터디', location: '강동구', memberCurCount: 10, memberMaxCount: 30 });
+        seq += 1;
     }
     return list;
 }
