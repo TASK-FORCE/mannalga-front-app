@@ -1,6 +1,7 @@
 <template>
     <div>
         <v-tabs v-model="tab"
+                class="app-main-club-tab-header"
                 centered
                 grow
         >
@@ -14,7 +15,7 @@
 
         <v-tabs-items v-model="tab">
             <v-tab-item>
-                <SearchCondition />
+                <SearchConditionMain />
                 <ClubList :meetingList="meetingList"
                           :needFetching="true"
                           @addMeetingList="addMeetingList"
@@ -29,12 +30,12 @@
 
 <script>
 import ClubList from '@/components/ClubList.vue';
-import SearchCondition from '@/components/SearchCondition.vue';
+import SearchConditionMain from '@/components/search/SearchConditionMain.vue';
 import { TEMP_TIMEOUT } from '@/utils/constant/constant.js';
 
 export default {
     name: 'AppMainClubTabs',
-    components: { SearchCondition, ClubList },
+    components: { SearchConditionMain, ClubList },
     data() {
         return {
             tab: null,
