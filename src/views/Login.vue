@@ -27,7 +27,7 @@
 import { mapActions, mapMutations, mapGetters } from 'vuex';
 import { moveToKakaoLoginPage } from '@/utils/kakao/utlls.js';
 import { buildSnackBarOption } from '@/utils/snackbarUtils.js';
-import { MESSAGE } from '@/utils/constant/message.js';
+import { MESSAGE } from '@/utils/constant/constant.js';
 import { COMMON, OPEN_SNACKBAR } from '@/store/type/common_type.js';
 import { APP_TOKEN, AUTH, IS_AUTH, REQUEST_KAKAO_TOKEN_BY_CODE } from '@/store/type/auth_type.js';
 import { MAIN_PATH, REGISTER } from '@/router/route_path_type.js';

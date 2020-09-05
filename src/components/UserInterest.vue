@@ -1,5 +1,7 @@
 <template>
-    <div class="mx-3">
+    <div v-show="!isLoading"
+         class="mx-3"
+    >
         <div class="text-center">
             관심사를 선택 해주세요. <br>
             (원하는 관심사는 최대 5개까지 가능합니다)
@@ -9,7 +11,7 @@
              class="mt-3"
         >
             <v-icon>mdi-music-circle-outline</v-icon>
-            {{interest.name}}
+            {{ interest.name }}
             <br>
             <v-btn v-for="{seq, name} in interest.interestList"
                    :key="seq"
@@ -19,7 +21,7 @@
                    small
                    @click="toggleInterest(seq)"
             >
-                {{name}}
+                {{ name }}
             </v-btn>
         </div>
     </div>
@@ -27,12 +29,17 @@
 
 <script>
 import { INTERESTS, REQUEST_INTEREST_TEMPLATE, TEMPLATE } from '@/store/type/template_type.js';
-import { mapActions, mapMutations, mapGetters } from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 import _ from '@/utils/lodashWrapper.js';
-import { COMMON, OPEN_SNACKBAR } from '@/store/type/common_type.js';
+import { COMMON, IS_LOADING, OPEN_SNACKBAR } from '@/store/type/common_type.js';
 import { buildSnackBarOption } from '@/utils/snackbarUtils.js';
-import { MESSAGE } from '@/utils/constant/message.js';
-import { ADD_SELECTED_INTEREST_SEQS, REMOVE_SELECTED_INTEREST_SEQS, SELECTED_INTEREST_SEQS, USER } from '@/store/type/user_type.js';
+import { MESSAGE } from '@/utils/constant/constant.js';
+import {
+    ADD_SELECTED_INTEREST_SEQS,
+    REMOVE_SELECTED_INTEREST_SEQS,
+    SELECTED_INTEREST_SEQS,
+    USER,
+} from '@/store/type/user_type.js';
 
 const MAXIMUM_SELECTABLE_COUNT = 5;
 
@@ -41,6 +48,7 @@ export default {
     computed: {
         ...mapGetters(TEMPLATE, { interests: INTERESTS }),
         ...mapGetters(USER, { selectedInterestSeqs: SELECTED_INTEREST_SEQS }),
+        ...mapGetters(COMMON, { isLoading: IS_LOADING }),
     },
     created() {
         if (_.isEmpty(this[INTERESTS])) {

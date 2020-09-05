@@ -1,17 +1,24 @@
 import { postRegister, requestProfile, requestRegisterStatus } from '@/apis/user.js';
-import { CHANGE_LOADING, COMMON } from '@/store/type/common_type.js';
 import {
     ADD_SELECTED_INTEREST_SEQS,
-    ADD_SELECTED_LOCATION_SEQS, CHANGE_PROFILE_NAME, DEFAULT_PROFILE, POST_REGISTER, PROFILE,
-    REMOVE_SELECTED_LOCATION_SEQS, REQUEST_PROFILE, REQUEST_REGISTER_STATUS, SELECTED_INTEREST_SEQS, SELECTED_LOCATION_SEQS, SET_PROFILE,
+    ADD_SELECTED_LOCATIONS,
+    CHANGE_PROFILE_NAME,
+    DEFAULT_PROFILE,
+    POST_REGISTER,
+    PROFILE,
+    REMOVE_SELECTED_INTEREST_SEQS,
+    REQUEST_PROFILE,
+    REQUEST_REGISTER_STATUS,
+    SELECTED_INTEREST_SEQS,
+    SELECTED_LOCATIONS,
+    SET_PROFILE,
 } from '@/store/type/user_type.js';
 import { userBuilder } from '@/utils/builder/builder.js';
-import { REQUEST_INTEREST_TEMPLATE } from '@/store/type/template_type.js';
 import { actionsLoadingTemplate } from '@/store/helper/helper.js';
 
 const state = {
     [PROFILE]: DEFAULT_PROFILE,
-    [SELECTED_LOCATION_SEQS]: [],
+    [SELECTED_LOCATIONS]: {},
     [SELECTED_INTEREST_SEQS]: [],
 };
 
@@ -19,8 +26,8 @@ const getters = {
     [PROFILE](state) {
         return state[PROFILE];
     },
-    [SELECTED_LOCATION_SEQS](state) {
-        return state[SELECTED_LOCATION_SEQS];
+    [SELECTED_LOCATIONS](state) {
+        return state[SELECTED_LOCATIONS];
     },
     [SELECTED_INTEREST_SEQS](state) {
         return state[SELECTED_INTEREST_SEQS];
@@ -34,13 +41,11 @@ const mutations = {
     [CHANGE_PROFILE_NAME](state, name) {
         state.profile.name = name;
     },
-    [REMOVE_SELECTED_LOCATION_SEQS](state, index) {
-        state[SELECTED_LOCATION_SEQS].splice(index, 1);
+    [ADD_SELECTED_LOCATIONS](state, selectedLocation) {
+        const { priority, value } = selectedLocation;
+        state[SELECTED_LOCATIONS][priority] = value;
     },
-    [ADD_SELECTED_LOCATION_SEQS](state, stateNameWithRoot) {
-        state[SELECTED_LOCATION_SEQS].push(stateNameWithRoot);
-    },
-    [REQUEST_INTEREST_TEMPLATE](state, index) {
+    [REMOVE_SELECTED_INTEREST_SEQS](state, index) {
         state[SELECTED_INTEREST_SEQS].splice(index, 1);
     },
     [ADD_SELECTED_INTEREST_SEQS](state, stateNameWithRoot) {
