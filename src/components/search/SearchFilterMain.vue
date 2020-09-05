@@ -8,30 +8,30 @@
                     <SearchFilterSelectBtn :attrs="attrs"
                                               :on="on"
                                               :text="searchLocationText"
-                                              @click="changeSearchCardComponent('LOCATION')"
+                                              @click="changeBottomSheetComponent('LOCATION')"
                     />
                     <SearchFilterSelectBtn :attrs="attrs"
                                               :on="on"
                                               :text="searchSortText"
-                                              @click="changeSearchCardComponent('SORT')"
+                                              @click="changeBottomSheetComponent('SORT')"
                     />
                     <SearchFilterSelectBtn :attrs="attrs"
                                               :on="on"
                                               :text="searchInterestText"
-                                              @click="changeSearchCardComponent('INTEREST')"
+                                              @click="changeBottomSheetComponent('INTEREST')"
                     />
                 </template>
 
-                <SearchFilterLocationCard v-if="currentSearchCard === 'LOCATION'"
+                <BottomSheetLocationCard v-if="currentBottomSheetCard === 'LOCATION'"
                                              :rootStates="rootStates"
-                                             @selectSearchLocation="selectSearchLocation"
+                                             @selectSubState="selectSearchLocation"
                 />
-                <SearchFilterInterestCard v-else-if="currentSearchCard === 'INTEREST'"
+                <BottomSheetInterestCard v-else-if="currentBottomSheetCard === 'INTEREST'"
                                              :rootInterests="interests"
-                                             @selectSearchInterest="selectSearchInterest"
+                                             @selectSubInterest="selectSearchInterest"
                 />
-                <SearchFilterSortCard v-else-if="currentSearchCard === 'SORT'"
-                                         @selectSearchSort="selectSearchSort"
+                <BottomSheetSortCard v-else-if="currentBottomSheetCard === 'SORT'"
+                                         @selectSortOption="selectSearchSort"
                 />
             </v-bottom-sheet>
         </div>
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import SearchFilterLocationCard from '@/components/search/SearchFilterLocationCard.vue';
+import BottomSheetLocationCard from '@/components/bottom-sheet/BottomSheetLocationCard.vue';
 import SearchFilterSelectBtn from '@/components/search/SearchFilterSelectBtn';
 import { mapActions, mapGetters } from 'vuex';
 import {
@@ -53,16 +53,16 @@ import { OPEN_SNACKBAR } from '@/store/type/common_type.js';
 import _ from '@/utils/lodashWrapper.js';
 import { buildSnackBarOption } from '@/utils/snackbarUtils.js';
 import { MESSAGE } from '@/utils/constant/constant.js';
-import SearchFilterSortCard from '@/components/search/SearchFilterSortCard.vue';
-import SearchFilterInterestCard from '@/components/search/SearchFilterInterestCard.vue';
+import BottomSheetSortCard from '@/components/bottom-sheet/BottomSheetSortCard.vue';
+import BottomSheetInterestCard from '@/components/bottom-sheet/BottomSheetInterestCard.vue';
 
 export default {
     name: 'SearchFilterMain',
     components: {
-        SearchFilterInterestCard,
-        SearchFilterSortCard,
+        BottomSheetInterestCard,
+        BottomSheetSortCard,
         SearchFilterSelectBtn,
-        SearchFilterLocationCard,
+        BottomSheetLocationCard,
     },
     data() {
         return {
@@ -71,7 +71,7 @@ export default {
             searchLocationText: '지역 선택',
             searchInterestText: '관심사 선택',
             searchSortText: '정렬',
-            currentSearchCard: null,
+            currentBottomSheetCard: null,
         };
     },
     computed: {
@@ -107,8 +107,8 @@ export default {
             this.searchSortText = sort.name;
             this.sheet = false;
         },
-        changeSearchCardComponent(cardComponent) {
-            this.currentSearchCard = cardComponent;
+        changeBottomSheetComponent(cardComponent) {
+            this.currentBottomSheetCard = cardComponent;
         },
     },
 };

@@ -19,7 +19,7 @@
                 <v-list-item-group v-else>
                     <template v-for="interest in subInterestsBySelectedRootInterest">
                         <v-list-item :key="interest.seq"
-                                     @click="selectSearchInterest(interest)"
+                                     @click="selectSubInterest(interest)"
                                      v-text="interest.name"
                         />
                     </template>
@@ -32,7 +32,7 @@
 
 <script>
 export default {
-    name: 'SearchFilterInterestCard',
+    name: 'BottomSheetInterestCard',
     props: ['rootInterests'],
     data() {
         return {
@@ -56,8 +56,8 @@ export default {
             this.title = rootInterest.name;
             this.showRootItemGroup = false;
         },
-        selectSearchInterest(interest) {
-            this.$emit('selectSearchInterest', interest);
+        selectSubInterest(interest) {
+            this.$emit('selectSubInterest', interest);
             setTimeout(() => {
                 this.showRootItemGroup = true;
                 this.title = '관심사 선택';
