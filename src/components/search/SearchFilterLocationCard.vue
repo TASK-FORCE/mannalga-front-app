@@ -33,7 +33,7 @@
 <script>
 
 export default {
-    name: 'SearchConditionLocationCard',
+    name: 'SearchFilterLocationCard',
     props: ['rootStates'],
     data() {
         return {
@@ -46,7 +46,7 @@ export default {
         subStatesBySelectedRootSeq() {
             const simpleRootState = {
                 seq: this.selectedRootState.seq,
-                name: this.selectedRootState.name,
+                name: `${this.selectedRootState.name} 전체`,
             };
             return [simpleRootState, ...this.selectedRootState.subStates];
         },

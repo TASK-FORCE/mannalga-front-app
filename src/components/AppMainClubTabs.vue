@@ -15,7 +15,7 @@
 
         <v-tabs-items v-model="tab">
             <v-tab-item>
-                <SearchConditionMain />
+                <SearchFilterMain />
                 <ClubList :meetingList="meetingList"
                           :needFetching="true"
                           @addMeetingList="addMeetingList"
@@ -30,12 +30,12 @@
 
 <script>
 import ClubList from '@/components/ClubList.vue';
-import SearchConditionMain from '@/components/search/SearchConditionMain.vue';
+import SearchFilterMain from '@/components/search/SearchFilterMain.vue';
 import { TEMP_TIMEOUT } from '@/utils/constant/constant.js';
 
 export default {
     name: 'AppMainClubTabs',
-    components: { SearchConditionMain, ClubList },
+    components: { SearchFilterMain, ClubList },
     data() {
         return {
             tab: null,

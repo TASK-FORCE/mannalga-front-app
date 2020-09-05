@@ -14,7 +14,7 @@
 
 <script>
 export default {
-    name: 'SearchSelectBtn',
+    name: 'SearchFilterSelectBtn',
     props: ['attrs', 'on', 'text'],
 };
 </script>

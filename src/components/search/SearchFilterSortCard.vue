@@ -9,7 +9,7 @@
         >
             <v-list class="pt-0">
                 <v-list-item-group>
-                    <template v-for="name in ['최신순', '인기순', '정확도순', '과거순']">
+                    <template v-for="name in ['최신순', '인기순', '과거순']">
                         <v-list-item :key="name"
                                      @click="selectSearchSort(name)"
                                      v-text="name"
@@ -24,7 +24,7 @@
 
 <script>
 export default {
-    name: 'SearchConditionSortCard',
+    name: 'SearchFilterSortCard',
     data() {
         return {
             title: '정렬',

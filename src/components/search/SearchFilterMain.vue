@@ -5,32 +5,32 @@
                             scrollable
             >
                 <template v-slot:activator="{ on, attrs }">
-                    <SearchConditionSelectBtn :attrs="attrs"
+                    <SearchFilterSelectBtn :attrs="attrs"
                                               :on="on"
                                               :text="searchLocationText"
                                               @click="changeSearchCardComponent('LOCATION')"
                     />
-                    <SearchConditionSelectBtn :attrs="attrs"
+                    <SearchFilterSelectBtn :attrs="attrs"
                                               :on="on"
                                               :text="searchSortText"
                                               @click="changeSearchCardComponent('SORT')"
                     />
-                    <SearchConditionSelectBtn :attrs="attrs"
+                    <SearchFilterSelectBtn :attrs="attrs"
                                               :on="on"
                                               :text="searchInterestText"
                                               @click="changeSearchCardComponent('INTEREST')"
                     />
                 </template>
 
-                <SearchConditionLocationCard v-if="currentSearchCard === 'LOCATION'"
+                <SearchFilterLocationCard v-if="currentSearchCard === 'LOCATION'"
                                              :rootStates="rootStates"
                                              @selectSearchLocation="selectSearchLocation"
                 />
-                <SearchConditionInterestCard v-else-if="currentSearchCard === 'INTEREST'"
+                <SearchFilterInterestCard v-else-if="currentSearchCard === 'INTEREST'"
                                              :rootInterests="interests"
                                              @selectSearchInterest="selectSearchInterest"
                 />
-                <SearchConditionSortCard v-else-if="currentSearchCard === 'SORT'"
+                <SearchFilterSortCard v-else-if="currentSearchCard === 'SORT'"
                                          @selectSearchSort="selectSearchSort"
                 />
             </v-bottom-sheet>
@@ -39,8 +39,8 @@
 </template>
 
 <script>
-import SearchConditionLocationCard from '@/components/search/SearchConditionLocationCard.vue';
-import SearchConditionSelectBtn from '@/components/search/SearchConditionSelectBtn.vue';
+import SearchFilterLocationCard from '@/components/search/SearchFilterLocationCard.vue';
+import SearchFilterSelectBtn from '@/components/search/SearchFilterSelectBtn';
 import { mapActions, mapGetters } from 'vuex';
 import {
     INTERESTS,
@@ -53,16 +53,16 @@ import { OPEN_SNACKBAR } from '@/store/type/common_type.js';
 import _ from '@/utils/lodashWrapper.js';
 import { buildSnackBarOption } from '@/utils/snackbarUtils.js';
 import { MESSAGE } from '@/utils/constant/constant.js';
-import SearchConditionInterestCard from '@/components/search/SearchConditionInterestCard.vue';
-import SearchConditionSortCard from '@/components/search/SearchConditionSortCard.vue';
+import SearchFilterSortCard from '@/components/search/SearchFilterSortCard.vue';
+import SearchFilterInterestCard from '@/components/search/SearchFilterInterestCard.vue';
 
 export default {
-    name: 'SearchConditionMain',
+    name: 'SearchFilterMain',
     components: {
-        SearchConditionSortCard,
-        SearchConditionInterestCard,
-        SearchConditionSelectBtn,
-        SearchConditionLocationCard,
+        SearchFilterInterestCard,
+        SearchFilterSortCard,
+        SearchFilterSelectBtn,
+        SearchFilterLocationCard,
     },
     data() {
         return {

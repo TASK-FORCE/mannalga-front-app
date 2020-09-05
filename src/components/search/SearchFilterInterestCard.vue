@@ -32,7 +32,7 @@
 
 <script>
 export default {
-    name: 'SearchConditionInterestCard',
+    name: 'SearchFilterInterestCard',
     props: ['rootInterests'],
     data() {
         return {
