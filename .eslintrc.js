@@ -33,6 +33,7 @@ module.exports = {
             'no-trailing-spaces',
             'camelcase',
         ]),
+        'no-plusplus': ['error', { 'allowForLoopAfterthoughts': true }],
         'no-shadow': ['error', { 'allow': ['state'] }],
         'indent': ['error', 4],
         'max-len': ['error', {

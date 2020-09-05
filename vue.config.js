@@ -17,7 +17,6 @@ module.exports = {
                 if (stubUtils.isStubRequest(req, STUB_REQUESTS)) {
                     await new Promise(r => setTimeout(r, 500));
                     const stubPath = path.join(__dirname, 'stub', req.path);
-                    console.log('Stubbed. Path:', req.path);
                     const result = require(stubPath);
                     res.send(result[req.method.toLowerCase()](req));
                     return;
