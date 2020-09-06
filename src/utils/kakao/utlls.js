@@ -12,7 +12,7 @@ function moveToKakaoLoginPage() {
 const KAKAO = {
     ACCESS_TOKEN: 'kakaoAccessToken',
     REFRESH_TOKEN: 'kakaoRefreshToken',
-    REDIRECT_URL: `${process.env.VUE_APP_DOMAIN}/login`,
+    REDIRECT_URL: `${window.location.protocol}//${window.location.host}/login`,
 };
 
 export {
