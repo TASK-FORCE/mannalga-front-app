@@ -1,0 +1,23 @@
+name: VUE-CI
+
+on:
+  push:
+    branches: [ develop ]
+
+jobs:
+  upload_to_aws_s3:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: install
+        run: yarn install
+
+      - name: build
+        run: yarn build
+
+      - name: upload to aws s3
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: aws s3 cp dist s3://super-front --recursive
