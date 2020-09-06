@@ -5,9 +5,10 @@
         ></v-img>
         <v-list-item>
             <v-list-item-content>
-                <v-list-item-title>모임 이름</v-list-item-title>
-                <v-list-item-subtitle>(모임 정보 예쁘게 아이콘으로 표시할 곳)</v-list-item-subtitle>
-                <v-list-item-subtitle>(모임 소개글입니다. 모임 소개글입니다.)</v-list-item-subtitle>
+                <v-list-item-title>{{ clubInfo.clubName }}</v-list-item-title>
+                <v-list-item-subtitle>{{ clubInfo.clubInterest }} , {{ clubInfo.clubLocation }}</v-list-item-subtitle>
+                <v-list-item-subtitle>가입 {{ clubInfo.memberCnt }}명/ 총 {{ clubInfo.memberMaxCnt }}명</v-list-item-subtitle>
+                <v-list-item-subtitle>{{ clubInfo.clubDetail }}</v-list-item-subtitle>
             </v-list-item-content>
         </v-list-item>
         <v-list-item>
@@ -37,6 +38,7 @@
 <script>
 export default {
     name: 'ClubInfo',
+    props: ['clubInfo'],
 };
 </script>
 

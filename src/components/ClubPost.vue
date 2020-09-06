@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-list-item :key="meeting.id"
-                     :to="`/meeting_main/${meeting.id}`"
+                     :to="`/club/${meeting.id}`"
         >
             <div>
                 <v-img src="../images/vue.png"

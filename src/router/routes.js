@@ -1,5 +1,5 @@
 import store from '@/store/index.js';
-import { LOGIN_PATH, MAIN_PAGE_PATH, REGISTER, SELECT_LOCATION_PATH } from '@/router/route_path_type.js';
+import { LOGIN_PATH, MAIN_PAGE_PATH, REGISTER, SELECT_LOCATION_PATH, CLUB_PATH } from '@/router/route_path_type.js';
 import { AUTH, IS_AUTH } from '@/store/type/auth_type.js';
 import { SELECTED_LOCATIONS } from '@/store/type/user_type.js';
 
@@ -52,6 +52,12 @@ const routes = [
         path: MAIN_PAGE_PATH,
         name: 'AppMain',
         component: () => import('@/views/AppMain.vue'),
+    },
+    {
+        path: CLUB_PATH,
+        name: 'ClubMain',
+        component: () => import('@/views/club/ClubMain.vue'),
+        props: true,
     },
 ];
 
