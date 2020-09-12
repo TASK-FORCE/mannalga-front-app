@@ -12,16 +12,18 @@
                     <template v-for="state in rootStates">
                         <v-list-item :key="state.seq"
                                      @click="selectRootState(state)"
-                                     v-text="state.name"
-                        />
+                        >
+                            {{ state.name }}
+                        </v-list-item>
                     </template>
                 </v-list-item-group>
                 <v-list-item-group v-else>
                     <template v-for="state in subStatesBySelectedRootSeq">
                         <v-list-item :key="state.seq"
                                      @click="selectSearchState(state)"
-                                     v-text="state.name"
-                        />
+                        >
+                            {{ state.name }}
+                        </v-list-item>
                     </template>
                 </v-list-item-group>
             </v-list>

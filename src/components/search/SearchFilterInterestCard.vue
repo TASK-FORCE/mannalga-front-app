@@ -12,16 +12,18 @@
                     <template v-for="interest in rootInterests">
                         <v-list-item :key="interest.seq"
                                      @click="selectRootInterest(interest)"
-                                     v-text="interest.name"
-                        />
+                        >
+                            {{ interest.name }}
+                        </v-list-item>
                     </template>
                 </v-list-item-group>
                 <v-list-item-group v-else>
                     <template v-for="interest in subInterestsBySelectedRootInterest">
                         <v-list-item :key="interest.seq"
                                      @click="selectSearchInterest(interest)"
-                                     v-text="interest.name"
-                        />
+                        >
+                            {{ interest.name }}
+                        </v-list-item>
                     </template>
                 </v-list-item-group>
             </v-list>

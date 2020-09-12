@@ -15,14 +15,16 @@
 
         <v-tabs-items v-model="tab">
             <v-tab-item>
-                <SearchFilterMain />
-                <ClubList :meetingList="meetingList"
-                          :needFetching="true"
-                          @addMeetingList="addMeetingList"
+                <SearchFilterMain @changedSearchFilter="changedSearchFilter"/>
+                <ClubList :clubList="clubListWithPage.clubs"
+                          :page="clubListWithPage.page"
+                          @findNextPage="findNextClubs"
                 />
             </v-tab-item>
             <v-tab-item>
-                <ClubList :meetingList="myMeetingList" />
+                <ClubList :clubList="myClubList"
+                          @findNextPgae="findNextMyClubs"
+                />
             </v-tab-item>
         </v-tabs-items>
     </div>
@@ -31,7 +33,14 @@
 <script>
 import ClubList from '@/components/ClubList.vue';
 import SearchFilterMain from '@/components/search/SearchFilterMain.vue';
-import { TEMP_TIMEOUT } from '@/utils/constant/constant.js';
+import { mapActions, mapGetters } from 'vuex';
+import {
+    CLUB_LIST_MODULE,
+    CLUB_LIST_WITH_PAGE,
+    REQUEST_FIRST_CLUB_LIST,
+    REQUEST_NEXT_CLUB_LIST,
+    SEARCH_FILTER,
+} from '@/store/type/club_list_type.js';
 
 export default {
     name: 'AppMainClubTabs',
@@ -39,28 +48,28 @@ export default {
     data() {
         return {
             tab: null,
-            meetingList: getMeetingList(10),
-            myMeetingList: getMeetingList(10),
+            myClubList: [],
         };
     },
+    computed: {
+        ...mapGetters(CLUB_LIST_MODULE, { clubListWithPage: CLUB_LIST_WITH_PAGE, SEARCH_FILTER }),
+    },
+    created() {
+        this[REQUEST_FIRST_CLUB_LIST]();
+    },
     methods: {
-        async addMeetingList() {
-            await new Promise(r => setTimeout(r, TEMP_TIMEOUT));
-            this.meetingList.push(...getMeetingList(10));
+        ...mapActions(CLUB_LIST_MODULE, [REQUEST_FIRST_CLUB_LIST, REQUEST_NEXT_CLUB_LIST]),
+        findNextMyClubs() {
+            // pass
+        },
+        findNextClubs(callback) {
+            this[REQUEST_NEXT_CLUB_LIST]().then(() => callback());
+        },
+        changedSearchFilter() {
+            this[REQUEST_FIRST_CLUB_LIST]();
         },
     },
 };
-
-let seq = 0;
-
-function getMeetingList(size) {
-    const list = [];
-    for (let i = 0; i < size; i++) {
-        list.push({ id: seq, title: '코딩 스터디', location: '강동구', memberCurCount: 10, memberMaxCount: 30 });
-        seq += 1;
-    }
-    return list;
-}
 </script>
 
 <style scoped>

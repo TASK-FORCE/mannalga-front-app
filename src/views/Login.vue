@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { mapActions, mapMutations, mapGetters } from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 import { moveToKakaoLoginPage } from '@/utils/kakao/utlls.js';
 import { buildSnackBarOption } from '@/utils/snackbarUtils.js';
 import { MESSAGE } from '@/utils/constant/constant.js';
