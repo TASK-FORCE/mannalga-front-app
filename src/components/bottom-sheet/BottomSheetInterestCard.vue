@@ -34,7 +34,7 @@
 
 <script>
 export default {
-    name: 'SearchFilterInterestCard',
+    name: 'BottomSheetInterestCard',
     props: ['rootInterests'],
     data() {
         return {
