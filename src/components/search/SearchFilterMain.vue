@@ -8,17 +8,17 @@
                     <SearchFilterSelectBtn :attrs="attrs"
                                            :on="on"
                                            :text="searchLocationText"
-                                           @click="changeSearchCardComponent('LOCATION')"
+                                           @click="changeBottomSheetComponent('LOCATION')"
                     />
                     <SearchFilterSelectBtn :attrs="attrs"
                                            :on="on"
                                            :text="searchSortText"
-                                           @click="changeSearchCardComponent('SORT')"
+                                           @click="changeBottomSheetComponent('SORT')"
                     />
                     <SearchFilterSelectBtn :attrs="attrs"
                                            :on="on"
                                            :text="searchInterestText"
-                                           @click="changeSearchCardComponent('INTEREST')"
+                                           @click="changeBottomSheetComponent('INTEREST')"
                     />
                 </template>
 

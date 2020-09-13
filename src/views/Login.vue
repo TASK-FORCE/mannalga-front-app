@@ -55,6 +55,7 @@ export default {
             return;
         }
 
+        // TODO 백엔드에게 api 요청 후 변경 필요
         if (this[IS_AUTH] && false) {
             this.requestTemplateWithLoading(
                 async () => {

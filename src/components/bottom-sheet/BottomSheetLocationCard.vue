@@ -26,18 +26,23 @@
 <script>
 export default {
     name: 'BottomSheetLocationCard',
-    props: ['rootStates'],
+    props: {
+        rootStates: Array,
+    },
     data() {
         return {
             showRootStates: true,
             title: '지역 선택',
-            states: [],
+            states: this.rootStates,
         };
     },
-    mounted() {
-        this.states = this.rootStates;
+    watch: {
+        rootStates() {
+            this.states = this.rootStates;
+        },
     },
     methods: {
+        // TODO state -> location으로 변경하자. 백엔드에선 state로 주지만 state는 상태라는 의미도 있어서 명시적이지 못하다.
         selectState(state) {
             this.showRootStates ? this.selectRootState(state) : this.selectSubState(state);
         },
