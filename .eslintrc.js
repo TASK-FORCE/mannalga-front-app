@@ -17,7 +17,8 @@ module.exports = {
         parser: 'babel-eslint',
     },
     rules: {
-        'no-console': process.env.NODE_ENV === 'production' ? ['error', { allow: ['warn', 'error'] }] : 'off', // production 환경에선 warn, error 로그만 허용한다.
+        // 'no-console': process.env.NODE_ENV === 'production' ? ['error', { allow: ['warn', 'error'] }] : 'off', // production 환경에선 warn, error 로그만 허용한다.
+        'no-console': 'off', // 실제 프로덕션에 나가면 변경하기
         'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off', // production 환경에선 debugger 금지
         ...offRules([
             'import/extensions',
