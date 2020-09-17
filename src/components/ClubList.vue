@@ -5,60 +5,53 @@
         <v-list-item-group id="list-group"
                            active-class="pink--text"
         >
-            <div id="sentinel">
-            </div>
-            <template v-for="(meeting, index) in meetingList">
-                <ClubPost :key="index"
-                          :meeting="meeting"
+            <template v-for="club in clubList">
+                <ClubPost :key="club.seq"
+                          :club="club"
                 />
             </template>
+            <div id="sentinel"/>
         </v-list-item-group>
     </v-list>
 </template>
 
 <script>
 import ClubPost from '@/components/ClubPost.vue';
-import { TEMP_TIMEOUT } from '@/utils/constant/constant.js';
+import { CAN_REQUEST_NEXT_PAGE, CLUB_LIST_MODULE } from '@/store/type/club_list_type.js';
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'ClubList',
     components: { ClubPost },
-    props: ['meetingList', 'needFetching'],
+    props: ['page', 'clubList'],
     data() {
         return {
             sentinel: null,
             listGroup: null,
-            fetching: false,
         };
+    },
+    computed: {
+        ...mapGetters(CLUB_LIST_MODULE, [CAN_REQUEST_NEXT_PAGE]),
     },
     mounted() {
-        if (!this.needFetching) {
-            return;
-        }
-
-        this.sentinel = document.querySelector('#sentinel');
         this.listGroup = document.querySelector('#list-group');
-        if (this.meetingList.length > 0) {
-            this.listGroup.insertBefore(this.sentinel, this.listGroup.children[this.listGroup.children.length - 2]);
-        }
-        const infiniteScrollCallback = entries => {
-            entries.forEach(async entry => {
-                if (entry.isIntersecting && entry.target === this.sentinel && !this.fetching) {
-                    this.fetching = true;
-                    await this.fetchPosts();
-                    const childrenLength = this.listGroup.children.length;
-                    this.listGroup.insertBefore(this.sentinel, this.listGroup.children[childrenLength - 2]);
-                    this.fetching = false;
-                }
-            });
-        };
-        const observer = new IntersectionObserver(infiniteScrollCallback, { threshold: 0.75 });
-        observer.observe(this.sentinel);
+        this.sentinel = document.querySelector('#sentinel');
+        this.setInfiniteScrollObserver();
     },
     methods: {
-        async fetchPosts() {
-            this.$emit('addMeetingList');
-            await new Promise(r => setTimeout(r, TEMP_TIMEOUT));
+        moveSentinel() {
+            this.listGroup.insertBefore(this.sentinel, this.listGroup.children[this.listGroup.children.length - 2]);
+        },
+        setInfiniteScrollObserver() {
+            const infiniteScrollCallback = entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && entry.target === this.sentinel && this[CAN_REQUEST_NEXT_PAGE]) {
+                        this.$emit('findNextPage', this.moveSentinel);
+                    }
+                });
+            };
+            const observer = new IntersectionObserver(infiniteScrollCallback, { threshold: 0.75 });
+            observer.observe(this.sentinel);
         },
     },
 };

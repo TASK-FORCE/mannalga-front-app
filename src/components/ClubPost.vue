@@ -1,7 +1,7 @@
 <template>
     <div>
-        <v-list-item :key="meeting.id"
-                     :to="`/meeting_main/${meeting.id}`"
+        <v-list-item :key="club.seq"
+                     :to="`/club_main/${club.seq}`"
         >
             <div>
                 <v-img src="../images/vue.png"
@@ -20,25 +20,25 @@
                                    outlined
                                    color="light-green"
                             >
+                                <!--   TODO 관심사별 아이콘 정의 필요  -->
                                 <v-icon>mdi-book-open-variant</v-icon>
                             </v-btn>
                             <span class="ml-1"
                                   style="font-size: 0.9rem"
                             >
-                                {{ meeting.location }}
+                                {{ club.interests[0].name }} | {{ club.states[0].name }}
                             </span>
                         </div>
-                        <div class="mt-1"
-                             style="font-size: 1.1rem"
-                        >
-                            {{ meeting.id }} {{ meeting.title }}
+                        <div class="mt-1">
+                            {{ club.id }} {{ club.name }}
                         </div>
                     </v-col>
                     <v-col align-self="center"
                            class="pa-0 text-body-2"
+
                     >
-                        <div>
-                            {{ meeting.memberCurCount }}/{{ meeting.memberMaxCount }}
+                        <div style="font-size: 0.8rem">
+                            {{ club.userCount }}/{{ club.maximumNumber }}
                         </div>
                     </v-col>
                 </v-row>
@@ -52,7 +52,7 @@
 <script>
 export default {
     name: 'ClubPost',
-    props: ['meeting'],
+    props: ['club'],
 };
 </script>
 

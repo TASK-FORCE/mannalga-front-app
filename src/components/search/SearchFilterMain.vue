@@ -23,15 +23,15 @@
                 </template>
 
                 <BottomSheetLocationCard v-if="currentBottomSheetCard === 'LOCATION'"
-                                         :rootStates="rootStates"
-                                         @selectSubState="selectSearchLocation"
+                                             :rootStates="rootStates"
+                                             @selectSubState="selectSearchLocation"
                 />
                 <BottomSheetInterestCard v-else-if="currentBottomSheetCard === 'INTEREST'"
-                                         :rootInterests="interests"
-                                         @selectSubInterest="selectSearchInterest"
+                                             :rootInterests="interests"
+                                             @selectSubInterest="selectSearchInterest"
                 />
                 <BottomSheetSortCard v-else-if="currentBottomSheetCard === 'SORT'"
-                                     @selectSortOption="selectSearchSort"
+                                         @selectSortOption="selectSearchSort"
                 />
             </v-bottom-sheet>
         </div>
@@ -41,7 +41,7 @@
 <script>
 import BottomSheetLocationCard from '@/components/bottom-sheet/BottomSheetLocationCard.vue';
 import SearchFilterSelectBtn from '@/components/search/SearchFilterSelectBtn';
-import { mapActions, mapGetters, mapMutations } from 'vuex';
+import { mapActions, mapMutations, mapGetters } from 'vuex';
 import {
     INTERESTS,
     REQUEST_INTEREST_TEMPLATE,
@@ -56,6 +56,11 @@ import { MESSAGE } from '@/utils/constant/constant.js';
 import BottomSheetSortCard from '@/components/bottom-sheet/BottomSheetSortCard.vue';
 import BottomSheetInterestCard from '@/components/bottom-sheet/BottomSheetInterestCard.vue';
 import { LOGIN_PATH } from '@/router/route_path_type.js';
+import {
+    CHANGE_INTEREST_SEARCH_FILTER,
+    CHANGE_LOCATION_SEARCH_FILTER,
+    CLUB_LIST_MODULE, SEARCH_FILTER,
+} from '@/store/type/club_list_type.js';
 
 export default {
     name: 'SearchFilterMain',
@@ -77,6 +82,7 @@ export default {
     },
     computed: {
         ...mapGetters(TEMPLATE, { rootStates: ROOT_STATES, interests: INTERESTS }),
+        ...mapGetters(CLUB_LIST_MODULE, { searchFilter: SEARCH_FILTER }),
     },
     created() {
         if (_.isEmpty(this[ROOT_STATES])) {
@@ -93,24 +99,39 @@ export default {
     },
     methods: {
         ...mapActions(TEMPLATE, [REQUEST_STATE_TEMPLATE, REQUEST_INTEREST_TEMPLATE]),
+        ...mapMutations(CLUB_LIST_MODULE, [CHANGE_LOCATION_SEARCH_FILTER, CHANGE_INTEREST_SEARCH_FILTER]),
         ...mapMutations(COMMON, [OPEN_SNACKBAR]),
         selectSearchLocation(location) {
-            // location.seq로 검색
+            const locationFilter = {
+                seq: location.seq,
+                priority: 1,
+            };
+            this[CHANGE_LOCATION_SEARCH_FILTER](locationFilter);
+            this.changedSearchFilter();
             this.searchLocationText = location.name;
             this.sheet = false;
         },
         selectSearchInterest(interest) {
-            // interest.seq로 검색
+            const interestFilter = {
+                seq: interest.seq,
+                priority: 1,
+            };
+            this[CHANGE_INTEREST_SEARCH_FILTER](interestFilter);
+            this.changedSearchFilter();
             this.searchInterestText = interest.name;
             this.sheet = false;
         },
         selectSearchSort(sort) {
             // sort로 검색
             this.searchSortText = sort.name;
+            this.changedSearchFilter();
             this.sheet = false;
         },
         changeBottomSheetComponent(cardComponent) {
             this.currentBottomSheetCard = cardComponent;
+        },
+        changedSearchFilter() {
+            this.$emit('changedSearchFilter');
         },
     },
 };

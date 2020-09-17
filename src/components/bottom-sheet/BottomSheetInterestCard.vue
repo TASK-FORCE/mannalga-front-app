@@ -8,20 +8,13 @@
                      class="pa-0"
         >
             <v-list class="pt-0">
-                <v-list-item-group v-if="showRootItemGroup">
-                    <template v-for="interest in rootInterests">
+                <v-list-item-group>
+                    <template v-for="interest in interests">
                         <v-list-item :key="interest.seq"
-                                     @click="selectRootInterest(interest)"
-                                     v-text="interest.name"
-                        />
-                    </template>
-                </v-list-item-group>
-                <v-list-item-group v-else>
-                    <template v-for="interest in subInterestsBySelectedRootInterest">
-                        <v-list-item :key="interest.seq"
-                                     @click="selectSubInterest(interest)"
-                                     v-text="interest.name"
-                        />
+                                     @click="selectInterest(interest)"
+                        >
+                            {{ interest.name }}
+                        </v-list-item>
                     </template>
                 </v-list-item-group>
             </v-list>
@@ -33,34 +26,36 @@
 <script>
 export default {
     name: 'BottomSheetInterestCard',
-    props: ['rootInterests'],
+    props: {
+        rootInterests: Array,
+    },
     data() {
         return {
-            showRootItemGroup: true,
-            selectedRootInterest: null,
+            showRootInterests: true,
             title: '관심사 선택',
+            interests: this.rootInterests,
         };
     },
-    computed: {
-        subInterestsBySelectedRootInterest() {
-            const simpleRootInterest = {
-                seq: this.selectedRootInterest.seq,
-                name: this.selectedRootInterest.name,
-            };
-            return [simpleRootInterest, ...this.selectedRootInterest.interestList];
+    watch: {
+        rootInterests() {
+            this.interests = this.rootInterests;
         },
     },
     methods: {
+        selectInterest(interest) {
+            this.showRootInterests ? this.selectRootInterest(interest) : this.selectSubInterest(interest);
+        },
         selectRootInterest(rootInterest) {
-            this.selectedRootInterest = rootInterest;
             this.title = rootInterest.name;
-            this.showRootItemGroup = false;
+            this.interests = [{ ...rootInterest }, ...rootInterest.interestList];
+            this.showRootInterests = false;
         },
         selectSubInterest(interest) {
             this.$emit('selectSubInterest', interest);
             setTimeout(() => {
-                this.showRootItemGroup = true;
+                this.showRootInterests = true;
                 this.title = '관심사 선택';
+                this.interests = this.rootInterests;
             }, 100);
         },
     },
