@@ -39,6 +39,7 @@ import { MESSAGE } from '@/utils/constant/constant.js';
 import { COMMON, IS_LOADING, OPEN_SNACKBAR } from '@/store/type/common_type.js';
 import { ADD_SELECTED_LOCATIONS, SELECTED_LOCATIONS, USER } from '@/store/type/user_type.js';
 import { REQUEST_STATE_TEMPLATE, ROOT_STATES, TEMPLATE } from '@/store/type/template_type.js';
+import { REGISTER } from '@/router/route_path_type.js';
 
 export default {
     name: 'UserLocation',
@@ -53,7 +54,7 @@ export default {
     created() {
         if (_.isEmpty(this.rootStates)) {
             this[REQUEST_STATE_TEMPLATE]()
-                .catch(() => this.$router.back()
+                .catch(() => this.$router.push(REGISTER.PROFILE_PATH)
                     .then(() => this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.SERVER_INSTABILITY))));
         }
     },

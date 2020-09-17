@@ -13,8 +13,9 @@ import './style/vuetify-override.css';
 
 Vue.config.productionTip = false;
 
-// axios configuration
-axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? '/' : process.env.VUE_APP_SERVER_URL;
+// s3 proxy를 위해 주석처리
+// axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? '/' : process.env.VUE_APP_SERVER_URL;
+axios.defaults.baseURL = '/';
 axios.defaults.timeout = process.env.VUE_APP_AXIOS_TIMEOUT;
 setAppTokenAsDefaultHeader(axios.defaults.headers);
 
