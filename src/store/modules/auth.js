@@ -32,7 +32,7 @@ const mutations = {
 
 const actions = {
     async [REQUEST_KAKAO_TOKEN_BY_CODE]({ dispatch }, code) {
-        actionsNormalTemplate(async () => {
+        return actionsNormalTemplate(async () => {
             const response = await requestKakaoToken(code);
             const kakaoTokenInfo = response.data;
             return dispatch(REQUEST_APP_TOKEN_BY_KAKAO_TOKEN, kakaoTokenInfo);
