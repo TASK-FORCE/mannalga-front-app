@@ -23,7 +23,7 @@
             </v-tab-item>
             <v-tab-item>
                 <ClubList :clubList="myClubList"
-                          @findNextPgae="findNextMyClubs"
+                          @findNextPage="findNextMyClubs"
                 />
             </v-tab-item>
         </v-tabs-items>
