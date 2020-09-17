@@ -5,7 +5,7 @@
                    src="../images/vue.png"
             />
             <div class="text-center my-10">
-                <p class="display-1">서비스명</p>
+                <p class="display-1">서비스명 1</p>
             </div>
             <div class="text-center">
                 <v-btn class="mx-auto font-weight-bold"

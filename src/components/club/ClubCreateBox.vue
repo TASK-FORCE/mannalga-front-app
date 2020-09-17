@@ -57,6 +57,7 @@ import _ from '@/utils/lodashWrapper.js';
 import { OPEN_SNACKBAR } from '@/store/type/common_type.js';
 import { buildSnackBarOption } from '@/utils/snackbarUtils.js';
 import { MESSAGE } from '@/utils/constant/constant.js';
+import { MAIN_PAGE_PATH } from '@/router/route_path_type.js';
 
 export default {
     name: 'ClubCreateBox',
@@ -75,13 +76,13 @@ export default {
     created() {
         if (_.isEmpty(this[ROOT_STATES])) {
             this[REQUEST_STATE_TEMPLATE]()
-                .catch(() => this.$router.back()
+                .catch(() => this.$router.push(MAIN_PAGE_PATH)
                     .then(() => this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.SERVER_INSTABILITY))));
         }
 
         if (_.isEmpty(this[INTERESTS])) {
             this[REQUEST_INTEREST_TEMPLATE]()
-                .catch(() => this.$router.back()
+                .catch(() => this.$router.push(MAIN_PAGE_PATH)
                     .then(() => this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.SERVER_INSTABILITY))));
         }
     },

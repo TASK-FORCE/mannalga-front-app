@@ -6,32 +6,32 @@
             >
                 <template v-slot:activator="{ on, attrs }">
                     <SearchFilterSelectBtn :attrs="attrs"
-                                              :on="on"
-                                              :text="searchLocationText"
-                                              @click="changeBottomSheetComponent('LOCATION')"
+                                           :on="on"
+                                           :text="searchLocationText"
+                                           @click="changeBottomSheetComponent('LOCATION')"
                     />
                     <SearchFilterSelectBtn :attrs="attrs"
-                                              :on="on"
-                                              :text="searchSortText"
-                                              @click="changeBottomSheetComponent('SORT')"
+                                           :on="on"
+                                           :text="searchSortText"
+                                           @click="changeBottomSheetComponent('SORT')"
                     />
                     <SearchFilterSelectBtn :attrs="attrs"
-                                              :on="on"
-                                              :text="searchInterestText"
-                                              @click="changeBottomSheetComponent('INTEREST')"
+                                           :on="on"
+                                           :text="searchInterestText"
+                                           @click="changeBottomSheetComponent('INTEREST')"
                     />
                 </template>
 
                 <BottomSheetLocationCard v-if="currentBottomSheetCard === 'LOCATION'"
-                                             :rootStates="rootStates"
-                                             @selectSubState="selectSearchLocation"
+                                         :rootStates="rootStates"
+                                         @selectSubState="selectSearchLocation"
                 />
                 <BottomSheetInterestCard v-else-if="currentBottomSheetCard === 'INTEREST'"
-                                             :rootInterests="interests"
-                                             @selectSubInterest="selectSearchInterest"
+                                         :rootInterests="interests"
+                                         @selectSubInterest="selectSearchInterest"
                 />
                 <BottomSheetSortCard v-else-if="currentBottomSheetCard === 'SORT'"
-                                         @selectSortOption="selectSearchSort"
+                                     @selectSortOption="selectSearchSort"
                 />
             </v-bottom-sheet>
         </div>
@@ -41,7 +41,7 @@
 <script>
 import BottomSheetLocationCard from '@/components/bottom-sheet/BottomSheetLocationCard.vue';
 import SearchFilterSelectBtn from '@/components/search/SearchFilterSelectBtn';
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 import {
     INTERESTS,
     REQUEST_INTEREST_TEMPLATE,
@@ -49,12 +49,13 @@ import {
     ROOT_STATES,
     TEMPLATE,
 } from '@/store/type/template_type.js';
-import { OPEN_SNACKBAR } from '@/store/type/common_type.js';
+import { COMMON, OPEN_SNACKBAR } from '@/store/type/common_type.js';
 import _ from '@/utils/lodashWrapper.js';
 import { buildSnackBarOption } from '@/utils/snackbarUtils.js';
 import { MESSAGE } from '@/utils/constant/constant.js';
 import BottomSheetSortCard from '@/components/bottom-sheet/BottomSheetSortCard.vue';
 import BottomSheetInterestCard from '@/components/bottom-sheet/BottomSheetInterestCard.vue';
+import { LOGIN_PATH } from '@/router/route_path_type.js';
 
 export default {
     name: 'SearchFilterMain',
@@ -80,18 +81,19 @@ export default {
     created() {
         if (_.isEmpty(this[ROOT_STATES])) {
             this[REQUEST_STATE_TEMPLATE]()
-                .catch(() => this.$router.back()
+                .catch(() => this.$router.push(LOGIN_PATH)
                     .then(() => this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.SERVER_INSTABILITY))));
         }
 
         if (_.isEmpty(this[INTERESTS])) {
             this[REQUEST_INTEREST_TEMPLATE]()
-                .catch(() => this.$router.back()
+                .catch(() => this.$router.push(LOGIN_PATH)
                     .then(() => this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.SERVER_INSTABILITY))));
         }
     },
     methods: {
         ...mapActions(TEMPLATE, [REQUEST_STATE_TEMPLATE, REQUEST_INTEREST_TEMPLATE]),
+        ...mapMutations(COMMON, [OPEN_SNACKBAR]),
         selectSearchLocation(location) {
             // location.seq로 검색
             this.searchLocationText = location.name;

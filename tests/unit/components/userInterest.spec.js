@@ -61,7 +61,7 @@ describe('UserInterest.vue', () => {
             },
         });
         $router = {
-            push: sinon.spy(),
+            push: sinon.stub(),
             back: sinon.stub(),
         };
         options = {
@@ -85,11 +85,11 @@ describe('UserInterest.vue', () => {
         expect(templateActions[REQUEST_INTEREST_TEMPLATE].calledOnce).to.be.true;
     });
 
-    it('interest template을 요청이 실패하면 뒤로 가기 후 스낵바를 호출한다.', async () => {
+    it('interest template을 요청이 실패하면 뒤로 가기 후 라우팅', async () => {
         // given
         templateGetters[INTERESTS].returns([]);
         templateActions[REQUEST_INTEREST_TEMPLATE].returns(Promise.reject());
-        $router.back.returns(Promise.resolve());
+        $router.push.returns(Promise.resolve());
 
         // when
         const wrapper = shallowMount(UserInterest, options);
@@ -97,7 +97,7 @@ describe('UserInterest.vue', () => {
         await wrapper.vm.$nextTick();
 
         // then
-        expect($router.back.calledOnce).to.be.true;
+        expect($router.push.calledOnce).to.be.true;
         expect(commonMutations[OPEN_SNACKBAR].calledOnce).to.be.true;
     });
 

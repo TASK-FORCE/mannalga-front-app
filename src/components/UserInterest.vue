@@ -40,6 +40,7 @@ import {
     SELECTED_INTEREST_SEQS,
     USER,
 } from '@/store/type/user_type.js';
+import { REGISTER } from '@/router/route_path_type.js';
 
 const MAXIMUM_SELECTABLE_COUNT = 5;
 
@@ -53,7 +54,7 @@ export default {
     created() {
         if (_.isEmpty(this[INTERESTS])) {
             this[REQUEST_INTEREST_TEMPLATE]()
-                .catch(() => this.$router.back()
+                .catch(() => this.$router.push(REGISTER.PROFILE_PATH)
                     .then(() => this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.SERVER_INSTABILITY))));
         }
     },
