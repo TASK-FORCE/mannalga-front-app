@@ -29,9 +29,14 @@ module.exports = {
                         headers: req.headers,
                         data: req.body,
                     };
-                    const result = await axios.request(requestOption);
-                    res.status(result.status)
-                        .send(result.data);
+                    try {
+                        const result = await axios.request(requestOption);
+                        res.status(result.status)
+                            .send(result.data);
+                    } catch (e) {
+                        console.log('### Error', e);
+                    }
+
                     return;
                 }
 
