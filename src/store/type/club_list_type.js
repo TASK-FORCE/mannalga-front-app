@@ -15,7 +15,7 @@ export const CLUB_LIST = 'clubList';
 export const CLUB_PAGE = 'clubPage';
 export const SEARCH_FILTER = 'searchFilter';
 export const IS_REQUESTING_NEXT_PAGE = 'isRequestingNextPage';
-export const CAN_REQUEST_NEXT_PAGE = 'canRequestNextPage';
+export const IS_LAST_PAGE = 'isLastPage';
 
 // mutations
 export const ADD_NEXT_CLUB_LIST = 'addNextClubList';

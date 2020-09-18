@@ -1,6 +1,6 @@
 import {
     ADD_NEXT_CLUB_LIST,
-    CAN_REQUEST_NEXT_PAGE,
+    IS_LAST_PAGE,
     CHANGE_CLUB_LIST_WITH_PAGE,
     CHANGE_INTEREST_SEARCH_FILTER,
     CHANGE_IS_REQUESTING_NEXT_PAGE,
@@ -33,11 +33,9 @@ const getters = {
     [SEARCH_FILTER](state) {
         return state[SEARCH_FILTER];
     },
-    [CAN_REQUEST_NEXT_PAGE](state, _, rootState) {
+    [IS_LAST_PAGE](state) {
         const { isLastPage } = state[CLUB_PAGE];
-        const { loading } = rootState.common;
-        const isRequestingNextPage = state[IS_REQUESTING_NEXT_PAGE];
-        return !isLastPage && !isRequestingNextPage && !loading;
+        return isLastPage;
     },
 };
 
