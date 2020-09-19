@@ -1,5 +1,6 @@
 const path = require('path');
 const express = require('express');
+const unless = require('express-unless');
 const axios = require('axios');
 const stubUtils = require('./stub/stubUtils.js');
 const STUB_REQUESTS = require('./stub/stubRequestList.js');
@@ -11,8 +12,11 @@ module.exports = {
     devServer: {
         port: 8081,
         before(app) {
-            app.use(express.json());
-            app.all('/**', async (req, res, next) => {
+            const jsonParser = express.json();
+            // form-data는 jsonParser를 적용시키면 안된다..
+            unless(jsonParser, { path: '/api/common/temp/file' });
+            app.use(jsonParser);
+            app.all('/api/**', async (req, res, next) => {
                 // Stub 대상이면 /stub/api에 정의된 데이터로 Stubing 한다.
                 if (stubUtils.isStubRequest(req, STUB_REQUESTS)) {
                     await new Promise(r => setTimeout(r, 500));
@@ -23,6 +27,10 @@ module.exports = {
                 }
 
                 if (req.path.startsWith('/api')) {
+                    if (req.path === '/api/common/temp/file') {
+                        next();
+                        return;
+                    }
                     const requestOption = {
                         url: process.env.VUE_APP_SERVER_URL + req.path,
                         method: req.method,

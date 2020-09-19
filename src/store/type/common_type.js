@@ -15,3 +15,6 @@ export const SNACKBAR_OPTIONS = 'snackBarOptions';
 export const CHANGE_LOADING = 'changeLoading';
 export const OPEN_SNACKBAR = 'openSnackBar';
 export const CLOSE_SNACKBAR = 'closeSnackBar';
+
+// actions
+export const UPLOAD_TEMP_IMAGE = 'uploadTempImage';

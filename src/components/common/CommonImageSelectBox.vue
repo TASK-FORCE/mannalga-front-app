@@ -32,12 +32,12 @@ export default {
     props: ['text'],
     data() {
         return {
-            imageUrl: '',
+            image: '',
         };
     },
     methods: {
         onChangeImage(e) {
-            this.imageUrl = URL.createObjectURL(e.target.files[0]);
+            [this.image] = e.target.files;
         },
         onClickImageUpload() {
             this.$refs.imageInput.click();
