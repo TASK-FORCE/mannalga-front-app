@@ -5,7 +5,7 @@
                    src="../images/vue.png"
             />
             <div class="text-center my-10">
-                <p class="display-1">서비스명</p>
+                <p class="display-1">서비스명 1</p>
             </div>
             <div class="text-center">
                 <v-btn class="mx-auto font-weight-bold"
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { mapActions, mapMutations, mapGetters } from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 import { moveToKakaoLoginPage } from '@/utils/kakao/utlls.js';
 import { buildSnackBarOption } from '@/utils/snackbarUtils.js';
 import { MESSAGE } from '@/utils/constant/constant.js';
@@ -55,6 +55,7 @@ export default {
             return;
         }
 
+        // TODO 백엔드에게 api 요청 후 변경 필요
         if (this[IS_AUTH] && false) {
             this.requestTemplateWithLoading(
                 async () => {
