@@ -53,6 +53,12 @@ const routes = [
         component: () => import('@/views/AppMain.vue'),
     },
     {
+        path: CLUB_PATH,
+        name: 'ClubMain',
+        component: () => import('@/views/club/ClubMain.vue'),
+        props: true,
+    },
+    {
         path: CLUB_CREATE_PATH,
         name: 'ClubCreate',
         component: () => import('@/views/club/ClubCreate.vue'),

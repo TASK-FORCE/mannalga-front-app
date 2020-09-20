@@ -29,6 +29,7 @@
             :path="clubBoardCreate"
         />
     </v-tab-item>
+    <!-- @TODO 게시글 추가하기 버튼 -->
 </template>
 
 <script>
