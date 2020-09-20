@@ -10,7 +10,7 @@ import {
     IS_REQUESTING_NEXT_PAGE,
     REQUEST_FIRST_CLUB_LIST,
     REQUEST_NEXT_CLUB_LIST,
-    SEARCH_FILTER,
+    SEARCH_FILTER, GET_DEFAULT_CLUB_LIST_PAGE,
 } from '@/store/type/club_list_type.js';
 import { actionsLoadingTemplate } from '@/store/helper/helper.js';
 import { requestClubListWithPage } from '@/apis/clubList.js';
@@ -18,7 +18,7 @@ import { transformService } from '@/store/helper/transform.js';
 
 const state = {
     [CLUB_LIST]: [],
-    [CLUB_PAGE]: {},
+    [CLUB_PAGE]: GET_DEFAULT_CLUB_LIST_PAGE(),
     [SEARCH_FILTER]: DEFAULT_SEARCH_FILTER,
     [IS_REQUESTING_NEXT_PAGE]: false,
 };
@@ -60,7 +60,7 @@ const mutations = {
     },
     [INIT_CLUB_LIST_AND_PAGE](state) {
         state[CLUB_LIST] = [];
-        state[CLUB_PAGE] = {};
+        state[CLUB_PAGE] = GET_DEFAULT_CLUB_LIST_PAGE();
     },
 };
 
@@ -71,13 +71,14 @@ const actions = {
     [REQUEST_FIRST_CLUB_LIST]({ commit, state }) {
         commit(INIT_CLUB_LIST_AND_PAGE);
         const callback = async () => {
-            const response = await requestClubListWithPage(requestParamWithFirstPage(state));
+            const response = await requestClubListWithPage(buildClubListRequestParam(state));
             commit(CHANGE_CLUB_LIST_WITH_PAGE, extractClubListAndPage(response));
         };
         return actionsLoadingTemplate(commit, callback);
     },
     [REQUEST_NEXT_CLUB_LIST]({ commit, state }) {
-        if (state[CLUB_PAGE].isLastPage) {
+        const clubPage = state[CLUB_PAGE];
+        if (clubPage.isLastPage) {
             return Promise.resolve();
         }
 
@@ -87,7 +88,7 @@ const actions = {
         };
 
         const callback = async () => {
-            const response = await requestClubListWithPage(requestParamWithNextPage(state));
+            const response = await requestClubListWithPage(buildClubListRequestParam(state));
             commit(ADD_NEXT_CLUB_LIST, extractClubListAndPage(response));
         };
 
@@ -102,20 +103,14 @@ function extractClubListAndPage(response) {
     return { clubList, clubPage };
 }
 
-const requestParamWithFirstPage = (state) => ({
-    size: 20,
-    offset: 0,
-    searchOptions: { ...(state[SEARCH_FILTER]) },
-});
-
-const requestParamWithNextPage = (state) => {
+function buildClubListRequestParam(state) {
     const { size, nextPage } = state[CLUB_PAGE];
     return {
         size,
         offset: nextPage, // TODO 백엔드가 변경해주면 변경하자.
         searchOptions: { ...(state[SEARCH_FILTER]) },
     };
-};
+}
 export default {
     state,
     getters,

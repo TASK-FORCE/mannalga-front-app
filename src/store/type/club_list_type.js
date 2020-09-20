@@ -6,6 +6,7 @@ const EMPTY_SEARCH_FILTER = {
 };
 
 export const DEFAULT_SEARCH_FILTER = _.cloneDeep(EMPTY_SEARCH_FILTER);
+export const GET_DEFAULT_CLUB_LIST_PAGE = () => ({ size: 20, nextPage: 0, isLastPage: false });
 
 // module name
 export const CLUB_LIST_MODULE = 'clubList';
