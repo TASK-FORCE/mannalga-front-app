@@ -28,6 +28,8 @@ const isNumber = (value) => _.isNumber(value);
 
 const cloneDeep = (value) => _.cloneDeep(value);
 
+const isFunction = (value) => _.isFunction(value);
+
 export default {
     isEmpty,
     isEqual,
@@ -36,4 +38,5 @@ export default {
     isDeepEmpty,
     cloneDeep,
     isNumber,
+    isFunction,
 };

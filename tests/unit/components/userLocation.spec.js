@@ -56,7 +56,7 @@ describe('UserLocation.vue', () => {
             },
         });
         $router = {
-            push: sinon.spy(),
+            push: sinon.stub(),
             back: sinon.stub(),
         };
         options = {
@@ -98,7 +98,7 @@ describe('UserLocation.vue', () => {
         // given
         templateGetters[ROOT_STATES].returns([]);
         templateActions[REQUEST_STATE_TEMPLATE].returns(Promise.reject());
-        $router.back.returns(Promise.resolve());
+        $router.push.returns(Promise.resolve());
 
         // when
         const wrapper = shallowMount(UserLocation, options);
@@ -107,7 +107,7 @@ describe('UserLocation.vue', () => {
 
         // then
         expect(templateActions[REQUEST_STATE_TEMPLATE].calledOnce).to.be.true;
-        expect($router.back.calledOnce).to.be.true;
+        expect($router.push.calledOnce).to.be.true;
         expect(commonMutations[OPEN_SNACKBAR].calledOnce).to.be.true;
     });
 

@@ -12,3 +12,4 @@ export const MAIN_PATH = '/main';
 export const SELECT_LOCATION_PATH = '/select/location';
 export const MAIN_PAGE_PATH = '/main';
 export const CLUB_PATH = '/club/:seq';
+export const CLUB_CREATE_PATH = '/club/create';
