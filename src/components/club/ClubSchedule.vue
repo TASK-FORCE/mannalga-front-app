@@ -76,21 +76,6 @@
                         </v-col>
                     </v-row>
                 </v-timeline-item>
-
-                <!-- <v-timeline-item
-                color="teal lighten-3"
-                small
-                >
-                <v-row>
-                    <v-col cols="4">
-                    <strong>5월 22일</strong>
-                    </v-col>
-                    <v-col>
-                    <strong>1회차 스터디 - 첫미팅</strong>
-                    <div class="caption">판교 오픈커피 1시</div>
-                    </v-col>
-                </v-row>
-                </v-timeline-item> -->
             </v-timeline>
 
             <v-btn
@@ -105,12 +90,14 @@
             </v-btn>
         </v-card-text>
     </v-tab-item>
+    <!-- @TODO 일정 추가하기 버튼 -->
 </template>
 
 <script>
 export default {
-    name: 'ClubCalendar',
-    // @TODO 일정 데이터 가져오기
+    name: 'ClubSchedule',
+    props: ['scheduleList'],
+    // @TODO 일정 CRUD
 };
 </script>
 

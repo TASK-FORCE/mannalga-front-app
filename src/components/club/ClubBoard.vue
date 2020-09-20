@@ -2,28 +2,18 @@
     <v-tab-item>
         <v-card>
             <v-list three-line>
-                <template v-for="(board, index) in boards">
-                    <v-subheader
-                        v-if="board.header"
-                        :key="board.header"
-                        v-text="board.header"
-                    ></v-subheader>
-                    <v-divider
-                        v-else-if="board.divider"
-                        :key="index"
-                        :inset="board.inset"
-                    ></v-divider>
+                <template v-for="board in boardList.boards">
                     <v-list-item
-                        v-else
                         :key="board.title"
                         @click="$emit('')"
                     >
                         <v-list-item-avatar>
-                            <v-img :src="board.avatar"></v-img>
+                            <v-img :src="board.writerImg"></v-img>
                         </v-list-item-avatar>
                         <v-list-item-content>
-                            <v-list-item-title v-html="board.title"></v-list-item-title>
-                            <v-list-item-subtitle v-html="board.subtitle"></v-list-item-subtitle>
+                            <v-list-item-title>{{ board.title }}</v-list-item-title>
+                            <v-list-item-subtitle><span class='text--primary'>{{ board.writerName }}</span> 좋아요{{ board.favoriteCnt }} 댓글{{ board.commentCnt }}</v-list-item-subtitle>
+                            <v-list-item-subtitle>{{ board.writeDate }}</v-list-item-subtitle>
                         </v-list-item-content>
                     </v-list-item>
                 </template>
@@ -40,47 +30,19 @@
             <v-icon>mdi-plus</v-icon>
         </v-btn>
     </v-tab-item>
+    <!-- @TODO 게시글 추가하기 버튼 -->
 </template>
 
 <script>
 export default {
     name: 'ClubBoard',
+    props: ['boardList'],
     data() {
         return {
-            boards: [
-                { header: 'Today' },
-                {
-                    avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-                    title: '게시글 제목 <span class="grey--text text--lighten-1 caption">댓글 20</span>',
-                    subtitle: "<span class='text--primary'>작성자</span> &mdash; 글 내용입니다. 글 내용입니다. 글 내용입니다. 글 내용입니다. 글 내용입니다. 글 내용입니다. 글 내용입니다. 글 내용입니다.",
-                },
-                { divider: true, inset: true },
-                {
-                    avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
-                    title: 'Summer BBQ <span class="grey--text text--lighten-1 caption">댓글 4</span>',
-                    subtitle: "<span class='text--primary'>to Alex, Scott, Jennifer</span> &mdash; Wish I could come, but I'm out of town this weekend.",
-                },
-                { divider: true, inset: true },
-                {
-                    avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
-                    title: 'Oui oui',
-                    subtitle: "<span class='text--primary'>Sandra Adams</span> &mdash; Do you have Paris recommendations? Have you ever been?",
-                },
-                { divider: true, inset: true },
-                {
-                    avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
-                    title: 'Birthday gift',
-                    subtitle: "<span class='text--primary'>Trevor Hansen</span> &mdash; Have any ideas about what we should get Heidi for her birthday?",
-                },
-                { divider: true, inset: true },
-                {
-                    avatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg',
-                    title: 'Recipe to try',
-                    subtitle: "<span class='text--primary'>Britta Holt</span> &mdash; We should eat this: Grate, Squash, Corn, and tomatillo Tacos.",
-                },
-            ],
+            // ... 
         };
     },
+    // @TODO 게시판 CRUD
 };
 </script>
 

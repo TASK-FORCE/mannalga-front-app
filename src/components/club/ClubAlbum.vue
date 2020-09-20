@@ -51,11 +51,14 @@
             <v-icon>mdi-plus</v-icon>
         </v-btn>
     </v-tab-item>
+    <!-- @TODO 사진 추가하기 버튼 -->
 </template>
 
 <script>
 export default {
     name: 'ClubAlbum',
+    props: ['albumList'],
+    // @TODO 앨범 CRUD
 };
 </script>
 
