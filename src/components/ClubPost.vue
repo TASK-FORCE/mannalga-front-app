@@ -26,7 +26,7 @@
                             <span class="ml-1"
                                   style="font-size: 0.9rem"
                             >
-                                {{ club.interests[0].name }} | {{ club.states[0].name }}
+                                {{ firstLocation.name }} | {{ firstInterest.name }}
                             </span>
                         </div>
                         <div class="mt-1">
@@ -53,6 +53,16 @@
 export default {
     name: 'ClubPost',
     props: ['club'],
+    computed: {
+        firstLocation() {
+            const { state } = this.club.states.find(({ priority }) => priority === 1);
+            return state;
+        },
+        firstInterest() {
+            const { interest } = this.club.interests.find(({ priority }) => priority === 1);
+            return interest;
+        },
+    },
 };
 </script>
 

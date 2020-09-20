@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-function requestClubsWithPage(requestParams) {
-    return axios.post('/api/clubs', { data: requestParams });
+function requestClubListWithPage(requestParams) {
+    return axios.post('/api/clubs/search', requestParams);
 }
 
 export {
-    requestClubsWithPage,
+    requestClubListWithPage,
 };

@@ -16,8 +16,8 @@
         <v-tabs-items v-model="tab">
             <v-tab-item>
                 <SearchFilterMain @changedSearchFilter="changedSearchFilter"/>
-                <ClubList :clubList="clubListWithPage.clubs"
-                          :page="clubListWithPage.page"
+                <ClubList :clubList="clubList"
+                          :page="clubPage"
                           @findNextPage="findNextClubs"
                 />
             </v-tab-item>
@@ -35,8 +35,9 @@ import ClubList from '@/components/ClubList.vue';
 import SearchFilterMain from '@/components/search/SearchFilterMain.vue';
 import { mapActions, mapGetters } from 'vuex';
 import {
+    CLUB_LIST,
     CLUB_LIST_MODULE,
-    CLUB_LIST_WITH_PAGE,
+    CLUB_PAGE,
     REQUEST_FIRST_CLUB_LIST,
     REQUEST_NEXT_CLUB_LIST,
     SEARCH_FILTER,
@@ -52,7 +53,7 @@ export default {
         };
     },
     computed: {
-        ...mapGetters(CLUB_LIST_MODULE, { clubListWithPage: CLUB_LIST_WITH_PAGE, SEARCH_FILTER }),
+        ...mapGetters(CLUB_LIST_MODULE, { clubList: CLUB_LIST, clubPage: CLUB_PAGE, SEARCH_FILTER }),
     },
     created() {
         this[REQUEST_FIRST_CLUB_LIST]();
