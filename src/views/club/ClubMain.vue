@@ -1,7 +1,7 @@
 <template>
   <div>
       <!-- <div>값 확인용 : 프롭스 - {{ seq }} / 라우터 - {{ $route.params.seq }}</div> -->
-      <ClubHeader :clubName="clubData.clubName"/>
+      <ClubHeader :clubName="clubData.clubInfo.clubName"/>
       <ClubTab :clubData="clubData"/>
   </div>
 </template>

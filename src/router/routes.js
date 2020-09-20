@@ -1,5 +1,5 @@
 import store from '@/store/index.js';
-import { CLUB_CREATE_PATH, LOGIN_PATH, MAIN_PAGE_PATH, REGISTER, SELECT_LOCATION_PATH, CLUB_PATH } from '@/router/route_path_type.js';
+import { CLUB_CREATE_PATH, CLUB_PATH, CLUB_BOARD_CREATE_PATH, CLUB_BOARD_POST_PATH, LOGIN_PATH, MAIN_PAGE_PATH, REGISTER, SELECT_LOCATION_PATH } from '@/router/route_path_type.js';
 import { AUTH, IS_AUTH } from '@/store/type/auth_type.js';
 
 function validationAuthentication(to, from, next) {
@@ -62,6 +62,22 @@ const routes = [
         path: CLUB_CREATE_PATH,
         name: 'ClubCreate',
         component: () => import('@/views/club/ClubCreate.vue'),
+    },
+    {
+        path: CLUB_PATH,
+        name: 'ClubMain',
+        component: () => import('@/views/club/ClubMain.vue'),
+        props: true,
+    },
+    {
+        path: CLUB_BOARD_CREATE_PATH,
+        name: 'ClubBoardCreate',
+        component: () => import('@/views/club/ClubBoardCreate.vue'),
+    },
+    {
+        path: CLUB_BOARD_POST_PATH,
+        name: 'ClubBoardPost',
+        component: () => import('@/views/club/ClubBoardPost.vue'),
     },
 ];
 
