@@ -11,7 +11,7 @@ export const REGISTER = {
 export const MAIN_PATH = '/main';
 export const SELECT_LOCATION_PATH = '/select/location';
 
-export const CLUB_PATH = '/club/main/:seq';
-export const CLUB_CREATE_PATH = '/club/create';
+export const CLUB_PATH = '/club/:seq';
+export const CLUB_CREATE_PATH = '/create/club';
 export const CLUB_BOARD_POST_PATH = '/club/board/:seq';
 export const CLUB_BOARD_CREATE_PATH = '/club/board/create';
