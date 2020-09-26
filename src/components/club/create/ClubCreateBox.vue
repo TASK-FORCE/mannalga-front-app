@@ -83,8 +83,7 @@ export default {
         },
     },
     created() {
-        actionsFetcherService.fetchInterestAndLocationTemplate(true,
-            () => this.$router.push(MAIN_PATH));
+        actionsFetcherService.fetchInterestAndLocationTemplate(true, MAIN_PATH);
     },
     methods: {
         openBottomSheetCard(cardComponent) {

@@ -74,8 +74,7 @@ export default {
         searchFilter: () => getterHelper.searchFilter(),
     },
     created() {
-        actionsFetcherService.fetchInterestAndLocationTemplate(true,
-            () => this.$router.push(LOGIN_PATH));
+        actionsFetcherService.fetchInterestAndLocationTemplate(true, LOGIN_PATH);
     },
     methods: {
         selectSearchLocation(location) {

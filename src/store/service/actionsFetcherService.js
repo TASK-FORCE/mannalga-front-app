@@ -1,13 +1,15 @@
 import _ from '@/utils/lodashWrapper.js';
-import { getterHelper } from '@/store/helper/getterHelper.js';
 import store from '@/store';
+import router from '@/router';
+import { getterHelper } from '@/store/helper/getterHelper.js';
 import { CHANGE_LOADING, COMMON } from '@/store/type/common_type.js';
 import { REQUEST_INTEREST_TEMPLATE, REQUEST_LOCATION_TEMPLATE, TEMPLATE } from '@/store/type/template_type.js';
 import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 import { MESSAGE } from '@/utils/constant/constant.js';
+import { combineWithModuleName } from '@/store/helper/vuexUtils.js';
 
 const actionsFetcherService = {
-    async fetchInterestAndLocationTemplate(withLoading, failCallBack) {
+    async fetchInterestAndLocationTemplate(withLoading, routePathWhenFail) {
         if (!_.isEmpty(getterHelper.rootLocations()) && !_.isEmpty(getterHelper.rootInterests())) {
             return;
         }
@@ -16,27 +18,29 @@ const actionsFetcherService = {
         let interestsPromise;
 
         if (withLoading) {
-            store.commit(`${COMMON}/${CHANGE_LOADING}`, true);
+            store.commit(combineWithModuleName(COMMON, CHANGE_LOADING), true);
         }
 
         if (_.isEmpty(getterHelper.rootLocations())) {
-            locationsPromise = store.dispatch(`${TEMPLATE}/${REQUEST_LOCATION_TEMPLATE}`);
+            locationsPromise = store.dispatch(combineWithModuleName(TEMPLATE, REQUEST_LOCATION_TEMPLATE));
         }
 
         if (_.isEmpty(getterHelper.rootInterests())) {
-            interestsPromise = store.dispatch(`${TEMPLATE}/${REQUEST_INTEREST_TEMPLATE}`);
+            interestsPromise = store.dispatch(combineWithModuleName(TEMPLATE, REQUEST_INTEREST_TEMPLATE));
         }
 
         try {
             await Promise.all([locationsPromise, interestsPromise]);
         } catch (e) {
-            if (failCallBack) {
-                failCallBack();
+            console.warn(e);
+            let catchPromise = Promise.resolve();
+            if (routePathWhenFail) {
+                catchPromise = router.push(routePathWhenFail);
             }
-            mutationsHelper.openSnackBar(MESSAGE.SERVER_INSTABILITY);
+            catchPromise.then(() => mutationsHelper.openSnackBar(MESSAGE.SERVER_INSTABILITY));
         } finally {
             if (withLoading) {
-                store.commit(`${COMMON}/${CHANGE_LOADING}`, false);
+                store.commit(combineWithModuleName(COMMON, CHANGE_LOADING), false);
             }
         }
     },

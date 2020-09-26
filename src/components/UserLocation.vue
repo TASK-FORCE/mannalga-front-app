@@ -48,8 +48,7 @@ export default {
         selectedLocations: () => getterHelper.selectedLocations(),
     },
     created() {
-        actionsFetcherService.fetchInterestAndLocationTemplate(true,
-            () => this.$router.push(REGISTER_PATH.PROFILE_PATH));
+        actionsFetcherService.fetchInterestAndLocationTemplate(true, REGISTER_PATH.PROFILE_PATH);
     },
     mounted() {
         // eslint-disable-next-line no-restricted-globals

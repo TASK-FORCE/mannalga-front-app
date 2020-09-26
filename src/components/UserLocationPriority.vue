@@ -24,6 +24,7 @@
 import { COLOR } from '@/utils/constant/constant.js';
 import { SELECT_LOCATION_PATH } from '@/router/route_path_type.js';
 import { getterHelper } from '@/store/helper/getterHelper.js';
+import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 
 export default {
     name: 'UserLocationPriority',
@@ -54,7 +55,20 @@ export default {
             return `우선순위 ${priority}`;
         },
         clickBtn(priority) {
-            this.$router.push(`${SELECT_LOCATION_PATH}?priority=${priority}`);
+            if (this.validate(priority)) {
+                this.$router.push(`${SELECT_LOCATION_PATH}?priority=${priority}`);
+            }
+        },
+        validate(priority) {
+            if (priority > 1) {
+                for (let i = 1; i < priority; i++) {
+                    if (!this.selectedLocations[i]) {
+                        mutationsHelper.openSnackBar(`${i}번째 지역을 먼저 선택해주세요.`);
+                        return false;
+                    }
+                }
+            }
+            return true;
         },
     },
 };

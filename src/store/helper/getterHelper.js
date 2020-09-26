@@ -4,6 +4,7 @@ import { ROOT_INTERESTS, ROOT_LOCATIONS, TEMPLATE } from '@/store/type/template_
 import { PROFILE, SELECTED_INTEREST_SEQS, SELECTED_LOCATIONS, USER } from '@/store/type/user_type.js';
 import { AUTH } from '@/store/type/auth_type.js';
 import { CLUB_LIST, CLUB_LIST_MODULE, CLUB_PAGE, IS_FIRST_PAGE, IS_LAST_PAGE, SEARCH_FILTER } from '@/store/type/club_list_type.js';
+import { combineWithModuleName } from '@/store/helper/vuexUtils.js';
 
 const { getters } = store;
 
@@ -28,6 +29,6 @@ const getterHelper = {
     isFirstPage: () => get(CLUB_LIST_MODULE, IS_FIRST_PAGE),
 };
 
-const get = (moduleName, getterName) => getters[`${moduleName}/${getterName}`];
+const get = (moduleName, getterName) => getters[combineWithModuleName(moduleName, getterName)];
 
 export { getterHelper };
