@@ -45,7 +45,7 @@
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 import _ from '@/utils/lodashWrapper.js';
-import { NAME_RULES } from '@/utils/constant/constant.js';
+import { RULES } from '@/utils/constant/constant.js';
 import { COMMON, IS_LOADING } from '@/store/type/common_type.js';
 import { CHANGE_PROFILE_NAME, PROFILE, REQUEST_PROFILE, USER } from '@/store/type/user_type.js';
 import { LOGIN_PATH } from '@/router/route_path_type.js';
@@ -54,7 +54,7 @@ export default {
     name: 'UserProfile',
     data() {
         return {
-            nameRules: NAME_RULES,
+            nameRules: RULES.PROFILE_NAME,
         };
     },
     computed: {

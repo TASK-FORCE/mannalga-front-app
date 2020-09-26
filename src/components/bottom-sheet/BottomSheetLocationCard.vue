@@ -28,6 +28,7 @@ export default {
     name: 'BottomSheetLocationCard',
     props: {
         rootStates: Array,
+        canSelectRoot: Boolean,
     },
     data() {
         return {
@@ -48,9 +49,12 @@ export default {
         },
         selectRootState(state) {
             this.title = state.name;
-            const rootState = { ...state };
-            rootState.name += ' 전체';
-            this.states = [rootState, ...state.subStates];
+            this.states = [...state.subStates];
+            if (this.canSelectRoot) {
+                const rootState = { ...state };
+                rootState.name += ' 전체';
+                this.states.unshift(rootState);
+            }
             this.showRootStates = false;
         },
         selectSubState(state) {

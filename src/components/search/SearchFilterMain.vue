@@ -23,15 +23,17 @@
                 </template>
 
                 <BottomSheetLocationCard v-if="currentBottomSheetCard === 'LOCATION'"
-                                             :rootStates="rootStates"
-                                             @selectSubState="selectSearchLocation"
+                                         :rootStates="rootStates"
+                                         :canSelectRoot="true"
+                                         @selectSubState="selectSearchLocation"
                 />
                 <BottomSheetInterestCard v-else-if="currentBottomSheetCard === 'INTEREST'"
-                                             :rootInterests="interests"
-                                             @selectSubInterest="selectSearchInterest"
+                                         :rootInterests="interests"
+                                         :canSelectRoot="true"
+                                         @selectSubInterest="selectSearchInterest"
                 />
                 <BottomSheetSortCard v-else-if="currentBottomSheetCard === 'SORT'"
-                                         @selectSortOption="selectSearchSort"
+                                     @selectSortOption="selectSearchSort"
                 />
             </v-bottom-sheet>
         </div>
