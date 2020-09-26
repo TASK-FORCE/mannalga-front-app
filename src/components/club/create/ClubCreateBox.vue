@@ -16,7 +16,7 @@
                 />
             </template>
             <BottomSheetInterestCard v-if="currentBottomSheetCard === 'INTEREST'"
-                                     :rootInterests="interests"
+                                     :rootInterests="rootInterests"
                                      @selectSubInterest="selectClubInterest"
             />
             <BottomSheetLocationCard v-else-if="currentBottomSheetCard === 'LOCATION'"
@@ -27,6 +27,7 @@
         <CommonCenterBtn text="모임 만들기"
                          color="primary"
                          :outlined="true"
+                         :isLoading="isLoading"
                          @click="createClub"
         />
     </div>
@@ -39,21 +40,12 @@ import CommonImageSelectBox from '@/components/common/CommonImageSelectBox.vue';
 import BottomSheetInterestCard from '@/components/bottom-sheet/BottomSheetInterestCard.vue';
 import BottomSheetLocationCard from '@/components/bottom-sheet/BottomSheetLocationCard.vue';
 import { MESSAGE } from '@/utils/constant/constant.js';
-import { mapActions, mapGetters, mapMutations } from 'vuex';
-import {
-    INTERESTS,
-    REQUEST_INTEREST_TEMPLATE,
-    REQUEST_STATE_TEMPLATE,
-    ROOT_STATES,
-    TEMPLATE,
-} from '@/store/type/template_type.js';
-import _ from '@/utils/lodashWrapper.js';
 import { MAIN_PATH } from '@/router/route_path_type.js';
-import { COMMON, OPEN_SNACKBAR } from '@/store/type/common_type.js';
-import { buildSnackBarOption } from '@/utils/snackbarUtils.js';
 import ClubCreateForm from '@/components/club/create/ClubCreateForm.vue';
-import { CLUB, REQUEST_CLUB_CREATE } from '@/store/type/club_type.js';
 import { clubBuilder } from '@/utils/builder/builder.js';
+import { actionsHelper, fetchInterestAndLocationTemplate } from '@/store/helper/actionsHelper.js';
+import { getterHelper } from '@/store/helper/getterHelper.js';
+import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 
 export default {
     name: 'ClubCreateBox',
@@ -67,6 +59,7 @@ export default {
     data() {
         return {
             sheet: false,
+            isLoading: false,
             currentBottomSheetCard: '',
             clubCreateBoxInfo: {
                 title: null,
@@ -79,7 +72,8 @@ export default {
         };
     },
     computed: {
-        ...mapGetters(TEMPLATE, { rootStates: ROOT_STATES, interests: INTERESTS }),
+        rootInterests: () => getterHelper.rootInterests(),
+        rootStates: () => getterHelper.rootLocations(),
         clubCreateInterest() {
             return this.clubCreateBoxInfo.interest;
         },
@@ -88,22 +82,9 @@ export default {
         },
     },
     created() {
-        if (_.isEmpty(this[ROOT_STATES])) {
-            this[REQUEST_STATE_TEMPLATE]()
-                .catch(() => this.$router.push(MAIN_PATH)
-                    .then(() => this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.SERVER_INSTABILITY))));
-        }
-
-        if (_.isEmpty(this[INTERESTS])) {
-            this[REQUEST_INTEREST_TEMPLATE]()
-                .catch(() => this.$router.push(MAIN_PATH)
-                    .then(() => this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.SERVER_INSTABILITY))));
-        }
+        fetchInterestAndLocationTemplate(true, () => this.$router.push(MAIN_PATH));
     },
     methods: {
-        ...mapActions(TEMPLATE, [REQUEST_STATE_TEMPLATE, REQUEST_INTEREST_TEMPLATE]),
-        ...mapActions(CLUB, [REQUEST_CLUB_CREATE]),
-        ...mapMutations(COMMON, [OPEN_SNACKBAR]),
         openBottomSheetCard(cardComponent) {
             this.currentBottomSheetCard = cardComponent;
             this.sheet = true;
@@ -118,10 +99,12 @@ export default {
         },
         createClub() {
             if (this.$refs.clubCreateForm.validate()) {
-                this[REQUEST_CLUB_CREATE](clubBuilder.buildClubCreateDto(this.clubCreateBoxInfo))
+                this.isLoading = true;
+                actionsHelper.requestClubCreate(clubBuilder.buildClubCreateDto(this.clubCreateBoxInfo))
                     .then(() => this.$router.push(MAIN_PATH)
-                        .then(() => this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.SUCCESS_CLUB_CREATE))))
-                    .catch(() => this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.FAIL_CLUB_CREATE)));
+                        .then(() => mutationsHelper.openSnackBar(MESSAGE.SUCCESS_CLUB_CREATE)))
+                    .catch(() => mutationsHelper.openSnackBar(MESSAGE.FAIL_CLUB_CREATE))
+                    .finally(() => (this.isLoading = false));
             }
         },
     },

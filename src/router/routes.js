@@ -1,9 +1,8 @@
-import store from '@/store/index.js';
-import { CLUB_CREATE_PATH, CLUB_PATH, CLUB_BOARD_CREATE_PATH, CLUB_BOARD_POST_PATH, LOGIN_PATH, MAIN_PATH, REGISTER, SELECT_LOCATION_PATH } from '@/router/route_path_type.js';
-import { AUTH, IS_AUTH } from '@/store/type/auth_type.js';
+import { CLUB_BOARD_CREATE_PATH, CLUB_BOARD_POST_PATH, CLUB_CREATE_PATH, CLUB_PATH, LOGIN_PATH, MAIN_PATH, REGISTER_PATH, SELECT_LOCATION_PATH } from '@/router/route_path_type.js';
+import { getterHelper } from '@/store/helper/getterHelper.js';
 
 function validationAuthentication(to, from, next) {
-    if (store.getters[`${AUTH}/${IS_AUTH}`]) {
+    if (getterHelper.isAuth()) {
         next();
     } else {
         next(`${LOGIN_PATH}?validationFail=true`);
@@ -21,22 +20,22 @@ const routes = [
         component: () => import('@/views/Login.vue'),
     },
     {
-        path: REGISTER.ROOT,
+        path: REGISTER_PATH.ROOT,
         name: 'Register',
         component: () => import('@/views/register/RegisterMain.vue'),
         beforeEnter: validationAuthentication,
         children: [
             {
-                path: REGISTER.PROFILE,
+                path: REGISTER_PATH.PROFILE,
                 component: () => import('@/views/register/RegisterProfile.vue'),
                 meta: { isFirstPage: true },
             },
             {
-                path: REGISTER.LOCATION,
+                path: REGISTER_PATH.LOCATION,
                 component: () => import('@/views/register/RegisterLocation.vue'),
             },
             {
-                path: REGISTER.INTEREST,
+                path: REGISTER_PATH.INTEREST,
                 component: () => import('@/views/register/RegisterInterest.vue'),
                 meta: { isLastPage: true },
             },

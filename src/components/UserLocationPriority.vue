@@ -23,8 +23,7 @@
 <script>
 import { COLOR } from '@/utils/constant/constant.js';
 import { SELECT_LOCATION_PATH } from '@/router/route_path_type.js';
-import { mapGetters } from 'vuex';
-import { SELECTED_LOCATIONS, USER } from '@/store/type/user_type.js';
+import { getterHelper } from '@/store/helper/getterHelper.js';
 
 export default {
     name: 'UserLocationPriority',
@@ -34,7 +33,7 @@ export default {
         };
     },
     computed: {
-        ...mapGetters(USER, { selectedLocations: SELECTED_LOCATIONS }),
+        selectedLocations: () => getterHelper.selectedLocations(),
     },
     methods: {
         getColor(priority) {

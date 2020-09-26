@@ -28,7 +28,7 @@
                                          @selectSubState="selectSearchLocation"
                 />
                 <BottomSheetInterestCard v-else-if="currentBottomSheetCard === 'INTEREST'"
-                                         :rootInterests="interests"
+                                         :rootInterests="rootInterests"
                                          :canSelectRoot="true"
                                          @selectSubInterest="selectSearchInterest"
                 />
@@ -43,26 +43,12 @@
 <script>
 import BottomSheetLocationCard from '@/components/bottom-sheet/BottomSheetLocationCard.vue';
 import SearchFilterSelectBtn from '@/components/search/SearchFilterSelectBtn';
-import { mapActions, mapMutations, mapGetters } from 'vuex';
-import {
-    INTERESTS,
-    REQUEST_INTEREST_TEMPLATE,
-    REQUEST_STATE_TEMPLATE,
-    ROOT_STATES,
-    TEMPLATE,
-} from '@/store/type/template_type.js';
-import { COMMON, OPEN_SNACKBAR } from '@/store/type/common_type.js';
-import _ from '@/utils/lodashWrapper.js';
-import { buildSnackBarOption } from '@/utils/snackbarUtils.js';
-import { MESSAGE } from '@/utils/constant/constant.js';
 import BottomSheetSortCard from '@/components/bottom-sheet/BottomSheetSortCard.vue';
 import BottomSheetInterestCard from '@/components/bottom-sheet/BottomSheetInterestCard.vue';
 import { LOGIN_PATH } from '@/router/route_path_type.js';
-import {
-    CHANGE_INTEREST_SEARCH_FILTER,
-    CHANGE_LOCATION_SEARCH_FILTER,
-    CLUB_LIST_MODULE, SEARCH_FILTER,
-} from '@/store/type/club_list_type.js';
+import { fetchInterestAndLocationTemplate } from '@/store/helper/actionsHelper.js';
+import { getterHelper } from '@/store/helper/getterHelper.js';
+import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 
 export default {
     name: 'SearchFilterMain',
@@ -83,32 +69,20 @@ export default {
         };
     },
     computed: {
-        ...mapGetters(TEMPLATE, { rootStates: ROOT_STATES, interests: INTERESTS }),
-        ...mapGetters(CLUB_LIST_MODULE, { searchFilter: SEARCH_FILTER }),
+        rootStates: () => getterHelper.rootLocations(),
+        rootInterests: () => getterHelper.rootInterests(),
+        searchFilter: () => getterHelper.searchFilter(),
     },
     created() {
-        if (_.isEmpty(this[ROOT_STATES])) {
-            this[REQUEST_STATE_TEMPLATE]()
-                .catch(() => this.$router.push(LOGIN_PATH)
-                    .then(() => this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.SERVER_INSTABILITY))));
-        }
-
-        if (_.isEmpty(this[INTERESTS])) {
-            this[REQUEST_INTEREST_TEMPLATE]()
-                .catch(() => this.$router.push(LOGIN_PATH)
-                    .then(() => this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.SERVER_INSTABILITY))));
-        }
+        fetchInterestAndLocationTemplate(true, () => this.$router.push(LOGIN_PATH));
     },
     methods: {
-        ...mapActions(TEMPLATE, [REQUEST_STATE_TEMPLATE, REQUEST_INTEREST_TEMPLATE]),
-        ...mapMutations(CLUB_LIST_MODULE, [CHANGE_LOCATION_SEARCH_FILTER, CHANGE_INTEREST_SEARCH_FILTER]),
-        ...mapMutations(COMMON, [OPEN_SNACKBAR]),
         selectSearchLocation(location) {
             const locationFilter = {
                 seq: location.seq,
                 priority: 1,
             };
-            this[CHANGE_LOCATION_SEARCH_FILTER](locationFilter);
+            mutationsHelper.changeLocationSearchFilter(locationFilter);
             this.changedSearchFilter();
             this.searchLocationText = location.name;
             this.sheet = false;
@@ -118,7 +92,7 @@ export default {
                 seq: interest.seq,
                 priority: 1,
             };
-            this[CHANGE_INTEREST_SEARCH_FILTER](interestFilter);
+            mutationsHelper.changeInterestSearchFilter(interestFilter);
             this.changedSearchFilter();
             this.searchInterestText = interest.name;
             this.sheet = false;

@@ -1,5 +1,5 @@
 export const LOGIN_PATH = '/login';
-export const REGISTER = {
+export const REGISTER_PATH = {
     ROOT: '/register',
     PROFILE: 'profile',
     LOCATION: 'location',

@@ -12,7 +12,7 @@ import {
     REQUEST_NEXT_CLUB_LIST,
     SEARCH_FILTER, GET_DEFAULT_CLUB_LIST_PAGE,
 } from '@/store/type/club_list_type.js';
-import { actionsLoadingTemplate } from '@/store/helper/helper.js';
+import { actionsLoadingTemplate } from '@/store/helper/actionsTemplate.js';
 import { requestClubListWithPage } from '@/apis/clubList.js';
 import { transformService } from '@/store/helper/transform.js';
 
@@ -99,7 +99,7 @@ const actions = {
 function extractClubListAndPage(response) {
     const { data } = response.data;
     const clubList = data.content;
-    const clubPage = transformService.transformPage(data);
+    const clubPage = transformService.transformToPage(data);
     return { clubList, clubPage };
 }
 

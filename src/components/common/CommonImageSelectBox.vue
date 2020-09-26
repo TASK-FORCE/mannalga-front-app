@@ -28,10 +28,9 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from 'vuex';
-import { COMMON, OPEN_SNACKBAR, UPLOAD_TEMP_IMAGE } from '@/store/type/common_type.js';
-import { buildSnackBarOption } from '@/utils/snackbarUtils.js';
 import { MESSAGE } from '@/utils/constant/constant.js';
+import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
+import { actionsHelper } from '@/store/helper/actionsHelper.js';
 
 export default {
     name: 'CommonImageSelectBox',
@@ -41,13 +40,11 @@ export default {
     },
     computed: {},
     methods: {
-        ...mapActions(COMMON, [UPLOAD_TEMP_IMAGE]),
-        ...mapMutations(COMMON, [OPEN_SNACKBAR]),
         onChangeImage(e) {
             const [image] = e.target.files;
-            this[UPLOAD_TEMP_IMAGE](image)
+            actionsHelper.uploadTempImage(image)
                 .then(url => this.$emit('changeImageUrl', url))
-                .catch(() => this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.SERVER_INSTABILITY)));
+                .catch(() => mutationsHelper.openSnackBar(MESSAGE.SERVER_INSTABILITY));
         },
         onClickImageUpload() {
             this.$refs.imageInput.click();

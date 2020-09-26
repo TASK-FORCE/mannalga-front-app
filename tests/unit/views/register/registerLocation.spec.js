@@ -2,29 +2,28 @@ import { expect } from 'chai';
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuex from 'vuex';
 import sinon from 'sinon';
-import { OPEN_SNACKBAR } from '@/store/type/common_type.js';
-import { REGISTER } from '@/router/route_path_type.js';
+import { REGISTER_PATH } from '@/router/route_path_type.js';
 import { DEFAULT_PROFILE, PROFILE, SELECTED_LOCATIONS } from '@/store/type/user_type.js';
 import RegisterLocation from '@/views/register/RegisterLocation.vue';
-import { REQUEST_STATE_TEMPLATE, ROOT_STATES } from '@/store/type/template_type.js';
+import { ROOT_LOCATIONS } from '@/store/type/template_type.js';
+import * as vuexHelper from '@/store/helper/actionsHelper.js';
+import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
 
 describe('RegisterLocation.vue', () => {
+    let openSnackBar;
     let store;
-    let mutations;
     let getters;
     let options;
     let $router;
 
     beforeEach(() => {
+        openSnackBar = sinon.stub(mutationsHelper, 'openSnackBar');
         getters = {
             [PROFILE]: sinon.stub(),
             [SELECTED_LOCATIONS]: sinon.stub(),
-        };
-        mutations = {
-            [OPEN_SNACKBAR]: sinon.spy(),
         };
         store = new Vuex.Store({
             modules: {
@@ -32,17 +31,10 @@ describe('RegisterLocation.vue', () => {
                     namespaced: true,
                     getters,
                 },
-                common: {
-                    namespaced: true,
-                    mutations,
-                },
                 template: {
                     namespaced: true,
                     getters: {
-                        [ROOT_STATES]: sinon.spy(),
-                    },
-                    actions: {
-                        [REQUEST_STATE_TEMPLATE]: sinon.spy(),
+                        [ROOT_LOCATIONS]: sinon.spy(),
                     },
                 },
             },
@@ -59,6 +51,8 @@ describe('RegisterLocation.vue', () => {
         };
     });
 
+    afterEach(() => { openSnackBar.restore(); });
+
     it('페이지 진입 시 Profile이 비어있다면 Profile 등록화면으로 라우팅 된다..', () => {
         // given
         getters[PROFILE].returns(DEFAULT_PROFILE);
@@ -67,7 +61,7 @@ describe('RegisterLocation.vue', () => {
         shallowMount(RegisterLocation, options);
 
         // then
-        expect($router.push.withArgs(REGISTER.PROFILE_PATH).calledOnce).to.be.true;
+        expect($router.push.withArgs(REGISTER_PATH.PROFILE_PATH).calledOnce).to.be.true;
     });
 
     it('Go Btn 클릭 시 선택된 지역이 하나도 없다면 Snackbar를 호출한다.', () => {
@@ -79,7 +73,7 @@ describe('RegisterLocation.vue', () => {
         wrapper.vm.clickGoBtn();
 
         // then
-        expect(mutations[OPEN_SNACKBAR].calledOnce).to.be.true;
+        expect(openSnackBar.calledOnce).to.be.true;
     });
 
     it('Go Btn 클릭 시 선택된 지역이 존재하면 관심사 페이지로 라우팅된다.', () => {
@@ -91,6 +85,6 @@ describe('RegisterLocation.vue', () => {
         wrapper.vm.clickGoBtn();
 
         // then
-        expect($router.push.withArgs(REGISTER.INTEREST_PATH).calledOnce).to.be.true;
+        expect($router.push.withArgs(REGISTER_PATH.INTEREST_PATH).calledOnce).to.be.true;
     });
 });

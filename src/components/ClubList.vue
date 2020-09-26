@@ -17,8 +17,7 @@
 
 <script>
 import ClubPost from '@/components/ClubPost.vue';
-import { IS_LAST_PAGE, CLUB_LIST_MODULE } from '@/store/type/club_list_type.js';
-import { mapGetters } from 'vuex';
+import { getterHelper } from '@/store/helper/getterHelper.js';
 
 export default {
     name: 'ClubList',
@@ -32,7 +31,7 @@ export default {
         };
     },
     computed: {
-        ...mapGetters(CLUB_LIST_MODULE, [IS_LAST_PAGE]),
+        isLastPage: () => getterHelper.isLastPage(),
     },
     mounted() {
         this.listGroup = document.querySelector('#list-group');
@@ -58,7 +57,7 @@ export default {
             observer.observe(this.sentinel);
         },
         canRequest() {
-            return !this.isRequesting && !this[IS_LAST_PAGE];
+            return !this.isRequesting && !this.isLastPage;
         },
     },
 };

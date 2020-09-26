@@ -14,7 +14,7 @@ import {
     SET_PROFILE,
 } from '@/store/type/user_type.js';
 import { userBuilder } from '@/utils/builder/builder.js';
-import { actionsLoadingTemplate } from '@/store/helper/helper.js';
+import { actionsLoadingTemplate } from '@/store/helper/actionsTemplate.js';
 
 const state = {
     [PROFILE]: DEFAULT_PROFILE,
