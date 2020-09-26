@@ -10,7 +10,7 @@ import {
     IS_REQUESTING_NEXT_PAGE,
     REQUEST_FIRST_CLUB_LIST,
     REQUEST_NEXT_CLUB_LIST,
-    SEARCH_FILTER, GET_DEFAULT_CLUB_LIST_PAGE,
+    SEARCH_FILTER, GET_DEFAULT_CLUB_LIST_PAGE, IS_FIRST_PAGE,
 } from '@/store/type/club_list_type.js';
 import { actionsLoadingTemplate } from '@/store/helper/actionsTemplate.js';
 import { requestClubListWithPage } from '@/apis/clubList.js';
@@ -36,6 +36,10 @@ const getters = {
     [IS_LAST_PAGE](state) {
         const { isLastPage } = state[CLUB_PAGE];
         return isLastPage;
+    },
+    [IS_FIRST_PAGE](state) {
+        const { currentPage } = state[CLUB_PAGE];
+        return currentPage === 0;
     },
 };
 

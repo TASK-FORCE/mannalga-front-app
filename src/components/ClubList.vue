@@ -32,6 +32,7 @@ export default {
     },
     computed: {
         isLastPage: () => getterHelper.isLastPage(),
+        isFirstPage: () => getterHelper.isFirstPage(),
     },
     mounted() {
         this.listGroup = document.querySelector('#list-group');
@@ -57,7 +58,7 @@ export default {
             observer.observe(this.sentinel);
         },
         canRequest() {
-            return !this.isRequesting && !this.isLastPage;
+            return !this.isRequesting && !this.isLastPage && !this.isFirstPage;
         },
     },
 };

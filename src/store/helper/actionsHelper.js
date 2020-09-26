@@ -58,7 +58,6 @@ const actionsHelper = {
 
     requestFirstClubList: (payload) => dispatch(CLUB_LIST_MODULE, REQUEST_FIRST_CLUB_LIST, payload),
     requestNextClubList: (payload) => dispatch(CLUB_LIST_MODULE, REQUEST_NEXT_CLUB_LIST, payload),
-
 };
 
 const dispatch = (moduleName, actionsName, payload) => store.dispatch(`${moduleName}/${actionsName}`, payload);
