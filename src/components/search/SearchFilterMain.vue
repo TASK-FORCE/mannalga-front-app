@@ -46,9 +46,9 @@ import SearchFilterSelectBtn from '@/components/search/SearchFilterSelectBtn';
 import BottomSheetSortCard from '@/components/bottom-sheet/BottomSheetSortCard.vue';
 import BottomSheetInterestCard from '@/components/bottom-sheet/BottomSheetInterestCard.vue';
 import { LOGIN_PATH } from '@/router/route_path_type.js';
-import { fetchInterestAndLocationTemplate } from '@/store/helper/actionsHelper.js';
 import { getterHelper } from '@/store/helper/getterHelper.js';
 import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
+import { actionsFetcherService } from '@/store/service/actionsFetcherService.js';
 
 export default {
     name: 'SearchFilterMain',
@@ -74,7 +74,8 @@ export default {
         searchFilter: () => getterHelper.searchFilter(),
     },
     created() {
-        fetchInterestAndLocationTemplate(true, () => this.$router.push(LOGIN_PATH));
+        actionsFetcherService.fetchInterestAndLocationTemplate(true,
+            () => this.$router.push(LOGIN_PATH));
     },
     methods: {
         selectSearchLocation(location) {

@@ -33,9 +33,9 @@
 
 <script>
 import { REGISTER_PATH } from '@/router/route_path_type.js';
-import { fetchInterestAndLocationTemplate } from '@/store/helper/actionsHelper.js';
 import { getterHelper } from '@/store/helper/getterHelper.js';
 import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
+import { actionsFetcherService } from '@/store/service/actionsFetcherService.js';
 
 export default {
     name: 'UserLocation',
@@ -48,7 +48,8 @@ export default {
         selectedLocations: () => getterHelper.selectedLocations(),
     },
     created() {
-        fetchInterestAndLocationTemplate(true, () => this.$router.push(REGISTER_PATH.PROFILE_PATH));
+        actionsFetcherService.fetchInterestAndLocationTemplate(true,
+            () => this.$router.push(REGISTER_PATH.PROFILE_PATH));
     },
     mounted() {
         // eslint-disable-next-line no-restricted-globals

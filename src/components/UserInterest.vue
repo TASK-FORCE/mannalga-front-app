@@ -31,9 +31,9 @@
 import _ from '@/utils/lodashWrapper.js';
 import { MESSAGE } from '@/utils/constant/constant.js';
 import { REGISTER_PATH } from '@/router/route_path_type.js';
-import { fetchInterestAndLocationTemplate } from '@/store/helper/actionsHelper.js';
 import { getterHelper } from '@/store/helper/getterHelper.js';
 import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
+import { actionsFetcherService } from '@/store/service/actionsFetcherService.js';
 
 const MAXIMUM_SELECTABLE_COUNT = 5;
 
@@ -45,7 +45,8 @@ export default {
         selectedInterestSeqs: () => getterHelper.selectedInterestSeqs(),
     },
     created() {
-        fetchInterestAndLocationTemplate(true, () => this.$router.push(REGISTER_PATH.PROFILE_PATH));
+        actionsFetcherService.fetchInterestAndLocationTemplate(true,
+            () => this.$router.push(REGISTER_PATH.PROFILE_PATH));
     },
     methods: {
         toggleInterest(targetSeq) {

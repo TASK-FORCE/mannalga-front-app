@@ -11,9 +11,9 @@ import _ from '@/utils/lodashWrapper.js';
 import { MESSAGE } from '@/utils/constant/constant.js';
 import { REGISTER_PATH } from '@/router/route_path_type.js';
 import UserLocationPriority from '@/components/UserLocationPriority.vue';
-import { fetchInterestAndLocationTemplate } from '@/store/helper/actionsHelper.js';
 import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 import { getterHelper } from '@/store/helper/getterHelper.js';
+import { actionsFetcherService } from '@/store/service/actionsFetcherService.js';
 
 export default {
     name: 'RegisterLocation',
@@ -27,7 +27,7 @@ export default {
             this.$router.push(REGISTER_PATH.PROFILE_PATH);
         }
 
-        fetchInterestAndLocationTemplate(false);
+        actionsFetcherService.fetchInterestAndLocationTemplate(false);
     },
     methods: {
         clickGoBtn() {

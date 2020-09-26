@@ -43,9 +43,10 @@ import { MESSAGE } from '@/utils/constant/constant.js';
 import { MAIN_PATH } from '@/router/route_path_type.js';
 import ClubCreateForm from '@/components/club/create/ClubCreateForm.vue';
 import { clubBuilder } from '@/utils/builder/builder.js';
-import { actionsHelper, fetchInterestAndLocationTemplate } from '@/store/helper/actionsHelper.js';
+import { actionsHelper } from '@/store/helper/actionsHelper.js';
 import { getterHelper } from '@/store/helper/getterHelper.js';
 import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
+import { actionsFetcherService } from '@/store/service/actionsFetcherService.js';
 
 export default {
     name: 'ClubCreateBox',
@@ -82,7 +83,8 @@ export default {
         },
     },
     created() {
-        fetchInterestAndLocationTemplate(true, () => this.$router.push(MAIN_PATH));
+        actionsFetcherService.fetchInterestAndLocationTemplate(true,
+            () => this.$router.push(MAIN_PATH));
     },
     methods: {
         openBottomSheetCard(cardComponent) {

@@ -14,7 +14,7 @@ import {
 } from '@/store/type/club_list_type.js';
 import { actionsLoadingTemplate } from '@/store/helper/actionsTemplate.js';
 import { requestClubListWithPage } from '@/apis/clubList.js';
-import { transformService } from '@/store/helper/transform.js';
+import { transformService } from '@/store/service/transformService.js';
 
 const state = {
     [CLUB_LIST]: [],
@@ -69,9 +69,6 @@ const mutations = {
 };
 
 const actions = {
-    /** TODO
-     * 백엔드에서 page 정보가 제대로 정해지면 actions를 호출하는 곳에서 requestParam을 넘겨주도록 변경하자.
-     */
     [REQUEST_FIRST_CLUB_LIST]({ commit, state }) {
         commit(INIT_CLUB_LIST_AND_PAGE);
         const callback = async () => {
