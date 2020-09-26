@@ -28,6 +28,7 @@ export default {
     name: 'BottomSheetInterestCard',
     props: {
         rootInterests: Array,
+        canSelectRoot: Boolean,
     },
     data() {
         return {
@@ -47,7 +48,10 @@ export default {
         },
         selectRootInterest(rootInterest) {
             this.title = rootInterest.name;
-            this.interests = [{ ...rootInterest }, ...rootInterest.interestList];
+            this.interests = [...rootInterest.interestList];
+            if (this.canSelectRoot) {
+                this.interests.unshift({ ...rootInterest });
+            }
             this.showRootInterests = false;
         },
         selectSubInterest(interest) {

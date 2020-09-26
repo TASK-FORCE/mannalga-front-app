@@ -10,6 +10,7 @@
         <div v-if="imageUrl">
             <v-img height="150"
                    :src="imageUrl"
+                   @click="onClickImageUpload"
             />
         </div>
         <div v-else
@@ -27,21 +28,31 @@
 </template>
 
 <script>
+import { mapActions, mapMutations } from 'vuex';
+import { COMMON, OPEN_SNACKBAR, UPLOAD_TEMP_IMAGE } from '@/store/type/common_type.js';
+import { buildSnackBarOption } from '@/utils/snackbarUtils.js';
+import { MESSAGE } from '@/utils/constant/constant.js';
+
 export default {
     name: 'CommonImageSelectBox',
-    props: ['text'],
-    data() {
-        return {
-            image: '',
-        };
+    props: {
+        text: String,
+        imageUrl: String,
     },
+    computed: {},
     methods: {
+        ...mapActions(COMMON, [UPLOAD_TEMP_IMAGE]),
+        ...mapMutations(COMMON, [OPEN_SNACKBAR]),
         onChangeImage(e) {
-            [this.image] = e.target.files;
+            const [image] = e.target.files;
+            this[UPLOAD_TEMP_IMAGE](image)
+                .then(url => this.$emit('changeImageUrl', url))
+                .catch(() => this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.SERVER_INSTABILITY)));
         },
         onClickImageUpload() {
             this.$refs.imageInput.click();
         },
+
     },
 };
 </script>

@@ -41,6 +41,23 @@ const userBuilder = {
     },
 };
 
+const clubBuilder = {
+    buildClubCreateDto: (clubCreateInfo) => ({
+        name: clubCreateInfo.title,
+        description: clubCreateInfo.description,
+        maximumNumber: clubCreateInfo.maximumNumber,
+        mainImageUrl: clubCreateInfo.imageUrl,
+        interestList: [{
+            seq: clubCreateInfo.interest.seq,
+            priority: 1,
+        }],
+        stateList: [{
+            seq: clubCreateInfo.location.seq,
+            priority: 1,
+        }],
+    }),
+};
+
 function appendPriority(seqs) {
     return seqs.map((seq, index) => ({ seq, priority: index + 1 }));
 }
@@ -48,4 +65,5 @@ function appendPriority(seqs) {
 export {
     kakaoTokenBuilder,
     userBuilder,
+    clubBuilder,
 };

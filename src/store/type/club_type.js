@@ -92,7 +92,7 @@ export const EMPTY_CLUB = {
             },
         ],
         pagingInfo: {
-            // ... 
+            // ...
         },
     },
     albumList: {
@@ -114,7 +114,7 @@ export const SET_CLUB_DATA = 'setClubData';
 
 // actions
 export const REQUEST_CLUB_DATA = 'requestClubData'; // export const GET_CLUB_DATA = 'getClubData';
-
+export const REQUEST_CLUB_CREATE = 'requestClubCreate';
 // export const REQUEST_CLUB_INFO = 'requestClubInfo';
 // export const REQUEST_CLUB_MEMBERS = 'requestClubMembers';
 // export const REQUEST_CLUB_SCHEDULES = 'requestClubSchedules';
