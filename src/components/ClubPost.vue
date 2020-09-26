@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-list-item :key="club.seq"
-                     :to="`/club/main/${club.seq}`"
+                     :to="`/club/${club.seq}`"
         >
             <div>
                 <v-img src="../images/vue.png"
