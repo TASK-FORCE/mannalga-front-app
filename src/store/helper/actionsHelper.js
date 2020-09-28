@@ -7,18 +7,25 @@ import { CLUB, REQUEST_CLUB_CREATE } from '@/store/type/club_type.js';
 import { combineWithModuleName } from '@/store/helper/vuexUtils.js';
 
 const actionsHelper = {
+    // auth module
+    requestKakaoTokenByCode: (payload) => dispatch(AUTH, REQUEST_KAKAO_TOKEN_BY_CODE, payload),
+
+    // club module
+    requestClubCreate: (payload) => dispatch(CLUB, REQUEST_CLUB_CREATE, payload),
+
+    // clubList module
+    requestFirstClubList: (payload) => dispatch(CLUB_LIST_MODULE, REQUEST_FIRST_CLUB_LIST, payload),
+    requestNextClubList: (payload) => dispatch(CLUB_LIST_MODULE, REQUEST_NEXT_CLUB_LIST, payload),
+
+    // common module
     uploadTempImage: (payload) => dispatch(COMMON, UPLOAD_TEMP_IMAGE, payload),
 
+    // template module
+
+    // user module
     requestProfile: (payload) => dispatch(USER, REQUEST_PROFILE, payload),
     postRegister: (payload) => dispatch(USER, POST_REGISTER, payload),
     requestRegisterStatus: (payload) => dispatch(USER, REQUEST_REGISTER_STATUS, payload),
-
-    requestKakaoTokenByCode: (payload) => dispatch(AUTH, REQUEST_KAKAO_TOKEN_BY_CODE, payload),
-
-    requestClubCreate: (payload) => dispatch(CLUB, REQUEST_CLUB_CREATE, payload),
-
-    requestFirstClubList: (payload) => dispatch(CLUB_LIST_MODULE, REQUEST_FIRST_CLUB_LIST, payload),
-    requestNextClubList: (payload) => dispatch(CLUB_LIST_MODULE, REQUEST_NEXT_CLUB_LIST, payload),
 };
 
 const dispatch = (moduleName, actionsName, payload) => store.dispatch(combineWithModuleName(moduleName, actionsName), payload);

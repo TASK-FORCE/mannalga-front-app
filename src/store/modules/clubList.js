@@ -15,6 +15,7 @@ import {
 import { actionsLoadingTemplate } from '@/store/helper/actionsTemplate.js';
 import { requestClubListWithPage } from '@/apis/clubList.js';
 import { transformService } from '@/store/service/transformService.js';
+import { extractResponseData } from '@/store/helper/vuexUtils.js';
 
 const state = {
     [CLUB_LIST]: [],
@@ -98,7 +99,7 @@ const actions = {
 };
 
 function extractClubListAndPage(response) {
-    const { data } = response.data;
+    const data = extractResponseData(response);
     const clubList = data.content;
     const clubPage = transformService.transformToPage(data);
     return { clubList, clubPage };

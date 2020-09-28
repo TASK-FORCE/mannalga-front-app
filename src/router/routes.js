@@ -1,8 +1,8 @@
 import { CLUB_BOARD_CREATE_PATH, CLUB_BOARD_POST_PATH, CLUB_CREATE_PATH, CLUB_PATH, LOGIN_PATH, MAIN_PATH, REGISTER_PATH, SELECT_LOCATION_PATH } from '@/router/route_path_type.js';
-import { getterHelper } from '@/store/helper/getterHelper.js';
+import { gettersHelper } from '@/store/helper/gettersHelper.js';
 
 function validationAuthentication(to, from, next) {
-    if (getterHelper.isAuth()) {
+    if (gettersHelper.isAuth()) {
         next();
     } else {
         next(`${LOGIN_PATH}?validationFail=true`);
@@ -45,11 +45,13 @@ const routes = [
         path: SELECT_LOCATION_PATH,
         name: 'SelectLocation',
         component: () => import('@/views/SelectLocation.vue'),
+        beforeEnter: validationAuthentication,
     },
     {
         path: MAIN_PATH,
         name: 'AppMain',
         component: () => import('@/views/AppMain.vue'),
+        beforeEnter: validationAuthentication,
     },
     {
         path: CLUB_PATH,
@@ -61,12 +63,7 @@ const routes = [
         path: CLUB_CREATE_PATH,
         name: 'ClubCreate',
         component: () => import('@/views/club/ClubCreate.vue'),
-    },
-    {
-        path: CLUB_PATH,
-        name: 'ClubMain',
-        component: () => import('@/views/club/ClubMain.vue'),
-        props: true,
+        beforeEnter: validationAuthentication,
     },
     {
         path: CLUB_BOARD_CREATE_PATH,

@@ -1,6 +1,7 @@
 import { requestInterestTemplate, requestLocationTemplate } from '@/apis/template.js';
 import { REQUEST_INTEREST_TEMPLATE, REQUEST_LOCATION_TEMPLATE, ROOT_INTERESTS, ROOT_LOCATIONS, SET_INTEREST_TEMPLATE, SET_LOCATION_TEMPLATE } from '@/store/type/template_type.js';
 import { actionsNormalTemplate } from '@/store/helper/actionsTemplate.js';
+import { extractResponseData } from '@/store/helper/vuexUtils.js';
 
 const state = {
     [ROOT_LOCATIONS]: [],
@@ -29,14 +30,14 @@ const actions = {
     async [REQUEST_LOCATION_TEMPLATE]({ commit }) {
         return actionsNormalTemplate(async () => {
             const response = await requestLocationTemplate();
-            const rootStates = response.data;
+            const rootStates = extractResponseData(response);
             commit(SET_LOCATION_TEMPLATE, rootStates);
         });
     },
     async [REQUEST_INTEREST_TEMPLATE]({ commit }) {
         return actionsNormalTemplate(async () => {
             const response = await requestInterestTemplate();
-            const interests = response.data;
+            const interests = extractResponseData(response);
             commit(SET_INTEREST_TEMPLATE, interests);
         });
     },

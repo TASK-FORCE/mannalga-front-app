@@ -17,7 +17,7 @@
 
 <script>
 import ClubPost from '@/components/ClubPost.vue';
-import { getterHelper } from '@/store/helper/getterHelper.js';
+import { gettersHelper } from '@/store/helper/gettersHelper.js';
 
 export default {
     name: 'ClubList',
@@ -31,8 +31,8 @@ export default {
         };
     },
     computed: {
-        isLastPage: () => getterHelper.isLastPage(),
-        isFirstPage: () => getterHelper.isFirstPage(),
+        isLastPage: () => gettersHelper.isLastPage(),
+        isFirstPage: () => gettersHelper.isFirstPage(),
     },
     mounted() {
         this.listGroup = document.querySelector('#list-group');

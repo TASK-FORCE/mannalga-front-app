@@ -19,13 +19,13 @@
 </template>
 
 <script>
-import { getterHelper } from '@/store/helper/getterHelper.js';
+import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 
 export default {
     name: 'CommonSnackBar',
     computed: {
-        snackBarOptions: () => getterHelper.snackBarOptions(),
+        snackBarOptions: () => gettersHelper.snackBarOptions(),
         safeOpen: {
             get() {
                 return this.snackBarOptions.open;

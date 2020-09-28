@@ -33,7 +33,7 @@
 
 <script>
 import { REGISTER_PATH } from '@/router/route_path_type.js';
-import { getterHelper } from '@/store/helper/getterHelper.js';
+import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 import { actionsFetcherService } from '@/store/service/actionsFetcherService.js';
 
@@ -43,9 +43,9 @@ export default {
         priority: Number,
     },
     computed: {
-        isLoading: () => getterHelper.isLoading(),
-        rootStates: () => getterHelper.rootLocations(),
-        selectedLocations: () => getterHelper.selectedLocations(),
+        isLoading: () => gettersHelper.isLoading(),
+        rootStates: () => gettersHelper.rootLocations(),
+        selectedLocations: () => gettersHelper.selectedLocations(),
     },
     created() {
         actionsFetcherService.fetchInterestAndLocationTemplate(true, REGISTER_PATH.PROFILE_PATH);

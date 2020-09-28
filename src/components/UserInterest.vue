@@ -31,7 +31,7 @@
 import _ from '@/utils/lodashWrapper.js';
 import { MESSAGE } from '@/utils/constant/constant.js';
 import { REGISTER_PATH } from '@/router/route_path_type.js';
-import { getterHelper } from '@/store/helper/getterHelper.js';
+import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 import { actionsFetcherService } from '@/store/service/actionsFetcherService.js';
 
@@ -40,9 +40,9 @@ const MAXIMUM_SELECTABLE_COUNT = 5;
 export default {
     name: 'UserInterest',
     computed: {
-        isLoading: () => getterHelper.isLoading(),
-        rootInterests: () => getterHelper.rootInterests(),
-        selectedInterestSeqs: () => getterHelper.selectedInterestSeqs(),
+        isLoading: () => gettersHelper.isLoading(),
+        rootInterests: () => gettersHelper.rootInterests(),
+        selectedInterestSeqs: () => gettersHelper.selectedInterestSeqs(),
     },
     created() {
         actionsFetcherService.fetchInterestAndLocationTemplate(true, REGISTER_PATH.PROFILE_PATH);

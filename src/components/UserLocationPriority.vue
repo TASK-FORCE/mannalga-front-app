@@ -23,7 +23,7 @@
 <script>
 import { COLOR } from '@/utils/constant/constant.js';
 import { SELECT_LOCATION_PATH } from '@/router/route_path_type.js';
-import { getterHelper } from '@/store/helper/getterHelper.js';
+import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 
 export default {
@@ -34,7 +34,7 @@ export default {
         };
     },
     computed: {
-        selectedLocations: () => getterHelper.selectedLocations(),
+        selectedLocations: () => gettersHelper.selectedLocations(),
     },
     methods: {
         getColor(priority) {
