@@ -32,14 +32,10 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from 'vuex';
-import { buildSnackBarOption } from '@/utils/snackbarUtils.js';
-import _ from '@/utils/lodashWrapper.js';
-import { MESSAGE } from '@/utils/constant/constant.js';
-import { COMMON, IS_LOADING, OPEN_SNACKBAR } from '@/store/type/common_type.js';
-import { ADD_SELECTED_LOCATIONS, SELECTED_LOCATIONS, USER } from '@/store/type/user_type.js';
-import { REQUEST_STATE_TEMPLATE, ROOT_STATES, TEMPLATE } from '@/store/type/template_type.js';
-import { REGISTER } from '@/router/route_path_type.js';
+import { REGISTER_PATH } from '@/router/route_path_type.js';
+import { getterHelper } from '@/store/helper/getterHelper.js';
+import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
+import { actionsFetcherService } from '@/store/service/actionsFetcherService.js';
 
 export default {
     name: 'UserLocation',
@@ -47,16 +43,12 @@ export default {
         priority: Number,
     },
     computed: {
-        ...mapGetters(TEMPLATE, { rootStates: ROOT_STATES }),
-        ...mapGetters(COMMON, { isLoading: IS_LOADING }),
-        ...mapGetters(USER, { selectedLocations: SELECTED_LOCATIONS }),
+        isLoading: () => getterHelper.isLoading(),
+        rootStates: () => getterHelper.rootLocations(),
+        selectedLocations: () => getterHelper.selectedLocations(),
     },
     created() {
-        if (_.isEmpty(this.rootStates)) {
-            this[REQUEST_STATE_TEMPLATE]()
-                .catch(() => this.$router.push(REGISTER.PROFILE_PATH)
-                    .then(() => this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.SERVER_INSTABILITY))));
-        }
+        actionsFetcherService.fetchInterestAndLocationTemplate(true, REGISTER_PATH.PROFILE_PATH);
     },
     mounted() {
         // eslint-disable-next-line no-restricted-globals
@@ -65,19 +57,16 @@ export default {
         }
     },
     methods: {
-        ...mapActions(TEMPLATE, [REQUEST_STATE_TEMPLATE]),
-        ...mapMutations(COMMON, [OPEN_SNACKBAR]),
-        ...mapMutations(USER, [ADD_SELECTED_LOCATIONS]),
         toggleLocation(location) {
             const selectedLocation = {
                 priority: this.priority,
                 value: { seq: location.seq, name: location.superStateRoot },
             };
-            this[ADD_SELECTED_LOCATIONS](selectedLocation);
+            mutationsHelper.addSelectedLocations(selectedLocation);
             this.$router.back();
         },
         alreadySelected(seq) {
-            for (const location of Object.values(this[SELECTED_LOCATIONS])) {
+            for (const location of Object.values(this.selectedLocations)) {
                 if (seq === location.seq) {
                     return true;
                 }

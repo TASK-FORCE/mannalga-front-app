@@ -6,7 +6,8 @@ const EMPTY_SEARCH_FILTER = {
 };
 
 export const DEFAULT_SEARCH_FILTER = _.cloneDeep(EMPTY_SEARCH_FILTER);
-export const GET_DEFAULT_CLUB_LIST_PAGE = () => ({ size: 20, nextPage: 0, isLastPage: false });
+// TODO nextPage -> 0으로 변경 필요. (현재 백엔드 에러때문에 임시 수정함)
+export const GET_DEFAULT_CLUB_LIST_PAGE = () => ({ size: 20, currentPage: 0, nextPage: 1, isLastPage: false });
 
 // module name
 export const CLUB_LIST_MODULE = 'clubList';
@@ -17,6 +18,7 @@ export const CLUB_PAGE = 'clubPage';
 export const SEARCH_FILTER = 'searchFilter';
 export const IS_REQUESTING_NEXT_PAGE = 'isRequestingNextPage';
 export const IS_LAST_PAGE = 'isLastPage';
+export const IS_FIRST_PAGE = 'isFirstPage';
 
 // mutations
 export const ADD_NEXT_CLUB_LIST = 'addNextClubList';

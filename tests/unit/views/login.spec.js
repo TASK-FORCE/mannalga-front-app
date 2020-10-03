@@ -3,29 +3,25 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuex from 'vuex';
 import sinon from 'sinon';
 import Login from '@/views/Login.vue';
-import { MESSAGE } from '@/utils/constant/constant.js';
-import { buildSnackBarOption } from '@/utils/snackbarUtils.js';
-import { OPEN_SNACKBAR } from '@/store/type/common_type.js';
 import { IS_AUTH, REQUEST_KAKAO_TOKEN_BY_CODE } from '@/store/type/auth_type.js';
-import { MAIN_PATH, REGISTER } from '@/router/route_path_type.js';
+import { MAIN_PATH, REGISTER_PATH } from '@/router/route_path_type.js';
+import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
 
 describe('Login.vue', () => {
+    let openSnackBar;
     let actions;
     let store;
-    let mutations;
     let getters;
     let options;
     let $router;
 
     beforeEach(() => {
+        openSnackBar = sinon.stub(mutationsHelper, 'openSnackBar');
         actions = {
             [REQUEST_KAKAO_TOKEN_BY_CODE]: sinon.stub(),
-        };
-        mutations = {
-            [OPEN_SNACKBAR]: sinon.spy(),
         };
         getters = {
             [IS_AUTH]: sinon.stub(),
@@ -36,10 +32,6 @@ describe('Login.vue', () => {
                     namespaced: true,
                     getters,
                     actions,
-                },
-                common: {
-                    namespaced: true,
-                    mutations,
                 },
             },
         });
@@ -59,6 +51,8 @@ describe('Login.vue', () => {
         getters[IS_AUTH].returns(false);
     });
 
+    afterEach(() => { openSnackBar.restore(); });
+
     it('페이지 진입 시 ValidationFail일 경우 openSnackbar를 호출한다.', async () => {
         // given
         options.mocks.$route.query = { validationFail: true };
@@ -67,7 +61,7 @@ describe('Login.vue', () => {
         shallowMount(Login, options);
 
         // then
-        expect(mutations[OPEN_SNACKBAR].withArgs({}, buildSnackBarOption(MESSAGE.LOGIN_REQUIRE)).calledOnce).to.be.true;
+        expect(openSnackBar.calledOnce).to.be.true;
     });
 
     it('페이지 진입 시 code가 존재하면 Token 요청 후 첫번째 발급이라면 register로 routing 된다.', async () => {
@@ -81,7 +75,7 @@ describe('Login.vue', () => {
 
         // then
         expect(actions[REQUEST_KAKAO_TOKEN_BY_CODE].called).to.be.true;
-        expect($router.push.withArgs(REGISTER.PROFILE_PATH).calledOnce).to.be.true;
+        expect($router.push.withArgs(REGISTER_PATH.PROFILE_PATH).calledOnce).to.be.true;
     });
 
     it('페이지 진입 시 code가 존재하면 Token 요청 후 첫번째 발급이 아니라면 main으로 routing 된다.', async () => {
@@ -110,6 +104,6 @@ describe('Login.vue', () => {
 
         // then
         expect(actions[REQUEST_KAKAO_TOKEN_BY_CODE].called).to.be.true;
-        expect(mutations[OPEN_SNACKBAR].withArgs({}, buildSnackBarOption(MESSAGE.LOGIN_FAIL)).calledOnce).to.be.true;
+        expect(openSnackBar.calledOnce).to.be.true;
     });
 });

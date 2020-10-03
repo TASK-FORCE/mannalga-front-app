@@ -33,15 +33,8 @@
 <script>
 import ClubList from '@/components/ClubList.vue';
 import SearchFilterMain from '@/components/search/SearchFilterMain.vue';
-import { mapActions, mapGetters } from 'vuex';
-import {
-    CLUB_LIST,
-    CLUB_LIST_MODULE,
-    CLUB_PAGE,
-    REQUEST_FIRST_CLUB_LIST,
-    REQUEST_NEXT_CLUB_LIST,
-    SEARCH_FILTER,
-} from '@/store/type/club_list_type.js';
+import { getterHelper } from '@/store/helper/getterHelper.js';
+import { actionsHelper } from '@/store/helper/actionsHelper.js';
 
 export default {
     name: 'AppMainClubTabs',
@@ -53,21 +46,22 @@ export default {
         };
     },
     computed: {
-        ...mapGetters(CLUB_LIST_MODULE, { clubList: CLUB_LIST, clubPage: CLUB_PAGE, SEARCH_FILTER }),
+        clubList: () => getterHelper.clubList(),
+        clubPage: () => getterHelper.clubPage(),
+        searchFilter: () => getterHelper.searchFilter(),
     },
     created() {
-        this[REQUEST_FIRST_CLUB_LIST]();
+        actionsHelper.requestFirstClubList();
     },
     methods: {
-        ...mapActions(CLUB_LIST_MODULE, [REQUEST_FIRST_CLUB_LIST, REQUEST_NEXT_CLUB_LIST]),
         findNextMyClubs() {
             // pass
         },
         findNextClubs(callback) {
-            this[REQUEST_NEXT_CLUB_LIST]().then(() => callback());
+            actionsHelper.requestNextClubList().then(() => callback());
         },
         changedSearchFilter() {
-            this[REQUEST_FIRST_CLUB_LIST]();
+            actionsHelper.requestFirstClubList();
         },
     },
 };

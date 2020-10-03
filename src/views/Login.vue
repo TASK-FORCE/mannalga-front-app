@@ -24,14 +24,12 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from 'vuex';
 import { moveToKakaoLoginPage } from '@/utils/kakao/utlls.js';
-import { buildSnackBarOption } from '@/utils/snackbarUtils.js';
 import { MESSAGE } from '@/utils/constant/constant.js';
-import { COMMON, OPEN_SNACKBAR } from '@/store/type/common_type.js';
-import { APP_TOKEN, AUTH, IS_AUTH, REQUEST_KAKAO_TOKEN_BY_CODE } from '@/store/type/auth_type.js';
-import { MAIN_PATH, REGISTER } from '@/router/route_path_type.js';
-import { REQUEST_REGISTER_STATUS, USER } from '@/store/type/user_type.js';
+import { MAIN_PATH, REGISTER_PATH } from '@/router/route_path_type.js';
+import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
+import { getterHelper } from '@/store/helper/getterHelper.js';
+import { actionsHelper } from '@/store/helper/actionsHelper.js';
 
 export default {
     name: 'Login',
@@ -41,7 +39,8 @@ export default {
         };
     },
     computed: {
-        ...mapGetters(AUTH, [IS_AUTH, APP_TOKEN]),
+        isAuth: () => getterHelper.isAuth(),
+        appToken: () => getterHelper.appToken(),
         code() {
             return this.$route.query.code;
         },
@@ -51,16 +50,16 @@ export default {
     },
     created() {
         if (this.validationFail) {
-            this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.LOGIN_REQUIRE));
+            mutationsHelper.openSnackBar(MESSAGE.LOGIN_REQUIRE);
             return;
         }
 
         // TODO 백엔드에게 api 요청 후 변경 필요
-        if (this[IS_AUTH] && false) {
+        if (this.isAuth && false) {
             this.requestTemplateWithLoading(
                 async () => {
-                    const isRegistered = await this[REQUEST_REGISTER_STATUS](this[APP_TOKEN]);
-                    isRegistered ? this.$router.push(MAIN_PATH) : this.$router.push(REGISTER.PROFILE_PATH);
+                    const isRegistered = await actionsHelper.requestRegisterStatus(this.appToken);
+                    isRegistered ? this.$router.push(MAIN_PATH) : this.$router.push(REGISTER_PATH.PROFILE_PATH);
                 },
             );
         }
@@ -69,19 +68,16 @@ export default {
             this.requestTemplateWithLoading(
                 async () => {
                     try {
-                        const isRegistered = await this[REQUEST_KAKAO_TOKEN_BY_CODE](this.code);
-                        isRegistered ? this.$router.push(MAIN_PATH) : this.$router.push(REGISTER.PROFILE_PATH);
+                        const isRegistered = await actionsHelper.requestKakaoTokenByCode(this.code);
+                        isRegistered ? this.$router.push(MAIN_PATH) : this.$router.push(REGISTER_PATH.PROFILE_PATH);
                     } catch (e) {
-                        this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.LOGIN_FAIL));
+                        mutationsHelper.openSnackBar(MESSAGE.LOGIN_FAIL);
                     }
                 },
             );
         }
     },
     methods: {
-        ...mapActions(AUTH, [REQUEST_KAKAO_TOKEN_BY_CODE]),
-        ...mapActions(USER, [REQUEST_REGISTER_STATUS]),
-        ...mapMutations(COMMON, [OPEN_SNACKBAR]),
         login() {
             this.startLoading();
             moveToKakaoLoginPage();

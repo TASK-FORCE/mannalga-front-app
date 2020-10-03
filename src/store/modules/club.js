@@ -5,7 +5,7 @@ import {
     SET_CLUB_DATA,
     REQUEST_CLUB_DATA, REQUEST_CLUB_CREATE,
 } from '@/store/type/club_type.js';
-import { actionsLoadingTemplate } from '@/store/helper/helper.js';
+import { actionsLoadingTemplate, actionsNormalTemplate } from '@/store/helper/actionsTemplate.js';
 
 const state = {
     // clubData: {
@@ -70,7 +70,7 @@ const actions = {
         });
     },
     async [REQUEST_CLUB_CREATE]({ commit }, clubCreateDto) {
-        return actionsLoadingTemplate(commit, async () => (requestClubCreate(clubCreateDto)));
+        return actionsNormalTemplate(async () => (requestClubCreate(clubCreateDto)));
     },
 };
 

@@ -43,12 +43,12 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from 'vuex';
 import _ from '@/utils/lodashWrapper.js';
 import { RULES } from '@/utils/constant/constant.js';
-import { COMMON, IS_LOADING } from '@/store/type/common_type.js';
-import { CHANGE_PROFILE_NAME, PROFILE, REQUEST_PROFILE, USER } from '@/store/type/user_type.js';
 import { LOGIN_PATH } from '@/router/route_path_type.js';
+import { getterHelper } from '@/store/helper/getterHelper.js';
+import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
+import { actionsHelper } from '@/store/helper/actionsHelper.js';
 
 export default {
     name: 'UserProfile',
@@ -58,8 +58,8 @@ export default {
         };
     },
     computed: {
-        ...mapGetters(USER, { profile: PROFILE }),
-        ...mapGetters(COMMON, { isLoading: IS_LOADING }),
+        profile: () => getterHelper.profile(),
+        isLoading: () => getterHelper.isLoading(),
         profileImg() {
             if (_.isEmpty(this.profile.imgUrl)) {
                 return require('../images/default_profile_img.png');
@@ -69,13 +69,12 @@ export default {
     },
     created() {
         if (_.isDeepEmpty(this.profile)) {
-            this[REQUEST_PROFILE]()
+            actionsHelper.requestProfile()
                 .catch(() => this.$router.push(LOGIN_PATH));
         }
     },
     methods: {
-        ...mapActions(USER, [REQUEST_PROFILE]),
-        ...mapMutations(USER, { changeProfileName: CHANGE_PROFILE_NAME }),
+        changeProfileName: (name) => mutationsHelper.changeProfileName(name),
     },
 };
 </script>

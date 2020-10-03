@@ -3,30 +3,26 @@ import Vuex from 'vuex';
 import sinon from 'sinon';
 import { expect } from 'chai';
 import UserInterest from '@/components/UserInterest.vue';
-import { INTERESTS, REQUEST_INTEREST_TEMPLATE } from '@/store/type/template_type.js';
+import { ROOT_INTERESTS } from '@/store/type/template_type.js';
 import { ADD_SELECTED_INTEREST_SEQS, REMOVE_SELECTED_INTEREST_SEQS, SELECTED_INTEREST_SEQS } from '@/store/type/user_type.js';
-import { IS_LOADING, OPEN_SNACKBAR } from '@/store/type/common_type.js';
+import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
 
 describe('UserInterest.vue', () => {
+    let openSnackBar;
     let templateGetters;
     let userGetters;
-    let commonGetters;
     let templateActions;
-    let commonMutations;
     let userMutations;
     let store;
     let options;
     let $router;
-
     beforeEach(() => {
+        openSnackBar = sinon.stub(mutationsHelper, 'openSnackBar');
         templateGetters = {
-            [INTERESTS]: sinon.stub(),
-        };
-        templateActions = {
-            [REQUEST_INTEREST_TEMPLATE]: sinon.stub(),
+            [ROOT_INTERESTS]: sinon.stub(),
         };
         userGetters = {
             [SELECTED_INTEREST_SEQS]: sinon.stub(),
@@ -34,12 +30,6 @@ describe('UserInterest.vue', () => {
         userMutations = {
             [ADD_SELECTED_INTEREST_SEQS]: sinon.stub(),
             [REMOVE_SELECTED_INTEREST_SEQS]: sinon.stub(),
-        };
-        commonGetters = {
-            [IS_LOADING]: sinon.stub(),
-        };
-        commonMutations = {
-            [OPEN_SNACKBAR]: sinon.stub(),
         };
         store = new Vuex.Store({
             modules: {
@@ -52,11 +42,6 @@ describe('UserInterest.vue', () => {
                     namespaced: true,
                     getters: userGetters,
                     mutations: userMutations,
-                },
-                common: {
-                    namespaced: true,
-                    getters: commonGetters,
-                    mutations: commonMutations,
                 },
             },
         });
@@ -73,33 +58,7 @@ describe('UserInterest.vue', () => {
         };
     });
 
-    it('랜딩 시 interest template이 비어있다면 interest template을 요청한다.', async () => {
-        // given
-        templateGetters[INTERESTS].returns([]);
-
-        // when
-        const wrapper = shallowMount(UserInterest, options);
-        await wrapper.vm.$nextTick();
-
-        // then
-        expect(templateActions[REQUEST_INTEREST_TEMPLATE].calledOnce).to.be.true;
-    });
-
-    it('interest template을 요청이 실패하면 뒤로 가기 후 라우팅', async () => {
-        // given
-        templateGetters[INTERESTS].returns([]);
-        templateActions[REQUEST_INTEREST_TEMPLATE].returns(Promise.reject());
-        $router.push.returns(Promise.resolve());
-
-        // when
-        const wrapper = shallowMount(UserInterest, options);
-        await wrapper.vm.$nextTick();
-        await wrapper.vm.$nextTick();
-
-        // then
-        expect($router.push.calledOnce).to.be.true;
-        expect(commonMutations[OPEN_SNACKBAR].calledOnce).to.be.true;
-    });
+    afterEach(() => { openSnackBar.restore(); });
 
     it('isInclude 메서드 호출 시 selectedInterestSeq에 존재하면 active를 반환하고 그렇지 않으면 빈 텍스트를 반환한다.', () => {
         // given
@@ -137,7 +96,7 @@ describe('UserInterest.vue', () => {
         wrapper.vm.toggleInterest(10);
 
         // then
-        expect(commonMutations[OPEN_SNACKBAR].calledOnce).to.be.true;
+        expect(openSnackBar.calledOnce).to.be.true;
     });
 
     it('toggleInterest 호출될 때 selectedInterestSeq에 존재하지 않으면 추가한다.', () => {

@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import authModule from '@/store/modules/auth.js';
 import * as authApi from '@/apis/login.js';
-import { APP_TOKEN, REMOVE_APP_TOKEN, REQUEST_APP_TOKEN_BY_KAKAO_TOKEN, REQUEST_KAKAO_TOKEN_BY_CODE, SET_APP_TOKEN } from '@/store/type/auth_type.js';
+import { APP_TOKEN, REQUEST_APP_TOKEN_BY_KAKAO_TOKEN, REQUEST_KAKAO_TOKEN_BY_CODE, SET_APP_TOKEN } from '@/store/type/auth_type.js';
 
 describe('actions', () => {
     const { actions } = authModule;

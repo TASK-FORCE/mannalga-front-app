@@ -10,11 +10,11 @@ import {
     IS_REQUESTING_NEXT_PAGE,
     REQUEST_FIRST_CLUB_LIST,
     REQUEST_NEXT_CLUB_LIST,
-    SEARCH_FILTER, GET_DEFAULT_CLUB_LIST_PAGE,
+    SEARCH_FILTER, GET_DEFAULT_CLUB_LIST_PAGE, IS_FIRST_PAGE,
 } from '@/store/type/club_list_type.js';
-import { actionsLoadingTemplate } from '@/store/helper/helper.js';
+import { actionsLoadingTemplate } from '@/store/helper/actionsTemplate.js';
 import { requestClubListWithPage } from '@/apis/clubList.js';
-import { transformService } from '@/store/helper/transform.js';
+import { transformService } from '@/store/service/transformService.js';
 
 const state = {
     [CLUB_LIST]: [],
@@ -36,6 +36,10 @@ const getters = {
     [IS_LAST_PAGE](state) {
         const { isLastPage } = state[CLUB_PAGE];
         return isLastPage;
+    },
+    [IS_FIRST_PAGE](state) {
+        const { currentPage } = state[CLUB_PAGE];
+        return currentPage === 0;
     },
 };
 
@@ -65,9 +69,6 @@ const mutations = {
 };
 
 const actions = {
-    /** TODO
-     * 백엔드에서 page 정보가 제대로 정해지면 actions를 호출하는 곳에서 requestParam을 넘겨주도록 변경하자.
-     */
     [REQUEST_FIRST_CLUB_LIST]({ commit, state }) {
         commit(INIT_CLUB_LIST_AND_PAGE);
         const callback = async () => {
@@ -99,7 +100,7 @@ const actions = {
 function extractClubListAndPage(response) {
     const { data } = response.data;
     const clubList = data.content;
-    const clubPage = transformService.transformPage(data);
+    const clubPage = transformService.transformToPage(data);
     return { clubList, clubPage };
 }
 
