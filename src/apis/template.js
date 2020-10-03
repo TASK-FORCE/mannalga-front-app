@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-function requestLocationTemplate() {
-    return axios.get('/api/states');
+function requestRegionTemplate() {
+    return axios.get('/api/regions');
 }
 
 function requestInterestTemplate() {
@@ -9,6 +9,6 @@ function requestInterestTemplate() {
 }
 
 export {
-    requestLocationTemplate,
+    requestRegionTemplate,
     requestInterestTemplate,
 };

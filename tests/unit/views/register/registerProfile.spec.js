@@ -72,7 +72,7 @@ describe('regisetProfile.vue', () => {
         wrapper.vm.clickGoBtn();
 
         // then
-        expect($router.push.withArgs(REGISTER_PATH.LOCATION_PATH).calledOnce).to.be.true;
+        expect($router.push.withArgs(REGISTER_PATH.REGION_PATH).calledOnce).to.be.true;
         expect(mutationsHelper.openSnackBar.calledOnce).to.be.false;
     });
 });

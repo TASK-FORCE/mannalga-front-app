@@ -3,7 +3,7 @@
  */
 const STUB_REQUESTS = [
     // {
-    //     path: '/api/states',
+    //     path: '/api/regions',
     // },
     // {
     //     path: '/api/users/saveKakaoToken',

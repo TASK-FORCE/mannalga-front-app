@@ -12,14 +12,14 @@ export const EMPTY_PROFILE = {
 export const DEFAULT_PROFILE = _.cloneDeep(EMPTY_PROFILE);
 
 // state & getters
-export const SELECTED_LOCATIONS = 'selectedLocations';
+export const SELECTED_REGIONS = 'selectedRegions';
 export const SELECTED_INTEREST_SEQS = 'selectedInterestSeqs';
 export const PROFILE = 'profile';
 
 // mutations
 export const SET_PROFILE = 'setProfile';
 export const CHANGE_PROFILE_NAME = 'changeProfileName';
-export const ADD_SELECTED_LOCATIONS = 'addSelectedLocations';
+export const ADD_SELECTED_REGIONS = 'addSelectedRegions';
 export const REMOVE_SELECTED_INTEREST_SEQS = 'removeSelectedInterestSeqs';
 export const ADD_SELECTED_INTEREST_SEQS = 'addSelectedInterestSeqs';
 

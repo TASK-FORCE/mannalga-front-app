@@ -1,4 +1,4 @@
-import { CLUB_BOARD_CREATE_PATH, CLUB_BOARD_POST_PATH, CLUB_CREATE_PATH, CLUB_PATH, LOGIN_PATH, MAIN_PATH, REGISTER_PATH, SELECT_LOCATION_PATH } from '@/router/route_path_type.js';
+import { CLUB_BOARD_CREATE_PATH, CLUB_BOARD_POST_PATH, CLUB_CREATE_PATH, CLUB_PATH, LOGIN_PATH, MAIN_PATH, REGISTER_PATH, SELECT_REGION_PATH } from '@/router/route_path_type.js';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';
 
 function validationAuthentication(to, from, next) {
@@ -31,8 +31,8 @@ const routes = [
                 meta: { isFirstPage: true },
             },
             {
-                path: REGISTER_PATH.LOCATION,
-                component: () => import('@/views/register/RegisterLocation.vue'),
+                path: REGISTER_PATH.REGION,
+                component: () => import('@/views/register/RegisterRegion.vue'),
             },
             {
                 path: REGISTER_PATH.INTEREST,
@@ -42,9 +42,9 @@ const routes = [
         ],
     },
     {
-        path: SELECT_LOCATION_PATH,
-        name: 'SelectLocation',
-        component: () => import('@/views/SelectLocation.vue'),
+        path: SELECT_REGION_PATH,
+        name: 'SelectRegion',
+        component: () => import('@/views/SelectRegion.vue'),
         beforeEnter: validationAuthentication,
     },
     {

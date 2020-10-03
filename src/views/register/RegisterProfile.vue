@@ -26,7 +26,7 @@ export default {
         clickGoBtn() {
             const { name } = this.profile;
             if (ruleValidationSuccess(name, RULES.PROFILE_NAME)) {
-                this.$router.push(REGISTER_PATH.LOCATION_PATH);
+                this.$router.push(REGISTER_PATH.REGION_PATH);
                 return;
             }
             mutationsHelper.openSnackBar(getValidationFailText(name, RULES.PROFILE_NAME));

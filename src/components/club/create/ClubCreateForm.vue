@@ -17,9 +17,9 @@
         <v-text-field label="지역"
                       append-icon="mdi-menu-down"
                       readonly
-                      :rules="RULES.CLUB_LOCATION"
-                      :value="clubCreateLocation && clubCreateLocation.superStateRoot"
-                      @click="$emit('openBottomSheetCard', 'LOCATION')"
+                      :rules="RULES.CLUB_REGION"
+                      :value="clubCreateRegion && clubCreateRegion.superRegionRoot"
+                      @click="$emit('openBottomSheetCard', 'REGION')"
         />
         <v-select label="모임 최대 인원"
                   :rules="RULES.CLUB_MAXIMUM_NUMBER"
@@ -53,8 +53,8 @@ export default {
         clubCreateInterest() {
             return this.clubCreateBoxInfo.interest;
         },
-        clubCreateLocation() {
-            return this.clubCreateBoxInfo.location;
+        clubCreateRegion() {
+            return this.clubCreateBoxInfo.region;
         },
     },
     methods: {

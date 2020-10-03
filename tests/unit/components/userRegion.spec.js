@@ -2,15 +2,15 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuex from 'vuex';
 import sinon from 'sinon';
 import { expect } from 'chai';
-import UserLocation from '@/components/UserLocation.vue';
-import { DEFAULT_ROOT_STATE } from '@/store/type/template_type.js';
+import UserRegion from '@/components/UserRegion.vue';
+import { DEFAULT_ROOT_REGION } from '@/store/type/template_type.js';
 import { testUtils } from '../../utils/testUtils.js';
 
 const sandbox = sinon.createSandbox();
 const localVue = createLocalVue();
 localVue.use(Vuex);
 
-describe('UserLocation.vue', () => {
+describe('UserRegion.vue', () => {
     let gettersHelper;
     let mutationsHelper;
     let options;
@@ -34,7 +34,7 @@ describe('UserLocation.vue', () => {
             },
         };
 
-        gettersHelper.selectedLocations.returns([]);
+        gettersHelper.selectedRegions.returns([]);
     });
 
     afterEach(() => { sandbox.restore(); });
@@ -44,22 +44,22 @@ describe('UserLocation.vue', () => {
         options.propsData.priority = NaN;
 
         // when
-        shallowMount(UserLocation, options);
+        shallowMount(UserRegion, options);
 
         // then
         expect($router.back.calledOnce).to.be.true;
     });
 
-    it('toggleLocation이 호출시 selectedLocation이 추가되고 router.back()이 호출된다.', () => {
+    it('toggleRegion이 호출시 selectedRegion이 추가되고 router.back()이 호출된다.', () => {
         // given
-        const location = DEFAULT_ROOT_STATE;
+        const region = DEFAULT_ROOT_REGION;
 
         // when
-        const wrapper = shallowMount(UserLocation, options);
-        wrapper.vm.toggleLocation(location);
+        const wrapper = shallowMount(UserRegion, options);
+        wrapper.vm.toggleRegion(region);
 
         // then
-        expect(mutationsHelper.addSelectedLocations.calledOnce).to.be.true;
+        expect(mutationsHelper.addSelectedRegions.calledOnce).to.be.true;
         expect($router.back.calledOnce).to.be.true;
     });
 });

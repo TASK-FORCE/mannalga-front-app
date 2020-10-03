@@ -4,7 +4,7 @@ import {
     CHANGE_CLUB_LIST_WITH_PAGE,
     CHANGE_INTEREST_SEARCH_FILTER,
     CHANGE_IS_REQUESTING_NEXT_PAGE,
-    CHANGE_LOCATION_SEARCH_FILTER,
+    CHANGE_REGION_SEARCH_FILTER,
     CLUB_LIST, CLUB_PAGE,
     DEFAULT_SEARCH_FILTER, INIT_CLUB_LIST_AND_PAGE,
     IS_REQUESTING_NEXT_PAGE,
@@ -39,8 +39,8 @@ const getters = {
         return isLastPage;
     },
     [IS_FIRST_PAGE](state) {
-        const { currentPage } = state[CLUB_PAGE];
-        return currentPage === 0;
+        const { nextPage } = state[CLUB_PAGE];
+        return nextPage === 0;
     },
 };
 
@@ -48,8 +48,8 @@ const mutations = {
     [CHANGE_INTEREST_SEARCH_FILTER](state, interestFilter) {
         state[SEARCH_FILTER].interestList = [interestFilter];
     },
-    [CHANGE_LOCATION_SEARCH_FILTER](state, locationFilter) {
-        state[SEARCH_FILTER].stateList = [locationFilter];
+    [CHANGE_REGION_SEARCH_FILTER](state, regionFilter) {
+        state[SEARCH_FILTER].regionList = [regionFilter];
     },
     [CHANGE_CLUB_LIST_WITH_PAGE](state, { clubList, clubPage }) {
         state[CLUB_LIST] = clubList;
@@ -109,7 +109,7 @@ function buildClubListRequestParam(state) {
     const { size, nextPage } = state[CLUB_PAGE];
     return {
         size,
-        offset: nextPage, // TODO 백엔드가 변경해주면 변경하자.
+        page: nextPage,
         searchOptions: { ...(state[SEARCH_FILTER]) },
     };
 }

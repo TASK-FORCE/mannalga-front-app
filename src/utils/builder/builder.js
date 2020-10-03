@@ -25,17 +25,17 @@ const userBuilder = {
 
         return profile;
     },
-    buildRegisterRequestDto(profile, selectedLocations, selectedInterestSeqs) {
-        const userStates = [];
-        for (const [priority, value] of Object.entries(selectedLocations)) {
-            userStates.push({ priority, seq: value.seq });
+    buildRegisterRequestDto(profile, selectedRegions, selectedInterestSeqs) {
+        const userRegions = [];
+        for (const [priority, value] of Object.entries(selectedRegions)) {
+            userRegions.push({ priority, seq: value.seq });
         }
         const userInterests = appendPriority(selectedInterestSeqs);
         return {
             userName: profile.name,
             birthday: profile.dayOfBirth,
             profileImageLink: profile.imgUrl,
-            userStates,
+            userRegions,
             userInterests,
         };
     },
@@ -51,8 +51,8 @@ const clubBuilder = {
             seq: clubCreateInfo.interest.seq,
             priority: 1,
         }],
-        stateList: [{
-            seq: clubCreateInfo.location.seq,
+        regionList: [{
+            seq: clubCreateInfo.region.seq,
             priority: 1,
         }],
     }),

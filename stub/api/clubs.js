@@ -72,17 +72,17 @@ function getClub() {
                 name: '건강',
             },
         ],
-        states: [
+        regions: [
             {
                 seq: 101,
                 name: '강남구',
-                superStateRoot: '서울특별시/강남구',
+                superRegionRoot: '서울특별시/강남구',
                 level: 2,
             },
             {
                 seq: 102,
                 name: '강서구',
-                superStateRoot: '서울특별시/강서구',
+                superRegionRoot: '서울특별시/강서구',
                 level: 2,
             },
         ],

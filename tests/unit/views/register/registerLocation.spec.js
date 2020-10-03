@@ -4,14 +4,14 @@ import Vuex from 'vuex';
 import sinon from 'sinon';
 import { REGISTER_PATH } from '@/router/route_path_type.js';
 import { DEFAULT_PROFILE } from '@/store/type/user_type.js';
-import RegisterLocation from '@/views/register/RegisterLocation.vue';
+import RegisterRegion from '@/views/register/RegisterRegion.vue';
 import { testUtils } from '../../../utils/testUtils.js';
 
 const sandbox = sinon.createSandbox();
 const localVue = createLocalVue();
 localVue.use(Vuex);
 
-describe('RegisterLocation.vue', () => {
+describe('RegisterRegion.vue', () => {
     let gettersHelper;
     let mutationsHelper;
     let options;
@@ -39,7 +39,7 @@ describe('RegisterLocation.vue', () => {
         gettersHelper.profile.returns(DEFAULT_PROFILE);
 
         // when
-        shallowMount(RegisterLocation, options);
+        shallowMount(RegisterRegion, options);
 
         // then
         expect($router.push.withArgs(REGISTER_PATH.PROFILE_PATH).calledOnce).to.be.true;
@@ -47,10 +47,10 @@ describe('RegisterLocation.vue', () => {
 
     it('Go Btn 클릭 시 선택된 지역이 하나도 없다면 Snackbar를 호출한다.', () => {
         // given
-        gettersHelper.selectedLocations.returns([]);
+        gettersHelper.selectedRegions.returns([]);
 
         // when
-        const wrapper = shallowMount(RegisterLocation, options);
+        const wrapper = shallowMount(RegisterRegion, options);
         wrapper.vm.clickGoBtn();
 
         // then
@@ -59,10 +59,10 @@ describe('RegisterLocation.vue', () => {
 
     it('Go Btn 클릭 시 선택된 지역이 존재하면 관심사 페이지로 라우팅된다.', () => {
         // given
-        gettersHelper.selectedLocations.returns([{}, {}]);
+        gettersHelper.selectedRegions.returns([{}, {}]);
 
         // when
-        const wrapper = shallowMount(RegisterLocation, options);
+        const wrapper = shallowMount(RegisterRegion, options);
         wrapper.vm.clickGoBtn();
 
         // then

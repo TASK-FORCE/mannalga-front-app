@@ -1,16 +1,16 @@
-import { requestInterestTemplate, requestLocationTemplate } from '@/apis/template.js';
-import { REQUEST_INTEREST_TEMPLATE, REQUEST_LOCATION_TEMPLATE, ROOT_INTERESTS, ROOT_LOCATIONS, SET_INTEREST_TEMPLATE, SET_LOCATION_TEMPLATE } from '@/store/type/template_type.js';
+import { requestInterestTemplate, requestRegionTemplate } from '@/apis/template.js';
+import { REQUEST_INTEREST_TEMPLATE, REQUEST_REGION_TEMPLATE, ROOT_INTERESTS, ROOT_REGIONS, SET_INTEREST_TEMPLATE, SET_REGION_TEMPLATE } from '@/store/type/template_type.js';
 import { actionsNormalTemplate } from '@/store/helper/actionsTemplate.js';
 import { extractResponseData } from '@/store/helper/vuexUtils.js';
 
 const state = {
-    [ROOT_LOCATIONS]: [],
+    [ROOT_REGIONS]: [],
     [ROOT_INTERESTS]: [],
 };
 
 const getters = {
-    [ROOT_LOCATIONS](state) {
-        return state[ROOT_LOCATIONS];
+    [ROOT_REGIONS](state) {
+        return state[ROOT_REGIONS];
     },
     [ROOT_INTERESTS](state) {
         return state[ROOT_INTERESTS];
@@ -18,8 +18,8 @@ const getters = {
 };
 
 const mutations = {
-    [SET_LOCATION_TEMPLATE](state, rootStates) {
-        state[ROOT_LOCATIONS] = rootStates;
+    [SET_REGION_TEMPLATE](state, rootRegions) {
+        state[ROOT_REGIONS] = rootRegions;
     },
     [SET_INTEREST_TEMPLATE](state, rootInterests) {
         state[ROOT_INTERESTS] = rootInterests;
@@ -27,11 +27,11 @@ const mutations = {
 };
 
 const actions = {
-    async [REQUEST_LOCATION_TEMPLATE]({ commit }) {
+    async [REQUEST_REGION_TEMPLATE]({ commit }) {
         return actionsNormalTemplate(async () => {
-            const response = await requestLocationTemplate();
-            const rootStates = extractResponseData(response);
-            commit(SET_LOCATION_TEMPLATE, rootStates);
+            const response = await requestRegionTemplate();
+            const rootRegions = extractResponseData(response);
+            commit(SET_REGION_TEMPLATE, rootRegions);
         });
     },
     async [REQUEST_INTEREST_TEMPLATE]({ commit }) {

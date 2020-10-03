@@ -7,8 +7,8 @@
                 <template v-slot:activator="{ on, attrs }">
                     <SearchFilterSelectBtn :attrs="attrs"
                                            :on="on"
-                                           :text="searchLocationText"
-                                           @click="changeBottomSheetComponent('LOCATION')"
+                                           :text="searchRegionText"
+                                           @click="changeBottomSheetComponent('REGION')"
                     />
                     <SearchFilterSelectBtn :attrs="attrs"
                                            :on="on"
@@ -22,10 +22,10 @@
                     />
                 </template>
 
-                <BottomSheetLocationCard v-if="currentBottomSheetCard === 'LOCATION'"
-                                         :rootStates="rootStates"
-                                         :canSelectRoot="true"
-                                         @selectSubState="selectSearchLocation"
+                <BottomSheetRegionCard v-if="currentBottomSheetCard === 'REGION'"
+                                       :rootRegions="rootRegions"
+                                       :canSelectRoot="true"
+                                       @selectSubRegion="selectSearchRegion"
                 />
                 <BottomSheetInterestCard v-else-if="currentBottomSheetCard === 'INTEREST'"
                                          :rootInterests="rootInterests"
@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import BottomSheetLocationCard from '@/components/bottom-sheet/BottomSheetLocationCard.vue';
+import BottomSheetRegionCard from '@/components/bottom-sheet/BottomSheetRegionCard.vue';
 import SearchFilterSelectBtn from '@/components/search/SearchFilterSelectBtn';
 import BottomSheetSortCard from '@/components/bottom-sheet/BottomSheetSortCard.vue';
 import BottomSheetInterestCard from '@/components/bottom-sheet/BottomSheetInterestCard.vue';
@@ -56,35 +56,35 @@ export default {
         BottomSheetInterestCard,
         BottomSheetSortCard,
         SearchFilterSelectBtn,
-        BottomSheetLocationCard,
+        BottomSheetRegionCard,
     },
     data() {
         return {
             sheet: false,
             seq: null,
-            searchLocationText: '지역 선택',
+            searchRegionText: '지역 선택',
             searchInterestText: '관심사 선택',
             searchSortText: '정렬',
             currentBottomSheetCard: null,
         };
     },
     computed: {
-        rootStates: () => gettersHelper.rootLocations(),
+        rootRegions: () => gettersHelper.rootRegions(),
         rootInterests: () => gettersHelper.rootInterests(),
         searchFilter: () => gettersHelper.searchFilter(),
     },
     created() {
-        actionsFetcherService.fetchInterestAndLocationTemplate(true, LOGIN_PATH);
+        actionsFetcherService.fetchInterestAndRegionTemplate(true, LOGIN_PATH);
     },
     methods: {
-        selectSearchLocation(location) {
-            const locationFilter = {
-                seq: location.seq,
+        selectSearchRegion(region) {
+            const regionFilter = {
+                seq: region.seq,
                 priority: 1,
             };
-            mutationsHelper.changeLocationSearchFilter(locationFilter);
+            mutationsHelper.changeRegionSearchFilter(regionFilter);
             this.changedSearchFilter();
-            this.searchLocationText = location.name;
+            this.searchRegionText = region.name;
             this.sheet = false;
         },
         selectSearchInterest(interest) {

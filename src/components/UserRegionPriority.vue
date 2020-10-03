@@ -22,30 +22,30 @@
 
 <script>
 import { COLOR } from '@/utils/constant/constant.js';
-import { SELECT_LOCATION_PATH } from '@/router/route_path_type.js';
+import { SELECT_REGION_PATH } from '@/router/route_path_type.js';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 
 export default {
-    name: 'UserLocationPriority',
+    name: 'UserRegionPriority',
     data() {
         return {
             prioritySize: 3,
         };
     },
     computed: {
-        selectedLocations: () => gettersHelper.selectedLocations(),
+        selectedRegions: () => gettersHelper.selectedRegions(),
     },
     methods: {
         getColor(priority) {
-            if (this.selectedLocations[priority]) {
+            if (this.selectedRegions[priority]) {
                 return COLOR.SELECTED;
             }
             return COLOR.NOT_SELECTED;
         },
         getText(priority) {
-            if (this.selectedLocations[priority]) {
-                const { name } = this.selectedLocations[priority];
+            if (this.selectedRegions[priority]) {
+                const { name } = this.selectedRegions[priority];
                 const split = name.split('/');
                 if (split.length === 2 && split[0] === split[1]) {
                     return split[0];
@@ -56,13 +56,13 @@ export default {
         },
         clickBtn(priority) {
             if (this.validate(priority)) {
-                this.$router.push(`${SELECT_LOCATION_PATH}?priority=${priority}`);
+                this.$router.push(`${SELECT_REGION_PATH}?priority=${priority}`);
             }
         },
         validate(priority) {
             if (priority > 1) {
                 for (let i = 1; i < priority; i++) {
-                    if (!this.selectedLocations[i]) {
+                    if (!this.selectedRegions[i]) {
                         mutationsHelper.openSnackBar(`${i}번째 지역을 먼저 선택해주세요.`);
                         return false;
                     }
