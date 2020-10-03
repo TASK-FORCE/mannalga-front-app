@@ -5,12 +5,12 @@
         <v-list-item-group id="list-group"
                            active-class="pink--text"
         >
+            <div id="sentinel" />
             <template v-for="club in clubList">
                 <ClubPost :key="club.seq"
                           :club="club"
                 />
             </template>
-            <div id="sentinel" />
         </v-list-item-group>
     </v-list>
 </template>
