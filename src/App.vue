@@ -15,13 +15,13 @@
 <script>
 import CommonSnackBar from '@/components/common/CommonSnackBar.vue';
 import CommonProgress from '@/components/common/CommonProgress.vue';
-import { getterHelper } from '@/store/helper/getterHelper.js';
+import { gettersHelper } from './store/helper/gettersHelper.js';
 
 export default {
     name: 'App',
     components: { CommonProgress, CommonSnackBar },
     computed: {
-        isLoading: () => getterHelper.isLoading(),
+        isLoading: () => gettersHelper.isLoading(),
     },
 };
 </script>

@@ -46,7 +46,7 @@
 import _ from '@/utils/lodashWrapper.js';
 import { RULES } from '@/utils/constant/constant.js';
 import { LOGIN_PATH } from '@/router/route_path_type.js';
-import { getterHelper } from '@/store/helper/getterHelper.js';
+import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 import { actionsHelper } from '@/store/helper/actionsHelper.js';
 
@@ -58,8 +58,8 @@ export default {
         };
     },
     computed: {
-        profile: () => getterHelper.profile(),
-        isLoading: () => getterHelper.isLoading(),
+        profile: () => gettersHelper.profile(),
+        isLoading: () => gettersHelper.isLoading(),
         profileImg() {
             if (_.isEmpty(this.profile.imgUrl)) {
                 return require('../images/default_profile_img.png');

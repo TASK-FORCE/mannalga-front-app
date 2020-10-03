@@ -3,54 +3,28 @@ import Vuex from 'vuex';
 import sinon from 'sinon';
 import { expect } from 'chai';
 import UserLocation from '@/components/UserLocation.vue';
-import { DEFAULT_ROOT_STATE, ROOT_LOCATIONS } from '@/store/type/template_type.js';
-import { ADD_SELECTED_LOCATIONS, SELECTED_LOCATIONS } from '@/store/type/user_type.js';
-import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
+import { DEFAULT_ROOT_STATE } from '@/store/type/template_type.js';
+import { testUtils } from '../../utils/testUtils.js';
 
+const sandbox = sinon.createSandbox();
 const localVue = createLocalVue();
 localVue.use(Vuex);
 
 describe('UserLocation.vue', () => {
-    let openSnackBar;
-    let store;
-    let templateGetters;
-    let templateActions;
-    let userGetters;
-    let userMutations;
+    let gettersHelper;
+    let mutationsHelper;
     let options;
     let $router;
 
     beforeEach(() => {
-        openSnackBar = sinon.stub(mutationsHelper, 'openSnackBar');
-        userGetters = {
-            [SELECTED_LOCATIONS]: sinon.stub(),
-        };
-        userMutations = {
-            [ADD_SELECTED_LOCATIONS]: sinon.spy(),
-        };
-        templateGetters = {
-            [ROOT_LOCATIONS]: sinon.stub(),
-        };
-        store = new Vuex.Store({
-            modules: {
-                user: {
-                    namespaced: true,
-                    getters: userGetters,
-                    mutations: userMutations,
-                },
-                template: {
-                    namespaced: true,
-                    getters: templateGetters,
-                    actions: templateActions,
-                },
-            },
-        });
+        const mockContext = testUtils.mockingAll(sandbox);
+        gettersHelper = mockContext.gettersMock;
+        mutationsHelper = mockContext.mutationsMock;
         $router = {
             push: sinon.stub(),
             back: sinon.stub(),
         };
         options = {
-            store,
             localVue,
             mocks: {
                 $router,
@@ -59,10 +33,11 @@ describe('UserLocation.vue', () => {
                 priority: 1,
             },
         };
-        userGetters[SELECTED_LOCATIONS].returns([]);
+
+        gettersHelper.selectedLocations.returns([]);
     });
 
-    afterEach(() => { openSnackBar.restore(); });
+    afterEach(() => { sandbox.restore(); });
 
     it('Mount시 priority가 NaN인 경우 router.back()을 호출한다.', () => {
         // given
@@ -84,7 +59,7 @@ describe('UserLocation.vue', () => {
         wrapper.vm.toggleLocation(location);
 
         // then
-        expect(userMutations[ADD_SELECTED_LOCATIONS].calledOnce).to.be.true;
+        expect(mutationsHelper.addSelectedLocations.calledOnce).to.be.true;
         expect($router.back.calledOnce).to.be.true;
     });
 });

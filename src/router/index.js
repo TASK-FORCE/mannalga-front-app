@@ -2,7 +2,9 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import routes from './routes.js';
 
-Vue.use(VueRouter);
+if (!process || process.env.NODE_ENV !== 'test') {
+    Vue.use(VueRouter);
+}
 
 const scrollBehavior = (to, from, savedPosition) => {
     if (savedPosition) {

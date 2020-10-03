@@ -1,6 +1,7 @@
 <template>
     <div>
         <CommonImageSelectBox text="모임 대표 사진 등록"
+                              :imageUrl="clubCreateBoxInfo.imageUrl"
                               @changeImageUrl="value => clubCreateBoxInfo.imageUrl = value"
         />
         <v-bottom-sheet v-model="sheet"
@@ -44,7 +45,7 @@ import { MAIN_PATH } from '@/router/route_path_type.js';
 import ClubCreateForm from '@/components/club/create/ClubCreateForm.vue';
 import { clubBuilder } from '@/utils/builder/builder.js';
 import { actionsHelper } from '@/store/helper/actionsHelper.js';
-import { getterHelper } from '@/store/helper/getterHelper.js';
+import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 import { actionsFetcherService } from '@/store/service/actionsFetcherService.js';
 
@@ -73,8 +74,8 @@ export default {
         };
     },
     computed: {
-        rootInterests: () => getterHelper.rootInterests(),
-        rootStates: () => getterHelper.rootLocations(),
+        rootInterests: () => gettersHelper.rootInterests(),
+        rootStates: () => gettersHelper.rootLocations(),
         clubCreateInterest() {
             return this.clubCreateBoxInfo.interest;
         },

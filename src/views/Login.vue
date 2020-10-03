@@ -28,7 +28,7 @@ import { moveToKakaoLoginPage } from '@/utils/kakao/utlls.js';
 import { MESSAGE } from '@/utils/constant/constant.js';
 import { MAIN_PATH, REGISTER_PATH } from '@/router/route_path_type.js';
 import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
-import { getterHelper } from '@/store/helper/getterHelper.js';
+import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import { actionsHelper } from '@/store/helper/actionsHelper.js';
 
 export default {
@@ -39,8 +39,8 @@ export default {
         };
     },
     computed: {
-        isAuth: () => getterHelper.isAuth(),
-        appToken: () => getterHelper.appToken(),
+        isAuth: () => gettersHelper.isAuth(),
+        appToken: () => gettersHelper.appToken(),
         code() {
             return this.$route.query.code;
         },

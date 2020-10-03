@@ -15,6 +15,7 @@ import {
 } from '@/store/type/user_type.js';
 import { userBuilder } from '@/utils/builder/builder.js';
 import { actionsLoadingTemplate } from '@/store/helper/actionsTemplate.js';
+import { extractResponseData } from '@/store/helper/vuexUtils.js';
 
 const state = {
     [PROFILE]: DEFAULT_PROFILE,
@@ -57,7 +58,8 @@ const actions = {
     async [REQUEST_PROFILE]({ commit }) {
         return actionsLoadingTemplate(commit, async () => {
             const response = await requestProfile();
-            const kakaoAccount = response.data.kakao_account;
+            const data = extractResponseData(response);
+            const kakaoAccount = data.kakao_account;
             commit(SET_PROFILE, userBuilder.buildProfile(kakaoAccount));
         });
     },
@@ -70,7 +72,8 @@ const actions = {
     async [REQUEST_REGISTER_STATUS]({ commit }, appToken) {
         return actionsLoadingTemplate(commit, async () => {
             const response = await requestRegisterStatus(appToken);
-            return response.data.isRegistered;
+            const data = extractResponseData(response);
+            return data.isRegistered;
         });
     },
 };

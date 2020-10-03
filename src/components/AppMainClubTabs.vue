@@ -33,7 +33,7 @@
 <script>
 import ClubList from '@/components/ClubList.vue';
 import SearchFilterMain from '@/components/search/SearchFilterMain.vue';
-import { getterHelper } from '@/store/helper/getterHelper.js';
+import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import { actionsHelper } from '@/store/helper/actionsHelper.js';
 
 export default {
@@ -46,9 +46,9 @@ export default {
         };
     },
     computed: {
-        clubList: () => getterHelper.clubList(),
-        clubPage: () => getterHelper.clubPage(),
-        searchFilter: () => getterHelper.searchFilter(),
+        clubList: () => gettersHelper.clubList(),
+        clubPage: () => gettersHelper.clubPage(),
+        searchFilter: () => gettersHelper.searchFilter(),
     },
     created() {
         actionsHelper.requestFirstClubList();

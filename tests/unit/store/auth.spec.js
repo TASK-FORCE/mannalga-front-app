@@ -24,8 +24,10 @@ describe('actions', () => {
             // given
             const response = {
                 data: {
-                    appToken: 'appToken',
-                    isRegistered: true,
+                    data: {
+                        appToken: 'appToken',
+                        isRegistered: true,
+                    },
                 },
             };
             saveKakaoTokenAndGetAppToken.withArgs(kakaoTokenInfo).returns(response);
@@ -34,8 +36,8 @@ describe('actions', () => {
             const isRegistered = await actions[REQUEST_APP_TOKEN_BY_KAKAO_TOKEN]({ commit }, kakaoTokenInfo);
 
             // then
-            expect(commit.withArgs(SET_APP_TOKEN, response.data.appToken).calledOnce).to.be.true;
-            expect(isRegistered).to.be.equal(response.data.isRegistered);
+            expect(commit.withArgs(SET_APP_TOKEN, response.data.data.appToken).calledOnce).to.be.true;
+            expect(isRegistered).to.be.equal(response.data.data.isRegistered);
         });
     });
 
@@ -44,7 +46,7 @@ describe('actions', () => {
         const dispatch = sinon.spy();
         const code = '123';
         const response = {
-            data: { accessToken: '123' },
+            data: { data: { accessToken: '123' } },
         };
         sinon.stub(authApi, 'requestKakaoToken').withArgs(code).returns(response);
 

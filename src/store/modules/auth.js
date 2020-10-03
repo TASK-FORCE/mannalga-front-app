@@ -4,6 +4,7 @@ import { getAppToken, removeAppTokenToLocalStorage, saveAppTokenToLocalStorage, 
 import { APP_TOKEN, IS_AUTH, REMOVE_APP_TOKEN, REQUEST_APP_TOKEN_BY_KAKAO_TOKEN, REQUEST_KAKAO_TOKEN_BY_CODE, SET_APP_TOKEN } from '@/store/type/auth_type.js';
 import _ from '@/utils/lodashWrapper.js';
 import { actionsNormalTemplate } from '@/store/helper/actionsTemplate.js';
+import { extractResponseData } from '@/store/helper/vuexUtils.js';
 
 const state = {
     [APP_TOKEN]: getAppToken(),
@@ -42,7 +43,7 @@ const actions = {
         return actionsNormalTemplate(
             async () => {
                 const response = await saveKakaoTokenAndGetAppToken(kakaoTokenInfo);
-                const { appToken, isRegistered } = response.data;
+                const { appToken, isRegistered } = extractResponseData(response);
                 commit(SET_APP_TOKEN, appToken);
                 return isRegistered;
             },

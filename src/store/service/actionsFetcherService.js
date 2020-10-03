@@ -1,16 +1,16 @@
 import _ from '@/utils/lodashWrapper.js';
 import store from '@/store';
 import router from '@/router';
-import { getterHelper } from '@/store/helper/getterHelper.js';
 import { CHANGE_LOADING, COMMON } from '@/store/type/common_type.js';
 import { REQUEST_INTEREST_TEMPLATE, REQUEST_LOCATION_TEMPLATE, TEMPLATE } from '@/store/type/template_type.js';
 import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
+import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import { MESSAGE } from '@/utils/constant/constant.js';
 import { combineWithModuleName } from '@/store/helper/vuexUtils.js';
 
 const actionsFetcherService = {
     async fetchInterestAndLocationTemplate(withLoading, routePathWhenFail) {
-        if (!_.isEmpty(getterHelper.rootLocations()) && !_.isEmpty(getterHelper.rootInterests())) {
+        if (!_.isEmpty(gettersHelper.rootLocations()) && !_.isEmpty(gettersHelper.rootInterests())) {
             return;
         }
 
@@ -21,11 +21,11 @@ const actionsFetcherService = {
             store.commit(combineWithModuleName(COMMON, CHANGE_LOADING), true);
         }
 
-        if (_.isEmpty(getterHelper.rootLocations())) {
+        if (_.isEmpty(gettersHelper.rootLocations())) {
             locationsPromise = store.dispatch(combineWithModuleName(TEMPLATE, REQUEST_LOCATION_TEMPLATE));
         }
 
-        if (_.isEmpty(getterHelper.rootInterests())) {
+        if (_.isEmpty(gettersHelper.rootInterests())) {
             interestsPromise = store.dispatch(combineWithModuleName(TEMPLATE, REQUEST_INTEREST_TEMPLATE));
         }
 

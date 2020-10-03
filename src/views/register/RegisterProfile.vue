@@ -14,13 +14,13 @@ import { getValidationFailText, ruleValidationSuccess } from '@/utils/validation
 import { RULES } from '@/utils/constant/constant.js';
 import { REGISTER_PATH } from '@/router/route_path_type.js';
 import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
-import { getterHelper } from '@/store/helper/getterHelper.js';
+import { gettersHelper } from '@/store/helper/gettersHelper.js';
 
 export default {
     name: 'RegistProfile',
     components: { GoBackBtnFooter, UserProfile },
     computed: {
-        profile: () => getterHelper.profile(),
+        profile: () => gettersHelper.profile(),
     },
     methods: {
         clickGoBtn() {

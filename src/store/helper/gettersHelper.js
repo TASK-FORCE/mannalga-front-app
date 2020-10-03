@@ -8,27 +8,34 @@ import { combineWithModuleName } from '@/store/helper/vuexUtils.js';
 
 const { getters } = store;
 
-const getterHelper = {
-    isLoading: () => get(COMMON, IS_LOADING),
-    snackBarOptions: () => get(COMMON, SNACKBAR_OPTIONS),
-
+const gettersHelper = {
+    // auth module
     isAuth: () => get(AUTH, 'isAuth'),
     appToken: () => get(AUTH, 'appToken'),
 
-    rootLocations: () => get(TEMPLATE, ROOT_LOCATIONS),
-    rootInterests: () => get(TEMPLATE, ROOT_INTERESTS),
+    // club module
 
-    profile: () => get(USER, PROFILE),
-    selectedLocations: () => get(USER, SELECTED_LOCATIONS),
-    selectedInterestSeqs: () => get(USER, SELECTED_INTEREST_SEQS),
-
+    // clubList module
     clubList: () => get(CLUB_LIST_MODULE, CLUB_LIST),
     clubPage: () => get(CLUB_LIST_MODULE, CLUB_PAGE),
     searchFilter: () => get(CLUB_LIST_MODULE, SEARCH_FILTER),
     isLastPage: () => get(CLUB_LIST_MODULE, IS_LAST_PAGE),
     isFirstPage: () => get(CLUB_LIST_MODULE, IS_FIRST_PAGE),
+
+    // common module
+    isLoading: () => get(COMMON, IS_LOADING),
+    snackBarOptions: () => get(COMMON, SNACKBAR_OPTIONS),
+
+    // template module
+    rootLocations: () => get(TEMPLATE, ROOT_LOCATIONS),
+    rootInterests: () => get(TEMPLATE, ROOT_INTERESTS),
+
+    // user module
+    profile: () => get(USER, PROFILE),
+    selectedLocations: () => get(USER, SELECTED_LOCATIONS),
+    selectedInterestSeqs: () => get(USER, SELECTED_INTEREST_SEQS),
 };
 
 const get = (moduleName, getterName) => getters[combineWithModuleName(moduleName, getterName)];
 
-export { getterHelper };
+export { gettersHelper };
