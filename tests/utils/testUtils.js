@@ -10,10 +10,10 @@ function gettersMocking(sandbox) {
         snackBarOptions: getterHelperMock.expects('snackBarOptions'),
         isAuth: getterHelperMock.expects('isAuth'),
         appToken: getterHelperMock.expects('appToken'),
-        rootLocations: getterHelperMock.expects('rootLocations'),
+        rootRegions: getterHelperMock.expects('rootRegions'),
         rootInterests: getterHelperMock.expects('rootInterests'),
         profile: getterHelperMock.expects('profile'),
-        selectedLocations: getterHelperMock.expects('selectedLocations'),
+        selectedRegions: getterHelperMock.expects('selectedRegions'),
         selectedInterestSeqs: getterHelperMock.expects('selectedInterestSeqs'),
         clubList: getterHelperMock.expects('clubList'),
         clubPage: getterHelperMock.expects('clubPage'),
@@ -43,10 +43,10 @@ function mutationsMocking(sandbox) {
         closeSnackBar: mutationsHelperMock.expects('closeSnackBar'),
         openSnackBar: mutationsHelperMock.expects('openSnackBar'),
         changeProfileName: mutationsHelperMock.expects('changeProfileName'),
-        addSelectedLocations: mutationsHelperMock.expects('addSelectedLocations'),
+        addSelectedRegions: mutationsHelperMock.expects('addSelectedRegions'),
         addSelectedInterestSeqs: mutationsHelperMock.expects('addSelectedInterestSeqs'),
         removeSelectedInterestSeqs: mutationsHelperMock.expects('removeSelectedInterestSeqs'),
-        changeLocationSearchFilter: mutationsHelperMock.expects('changeLocationSearchFilter'),
+        changeRegionSearchFilter: mutationsHelperMock.expects('changeRegionSearchFilter'),
         changeInterestSearchFilter: mutationsHelperMock.expects('changeInterestSearchFilter'),
     };
 }
@@ -54,7 +54,7 @@ function mutationsMocking(sandbox) {
 function fetcherServiceMocking(sandbox) {
     const actionsFetcherServiceMock = sandbox.mock(actionsFetcherService);
     return {
-        fetchInterestAndLocationTemplate: actionsFetcherServiceMock.expects('fetchInterestAndLocationTemplate'),
+        fetchInterestAndRegionTemplate: actionsFetcherServiceMock.expects('fetchInterestAndRegionTemplate'),
     };
 }
 

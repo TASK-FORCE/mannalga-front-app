@@ -1,29 +1,29 @@
 <template>
     <div v-show="!isLoading">
-        <div v-if="selectedLocations[priority]"
+        <div v-if="selectedRegions[priority]"
              class="text-center"
         >
-            이전에 선택한 지역: {{ selectedLocations[priority].name }}
+            이전에 선택한 지역: {{ selectedRegions[priority].name }}
         </div>
         <v-list>
-            <v-list-group v-for="rootState in rootStates"
-                          :key="rootState.seq"
+            <v-list-group v-for="rootRegion in rootRegions"
+                          :key="rootRegion.seq"
                           no-action
             >
                 <template v-slot:activator>
                     <v-list-item-content>
-                        <v-list-item-title v-text="rootState.name"></v-list-item-title>
+                        <v-list-item-title v-text="rootRegion.name"></v-list-item-title>
                     </v-list-item-content>
                 </template>
 
                 <v-list-item
-                    v-for="subState in rootState.subStates"
-                    :key="subState.seq"
-                    :disabled="alreadySelected(subState.seq)"
-                    @click="toggleLocation(subState)"
+                    v-for="subRegion in rootRegion.subRegions"
+                    :key="subRegion.seq"
+                    :disabled="alreadySelected(subRegion.seq)"
+                    @click="toggleRegion(subRegion)"
                 >
                     <v-list-item-content>
-                        <v-list-item-title v-text="subState.name"></v-list-item-title>
+                        <v-list-item-title v-text="subRegion.name"></v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
             </v-list-group>
@@ -38,17 +38,17 @@ import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 import { actionsFetcherService } from '@/store/service/actionsFetcherService.js';
 
 export default {
-    name: 'UserLocation',
+    name: 'UserRegion',
     props: {
         priority: Number,
     },
     computed: {
         isLoading: () => gettersHelper.isLoading(),
-        rootStates: () => gettersHelper.rootLocations(),
-        selectedLocations: () => gettersHelper.selectedLocations(),
+        rootRegions: () => gettersHelper.rootRegions(),
+        selectedRegions: () => gettersHelper.selectedRegions(),
     },
     created() {
-        actionsFetcherService.fetchInterestAndLocationTemplate(true, REGISTER_PATH.PROFILE_PATH);
+        actionsFetcherService.fetchInterestAndRegionTemplate(true, REGISTER_PATH.PROFILE_PATH);
     },
     mounted() {
         // eslint-disable-next-line no-restricted-globals
@@ -57,17 +57,17 @@ export default {
         }
     },
     methods: {
-        toggleLocation(location) {
-            const selectedLocation = {
+        toggleRegion(region) {
+            const selectedRegion = {
                 priority: this.priority,
-                value: { seq: location.seq, name: location.superStateRoot },
+                value: { seq: region.seq, name: region.superRegionRoot },
             };
-            mutationsHelper.addSelectedLocations(selectedLocation);
+            mutationsHelper.addSelectedRegions(selectedRegion);
             this.$router.back();
         },
         alreadySelected(seq) {
-            for (const location of Object.values(this.selectedLocations)) {
-                if (seq === location.seq) {
+            for (const region of Object.values(this.selectedRegions)) {
+                if (seq === region.seq) {
                     return true;
                 }
             }

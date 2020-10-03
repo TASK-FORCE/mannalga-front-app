@@ -21,7 +21,7 @@ export default {
     components: { UserInterest, GoBackBtnFooter },
     computed: {
         profile: () => gettersHelper.profile(),
-        selectedLocations: () => gettersHelper.selectedLocations(),
+        selectedRegions: () => gettersHelper.selectedRegions(),
         selectedInterestSeqs: () => gettersHelper.selectedInterestSeqs(),
     },
     created() {
@@ -30,13 +30,13 @@ export default {
             return;
         }
 
-        if (_.isEmpty(this.selectedLocations)) {
-            this.$router.push(REGISTER_PATH.LOCATION_PATH);
+        if (_.isEmpty(this.selectedRegions)) {
+            this.$router.push(REGISTER_PATH.REGION_PATH);
         }
     },
     methods: {
         register() {
-            const registerRequestDto = userBuilder.buildRegisterRequestDto(this.profile, this.selectedLocations, this.selectedInterestSeqs);
+            const registerRequestDto = userBuilder.buildRegisterRequestDto(this.profile, this.selectedRegions, this.selectedInterestSeqs);
             actionsHelper.postRegister(registerRequestDto)
                 .then(() => this.$router.push(MAIN_PATH)
                     .then(() => mutationsHelper.openSnackBar(MESSAGE.SUCCESS_REGISTER)))

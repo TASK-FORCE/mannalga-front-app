@@ -1,7 +1,7 @@
 import _ from '@/utils/lodashWrapper.js';
 
 const EMPTY_SEARCH_FILTER = {
-    stateList: [],
+    regionList: [],
     interestList: [],
 };
 
@@ -22,7 +22,7 @@ export const IS_FIRST_PAGE = 'isFirstPage';
 // mutations
 export const ADD_NEXT_CLUB_LIST = 'addNextClubList';
 export const CHANGE_CLUB_LIST_WITH_PAGE = 'changeClubListWithPage';
-export const CHANGE_LOCATION_SEARCH_FILTER = 'changeLocationSearchFilter';
+export const CHANGE_REGION_SEARCH_FILTER = 'changeRegionSearchFilter';
 export const CHANGE_INTEREST_SEARCH_FILTER = 'changeInterestSearchFilter';
 export const CHANGE_IS_REQUESTING_NEXT_PAGE = 'changeIsRequestingNextPage';
 export const INIT_CLUB_LIST_AND_PAGE = 'initClubListAndPage';

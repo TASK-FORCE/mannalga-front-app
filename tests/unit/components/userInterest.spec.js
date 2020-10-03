@@ -49,12 +49,12 @@ describe('UserInterest.vue', () => {
 
     it('toggleInterest가 호출될 때 selectedInterestSeq에 존재한다면 해당 선택된 interest을 제거한다.', () => {
         // given
-        const targetLocationSeq = 1;
-        gettersHelper.selectedInterestSeqs.returns([targetLocationSeq]);
+        const targetInterestSeq = 1;
+        gettersHelper.selectedInterestSeqs.returns([targetInterestSeq]);
 
         // when
         const wrapper = shallowMount(UserInterest, options);
-        wrapper.vm.toggleInterest(targetLocationSeq);
+        wrapper.vm.toggleInterest(targetInterestSeq);
 
         // then
         expect(mutationsHelper.removeSelectedInterestSeqs.calledOnce).to.be.true;

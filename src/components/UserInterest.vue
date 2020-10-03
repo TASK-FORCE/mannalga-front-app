@@ -45,7 +45,7 @@ export default {
         selectedInterestSeqs: () => gettersHelper.selectedInterestSeqs(),
     },
     created() {
-        actionsFetcherService.fetchInterestAndLocationTemplate(true, REGISTER_PATH.PROFILE_PATH);
+        actionsFetcherService.fetchInterestAndRegionTemplate(true, REGISTER_PATH.PROFILE_PATH);
     },
     methods: {
         toggleInterest(targetSeq) {

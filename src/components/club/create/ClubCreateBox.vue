@@ -20,9 +20,9 @@
                                      :rootInterests="rootInterests"
                                      @selectSubInterest="selectClubInterest"
             />
-            <BottomSheetLocationCard v-else-if="currentBottomSheetCard === 'LOCATION'"
-                                     :rootStates="rootStates"
-                                     @selectSubState="selectClubLocation"
+            <BottomSheetRegionCard v-else-if="currentBottomSheetCard === 'REGION'"
+                                   :rootRegions="rootRegions"
+                                   @selectSubRegion="selectClubRegion"
             />
         </v-bottom-sheet>
         <CommonCenterBtn text="모임 만들기"
@@ -39,7 +39,7 @@
 import CommonCenterBtn from '@/components/common/CommonCenterBtn.vue';
 import CommonImageSelectBox from '@/components/common/CommonImageSelectBox.vue';
 import BottomSheetInterestCard from '@/components/bottom-sheet/BottomSheetInterestCard.vue';
-import BottomSheetLocationCard from '@/components/bottom-sheet/BottomSheetLocationCard.vue';
+import BottomSheetRegionCard from '@/components/bottom-sheet/BottomSheetRegionCard.vue';
 import { MESSAGE } from '@/utils/constant/constant.js';
 import { MAIN_PATH } from '@/router/route_path_type.js';
 import ClubCreateForm from '@/components/club/create/ClubCreateForm.vue';
@@ -56,7 +56,7 @@ export default {
         CommonImageSelectBox,
         CommonCenterBtn,
         BottomSheetInterestCard,
-        BottomSheetLocationCard,
+        BottomSheetRegionCard,
     },
     data() {
         return {
@@ -69,22 +69,22 @@ export default {
                 maximumNumber: 30,
                 imageUrl: null,
                 interest: null,
-                location: null,
+                region: null,
             },
         };
     },
     computed: {
         rootInterests: () => gettersHelper.rootInterests(),
-        rootStates: () => gettersHelper.rootLocations(),
+        rootRegions: () => gettersHelper.rootRegions(),
         clubCreateInterest() {
             return this.clubCreateBoxInfo.interest;
         },
-        clubCreateLocation() {
-            return this.clubCreateBoxInfo.location;
+        clubCreateRegion() {
+            return this.clubCreateBoxInfo.region;
         },
     },
     created() {
-        actionsFetcherService.fetchInterestAndLocationTemplate(true, MAIN_PATH);
+        actionsFetcherService.fetchInterestAndRegionTemplate(true, MAIN_PATH);
     },
     methods: {
         openBottomSheetCard(cardComponent) {
@@ -95,9 +95,9 @@ export default {
             this.sheet = false;
             this.clubCreateBoxInfo.interest = interest;
         },
-        selectClubLocation(location) {
+        selectClubRegion(region) {
             this.sheet = false;
-            this.clubCreateBoxInfo.location = location;
+            this.clubCreateBoxInfo.region = region;
         },
         createClub() {
             if (this.$refs.clubCreateForm.validate()) {
