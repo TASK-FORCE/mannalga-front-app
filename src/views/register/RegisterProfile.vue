@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import UserProfile from '@/components/UserProfile.vue';
+import UserProfile from '@/components/user/UserProfile.vue';
 import GoBackBtnFooter from '@/components/GoBackBtnFooter.vue';
 import { getValidationFailText, ruleValidationSuccess } from '@/utils/validationUtils.js';
 import { RULES } from '@/utils/constant/constant.js';

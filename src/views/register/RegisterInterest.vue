@@ -7,7 +7,7 @@
 
 <script>
 import GoBackBtnFooter from '@/components/GoBackBtnFooter.vue';
-import UserInterest from '@/components/UserInterest.vue';
+import UserInterest from '@/components/user/UserInterest.vue';
 import { MESSAGE } from '@/utils/constant/constant.js';
 import _ from '@/utils/lodashWrapper.js';
 import { MAIN_PATH, REGISTER_PATH } from '@/router/route_path_type.js';

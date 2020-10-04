@@ -10,7 +10,7 @@ import GoBackBtnFooter from '@/components/GoBackBtnFooter.vue';
 import _ from '@/utils/lodashWrapper.js';
 import { MESSAGE } from '@/utils/constant/constant.js';
 import { REGISTER_PATH } from '@/router/route_path_type.js';
-import UserRegionPriority from '@/components/UserRegionPriority.vue';
+import UserRegionPriority from '@/components/user/UserRegionPriority.vue';
 import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import { actionsFetcherService } from '@/store/service/actionsFetcherService.js';

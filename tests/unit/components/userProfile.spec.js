@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuex from 'vuex';
 import sinon from 'sinon';
-import UserProfile from '@/components/UserProfile.vue';
+import UserProfile from '@/components/user/UserProfile.vue';
 import { DEFAULT_PROFILE } from '@/store/type/user_type.js';
 import { LOGIN_PATH } from '@/router/route_path_type.js';
 import { testUtils } from '../../utils/testUtils.js';

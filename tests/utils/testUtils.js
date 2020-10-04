@@ -18,8 +18,6 @@ function gettersMocking(sandbox) {
         clubList: getterHelperMock.expects('clubList'),
         clubPage: getterHelperMock.expects('clubPage'),
         searchFilter: getterHelperMock.expects('searchFilter'),
-        isLastPage: getterHelperMock.expects('isLastPage'),
-        isFirstPage: getterHelperMock.expects('isFirstPage'),
     };
 }
 

@@ -3,7 +3,7 @@ import { COMMON, IS_LOADING, SNACKBAR_OPTIONS } from '@/store/type/common_type.j
 import { ROOT_INTERESTS, ROOT_REGIONS, TEMPLATE } from '@/store/type/template_type.js';
 import { PROFILE, SELECTED_INTEREST_SEQS, SELECTED_REGIONS, USER } from '@/store/type/user_type.js';
 import { AUTH } from '@/store/type/auth_type.js';
-import { CLUB_LIST, CLUB_LIST_MODULE, CLUB_PAGE, IS_FIRST_PAGE, IS_LAST_PAGE, SEARCH_FILTER } from '@/store/type/club_list_type.js';
+import { CLUB_LIST, CLUB_LIST_MODULE, CLUB_PAGE, MY_CLUB_LIST, MY_CLUB_PAGE, SEARCH_FILTER } from '@/store/type/club_list_type.js';
 import { combineWithModuleName } from '@/store/helper/vuexUtils.js';
 
 const { getters } = store;
@@ -19,8 +19,8 @@ const gettersHelper = {
     clubList: () => get(CLUB_LIST_MODULE, CLUB_LIST),
     clubPage: () => get(CLUB_LIST_MODULE, CLUB_PAGE),
     searchFilter: () => get(CLUB_LIST_MODULE, SEARCH_FILTER),
-    isLastPage: () => get(CLUB_LIST_MODULE, IS_LAST_PAGE),
-    isFirstPage: () => get(CLUB_LIST_MODULE, IS_FIRST_PAGE),
+    myClubList: () => get(CLUB_LIST_MODULE, MY_CLUB_LIST),
+    myClubPage: () => get(CLUB_LIST_MODULE, MY_CLUB_PAGE),
 
     // common module
     isLoading: () => get(COMMON, IS_LOADING),

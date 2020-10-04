@@ -2,7 +2,7 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuex from 'vuex';
 import sinon from 'sinon';
 import { expect } from 'chai';
-import UserRegion from '@/components/UserRegion.vue';
+import UserRegion from '@/components/user/UserRegion.vue';
 import { DEFAULT_ROOT_REGION } from '@/store/type/template_type.js';
 import { testUtils } from '../../utils/testUtils.js';
 

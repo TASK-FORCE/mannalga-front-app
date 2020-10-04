@@ -15,15 +15,19 @@
 
         <v-tabs-items v-model="tab">
             <v-tab-item>
-                <SearchFilterMain @changedSearchFilter="changedSearchFilter"/>
-                <ClubList :clubList="clubList"
+                <SearchFilterMain @changedSearchFilter="changedSearchFilter" />
+                <ClubList ref="clubListComponent"
+                          :clubList="clubList"
                           :page="clubPage"
-                          @findNextPage="findNextClubs"
+                          @findFirstPage="findFirstClubList"
+                          @findNextPage="findNextClubList"
                 />
             </v-tab-item>
             <v-tab-item>
-                <ClubList :clubList="myClubList"
-                          @findNextPage="findNextMyClubs"
+                <MyClubList :myClubContextList="myClubContextList"
+                            :page="myClubPage"
+                            @findFirstPage="findFirstMyClubList"
+                            @findNextPage="findNextMyClubList"
                 />
             </v-tab-item>
         </v-tabs-items>
@@ -31,37 +35,43 @@
 </template>
 
 <script>
-import ClubList from '@/components/ClubList.vue';
+import ClubList from '@/components/clubList/ClubList.vue';
 import SearchFilterMain from '@/components/search/SearchFilterMain.vue';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import { actionsHelper } from '@/store/helper/actionsHelper.js';
+import MyClubList from '@/components/clubList/MyClubList.vue';
 
 export default {
     name: 'AppMainClubTabs',
-    components: { SearchFilterMain, ClubList },
+    components: { MyClubList, SearchFilterMain, ClubList },
     data() {
         return {
             tab: null,
-            myClubList: [],
         };
     },
     computed: {
         clubList: () => gettersHelper.clubList(),
         clubPage: () => gettersHelper.clubPage(),
         searchFilter: () => gettersHelper.searchFilter(),
-    },
-    created() {
-        actionsHelper.requestFirstClubList();
+        myClubContextList: () => gettersHelper.myClubList(),
+        myClubPage: () => gettersHelper.myClubPage(),
     },
     methods: {
-        findNextMyClubs() {
-            // pass
+        changedSearchFilter() {
+            actionsHelper.requestFirstClubList()
+                .then(() => this.$refs.clubListComponent.insertSentinel());
         },
-        findNextClubs(callback) {
+        findFirstClubList(callback) {
+            actionsHelper.requestFirstClubList().then(() => callback());
+        },
+        findFirstMyClubList(callback) {
+            actionsHelper.requestFirstMyClubList().then(() => callback());
+        },
+        findNextClubList(callback) {
             actionsHelper.requestNextClubList().then(() => callback());
         },
-        changedSearchFilter() {
-            actionsHelper.requestFirstClubList();
+        findNextMyClubList(callback) {
+            actionsHelper.requestNextMyClubList().then(() => callback());
         },
     },
 };

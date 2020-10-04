@@ -4,7 +4,7 @@
                      :to="`/club/${club.seq}`"
         >
             <div>
-                <v-img src="../images/vue.png"
+                <v-img src="@/images/vue.png"
                        max-width="60"
                        max-height="50"
                 />

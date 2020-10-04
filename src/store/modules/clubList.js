@@ -1,47 +1,45 @@
 import {
     ADD_NEXT_CLUB_LIST,
-    IS_LAST_PAGE,
+    ADD_NEXT_MY_CLUB_LIST,
     CHANGE_CLUB_LIST_WITH_PAGE,
     CHANGE_INTEREST_SEARCH_FILTER,
-    CHANGE_IS_REQUESTING_NEXT_PAGE,
+    CHANGE_IS_REQUESTING_NEXT_PAGE, CHANGE_MY_CLUB_LIST_WITH_PAGE,
     CHANGE_REGION_SEARCH_FILTER,
-    CLUB_LIST, CLUB_PAGE,
-    DEFAULT_SEARCH_FILTER, INIT_CLUB_LIST_AND_PAGE,
+    CLUB_LIST,
+    CLUB_PAGE,
+    DEFAULT_SEARCH_FILTER,
+    GET_DEFAULT_PAGE,
+    INIT_CLUB_LIST_AND_PAGE,
+    INIT_MY_CLUB_LIST_AND_PAGE,
     IS_REQUESTING_NEXT_PAGE,
+    MY_CLUB_LIST,
+    MY_CLUB_PAGE,
     REQUEST_FIRST_CLUB_LIST,
+    REQUEST_FIRST_MY_CLUB_LIST,
     REQUEST_NEXT_CLUB_LIST,
-    SEARCH_FILTER, GET_DEFAULT_CLUB_LIST_PAGE, IS_FIRST_PAGE,
+    REQUEST_NEXT_MY_CLUB_LIST,
+    SEARCH_FILTER,
 } from '@/store/type/club_list_type.js';
 import { actionsLoadingTemplate } from '@/store/helper/actionsTemplate.js';
-import { requestClubListWithPage } from '@/apis/clubList.js';
+import { requestClubListWithPage, requestMyClubListWithPage } from '@/apis/clubList.js';
 import { transformService } from '@/store/service/transformService.js';
 import { extractResponseData } from '@/store/helper/vuexUtils.js';
 
 const state = {
     [CLUB_LIST]: [],
-    [CLUB_PAGE]: GET_DEFAULT_CLUB_LIST_PAGE(),
+    [CLUB_PAGE]: GET_DEFAULT_PAGE(),
+    [MY_CLUB_LIST]: [],
+    [MY_CLUB_PAGE]: GET_DEFAULT_PAGE(),
     [SEARCH_FILTER]: DEFAULT_SEARCH_FILTER,
     [IS_REQUESTING_NEXT_PAGE]: false,
 };
 
 const getters = {
-    [CLUB_LIST](state) {
-        return state[CLUB_LIST];
-    },
-    [CLUB_PAGE](state) {
-        return state[CLUB_PAGE];
-    },
-    [SEARCH_FILTER](state) {
-        return state[SEARCH_FILTER];
-    },
-    [IS_LAST_PAGE](state) {
-        const { isLastPage } = state[CLUB_PAGE];
-        return isLastPage;
-    },
-    [IS_FIRST_PAGE](state) {
-        const { nextPage } = state[CLUB_PAGE];
-        return nextPage === 0;
-    },
+    [CLUB_LIST]: (state) => state[CLUB_LIST],
+    [CLUB_PAGE]: (state) => state[CLUB_PAGE],
+    [SEARCH_FILTER]: (state) => state[SEARCH_FILTER],
+    [MY_CLUB_LIST]: (state) => state[MY_CLUB_LIST],
+    [MY_CLUB_PAGE]: (state) => state[MY_CLUB_PAGE],
 };
 
 const mutations = {
@@ -55,17 +53,30 @@ const mutations = {
         state[CLUB_LIST] = clubList;
         state[CLUB_PAGE] = clubPage;
     },
+    [CHANGE_MY_CLUB_LIST_WITH_PAGE](state, { clubList, clubPage }) {
+        state[MY_CLUB_LIST] = clubList;
+        state[MY_CLUB_PAGE] = clubPage;
+    },
     [ADD_NEXT_CLUB_LIST](state, { clubList, clubPage }) {
         const currentClubList = state[CLUB_LIST];
         state[CLUB_LIST] = [...currentClubList, ...clubList];
         state[CLUB_PAGE] = clubPage;
+    },
+    [ADD_NEXT_MY_CLUB_LIST](state, { clubList, clubPage }) {
+        const currentClubList = state[CLUB_LIST];
+        state[MY_CLUB_LIST] = [...currentClubList, ...clubList];
+        state[MY_CLUB_PAGE] = clubPage;
     },
     [CHANGE_IS_REQUESTING_NEXT_PAGE](state, loading) {
         state[IS_REQUESTING_NEXT_PAGE] = loading;
     },
     [INIT_CLUB_LIST_AND_PAGE](state) {
         state[CLUB_LIST] = [];
-        state[CLUB_PAGE] = GET_DEFAULT_CLUB_LIST_PAGE();
+        state[CLUB_PAGE] = GET_DEFAULT_PAGE();
+    },
+    [INIT_MY_CLUB_LIST_AND_PAGE](state) {
+        state[MY_CLUB_LIST] = [];
+        state[MY_CLUB_PAGE] = GET_DEFAULT_PAGE();
     },
 };
 
@@ -80,23 +91,42 @@ const actions = {
     },
     [REQUEST_NEXT_CLUB_LIST]({ commit, state }) {
         const clubPage = state[CLUB_PAGE];
-        if (clubPage.isLastPage) {
-            return Promise.resolve();
-        }
-
-        const commitInfo = {
-            commit,
-            name: CHANGE_IS_REQUESTING_NEXT_PAGE,
-        };
-
         const callback = async () => {
             const response = await requestClubListWithPage(buildClubListRequestParam(state));
             commit(ADD_NEXT_CLUB_LIST, extractClubListAndPage(response));
         };
-
-        return actionsLoadingTemplate(commitInfo, callback);
+        return requestNextClubList(commit, clubPage, callback);
+    },
+    [REQUEST_FIRST_MY_CLUB_LIST]({ commit, state }) {
+        commit(INIT_MY_CLUB_LIST_AND_PAGE);
+        const callback = async () => {
+            const response = await requestMyClubListWithPage(buildMyClubListRequestParam(state));
+            commit(CHANGE_MY_CLUB_LIST_WITH_PAGE, extractClubListAndPage(response));
+        };
+        return actionsLoadingTemplate(commit, callback);
+    },
+    [REQUEST_NEXT_MY_CLUB_LIST]({ commit, state }) {
+        const clubPage = state[CLUB_PAGE];
+        const callback = async () => {
+            const response = await requestMyClubListWithPage(buildMyClubListRequestParam(state));
+            commit(ADD_NEXT_MY_CLUB_LIST, extractClubListAndPage(response));
+        };
+        return requestNextClubList(commit, clubPage, callback);
     },
 };
+
+function requestNextClubList(commit, pageInfo, callback) {
+    if (pageInfo.isLastPage) {
+        return Promise.resolve();
+    }
+
+    const commitInfo = {
+        commit,
+        name: CHANGE_IS_REQUESTING_NEXT_PAGE,
+    };
+
+    return actionsLoadingTemplate(commitInfo, callback);
+}
 
 function extractClubListAndPage(response) {
     const data = extractResponseData(response);
@@ -113,6 +143,15 @@ function buildClubListRequestParam(state) {
         searchOptions: { ...(state[SEARCH_FILTER]) },
     };
 }
+
+function buildMyClubListRequestParam(state) {
+    const { size, nextPage } = state[CLUB_PAGE];
+    return {
+        size,
+        page: nextPage,
+    };
+}
+
 export default {
     state,
     getters,
