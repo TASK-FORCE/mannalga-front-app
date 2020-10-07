@@ -17,6 +17,7 @@
             <v-tab-item>
                 <SearchFilterMain @changedSearchFilter="changedSearchFilter" />
                 <ClubList ref="clubListComponent"
+
                           :clubList="clubList"
                           :page="clubPage"
                           @findFirstPage="findFirstClubList"
@@ -40,6 +41,8 @@ import SearchFilterMain from '@/components/search/SearchFilterMain.vue';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import { actionsHelper } from '@/store/helper/actionsHelper.js';
 import MyClubList from '@/components/clubList/MyClubList.vue';
+import goTo from 'vuetify/es5/services/goto';
+import _ from '@/utils/lodashWrapper.js';
 
 export default {
     name: 'AppMainClubTabs',
@@ -56,16 +59,26 @@ export default {
         myClubContextList: () => gettersHelper.myClubList(),
         myClubPage: () => gettersHelper.myClubPage(),
     },
+    updated() {
+        const { rememberPositionY } = this.$route.query;
+        if (rememberPositionY) {
+            goTo(rememberPositionY);
+        }
+    },
     methods: {
         changedSearchFilter() {
             actionsHelper.requestFirstClubList()
                 .then(() => this.$refs.clubListComponent.insertSentinel());
         },
         findFirstClubList(callback) {
-            actionsHelper.requestFirstClubList().then(() => callback());
+            if (_.isEmpty(this.clubList)) {
+                actionsHelper.requestFirstClubList().then(() => callback());
+            }
         },
         findFirstMyClubList(callback) {
-            actionsHelper.requestFirstMyClubList().then(() => callback());
+            if (_.isEmpty(this.myClubContextList)) {
+                actionsHelper.requestFirstMyClubList().then(() => callback());
+            }
         },
         findNextClubList(callback) {
             actionsHelper.requestNextClubList().then(() => callback());
