@@ -90,6 +90,9 @@ const actions = {
         return actionsLoadingTemplate(commit, callback);
     },
     [REQUEST_NEXT_CLUB_LIST]({ commit, state }) {
+        if (state[CLUB_LIST].length > 1000) { // 랜딩 부하 방지를 위해 리스트 최대 개수를 정해놓자.
+            return Promise.resolve();
+        }
         const clubPage = state[CLUB_PAGE];
         const callback = async () => {
             const response = await requestClubListWithPage(buildClubListRequestParam(state));

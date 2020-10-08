@@ -17,7 +17,6 @@
             <v-tab-item>
                 <SearchFilterMain @changedSearchFilter="changedSearchFilter" />
                 <ClubList ref="clubListComponent"
-
                           :clubList="clubList"
                           :page="clubPage"
                           @findFirstPage="findFirstClubList"

@@ -71,7 +71,6 @@ export default {
             observer.observe(this.sentinel);
         },
         insertSentinel() {
-            console.log('hello world');
             this.listGroup.insertBefore(this.sentinel, this.listGroup.children[this.listGroup.children.length - 2]);
         },
         canRequest() {
