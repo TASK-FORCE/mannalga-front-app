@@ -7,7 +7,7 @@
 
 <script>
 import CommonHeader from '@/components/common/CommonHeader.vue';
-import UserRegion from '@/components/UserRegion.vue';
+import UserRegion from '@/components/user/UserRegion.vue';
 
 export default {
     name: 'SelectRegion',

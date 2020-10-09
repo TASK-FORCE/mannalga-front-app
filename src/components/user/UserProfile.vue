@@ -62,7 +62,7 @@ export default {
         isLoading: () => gettersHelper.isLoading(),
         profileImg() {
             if (_.isEmpty(this.profile.imgUrl)) {
-                return require('../images/default_profile_img.png');
+                return require('@/images/default_profile_img.png');
             }
             return this.profile.imgUrl;
         },

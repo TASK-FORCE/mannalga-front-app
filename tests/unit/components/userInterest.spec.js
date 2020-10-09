@@ -2,7 +2,7 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuex from 'vuex';
 import sinon from 'sinon';
 import { expect } from 'chai';
-import UserInterest from '@/components/UserInterest.vue';
+import UserInterest from '@/components/user/UserInterest.vue';
 import { testUtils } from '../../utils/testUtils.js';
 
 const sandbox = sinon.createSandbox();

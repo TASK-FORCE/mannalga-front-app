@@ -2,7 +2,7 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuex from 'vuex';
 import sinon from 'sinon';
 import { expect } from 'chai';
-import UserRegionPriority from '@/components/UserRegionPriority.vue';
+import UserRegionPriority from '@/components/user/UserRegionPriority.vue';
 import { testUtils } from '../../utils/testUtils.js';
 
 const sandbox = sinon.createSandbox();
