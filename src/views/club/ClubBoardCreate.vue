@@ -4,11 +4,14 @@
         <ClubBoardCreateBox />
         <div class="image-box-wrapper">
             <CommonImageSelectBox class="image-box" 
-                                  height="60" />
+                                  height="60" 
+                                  boxName="board1" />
             <CommonImageSelectBox class="image-box" 
-                                  height="60" />
+                                  height="60" 
+                                  boxName="board2" />
             <CommonImageSelectBox class="image-box" 
-                                  height="60" />
+                                  height="60" 
+                                  boxName="board3" />
         </div>
         <div style="clear:both;">
             <CommonCenterBtn text="작성 완료"

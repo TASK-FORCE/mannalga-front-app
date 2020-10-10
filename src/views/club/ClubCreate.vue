@@ -3,7 +3,8 @@
         <CommonHeader title="모임 만들기" />
         <CommonImageSelectBox class="image-box"
                               text="모임 대표 사진 등록" 
-                              height="140" />
+                              height="140" 
+                              boxName="main" />
         <ClubCreateBox />
         <CommonCenterBtn text="모임 만들기"
                          color="primary"
