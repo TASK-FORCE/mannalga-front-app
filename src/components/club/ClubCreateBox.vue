@@ -105,7 +105,7 @@ export default {
 
 <style scoped>
 .field-wrapper {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     padding-left: 2rem;
     padding-right: 2rem;
 }
