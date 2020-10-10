@@ -30,6 +30,8 @@ const cloneDeep = (value) => _.cloneDeep(value);
 
 const isFunction = (value) => _.isFunction(value);
 
+const throttle = (callback, wait) => _.throttle(callback, wait);
+
 export default {
     isEmpty,
     isEqual,
@@ -39,4 +41,5 @@ export default {
     cloneDeep,
     isNumber,
     isFunction,
+    throttle,
 };
