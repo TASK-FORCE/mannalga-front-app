@@ -6,14 +6,10 @@
             <v-col cols="3"
                    class="text-center my-auto"
             >
-                <!--      사진도 커스텀하게 선택 가능하게?        -->
-                <v-avatar class="top-50"
-                          size=70
-                >
-                    <img :src="profileImg"
-                         alt="profile"
-                    >
-                </v-avatar>
+                <UserProfileAvatar class="top-50"
+                                   :imgUrl="profile.imgUrl"
+                                   :size="70"
+                />
             </v-col>
             <!--     변경 가능한 이름만 더 강조?       -->
             <v-col cols="9">
@@ -49,9 +45,11 @@ import { LOGIN_PATH } from '@/router/route_path_type.js';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 import { actionsHelper } from '@/store/helper/actionsHelper.js';
+import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
 
 export default {
     name: 'UserProfile',
+    components: { UserProfileAvatar },
     data() {
         return {
             nameRules: RULES.PROFILE_NAME,
@@ -60,12 +58,6 @@ export default {
     computed: {
         profile: () => gettersHelper.profile(),
         isLoading: () => gettersHelper.isLoading(),
-        profileImg() {
-            if (_.isEmpty(this.profile.imgUrl)) {
-                return require('@/images/default_profile_img.png');
-            }
-            return this.profile.imgUrl;
-        },
     },
     created() {
         if (_.isDeepEmpty(this.profile)) {

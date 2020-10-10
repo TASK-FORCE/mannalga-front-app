@@ -6,7 +6,7 @@ import { REQUEST_INTEREST_TEMPLATE, REQUEST_REGION_TEMPLATE, TEMPLATE } from '@/
 import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import { MESSAGE } from '@/utils/constant/constant.js';
-import { combineWithModuleName } from '@/store/helper/vuexUtils.js';
+import { combineWithModuleName } from '@/store/utils/vuexUtils.js';
 
 const actionsFetcherService = {
     async fetchInterestAndRegionTemplate(withLoading, routePathWhenFail) {

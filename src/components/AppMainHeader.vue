@@ -12,7 +12,7 @@
                 mdi-bell-outline
             </v-icon>
         </v-btn>
-        <v-spacer></v-spacer>
+        <v-spacer />
 
         <v-btn to="/search"
                class="mr-1"
@@ -24,6 +24,7 @@
         <v-btn icon
                large
                class="mr-1"
+               @click="moveToUserSettings"
         >
             <v-icon>mdi-cog-outline</v-icon>
         </v-btn>
@@ -31,8 +32,15 @@
 </template>
 
 <script>
+import { USER_SETTINGS_PATH } from '@/router/route_path_type.js';
+
 export default {
     name: 'AppMainHeader',
+    methods: {
+        moveToUserSettings() {
+            this.$router.push(USER_SETTINGS_PATH);
+        },
+    },
 };
 </script>
 

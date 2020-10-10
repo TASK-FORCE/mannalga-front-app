@@ -12,8 +12,13 @@ function requestRegisterStatus(appToken) {
     return axios.get('/api/users/registStatus', { params: appToken });
 }
 
+function requestUserSettings() {
+    return axios.get('/api/users/settings');
+}
+
 export {
     requestProfile,
     postRegister,
     requestRegisterStatus,
+    requestUserSettings,
 };

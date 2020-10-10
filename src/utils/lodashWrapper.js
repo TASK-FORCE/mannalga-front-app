@@ -32,6 +32,8 @@ const isFunction = (value) => _.isFunction(value);
 
 const throttle = (callback, wait) => _.throttle(callback, wait);
 
+const sortBy = (list, sortTargetFunction) => _.sortBy(list, sortTargetFunction);
+
 export default {
     isEmpty,
     isEqual,
@@ -42,4 +44,5 @@ export default {
     isNumber,
     isFunction,
     throttle,
+    sortBy,
 };

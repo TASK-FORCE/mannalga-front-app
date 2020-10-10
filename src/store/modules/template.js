@@ -1,7 +1,7 @@
 import { requestInterestTemplate, requestRegionTemplate } from '@/apis/template.js';
 import { REQUEST_INTEREST_TEMPLATE, REQUEST_REGION_TEMPLATE, ROOT_INTERESTS, ROOT_REGIONS, SET_INTEREST_TEMPLATE, SET_REGION_TEMPLATE } from '@/store/type/template_type.js';
-import { actionsNormalTemplate } from '@/store/helper/actionsTemplate.js';
-import { extractResponseData } from '@/store/helper/vuexUtils.js';
+import { actionsNormalTemplate } from '@/store/utils/actionsTemplate.js';
+import { extractResponseData } from '@/store/utils/vuexUtils.js';
 
 const state = {
     [ROOT_REGIONS]: [],

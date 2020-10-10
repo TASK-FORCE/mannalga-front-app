@@ -1,0 +1,82 @@
+{
+  "data": {
+    "userName": "동명",
+    "birthday": "1995-11-25",
+    "profileImageLink": "",
+    "userRegions": [
+      {
+        "region": {
+          "seq": 1001,
+          "name": "성남시",
+          "superRegionRoot": "경기도/성남시",
+          "level": 2
+        },
+        "priority": 1
+      },
+      {
+        "region": {
+          "seq": 104,
+          "name": "성동구",
+          "superRegionRoot": "서울특별시/성동구",
+          "level": 2
+        },
+        "priority": 2
+      },
+      {
+        "region": {
+          "seq": 105,
+          "name": "강동구",
+          "superRegionRoot": "서울특별시/강동구",
+          "level": 2
+        },
+        "priority": 3
+      }
+    ],
+    "userInterests": [
+      {
+        "interest": {
+          "seq": 1,
+          "name": "운동",
+          "interestGroup": {
+            "seq": 1,
+            "name": "운동/스포츠"
+          }
+        },
+        "priority": 1
+      },
+      {
+        "interest": {
+          "seq": 2,
+          "name": "영어",
+          "interestGroup": {
+            "seq": 2,
+            "name": "외국/언어"
+          }
+        },
+        "priority": 2
+      },
+      {
+        "interest": {
+          "seq": 3,
+          "name": "국내여행",
+          "interestGroup": {
+            "seq": 3,
+            "name": "아웃도어/여행"
+          }
+        },
+        "priority": 3
+      },
+      {
+        "interest": {
+          "seq": 4,
+          "name": "책읽기",
+          "interestGroup": {
+            "seq": 4,
+            "name": "인문학/책/글"
+          }
+        },
+        "priority": 4
+      }
+    ]
+  }
+}

@@ -1,7 +1,5 @@
 <template>
-    <v-list id="list-wrapper"
-            class="py-0"
-    >
+    <v-list class="py-0">
         <v-list-item-group id="club-list-group"
                            active-class="pink--text"
         >

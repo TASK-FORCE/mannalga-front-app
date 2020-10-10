@@ -3,8 +3,8 @@ import { requestKakaoToken, saveKakaoTokenAndGetAppToken } from '@/apis/login.js
 import { getAppToken, removeAppTokenToLocalStorage, saveAppTokenToLocalStorage, setAppTokenAsDefaultHeader } from '@/utils/authUtils.js';
 import { APP_TOKEN, IS_AUTH, REMOVE_APP_TOKEN, REQUEST_APP_TOKEN_BY_KAKAO_TOKEN, REQUEST_KAKAO_TOKEN_BY_CODE, SET_APP_TOKEN } from '@/store/type/auth_type.js';
 import _ from '@/utils/lodashWrapper.js';
-import { actionsNormalTemplate } from '@/store/helper/actionsTemplate.js';
-import { extractResponseData } from '@/store/helper/vuexUtils.js';
+import { actionsNormalTemplate } from '@/store/utils/actionsTemplate.js';
+import { extractResponseData } from '@/store/utils/vuexUtils.js';
 
 const state = {
     [APP_TOKEN]: getAppToken(),

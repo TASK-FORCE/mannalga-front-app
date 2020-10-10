@@ -10,19 +10,12 @@
             />
             <div class="ml-5">
                 <div>
-                    <v-btn fab
-                           width="24"
-                           height="24"
-                           outlined
-                           :color="interestGroupType.color"
-                    >
-                        <v-icon class="interest-icon">{{ interestGroupType.icon }}</v-icon>
-                    </v-btn>
+                    <InterestIcons :interests="[firstInterest]" />
                     <span class="ml-1"
                           style="font-size: 0.9rem"
                     >
                                 {{ firstRegion.name }}
-                            </span>
+                    </span>
                 </div>
                 <div class="mt-1">
                     {{ club.name }}
@@ -41,9 +34,11 @@
 
 <script>
 import { INTEREST_GROUP_TYPES } from '@/utils/constant/type_constant.js';
+import InterestIcons from '@/components/InterestIcons.vue';
 
 export default {
     name: 'ClubPost',
+    components: { InterestIcons },
     props: ['club'],
     computed: {
         firstRegion() {
@@ -68,7 +63,4 @@ export default {
 </script>
 
 <style scoped>
-.interest-icon {
-    font-size: 17px !important;
-}
 </style>

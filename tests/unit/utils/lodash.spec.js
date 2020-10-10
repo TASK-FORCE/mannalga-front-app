@@ -41,4 +41,26 @@ describe('lodash 기능 테스트', () => {
         expect(result1).to.be.false;
         expect(result2).to.be.false;
     });
+
+    it('sortBy 확인', () => {
+        // given
+        const list = [
+            { id: '1', priority: 1 },
+            { id: '5', priority: 5 },
+            { id: '3', priority: 3 },
+            { id: '2', priority: 2 },
+            { id: '4', priority: 4 },
+        ];
+
+        // when
+        const sortedList = _.sortBy(list, val => val.priority);
+
+        // then
+        let count = 1;
+        sortedList.forEach(value => {
+            expect(value.id).to.equals(count.toString());
+            expect(value.priority).to.equals(count);
+            count += 1;
+        });
+    });
 });
