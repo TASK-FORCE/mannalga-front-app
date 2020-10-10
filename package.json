@@ -14,6 +14,7 @@
     "core-js": "^3.6.5",
     "lodash": "^4.17.19",
     "vue": "^2.6.11",
+    "vue-avatar-cropper": "^1.0.9",
     "vue-router": "^3.3.4",
     "vuetify": "^2.2.11",
     "vuex": "^3.5.1"
