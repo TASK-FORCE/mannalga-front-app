@@ -23,5 +23,8 @@ export default {
     computed: {
         isLoading: () => gettersHelper.isLoading(),
     },
+    created() {
+        this.$vuetify.theme.dark = localStorage.getItem('themeDark') === 'true';
+    },
 };
 </script>

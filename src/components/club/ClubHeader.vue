@@ -1,13 +1,12 @@
 <template>
     <v-app-bar
-            color="white"
             class="elevation-0"
             app
     >
         <v-btn icon
                @click="$router.back()"
         >
-            <v-icon color="black">mdi-keyboard-backspace</v-icon>
+            <v-icon>mdi-keyboard-backspace</v-icon>
         </v-btn>
         <h3>{{ clubName }}</h3>
         <v-spacer></v-spacer>

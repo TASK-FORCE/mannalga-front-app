@@ -1,5 +1,5 @@
 <template>
-    <div class="text-center mt-2">
+    <div class="text-center pt-2">
         <div class="text-center">
             <v-bottom-sheet v-model="sheet"
                             scrollable

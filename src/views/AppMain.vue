@@ -1,5 +1,5 @@
 <template>
-    <v-container class="py-0">
+    <v-container class="pb-0">
         <MainHeader />
         <AppMainClubTabs />
         <CommonCreateBtn color="blue"

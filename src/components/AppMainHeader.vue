@@ -1,6 +1,5 @@
 <template>
     <v-app-bar
-        color="white"
         class="elevation-0 app-main-header"
         app
     >
@@ -13,6 +12,13 @@
             </v-icon>
         </v-btn>
         <v-spacer />
+        <v-btn icon
+               large
+               class="mr-1"
+               @click="changeTheme">
+            <v-icon v-if="themeDark">mdi-water</v-icon>
+            <v-icon v-else>mdi-water-outline</v-icon>
+        </v-btn>
 
         <v-btn to="/search"
                class="mr-1"
@@ -36,9 +42,19 @@ import { USER_SETTINGS_PATH } from '@/router/route_path_type.js';
 
 export default {
     name: 'AppMainHeader',
+    data() {
+        return {
+            themeDark: this.$vuetify.theme.dark,
+        };
+    },
     methods: {
         moveToUserSettings() {
             this.$router.push(USER_SETTINGS_PATH);
+        },
+        changeTheme() {
+            this.themeDark = !this.themeDark;
+            this.$vuetify.theme.dark = this.themeDark;
+            localStorage.setItem('themeDark', this.themeDark);
         },
     },
 };

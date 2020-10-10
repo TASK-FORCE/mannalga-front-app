@@ -18,7 +18,7 @@ const kakaoTokenBuilder = {
 const userBuilder = {
     buildProfile(kakaoAccount) {
         const kakaoProfile = kakaoAccount.profile;
-        const profile = GET_DEFAULT_PROFILE;
+        const profile = GET_DEFAULT_PROFILE();
         profile.imgUrl = kakaoProfile.thumbnail_image_url;
         profile.name = kakaoProfile.nickname;
         profile.dayOfBirth = '2000-12-13';

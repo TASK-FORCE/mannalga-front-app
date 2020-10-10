@@ -12,7 +12,7 @@ const MESSAGE = {
 };
 
 const COLOR = {
-    NOT_SELECTED: 'black',
+    NOT_SELECTED: '',
     SELECTED: 'green',
 };
 
