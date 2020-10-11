@@ -2,16 +2,18 @@
     <div class="text-center">
         <v-btn :outlined="!!outlined"
                :color="color || 'blue'"
+               :loading="isLoading"
                @click="$emit('click');"
-               v-text="text"
-        />
+        >
+            {{ text }}
+        </v-btn>
     </div>
 </template>
 
 <script>
 export default {
     name: 'CommonCenterBtn',
-    props: ['text', 'color', 'outlined'],
+    props: ['text', 'color', 'outlined', 'isLoading'],
 };
 </script>
 

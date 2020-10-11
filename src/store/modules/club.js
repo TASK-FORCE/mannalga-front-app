@@ -1,11 +1,11 @@
-import { requestClubData } from '@/apis/club.js';
+import { requestClubCreate, requestClubData } from '@/apis/club.js';
 import {
     DEFAULT_CLUB,
     CLUB_DATA,
     SET_CLUB_DATA,
-    REQUEST_CLUB_DATA,
+    REQUEST_CLUB_DATA, REQUEST_CLUB_CREATE,
 } from '@/store/type/club_type.js';
-import { actionsLoadingTemplate } from '@/store/helper/helper.js';
+import { actionsLoadingTemplate, actionsNormalTemplate } from '@/store/helper/actionsTemplate.js';
 
 const state = {
     // clubData: {
@@ -68,6 +68,9 @@ const actions = {
             const clubData = response.data;
             commit(SET_CLUB_DATA, clubData);
         });
+    },
+    async [REQUEST_CLUB_CREATE]({ commit }, clubCreateDto) {
+        return actionsNormalTemplate(async () => (requestClubCreate(clubCreateDto)));
     },
 };
 

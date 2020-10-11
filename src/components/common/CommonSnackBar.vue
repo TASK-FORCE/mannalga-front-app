@@ -19,24 +19,24 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex';
-import { CLOSE_SNACKBAR, COMMON, SNACKBAR_OPTIONS } from '@/store/type/common_type.js';
+import { gettersHelper } from '@/store/helper/gettersHelper.js';
+import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 
 export default {
     name: 'CommonSnackBar',
     computed: {
-        ...mapGetters(COMMON, { snackBarOptions: SNACKBAR_OPTIONS }),
+        snackBarOptions: () => gettersHelper.snackBarOptions(),
         safeOpen: {
             get() {
                 return this.snackBarOptions.open;
             },
             set() {
-                this[CLOSE_SNACKBAR]();
+                this.closeSnackBar();
             },
         },
     },
     methods: {
-        ...mapMutations(COMMON, { closeSnackBar: CLOSE_SNACKBAR }),
+        closeSnackBar: () => mutationsHelper.closeSnackBar(),
     },
 };
 </script>

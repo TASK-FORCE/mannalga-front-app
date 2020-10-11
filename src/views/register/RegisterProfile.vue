@@ -8,31 +8,28 @@
 </template>
 
 <script>
-import UserProfile from '@/components/UserProfile.vue';
+import UserProfile from '@/components/user/UserProfile.vue';
 import GoBackBtnFooter from '@/components/GoBackBtnFooter.vue';
 import { getValidationFailText, ruleValidationSuccess } from '@/utils/validationUtils.js';
-import { mapGetters, mapMutations } from 'vuex';
-import { NAME_RULES } from '@/utils/constant/constant.js';
-import { buildSnackBarOption } from '@/utils/snackbarUtils.js';
-import { COMMON, OPEN_SNACKBAR } from '@/store/type/common_type.js';
-import { PROFILE, USER } from '@/store/type/user_type.js';
-import { REGISTER } from '@/router/route_path_type.js';
+import { RULES } from '@/utils/constant/constant.js';
+import { REGISTER_PATH } from '@/router/route_path_type.js';
+import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
+import { gettersHelper } from '@/store/helper/gettersHelper.js';
 
 export default {
     name: 'RegistProfile',
     components: { GoBackBtnFooter, UserProfile },
     computed: {
-        ...mapGetters(USER, [PROFILE]),
+        profile: () => gettersHelper.profile(),
     },
     methods: {
-        ...mapMutations(COMMON, [OPEN_SNACKBAR]),
         clickGoBtn() {
-            const { name } = this[PROFILE];
-            if (ruleValidationSuccess(name, NAME_RULES)) {
-                this.$router.push(REGISTER.LOCATION_PATH);
+            const { name } = this.profile;
+            if (ruleValidationSuccess(name, RULES.PROFILE_NAME)) {
+                this.$router.push(REGISTER_PATH.REGION_PATH);
                 return;
             }
-            this[OPEN_SNACKBAR](buildSnackBarOption(getValidationFailText(name, NAME_RULES)));
+            mutationsHelper.openSnackBar(getValidationFailText(name, RULES.PROFILE_NAME));
         },
     },
 };

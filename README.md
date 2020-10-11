@@ -40,3 +40,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 - Array -> Arr
 - Count -> Cnt
 - Element -> el
+
+
+#### AWS S3 수동으로 업로드
+aws s3 cp dist/ s3://super-front --recursive --profile taskforce

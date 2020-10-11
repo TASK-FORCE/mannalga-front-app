@@ -1,5 +1,5 @@
 const transformService = {
-    transformPage(responseWithPage) {
+    transformToPage(responseWithPage) {
         const { pageable, last, size } = responseWithPage;
         const currentPage = pageable.pageNumber;
         const nextPage = currentPage + 1;

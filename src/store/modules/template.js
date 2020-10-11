@@ -1,46 +1,43 @@
-import { requestInterestTemplate, requestLocationTemplate } from '@/apis/template.js';
-import { INTERESTS, REQUEST_INTEREST_TEMPLATE, REQUEST_STATE_TEMPLATE, ROOT_STATES, SET_INTEREST_TEMPLATE, SET_LOCATION_TEMPLATE } from '@/store/type/template_type.js';
-import { actionsLoadingTemplate, actionsNormalTemplate } from '@/store/helper/helper.js';
+import { requestInterestTemplate, requestRegionTemplate } from '@/apis/template.js';
+import { REQUEST_INTEREST_TEMPLATE, REQUEST_REGION_TEMPLATE, ROOT_INTERESTS, ROOT_REGIONS, SET_INTEREST_TEMPLATE, SET_REGION_TEMPLATE } from '@/store/type/template_type.js';
+import { actionsNormalTemplate } from '@/store/helper/actionsTemplate.js';
+import { extractResponseData } from '@/store/helper/vuexUtils.js';
 
 const state = {
-    [ROOT_STATES]: [],
-    [INTERESTS]: [],
+    [ROOT_REGIONS]: [],
+    [ROOT_INTERESTS]: [],
 };
 
 const getters = {
-    [ROOT_STATES](state) {
-        return state[ROOT_STATES];
+    [ROOT_REGIONS](state) {
+        return state[ROOT_REGIONS];
     },
-    [INTERESTS](state) {
-        return state[INTERESTS];
+    [ROOT_INTERESTS](state) {
+        return state[ROOT_INTERESTS];
     },
 };
 
 const mutations = {
-    [SET_LOCATION_TEMPLATE](state, rootStates) {
-        state[ROOT_STATES] = rootStates;
+    [SET_REGION_TEMPLATE](state, rootRegions) {
+        state[ROOT_REGIONS] = rootRegions;
     },
-    [SET_INTEREST_TEMPLATE](state, interests) {
-        state[INTERESTS] = interests;
+    [SET_INTEREST_TEMPLATE](state, rootInterests) {
+        state[ROOT_INTERESTS] = rootInterests;
     },
 };
 
 const actions = {
-    async [REQUEST_STATE_TEMPLATE]({ commit }, withLoading = false) {
-        const callback = async () => {
-            const response = await requestLocationTemplate();
-            const rootStates = response.data;
-            commit(SET_LOCATION_TEMPLATE, rootStates);
-        };
-        if (withLoading) {
-            return actionsNormalTemplate(callback);
-        }
-        return actionsLoadingTemplate(commit, callback);
+    async [REQUEST_REGION_TEMPLATE]({ commit }) {
+        return actionsNormalTemplate(async () => {
+            const response = await requestRegionTemplate();
+            const rootRegions = extractResponseData(response);
+            commit(SET_REGION_TEMPLATE, rootRegions);
+        });
     },
     async [REQUEST_INTEREST_TEMPLATE]({ commit }) {
-        actionsLoadingTemplate(commit, async () => {
+        return actionsNormalTemplate(async () => {
             const response = await requestInterestTemplate();
-            const interests = response.data;
+            const interests = extractResponseData(response);
             commit(SET_INTEREST_TEMPLATE, interests);
         });
     },

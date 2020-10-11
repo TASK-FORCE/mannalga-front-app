@@ -1,0 +1,69 @@
+<template>
+    <div>
+        <v-list-item :key="myClub.seq"
+                     :to="`/club/${myClub.seq}`"
+        >
+            <div>
+                <v-img src="@/images/vue.png"
+                       max-width="60"
+                       max-height="50"
+                />
+            </div>
+            <div class="ml-5 w-100">
+                <v-row>
+                    <v-col cols="10">
+                        <div>
+                            <span v-for="(myRole, index) in myRoles"
+                                  :key="index"
+                                  class="ml-1"
+                                  style="font-size: 0.9rem"
+
+                            >
+                                {{ myRole.roleGroupName }} : {{ myRole.name }}
+                            </span>
+                        </div>
+                        <div class="mt-1">
+                            {{ myClub.id }} {{ myClub.name }}
+                        </div>
+                    </v-col>
+                    <v-col align-self="center"
+                           class="pa-0 text-body-2"
+
+                    >
+                        <div style="font-size: 0.8rem">
+                            {{ myClub.userCount }}/{{ myClub.maximumNumber }}
+                        </div>
+                    </v-col>
+                </v-row>
+
+            </div>
+        </v-list-item>
+        <v-divider />
+    </div>
+</template>
+
+<script>
+import { GET_DEFAULT_MY_CLUB_CONTEXT } from '@/store/type/club_list_type.js';
+
+export default {
+    name: 'MyClubPost',
+    props: {
+        myClubContext: {
+            type: Object,
+            default: () => GET_DEFAULT_MY_CLUB_CONTEXT(),
+        },
+    },
+    computed: {
+        myClub() {
+            return this.myClubContext.club;
+        },
+        myRoles() {
+            return this.myClubContext.roles;
+        },
+    },
+};
+</script>
+
+<style scoped>
+
+</style>

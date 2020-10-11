@@ -7,8 +7,8 @@
                 <template v-slot:activator="{ on, attrs }">
                     <SearchFilterSelectBtn :attrs="attrs"
                                            :on="on"
-                                           :text="searchLocationText"
-                                           @click="changeBottomSheetComponent('LOCATION')"
+                                           :text="searchRegionText"
+                                           @click="changeBottomSheetComponent('REGION')"
                     />
                     <SearchFilterSelectBtn :attrs="attrs"
                                            :on="on"
@@ -22,16 +22,18 @@
                     />
                 </template>
 
-                <BottomSheetLocationCard v-if="currentBottomSheetCard === 'LOCATION'"
-                                             :rootStates="rootStates"
-                                             @selectSubState="selectSearchLocation"
+                <BottomSheetRegionCard v-if="currentBottomSheetCard === 'REGION'"
+                                       :rootRegions="rootRegions"
+                                       :canSelectRoot="true"
+                                       @selectSubRegion="selectSearchRegion"
                 />
                 <BottomSheetInterestCard v-else-if="currentBottomSheetCard === 'INTEREST'"
-                                             :rootInterests="interests"
-                                             @selectSubInterest="selectSearchInterest"
+                                         :rootInterests="rootInterests"
+                                         :canSelectRoot="true"
+                                         @selectSubInterest="selectSearchInterest"
                 />
                 <BottomSheetSortCard v-else-if="currentBottomSheetCard === 'SORT'"
-                                         @selectSortOption="selectSearchSort"
+                                     @selectSortOption="selectSearchSort"
                 />
             </v-bottom-sheet>
         </div>
@@ -39,28 +41,14 @@
 </template>
 
 <script>
-import BottomSheetLocationCard from '@/components/bottom-sheet/BottomSheetLocationCard.vue';
+import BottomSheetRegionCard from '@/components/bottom-sheet/BottomSheetRegionCard.vue';
 import SearchFilterSelectBtn from '@/components/search/SearchFilterSelectBtn';
-import { mapActions, mapMutations, mapGetters } from 'vuex';
-import {
-    INTERESTS,
-    REQUEST_INTEREST_TEMPLATE,
-    REQUEST_STATE_TEMPLATE,
-    ROOT_STATES,
-    TEMPLATE,
-} from '@/store/type/template_type.js';
-import { COMMON, OPEN_SNACKBAR } from '@/store/type/common_type.js';
-import _ from '@/utils/lodashWrapper.js';
-import { buildSnackBarOption } from '@/utils/snackbarUtils.js';
-import { MESSAGE } from '@/utils/constant/constant.js';
 import BottomSheetSortCard from '@/components/bottom-sheet/BottomSheetSortCard.vue';
 import BottomSheetInterestCard from '@/components/bottom-sheet/BottomSheetInterestCard.vue';
 import { LOGIN_PATH } from '@/router/route_path_type.js';
-import {
-    CHANGE_INTEREST_SEARCH_FILTER,
-    CHANGE_LOCATION_SEARCH_FILTER,
-    CLUB_LIST_MODULE, SEARCH_FILTER,
-} from '@/store/type/club_list_type.js';
+import { gettersHelper } from '@/store/helper/gettersHelper.js';
+import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
+import { actionsFetcherService } from '@/store/service/actionsFetcherService.js';
 
 export default {
     name: 'SearchFilterMain',
@@ -68,47 +56,35 @@ export default {
         BottomSheetInterestCard,
         BottomSheetSortCard,
         SearchFilterSelectBtn,
-        BottomSheetLocationCard,
+        BottomSheetRegionCard,
     },
     data() {
         return {
             sheet: false,
             seq: null,
-            searchLocationText: '지역 선택',
+            searchRegionText: '지역 선택',
             searchInterestText: '관심사 선택',
             searchSortText: '정렬',
             currentBottomSheetCard: null,
         };
     },
     computed: {
-        ...mapGetters(TEMPLATE, { rootStates: ROOT_STATES, interests: INTERESTS }),
-        ...mapGetters(CLUB_LIST_MODULE, { searchFilter: SEARCH_FILTER }),
+        rootRegions: () => gettersHelper.rootRegions(),
+        rootInterests: () => gettersHelper.rootInterests(),
+        searchFilter: () => gettersHelper.searchFilter(),
     },
     created() {
-        if (_.isEmpty(this[ROOT_STATES])) {
-            this[REQUEST_STATE_TEMPLATE]()
-                .catch(() => this.$router.push(LOGIN_PATH)
-                    .then(() => this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.SERVER_INSTABILITY))));
-        }
-
-        if (_.isEmpty(this[INTERESTS])) {
-            this[REQUEST_INTEREST_TEMPLATE]()
-                .catch(() => this.$router.push(LOGIN_PATH)
-                    .then(() => this[OPEN_SNACKBAR](buildSnackBarOption(MESSAGE.SERVER_INSTABILITY))));
-        }
+        actionsFetcherService.fetchInterestAndRegionTemplate(true, LOGIN_PATH);
     },
     methods: {
-        ...mapActions(TEMPLATE, [REQUEST_STATE_TEMPLATE, REQUEST_INTEREST_TEMPLATE]),
-        ...mapMutations(CLUB_LIST_MODULE, [CHANGE_LOCATION_SEARCH_FILTER, CHANGE_INTEREST_SEARCH_FILTER]),
-        ...mapMutations(COMMON, [OPEN_SNACKBAR]),
-        selectSearchLocation(location) {
-            const locationFilter = {
-                seq: location.seq,
+        selectSearchRegion(region) {
+            const regionFilter = {
+                seq: region.seq,
                 priority: 1,
             };
-            this[CHANGE_LOCATION_SEARCH_FILTER](locationFilter);
+            mutationsHelper.changeRegionSearchFilter(regionFilter);
             this.changedSearchFilter();
-            this.searchLocationText = location.name;
+            this.searchRegionText = region.name;
             this.sheet = false;
         },
         selectSearchInterest(interest) {
@@ -116,7 +92,7 @@ export default {
                 seq: interest.seq,
                 priority: 1,
             };
-            this[CHANGE_INTEREST_SEARCH_FILTER](interestFilter);
+            mutationsHelper.changeInterestSearchFilter(interestFilter);
             this.changedSearchFilter();
             this.searchInterestText = interest.name;
             this.sheet = false;

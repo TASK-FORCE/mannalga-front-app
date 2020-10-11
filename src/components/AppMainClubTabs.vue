@@ -15,15 +15,19 @@
 
         <v-tabs-items v-model="tab">
             <v-tab-item>
-                <SearchFilterMain @changedSearchFilter="changedSearchFilter"/>
-                <ClubList :clubList="clubList"
+                <SearchFilterMain @changedSearchFilter="changedSearchFilter" />
+                <ClubList ref="clubListComponent"
+                          :clubList="clubList"
                           :page="clubPage"
-                          @findNextPage="findNextClubs"
+                          @findFirstPage="findFirstClubList"
+                          @findNextPage="findNextClubList"
                 />
             </v-tab-item>
             <v-tab-item>
-                <ClubList :clubList="myClubList"
-                          @findNextPage="findNextMyClubs"
+                <MyClubList :myClubContextList="myClubContextList"
+                            :page="myClubPage"
+                            @findFirstPage="findFirstMyClubList"
+                            @findNextPage="findNextMyClubList"
                 />
             </v-tab-item>
         </v-tabs-items>
@@ -31,43 +35,55 @@
 </template>
 
 <script>
-import ClubList from '@/components/ClubList.vue';
+import ClubList from '@/components/clubList/ClubList.vue';
 import SearchFilterMain from '@/components/search/SearchFilterMain.vue';
-import { mapActions, mapGetters } from 'vuex';
-import {
-    CLUB_LIST,
-    CLUB_LIST_MODULE,
-    CLUB_PAGE,
-    REQUEST_FIRST_CLUB_LIST,
-    REQUEST_NEXT_CLUB_LIST,
-    SEARCH_FILTER,
-} from '@/store/type/club_list_type.js';
+import { gettersHelper } from '@/store/helper/gettersHelper.js';
+import { actionsHelper } from '@/store/helper/actionsHelper.js';
+import MyClubList from '@/components/clubList/MyClubList.vue';
+import goTo from 'vuetify/es5/services/goto';
+import _ from '@/utils/lodashWrapper.js';
 
 export default {
     name: 'AppMainClubTabs',
-    components: { SearchFilterMain, ClubList },
+    components: { MyClubList, SearchFilterMain, ClubList },
     data() {
         return {
             tab: null,
-            myClubList: [],
         };
     },
     computed: {
-        ...mapGetters(CLUB_LIST_MODULE, { clubList: CLUB_LIST, clubPage: CLUB_PAGE, SEARCH_FILTER }),
+        clubList: () => gettersHelper.clubList(),
+        clubPage: () => gettersHelper.clubPage(),
+        searchFilter: () => gettersHelper.searchFilter(),
+        myClubContextList: () => gettersHelper.myClubList(),
+        myClubPage: () => gettersHelper.myClubPage(),
     },
-    created() {
-        this[REQUEST_FIRST_CLUB_LIST]();
+    updated() {
+        const { rememberPositionY } = this.$route.query;
+        if (rememberPositionY) {
+            goTo(rememberPositionY);
+        }
     },
     methods: {
-        ...mapActions(CLUB_LIST_MODULE, [REQUEST_FIRST_CLUB_LIST, REQUEST_NEXT_CLUB_LIST]),
-        findNextMyClubs() {
-            // pass
-        },
-        findNextClubs(callback) {
-            this[REQUEST_NEXT_CLUB_LIST]().then(() => callback());
-        },
         changedSearchFilter() {
-            this[REQUEST_FIRST_CLUB_LIST]();
+            actionsHelper.requestFirstClubList()
+                .then(() => this.$refs.clubListComponent.insertSentinel());
+        },
+        findFirstClubList(callback) {
+            if (_.isEmpty(this.clubList)) {
+                actionsHelper.requestFirstClubList().then(() => callback());
+            }
+        },
+        findFirstMyClubList(callback) {
+            if (_.isEmpty(this.myClubContextList)) {
+                actionsHelper.requestFirstMyClubList().then(() => callback());
+            }
+        },
+        findNextClubList(callback) {
+            actionsHelper.requestNextClubList().then(() => callback());
+        },
+        findNextMyClubList(callback) {
+            actionsHelper.requestNextMyClubList().then(() => callback());
         },
     },
 };

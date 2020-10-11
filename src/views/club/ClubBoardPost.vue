@@ -22,13 +22,13 @@
             </v-btn>
         </v-card-actions>
         <v-card-actions  class="float-right">
-            <v-btn 
-                text 
+            <v-btn
+                text
                 outlined
             >
                 수정
             </v-btn>
-            <v-btn 
+            <v-btn
                 text
                 outlined
             >
@@ -42,7 +42,6 @@
 <script>
 import CommonHeader from '@/components/common/CommonHeader.vue';
 import CommonComments from '@/components/common/CommonComments.vue';
-import { mapActions, mapGetters, mapMutations } from 'vuex';
 
 export default {
     name: 'ClubBoardPost',

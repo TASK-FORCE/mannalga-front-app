@@ -3,7 +3,7 @@
  */
 const STUB_REQUESTS = [
     // {
-    //     path: '/api/states',
+    //     path: '/api/regions',
     // },
     // {
     //     path: '/api/users/saveKakaoToken',
@@ -17,9 +17,9 @@ const STUB_REQUESTS = [
     // {
     //     path: '/api/users/regist',
     // },
-    {
-        path: '/api/clubs',
-    },
+    // {
+    //     path: '/api/clubs',
+    // },
 ];
 
 module.exports = STUB_REQUESTS;

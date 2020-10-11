@@ -1,6 +1,7 @@
 import { CHANGE_LOADING, CLOSE_SNACKBAR, DEFAULT_SNACKBAR_OPTIONS, IS_LOADING, OPEN_SNACKBAR, SNACKBAR_OPTIONS, UPLOAD_TEMP_IMAGE } from '@/store/type/common_type.js';
-import { actionsLoadingTemplate } from '@/store/helper/helper.js';
+import { actionsLoadingTemplate } from '@/store/helper/actionsTemplate.js';
 import { uploadTempImage } from '@/apis/common.js';
+import { extractResponseData } from '@/store/helper/vuexUtils.js';
 
 const state = {
     loading: false,
@@ -37,7 +38,8 @@ const actions = {
         if (image instanceof File) {
             return actionsLoadingTemplate(commit, async () => {
                 const response = await uploadTempImage(image);
-                return response.data.absolutePath;
+                const data = extractResponseData(response);
+                return data.absolutePath;
             });
         }
 
