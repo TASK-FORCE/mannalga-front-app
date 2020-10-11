@@ -18,9 +18,9 @@
                 </div>
             </div>
         </div>
-
+        <!--  @handleUploadedImg 이벤트에서 파라미터로 저장된 이미지의 URL를 넘겨준다   -->
         <ImageCropper ref="cropper"
-                     @handleImageUrl="handleImageUrl"
+                     @handleUploadedImg="handleUploadedImg"
         />
     </div>
 </template>
@@ -35,7 +35,7 @@ export default {
     props: {
         text: {
             type: String,
-            default: '사진 선택',
+            default: '',
         },
         height: {
             type: String,
@@ -55,11 +55,12 @@ export default {
         },
     },
     methods: {
-        handleImageUrl(imgUrl) {
-            this.imageUrl = imgUrl;
-        },
         triggerCropper() {
             this.$refs.cropper.trigger();
+        },
+        handleUploadedImg(imgUrl) {
+            this.imageUrl = imgUrl;
+            this.$emit('changeImageUrl', imgUrl);
         },
     },
 };

@@ -1,7 +1,8 @@
 <template>
     <div>
-        <CommonImageSelectBox text="모임 대표 사진 등록"
-                              :imageUrl="clubCreateBoxInfo.imageUrl"
+        <CommonImageSelectBox class="image-box"
+                              text="모임 대표 사진 등록"
+                              height="140"
                               @changeImageUrl="value => clubCreateBoxInfo.imageUrl = value"
         />
         <v-bottom-sheet v-model="sheet"
@@ -114,5 +115,9 @@ export default {
 </script>
 
 <style scoped>
-
+.image-box {
+    margin-top: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
 </style>

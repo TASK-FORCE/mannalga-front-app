@@ -34,10 +34,10 @@ const mutations = {
 };
 
 const actions = {
-    [UPLOAD_TEMP_IMAGE]({ commit }, image) {
-        if (image instanceof File) {
+    [UPLOAD_TEMP_IMAGE]({ commit }, formData) {
+        if (formData instanceof FormData) {
             return actionsLoadingTemplate(commit, async () => {
-                const response = await uploadTempImage(image);
+                const response = await uploadTempImage(formData);
                 const data = extractResponseData(response);
                 return data.absolutePath;
             });

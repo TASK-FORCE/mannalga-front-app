@@ -49,7 +49,7 @@
 <script>
 import 'cropperjs/dist/cropper.css';
 import Cropper from 'cropperjs';
-import { uploadTempImage } from '@/apis/common.js';
+import { actionsHelper } from '@/store/helper/actionsHelper.js';
 
 export default {
     name: 'ImageCropper',
@@ -114,10 +114,8 @@ export default {
             croppedCanvas.toBlob(blob => {
                 const formData = new FormData();
                 formData.append('file', blob, 'test.png');
-                // eslint-disable-next-line no-return-assign
-                uploadTempImage(formData).then(data => {
-                    const imgUrl = data.data.data.absolutePath;
-                    this.$emit('handleImageUrl', imgUrl);
+                actionsHelper.uploadTempImage(formData).then(imgUrl => {
+                    this.$emit('handleUploadedImg', imgUrl);
                     this.destroy();
                 });
             });
