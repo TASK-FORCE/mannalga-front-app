@@ -38,7 +38,6 @@ module.exports = {
         'no-shadow': ['error', { 'allow': ['state'] }],
         'no-return-assign': ['error', 'except-parens'],
         'indent': ['error', 4],
-        'no-return-assign': ['error', 'except-parens'],
         'max-len': ['error', {
             'code': 200,
             'ignoreComments': true,

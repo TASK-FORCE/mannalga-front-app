@@ -4,9 +4,10 @@
             <v-row justify="center">
                 <v-dialog :value="openModal"
                           persistent
+                          max-width="400"
                 >
                     <v-card>
-                        <div class="avatar-cropper-image-container">
+                        <div class="image-cropper-container">
                             <img ref="cropImg"
                                  alt="cropImg"
                                  :src="originalImgUrl"
@@ -101,6 +102,7 @@ export default {
                     return;
                 }
                 this.loadingOriginalImg(originalImgInput.files[0]);
+                console.log(originalImgInput.files[0]);
                 this.filename = originalImgInput.files[0].name || 'unknown';
             }
         },
@@ -125,12 +127,12 @@ export default {
 </script>
 
 <style scoped>
-.avatar-cropper-image-container {
+.image-cropper-container {
     position: relative;
     max-width: 800px;
 }
 img {
-    max-width: 100%;
-    max-height: 100%;
+    width: 100%;
+    height: 100%;
 }
 </style>
