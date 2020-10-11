@@ -30,6 +30,10 @@ const cloneDeep = (value) => _.cloneDeep(value);
 
 const isFunction = (value) => _.isFunction(value);
 
+const throttle = (callback, wait) => _.throttle(callback, wait);
+
+const sortBy = (list, sortTargetFunction) => _.sortBy(list, sortTargetFunction);
+
 export default {
     isEmpty,
     isEqual,
@@ -39,4 +43,6 @@ export default {
     cloneDeep,
     isNumber,
     isFunction,
+    throttle,
+    sortBy,
 };

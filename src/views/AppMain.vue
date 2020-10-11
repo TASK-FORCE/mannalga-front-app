@@ -1,10 +1,11 @@
 <template>
-    <v-container class="py-0">
+    <v-container class="pb-0">
         <MainHeader />
         <AppMainClubTabs />
         <CommonCreateBtn color="blue"
-                   :path="clubCreatePath"
+                         :path="clubCreatePath"
         />
+        <CommonScrollToTopBtn color="red"/>
     </v-container>
 </template>
 
@@ -13,10 +14,11 @@ import MainHeader from '@/components/AppMainHeader.vue';
 import AppMainClubTabs from '@/components/AppMainClubTabs.vue';
 import CommonCreateBtn from '@/components/common/CommonCreateBtn.vue';
 import { CLUB_CREATE_PATH } from '@/router/route_path_type.js';
+import CommonScrollToTopBtn from '@/components/common/CommonScrollToTopBtn.vue';
 
 export default {
     name: 'AppMain',
-    components: { CommonCreateBtn, AppMainClubTabs, MainHeader },
+    components: { CommonScrollToTopBtn, CommonCreateBtn, AppMainClubTabs, MainHeader },
     data() {
         return {
             clubCreatePath: CLUB_CREATE_PATH,

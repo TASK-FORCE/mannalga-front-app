@@ -3,7 +3,7 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuex from 'vuex';
 import sinon from 'sinon';
 import UserProfile from '@/components/user/UserProfile.vue';
-import { DEFAULT_PROFILE } from '@/store/type/user_type.js';
+import { GET_DEFAULT_PROFILE } from '@/store/type/user_type.js';
 import { LOGIN_PATH } from '@/router/route_path_type.js';
 import { testUtils } from '../../utils/testUtils.js';
 
@@ -38,7 +38,7 @@ describe('UserProfile.Vue', () => {
 
     it('페이지 진입 시 profile이 비어있다면 profile을 요청한다.', () => {
         // given
-        gettersHelper.profile.returns(DEFAULT_PROFILE);
+        gettersHelper.profile.returns(GET_DEFAULT_PROFILE());
         actionsHelper.requestProfile.returns(Promise.reject());
 
         // when
@@ -51,7 +51,7 @@ describe('UserProfile.Vue', () => {
 
     it('페이지 진입 시 profile이 비어있지 않다면 profile을 요청하지 않는다.', () => {
         // given
-        const newProfile = { ...DEFAULT_PROFILE };
+        const newProfile = GET_DEFAULT_PROFILE();
         newProfile.name = 'Jayden';
         gettersHelper.profile.returns(newProfile);
 
@@ -64,7 +64,7 @@ describe('UserProfile.Vue', () => {
 
     it('profile 요청 시 예외가 발생하면 login으로 라우팅된다.', async () => {
         // given
-        gettersHelper.profile.returns(DEFAULT_PROFILE);
+        gettersHelper.profile.returns(GET_DEFAULT_PROFILE());
         actionsHelper.requestProfile.returns(Promise.reject());
 
         // when

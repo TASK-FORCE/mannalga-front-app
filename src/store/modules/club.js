@@ -5,7 +5,7 @@ import {
     SET_CLUB_DATA,
     REQUEST_CLUB_DATA, REQUEST_CLUB_CREATE,
 } from '@/store/type/club_type.js';
-import { actionsLoadingTemplate, actionsNormalTemplate } from '@/store/helper/actionsTemplate.js';
+import { actionsLoadingTemplate, actionsNormalTemplate } from '@/store/utils/actionsTemplate.js';
 
 const state = {
     // clubData: {

@@ -1,4 +1,4 @@
-import { CLUB_BOARD_CREATE_PATH, CLUB_BOARD_POST_PATH, CLUB_CREATE_PATH, CLUB_PATH, LOGIN_PATH, MAIN_PATH, REGISTER_PATH, SELECT_REGION_PATH } from '@/router/route_path_type.js';
+import { CLUB_BOARD_CREATE_PATH, CLUB_BOARD_POST_PATH, CLUB_CREATE_PATH, CLUB_PATH, LOGIN_PATH, MAIN_PATH, REGISTER_PATH, SELECT_REGION_PATH, USER_SETTINGS_PATH } from '@/router/route_path_type.js';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';
 
 function validationAuthentication(to, from, next) {
@@ -74,6 +74,11 @@ const routes = [
         path: CLUB_BOARD_POST_PATH,
         name: 'ClubBoardPost',
         component: () => import('@/views/club/ClubBoardPost.vue'),
+    },
+    {
+        path: USER_SETTINGS_PATH,
+        name: 'UserSettings',
+        component: () => import('@/views/UserSettings.vue'),
     },
 ];
 

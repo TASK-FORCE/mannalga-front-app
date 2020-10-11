@@ -3,7 +3,7 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuex from 'vuex';
 import sinon from 'sinon';
 import { REGISTER_PATH } from '@/router/route_path_type.js';
-import { DEFAULT_PROFILE } from '@/store/type/user_type.js';
+import { GET_DEFAULT_PROFILE } from '@/store/type/user_type.js';
 import RegisterRegion from '@/views/register/RegisterRegion.vue';
 import { testUtils } from '../../../utils/testUtils.js';
 
@@ -36,7 +36,7 @@ describe('RegisterRegion.vue', () => {
 
     it('페이지 진입 시 Profile이 비어있다면 Profile 등록화면으로 라우팅 된다..', () => {
         // given
-        gettersHelper.profile.returns(DEFAULT_PROFILE);
+        gettersHelper.profile.returns(GET_DEFAULT_PROFILE());
 
         // when
         shallowMount(RegisterRegion, options);

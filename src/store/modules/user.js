@@ -1,38 +1,34 @@
-import { postRegister, requestProfile, requestRegisterStatus } from '@/apis/user.js';
+import { postRegister, requestProfile, requestRegisterStatus, requestUserSettings } from '@/apis/user.js';
 import {
     ADD_SELECTED_INTEREST_SEQS,
     ADD_SELECTED_REGIONS,
     CHANGE_PROFILE_NAME,
-    DEFAULT_PROFILE,
+    GET_DEFAULT_PROFILE, GET_DEFAULT_USER_SETTINGS,
     POST_REGISTER,
     PROFILE,
     REMOVE_SELECTED_INTEREST_SEQS,
     REQUEST_PROFILE,
-    REQUEST_REGISTER_STATUS,
+    REQUEST_REGISTER_STATUS, REQUEST_USER_SETTINGS,
     SELECTED_INTEREST_SEQS,
     SELECTED_REGIONS,
-    SET_PROFILE,
+    SET_PROFILE, SET_USER_SETTINGS, USER_SETTINGS,
 } from '@/store/type/user_type.js';
 import { userBuilder } from '@/utils/builder/builder.js';
-import { actionsLoadingTemplate } from '@/store/helper/actionsTemplate.js';
-import { extractResponseData } from '@/store/helper/vuexUtils.js';
+import { actionsLoadingTemplate } from '@/store/utils/actionsTemplate.js';
+import { extractResponseData } from '@/store/utils/vuexUtils.js';
 
 const state = {
-    [PROFILE]: DEFAULT_PROFILE,
+    [PROFILE]: GET_DEFAULT_PROFILE(),
     [SELECTED_REGIONS]: {},
     [SELECTED_INTEREST_SEQS]: [],
+    [USER_SETTINGS]: GET_DEFAULT_USER_SETTINGS(),
 };
 
 const getters = {
-    [PROFILE](state) {
-        return state[PROFILE];
-    },
-    [SELECTED_REGIONS](state) {
-        return state[SELECTED_REGIONS];
-    },
-    [SELECTED_INTEREST_SEQS](state) {
-        return state[SELECTED_INTEREST_SEQS];
-    },
+    [PROFILE]: (state) => state[PROFILE],
+    [SELECTED_REGIONS]: (state) => state[SELECTED_REGIONS],
+    [SELECTED_INTEREST_SEQS]: (state) => state[SELECTED_INTEREST_SEQS],
+    [USER_SETTINGS]: (state) => state[USER_SETTINGS],
 };
 
 const mutations = {
@@ -52,10 +48,13 @@ const mutations = {
     [ADD_SELECTED_INTEREST_SEQS](state, stateNameWithRoot) {
         state[SELECTED_INTEREST_SEQS].push(stateNameWithRoot);
     },
+    [SET_USER_SETTINGS](state, userSettings) {
+        state[USER_SETTINGS] = userSettings;
+    },
 };
 
 const actions = {
-    async [REQUEST_PROFILE]({ commit }) {
+    [REQUEST_PROFILE]({ commit }) {
         return actionsLoadingTemplate(commit, async () => {
             const response = await requestProfile();
             const data = extractResponseData(response);
@@ -63,17 +62,24 @@ const actions = {
             commit(SET_PROFILE, userBuilder.buildProfile(kakaoAccount));
         });
     },
-    async [POST_REGISTER]({ commit }, registerRequestDto) {
+    [POST_REGISTER]({ commit }, registerRequestDto) {
         return actionsLoadingTemplate(commit, async () => {
             const response = await postRegister(registerRequestDto);
             return response.status === 200 ? Promise.resolve() : Promise.reject();
         });
     },
-    async [REQUEST_REGISTER_STATUS]({ commit }, appToken) {
+    [REQUEST_REGISTER_STATUS]({ commit }, appToken) {
         return actionsLoadingTemplate(commit, async () => {
             const response = await requestRegisterStatus(appToken);
             const data = extractResponseData(response);
             return data.isRegistered;
+        });
+    },
+    [REQUEST_USER_SETTINGS]({ commit }) {
+        return actionsLoadingTemplate(commit, async () => {
+            const response = await requestUserSettings();
+            const userSettings = extractResponseData(response);
+            commit(SET_USER_SETTINGS, userSettings);
         });
     },
 };

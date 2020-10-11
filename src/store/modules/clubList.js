@@ -20,10 +20,10 @@ import {
     REQUEST_NEXT_MY_CLUB_LIST,
     SEARCH_FILTER,
 } from '@/store/type/club_list_type.js';
-import { actionsLoadingTemplate } from '@/store/helper/actionsTemplate.js';
+import { actionsLoadingTemplate } from '@/store/utils/actionsTemplate.js';
 import { requestClubListWithPage, requestMyClubListWithPage } from '@/apis/clubList.js';
 import { transformService } from '@/store/service/transformService.js';
-import { extractResponseData } from '@/store/helper/vuexUtils.js';
+import { extractResponseData } from '@/store/utils/vuexUtils.js';
 
 const state = {
     [CLUB_LIST]: [],

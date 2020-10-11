@@ -10,3 +10,7 @@
 .app-main-club-tab-header > .v-slide-group__content {
     height: 40px !important;
 }
+
+.theme--light.v-app-bar.v-toolbar.v-sheet {
+    background-color: #ffffff !important;
+}
