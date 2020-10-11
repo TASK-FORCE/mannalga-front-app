@@ -1,55 +1,67 @@
 <template>
     <div>
-        <input ref="imageInput"
-               type="file"
-               hidden
-               accept="image/**"
-               @change="onChangeImage"
-        />
-        <!--   Image Resize 구현 필요     -->
-        <div v-if="imageUrl">
-            <v-img height="150"
-                   :src="imageUrl"
-                   @click="onClickImageUpload"
-            />
-        </div>
-        <div v-else
-             class="image-selector-container"
-             @click="onClickImageUpload"
+        <div class="image-selector-container"
+             :style="setHeight"
+             @click="triggerCropper"
         >
-            <div class="image-selector">
+            <div v-if="imageUrl">
+                <v-img :src="imageUrl"
+                       :height="height"
+                />
+            </div>
+            <div v-else
+                 class="image-selector"
+            >
                 <v-icon>mdi-camera-plus-outline</v-icon>
                 <div class="font-weight-medium mt-2">
                     {{ text }}
                 </div>
             </div>
         </div>
+        <!--  @handleUploadedImg 이벤트에서 파라미터로 저장된 이미지의 URL를 넘겨준다   -->
+        <ImageCropper ref="cropper"
+                     @handleUploadedImg="handleUploadedImg"
+        />
     </div>
 </template>
 
 <script>
-import { MESSAGE } from '@/utils/constant/constant.js';
-import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
-import { actionsHelper } from '@/store/helper/actionsHelper.js';
+import 'cropperjs/dist/cropper.css';
+import ImageCropper from '@/components/ImageCropper.vue';
 
 export default {
     name: 'CommonImageSelectBox',
+    components: { ImageCropper },
     props: {
-        text: String,
-        imageUrl: String,
+        text: {
+            type: String,
+            default: '',
+        },
+        height: {
+            type: String,
+            default: '50',
+        },
     },
-    computed: {},
+    data() {
+        return {
+            imageUrl: '',
+        };
+    },
+    computed: {
+        setHeight() {
+            return {
+                height: `${this.height}px`,
+            };
+        },
+    },
     methods: {
-        onChangeImage(e) {
-            const [image] = e.target.files;
-            actionsHelper.uploadTempImage(image)
-                .then(url => this.$emit('changeImageUrl', url))
-                .catch(() => mutationsHelper.openSnackBar(MESSAGE.SERVER_INSTABILITY));
+        triggerCropper() {
+            this.$refs.cropper.trigger();
         },
-        onClickImageUpload() {
-            this.$refs.imageInput.click();
+        handleUploadedImg(imgUrl) {
+            this.imageUrl = imgUrl;
+            this.$emit('changeImageUrl', imgUrl);
         },
-
     },
 };
 </script>
@@ -57,13 +69,14 @@ export default {
 <style scoped>
 .image-selector-container {
     position: relative;
-    background-color: #e9e9e9;
+    border: thin solid #9e9e9e;
+    border-radius: 4px;
     text-align: center;
-    height: 100px;
 }
 
 .image-selector {
     position: absolute;
+    color: #757575;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
