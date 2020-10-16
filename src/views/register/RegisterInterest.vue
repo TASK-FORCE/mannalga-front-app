@@ -11,7 +11,6 @@ import UserInterest from '@/components/user/UserInterest.vue';
 import { MESSAGE } from '@/utils/constant/constant.js';
 import _ from '@/utils/lodashWrapper.js';
 import { MAIN_PATH, REGISTER_PATH } from '@/router/route_path_type.js';
-import { userBuilder } from '@/utils/builder/builder.js';
 import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import { actionsHelper } from '@/store/helper/actionsHelper.js';
@@ -36,8 +35,13 @@ export default {
     },
     methods: {
         register() {
-            const registerRequestDto = userBuilder.buildRegisterRequestDto(this.profile, this.selectedRegions, this.selectedInterestSeqs);
-            actionsHelper.postRegister(registerRequestDto)
+            const registerInfo = {
+                profile: this.profile,
+                selectedRegions: this.selectedRegions,
+                selectedInterestSeqs: this.selectedInterestSeqs,
+            };
+
+            actionsHelper.postRegister(registerInfo)
                 .then(() => this.$router.push(MAIN_PATH)
                     .then(() => mutationsHelper.openSnackBar(MESSAGE.SUCCESS_REGISTER)))
                 .catch(() => this.$router.push(REGISTER_PATH.PROFILE_PATH)

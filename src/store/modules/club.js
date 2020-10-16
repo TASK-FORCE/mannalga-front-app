@@ -1,11 +1,7 @@
 import { requestClubCreate, requestClubData } from '@/apis/club.js';
-import {
-    DEFAULT_CLUB,
-    CLUB_DATA,
-    SET_CLUB_DATA,
-    REQUEST_CLUB_DATA, REQUEST_CLUB_CREATE,
-} from '@/store/type/club_type.js';
+import { CLUB_DATA, DEFAULT_CLUB, REQUEST_CLUB_CREATE, REQUEST_CLUB_DATA, SET_CLUB_DATA } from '@/store/type/club_type.js';
 import { actionsLoadingTemplate, actionsNormalTemplate } from '@/store/utils/actionsTemplate.js';
+import RequestConverter from '@/store/converter/requestConverter.js';
 
 const state = {
     // clubData: {
@@ -69,8 +65,11 @@ const actions = {
             commit(SET_CLUB_DATA, clubData);
         });
     },
-    async [REQUEST_CLUB_CREATE]({ commit }, clubCreateDto) {
-        return actionsNormalTemplate(async () => (requestClubCreate(clubCreateDto)));
+    async [REQUEST_CLUB_CREATE]({ commit }, clubCreateInfo) {
+        return actionsNormalTemplate(async () => {
+            const clubCreateRequestDto = RequestConverter.converterClubCreateInfo(clubCreateInfo);
+            await requestClubCreate(clubCreateRequestDto);
+        });
     },
 };
 

@@ -3,7 +3,8 @@ import {
     ADD_NEXT_MY_CLUB_LIST,
     CHANGE_CLUB_LIST_WITH_PAGE,
     CHANGE_INTEREST_SEARCH_FILTER,
-    CHANGE_IS_REQUESTING_NEXT_PAGE, CHANGE_MY_CLUB_LIST_WITH_PAGE,
+    CHANGE_IS_REQUESTING_NEXT_PAGE,
+    CHANGE_MY_CLUB_LIST_WITH_PAGE,
     CHANGE_REGION_SEARCH_FILTER,
     CLUB_LIST,
     CLUB_PAGE,
@@ -22,8 +23,7 @@ import {
 } from '@/store/type/club_list_type.js';
 import { actionsLoadingTemplate } from '@/store/utils/actionsTemplate.js';
 import { requestClubListWithPage, requestMyClubListWithPage } from '@/apis/clubList.js';
-import { transformService } from '@/store/service/transformService.js';
-import { extractResponseData } from '@/store/utils/vuexUtils.js';
+import RequestConverter from '@/store/converter/requestConverter.js';
 
 const state = {
     [CLUB_LIST]: [],
@@ -84,76 +84,48 @@ const actions = {
     [REQUEST_FIRST_CLUB_LIST]({ commit, state }) {
         commit(INIT_CLUB_LIST_AND_PAGE);
         const callback = async () => {
-            const response = await requestClubListWithPage(buildClubListRequestParam(state));
-            commit(CHANGE_CLUB_LIST_WITH_PAGE, extractClubListAndPage(response));
+            const requestParam = RequestConverter.converterClubList(state[CLUB_PAGE], state[SEARCH_FILTER]);
+            const clubListInfo = await requestClubListWithPage(requestParam);
+            commit(CHANGE_CLUB_LIST_WITH_PAGE, clubListInfo);
         };
         return actionsLoadingTemplate(commit, callback);
     },
     [REQUEST_NEXT_CLUB_LIST]({ commit, state }) {
+        if (state[CLUB_PAGE].isLastPage) {
+            return Promise.resolve();
+        }
+
         if (state[CLUB_LIST].length > 1000) { // 랜딩 부하 방지를 위해 리스트 최대 개수를 정해놓자.
             return Promise.resolve();
         }
-        const clubPage = state[CLUB_PAGE];
         const callback = async () => {
-            const response = await requestClubListWithPage(buildClubListRequestParam(state));
-            commit(ADD_NEXT_CLUB_LIST, extractClubListAndPage(response));
+            const requestParam = RequestConverter.converterClubList(state[CLUB_PAGE], state[SEARCH_FILTER]);
+            const clubListInfo = await requestClubListWithPage(requestParam);
+            commit(ADD_NEXT_CLUB_LIST, clubListInfo);
         };
-        return requestNextClubList(commit, clubPage, callback);
+        return actionsLoadingTemplate({ commit, name: CHANGE_IS_REQUESTING_NEXT_PAGE }, callback);
     },
     [REQUEST_FIRST_MY_CLUB_LIST]({ commit, state }) {
         commit(INIT_MY_CLUB_LIST_AND_PAGE);
         const callback = async () => {
-            const response = await requestMyClubListWithPage(buildMyClubListRequestParam(state));
-            commit(CHANGE_MY_CLUB_LIST_WITH_PAGE, extractClubListAndPage(response));
+            const requestParam = RequestConverter.converterMyClubList(state[MY_CLUB_PAGE]);
+            const clubListInfo = await requestMyClubListWithPage(requestParam);
+            commit(CHANGE_MY_CLUB_LIST_WITH_PAGE, clubListInfo);
         };
         return actionsLoadingTemplate(commit, callback);
     },
     [REQUEST_NEXT_MY_CLUB_LIST]({ commit, state }) {
-        const clubPage = state[CLUB_PAGE];
+        if (state[MY_CLUB_PAGE].isLastPage) {
+            return Promise.resolve();
+        }
         const callback = async () => {
-            const response = await requestMyClubListWithPage(buildMyClubListRequestParam(state));
-            commit(ADD_NEXT_MY_CLUB_LIST, extractClubListAndPage(response));
+            const requestParam = RequestConverter.converterMyClubList(state[MY_CLUB_PAGE]);
+            const clubListInfo = await requestMyClubListWithPage(requestParam);
+            commit(ADD_NEXT_MY_CLUB_LIST, clubListInfo);
         };
-        return requestNextClubList(commit, clubPage, callback);
+        return actionsLoadingTemplate({ commit, name: CHANGE_IS_REQUESTING_NEXT_PAGE }, callback);
     },
 };
-
-function requestNextClubList(commit, pageInfo, callback) {
-    if (pageInfo.isLastPage) {
-        return Promise.resolve();
-    }
-
-    const commitInfo = {
-        commit,
-        name: CHANGE_IS_REQUESTING_NEXT_PAGE,
-    };
-
-    return actionsLoadingTemplate(commitInfo, callback);
-}
-
-function extractClubListAndPage(response) {
-    const data = extractResponseData(response);
-    const clubList = data.content;
-    const clubPage = transformService.transformToPage(data);
-    return { clubList, clubPage };
-}
-
-function buildClubListRequestParam(state) {
-    const { size, nextPage } = state[CLUB_PAGE];
-    return {
-        size,
-        page: nextPage,
-        searchOptions: { ...(state[SEARCH_FILTER]) },
-    };
-}
-
-function buildMyClubListRequestParam(state) {
-    const { size, nextPage } = state[CLUB_PAGE];
-    return {
-        size,
-        page: nextPage,
-    };
-}
 
 export default {
     state,

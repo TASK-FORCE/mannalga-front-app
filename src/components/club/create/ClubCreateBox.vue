@@ -44,7 +44,6 @@ import BottomSheetRegionCard from '@/components/bottom-sheet/BottomSheetRegionCa
 import { MESSAGE } from '@/utils/constant/constant.js';
 import { MAIN_PATH } from '@/router/route_path_type.js';
 import ClubCreateForm from '@/components/club/create/ClubCreateForm.vue';
-import { clubBuilder } from '@/utils/builder/builder.js';
 import { actionsHelper } from '@/store/helper/actionsHelper.js';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
@@ -103,7 +102,7 @@ export default {
         createClub() {
             if (this.$refs.clubCreateForm.validate()) {
                 this.isLoading = true;
-                actionsHelper.requestClubCreate(clubBuilder.buildClubCreateDto(this.clubCreateBoxInfo))
+                actionsHelper.requestClubCreate(this.clubCreateBoxInfo)
                     .then(() => this.$router.push(MAIN_PATH)
                         .then(() => mutationsHelper.openSnackBar(MESSAGE.SUCCESS_CLUB_CREATE)))
                     .catch(() => mutationsHelper.openSnackBar(MESSAGE.FAIL_CLUB_CREATE))

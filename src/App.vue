@@ -15,7 +15,7 @@
 <script>
 import CommonSnackBar from '@/components/common/CommonSnackBar.vue';
 import CommonProgress from '@/components/common/CommonProgress.vue';
-import { gettersHelper } from './store/helper/gettersHelper.js';
+import { gettersHelper } from '@/store/helper/gettersHelper.js';
 
 export default {
     name: 'App',
