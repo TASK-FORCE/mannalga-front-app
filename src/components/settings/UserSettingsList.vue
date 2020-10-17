@@ -13,7 +13,7 @@ import OtherSettingsListItems from '@/components/settings/OtherSettingsListItems
 import ProfileSettingListItem from '@/components/settings/ProfileSettingListItem.vue';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import _ from '@/utils/lodashWrapper.js';
-import { createRenderComponent } from '@/utils/componentUtils.js';
+import RenderFunction from '@/utils/renderFunction.js';
 import InterestIcons from '@/components/InterestIcons.vue';
 
 export default {
@@ -43,10 +43,7 @@ export default {
     },
     methods: {
         createInterestIconsComponent() {
-            const data = {
-                props: { interests: this.interestsByPriority },
-            };
-            return createRenderComponent(InterestIcons, data);
+            return RenderFunction.createComponent(InterestIcons, { interests: this.interestsByPriority });
         },
         createRegionsNameText() {
             if (this.regionsByPriority && this.regionsByPriority.length > 0) {
