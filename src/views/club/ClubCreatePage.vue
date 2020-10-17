@@ -11,7 +11,7 @@ import CommonHeader from '@/components/common/CommonHeader.vue';
 import ClubCreateBox from '@/components/club/create/ClubCreateBox.vue';
 
 export default {
-    name: 'ClubCreate',
+    name: 'ClubCreatePage',
     components: { ClubCreateBox, CommonHeader },
 };
 </script>

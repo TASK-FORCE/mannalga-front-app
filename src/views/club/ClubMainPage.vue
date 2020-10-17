@@ -11,9 +11,11 @@ import { mapActions, mapGetters } from 'vuex';
 import ClubHeader from '@/components/club/ClubHeader.vue';
 import ClubTab from '@/components/club/ClubTab.vue';
 import { CLUB, CLUB_DATA, REQUEST_CLUB_DATA } from '@/store/type/club_type.js';
+import { gettersHelper } from '@/store/helper/gettersHelper.js';
+import { actionsHelper } from '@/store/helper/actionsHelper.js';
 
 export default {
-    name: 'ClubMain',
+    name: 'ClubMainPage',
     components: { ClubHeader, ClubTab },
     props: ['seq'],
     data() {
@@ -22,7 +24,7 @@ export default {
         };
     },
     computed: {
-        ...mapGetters(CLUB, { clubData: CLUB_DATA }),
+        clubData: () => gettersHelper.clubData(),
     },
     // mounted() {
     //     this.getClubData(this.club_seq);
@@ -31,7 +33,9 @@ export default {
         // ...mapActions({
         //     getClubData: "club/getClubData"
         // }),
-        ...mapActions(CLUB, [REQUEST_CLUB_DATA]),
+        getClubData() {
+            actionsHelper.requestClubData();
+        },
     },
 };
 </script>

@@ -3,7 +3,7 @@ import { COMMON, UPLOAD_TEMP_IMAGE } from '@/store/type/common_type.js';
 import { POST_REGISTER, REQUEST_PROFILE, REQUEST_REGISTER_STATUS, REQUEST_USER_SETTINGS, USER } from '@/store/type/user_type.js';
 import { AUTH, REQUEST_KAKAO_TOKEN_BY_CODE } from '@/store/type/auth_type.js';
 import { CLUB_LIST_MODULE, REQUEST_FIRST_CLUB_LIST, REQUEST_FIRST_MY_CLUB_LIST, REQUEST_NEXT_CLUB_LIST, REQUEST_NEXT_MY_CLUB_LIST } from '@/store/type/club_list_type.js';
-import { CLUB, REQUEST_CLUB_CREATE } from '@/store/type/club_type.js';
+import { CLUB, REQUEST_CLUB_CREATE, REQUEST_CLUB_DATA } from '@/store/type/club_type.js';
 import { combineWithModuleName } from '@/store/utils/vuexUtils.js';
 
 const actionsHelper = {
@@ -12,6 +12,7 @@ const actionsHelper = {
 
     // club module
     requestClubCreate: (payload) => dispatch(CLUB, REQUEST_CLUB_CREATE, payload),
+    requestClubData: (payload) => dispatch(CLUB, REQUEST_CLUB_DATA, payload),
 
     // clubList module
     requestFirstClubList: (payload) => dispatch(CLUB_LIST_MODULE, REQUEST_FIRST_CLUB_LIST, payload),

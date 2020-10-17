@@ -14,6 +14,6 @@ export const SELECT_REGION_PATH = '/select/region';
 export const CLUB_PATH = '/club/:seq';
 export const CLUB_CREATE_PATH = '/create/club';
 export const CLUB_BOARD_POST_PATH = '/club/board/:seq';
-export const CLUB_BOARD_CREATE_PATH = '/club/board/create';
+export const CLUB_BOARD_CREATE_PATH = '/club/create/board';
 
 export const USER_SETTINGS_PATH = '/user/settings';
