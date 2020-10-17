@@ -6,11 +6,11 @@
 </template>
 
 <script>
-import CommonHeader from '@/components/common/CommonHeader.vue';
+import CommonHeader from '@/components/ui/header/CommonHeader.vue';
 import UserRegion from '@/components/user/UserRegion.vue';
 
 export default {
-    name: 'SelectRegion',
+    name: 'SelectRegionPage',
     components: { UserRegion, CommonHeader },
     computed: {
         priority() {

@@ -3,19 +3,22 @@ import {
     ADD_SELECTED_INTEREST_SEQS,
     ADD_SELECTED_REGIONS,
     CHANGE_PROFILE_NAME,
-    GET_DEFAULT_PROFILE, GET_DEFAULT_USER_SETTINGS,
+    GET_DEFAULT_PROFILE,
+    GET_DEFAULT_USER_SETTINGS,
     POST_REGISTER,
     PROFILE,
     REMOVE_SELECTED_INTEREST_SEQS,
     REQUEST_PROFILE,
-    REQUEST_REGISTER_STATUS, REQUEST_USER_SETTINGS,
+    REQUEST_REGISTER_STATUS,
+    REQUEST_USER_SETTINGS,
     SELECTED_INTEREST_SEQS,
     SELECTED_REGIONS,
-    SET_PROFILE, SET_USER_SETTINGS, USER_SETTINGS,
+    SET_PROFILE,
+    SET_USER_SETTINGS,
+    USER_SETTINGS,
 } from '@/store/type/user_type.js';
-import { userBuilder } from '@/utils/builder/builder.js';
 import { actionsLoadingTemplate } from '@/store/utils/actionsTemplate.js';
-import { extractResponseData } from '@/store/utils/vuexUtils.js';
+import RequestConverter from '@/store/converter/requestConverter.js';
 
 const state = {
     [PROFILE]: GET_DEFAULT_PROFILE(),
@@ -56,29 +59,25 @@ const mutations = {
 const actions = {
     [REQUEST_PROFILE]({ commit }) {
         return actionsLoadingTemplate(commit, async () => {
-            const response = await requestProfile();
-            const data = extractResponseData(response);
-            const kakaoAccount = data.kakao_account;
-            commit(SET_PROFILE, userBuilder.buildProfile(kakaoAccount));
+            const profile = await requestProfile();
+            commit(SET_PROFILE, profile);
         });
     },
-    [POST_REGISTER]({ commit }, registerRequestDto) {
+    [POST_REGISTER]({ commit }, registerInfo) {
         return actionsLoadingTemplate(commit, async () => {
-            const response = await postRegister(registerRequestDto);
-            return response.status === 200 ? Promise.resolve() : Promise.reject();
+            const registerRequestDto = RequestConverter.converterRegisterInfo(registerInfo);
+            await postRegister(registerRequestDto);
         });
     },
     [REQUEST_REGISTER_STATUS]({ commit }, appToken) {
         return actionsLoadingTemplate(commit, async () => {
-            const response = await requestRegisterStatus(appToken);
-            const data = extractResponseData(response);
-            return data.isRegistered;
+            const { isRegistered } = await requestRegisterStatus(appToken);
+            return isRegistered;
         });
     },
     [REQUEST_USER_SETTINGS]({ commit }) {
         return actionsLoadingTemplate(commit, async () => {
-            const response = await requestUserSettings();
-            const userSettings = extractResponseData(response);
+            const userSettings = await requestUserSettings();
             commit(SET_USER_SETTINGS, userSettings);
         });
     },

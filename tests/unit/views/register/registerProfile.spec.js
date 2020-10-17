@@ -3,7 +3,7 @@ import Vuex from 'vuex';
 import sinon from 'sinon';
 import { expect } from 'chai';
 import { GET_DEFAULT_PROFILE } from '@/store/type/user_type.js';
-import RegisterProfile from '@/views/register/RegisterProfile.vue';
+import RegisterProfileNestedPage from '@/views/register/inner/RegisterProfileNestedPage.vue';
 import { REGISTER_PATH } from '@/router/route_path_type.js';
 import { testUtils } from '../../../utils/testUtils.js';
 
@@ -41,7 +41,7 @@ describe('regisetProfile.vue', () => {
         gettersHelper.profile.returns(profile);
 
         // when
-        const wrapper = shallowMount(RegisterProfile, options);
+        const wrapper = shallowMount(RegisterProfileNestedPage, options);
         wrapper.vm.clickGoBtn();
 
         // then
@@ -54,7 +54,7 @@ describe('regisetProfile.vue', () => {
         gettersHelper.profile.returns(profile);
 
         // when
-        const wrapper = shallowMount(RegisterProfile, options);
+        const wrapper = shallowMount(RegisterProfileNestedPage, options);
         wrapper.vm.clickGoBtn();
 
         // then
@@ -68,7 +68,7 @@ describe('regisetProfile.vue', () => {
         gettersHelper.profile.returns(profile);
 
         // when
-        const wrapper = shallowMount(RegisterProfile, options);
+        const wrapper = shallowMount(RegisterProfileNestedPage, options);
         wrapper.vm.clickGoBtn();
 
         // then

@@ -9,7 +9,7 @@
 
 <script>
 export default {
-    name: 'CommonCreateBtn',
+    name: 'FixedCreateBtn',
     props: {
         color: String,
         path: String,

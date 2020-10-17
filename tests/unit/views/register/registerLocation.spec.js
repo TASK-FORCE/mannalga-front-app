@@ -4,14 +4,14 @@ import Vuex from 'vuex';
 import sinon from 'sinon';
 import { REGISTER_PATH } from '@/router/route_path_type.js';
 import { GET_DEFAULT_PROFILE } from '@/store/type/user_type.js';
-import RegisterRegion from '@/views/register/RegisterRegion.vue';
+import RegisterRegionNestedPage from '@/views/register/inner/RegisterRegionNestedPage.vue';
 import { testUtils } from '../../../utils/testUtils.js';
 
 const sandbox = sinon.createSandbox();
 const localVue = createLocalVue();
 localVue.use(Vuex);
 
-describe('RegisterRegion.vue', () => {
+describe('RegisterRegionNestedPage.vue', () => {
     let gettersHelper;
     let mutationsHelper;
     let options;
@@ -39,7 +39,7 @@ describe('RegisterRegion.vue', () => {
         gettersHelper.profile.returns(GET_DEFAULT_PROFILE());
 
         // when
-        shallowMount(RegisterRegion, options);
+        shallowMount(RegisterRegionNestedPage, options);
 
         // then
         expect($router.push.withArgs(REGISTER_PATH.PROFILE_PATH).calledOnce).to.be.true;
@@ -50,7 +50,7 @@ describe('RegisterRegion.vue', () => {
         gettersHelper.selectedRegions.returns([]);
 
         // when
-        const wrapper = shallowMount(RegisterRegion, options);
+        const wrapper = shallowMount(RegisterRegionNestedPage, options);
         wrapper.vm.clickGoBtn();
 
         // then
@@ -62,7 +62,7 @@ describe('RegisterRegion.vue', () => {
         gettersHelper.selectedRegions.returns([{}, {}]);
 
         // when
-        const wrapper = shallowMount(RegisterRegion, options);
+        const wrapper = shallowMount(RegisterRegionNestedPage, options);
         wrapper.vm.clickGoBtn();
 
         // then

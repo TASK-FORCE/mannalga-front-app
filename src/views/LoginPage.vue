@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <v-container>
         <div class="absolute-center">
             <v-img height="200"
                    src="../images/vue.png"
@@ -20,7 +20,7 @@
                 </v-btn>
             </div>
         </div>
-    </div>
+    </v-container>
 </template>
 
 <script>
@@ -32,7 +32,7 @@ import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import { actionsHelper } from '@/store/helper/actionsHelper.js';
 
 export default {
-    name: 'Login',
+    name: 'LoginPage',
     data() {
         return {
             loading: false,
@@ -95,7 +95,3 @@ export default {
     },
 };
 </script>
-
-<style scoped>
-
-</style>

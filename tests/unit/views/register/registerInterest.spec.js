@@ -2,7 +2,7 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuex from 'vuex';
 import sinon from 'sinon';
 import { expect } from 'chai';
-import RegisterInterest from '@/views/register/RegisterInterest.vue';
+import RegisterInterestNestedPage from '@/views/register/inner/RegisterInterestNestedPage.vue';
 import { GET_DEFAULT_PROFILE } from '@/store/type/user_type.js';
 import { MAIN_PATH, REGISTER_PATH } from '@/router/route_path_type.js';
 import { testUtils } from '../../../utils/testUtils.js';
@@ -11,7 +11,7 @@ const sandbox = sinon.createSandbox();
 const localVue = createLocalVue();
 localVue.use(Vuex);
 
-describe('RegisterInterest.vue', () => {
+describe('RegisterInterestNestedPage.vue', () => {
     let mutationsHelper;
     let gettersHelper;
     let actionsHelper;
@@ -42,7 +42,7 @@ describe('RegisterInterest.vue', () => {
         gettersHelper.profile.returns(GET_DEFAULT_PROFILE());
 
         // when
-        shallowMount(RegisterInterest, options);
+        shallowMount(RegisterInterestNestedPage, options);
 
         // then
         expect($router.push.withArgs(REGISTER_PATH.PROFILE_PATH).calledOnce).to.be.true;
@@ -56,7 +56,7 @@ describe('RegisterInterest.vue', () => {
         gettersHelper.selectedRegions.returns({});
 
         // when
-        shallowMount(RegisterInterest, options);
+        shallowMount(RegisterInterestNestedPage, options);
 
         // then
         expect($router.push.withArgs(REGISTER_PATH.REGION_PATH).calledOnce).to.be.true;
@@ -73,7 +73,7 @@ describe('RegisterInterest.vue', () => {
         $router.push.returns(Promise.resolve());
 
         // when
-        const wrapper = shallowMount(RegisterInterest, options);
+        const wrapper = shallowMount(RegisterInterestNestedPage, options);
         wrapper.vm.register();
         await wrapper.vm.$nextTick();
         await wrapper.vm.$nextTick();
@@ -95,7 +95,7 @@ describe('RegisterInterest.vue', () => {
         $router.push.returns(Promise.resolve());
 
         // when
-        const wrapper = shallowMount(RegisterInterest, options);
+        const wrapper = shallowMount(RegisterInterestNestedPage, options);
         wrapper.vm.register();
         await wrapper.vm.$nextTick();
         await wrapper.vm.$nextTick();

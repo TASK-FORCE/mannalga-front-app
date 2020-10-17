@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import CommonHeader from '@/components/common/CommonHeader.vue';
+import CommonHeader from '@/components/ui/header/CommonHeader.vue';
 import CommonComments from '@/components/common/CommonComments.vue';
 
 export default {

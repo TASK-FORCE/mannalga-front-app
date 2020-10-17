@@ -18,7 +18,7 @@
 
 <script>
 import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
-import VerticalBarDivider from '@/components/VerticalBarDivider.vue';
+import VerticalBarDivider from '@/components/ui/VerticalBarDivider.vue';
 
 export default {
     name: 'ProfileSettingListItem',

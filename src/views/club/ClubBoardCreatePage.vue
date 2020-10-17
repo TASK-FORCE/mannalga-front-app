@@ -3,14 +3,14 @@
         <CommonHeader title="글쓰기" />
         <ClubBoardCreateBox />
         <div class="image-box-wrapper">
-            <CommonImageSelectBox class="image-box"
-                                  height="60"
+            <ImageSelectBox class="image-box"
+                            height="60"
             />
-            <CommonImageSelectBox class="image-box"
-                                  height="60"
+            <ImageSelectBox class="image-box"
+                            height="60"
             />
-            <CommonImageSelectBox class="image-box"
-                                  height="60"
+            <ImageSelectBox class="image-box"
+                            height="60"
             />
         </div>
         <div style="clear:both;">
@@ -25,14 +25,14 @@
 
 <script>
 
-import CommonHeader from '@/components/common/CommonHeader.vue';
+import CommonHeader from '@/components/ui/header/CommonHeader.vue';
 import ClubBoardCreateBox from '@/components/club/ClubBoardCreateBox.vue';
-import CommonImageSelectBox from '@/components/common/CommonImageSelectBox.vue';
-import CommonCenterBtn from '@/components/common/CommonCenterBtn.vue';
+import ImageSelectBox from '@/components/image/ImageSelectBox.vue';
+import CommonCenterBtn from '@/components/ui/button/CommonCenterBtn.vue';
 
 export default {
-    name: 'ClubBoardCreatePage',
-    components: { CommonCenterBtn, ClubBoardCreateBox, CommonImageSelectBox, CommonHeader },
+    name: 'ClubCreate',
+    components: { CommonCenterBtn, ClubBoardCreateBox, ImageSelectBox, CommonHeader },
     methods: {
         createClubBoard() {
 

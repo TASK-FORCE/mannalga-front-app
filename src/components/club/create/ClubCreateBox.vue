@@ -1,9 +1,9 @@
 <template>
     <div>
-        <CommonImageSelectBox class="image-box"
-                              text="모임 대표 사진 등록"
-                              height="140"
-                              @changeImageUrl="value => clubCreateBoxInfo.imageUrl = value"
+        <ImageSelectBox class="image-box"
+                        text="모임 대표 사진 등록"
+                        height="140"
+                        @changeImageUrl="value => clubCreateBoxInfo.imageUrl = value"
         />
         <v-bottom-sheet v-model="sheet"
                         scrollable
@@ -37,14 +37,13 @@
 
 <script>
 
-import CommonCenterBtn from '@/components/common/CommonCenterBtn.vue';
-import CommonImageSelectBox from '@/components/common/CommonImageSelectBox.vue';
-import BottomSheetInterestCard from '@/components/bottom-sheet/BottomSheetInterestCard.vue';
-import BottomSheetRegionCard from '@/components/bottom-sheet/BottomSheetRegionCard.vue';
+import CommonCenterBtn from '@/components/ui/button/CommonCenterBtn.vue';
+import ImageSelectBox from '@/components/image/ImageSelectBox.vue';
+import BottomSheetInterestCard from '@/components/ui/bottom-sheet/BottomSheetInterestCard.vue';
+import BottomSheetRegionCard from '@/components/ui/bottom-sheet/BottomSheetRegionCard.vue';
 import { MESSAGE } from '@/utils/constant/constant.js';
 import { MAIN_PATH } from '@/router/route_path_type.js';
 import ClubCreateForm from '@/components/club/create/ClubCreateForm.vue';
-import { clubBuilder } from '@/utils/builder/builder.js';
 import { actionsHelper } from '@/store/helper/actionsHelper.js';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
@@ -54,7 +53,7 @@ export default {
     name: 'ClubCreateBox',
     components: {
         ClubCreateForm,
-        CommonImageSelectBox,
+        ImageSelectBox,
         CommonCenterBtn,
         BottomSheetInterestCard,
         BottomSheetRegionCard,
@@ -103,7 +102,7 @@ export default {
         createClub() {
             if (this.$refs.clubCreateForm.validate()) {
                 this.isLoading = true;
-                actionsHelper.requestClubCreate(clubBuilder.buildClubCreateDto(this.clubCreateBoxInfo))
+                actionsHelper.requestClubCreate(this.clubCreateBoxInfo)
                     .then(() => this.$router.push(MAIN_PATH)
                         .then(() => mutationsHelper.openSnackBar(MESSAGE.SUCCESS_CLUB_CREATE)))
                     .catch(() => mutationsHelper.openSnackBar(MESSAGE.FAIL_CLUB_CREATE))

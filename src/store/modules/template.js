@@ -1,7 +1,6 @@
 import { requestInterestTemplate, requestRegionTemplate } from '@/apis/template.js';
 import { REQUEST_INTEREST_TEMPLATE, REQUEST_REGION_TEMPLATE, ROOT_INTERESTS, ROOT_REGIONS, SET_INTEREST_TEMPLATE, SET_REGION_TEMPLATE } from '@/store/type/template_type.js';
 import { actionsNormalTemplate } from '@/store/utils/actionsTemplate.js';
-import { extractResponseData } from '@/store/utils/vuexUtils.js';
 
 const state = {
     [ROOT_REGIONS]: [],
@@ -29,15 +28,13 @@ const mutations = {
 const actions = {
     async [REQUEST_REGION_TEMPLATE]({ commit }) {
         return actionsNormalTemplate(async () => {
-            const response = await requestRegionTemplate();
-            const rootRegions = extractResponseData(response);
+            const rootRegions = await requestRegionTemplate();
             commit(SET_REGION_TEMPLATE, rootRegions);
         });
     },
     async [REQUEST_INTEREST_TEMPLATE]({ commit }) {
         return actionsNormalTemplate(async () => {
-            const response = await requestInterestTemplate();
-            const interests = extractResponseData(response);
+            const interests = await requestInterestTemplate();
             commit(SET_INTEREST_TEMPLATE, interests);
         });
     },

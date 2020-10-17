@@ -2,8 +2,7 @@ import { expect } from 'chai';
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuex from 'vuex';
 import sinon from 'sinon';
-import Login from '@/views/Login.vue';
-import { IS_AUTH, REQUEST_KAKAO_TOKEN_BY_CODE } from '@/store/type/auth_type.js';
+import LoginPage from '@/views/LoginPage.vue';
 import { MAIN_PATH, REGISTER_PATH } from '@/router/route_path_type.js';
 import { testUtils } from '../../utils/testUtils.js';
 
@@ -11,7 +10,7 @@ const sandbox = sinon.createSandbox();
 const localVue = createLocalVue();
 localVue.use(Vuex);
 
-describe('Login.vue', () => {
+describe('LoginPage.vue', () => {
     let gettersHelper;
     let mutationsHelper;
     let actionsHelper;
@@ -45,7 +44,7 @@ describe('Login.vue', () => {
         options.mocks.$route.query = { validationFail: true };
 
         // when
-        shallowMount(Login, options);
+        shallowMount(LoginPage, options);
 
         // then
         expect(mutationsHelper.openSnackBar.calledOnce).to.be.true;
@@ -57,7 +56,7 @@ describe('Login.vue', () => {
         actionsHelper.requestKakaoTokenByCode.returns(Promise.resolve(false));
 
         // when
-        const wrapper = shallowMount(Login, options);
+        const wrapper = shallowMount(LoginPage, options);
         await wrapper.vm.$nextTick();
 
         // then
@@ -71,7 +70,7 @@ describe('Login.vue', () => {
         actionsHelper.requestKakaoTokenByCode.returns(Promise.resolve(true));
 
         // when
-        const wrapper = shallowMount(Login, options);
+        const wrapper = shallowMount(LoginPage, options);
         await wrapper.vm.$nextTick();
 
         // then
@@ -85,7 +84,7 @@ describe('Login.vue', () => {
         actionsHelper.requestKakaoTokenByCode.returns(Promise.reject(Error));
 
         // when
-        const wrapper = shallowMount(Login, options);
+        const wrapper = shallowMount(LoginPage, options);
         await wrapper.vm.$nextTick();
         await wrapper.vm.$nextTick();
 

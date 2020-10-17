@@ -25,7 +25,7 @@
                 </template>
             </v-list>
         </v-card>
-        <CommonCreateBtn color="blue"
+        <FixedCreateBtn color="blue"
             :path="clubBoardCreate"
         />
     </v-tab-item>
@@ -33,12 +33,12 @@
 </template>
 
 <script>
-import CommonCreateBtn from '@/components/common/CommonCreateBtn.vue';
+import FixedCreateBtn from '@/components/ui/button/FixedCreateBtn.vue';
 import { CLUB_BOARD_CREATE_PATH } from '@/router/route_path_type.js';
 
 export default {
     name: 'ClubBoard',
-    components: { CommonCreateBtn },
+    components: { FixedCreateBtn },
     props: ['boardList'],
     data() {
         return {

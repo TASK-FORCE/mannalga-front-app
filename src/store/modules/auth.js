@@ -4,7 +4,7 @@ import { getAppToken, removeAppTokenToLocalStorage, saveAppTokenToLocalStorage, 
 import { APP_TOKEN, IS_AUTH, REMOVE_APP_TOKEN, REQUEST_APP_TOKEN_BY_KAKAO_TOKEN, REQUEST_KAKAO_TOKEN_BY_CODE, SET_APP_TOKEN } from '@/store/type/auth_type.js';
 import _ from '@/utils/lodashWrapper.js';
 import { actionsNormalTemplate } from '@/store/utils/actionsTemplate.js';
-import { extractResponseData } from '@/store/utils/vuexUtils.js';
+import RequestConverter from '@/store/converter/requestConverter.js';
 
 const state = {
     [APP_TOKEN]: getAppToken(),
@@ -34,16 +34,16 @@ const mutations = {
 const actions = {
     async [REQUEST_KAKAO_TOKEN_BY_CODE]({ dispatch }, code) {
         return actionsNormalTemplate(async () => {
-            const response = await requestKakaoToken(code);
-            const kakaoTokenInfo = response.data;
+            const requestParam = RequestConverter.converterKakaoTokenCode(code);
+            const kakaoTokenInfo = await requestKakaoToken(requestParam);
             return dispatch(REQUEST_APP_TOKEN_BY_KAKAO_TOKEN, kakaoTokenInfo);
         });
     },
     async [REQUEST_APP_TOKEN_BY_KAKAO_TOKEN]({ commit }, kakaoTokenInfo) {
         return actionsNormalTemplate(
             async () => {
-                const response = await saveKakaoTokenAndGetAppToken(kakaoTokenInfo);
-                const { appToken, isRegistered } = extractResponseData(response);
+                const requestParam = RequestConverter.converterKakaoTokenInfo(kakaoTokenInfo);
+                const { appToken, isRegistered } = await saveKakaoTokenAndGetAppToken(requestParam);
                 commit(SET_APP_TOKEN, appToken);
                 return isRegistered;
             },

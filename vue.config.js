@@ -42,7 +42,15 @@ module.exports = {
                         res.status(result.status)
                             .send(result.data);
                     } catch (e) {
-                        console.log('### Error', e);
+                        const { status, data, config } = e.response;
+                        const { url, method, headers } = config;
+                        console.log('### Request Error ###');
+                        console.log('url:', url, 'method: ', method);
+                        console.log('headers:', headers);
+                        console.log('data:', data);
+                        console.log('#####################');
+                        res.status(status)
+                            .send(data);
                     }
 
                     return;

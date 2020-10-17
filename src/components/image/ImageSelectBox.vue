@@ -20,17 +20,17 @@
         </div>
         <!--  @handleUploadedImg 이벤트에서 파라미터로 저장된 이미지의 URL를 넘겨준다   -->
         <ImageCropper ref="cropper"
-                     @handleUploadedImg="handleUploadedImg"
+                      @handleUploadedImg="handleUploadedImg"
         />
     </div>
 </template>
 
 <script>
 import 'cropperjs/dist/cropper.css';
-import ImageCropper from '@/components/ImageCropper.vue';
+import ImageCropper from '@/components/image/ImageCropper.vue';
 
 export default {
-    name: 'CommonImageSelectBox',
+    name: 'ImageSelectBox',
     components: { ImageCropper },
     props: {
         text: {
