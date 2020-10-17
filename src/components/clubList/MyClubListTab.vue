@@ -15,7 +15,7 @@ import _ from '@/utils/lodashWrapper.js';
 import { actionsHelper } from '@/store/helper/actionsHelper.js';
 
 export default {
-    name: 'MuClubListBox',
+    name: 'MyClubListTab',
     components: { MyClubList },
     computed: {
         myClubContextList: () => gettersHelper.myClubList(),

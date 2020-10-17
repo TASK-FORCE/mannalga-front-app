@@ -22,10 +22,10 @@
 <script>
 import goTo from 'vuetify/es5/services/goto';
 import ClubListTab from '@/components/clubList/ClubListTab.vue';
-import MuClubListTab from '@/components/clubList/MuClubListTab.vue';
+import MuClubListTab from '@/components/clubList/MyClubListTab.vue';
 
 export default {
-    name: 'AppMainClubTabs',
+    name: 'ClubListMainTabs',
     components: { MuClubListTab, ClubListTab },
     data() {
         return {

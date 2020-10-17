@@ -41,7 +41,7 @@
 import { USER_SETTINGS_PATH } from '@/router/route_path_type.js';
 
 export default {
-    name: 'AppMainHeader',
+    name: 'ClubListHeader',
     data() {
         return {
             themeDark: this.$vuetify.theme.dark,

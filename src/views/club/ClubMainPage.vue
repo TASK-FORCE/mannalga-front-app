@@ -7,10 +7,8 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
 import ClubHeader from '@/components/club/ClubHeader.vue';
 import ClubTab from '@/components/club/ClubTab.vue';
-import { CLUB, CLUB_DATA, REQUEST_CLUB_DATA } from '@/store/type/club_type.js';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import { actionsHelper } from '@/store/helper/actionsHelper.js';
 

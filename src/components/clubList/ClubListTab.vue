@@ -18,7 +18,7 @@ import { actionsHelper } from '@/store/helper/actionsHelper.js';
 import _ from '@/utils/lodashWrapper.js';
 
 export default {
-    name: 'ClubListBox',
+    name: 'ClubListTab',
     components: { ClubList, SearchFilterMain },
     computed: {
         clubList: () => gettersHelper.clubList(),
