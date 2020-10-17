@@ -31,7 +31,7 @@ import CommonImageSelectBox from '@/components/common/CommonImageSelectBox.vue';
 import CommonCenterBtn from '@/components/common/CommonCenterBtn.vue';
 
 export default {
-    name: 'ClubCreate',
+    name: 'ClubBoardCreatePage',
     components: { CommonCenterBtn, ClubBoardCreateBox, CommonImageSelectBox, CommonHeader },
     methods: {
         createClubBoard() {

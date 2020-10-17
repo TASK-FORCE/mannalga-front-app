@@ -44,7 +44,7 @@ import CommonHeader from '@/components/common/CommonHeader.vue';
 import CommonComments from '@/components/common/CommonComments.vue';
 
 export default {
-    name: 'ClubBoardPost',
+    name: 'ClubBoardPostPage',
     components: { CommonHeader, CommonComments },
     // props: ['seq'],
     data() {
