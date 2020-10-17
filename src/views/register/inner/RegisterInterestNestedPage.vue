@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import GoBackBtnFooter from '@/components/GoBackBtnFooter.vue';
+import GoBackBtnFooter from '@/components/ui/footer/GoBackBtnFooter.vue';
 import UserInterest from '@/components/user/UserInterest.vue';
 import { MESSAGE } from '@/utils/constant/constant.js';
 import _ from '@/utils/lodashWrapper.js';
@@ -16,7 +16,7 @@ import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import { actionsHelper } from '@/store/helper/actionsHelper.js';
 
 export default {
-    name: 'RegisterInterest',
+    name: 'RegisterInterestNestedPage',
     components: { UserInterest, GoBackBtnFooter },
     computed: {
         profile: () => gettersHelper.profile(),

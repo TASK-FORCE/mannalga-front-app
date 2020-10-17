@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import VerticalBarDivider from '@/components/VerticalBarDivider.vue';
+import VerticalBarDivider from '@/components/ui/VerticalBarDivider.vue';
 
 export default {
     name: 'OtherSettingsListItems',

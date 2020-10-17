@@ -1,16 +1,23 @@
 <template>
-    <v-list class="py-0 px-2">
-        <v-list-item-group>
-            <v-divider />
-            <ProfileSettingListItem :userSettings="userSettings" />
-            <OtherSettingsListItems :settings="settings" />
-        </v-list-item-group>
-    </v-list>
+    <div>
+        <v-list class="py-0 px-2">
+            <v-list-item-group>
+                <v-divider />
+                <ProfileSettingListItem :userSettings="userSettings" />
+                <OtherSettingsListItems :settings="settings" />
+            </v-list-item-group>
+        </v-list>
+        <CommonCenterBtn text="회원 탈퇴"
+                         :outlined="true"
+                         class="mt-5"
+        />
+    </div>
 </template>
 
 <script>
-import OtherSettingsListItems from '@/components/settings/OtherSettingsListItems.vue';
-import ProfileSettingListItem from '@/components/settings/ProfileSettingListItem.vue';
+import OtherSettingsListItems from '@/components/user/settings/OtherSettingsListItems.vue';
+import ProfileSettingListItem from '@/components/user/settings/ProfileSettingListItem.vue';
+import CommonCenterBtn from '@/components/ui/button/CommonCenterBtn.vue';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import _ from '@/utils/lodashWrapper.js';
 import RenderFunction from '@/utils/renderFunction.js';
@@ -18,7 +25,7 @@ import InterestIcons from '@/components/InterestIcons.vue';
 
 export default {
     name: 'UserSettingsList',
-    components: { OtherSettingsListItems, ProfileSettingListItem },
+    components: { OtherSettingsListItems, ProfileSettingListItem, CommonCenterBtn },
     computed: {
         userSettings: () => gettersHelper.userSettings(),
         interestsByPriority() {

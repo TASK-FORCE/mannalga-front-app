@@ -7,7 +7,7 @@
 
 <script>
 
-import CommonHeader from '@/components/common/CommonHeader.vue';
+import CommonHeader from '@/components/ui/header/CommonHeader.vue';
 import ClubCreateBox from '@/components/club/create/ClubCreateBox.vue';
 
 export default {

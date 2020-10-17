@@ -17,26 +17,26 @@ const routes = [
     {
         path: LOGIN_PATH,
         name: 'Login',
-        component: () => import('@/views/Login.vue'),
+        component: () => import('@/views/LoginPage.vue'),
     },
     {
         path: REGISTER_PATH.ROOT,
         name: 'Register',
-        component: () => import('@/views/register/RegisterMain.vue'),
+        component: () => import('@/views/register/RegisterMainPage.vue'),
         beforeEnter: validationAuthentication,
         children: [
             {
                 path: REGISTER_PATH.PROFILE,
-                component: () => import('@/views/register/RegisterProfile.vue'),
+                component: () => import('@/views/register/inner/RegisterProfileNestedPage.vue'),
                 meta: { isFirstPage: true },
             },
             {
                 path: REGISTER_PATH.REGION,
-                component: () => import('@/views/register/RegisterRegion.vue'),
+                component: () => import('@/views/register/inner/RegisterRegionNestedPage.vue'),
             },
             {
                 path: REGISTER_PATH.INTEREST,
-                component: () => import('@/views/register/RegisterInterest.vue'),
+                component: () => import('@/views/register/inner/RegisterInterestNestedPage.vue'),
                 meta: { isLastPage: true },
             },
         ],
@@ -44,13 +44,13 @@ const routes = [
     {
         path: SELECT_REGION_PATH,
         name: 'SelectRegion',
-        component: () => import('@/views/SelectRegion.vue'),
+        component: () => import('@/views/SelectRegionPage.vue'),
         beforeEnter: validationAuthentication,
     },
     {
         path: MAIN_PATH,
         name: 'AppMain',
-        component: () => import('@/views/AppMain.vue'),
+        component: () => import('@/views/AppMainPage.vue'),
         beforeEnter: validationAuthentication,
     },
     {
@@ -78,7 +78,7 @@ const routes = [
     {
         path: USER_SETTINGS_PATH,
         name: 'UserSettings',
-        component: () => import('@/views/UserSettings.vue'),
+        component: () => import('@/views/UserSettingsPage.vue'),
     },
 ];
 

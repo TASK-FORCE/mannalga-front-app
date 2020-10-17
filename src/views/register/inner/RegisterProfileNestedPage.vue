@@ -9,7 +9,7 @@
 
 <script>
 import UserProfile from '@/components/user/UserProfile.vue';
-import GoBackBtnFooter from '@/components/GoBackBtnFooter.vue';
+import GoBackBtnFooter from '@/components/ui/footer/GoBackBtnFooter.vue';
 import { getValidationFailText, ruleValidationSuccess } from '@/utils/validationUtils.js';
 import { RULES } from '@/utils/constant/constant.js';
 import { REGISTER_PATH } from '@/router/route_path_type.js';
@@ -17,7 +17,7 @@ import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';
 
 export default {
-    name: 'RegistProfile',
+    name: 'RegisterProfileNestedPage',
     components: { GoBackBtnFooter, UserProfile },
     computed: {
         profile: () => gettersHelper.profile(),

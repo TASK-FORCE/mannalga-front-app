@@ -1,9 +1,9 @@
 <template>
     <div>
-        <CommonImageSelectBox class="image-box"
-                              text="모임 대표 사진 등록"
-                              height="140"
-                              @changeImageUrl="value => clubCreateBoxInfo.imageUrl = value"
+        <ImageSelectBox class="image-box"
+                        text="모임 대표 사진 등록"
+                        height="140"
+                        @changeImageUrl="value => clubCreateBoxInfo.imageUrl = value"
         />
         <v-bottom-sheet v-model="sheet"
                         scrollable
@@ -37,10 +37,10 @@
 
 <script>
 
-import CommonCenterBtn from '@/components/common/CommonCenterBtn.vue';
-import CommonImageSelectBox from '@/components/common/CommonImageSelectBox.vue';
-import BottomSheetInterestCard from '@/components/bottom-sheet/BottomSheetInterestCard.vue';
-import BottomSheetRegionCard from '@/components/bottom-sheet/BottomSheetRegionCard.vue';
+import CommonCenterBtn from '@/components/ui/button/CommonCenterBtn.vue';
+import ImageSelectBox from '@/components/image/ImageSelectBox.vue';
+import BottomSheetInterestCard from '@/components/ui/bottom-sheet/BottomSheetInterestCard.vue';
+import BottomSheetRegionCard from '@/components/ui/bottom-sheet/BottomSheetRegionCard.vue';
 import { MESSAGE } from '@/utils/constant/constant.js';
 import { MAIN_PATH } from '@/router/route_path_type.js';
 import ClubCreateForm from '@/components/club/create/ClubCreateForm.vue';
@@ -53,7 +53,7 @@ export default {
     name: 'ClubCreateBox',
     components: {
         ClubCreateForm,
-        CommonImageSelectBox,
+        ImageSelectBox,
         CommonCenterBtn,
         BottomSheetInterestCard,
         BottomSheetRegionCard,

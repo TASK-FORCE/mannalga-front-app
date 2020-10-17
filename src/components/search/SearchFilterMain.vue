@@ -41,10 +41,10 @@
 </template>
 
 <script>
-import BottomSheetRegionCard from '@/components/bottom-sheet/BottomSheetRegionCard.vue';
+import BottomSheetRegionCard from '@/components/ui/bottom-sheet/BottomSheetRegionCard.vue';
 import SearchFilterSelectBtn from '@/components/search/SearchFilterSelectBtn';
-import BottomSheetSortCard from '@/components/bottom-sheet/BottomSheetSortCard.vue';
-import BottomSheetInterestCard from '@/components/bottom-sheet/BottomSheetInterestCard.vue';
+import BottomSheetSortCard from '@/components/ui/bottom-sheet/BottomSheetSortCard.vue';
+import BottomSheetInterestCard from '@/components/ui/bottom-sheet/BottomSheetInterestCard.vue';
 import { LOGIN_PATH } from '@/router/route_path_type.js';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import { mutationsHelper } from '@/store/helper/mutationsHelper.js';

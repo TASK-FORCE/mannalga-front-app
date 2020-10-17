@@ -7,19 +7,19 @@
                 <router-view :key="$route.fullPath" />
             </transition>
         </v-main>
-        <CommonProgress v-show="isLoading" />
-        <CommonSnackBar />
+        <MainProgress v-show="isLoading" />
+        <MainSnackBar />
     </v-app>
 </template>
 
 <script>
-import CommonSnackBar from '@/components/common/CommonSnackBar.vue';
-import CommonProgress from '@/components/common/CommonProgress.vue';
+import MainSnackBar from '@/components/ui/MainSnackBar.vue';
+import MainProgress from '@/components/ui/MainProgress.vue';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';
 
 export default {
     name: 'App',
-    components: { CommonProgress, CommonSnackBar },
+    components: { MainProgress, MainSnackBar },
     computed: {
         isLoading: () => gettersHelper.isLoading(),
     },

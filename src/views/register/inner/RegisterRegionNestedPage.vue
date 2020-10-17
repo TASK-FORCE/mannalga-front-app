@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import GoBackBtnFooter from '@/components/GoBackBtnFooter.vue';
+import GoBackBtnFooter from '@/components/ui/footer/GoBackBtnFooter.vue';
 import _ from '@/utils/lodashWrapper.js';
 import { MESSAGE } from '@/utils/constant/constant.js';
 import { REGISTER_PATH } from '@/router/route_path_type.js';
@@ -16,7 +16,7 @@ import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import { actionsFetcherService } from '@/store/service/actionsFetcherService.js';
 
 export default {
-    name: 'RegisterRegion',
+    name: 'RegisterRegionNestedPage',
     components: { UserRegionPriority, GoBackBtnFooter },
     computed: {
         profile: () => gettersHelper.profile(),
