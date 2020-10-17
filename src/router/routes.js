@@ -56,24 +56,24 @@ const routes = [
     {
         path: CLUB_PATH,
         name: 'ClubMain',
-        component: () => import('@/views/club/ClubMain.vue'),
+        component: () => import('@/views/club/ClubMainPage.vue'),
         props: true,
     },
     {
         path: CLUB_CREATE_PATH,
         name: 'ClubCreate',
-        component: () => import('@/views/club/ClubCreate.vue'),
+        component: () => import('@/views/club/ClubCreatePage.vue'),
         beforeEnter: validationAuthentication,
     },
     {
         path: CLUB_BOARD_CREATE_PATH,
         name: 'ClubBoardCreate',
-        component: () => import('@/views/club/ClubBoardCreate.vue'),
+        component: () => import('@/views/club/ClubBoardCreatePage.vue'),
     },
     {
         path: CLUB_BOARD_POST_PATH,
         name: 'ClubBoardPost',
-        component: () => import('@/views/club/ClubBoardPost.vue'),
+        component: () => import('@/views/club/ClubBoardPostPage.vue'),
     },
     {
         path: USER_SETTINGS_PATH,
