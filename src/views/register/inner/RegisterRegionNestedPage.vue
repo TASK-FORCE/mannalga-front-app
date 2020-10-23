@@ -19,11 +19,11 @@ export default {
     name: 'RegisterRegionNestedPage',
     components: { UserRegionPriority, GoBackBtnFooter },
     computed: {
-        profile: () => gettersHelper.profile(),
+        kakaoProfile: () => gettersHelper.kakaoProfile(),
         selectedRegions: () => gettersHelper.selectedRegions(),
     },
     created() {
-        if (_.isDeepEmpty(this.profile)) {
+        if (_.isDeepEmpty(this.kakaoProfile)) {
             this.$router.push(REGISTER_PATH.PROFILE_PATH);
         }
 

@@ -7,13 +7,13 @@
                    class="text-center my-auto"
             >
                 <UserProfileAvatar class="top-50"
-                                   :imgUrl="profile.imgUrl"
+                                   :imgUrl="kakaoProfile.imgUrl"
                                    :size="70"
                 />
             </v-col>
             <!--     변경 가능한 이름만 더 강조?       -->
             <v-col cols="9">
-                <v-text-field :value="profile.name"
+                <v-text-field :value="kakaoProfile.name"
                               label="이름 | 닉네임"
                               :rules="nameRules"
                               hide-details="auto"
@@ -21,17 +21,17 @@
                 ></v-text-field>
                 <v-text-field label="생년월일"
                               readonly
-                              :value="profile.dayOfBirth"
+                              :value="kakaoProfile.dayOfBirth"
                               class="mt-3"
                               hide-details="auto"
                 ></v-text-field>
             </v-col>
-            <v-btn-toggle v-if="profile.gender"
+            <v-btn-toggle v-if="kakaoProfile.gender"
                           class="mt-5"
                           mandatory
             >
                 <v-btn>
-                    {{ profile.gender }}
+                    {{ kakaoProfile.gender }}
                 </v-btn>
             </v-btn-toggle>
         </v-row>
@@ -56,12 +56,12 @@ export default {
         };
     },
     computed: {
-        profile: () => gettersHelper.profile(),
+        kakaoProfile: () => gettersHelper.kakaoProfile(),
         isLoading: () => gettersHelper.isLoading(),
     },
     created() {
-        if (_.isDeepEmpty(this.profile)) {
-            actionsHelper.requestProfile()
+        if (_.isDeepEmpty(this.kakaoProfile)) {
+            actionsHelper.requestKakaoProfile()
                 .catch(() => this.$router.push(LOGIN_PATH));
         }
     },

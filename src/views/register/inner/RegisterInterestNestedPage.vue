@@ -19,12 +19,12 @@ export default {
     name: 'RegisterInterestNestedPage',
     components: { UserInterest, GoBackBtnFooter },
     computed: {
-        profile: () => gettersHelper.profile(),
+        kakaoProfile: () => gettersHelper.kakaoProfile(),
         selectedRegions: () => gettersHelper.selectedRegions(),
         selectedInterestSeqs: () => gettersHelper.selectedInterestSeqs(),
     },
     created() {
-        if (_.isDeepEmpty(this.profile)) {
+        if (_.isDeepEmpty(this.kakaoProfile)) {
             this.$router.push(REGISTER_PATH.PROFILE_PATH);
             return;
         }
@@ -36,7 +36,7 @@ export default {
     methods: {
         register() {
             const registerInfo = {
-                profile: this.profile,
+                profile: this.kakaoProfile,
                 selectedRegions: this.selectedRegions,
                 selectedInterestSeqs: this.selectedInterestSeqs,
             };

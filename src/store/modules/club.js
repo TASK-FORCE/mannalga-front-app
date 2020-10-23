@@ -67,7 +67,7 @@ const actions = {
     },
     async [REQUEST_CLUB_CREATE]({ commit }, clubCreateInfo) {
         return actionsNormalTemplate(async () => {
-            const clubCreateRequestDto = RequestConverter.converterClubCreateInfo(clubCreateInfo);
+            const clubCreateRequestDto = RequestConverter.convertClubCreateInfo(clubCreateInfo);
             await requestClubCreate(clubCreateRequestDto);
         });
     },

@@ -60,7 +60,7 @@ export default {
         toggleRegion(region) {
             const selectedRegion = {
                 priority: this.priority,
-                value: { seq: region.seq, name: region.superRegionRoot },
+                region: { seq: region.seq, name: region.superRegionRoot },
             };
             mutationsHelper.addSelectedRegions(selectedRegion);
             this.$router.back();

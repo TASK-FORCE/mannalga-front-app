@@ -1,13 +1,13 @@
 <template>
     <div>
         <v-list-item class="my-2">
-            <UserProfileAvatar :imgUrl="userSettings.profileImageLink"
+            <UserProfileAvatar :imgUrl="userProfile.profileImageLink"
                                :size="60"
             />
             <div class="text-center ml-5">
-                {{ userSettings.userName }}
+                {{ userProfile.userName }}
                 <VerticalBarDivider />
-                {{ userSettings.birthday }}
+                {{ userProfile.birthday }}
             </div>
             <v-spacer />
             <v-icon>mdi-chevron-right</v-icon>
@@ -24,7 +24,7 @@ export default {
     name: 'ProfileSettingListItem',
     components: { VerticalBarDivider, UserProfileAvatar },
     props: {
-        userSettings: Object,
+        userProfile: Object,
     },
 };
 </script>

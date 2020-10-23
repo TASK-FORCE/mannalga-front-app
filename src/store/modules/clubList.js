@@ -84,7 +84,7 @@ const actions = {
     [REQUEST_FIRST_CLUB_LIST]({ commit, state }) {
         commit(INIT_CLUB_LIST_AND_PAGE);
         const callback = async () => {
-            const requestParam = RequestConverter.converterClubList(state[CLUB_PAGE], state[SEARCH_FILTER]);
+            const requestParam = RequestConverter.convertClubList(state[CLUB_PAGE], state[SEARCH_FILTER]);
             const clubListInfo = await requestClubListWithPage(requestParam);
             commit(CHANGE_CLUB_LIST_WITH_PAGE, clubListInfo);
         };
@@ -99,7 +99,7 @@ const actions = {
             return Promise.resolve();
         }
         const callback = async () => {
-            const requestParam = RequestConverter.converterClubList(state[CLUB_PAGE], state[SEARCH_FILTER]);
+            const requestParam = RequestConverter.convertClubList(state[CLUB_PAGE], state[SEARCH_FILTER]);
             const clubListInfo = await requestClubListWithPage(requestParam);
             commit(ADD_NEXT_CLUB_LIST, clubListInfo);
         };
@@ -108,7 +108,7 @@ const actions = {
     [REQUEST_FIRST_MY_CLUB_LIST]({ commit, state }) {
         commit(INIT_MY_CLUB_LIST_AND_PAGE);
         const callback = async () => {
-            const requestParam = RequestConverter.converterMyClubList(state[MY_CLUB_PAGE]);
+            const requestParam = RequestConverter.convertMyClubList(state[MY_CLUB_PAGE]);
             const clubListInfo = await requestMyClubListWithPage(requestParam);
             commit(CHANGE_MY_CLUB_LIST_WITH_PAGE, clubListInfo);
         };
@@ -119,7 +119,7 @@ const actions = {
             return Promise.resolve();
         }
         const callback = async () => {
-            const requestParam = RequestConverter.converterMyClubList(state[MY_CLUB_PAGE]);
+            const requestParam = RequestConverter.convertMyClubList(state[MY_CLUB_PAGE]);
             const clubListInfo = await requestMyClubListWithPage(requestParam);
             commit(ADD_NEXT_MY_CLUB_LIST, clubListInfo);
         };

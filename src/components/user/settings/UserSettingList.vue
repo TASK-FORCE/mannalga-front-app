@@ -3,45 +3,55 @@
         <v-list class="py-0 px-2">
             <v-list-item-group>
                 <v-divider />
-                <ProfileSettingListItem :userSettings="userSettings" />
+                <ProfileSettingListItem :userProfile="userProfile" />
                 <OtherSettingsListItems :settings="settings" />
             </v-list-item-group>
         </v-list>
-        <CommonCenterBtn text="회원 탈퇴"
-                         :outlined="true"
-                         class="mt-5"
-        />
     </div>
 </template>
 
 <script>
 import OtherSettingsListItems from '@/components/user/settings/OtherSettingsListItems.vue';
 import ProfileSettingListItem from '@/components/user/settings/ProfileSettingListItem.vue';
-import CommonCenterBtn from '@/components/ui/button/CommonCenterBtn.vue';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import _ from '@/utils/lodashWrapper.js';
 import RenderFunction from '@/utils/renderFunction.js';
 import InterestIcons from '@/components/InterestIcons.vue';
+import { USER_INTEREST_EDIT_PATH, USER_REGION_EDIT_PATH } from '@/router/route_path_type.js';
 
 export default {
-    name: 'UserSettingsList',
-    components: { OtherSettingsListItems, ProfileSettingListItem, CommonCenterBtn },
+    name: 'UserSettingList',
+    components: { OtherSettingsListItems, ProfileSettingListItem },
     computed: {
-        userSettings: () => gettersHelper.userSettings(),
+        userProfile: () => gettersHelper.userProfile(),
         interestsByPriority() {
-            return _.sortBy(this.userSettings.userInterests, ({ priority }) => priority)
+            return _.sortBy(this.userProfile.userInterests, ({ priority }) => priority)
                 .map(({ interest }) => interest);
         },
         regionsByPriority() {
-            return _.sortBy(this.userSettings.userRegions, ({ priority }) => priority)
+            return _.sortBy(this.userProfile.userRegions, ({ priority }) => priority)
                 .map(({ region }) => region);
         },
         settings() {
             return [
-                { name: '지역', icon: 'mdi-map-marker', path: '', text: this.createRegionsNameText() },
-                { name: '관심사', icon: 'mdi-account-heart', path: '', component: this.createInterestIconsComponent() },
+                {
+                    name: '지역',
+                    icon: 'mdi-map-marker',
+                    path: USER_REGION_EDIT_PATH,
+                    text: this.createRegionsNameText(),
+                },
+                {
+                    name: '관심사',
+                    icon: 'mdi-account-heart',
+                    path: USER_INTEREST_EDIT_PATH,
+                    component: this.createInterestIconsComponent(),
+                },
                 { name: '알림설정', icon: 'mdi-bell', path: '' },
-                { name: '테마', icon: 'mdi-brush', path: '' },
+                {
+                    name: '테마 변경(클릭)',
+                    icon: 'mdi-brush',
+                    clickCallback: this.changeTheme,
+                },
                 { name: '개선사항 요청', icon: 'mdi-message-draw', path: '' },
                 { name: '공지사항', icon: 'mdi-bullhorn', path: '' },
                 { name: '버전정보', icon: 'mdi-information', path: '' },
@@ -57,6 +67,11 @@ export default {
                 return this.regionsByPriority.map(({ name }) => name).reduce((prev, cur) => `${prev}, ${cur}`);
             }
             return '';
+        },
+        changeTheme() {
+            this.themeDark = !this.themeDark;
+            this.$vuetify.theme.dark = this.themeDark;
+            localStorage.setItem('themeDark', this.themeDark);
         },
     },
 };

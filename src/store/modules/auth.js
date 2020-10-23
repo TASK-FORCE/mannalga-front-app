@@ -34,7 +34,7 @@ const mutations = {
 const actions = {
     async [REQUEST_KAKAO_TOKEN_BY_CODE]({ dispatch }, code) {
         return actionsNormalTemplate(async () => {
-            const requestParam = RequestConverter.converterKakaoTokenCode(code);
+            const requestParam = RequestConverter.convertKakaoTokenCode(code);
             const kakaoTokenInfo = await requestKakaoToken(requestParam);
             return dispatch(REQUEST_APP_TOKEN_BY_KAKAO_TOKEN, kakaoTokenInfo);
         });
@@ -42,7 +42,7 @@ const actions = {
     async [REQUEST_APP_TOKEN_BY_KAKAO_TOKEN]({ commit }, kakaoTokenInfo) {
         return actionsNormalTemplate(
             async () => {
-                const requestParam = RequestConverter.converterKakaoTokenInfo(kakaoTokenInfo);
+                const requestParam = RequestConverter.convertKakaoTokenInfo(kakaoTokenInfo);
                 const { appToken, isRegistered } = await saveKakaoTokenAndGetAppToken(requestParam);
                 commit(SET_APP_TOKEN, appToken);
                 return isRegistered;

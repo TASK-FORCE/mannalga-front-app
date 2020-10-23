@@ -3,7 +3,7 @@
         <div v-for="setting in settings"
              :key="setting.name"
         >
-            <v-list-item>
+            <v-list-item @click="click(setting)">
                 <v-icon>{{ setting.icon }}</v-icon>
                 <span class="mx-2">{{ setting.name }}</span>
                 <div v-if="setting.component">
@@ -30,6 +30,18 @@ export default {
     components: { VerticalBarDivider },
     props: {
         settings: Array,
+    },
+    methods: {
+        click({ path, clickCallback }) {
+            if (path) {
+                this.$router.push(path);
+                return;
+            }
+
+            if (clickCallback) {
+                clickCallback();
+            }
+        },
     },
 };
 </script>
