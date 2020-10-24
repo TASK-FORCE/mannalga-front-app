@@ -16,6 +16,7 @@
 import MainSnackBar from '@/components/ui/MainSnackBar.vue';
 import MainProgress from '@/components/ui/MainProgress.vue';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';
+import { loadCurrentTheme } from '@/plugins/vuetify.js';
 
 export default {
     name: 'App',
@@ -24,7 +25,7 @@ export default {
         isLoading: () => gettersHelper.isLoading(),
     },
     created() {
-        this.$vuetify.theme.dark = localStorage.getItem('themeDark') === 'true';
+        loadCurrentTheme();
     },
 };
 </script>

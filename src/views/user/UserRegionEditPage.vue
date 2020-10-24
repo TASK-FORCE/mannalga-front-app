@@ -40,8 +40,7 @@ export default {
         changeRequest() {
             this.btnLoading = true;
             actionsHelper.requestChangeUserRegions(this.selectedRegions)
-                .then(this.$router.push(USER_SETTINGS_PATH)
-                    .then(() => mutationsHelper.openSnackBar(MESSAGE.SUCCESS_CHANGE_REGIONS)))
+                .then(this.$router.push(USER_SETTINGS_PATH).then((mutationsHelper.openSnackBar(MESSAGE.SUCCESS_CHANGE_REGIONS))))
                 .finally(this.btnLoading = false);
         },
         moveToSettingPage() {

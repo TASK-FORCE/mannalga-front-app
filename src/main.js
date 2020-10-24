@@ -2,7 +2,7 @@ import Vue from 'vue';
 import axios from 'axios';
 import { setAppTokenAsDefaultHeader } from '@/utils/authUtils.js';
 import App from './App.vue';
-import vuetify from './plugins/vuetify';
+import { vuetify } from './plugins/vuetify';
 import router from './router';
 import store from './store';
 

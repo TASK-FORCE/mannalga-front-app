@@ -49,10 +49,10 @@ const getters = {
 
 const mutations = {
     [SET_PROFILE](state, profile) {
-        state.profile = profile;
+        state[KAKAO_PROFILE] = profile;
     },
     [CHANGE_PROFILE_NAME](state, name) {
-        state.profile.name = name;
+        state[KAKAO_PROFILE].name = name;
     },
     [ADD_SELECTED_REGIONS](state, selectedRegion) {
         const { priority, region } = selectedRegion;
