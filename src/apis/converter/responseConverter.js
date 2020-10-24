@@ -41,4 +41,16 @@ export default class ResponseConverter {
             nextPage,
         };
     };
+
+    static convertUserRegions = ({ userRegions }) => userRegions.map(mapUserRegion);
+
+    static convertUserInterests = ({ interestList }) => interestList.map(({ interest }) => interest).map(({ seq }) => seq);
 }
+
+const mapUserRegion = ({ priority, region }) => ({
+    priority,
+    region: {
+        seq: region.seq,
+        name: region.superRegionRoot,
+    },
+});

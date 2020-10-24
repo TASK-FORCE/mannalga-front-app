@@ -20,9 +20,9 @@ const STUB_REQUESTS = [
     // {
     //     path: '/api/clubs',
     // },
-    {
-        path: '/api/users/settings',
-    },
+    // {
+    //     path: '/api/users/profile',
+    // },
 ];
 
 module.exports = STUB_REQUESTS;

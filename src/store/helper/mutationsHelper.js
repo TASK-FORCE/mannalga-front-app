@@ -1,7 +1,7 @@
 import store from '@/store';
 import { CLOSE_SNACKBAR, COMMON, OPEN_SNACKBAR } from '@/store/type/common_type.js';
 import { CHANGE_INTEREST_SEARCH_FILTER, CHANGE_REGION_SEARCH_FILTER, CLUB_LIST_MODULE } from '@/store/type/club_list_type.js';
-import { ADD_SELECTED_INTEREST_SEQS, ADD_SELECTED_REGIONS, CHANGE_PROFILE_NAME, REMOVE_SELECTED_INTEREST_SEQS, REQUEST_USER_SETTINGS, USER } from '@/store/type/user_type.js';
+import { ADD_SELECTED_INTEREST_SEQS, ADD_SELECTED_REGIONS, CHANGE_PROFILE_NAME, REMOVE_SELECTED_INTEREST_SEQS, USER } from '@/store/type/user_type.js';
 import { combineWithModuleName, createSnackbarOption } from '@/store/utils/vuexUtils.js';
 
 const mutationsHelper = {

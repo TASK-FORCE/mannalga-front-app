@@ -4,19 +4,25 @@
                app
     >
         <v-btn icon
-               @click="$router.back()"
+               @click="$emit('clickBack')"
         >
             <v-icon>mdi-keyboard-backspace</v-icon>
         </v-btn>
         <v-spacer />
-        <span class="title">{{ title }}</span>
+        <span v-if="title"
+              class="title"
+        >
+            {{ title }}
+        </span>
     </v-app-bar>
 </template>
 
 <script>
 export default {
     name: 'CommonHeader',
-    props: ['title'],
+    props: {
+        title: String,
+    },
 };
 </script>
 

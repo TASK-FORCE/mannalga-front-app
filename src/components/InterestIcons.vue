@@ -26,7 +26,8 @@ export default {
         interestGroupTypes() {
             if (this.interests) {
                 if (this.interests instanceof Array) {
-                    return this.interests.map(this.buildInterestGroupType);
+                    const interestGroupTypes = this.interests.map(this.buildInterestGroupType);
+                    return [...new Set(interestGroupTypes)];
                 }
                 return this.buildInterestGroupType(this.interests);
             }

@@ -17,3 +17,5 @@ export const CLUB_BOARD_POST_PATH = '/club/board/:seq';
 export const CLUB_BOARD_CREATE_PATH = '/club/create/board';
 
 export const USER_SETTINGS_PATH = '/user/settings';
+export const USER_REGION_EDIT_PATH = '/user/region/edit';
+export const USER_INTEREST_EDIT_PATH = '/user/interest/edit';

@@ -13,7 +13,24 @@
 <script>
 export default {
     name: 'CommonCenterBtn',
-    props: ['text', 'color', 'outlined', 'isLoading'],
+    props: {
+        text: {
+            type: String,
+            default: 'click',
+        },
+        color: {
+            type: String,
+            default: 'blue',
+        },
+        outlined: {
+            type: Boolean,
+            default: false,
+        },
+        isLoading: {
+            type: Boolean,
+            default: false,
+        },
+    },
 };
 </script>
 
