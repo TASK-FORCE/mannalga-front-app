@@ -12,6 +12,8 @@ import {
     ADD_SELECTED_INTEREST_SEQS,
     ADD_SELECTED_REGIONS,
     CHANGE_PROFILE_NAME,
+    CLEAR_SELECTED_INTERESTS,
+    CLEAR_SELECTED_REGIONS,
     GET_DEFAULT_PROFILE,
     GET_DEFAULT_USER_SETTINGS,
     KAKAO_PROFILE,
@@ -101,10 +103,13 @@ const actions = {
         });
     },
     [REQUEST_CHANGE_USER_REGIONS]({ commit }, selectedRegions) {
-        return actionsNormalTemplate(async () => {
-            const userRegionsChangeDto = RequestConverter.convertUserRegionsForChange(selectedRegions);
-            await requestChangeUserRegions(userRegionsChangeDto);
-        });
+        return actionsNormalTemplate(
+            async () => {
+                const userRegionsChangeDto = RequestConverter.convertUserRegionsForChange(selectedRegions);
+                await requestChangeUserRegions(userRegionsChangeDto);
+            },
+            () => commit(CLEAR_SELECTED_REGIONS),
+        );
     },
     [REQUEST_USER_INTERESTS]({ commit }) {
         return actionsLoadingTemplate(commit, async () => {
@@ -113,10 +118,13 @@ const actions = {
         });
     },
     [REQUEST_CHANGE_USER_INTEREST]({ commit }, selectedInterestSeqs) {
-        return actionsNormalTemplate(async () => {
-            const userInterestsChangeDto = RequestConverter.convertUserInterestForChange(selectedInterestSeqs);
-            await requestChangeUserInterests(userInterestsChangeDto);
-        });
+        return actionsNormalTemplate(
+            async () => {
+                const userInterestsChangeDto = RequestConverter.convertUserInterestForChange(selectedInterestSeqs);
+                await requestChangeUserInterests(userInterestsChangeDto);
+            },
+            () => commit(CLEAR_SELECTED_INTERESTS),
+        );
     },
 };
 

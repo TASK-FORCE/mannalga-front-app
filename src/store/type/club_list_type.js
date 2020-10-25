@@ -41,7 +41,7 @@ export const CHANGE_REGION_SEARCH_FILTER = 'changeRegionSearchFilter';
 export const CHANGE_INTEREST_SEARCH_FILTER = 'changeInterestSearchFilter';
 export const CHANGE_IS_REQUESTING_NEXT_PAGE = 'changeIsRequestingNextPage';
 export const INIT_CLUB_LIST_AND_PAGE = 'initClubListAndPage';
-export const INIT_MY_CLUB_LIST_AND_PAGE = 'initClubListAndPage';
+export const INIT_MY_CLUB_LIST_AND_PAGE = 'initMyClubListAndPage';
 
 // actions
 export const REQUEST_FIRST_CLUB_LIST = 'requestFirstClubList';

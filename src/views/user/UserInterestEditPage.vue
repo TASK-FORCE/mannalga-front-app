@@ -1,6 +1,6 @@
 <template>
     <div v-if="!isLoading">
-        <CommonHeader title="지역변경"
+        <CommonHeader title="관심사 변경"
                       @clickBack="moveToSettingPage"
         />
         <UserInterest />
@@ -20,6 +20,7 @@ import { USER_SETTINGS_PATH } from '@/router/route_path_type.js';
 import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 import { MESSAGE } from '@/utils/constant/constant.js';
 import UserInterest from '@/components/user/UserInterest.vue';
+import _ from '@/utils/lodashWrapper.js';
 
 export default {
     name: 'UserInterestEditPage',
@@ -34,7 +35,9 @@ export default {
         selectedInterestSeqs: () => gettersHelper.selectedInterestSeqs(),
     },
     created() {
-        actionsHelper.requestUserInterests();
+        if (_.isEmpty(this.selectedInterestSeqs)) {
+            actionsHelper.requestUserInterests();
+        }
     },
     methods: {
         changeRequest() {

@@ -20,6 +20,7 @@ import SimpleBtnFooter from '@/components/ui/footer/SimpleBtnFooter.vue';
 import { USER_SETTINGS_PATH } from '@/router/route_path_type.js';
 import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 import { MESSAGE } from '@/utils/constant/constant.js';
+import _ from '@/utils/lodashWrapper.js';
 
 export default {
     name: 'UserRegionEditPage',
@@ -34,11 +35,14 @@ export default {
         selectedRegions: () => gettersHelper.selectedRegions(),
     },
     created() {
-        actionsHelper.requestUserRegions();
+        if (_.isEmpty(this.selectedRegions)) {
+            actionsHelper.requestUserRegions();
+        }
     },
     methods: {
         changeRequest() {
             this.btnLoading = true;
+            console.log(this.selectedRegions);
             actionsHelper.requestChangeUserRegions(this.selectedRegions)
                 .then(this.$router.push(USER_SETTINGS_PATH).then((mutationsHelper.openSnackBar(MESSAGE.SUCCESS_CHANGE_REGIONS))))
                 .finally(this.btnLoading = false);
