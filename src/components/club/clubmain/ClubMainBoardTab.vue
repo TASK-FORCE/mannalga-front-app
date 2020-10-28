@@ -37,7 +37,7 @@ import FixedCreateBtn from '@/components/ui/button/FixedCreateBtn.vue';
 import { CLUB_BOARD_CREATE_PATH } from '@/router/route_path_type.js';
 
 export default {
-    name: 'ClubBoard',
+    name: 'ClubMainBoardTab',
     components: { FixedCreateBtn },
     props: ['boardList'],
     data() {

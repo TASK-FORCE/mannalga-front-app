@@ -1,20 +1,19 @@
 <template>
   <div>
-      <!-- <div>값 확인용 : 프롭스 - {{ seq }} / 라우터 - {{ $route.params.seq }}</div> -->
-      <ClubHeader :clubName="clubData.clubInfo.clubName"/>
-      <ClubTab :clubData="clubData"/>
+      <ClubMainHeader :clubName="clubData.clubInfo.clubName"/>
+      <ClubMainTab :clubData="clubData"/>
   </div>
 </template>
 
 <script>
-import ClubHeader from '@/components/club/ClubHeader.vue';
-import ClubTab from '@/components/club/ClubTab.vue';
+import ClubMainHeader from '@/components/club/clubmain/ClubMainHeader.vue';
+import ClubMainTab from '@/components/club/clubmain/ClubMainTab.vue';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import { actionsHelper } from '@/store/helper/actionsHelper.js';
 
 export default {
     name: 'ClubMainPage',
-    components: { ClubHeader, ClubTab },
+    components: { ClubMainHeader, ClubMainTab },
     props: ['seq'],
     data() {
         return {

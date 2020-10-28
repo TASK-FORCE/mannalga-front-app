@@ -25,7 +25,7 @@
 
 <script>
 export default {
-    name: 'ClubHeader',
+    name: 'ClubMainHeader',
     props: ['clubName'],
 };
 </script>

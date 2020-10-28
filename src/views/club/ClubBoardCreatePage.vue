@@ -26,7 +26,7 @@
 <script>
 
 import CommonHeader from '@/components/ui/header/CommonHeader.vue';
-import ClubBoardCreateBox from '@/components/club/ClubBoardCreateBox.vue';
+import ClubBoardCreateBox from '@/components/club/create/ClubBoardCreateBox.vue';
 import ImageSelectBox from '@/components/image/ImageSelectBox.vue';
 import CommonCenterBtn from '@/components/ui/button/CommonCenterBtn.vue';
 

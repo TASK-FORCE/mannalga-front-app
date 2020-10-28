@@ -37,7 +37,7 @@
 
 <script>
 export default {
-    name: 'ClubInfo',
+    name: 'ClubMainInfoTab',
     props: ['clubInfo'],
 };
 </script>

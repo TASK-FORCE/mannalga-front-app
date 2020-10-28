@@ -56,7 +56,7 @@
 
 <script>
 export default {
-    name: 'ClubAlbum',
+    name: 'ClubMainAlbumTab',
     props: ['albumList'],
     // @TODO 앨범 CRUD
 };
