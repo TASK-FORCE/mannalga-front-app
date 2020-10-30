@@ -1,6 +1,7 @@
 <template>
     <div>
         <v-tabs v-model="tab"
+                class="club-main-tab"
                 grow
         >
             <v-tab

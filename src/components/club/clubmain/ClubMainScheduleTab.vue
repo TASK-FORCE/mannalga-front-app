@@ -96,7 +96,6 @@
 <script>
 export default {
     name: 'ClubMainScheduleTab',
-    props: ['scheduleList'],
     // @TODO 일정 CRUD
 };
 </script>
