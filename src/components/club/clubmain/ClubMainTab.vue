@@ -30,7 +30,9 @@ import ClubMainAlbumTab from '@/components/club/clubmain/ClubMainAlbumTab.vue';
 export default {
     name: 'ClubMainTab',
     components: { ClubMainInfoTab, ClubMainScheduleTab, ClubMainBoardTab, ClubMainAlbumTab },
-    props: ['clubData'],
+    props: {
+        clubData: Object,
+    },
     data() {
         return {
             tab: null,

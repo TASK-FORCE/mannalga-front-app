@@ -1,5 +1,3 @@
-import _ from '@/utils/lodashWrapper.js';
-
 export const CLUB = 'club';
 
 export const EMPTY_CLUB = {
@@ -20,6 +18,17 @@ export const EMPTY_CLUB = {
                     },
                 },
                 priority: 1,
+            },
+            {
+                interest: {
+                    seq: 2148,
+                    name: '배드민턴',
+                    interestGroup: {
+                        seq: 1,
+                        name: '운동/스포츠',
+                    },
+                },
+                priority: 2,
             },
         ],
         clubRegions: [
@@ -137,6 +146,7 @@ export const SET_CLUB_DATA = 'setClubData';
 // actions
 export const REQUEST_CLUB_DATA = 'requestClubData'; // export const GET_CLUB_DATA = 'getClubData';
 export const REQUEST_CLUB_CREATE = 'requestClubCreate';
+export const REQUEST_CLUB_JOIN = 'requestClubJoin';
 // export const REQUEST_CLUB_INFO = 'requestClubInfo';
 // export const REQUEST_CLUB_MEMBERS = 'requestClubMembers';
 // export const REQUEST_CLUB_SCHEDULES = 'requestClubSchedules';

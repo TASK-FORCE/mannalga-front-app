@@ -16,20 +16,24 @@
 
 <script>
 import { INTEREST_GROUP_TYPES } from '@/utils/constant/type_constant.js';
+import _ from '@/utils/lodashWrapper.js';
 
 export default {
     name: 'InterestIcons',
     props: {
-        interests: Array,
+        interestWithPriority: Array,
+        maxSize: Number,
     },
     computed: {
         interestGroupTypes() {
-            if (this.interests) {
-                if (this.interests instanceof Array) {
-                    const interestGroupTypes = this.interests.map(this.buildInterestGroupType);
-                    return [...new Set(interestGroupTypes)];
+            if (this.interestWithPriority) {
+                const interests = extractInterestsOrderByPriority(this.interestWithPriority);
+                const interestGroupTypes = interests.map(this.buildInterestGroupType);
+                const interestGroupTypeSet = [...new Set(interestGroupTypes)];
+                if (this.maxSize && this.maxSize > 0) {
+                    return interestGroupTypeSet.slice(0, this.maxSize);
                 }
-                return this.buildInterestGroupType(this.interests);
+                return interestGroupTypeSet;
             }
             return [];
         },
@@ -43,6 +47,11 @@ export default {
         },
     },
 };
+
+function extractInterestsOrderByPriority(interestsWithPriority) {
+    const sortByPriority = _.sortBy(interestsWithPriority, ({ priority }) => priority);
+    return sortByPriority.map(({ interest }) => interest);
+}
 </script>
 
 <style scoped>

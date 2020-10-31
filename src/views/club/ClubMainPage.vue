@@ -1,6 +1,6 @@
 <template>
   <div>
-      <ClubMainHeader :clubName="clubData.clubInfo.clubName"/>
+      <ClubMainHeader :clubName="clubData.clubInfo.name"/>
       <ClubMainTab :clubData="clubData"/>
   </div>
 </template>
@@ -14,7 +14,6 @@ import { actionsHelper } from '@/store/helper/actionsHelper.js';
 export default {
     name: 'ClubMainPage',
     components: { ClubMainHeader, ClubMainTab },
-    props: ['seq'],
     data() {
         return {
             // ...

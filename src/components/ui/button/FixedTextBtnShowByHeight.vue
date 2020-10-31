@@ -1,26 +1,30 @@
 <template>
     <transition name="scroll-to-top">
         <v-btn v-if="active"
-               class="create-btn v-btn--fab darken-2"
+               class="create-btn v-btn--fab darken-2 white--text"
                :color="color || 'green'"
-               @click="scrollToTop"
+               @click="$emit('click')"
         >
-            <v-icon class="white--text">mdi-chevron-up</v-icon>
+            {{ text }}
         </v-btn>
     </transition>
 </template>
 
 <script>
-import goTo from 'vuetify/es5/services/goto';
 import _ from '@/utils/lodashWrapper.js';
 
 const DEFAULT_THROTTLE_DELAY = 300;
-const DEFAULT_BOUNDARY = 100;
 
+// props로 내려오는 heightBoundaryToShow를 넘어갈 때에만 FixedBtn을 보여준다.
 export default {
-    name: 'FixedScrollToTopBtn',
+    name: 'FixedTextBtnShowByHeight',
     props: {
         color: String,
+        text: String,
+        heightBoundaryToShow: {
+            type: Number,
+            required: true,
+        },
     },
     data() {
         return {
@@ -36,11 +40,8 @@ export default {
         window.removeEventListener('scroll', this.handleScrollEvent);
     },
     methods: {
-        scrollToTop() {
-            goTo(0);
-        },
         handleScroll() {
-            this.active = window.pageYOffset > DEFAULT_BOUNDARY;
+            this.active = window.pageYOffset > this.heightBoundaryToShow;
         },
     },
 };
@@ -54,7 +55,7 @@ export default {
     height: 50px !important;
     min-width: auto !important;
     z-index: 4;
-    left: 16px;
+    right: 16px;
     bottom: 25px;
 }
 

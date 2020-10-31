@@ -10,7 +10,12 @@ function requestClubCreate(clubCreateDto) {
         .then(ResponseConverter.extractSuperInventionResponseData);
 }
 
+function requestClubJoin(seq) {
+    return axios.post(`/api/clubs/${seq}/users`);
+}
+
 export {
     requestClubData,
     requestClubCreate,
+    requestClubJoin,
 };

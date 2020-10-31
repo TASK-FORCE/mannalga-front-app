@@ -1,5 +1,5 @@
-import { requestClubCreate, requestClubData } from '@/apis/club.js';
-import { CLUB_DATA, GET_DEFAULT_CLUB, REQUEST_CLUB_CREATE, REQUEST_CLUB_DATA, SET_CLUB_DATA } from '@/store/type/club_type.js';
+import { requestClubCreate, requestClubData, requestClubJoin } from '@/apis/club.js';
+import { CLUB_DATA, GET_DEFAULT_CLUB, REQUEST_CLUB_CREATE, REQUEST_CLUB_DATA, REQUEST_CLUB_JOIN, SET_CLUB_DATA } from '@/store/type/club_type.js';
 import { actionsLoadingTemplate, actionsNormalTemplate } from '@/store/utils/actionsTemplate.js';
 import RequestConverter from '@/store/converter/requestConverter.js';
 
@@ -21,7 +21,7 @@ const mutations = {
 
 const actions = {
     async [REQUEST_CLUB_DATA]({ commit }, clubSeq) {
-        actionsLoadingTemplate(commit, async () => {
+        return actionsLoadingTemplate(commit, async () => {
             const response = await requestClubData(clubSeq);
             const clubData = response.data;
             commit(SET_CLUB_DATA, clubData);
@@ -31,6 +31,11 @@ const actions = {
         return actionsNormalTemplate(async () => {
             const clubCreateRequestDto = RequestConverter.convertClubCreateInfo(clubCreateInfo);
             await requestClubCreate(clubCreateRequestDto);
+        });
+    },
+    async [REQUEST_CLUB_JOIN]({ commit }, clubSeq) {
+        return actionsNormalTemplate(async () => {
+            await requestClubJoin(clubSeq);
         });
     },
 };

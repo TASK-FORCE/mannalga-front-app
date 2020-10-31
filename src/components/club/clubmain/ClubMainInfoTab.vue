@@ -2,7 +2,7 @@
     <v-tab-item>
         <ClubMainInfoDetailSection :clubInfo="clubInfo" />
         <ClubMainInfoMeetingSection />
-        <ClubMainInfoMemberSection />
+        <ClubMainInfoMemberSection style="height: 1000px"/>
     </v-tab-item>
 </template>
 
@@ -14,7 +14,9 @@ import ClubMainInfoMemberSection from '@/components/club/clubmain/ClubMainInfoMe
 export default {
     name: 'ClubMainInfoTab',
     components: { ClubMainInfoMemberSection, ClubMainInfoMeetingSection, ClubMainInfoDetailSection },
-    props: ['clubInfo'],
+    props: {
+        clubInfo: Object,
+    },
 };
 </script>
 
