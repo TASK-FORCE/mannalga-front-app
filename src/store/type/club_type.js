@@ -1,17 +1,48 @@
-import _ from '@/utils/lodashWrapper.js';
-
 export const CLUB = 'club';
 
 export const EMPTY_CLUB = {
     clubInfo: {
         seq: '',
-        clubName: '코딩 스터디',
-        clubDetail: '코딩 스터디에 온 것을 환영합니다. 가입인사 남겨주세용!',
-        memberCnt: 10,
-        memberMaxCnt: 100,
-        clubInterest: '모임 관심사',
-        clubLocation: '모임 지역',
-        clubImg: '',
+        name: '코딩 스터디',
+        description: '### 코딩 스터디에 온 것을 환영합니다. \n 텍스트1 \n 텍스트2 \n\n ### 규칙 \n 규칙1 \n 규칙2 \n\n ### 추가 설명 \n 설명 1\n 설명 2',
+        current_number: 5,
+        maximum_number: 10,
+        clubInterest: [
+            {
+                interest: {
+                    seq: 2148,
+                    name: '해외여행',
+                    interestGroup: {
+                        seq: 1,
+                        name: '아웃도어/여행',
+                    },
+                },
+                priority: 1,
+            },
+            {
+                interest: {
+                    seq: 2148,
+                    name: '배드민턴',
+                    interestGroup: {
+                        seq: 1,
+                        name: '운동/스포츠',
+                    },
+                },
+                priority: 2,
+            },
+        ],
+        clubRegions: [
+            {
+                region: {
+                    seq: 101,
+                    name: '종로구',
+                    superRegionRoot: '서울특별시/종로구',
+                    level: 2,
+                },
+                priority: 1,
+            },
+        ],
+        main_image_url: '',
     },
     memberInfo: {
         // ...
@@ -104,7 +135,7 @@ export const EMPTY_CLUB = {
     // ...
 };
 
-export const DEFAULT_CLUB = _.cloneDeep(EMPTY_CLUB);
+export const GET_DEFAULT_CLUB = () => ({ ...EMPTY_CLUB });
 
 // state & getters
 export const CLUB_DATA = 'clubData';
@@ -115,6 +146,7 @@ export const SET_CLUB_DATA = 'setClubData';
 // actions
 export const REQUEST_CLUB_DATA = 'requestClubData'; // export const GET_CLUB_DATA = 'getClubData';
 export const REQUEST_CLUB_CREATE = 'requestClubCreate';
+export const REQUEST_CLUB_JOIN = 'requestClubJoin';
 // export const REQUEST_CLUB_INFO = 'requestClubInfo';
 // export const REQUEST_CLUB_MEMBERS = 'requestClubMembers';
 // export const REQUEST_CLUB_SCHEDULES = 'requestClubSchedules';

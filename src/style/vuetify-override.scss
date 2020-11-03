@@ -1,5 +1,5 @@
 .v-snack__wrapper {
-    min-width:auto;
+    min-width: auto;
 }
 
 .app-main-header > .v-toolbar__content {
@@ -13,4 +13,18 @@
 
 .theme--light.v-app-bar.v-toolbar.v-sheet {
     background-color: #ffffff !important;
+}
+
+.club-main-tab {
+    .v-slide-group__prev {
+        display: none !important;
+    }
+
+    .v-tab {
+        min-width: 0;
+    }
+
+    .v-tabs-slider-wrapper {
+        width: 0;
+    }
 }

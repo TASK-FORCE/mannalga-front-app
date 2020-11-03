@@ -78,25 +78,18 @@
                 </v-timeline-item>
             </v-timeline>
 
-            <v-btn
-                absolute
-                bottom
-                color="pink"
-                right
-                fab
-                dark
-            >
-                <v-icon>mdi-plus</v-icon>
-            </v-btn>
         </v-card-text>
+        <FixedCreateBtn color="red" />
     </v-tab-item>
     <!-- @TODO 일정 추가하기 버튼 -->
 </template>
 
 <script>
+import FixedCreateBtn from '@/components/ui/button/FixedCreateBtn.vue';
+
 export default {
-    name: 'ClubSchedule',
-    props: ['scheduleList'],
+    name: 'ClubMainScheduleTab',
+    components: { FixedCreateBtn },
     // @TODO 일정 CRUD
 };
 </script>

@@ -1,14 +1,12 @@
 <template>
-    <v-list id="list-wrapper"
-            class="py-0"
-    >
-        <v-list-item-group id="my-club-list-group"
+    <v-list class="py-0">
+        <v-list-item-group id="club-list-group"
                            active-class="pink--text"
         >
-            <div id="my-club-list-sentinel" />
-            <template v-for="myClubContext in myClubContextList">
-                <MyClubPost :key="myClubContext.seq"
-                            :myClubContext="myClubContext"
+            <div id="club-list-sentinel" />
+            <template v-for="club in clubList">
+                <ClubPost :key="club.seq"
+                          :club="club"
                 />
             </template>
         </v-list-item-group>
@@ -16,18 +14,18 @@
 </template>
 
 <script>
-import MyClubPost from '@/components/clubList/MyClubPost.vue';
+import ClubPost from '@/components/club/clubList/ClubPost.vue';
 import { GET_DEFAULT_PAGE } from '@/store/type/club_list_type.js';
 
 export default {
-    name: 'MyClubList',
-    components: { MyClubPost },
+    name: 'ClubList',
+    components: { ClubPost },
     props: {
         page: {
             type: Object,
             default: () => GET_DEFAULT_PAGE(),
         },
-        myClubContextList: {
+        clubList: {
             type: Array,
             default: () => [],
         },
@@ -48,8 +46,8 @@ export default {
         },
     },
     mounted() {
-        this.listGroup = document.querySelector('#my-club-list-group');
-        this.sentinel = document.querySelector('#my-club-list-sentinel');
+        this.listGroup = document.querySelector('#club-list-group');
+        this.sentinel = document.querySelector('#club-list-sentinel');
         this.setInfiniteScrollObserver();
         this.$emit('findFirstPage', this.insertSentinel);
     },

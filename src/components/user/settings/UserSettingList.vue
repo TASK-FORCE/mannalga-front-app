@@ -25,10 +25,6 @@ export default {
     components: { OtherSettingsListItems, ProfileSettingListItem },
     computed: {
         userProfile: () => gettersHelper.userProfile(),
-        interestsByPriority() {
-            return _.sortBy(this.userProfile.userInterests, ({ priority }) => priority)
-                .map(({ interest }) => interest);
-        },
         regionsByPriority() {
             return _.sortBy(this.userProfile.userRegions, ({ priority }) => priority)
                 .map(({ region }) => region);
@@ -61,7 +57,7 @@ export default {
     },
     methods: {
         createInterestIconsComponent() {
-            return RenderFunction.createComponent(InterestIcons, { interests: this.interestsByPriority });
+            return RenderFunction.createComponent(InterestIcons, { interests: this.userProfile.userInterests });
         },
         createRegionsNameText() {
             if (this.regionsByPriority && this.regionsByPriority.length > 0) {

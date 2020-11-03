@@ -1,0 +1,34 @@
+{
+  "clubInfo": {
+    "seq": "",
+    "name": "모임명",
+    "description": "",
+    "current_number": 5,
+    "maximum_number": 10,
+    "clubInterest": [
+      {
+        "interest": {
+          "seq": 2148,
+          "name": "해외여행",
+          "interestGroup": {
+            "seq": 1,
+            "name": "아웃도어/여행"
+          }
+        },
+        "priority": 1
+      }
+    ],
+    "clubRegions": [
+      {
+        "region": {
+          "seq": 101,
+          "name": "종로구",
+          "superRegionRoot": "서울특별시/종로구",
+          "level": 2
+        },
+        "priority": 1
+      }
+    ],
+    "main_image_url": ""
+  }
+}

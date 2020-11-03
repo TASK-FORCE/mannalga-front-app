@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import ClubListMainHeader from '@/components/clubList/ClubListHeader.vue';
-import ClubListMainTabs from '@/components/clubList/ClubListMainTabs.vue';
+import ClubListMainHeader from '@/components/club/clubList/ClubListHeader.vue';
+import ClubListMainTabs from '@/components/club/clubList/ClubListMainTabs.vue';
 import FixedCreateBtn from '@/components/ui/button/FixedCreateBtn.vue';
 import { CLUB_CREATE_PATH } from '@/router/route_path_type.js';
 import FixedScrollToTopBtn from '@/components/ui/button/FixedScrollToTopBtn.vue';
