@@ -14,7 +14,7 @@
 
         <v-tabs-items v-model="tab">
             <ClubListTab />
-            <MuClubListTab />
+            <MyClubListTab />
         </v-tabs-items>
     </div>
 </template>
@@ -22,11 +22,11 @@
 <script>
 import goTo from 'vuetify/es5/services/goto';
 import ClubListTab from '@/components/club/clubList/ClubListTab.vue';
-import MuClubListTab from '@/components/club/clubList/MyClubListTab.vue';
+import MyClubListTab from '@/components/club/clubList/MyClubListTab.vue';
 
 export default {
     name: 'ClubListMainTabs',
-    components: { MuClubListTab, ClubListTab },
+    components: { MyClubListTab, ClubListTab },
     data() {
         return {
             tab: null,
