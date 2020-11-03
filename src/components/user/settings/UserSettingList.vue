@@ -18,7 +18,7 @@ import _ from '@/utils/lodashWrapper.js';
 import RenderFunction from '@/utils/renderFunction.js';
 import InterestIcons from '@/components/InterestIcons.vue';
 import { USER_INTEREST_EDIT_PATH, USER_REGION_EDIT_PATH } from '@/router/route_path_type.js';
-import { changeVuetifyTheme } from '@/plugins/vuetify.js';
+import { changeThemeAndLoad } from '@/plugins/vuetify.js';
 
 export default {
     name: 'UserSettingList',
@@ -47,7 +47,7 @@ export default {
                 {
                     name: '테마 변경(클릭)',
                     icon: 'mdi-brush',
-                    clickCallback: changeVuetifyTheme,
+                    clickCallback: changeThemeAndLoad,
                 },
                 { name: '개선사항 요청', icon: 'mdi-message-draw', path: '' },
                 { name: '공지사항', icon: 'mdi-bullhorn', path: '' },

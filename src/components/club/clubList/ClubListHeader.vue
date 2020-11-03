@@ -17,7 +17,7 @@
                class="mr-1"
                @click="changeTheme"
         >
-            <v-icon v-if="themeDark">mdi-water</v-icon>
+            <v-icon v-if="isThemeDark">mdi-water</v-icon>
             <v-icon v-else>mdi-water-outline</v-icon>
         </v-btn>
 
@@ -40,13 +40,13 @@
 
 <script>
 import { USER_SETTINGS_PATH } from '@/router/route_path_type.js';
-import { changeVuetifyTheme, isVuetifyThemeDark } from '@/plugins/vuetify.js';
+import { changeThemeAndLoad, isCurrentThemeDark } from '@/plugins/vuetify.js';
 
 export default {
     name: 'ClubListHeader',
     data() {
         return {
-            themeDark: isVuetifyThemeDark(),
+            isThemeDark: isCurrentThemeDark(),
         };
     },
     methods: {
@@ -54,8 +54,8 @@ export default {
             this.$router.push(USER_SETTINGS_PATH);
         },
         changeTheme() {
-            changeVuetifyTheme();
-            this.themeDark = isVuetifyThemeDark();
+            changeThemeAndLoad();
+            this.isThemeDark = isCurrentThemeDark();
         },
     },
 };
