@@ -13,15 +13,15 @@
 import ClubListMainHeader from '@/components/club/clubList/ClubListHeader.vue';
 import ClubListMainTabs from '@/components/club/clubList/ClubListMainTabs.vue';
 import FixedCreateBtn from '@/components/ui/button/FixedCreateBtn.vue';
-import { CLUB_CREATE_PATH } from '@/router/route_path_type.js';
 import FixedScrollToTopBtn from '@/components/ui/button/FixedScrollToTopBtn.vue';
+import { PATH } from '@/router/route_path_type.js';
 
 export default {
     name: 'ClubListPage',
     components: { FixedScrollToTopBtn, FixedCreateBtn, ClubListMainTabs, ClubListHeader: ClubListMainHeader },
     data() {
         return {
-            clubCreatePath: CLUB_CREATE_PATH,
+            clubCreatePath: PATH.CLUB.CREATE,
         };
     },
 };

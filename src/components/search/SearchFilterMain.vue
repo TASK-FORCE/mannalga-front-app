@@ -45,7 +45,7 @@ import BottomSheetRegionCard from '@/components/ui/bottom-sheet/BottomSheetRegio
 import SearchFilterSelectBtn from '@/components/search/SearchFilterSelectBtn';
 import BottomSheetSortCard from '@/components/ui/bottom-sheet/BottomSheetSortCard.vue';
 import BottomSheetInterestCard from '@/components/ui/bottom-sheet/BottomSheetInterestCard.vue';
-import { LOGIN_PATH } from '@/router/route_path_type.js';
+import { PATH } from '@/router/route_path_type.js';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 import { actionsFetcherService } from '@/store/service/actionsFetcherService.js';
@@ -74,7 +74,7 @@ export default {
         searchFilter: () => gettersHelper.searchFilter(),
     },
     created() {
-        actionsFetcherService.fetchInterestAndRegionTemplate(true, LOGIN_PATH);
+        actionsFetcherService.fetchInterestAndRegionTemplate(true, PATH.LOGIN);
     },
     methods: {
         selectSearchRegion(region) {

@@ -4,7 +4,7 @@ import Vuex from 'vuex';
 import sinon from 'sinon';
 import UserProfile from '@/components/user/UserProfile.vue';
 import { GET_DEFAULT_PROFILE } from '@/store/type/user_type.js';
-import { LOGIN_PATH } from '@/router/route_path_type.js';
+import { PATH } from '@/router/route_path_type.js';
 import { testUtils } from '../../utils/testUtils.js';
 
 const sandbox = sinon.createSandbox();
@@ -46,7 +46,7 @@ describe('UserProfile.Vue', () => {
 
         // then
         expect(actionsHelper.requestKakaoProfile.called).to.be.true;
-        expect($router.push.withArgs(LOGIN_PATH).notCalled).to.be.true;
+        expect($router.push.withArgs(PATH.LOGIN).notCalled).to.be.true;
     });
 
     it('페이지 진입 시 profile이 비어있지 않다면 profile을 요청하지 않는다.', () => {
@@ -73,6 +73,6 @@ describe('UserProfile.Vue', () => {
 
         // then
         expect(actionsHelper.requestKakaoProfile.called).to.be.true;
-        expect($router.push.withArgs(LOGIN_PATH).calledOnce).to.be.true;
+        expect($router.push.withArgs(PATH.LOGIN).calledOnce).to.be.true;
     });
 });

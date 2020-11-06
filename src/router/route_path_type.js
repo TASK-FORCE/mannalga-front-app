@@ -1,21 +1,27 @@
-export const LOGIN_PATH = '/login';
-export const REGISTER_PATH = {
-    ROOT: '/register',
-    PROFILE: 'profile',
-    REGION: 'region',
-    INTEREST: 'interest',
-    PROFILE_PATH: '/register/profile',
-    REGION_PATH: '/register/region',
-    INTEREST_PATH: '/register/interest',
+export const PATH = {
+    LOGIN: '/login',
+    APP_MAIN: '/main',
+    SELECT_REGION: '/select/region',
+    REGISTER: {
+        MAIN: '/register',
+        PROFILE: '/register/profile',
+        REGION: '/register/region',
+        INTEREST: '/register/interest',
+    },
+    CLUB: {
+        MAIN: '/club/:seq',
+        CREATE: '/create/club',
+        BOARD_POST: '/club/board/:seq',
+        BOARD_CREATE: '/club/create/board',
+    },
+    USER: {
+        SETTINGS: '/user/settings',
+        REGION_EDIT: '/user/region/edit',
+        INTEREST_EDIT: '/user/interest/edit',
+    },
 };
-export const MAIN_PATH = '/main';
-export const SELECT_REGION_PATH = '/select/region';
 
-export const CLUB_PATH = '/club/:seq';
-export const CLUB_CREATE_PATH = '/create/club';
-export const CLUB_BOARD_POST_PATH = '/club/board/:seq';
-export const CLUB_BOARD_CREATE_PATH = '/club/create/board';
-
-export const USER_SETTINGS_PATH = '/user/settings';
-export const USER_REGION_EDIT_PATH = '/user/region/edit';
-export const USER_INTEREST_EDIT_PATH = '/user/interest/edit';
+export const getChildRoutePath = (path) => {
+    const split = path.split('/');
+    return split[split.length - 1];
+};

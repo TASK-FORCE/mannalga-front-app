@@ -41,7 +41,7 @@
 <script>
 import _ from '@/utils/lodashWrapper.js';
 import { RULES } from '@/utils/constant/constant.js';
-import { LOGIN_PATH } from '@/router/route_path_type.js';
+import { PATH } from '@/router/route_path_type.js';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 import { actionsHelper } from '@/store/helper/actionsHelper.js';
@@ -62,7 +62,7 @@ export default {
     created() {
         if (_.isDeepEmpty(this.kakaoProfile)) {
             actionsHelper.requestKakaoProfile()
-                .catch(() => this.$router.push(LOGIN_PATH));
+                .catch(() => this.$router.push(PATH.LOGIN));
         }
     },
     methods: {

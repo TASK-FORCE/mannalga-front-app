@@ -9,11 +9,11 @@
 import GoBackBtnFooter from '@/components/ui/footer/GoBackBtnFooter.vue';
 import _ from '@/utils/lodashWrapper.js';
 import { MESSAGE } from '@/utils/constant/constant.js';
-import { REGISTER_PATH } from '@/router/route_path_type.js';
 import UserRegionPriority from '@/components/user/UserRegionPriority.vue';
 import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import { actionsFetcherService } from '@/store/service/actionsFetcherService.js';
+import { PATH } from '@/router/route_path_type.js';
 
 export default {
     name: 'RegisterRegionNestedPage',
@@ -24,7 +24,7 @@ export default {
     },
     created() {
         if (_.isDeepEmpty(this.kakaoProfile)) {
-            this.$router.push(REGISTER_PATH.PROFILE_PATH);
+            this.$router.push(PATH.REGISTER.PROFILE);
         }
 
         actionsFetcherService.fetchInterestAndRegionTemplate(false);
@@ -32,7 +32,7 @@ export default {
     methods: {
         clickGoBtn() {
             if (_.isNotEmpty(this.selectedRegions)) {
-                this.$router.push(REGISTER_PATH.INTEREST_PATH);
+                this.$router.push(PATH.REGISTER.INTEREST);
                 return;
             }
             mutationsHelper.openSnackBar(MESSAGE.SELECT_REGION_REQUIRE);

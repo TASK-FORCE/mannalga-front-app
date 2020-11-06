@@ -10,7 +10,7 @@ import GoBackBtnFooter from '@/components/ui/footer/GoBackBtnFooter.vue';
 import UserInterest from '@/components/user/UserInterest.vue';
 import { MESSAGE } from '@/utils/constant/constant.js';
 import _ from '@/utils/lodashWrapper.js';
-import { MAIN_PATH, REGISTER_PATH } from '@/router/route_path_type.js';
+import { PATH } from '@/router/route_path_type.js';
 import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import { actionsHelper } from '@/store/helper/actionsHelper.js';
@@ -25,12 +25,12 @@ export default {
     },
     created() {
         if (_.isDeepEmpty(this.kakaoProfile)) {
-            this.$router.push(REGISTER_PATH.PROFILE_PATH);
+            this.$router.push(PATH.REGISTER.PROFILE);
             return;
         }
 
         if (_.isEmpty(this.selectedRegions)) {
-            this.$router.push(REGISTER_PATH.REGION_PATH);
+            this.$router.push(PATH.REGISTER.REGION);
         }
     },
     methods: {
@@ -42,9 +42,9 @@ export default {
             };
 
             actionsHelper.postRegister(registerInfo)
-                .then(() => this.$router.push(MAIN_PATH)
+                .then(() => this.$router.push(PATH.APP_MAIN)
                     .then(() => mutationsHelper.openSnackBar(MESSAGE.SUCCESS_REGISTER)))
-                .catch(() => this.$router.push(REGISTER_PATH.PROFILE_PATH)
+                .catch(() => this.$router.push(PATH.REGISTER.PROFILE)
                     .then(() => mutationsHelper.openSnackBar(MESSAGE.SERVER_INSTABILITY)));
         },
     },

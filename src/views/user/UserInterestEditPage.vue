@@ -16,11 +16,11 @@ import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import CommonHeader from '@/components/ui/header/CommonHeader.vue';
 import { actionsHelper } from '@/store/helper/actionsHelper.js';
 import SimpleBtnFooter from '@/components/ui/footer/SimpleBtnFooter.vue';
-import { USER_SETTINGS_PATH } from '@/router/route_path_type.js';
 import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 import { MESSAGE } from '@/utils/constant/constant.js';
 import UserInterest from '@/components/user/UserInterest.vue';
 import _ from '@/utils/lodashWrapper.js';
+import { PATH } from '@/router/route_path_type.js';
 
 export default {
     name: 'UserInterestEditPage',
@@ -43,12 +43,12 @@ export default {
         changeRequest() {
             this.btnLoading = true;
             actionsHelper.requestChangeUserInterests(this.selectedInterestSeqs)
-                .then(this.$router.push(USER_SETTINGS_PATH)
+                .then(this.$router.push(PATH.USER.SETTINGS)
                     .then(() => mutationsHelper.openSnackBar(MESSAGE.SUCCESS_CHANGE_REGIONS)))
                 .finally(this.btnLoading = false);
         },
         moveToSettingPage() {
-            this.$router.push(USER_SETTINGS_PATH);
+            this.$router.push(PATH.USER.SETTINGS);
         },
     },
 };

@@ -32,10 +32,10 @@
 </template>
 
 <script>
-import { REGISTER_PATH } from '@/router/route_path_type.js';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 import { actionsFetcherService } from '@/store/service/actionsFetcherService.js';
+import { PATH } from '@/router/route_path_type.js';
 
 export default {
     name: 'UserRegion',
@@ -48,7 +48,7 @@ export default {
         selectedRegions: () => gettersHelper.selectedRegions(),
     },
     created() {
-        actionsFetcherService.fetchInterestAndRegionTemplate(true, REGISTER_PATH.PROFILE_PATH);
+        actionsFetcherService.fetchInterestAndRegionTemplate(true, PATH.REGISTER.PROFILE);
     },
     mounted() {
         // eslint-disable-next-line no-restricted-globals

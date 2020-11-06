@@ -3,8 +3,8 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuex from 'vuex';
 import sinon from 'sinon';
 import LoginPage from '@/views/LoginPage.vue';
-import { MAIN_PATH, REGISTER_PATH } from '@/router/route_path_type.js';
 import { testUtils } from '../../utils/testUtils.js';
+import { PATH } from '@/router/route_path_type.js';
 
 const sandbox = sinon.createSandbox();
 const localVue = createLocalVue();
@@ -61,7 +61,7 @@ describe('LoginPage.vue', () => {
 
         // then
         expect(actionsHelper.requestKakaoTokenByCode.called).to.be.true;
-        expect($router.push.withArgs(REGISTER_PATH.PROFILE_PATH).calledOnce).to.be.true;
+        expect($router.push.withArgs(PATH.REGISTER.PROFILE).calledOnce).to.be.true;
     });
 
     it('페이지 진입 시 code가 존재하면 Token 요청 후 첫번째 발급이 아니라면 main으로 routing 된다.', async () => {
@@ -75,7 +75,7 @@ describe('LoginPage.vue', () => {
 
         // then
         expect(actionsHelper.requestKakaoTokenByCode.called).to.be.true;
-        expect($router.push.withArgs(MAIN_PATH).calledOnce).to.be.true;
+        expect($router.push.withArgs(PATH.APP_MAIN).calledOnce).to.be.true;
     });
 
     it('페이지 진입 시 code가 존재하면 Token 요청 후 예외가 발생하면 Snackbar가 호출된다.', async () => {

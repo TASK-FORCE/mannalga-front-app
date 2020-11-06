@@ -26,7 +26,7 @@
 <script>
 import { moveToKakaoLoginPage } from '@/utils/kakao/utlls.js';
 import { MESSAGE } from '@/utils/constant/constant.js';
-import { MAIN_PATH, REGISTER_PATH } from '@/router/route_path_type.js';
+import { PATH } from '@/router/route_path_type.js';
 import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import { actionsHelper } from '@/store/helper/actionsHelper.js';
@@ -59,7 +59,7 @@ export default {
             this.requestTemplateWithLoading(
                 async () => {
                     const isRegistered = await actionsHelper.requestRegisterStatus(this.appToken);
-                    isRegistered ? this.$router.push(MAIN_PATH) : this.$router.push(REGISTER_PATH.PROFILE_PATH);
+                    isRegistered ? this.$router.push(PATH.APP_MAIN) : this.$router.push(PATH.REGISTER.PROFILE);
                 },
             );
         }
@@ -69,7 +69,7 @@ export default {
                 async () => {
                     try {
                         const isRegistered = await actionsHelper.requestKakaoTokenByCode(this.code);
-                        isRegistered ? this.$router.push(MAIN_PATH) : this.$router.push(REGISTER_PATH.PROFILE_PATH);
+                        isRegistered ? this.$router.push(PATH.APP_MAIN) : this.$router.push(PATH.REGISTER.PROFILE);
                     } catch (e) {
                         mutationsHelper.openSnackBar(MESSAGE.LOGIN_FAIL);
                     }

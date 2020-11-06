@@ -17,8 +17,8 @@ import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import _ from '@/utils/lodashWrapper.js';
 import RenderFunction from '@/utils/renderFunction.js';
 import InterestIcons from '@/components/InterestIcons.vue';
-import { USER_INTEREST_EDIT_PATH, USER_REGION_EDIT_PATH } from '@/router/route_path_type.js';
 import { changeThemeAndLoad } from '@/plugins/vuetify.js';
+import { PATH } from '@/router/route_path_type.js';
 
 export default {
     name: 'UserSettingList',
@@ -34,13 +34,13 @@ export default {
                 {
                     name: '지역',
                     icon: 'mdi-map-marker',
-                    path: USER_REGION_EDIT_PATH,
+                    path: PATH.USER.REGION_EDIT,
                     text: this.createRegionsNameText(),
                 },
                 {
                     name: '관심사',
                     icon: 'mdi-account-heart',
-                    path: USER_INTEREST_EDIT_PATH,
+                    path: PATH.USER.INTEREST_EDIT,
                     component: this.createInterestIconsComponent(),
                 },
                 { name: '알림설정', icon: 'mdi-bell', path: '' },

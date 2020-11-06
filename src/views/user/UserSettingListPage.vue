@@ -13,8 +13,8 @@ import CommonHeader from '@/components/ui/header/CommonHeader.vue';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import UserSettingList from '@/components/user/settings/UserSettingList.vue';
 import { actionsHelper } from '@/store/helper/actionsHelper.js';
-import { MAIN_PATH } from '@/router/route_path_type.js';
 import SimpleBtnFooter from '@/components/ui/footer/SimpleBtnFooter.vue';
+import { PATH } from '@/router/route_path_type.js';
 
 export default {
     name: 'UserSettingListPage',
@@ -27,7 +27,7 @@ export default {
     },
     methods: {
         moveToClubListPage() {
-            this.$router.push(MAIN_PATH);
+            this.$router.push(PATH.APP_MAIN);
         },
     },
 };

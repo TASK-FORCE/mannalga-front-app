@@ -39,8 +39,8 @@
 </template>
 
 <script>
-import { USER_SETTINGS_PATH } from '@/router/route_path_type.js';
 import { changeThemeAndLoad, isCurrentThemeDark } from '@/plugins/vuetify.js';
+import { PATH } from '@/router/route_path_type.js';
 
 export default {
     name: 'ClubListHeader',
@@ -51,7 +51,7 @@ export default {
     },
     methods: {
         moveToUserSettings() {
-            this.$router.push(USER_SETTINGS_PATH);
+            this.$router.push(PATH.USER.SETTINGS);
         },
         changeTheme() {
             changeThemeAndLoad();

@@ -2,10 +2,10 @@ import { expect } from 'chai';
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuex from 'vuex';
 import sinon from 'sinon';
-import { REGISTER_PATH } from '@/router/route_path_type.js';
 import { GET_DEFAULT_PROFILE } from '@/store/type/user_type.js';
 import RegisterRegionNestedPage from '@/views/register/inner/RegisterRegionNestedPage.vue';
 import { testUtils } from '../../../utils/testUtils.js';
+import { PATH } from '@/router/route_path_type.js';
 
 const sandbox = sinon.createSandbox();
 const localVue = createLocalVue();
@@ -42,7 +42,7 @@ describe('RegisterRegionNestedPage.vue', () => {
         shallowMount(RegisterRegionNestedPage, options);
 
         // then
-        expect($router.push.withArgs(REGISTER_PATH.PROFILE_PATH).calledOnce).to.be.true;
+        expect($router.push.withArgs(PATH.REGISTER.PROFILE).calledOnce).to.be.true;
     });
 
     it('Go Btn 클릭 시 선택된 지역이 하나도 없다면 Snackbar를 호출한다.', () => {
@@ -66,6 +66,6 @@ describe('RegisterRegionNestedPage.vue', () => {
         wrapper.vm.clickGoBtn();
 
         // then
-        expect($router.push.withArgs(REGISTER_PATH.INTEREST_PATH).calledOnce).to.be.true;
+        expect($router.push.withArgs(PATH.REGISTER.INTEREST).calledOnce).to.be.true;
     });
 });

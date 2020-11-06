@@ -42,12 +42,12 @@ import ImageSelectBox from '@/components/image/ImageSelectBox.vue';
 import BottomSheetInterestCard from '@/components/ui/bottom-sheet/BottomSheetInterestCard.vue';
 import BottomSheetRegionCard from '@/components/ui/bottom-sheet/BottomSheetRegionCard.vue';
 import { MESSAGE } from '@/utils/constant/constant.js';
-import { MAIN_PATH } from '@/router/route_path_type.js';
 import ClubCreateForm from '@/components/club/create/ClubCreateForm.vue';
 import { actionsHelper } from '@/store/helper/actionsHelper.js';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 import { actionsFetcherService } from '@/store/service/actionsFetcherService.js';
+import { PATH } from '@/router/route_path_type.js';
 
 export default {
     name: 'ClubCreateBox',
@@ -84,7 +84,7 @@ export default {
         },
     },
     created() {
-        actionsFetcherService.fetchInterestAndRegionTemplate(true, MAIN_PATH);
+        actionsFetcherService.fetchInterestAndRegionTemplate(true, PATH.APP_MAIN);
     },
     methods: {
         openBottomSheetCard(cardComponent) {
@@ -103,7 +103,7 @@ export default {
             if (this.$refs.clubCreateForm.validate()) {
                 this.isLoading = true;
                 actionsHelper.requestClubCreate(this.clubCreateBoxInfo)
-                    .then(() => this.$router.push(MAIN_PATH)
+                    .then(() => this.$router.push(PATH.APP_MAIN)
                         .then(() => mutationsHelper.openSnackBar(MESSAGE.SUCCESS_CLUB_CREATE)))
                     .catch(() => mutationsHelper.openSnackBar(MESSAGE.FAIL_CLUB_CREATE))
                     .finally(() => (this.isLoading = false));

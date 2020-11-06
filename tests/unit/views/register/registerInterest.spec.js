@@ -4,8 +4,8 @@ import sinon from 'sinon';
 import { expect } from 'chai';
 import RegisterInterestNestedPage from '@/views/register/inner/RegisterInterestNestedPage.vue';
 import { GET_DEFAULT_PROFILE } from '@/store/type/user_type.js';
-import { MAIN_PATH, REGISTER_PATH } from '@/router/route_path_type.js';
 import { testUtils } from '../../../utils/testUtils.js';
+import { PATH } from '@/router/route_path_type.js';
 
 const sandbox = sinon.createSandbox();
 const localVue = createLocalVue();
@@ -45,7 +45,7 @@ describe('RegisterInterestNestedPage.vue', () => {
         shallowMount(RegisterInterestNestedPage, options);
 
         // then
-        expect($router.push.withArgs(REGISTER_PATH.PROFILE_PATH).calledOnce).to.be.true;
+        expect($router.push.withArgs(PATH.REGISTER.PROFILE).calledOnce).to.be.true;
     });
 
     it('랜딩 시 selecetedRegions가 비어있다면 region 등록 화면으로 라우팅된다.', () => {
@@ -59,7 +59,7 @@ describe('RegisterInterestNestedPage.vue', () => {
         shallowMount(RegisterInterestNestedPage, options);
 
         // then
-        expect($router.push.withArgs(REGISTER_PATH.REGION_PATH).calledOnce).to.be.true;
+        expect($router.push.withArgs(PATH.REGISTER.REGION).calledOnce).to.be.true;
     });
 
     it('register 메서드 호출 시 회원가입을 요청하고 회원가입 요청 성공 시 메인 화면으로 라우팅 된 후 스낵바가 호출된다.', async () => {
@@ -80,7 +80,7 @@ describe('RegisterInterestNestedPage.vue', () => {
 
         // then
         expect(actionsHelper.postRegister.calledOnce).to.be.true;
-        expect($router.push.withArgs(MAIN_PATH).calledOnce).to.be.true;
+        expect($router.push.withArgs(PATH.APP_MAIN).calledOnce).to.be.true;
         expect(mutationsHelper.openSnackBar.calledOnce).to.be.true;
     });
 
@@ -102,7 +102,7 @@ describe('RegisterInterestNestedPage.vue', () => {
 
         // then
         expect(actionsHelper.postRegister.calledOnce).to.be.true;
-        expect($router.push.withArgs(REGISTER_PATH.PROFILE_PATH).calledOnce).to.be.true;
+        expect($router.push.withArgs(PATH.REGISTER.PROFILE).calledOnce).to.be.true;
         expect(mutationsHelper.openSnackBar.calledOnce).to.be.true;
     });
 });

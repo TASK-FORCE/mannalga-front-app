@@ -22,9 +22,9 @@
 
 <script>
 import { COLOR } from '@/utils/constant/constant.js';
-import { SELECT_REGION_PATH } from '@/router/route_path_type.js';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
+import { PATH } from '@/router/route_path_type.js';
 
 export default {
     name: 'UserRegionPriority',
@@ -56,7 +56,7 @@ export default {
         },
         clickBtn(priority) {
             if (this.validate(priority)) {
-                this.$router.push(`${SELECT_REGION_PATH}?priority=${priority}`);
+                this.$router.push(`${PATH.SELECT_REGION}?priority=${priority}`);
             }
         },
         validate(priority) {

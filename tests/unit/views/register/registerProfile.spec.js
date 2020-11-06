@@ -4,8 +4,8 @@ import sinon from 'sinon';
 import { expect } from 'chai';
 import { GET_DEFAULT_PROFILE } from '@/store/type/user_type.js';
 import RegisterProfileNestedPage from '@/views/register/inner/RegisterProfileNestedPage.vue';
-import { REGISTER_PATH } from '@/router/route_path_type.js';
 import { testUtils } from '../../../utils/testUtils.js';
+import { PATH } from '@/router/route_path_type.js';
 
 const sandbox = sinon.createSandbox();
 const localVue = createLocalVue();
@@ -72,7 +72,7 @@ describe('regisetProfile.vue', () => {
         wrapper.vm.clickGoBtn();
 
         // then
-        expect($router.push.withArgs(REGISTER_PATH.REGION_PATH).calledOnce).to.be.true;
+        expect($router.push.withArgs(PATH.REGISTER.REGION).calledOnce).to.be.true;
         expect(mutationsHelper.openSnackBar.calledOnce).to.be.false;
     });
 });

@@ -17,10 +17,10 @@ import UserRegionPriority from '@/components/user/UserRegionPriority.vue';
 import CommonHeader from '@/components/ui/header/CommonHeader.vue';
 import { actionsHelper } from '@/store/helper/actionsHelper.js';
 import SimpleBtnFooter from '@/components/ui/footer/SimpleBtnFooter.vue';
-import { USER_SETTINGS_PATH } from '@/router/route_path_type.js';
 import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 import { MESSAGE } from '@/utils/constant/constant.js';
 import _ from '@/utils/lodashWrapper.js';
+import { PATH } from '@/router/route_path_type.js';
 
 export default {
     name: 'UserRegionEditPage',
@@ -44,11 +44,12 @@ export default {
             this.btnLoading = true;
             console.log(this.selectedRegions);
             actionsHelper.requestChangeUserRegions(this.selectedRegions)
-                .then(this.$router.push(USER_SETTINGS_PATH).then((mutationsHelper.openSnackBar(MESSAGE.SUCCESS_CHANGE_REGIONS))))
+                .then(this.$router.push(PATH.USER.SETTINGS)
+                    .then((mutationsHelper.openSnackBar(MESSAGE.SUCCESS_CHANGE_REGIONS))))
                 .finally(this.btnLoading = false);
         },
         moveToSettingPage() {
-            this.$router.push(USER_SETTINGS_PATH);
+            this.$router.push(PATH.USER.SETTINGS);
         },
     },
 };
