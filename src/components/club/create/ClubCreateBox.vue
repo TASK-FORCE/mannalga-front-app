@@ -3,7 +3,7 @@
         <ImageSelectBox class="image-box"
                         text="모임 대표 사진 등록"
                         height="140"
-                        @changeImageUrl="value => clubCreateBoxInfo.imageUrl = value"
+                        @handleImageUrl="value => clubCreateBoxInfo.imageUrl = value"
         />
         <v-bottom-sheet v-model="sheet"
                         scrollable
@@ -29,7 +29,7 @@
         <CommonCenterBtn text="모임 만들기"
                          color="primary"
                          :outlined="true"
-                         :isLoading="isLoading"
+                         :loading="loading"
                          @click="createClub"
         />
     </div>
@@ -61,7 +61,7 @@ export default {
     data() {
         return {
             sheet: false,
-            isLoading: false,
+            loading: false,
             currentBottomSheetCard: '',
             clubCreateBoxInfo: {
                 title: null,
@@ -101,12 +101,12 @@ export default {
         },
         createClub() {
             if (this.$refs.clubCreateForm.validate()) {
-                this.isLoading = true;
+                this.loading = true;
                 actionsHelper.requestClubCreate(this.clubCreateBoxInfo)
                     .then(() => this.$router.push(PATH.APP_MAIN)
                         .then(() => mutationsHelper.openSnackBar(MESSAGE.SUCCESS_CLUB_CREATE)))
                     .catch(() => mutationsHelper.openSnackBar(MESSAGE.FAIL_CLUB_CREATE))
-                    .finally(() => (this.isLoading = false));
+                    .finally(() => (this.loading = false));
             }
         },
     },

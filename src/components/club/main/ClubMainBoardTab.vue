@@ -3,9 +3,8 @@
         <v-card>
             <v-list three-line>
                 <template v-for="board in boardList.boards">
-                    <v-list-item
-                        :key="board.seq"
-                        :to="`/club/board/${board.seq}`"
+                    <v-list-item :key="board.seq"
+                                 @click="$router.push(clubBoardPath())"
                     >
                         <v-list-item-content>
                             <v-list-item-title>{{ board.title }}</v-list-item-title>
@@ -21,19 +20,18 @@
                             </v-list-item-subtitle>
                         </v-list-item-content>
                     </v-list-item>
-                    <!-- <v-divider /> -->
                 </template>
             </v-list>
         </v-card>
         <FixedCreateBtn color="blue"
-            :path="clubBoardCreate"
+                        :path="clubBoardCreate"
         />
     </div>
 </template>
 
 <script>
 import FixedCreateBtn from '@/components/ui/button/FixedCreateBtn.vue';
-import { PATH } from '@/router/route_path_type.js';
+import { combineParamPath, PATH } from '@/router/route_path_type.js';
 
 export default {
     name: 'ClubMainBoardTab',
@@ -41,12 +39,22 @@ export default {
     props: ['boardList'],
     data() {
         return {
-            clubBoardCreate: PATH.CLUB.BOARD_CREATE,
+            clubBoardCreate: null,
         };
     },
     computed: {
+        clubSeq() {
+            return this.$route.params.clubSeq;
+        },
     },
-    // @TODO 게시판 CRUD
+    mounted() {
+        this.clubBoardCreate = combineParamPath(PATH.CLUB.BOARD_CREATE, [this.clubSeq]);
+    },
+    methods: {
+        clubBoardPath() {
+            return combineParamPath(PATH.CLUB.BOARD_CREATE, [this.clubSeq]);
+        },
+    },
 };
 </script>
 

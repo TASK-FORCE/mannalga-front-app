@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import ClubPost from '@/components/club/clubList/ClubPost.vue';
+import ClubPost from '@/components/club/list/ClubPost.vue';
 import { GET_DEFAULT_PAGE } from '@/store/type/club_list_type.js';
 
 export default {

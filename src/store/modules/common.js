@@ -36,8 +36,8 @@ const actions = {
     [UPLOAD_TEMP_IMAGE]({ commit }, formData) {
         if (formData instanceof FormData) {
             return actionsLoadingTemplate(commit, async () => {
-                const { absolutePath } = await uploadTempImage(formData);
-                return absolutePath;
+                const tempImageInfo = await uploadTempImage(formData);
+                return { ...tempImageInfo };
             });
         }
 

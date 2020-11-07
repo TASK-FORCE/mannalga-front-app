@@ -57,17 +57,25 @@ export default {
     name: 'ImageCropper',
     props: {
         // https://github.com/fengyuanchen/cropperjs#options 참고
-        cropperOptions: {
-            type: Object,
-            default() {
-                return {
-                    aspectRatio: 16 / 9,
-                    autoCropArea: 1,
-                    viewMode: 3,
-                    movable: false,
-                    zoomable: false,
-                };
-            },
+        aspectRatio: {
+            type: Number,
+            default: 16 / 9,
+        },
+        autoCropArea: {
+            type: Number,
+            default: 1,
+        },
+        viewMode: {
+            type: Number,
+            default: 3,
+        },
+        movable: {
+            type: Boolean,
+            default: false,
+        },
+        zoomable: {
+            type: Boolean,
+            default: false,
         },
     },
     data() {
@@ -82,12 +90,22 @@ export default {
         openModal() {
             return !!this.originalImgUrl;
         },
+        cropperOptions() {
+            return {
+                aspectRatio: this.aspectRatio,
+                autoCropArea: this.autoCropArea,
+                viewMode: this.viewMode,
+                movable: this.movable,
+                zoomable: this.zoomable,
+            };
+        },
     },
     methods: {
         destroy() {
             this.originalImgUrl = null;
             this.cropper = null;
             this.$refs.originalImg.value = '';
+            this.isLoading = false;
         },
         trigger() {
             this.$refs.originalImg.click();
@@ -118,11 +136,11 @@ export default {
             croppedCanvas.toBlob(blob => {
                 const formData = new FormData();
                 formData.append('file', blob, 'test.png');
-                actionsHelper.uploadTempImage(formData).then(imgUrl => {
-                    this.$emit('handleUploadedImg', imgUrl);
-                    this.destroy();
-                })
-                    .finally(this.isLoading = false);
+                actionsHelper.uploadTempImage(formData)
+                    .then(tempImageDto => {
+                        this.$emit('handleUploadedImgDto', tempImageDto);
+                        this.destroy();
+                    });
             });
         },
     },

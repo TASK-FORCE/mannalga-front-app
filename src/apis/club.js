@@ -14,8 +14,13 @@ function requestClubJoin(seq) {
     return axios.post(`/api/clubs/${seq}/users`);
 }
 
+function requestClubBoardCreate({ clubSeq, clubBoardDto }) {
+    return axios.post(`/api/clubs/${clubSeq}/boards`, clubBoardDto);
+}
+
 export {
     requestClubData,
     requestClubCreate,
     requestClubJoin,
+    requestClubBoardCreate,
 };

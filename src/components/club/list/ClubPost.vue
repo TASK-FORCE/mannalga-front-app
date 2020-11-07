@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-list-item :key="club.seq"
-                     :to="`/club/${club.seq}`"
+                     :to="clubPath(club.seq)"
                      class="py-2 pl-0"
         >
             <v-img :src="imgUrl"
@@ -35,6 +35,7 @@
 
 <script>
 import InterestIcons from '@/components/InterestIcons.vue';
+import { combineParamPath, PATH } from '@/router/route_path_type.js';
 
 export default {
     name: 'ClubPost',
@@ -47,6 +48,11 @@ export default {
         },
         imgUrl() {
             return this.club.mainImageUrl || 'https://w7.pngwing.com/pngs/70/60/png-transparent-vue-js-javascript-library-github-github-angle-text-triangle.png';
+        },
+    },
+    methods: {
+        clubPath(seq) {
+            return combineParamPath(PATH.CLUB.MAIN, [seq]);
         },
     },
 };

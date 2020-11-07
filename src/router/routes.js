@@ -67,12 +67,12 @@ const routes = [
     {
         path: PATH.CLUB.BOARD_CREATE,
         name: 'ClubBoardCreate',
-        component: () => import('@/views/club/ClubBoardCreatePage.vue'),
+        component: () => import('@/views/club/clubBoard/ClubBoardCreatePage.vue'),
     },
     {
         path: PATH.CLUB.BOARD_POST,
         name: 'ClubBoardPost',
-        component: () => import('@/views/club/ClubBoardPostPage.vue'),
+        component: () => import('@/views/club/clubBoard/ClubBoardPostPage.vue'),
     },
     {
         path: PATH.USER.SETTINGS,

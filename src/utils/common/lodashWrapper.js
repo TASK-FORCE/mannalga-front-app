@@ -1,48 +1,31 @@
-import _ from 'lodash';
+import { cloneDeep, findIndex, isEmpty, isEqual, isFunction, isNumber, sortBy, throttle } from 'lodash';
 
 /** 기본적으로는 lodash 라이브러리 함수들을 forwarding 한다.
  *  - 코드 자동 완성과 추후 빌드 번들 크기를 편리하게 줄이기 위해 wrapping utils 사용
  *  - 필요에 따라 추가적인 유틸리티 메서드를 작성한다.
  */
-const isDeepEmpty = (target) => {
-    if (typeof target === 'object') {
-        for (const value of Object.values(target)) {
-            if (!isDeepEmpty(value)) {
-                return false;
+
+const _ = {
+    isDeepEmpty: (target) => {
+        if (typeof target === 'object') {
+            for (const value of Object.values(target)) {
+                if (!this.isDeepEmpty(value)) {
+                    return false;
+                }
             }
+            return true;
         }
-        return true;
-    }
-    return _.isEmpty(target);
+        return isEmpty(target);
+    },
+    isEmpty: (target) => isEmpty(target),
+    isNotEmpty: (target) => !isEmpty(target),
+    findIndex: (array, predicate) => findIndex(array, predicate),
+    isEqual: (value, other) => isEqual(value, other),
+    isNumber: (value) => isNumber(value),
+    cloneDeep: (value) => cloneDeep(value),
+    isFunction: (value) => isFunction(value),
+    throttle: (callback, wait) => throttle(callback, wait),
+    sortBy: (list, sortTargetFunction) => sortBy(list, sortTargetFunction),
 };
 
-const isEmpty = (target) => _.isEmpty(target);
-
-const isNotEmpty = (target) => !isEmpty(target);
-
-const findIndex = (array, predicate) => _.findIndex(array, predicate);
-
-const isEqual = (value, other) => _.isEqual(value, other);
-
-const isNumber = (value) => _.isNumber(value);
-
-const cloneDeep = (value) => _.cloneDeep(value);
-
-const isFunction = (value) => _.isFunction(value);
-
-const throttle = (callback, wait) => _.throttle(callback, wait);
-
-const sortBy = (list, sortTargetFunction) => _.sortBy(list, sortTargetFunction);
-
-export default {
-    isEmpty,
-    isEqual,
-    findIndex,
-    isNotEmpty,
-    isDeepEmpty,
-    cloneDeep,
-    isNumber,
-    isFunction,
-    throttle,
-    sortBy,
-};
+export default _;

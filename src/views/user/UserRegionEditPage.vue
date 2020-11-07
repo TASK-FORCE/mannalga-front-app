@@ -1,7 +1,7 @@
 <template>
     <div v-if="!isLoading">
         <CommonHeader title="지역변경"
-                      @clickBack="moveToSettingPage"
+                      @click="moveToSettingPage"
         />
         <UserRegionPriority />
         <SimpleBtnFooter text="변경하기"

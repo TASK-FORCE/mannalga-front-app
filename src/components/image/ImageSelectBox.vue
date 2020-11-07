@@ -4,9 +4,11 @@
              :style="setHeight"
              @click="triggerCropper"
         >
-            <div v-if="imageUrl">
+            <div v-if="imageUrl"
+                 class="wh-100"
+            >
                 <v-img :src="imageUrl"
-                       :height="height"
+                       class="wh-100"
                 />
             </div>
             <div v-else
@@ -20,7 +22,7 @@
         </div>
         <!--  @handleUploadedImg 이벤트에서 파라미터로 저장된 이미지의 URL를 넘겨준다   -->
         <ImageCropper ref="cropper"
-                      @handleUploadedImg="handleUploadedImg"
+                      @handleUploadedImgDto="handleUploadedImgDto"
         />
     </div>
 </template>
@@ -58,9 +60,11 @@ export default {
         triggerCropper() {
             this.$refs.cropper.trigger();
         },
-        handleUploadedImg(imgUrl) {
-            this.imageUrl = imgUrl;
-            this.$emit('changeImageUrl', imgUrl);
+        handleUploadedImgDto(imageDto) {
+            const imageUrl = imageDto.absolutePath;
+            this.imageUrl = imageUrl;
+            this.$emit('handleImageUrl', imageUrl);
+            this.$emit('handleImageDto', imageDto);
         },
     },
 };
@@ -72,6 +76,7 @@ export default {
     border: thin solid #9e9e9e;
     border-radius: 4px;
     text-align: center;
+    padding: 1px;
 }
 
 .image-selector {

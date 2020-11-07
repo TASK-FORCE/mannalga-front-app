@@ -1,3 +1,5 @@
+import _ from '@/utils/common/lodashWrapper.js';
+
 export const PATH = {
     LOGIN: '/login',
     APP_MAIN: '/main',
@@ -9,10 +11,10 @@ export const PATH = {
         INTEREST: '/register/interest',
     },
     CLUB: {
-        MAIN: '/club/:seq',
         CREATE: '/create/club',
-        BOARD_POST: '/club/board/:seq',
-        BOARD_CREATE: '/club/create/board',
+        MAIN: '/club/:clubSeq',
+        BOARD_POST: '/club/:clubSeq/board/:boardSeq',
+        BOARD_CREATE: '/club/:clubSeq/create/board',
     },
     USER: {
         SETTINGS: '/user/settings',
@@ -21,7 +23,29 @@ export const PATH = {
     },
 };
 
+// route 계층 구조 이용시 child route path를 정의하기 위해 필요
 export const getChildRoutePath = (path) => {
     const split = path.split('/');
     return split[split.length - 1];
+};
+
+export const combineParamPath = (path, params) => {
+    if (!Array.isArray(params)) {
+        throw Error('params must be Array');
+    }
+    if (_.isEmpty(path) || _.isEmpty(params)) {
+        throw Error(`path or params must not be empty. path: ${path}, params: ${params}`);
+    }
+
+    let paramIndex = 0;
+    return path
+        .split('/')
+        .map(token => {
+            if (token.startsWith(':')) {
+                // eslint-disable-next-line no-plusplus
+                return params[paramIndex++];
+            }
+            return token;
+        })
+        .join('/');
 };

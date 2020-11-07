@@ -2,7 +2,7 @@
     <div class="text-center">
         <v-btn :outlined="!!outlined"
                :color="color || 'blue'"
-               :loading="isLoading"
+               :loading="loading"
                @click="$emit('click');"
         >
             {{ text }}
@@ -26,7 +26,7 @@ export default {
             type: Boolean,
             default: false,
         },
-        isLoading: {
+        loading: {
             type: Boolean,
             default: false,
         },

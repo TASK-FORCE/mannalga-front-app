@@ -1,5 +1,5 @@
-import { requestClubCreate, requestClubData, requestClubJoin } from '@/apis/club.js';
-import { CLUB_DATA, CLUB_NAME, GET_DEFAULT_CLUB, REQUEST_CLUB_CREATE, REQUEST_CLUB_DATA, REQUEST_CLUB_JOIN, SET_CLUB_DATA } from '@/store/type/club_type.js';
+import { requestClubBoardCreate, requestClubCreate, requestClubData, requestClubJoin } from '@/apis/club.js';
+import { CLUB_DATA, CLUB_NAME, GET_DEFAULT_CLUB, REQUEST_CLUB_BOARD_CREATE, REQUEST_CLUB_CREATE, REQUEST_CLUB_DATA, REQUEST_CLUB_JOIN, SET_CLUB_DATA } from '@/store/type/club_type.js';
 import { actionsLoadingTemplate, actionsNormalTemplate } from '@/store/utils/actionsTemplate.js';
 import RequestConverter from '@/store/converter/requestConverter.js';
 
@@ -35,6 +35,11 @@ const actions = {
     async [REQUEST_CLUB_JOIN]({ commit }, clubSeq) {
         return actionsNormalTemplate(async () => {
             await requestClubJoin(clubSeq);
+        });
+    },
+    async [REQUEST_CLUB_BOARD_CREATE]({ _ }, clubBoardCreateInfo) {
+        return actionsNormalTemplate(async () => {
+            await requestClubBoardCreate(clubBoardCreateInfo);
         });
     },
 };

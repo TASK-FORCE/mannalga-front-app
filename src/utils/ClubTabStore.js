@@ -15,7 +15,6 @@ class ClubTabStore {
 
     save(clubSeq, tabName) {
         this.cache.put(clubSeq, tabName);
-        console.log('save', clubSeq, tabName);
     }
 }
 

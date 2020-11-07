@@ -28,6 +28,8 @@ const RULES = {
     CLUB_REGION: [v => !!v || '모임 지역을 선택해주세요.'],
     CLUB_DESCRIPTION: [v => !!v || '모임 설명을 작성해주세요.'],
     CLUB_MAXIMUM_NUMBER: [v => !!v || '모임 최대인원을 작성해주세요.'],
+    CLUB_BOARD_TITLE: [v => !!v || '게시글 제목을 작성해주세요.'],
+    CLUB_BOARD_CONTENT: [v => !!v || '게시글 내용을 작성해주세요.'],
 };
 
 const CLUB_MAXIMUM_NUMBER_LIST = createClubMaximumNumberList(10, 100, 10);

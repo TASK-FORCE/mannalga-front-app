@@ -4,7 +4,7 @@
                app
     >
         <v-btn icon
-               @click="$emit('clickBack')"
+               @click="$emit('click')"
         >
             <v-icon>mdi-keyboard-backspace</v-icon>
         </v-btn>
@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import { PATH } from '@/router/route_path_type.js';
+
 export default {
     name: 'CommonHeader',
     props: {

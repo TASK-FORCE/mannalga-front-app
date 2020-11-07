@@ -1,7 +1,7 @@
 <template>
     <div>
         <CommonHeader title="지역선택"
-                      @clickBack="$router.back()"
+                      @click="$router.back()"
         />
         <UserRegion :priority="priority" />
     </div>

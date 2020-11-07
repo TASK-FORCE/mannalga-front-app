@@ -4,7 +4,7 @@
         app
     >
         <v-btn icon
-               @click="$router.back()"
+               @click="pushToAppMain"
         >
             <v-icon>mdi-keyboard-backspace</v-icon>
         </v-btn>
@@ -27,11 +27,17 @@
 
 <script>
 import { gettersHelper } from '@/store/helper/gettersHelper.js';
+import { PATH } from '@/router/route_path_type.js';
 
 export default {
     name: 'ClubMainHeader',
     computed: {
         clubName: () => gettersHelper.clubName(),
+    },
+    methods: {
+        pushToAppMain() {
+            this.$router.push(PATH.APP_MAIN);
+        },
     },
 };
 </script>

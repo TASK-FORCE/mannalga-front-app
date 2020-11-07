@@ -1,7 +1,7 @@
 <template>
     <div v-if="!isLoading">
         <CommonHeader title="관심사 변경"
-                      @clickBack="moveToSettingPage"
+                      @click="moveToSettingPage"
         />
         <UserInterest />
         <SimpleBtnFooter text="변경하기"

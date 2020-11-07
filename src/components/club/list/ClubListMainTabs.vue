@@ -21,8 +21,8 @@
 
 <script>
 import goTo from 'vuetify/es5/services/goto';
-import ClubListTab from '@/components/club/clubList/ClubListTab.vue';
-import MyClubListTab from '@/components/club/clubList/MyClubListTab.vue';
+import ClubListTab from '@/components/club/list/ClubListTab.vue';
+import MyClubListTab from '@/components/club/list/MyClubListTab.vue';
 
 export default {
     name: 'ClubListMainTabs',
