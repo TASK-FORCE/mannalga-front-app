@@ -7,8 +7,8 @@
 
 <script>
 import GoBackBtnFooter from '@/components/ui/footer/GoBackBtnFooter.vue';
-import _ from '@/utils/lodashWrapper.js';
-import { MESSAGE } from '@/utils/constant/constant.js';
+import _ from '@/utils/common/lodashWrapper.js';
+import { MESSAGE } from '@/utils/common/constant/constant.js';
 import UserRegionPriority from '@/components/user/UserRegionPriority.vue';
 import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';

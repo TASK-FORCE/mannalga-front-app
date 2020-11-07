@@ -1,5 +1,5 @@
 import { CHANGE_LOADING, COMMON } from '@/store/type/common_type.js';
-import _ from '@/utils/lodashWrapper.js';
+import _ from '@/utils/common/lodashWrapper.js';
 
 export const actionsLoadingTemplate = async (commitInfo, callback, failCallback) => {
     const { commit, commitName, useRootCommit } = extractCommitInfo(commitInfo);

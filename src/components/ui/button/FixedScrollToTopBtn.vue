@@ -12,7 +12,7 @@
 
 <script>
 import goTo from 'vuetify/es5/services/goto';
-import _ from '@/utils/lodashWrapper.js';
+import _ from '@/utils/common/lodashWrapper.js';
 
 const DEFAULT_THROTTLE_DELAY = 300;
 const DEFAULT_BOUNDARY = 100;

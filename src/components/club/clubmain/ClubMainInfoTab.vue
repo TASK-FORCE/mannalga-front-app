@@ -1,9 +1,9 @@
 <template>
-    <v-tab-item>
+    <div>
         <ClubMainInfoDetailSection :clubInfo="clubInfo" />
         <ClubMainInfoMeetingSection />
         <ClubMainInfoMemberSection style="height: 1000px"/>
-    </v-tab-item>
+    </div>
 </template>
 
 <script>

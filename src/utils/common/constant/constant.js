@@ -1,4 +1,4 @@
-import { createClubMaximumNumberList } from '@/utils/constant/constantUtils.js';
+import { createClubMaximumNumberList } from '@/utils/common/constant/constantUtils.js';
 
 const MESSAGE = {
     LOGIN_FAIL: '로그인에 실패했습니다. 다시 한번 더 시도해주세요.',

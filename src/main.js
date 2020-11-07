@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import axios from 'axios';
-import { setAppTokenAsDefaultHeader } from '@/utils/authUtils.js';
+import { setAppTokenAsDefaultHeader } from '@/utils/auth/authUtils.js';
 import App from './App.vue';
 import { vuetify } from './plugins/vuetify';
 import router from './router';
@@ -8,7 +8,7 @@ import store from './store';
 
 import '@mdi/font/css/materialdesignicons.css';
 import './font/roboto.css';
-import './style/style.css';
+import './style/style.scss';
 import './style/vuetify-override.scss';
 
 Vue.config.productionTip = false;

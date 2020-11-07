@@ -1,5 +1,5 @@
 <template>
-    <v-tab-item>
+    <div>
         <v-container fluid>
             <v-row>
                 <v-col
@@ -35,7 +35,7 @@
             </v-row>
         </v-container>
         <FixedCreateBtn color="green" />
-    </v-tab-item>
+    </div>
 </template>
 
 <script>

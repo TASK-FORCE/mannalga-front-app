@@ -17,9 +17,9 @@ import CommonHeader from '@/components/ui/header/CommonHeader.vue';
 import { actionsHelper } from '@/store/helper/actionsHelper.js';
 import SimpleBtnFooter from '@/components/ui/footer/SimpleBtnFooter.vue';
 import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
-import { MESSAGE } from '@/utils/constant/constant.js';
+import { MESSAGE } from '@/utils/common/constant/constant.js';
 import UserInterest from '@/components/user/UserInterest.vue';
-import _ from '@/utils/lodashWrapper.js';
+import _ from '@/utils/common/lodashWrapper.js';
 import { PATH } from '@/router/route_path_type.js';
 
 export default {

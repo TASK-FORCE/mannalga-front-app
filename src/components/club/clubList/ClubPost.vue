@@ -2,20 +2,18 @@
     <div>
         <v-list-item :key="club.seq"
                      :to="`/club/${club.seq}`"
-                     class="pa-3"
+                     class="py-2 pl-0"
         >
             <v-img :src="imgUrl"
-                   max-width="60"
-                   max-height="50"
+                   max-width="80"
+                   height="60"
             />
-            <div class="ml-5">
+            <div class="ml-3">
                 <div>
                     <InterestIcons :interestWithPriority="club.interests"
                                    :maxSize="1"
                     />
-                    <span class="ml-1"
-                          style="font-size: 0.9rem"
-                    >
+                    <span class="ml-1 f-09">
                                 {{ firstRegion.name }}
                     </span>
                 </div>
@@ -24,8 +22,9 @@
                 </div>
             </div>
             <v-spacer />
-            <div class="text-body-2 mr-3">
-                <div style="font-size: 0.8rem">
+            <div class="text-body-2 mr-3 user-count-wrapper">
+                <div class="f-08">
+                    <v-icon>mdi-account-multiple</v-icon>
                     {{ club.userCount }}/{{ club.maximumNumber }}
                 </div>
             </div>
@@ -54,4 +53,9 @@ export default {
 </script>
 
 <style scoped>
+.user-count-wrapper {
+    position: absolute;
+    right: 0;
+    bottom: 10px;
+}
 </style>

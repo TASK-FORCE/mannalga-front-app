@@ -15,9 +15,7 @@
                         <div>
                             <span v-for="(myRole, index) in myRoles"
                                   :key="index"
-                                  class="ml-1"
-                                  style="font-size: 0.9rem"
-
+                                  class="ml-1 f-09"
                             >
                                 {{ myRole.roleGroupName }} : {{ myRole.name }}
                             </span>
@@ -30,7 +28,7 @@
                            class="pa-0 text-body-2"
 
                     >
-                        <div style="font-size: 0.8rem">
+                        <div class="f-08">
                             {{ myClub.userCount }}/{{ myClub.maximumNumber }}
                         </div>
                     </v-col>

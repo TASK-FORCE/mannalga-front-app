@@ -8,8 +8,8 @@
 <script>
 import GoBackBtnFooter from '@/components/ui/footer/GoBackBtnFooter.vue';
 import UserInterest from '@/components/user/UserInterest.vue';
-import { MESSAGE } from '@/utils/constant/constant.js';
-import _ from '@/utils/lodashWrapper.js';
+import { MESSAGE } from '@/utils/common/constant/constant.js';
+import _ from '@/utils/common/lodashWrapper.js';
 import { PATH } from '@/router/route_path_type.js';
 import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';

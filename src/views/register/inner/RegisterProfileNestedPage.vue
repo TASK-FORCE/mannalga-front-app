@@ -10,8 +10,8 @@
 <script>
 import UserProfile from '@/components/user/UserProfile.vue';
 import GoBackBtnFooter from '@/components/ui/footer/GoBackBtnFooter.vue';
-import { getValidationFailText, ruleValidationSuccess } from '@/utils/validationUtils.js';
-import { RULES } from '@/utils/constant/constant.js';
+import { getValidationFailText, ruleValidationSuccess } from '@/utils/common/validationUtils.js';
+import { RULES } from '@/utils/common/constant/constant.js';
 import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import { PATH } from '@/router/route_path_type.js';

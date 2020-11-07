@@ -3,8 +3,8 @@
         <v-btn v-for="(interestGroupType, index) in interestGroupTypes"
                :key="index"
                fab
-               width="24"
-               height="24"
+               width="20"
+               height="20"
                outlined
                :color="interestGroupType.color"
                :class="index > 0 ? 'ml-2' : ''"
@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import { INTEREST_GROUP_TYPES } from '@/utils/constant/type_constant.js';
-import _ from '@/utils/lodashWrapper.js';
+import { INTEREST_GROUP_TYPES } from '@/utils/common/constant/type_constant.js';
+import _ from '@/utils/common/lodashWrapper.js';
 
 export default {
     name: 'InterestIcons',
@@ -56,6 +56,6 @@ function extractInterestsOrderByPriority(interestsWithPriority) {
 
 <style scoped>
 .interest-icon {
-    font-size: 17px !important;
+    font-size: 13px !important;
 }
 </style>

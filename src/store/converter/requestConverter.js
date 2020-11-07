@@ -1,4 +1,4 @@
-import { KAKAO } from '@/utils/kakao/utlls.js';
+import { KAKAO } from '@/utils/auth/kakao/utlls.js';
 
 /** RequestConverter
  *  - 백엔드 서버로 전달하는 request 정보를 converting

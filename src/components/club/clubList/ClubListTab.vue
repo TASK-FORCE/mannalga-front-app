@@ -15,7 +15,7 @@ import SearchFilterMain from '@/components/search/SearchFilterMain.vue';
 import ClubList from '@/components/club/clubList/ClubList.vue';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import { actionsHelper } from '@/store/helper/actionsHelper.js';
-import _ from '@/utils/lodashWrapper.js';
+import _ from '@/utils/common/lodashWrapper.js';
 
 export default {
     name: 'ClubListTab',

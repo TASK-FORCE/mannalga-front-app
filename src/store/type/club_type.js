@@ -139,6 +139,7 @@ export const GET_DEFAULT_CLUB = () => ({ ...EMPTY_CLUB });
 
 // state & getters
 export const CLUB_DATA = 'clubData';
+export const CLUB_NAME = 'clubName';
 
 // mutations
 export const SET_CLUB_DATA = 'setClubData';

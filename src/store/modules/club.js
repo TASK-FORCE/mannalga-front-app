@@ -1,5 +1,5 @@
 import { requestClubCreate, requestClubData, requestClubJoin } from '@/apis/club.js';
-import { CLUB_DATA, GET_DEFAULT_CLUB, REQUEST_CLUB_CREATE, REQUEST_CLUB_DATA, REQUEST_CLUB_JOIN, SET_CLUB_DATA } from '@/store/type/club_type.js';
+import { CLUB_DATA, CLUB_NAME, GET_DEFAULT_CLUB, REQUEST_CLUB_CREATE, REQUEST_CLUB_DATA, REQUEST_CLUB_JOIN, SET_CLUB_DATA } from '@/store/type/club_type.js';
 import { actionsLoadingTemplate, actionsNormalTemplate } from '@/store/utils/actionsTemplate.js';
 import RequestConverter from '@/store/converter/requestConverter.js';
 
@@ -8,14 +8,13 @@ const state = {
 };
 
 const getters = {
-    [CLUB_DATA](state) {
-        return state[CLUB_DATA];
-    },
+    [CLUB_DATA]: (state) => state[CLUB_DATA],
+    [CLUB_NAME]: (state) => state[CLUB_DATA].clubInfo.name,
 };
 
 const mutations = {
     [SET_CLUB_DATA](state, clubData) {
-        state.clubData = clubData;
+        state[CLUB_DATA] = clubData;
     },
 };
 

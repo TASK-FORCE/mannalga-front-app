@@ -1,4 +1,4 @@
-import { SnackBarOption } from '@/utils/snackbarUtils.js';
+import { SnackBarOption } from '@/utils/common/snackbarUtils.js';
 
 const combineWithModuleName = (moduleName, name) => `${moduleName}/${name}`;
 

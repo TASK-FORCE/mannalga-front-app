@@ -41,7 +41,7 @@ import CommonCenterBtn from '@/components/ui/button/CommonCenterBtn.vue';
 import ImageSelectBox from '@/components/image/ImageSelectBox.vue';
 import BottomSheetInterestCard from '@/components/ui/bottom-sheet/BottomSheetInterestCard.vue';
 import BottomSheetRegionCard from '@/components/ui/bottom-sheet/BottomSheetRegionCard.vue';
-import { MESSAGE } from '@/utils/constant/constant.js';
+import { MESSAGE } from '@/utils/common/constant/constant.js';
 import ClubCreateForm from '@/components/club/create/ClubCreateForm.vue';
 import { actionsHelper } from '@/store/helper/actionsHelper.js';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';

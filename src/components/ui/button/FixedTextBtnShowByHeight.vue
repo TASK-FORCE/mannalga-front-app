@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import _ from '@/utils/lodashWrapper.js';
+import _ from '@/utils/common/lodashWrapper.js';
 
 const DEFAULT_THROTTLE_DELAY = 300;
 

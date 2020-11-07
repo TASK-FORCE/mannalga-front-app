@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { requestKakaoToken, saveKakaoTokenAndGetAppToken } from '@/apis/login.js';
-import { getAppToken, removeAppTokenToLocalStorage, saveAppTokenToLocalStorage, setAppTokenAsDefaultHeader } from '@/utils/authUtils.js';
+import { getAppToken, removeAppTokenToLocalStorage, saveAppTokenToLocalStorage, setAppTokenAsDefaultHeader } from '@/utils/auth/authUtils.js';
 import { APP_TOKEN, IS_AUTH, REMOVE_APP_TOKEN, REQUEST_APP_TOKEN_BY_KAKAO_TOKEN, REQUEST_KAKAO_TOKEN_BY_CODE, SET_APP_TOKEN } from '@/store/type/auth_type.js';
-import _ from '@/utils/lodashWrapper.js';
+import _ from '@/utils/common/lodashWrapper.js';
 import { actionsNormalTemplate } from '@/store/utils/actionsTemplate.js';
 import RequestConverter from '@/store/converter/requestConverter.js';
 

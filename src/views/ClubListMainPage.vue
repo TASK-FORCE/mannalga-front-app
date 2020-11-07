@@ -1,6 +1,6 @@
 <template>
     <v-container class="pb-0">
-        <ClubListHeader />
+        <ClubListMainHeader />
         <ClubListMainTabs />
         <FixedCreateBtn color="blue"
                         :path="clubCreatePath"
@@ -15,10 +15,11 @@ import ClubListMainTabs from '@/components/club/clubList/ClubListMainTabs.vue';
 import FixedCreateBtn from '@/components/ui/button/FixedCreateBtn.vue';
 import FixedScrollToTopBtn from '@/components/ui/button/FixedScrollToTopBtn.vue';
 import { PATH } from '@/router/route_path_type.js';
+import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 
 export default {
-    name: 'ClubListPage',
-    components: { FixedScrollToTopBtn, FixedCreateBtn, ClubListMainTabs, ClubListHeader: ClubListMainHeader },
+    name: 'ClubListMainPage',
+    components: { FixedScrollToTopBtn, FixedCreateBtn, ClubListMainTabs, ClubListMainHeader },
     data() {
         return {
             clubCreatePath: PATH.CLUB.CREATE,

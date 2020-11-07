@@ -10,9 +10,7 @@ class ClubTabStore {
         if (!value) {
             this.cache.put(clubSeq, 'main');
         }
-        const newVar = this.cache.get(clubSeq);
-        console.log(clubSeq, ':', newVar);
-        return newVar;
+        return this.cache.get(clubSeq);
     }
 
     save(clubSeq, tabName) {

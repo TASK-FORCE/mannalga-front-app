@@ -39,8 +39,8 @@
 </template>
 
 <script>
-import _ from '@/utils/lodashWrapper.js';
-import { RULES } from '@/utils/constant/constant.js';
+import _ from '@/utils/common/lodashWrapper.js';
+import { RULES } from '@/utils/common/constant/constant.js';
 import { PATH } from '@/router/route_path_type.js';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import { mutationsHelper } from '@/store/helper/mutationsHelper.js';

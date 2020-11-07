@@ -6,17 +6,20 @@
         >
             <v-tab
                 v-for="menu in menus"
-                :key="menu"
+                :key="menu.key"
+                :href="`#${menu.key}`"
             >
-                {{ menu }}
+                {{ menu.name }}
             </v-tab>
         </v-tabs>
 
         <v-tabs-items v-model="tab">
-            <ClubMainInfoTab :clubInfo="clubData.clubInfo" />
-            <ClubMainScheduleTab :scheduleList="clubData.scheduleList" />
-            <ClubMainBoardTab :boardList="clubData.boardList" />
-            <ClubMainAlbumTab :albumList="clubData.albumList" />
+            <v-tab-item v-for="tabItem in tabItems"
+                        :key="tabItem.key"
+                        :value="tabItem.key"
+            >
+                <component :is="tabItem.component" />
+            </v-tab-item>
         </v-tabs-items>
     </div>
 </template>
@@ -26,18 +29,54 @@ import ClubMainInfoTab from '@/components/club/clubmain/ClubMainInfoTab.vue';
 import ClubMainScheduleTab from '@/components/club/clubmain/ClubMainScheduleTab.vue';
 import ClubMainBoardTab from '@/components/club/clubmain/ClubMainBoardTab.vue';
 import ClubMainAlbumTab from '@/components/club/clubmain/ClubMainAlbumTab.vue';
+import { gettersHelper } from '@/store/helper/gettersHelper.js';
+import RenderFunction from '@/utils/common/renderFunction.js';
+import { clubTabStore } from '@/utils/ClubTabStore.js';
 
 export default {
     name: 'ClubMainTab',
     components: { ClubMainInfoTab, ClubMainScheduleTab, ClubMainBoardTab, ClubMainAlbumTab },
-    props: {
-        clubData: Object,
-    },
     data() {
         return {
             tab: null,
-            menus: ['메인', '일정', '게시판', '사진첩'],
+            menus: [
+                { name: '메인', key: 'main' },
+                { name: '일정', key: 'meeting' },
+                { name: '게시판', key: 'board' },
+                { name: '사진첩', key: 'album' },
+            ],
         };
+    },
+    computed: {
+        clubData: () => gettersHelper.clubData(),
+        clubSeq() {
+            return this.$route.params.seq;
+        },
+        tabItems() {
+            return [
+                {
+                    component: RenderFunction.createComponent(ClubMainInfoTab, { clubInfo: this.clubData.clubInfo }),
+                    key: 'main',
+                },
+                {
+                    component: RenderFunction.createComponent(ClubMainScheduleTab, { scheduleList: this.clubData.scheduleList }),
+                    key: 'meeting',
+                },
+                {
+                    component: RenderFunction.createComponent(ClubMainBoardTab, { boardList: this.clubData.boardList }),
+                    key: 'board',
+                },
+                {
+                    component: RenderFunction.createComponent(ClubMainAlbumTab, { albumList: this.clubData.albumList }),
+                    key: 'album',
+                },
+            ];
+        },
+    },
+    watch: {
+        tab() {
+            clubTabStore.save(this.clubSeq, this.tab);
+        },
     },
 };
 </script>

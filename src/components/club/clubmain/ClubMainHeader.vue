@@ -26,13 +26,12 @@
 </template>
 
 <script>
+import { gettersHelper } from '@/store/helper/gettersHelper.js';
+
 export default {
     name: 'ClubMainHeader',
-    props: {
-        clubName: {
-            type: String,
-            default: '',
-        },
+    computed: {
+        clubName: () => gettersHelper.clubName(),
     },
 };
 </script>

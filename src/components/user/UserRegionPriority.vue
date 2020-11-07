@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { COLOR } from '@/utils/constant/constant.js';
+import { COLOR } from '@/utils/common/constant/constant.js';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 import { PATH } from '@/router/route_path_type.js';

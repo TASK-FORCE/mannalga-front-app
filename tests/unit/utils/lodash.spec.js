@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import _ from '@/utils/lodashWrapper.js';
+import _ from '@/utils/common/lodashWrapper.js';
 
 describe('lodash 기능 테스트', () => {
     it('Object IsDeepEmpty True', () => {

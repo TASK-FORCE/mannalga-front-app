@@ -14,8 +14,8 @@
 import OtherSettingsListItems from '@/components/user/settings/OtherSettingsListItems.vue';
 import ProfileSettingListItem from '@/components/user/settings/ProfileSettingListItem.vue';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';
-import _ from '@/utils/lodashWrapper.js';
-import RenderFunction from '@/utils/renderFunction.js';
+import _ from '@/utils/common/lodashWrapper.js';
+import RenderFunction from '@/utils/common/renderFunction.js';
 import InterestIcons from '@/components/InterestIcons.vue';
 import { changeThemeAndLoad } from '@/plugins/vuetify.js';
 import { PATH } from '@/router/route_path_type.js';

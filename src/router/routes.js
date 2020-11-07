@@ -50,7 +50,7 @@ const routes = [
     {
         path: PATH.APP_MAIN,
         name: 'AppMain',
-        component: () => import('@/views/ClubListPage.vue'),
+        component: () => import('@/views/ClubListMainPage.vue'),
         beforeEnter: validationAuthentication,
     },
     {

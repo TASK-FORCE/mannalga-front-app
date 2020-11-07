@@ -27,6 +27,7 @@
                                 class="flex-grow-1"
                                 color="green darken-1"
                                 outlined
+                                :loading="isLoading"
                                 @click="submit"
                             >
                                 완료
@@ -74,6 +75,7 @@ export default {
             originalImgUrl: null,
             cropper: null,
             mimes: 'image/png, image/gif, image/jpeg, image/bmp, image/x-icon',
+            isLoading: false,
         };
     },
     computed: {
@@ -102,7 +104,6 @@ export default {
                     return;
                 }
                 this.loadingOriginalImg(originalImgInput.files[0]);
-                console.log(originalImgInput.files[0]);
                 this.filename = originalImgInput.files[0].name || 'unknown';
             }
         },
@@ -113,13 +114,15 @@ export default {
         },
         submit() {
             const croppedCanvas = this.cropper.getCroppedCanvas();
+            this.isLoading = true;
             croppedCanvas.toBlob(blob => {
                 const formData = new FormData();
                 formData.append('file', blob, 'test.png');
                 actionsHelper.uploadTempImage(formData).then(imgUrl => {
                     this.$emit('handleUploadedImg', imgUrl);
                     this.destroy();
-                });
+                })
+                    .finally(this.isLoading = false);
             });
         },
     },
@@ -131,6 +134,7 @@ export default {
     position: relative;
     max-width: 800px;
 }
+
 img {
     width: 100%;
     height: 100%;

@@ -11,7 +11,7 @@
 <script>
 import MyClubList from '@/components/club/clubList/MyClubList.vue';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';
-import _ from '@/utils/lodashWrapper.js';
+import _ from '@/utils/common/lodashWrapper.js';
 import { actionsHelper } from '@/store/helper/actionsHelper.js';
 
 export default {

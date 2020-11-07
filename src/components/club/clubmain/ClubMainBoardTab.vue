@@ -1,5 +1,5 @@
 <template>
-    <v-tab-item>
+    <div>
         <v-card>
             <v-list three-line>
                 <template v-for="board in boardList.boards">
@@ -28,8 +28,7 @@
         <FixedCreateBtn color="blue"
             :path="clubBoardCreate"
         />
-    </v-tab-item>
-    <!-- @TODO 게시글 추가하기 버튼 -->
+    </div>
 </template>
 
 <script>

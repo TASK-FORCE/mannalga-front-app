@@ -4,7 +4,7 @@ import { ROOT_INTERESTS, ROOT_REGIONS, TEMPLATE } from '@/store/type/template_ty
 import { KAKAO_PROFILE, SELECTED_INTEREST_SEQS, SELECTED_REGIONS, USER, USER_PROFILE } from '@/store/type/user_type.js';
 import { AUTH } from '@/store/type/auth_type.js';
 import { CLUB_LIST, CLUB_LIST_MODULE, CLUB_PAGE, MY_CLUB_LIST, MY_CLUB_PAGE, SEARCH_FILTER } from '@/store/type/club_list_type.js';
-import { CLUB, CLUB_DATA } from '@/store/type/club_type.js';
+import { CLUB, CLUB_DATA, CLUB_NAME } from '@/store/type/club_type.js';
 import { combineWithModuleName } from '@/store/utils/vuexUtils.js';
 
 const { getters } = store;
@@ -16,6 +16,7 @@ const gettersHelper = {
 
     // club module
     clubData: () => get(CLUB, CLUB_DATA),
+    clubName: () => get(CLUB, CLUB_NAME),
 
     // clubList module
     clubList: () => get(CLUB_LIST_MODULE, CLUB_LIST),

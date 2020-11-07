@@ -1,6 +1,8 @@
 <template>
     <div>
-        <CommonHeader title="게시글" />
+        <CommonHeader title="게시글"
+                      @clickBack="$router.back()"
+        />
         <v-list-item>
             <v-list-item-avatar color="grey"></v-list-item-avatar>
             <v-list-item-content>

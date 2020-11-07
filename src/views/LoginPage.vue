@@ -24,8 +24,8 @@
 </template>
 
 <script>
-import { moveToKakaoLoginPage } from '@/utils/kakao/utlls.js';
-import { MESSAGE } from '@/utils/constant/constant.js';
+import { moveToKakaoLoginPage } from '@/utils/auth/kakao/utlls.js';
+import { MESSAGE } from '@/utils/common/constant/constant.js';
 import { PATH } from '@/router/route_path_type.js';
 import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';

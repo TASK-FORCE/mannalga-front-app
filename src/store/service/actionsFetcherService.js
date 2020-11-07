@@ -1,11 +1,11 @@
-import _ from '@/utils/lodashWrapper.js';
+import _ from '@/utils/common/lodashWrapper.js';
 import store from '@/store';
 import router from '@/router';
 import { CHANGE_LOADING, COMMON } from '@/store/type/common_type.js';
 import { REQUEST_INTEREST_TEMPLATE, REQUEST_REGION_TEMPLATE, TEMPLATE } from '@/store/type/template_type.js';
 import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';
-import { MESSAGE } from '@/utils/constant/constant.js';
+import { MESSAGE } from '@/utils/common/constant/constant.js';
 import { combineWithModuleName } from '@/store/utils/vuexUtils.js';
 
 const actionsFetcherService = {

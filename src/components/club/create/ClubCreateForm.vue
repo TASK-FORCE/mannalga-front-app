@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { CLUB_MAXIMUM_NUMBER_LIST, RULES } from '@/utils/constant/constant.js';
+import { CLUB_MAXIMUM_NUMBER_LIST, RULES } from '@/utils/common/constant/constant.js';
 
 export default {
     name: 'ClubCreateForm',

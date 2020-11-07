@@ -28,8 +28,8 @@
 </template>
 
 <script>
-import _ from '@/utils/lodashWrapper.js';
-import { MESSAGE } from '@/utils/constant/constant.js';
+import _ from '@/utils/common/lodashWrapper.js';
+import { MESSAGE } from '@/utils/common/constant/constant.js';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 import { actionsFetcherService } from '@/store/service/actionsFetcherService.js';

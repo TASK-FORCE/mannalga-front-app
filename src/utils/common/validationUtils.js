@@ -1,4 +1,4 @@
-import _ from '@/utils/lodashWrapper.js';
+import _ from '@/utils/common/lodashWrapper.js';
 
 function ruleValidationSuccess(target, rules) {
     if (rules instanceof Array) {
