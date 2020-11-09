@@ -51,7 +51,7 @@
 <script>
 import 'cropperjs/dist/cropper.css';
 import Cropper from 'cropperjs';
-import { actionsHelper } from '@/store/helper/actionsHelper.js';
+import actionsHelper from '@/store/helper/ActionsHelper.js';
 
 export default {
     name: 'ImageCropper',

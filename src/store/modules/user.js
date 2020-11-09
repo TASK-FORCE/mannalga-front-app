@@ -1,129 +1,97 @@
-import {
-    postRegister,
-    requestChangeUserInterests,
-    requestChangeUserRegions,
-    requestKakaoProfile,
-    requestRegisterStatus,
-    requestUserInterest,
-    requestUserProfile,
-    requestUserRegions,
-} from '@/apis/user.js';
-import {
-    ADD_SELECTED_INTEREST_SEQS,
-    ADD_SELECTED_REGIONS,
-    CHANGE_PROFILE_NAME,
-    CLEAR_SELECTED_INTERESTS,
-    CLEAR_SELECTED_REGIONS,
-    GET_DEFAULT_PROFILE,
-    GET_DEFAULT_USER_SETTINGS,
-    KAKAO_PROFILE,
-    POST_REGISTER,
-    REMOVE_SELECTED_INTEREST_SEQS,
-    REQUEST_CHANGE_USER_INTEREST,
-    REQUEST_CHANGE_USER_REGIONS,
-    REQUEST_KAKAO_PROFILE,
-    REQUEST_REGISTER_STATUS,
-    REQUEST_USER_INTERESTS,
-    REQUEST_USER_PROFILE,
-    REQUEST_USER_REGIONS,
-    SELECTED_INTEREST_SEQS,
-    SELECTED_REGIONS,
-    SET_PROFILE,
-    SET_USER_PROFILE,
-    USER_PROFILE,
-} from '@/store/type/user_type.js';
+import userApi from '@/apis/UserApi.js';
 import { actionsLoadingTemplate, actionsNormalTemplate } from '@/store/utils/actionsTemplate.js';
 import RequestConverter from '@/store/converter/requestConverter.js';
+import defaultBuilder from '@/store/utils/DefaultBuilder.js';
 
 const state = {
-    [KAKAO_PROFILE]: GET_DEFAULT_PROFILE(),
-    [SELECTED_REGIONS]: {},
-    [SELECTED_INTEREST_SEQS]: [],
-    [USER_PROFILE]: GET_DEFAULT_USER_SETTINGS(),
+    kakaoProfile: defaultBuilder.buildKakaoProfile(),
+    selectedRegions: {},
+    selectedInterestSeqs: [],
+    userProfile: defaultBuilder.buildUserProfile(),
 };
 
 const getters = {
-    [KAKAO_PROFILE]: (state) => state[KAKAO_PROFILE],
-    [SELECTED_REGIONS]: (state) => state[SELECTED_REGIONS],
-    [SELECTED_INTEREST_SEQS]: (state) => state[SELECTED_INTEREST_SEQS],
-    [USER_PROFILE]: (state) => state[USER_PROFILE],
+    kakaoProfile: (state) => state.kakaoProfile,
+    selectedRegions: (state) => state.selectedRegions,
+    selectedInterestSeqs: (state) => state.selectedInterestSeqs,
+    userProfile: (state) => state.userProfile,
 };
 
 const mutations = {
-    [SET_PROFILE](state, profile) {
-        state[KAKAO_PROFILE] = profile;
+    setProfile(state, profile) {
+        state.kakaoProfile = profile;
     },
-    [CHANGE_PROFILE_NAME](state, name) {
-        state[KAKAO_PROFILE].name = name;
+    changeProfileName(state, name) {
+        state.kakaoProfile.name = name;
     },
-    [ADD_SELECTED_REGIONS](state, selectedRegion) {
+    addSelectedRegions(state, selectedRegion) {
         const { priority, region } = selectedRegion;
-        state[SELECTED_REGIONS][priority] = region;
+        state.selectedRegions[priority] = region;
     },
-    [REMOVE_SELECTED_INTEREST_SEQS](state, index) {
-        state[SELECTED_INTEREST_SEQS].splice(index, 1);
+    removeSelectedInterestSeqs(state, index) {
+        state.selectedInterestSeqs.splice(index, 1);
     },
-    [ADD_SELECTED_INTEREST_SEQS](state, seq) {
-        state[SELECTED_INTEREST_SEQS].push(seq);
+    addSelectedInterestSeqs(state, seq) {
+        state.selectedInterestSeqs.push(seq);
     },
-    [SET_USER_PROFILE](state, userProfile) {
-        state[USER_PROFILE] = userProfile;
+    setUserProfile(state, userProfile) {
+        state.userProfile = userProfile;
     },
 };
 
 const actions = {
-    [REQUEST_KAKAO_PROFILE]({ commit }) {
+    requestKakaoProfile({ commit }) {
         return actionsLoadingTemplate(commit, async () => {
-            const profile = await requestKakaoProfile();
-            commit(SET_PROFILE, profile);
+            const profile = await userApi.getKakaoProfile();
+            commit('setProfile', profile);
         });
     },
-    [POST_REGISTER]({ commit }, registerInfo) {
+    postRegister({ commit }, registerInfo) {
         return actionsLoadingTemplate(commit, async () => {
             const registerRequestDto = RequestConverter.convertRegisterInfo(registerInfo);
-            await postRegister(registerRequestDto);
+            await userApi.postRegister(registerRequestDto);
         });
     },
-    [REQUEST_REGISTER_STATUS]({ commit }, appToken) {
+    requestRegisterStatus({ commit }, appToken) {
         return actionsLoadingTemplate(commit, async () => {
-            const { isRegistered } = await requestRegisterStatus(appToken);
+            const { isRegistered } = await userApi.getRegisterStatus(appToken);
             return isRegistered;
         });
     },
-    [REQUEST_USER_PROFILE]({ commit }) {
+    requestUserProfile({ commit }) {
         return actionsLoadingTemplate(commit, async () => {
-            const userProfile = await requestUserProfile();
-            commit(SET_USER_PROFILE, userProfile);
+            const userProfile = await userApi.getUserProfile();
+            commit('setUserProfile', userProfile);
         });
     },
-    [REQUEST_USER_REGIONS]({ commit }) {
+    requestUserRegions({ commit }) {
         return actionsLoadingTemplate(commit, async () => {
-            const userRegions = await requestUserRegions();
-            userRegions.forEach(userRegion => commit(ADD_SELECTED_REGIONS, userRegion));
+            const userRegions = await userApi.getUserRegions();
+            userRegions.forEach(userRegion => commit('addSelectedRegions', userRegion));
         });
     },
-    [REQUEST_CHANGE_USER_REGIONS]({ commit }, selectedRegions) {
+    requestChangeUserRegion({ commit }, selectedRegions) {
         return actionsNormalTemplate(
             async () => {
                 const userRegionsChangeDto = RequestConverter.convertUserRegionsForChange(selectedRegions);
-                await requestChangeUserRegions(userRegionsChangeDto);
+                await userApi.putUserRegions(userRegionsChangeDto);
             },
-            () => commit(CLEAR_SELECTED_REGIONS),
+            () => commit('clearSelectedRegions'),
         );
     },
-    [REQUEST_USER_INTERESTS]({ commit }) {
+    requestUserInterests({ commit }) {
         return actionsLoadingTemplate(commit, async () => {
-            const selectedInterestSeqs = await requestUserInterest();
-            selectedInterestSeqs.forEach(seq => commit(ADD_SELECTED_INTEREST_SEQS, seq));
+            const selectedInterestSeqs = await userApi.gettUserInterest();
+            selectedInterestSeqs.forEach(seq => commit('addSelectedInterestSeqs', seq));
         });
     },
-    [REQUEST_CHANGE_USER_INTEREST]({ commit }, selectedInterestSeqs) {
+    requestChangeUserInterest({ commit }, selectedInterestSeqs) {
         return actionsNormalTemplate(
             async () => {
                 const userInterestsChangeDto = RequestConverter.convertUserInterestForChange(selectedInterestSeqs);
-                await requestChangeUserInterests(userInterestsChangeDto);
+                await userApi.putUserInterests(userInterestsChangeDto);
             },
-            () => commit(CLEAR_SELECTED_INTERESTS),
+            () => commit('clearSelectedInterest'),
         );
     },
 };

@@ -1,6 +1,5 @@
 import { expect } from 'chai';
 import commonModule from '@/store/modules/common.js';
-import { CLOSE_SNACKBAR, OPEN_SNACKBAR, SNACKBAR_OPTIONS } from '@/store/type/common_type.js';
 
 describe('mutations', () => {
     const { mutations } = commonModule;
@@ -26,7 +25,7 @@ describe('mutations', () => {
     it('openSnackBar 호출(snackBarOption 파라미터에 존재하지 않는 값은 디폴트 값으로 대체된다.)', () => {
         // given
         const state = {
-            [SNACKBAR_OPTIONS]: {
+            snackBarOptions: {
                 message: 'defaultMessage',
                 open: false,
                 color: 'defaultColor',
@@ -39,19 +38,19 @@ describe('mutations', () => {
         };
 
         // when
-        mutations[OPEN_SNACKBAR](state, snackBarOption);
+        mutations.openSnackBar(state, snackBarOption);
 
         // then
-        expect(state[SNACKBAR_OPTIONS].message).to.be.equal('newMessage');
-        expect(state[SNACKBAR_OPTIONS].open).to.be.true;
-        expect(state[SNACKBAR_OPTIONS].color).to.be.equal('defaultColor');
-        expect(state[SNACKBAR_OPTIONS].location).to.be.equal('defaultLocation');
+        expect(state.snackBarOptions.message).to.be.equal('newMessage');
+        expect(state.snackBarOptions.open).to.be.true;
+        expect(state.snackBarOptions.color).to.be.equal('defaultColor');
+        expect(state.snackBarOptions.location).to.be.equal('defaultLocation');
     });
 
     it('openSnackBar 호출(snackBar.open = false로 호출하여도 항상 true로 변경된다.)', () => {
         // given
         const state = {
-            [SNACKBAR_OPTIONS]: {
+            snackBarOptions: {
                 message: 'defaultMessage',
                 open: false,
                 color: 'defaultColor',
@@ -65,27 +64,27 @@ describe('mutations', () => {
         };
 
         // when
-        mutations[OPEN_SNACKBAR](state, snackBarOptions);
+        mutations.openSnackBar(state, snackBarOptions);
 
         // then
-        expect(state[SNACKBAR_OPTIONS].message).to.be.equal('newMessage');
-        expect(state[SNACKBAR_OPTIONS].open).to.be.true;
-        expect(state[SNACKBAR_OPTIONS].color).to.be.equal('defaultColor');
-        expect(state[SNACKBAR_OPTIONS].location).to.be.equal('defaultLocation');
+        expect(state.snackBarOptions.message).to.be.equal('newMessage');
+        expect(state.snackBarOptions.open).to.be.true;
+        expect(state.snackBarOptions.color).to.be.equal('defaultColor');
+        expect(state.snackBarOptions.location).to.be.equal('defaultLocation');
     });
 
     it('closeSnackBar 호출', () => {
         // given
         const state = {
-            [SNACKBAR_OPTIONS]: {
+            snackBarOptions: {
                 open: true,
             },
         };
 
         // when
-        mutations[CLOSE_SNACKBAR](state);
+        mutations.closeSnackBar(state);
 
         // then
-        expect(state[SNACKBAR_OPTIONS].open).to.be.false;
+        expect(state.snackBarOptions.open).to.be.false;
     });
 });

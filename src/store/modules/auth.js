@@ -1,53 +1,52 @@
 import axios from 'axios';
-import { requestKakaoToken, saveKakaoTokenAndGetAppToken } from '@/apis/login.js';
+import authApi from '@/apis/AuthApi.js';
 import { getAppToken, removeAppTokenToLocalStorage, saveAppTokenToLocalStorage, setAppTokenAsDefaultHeader } from '@/utils/auth/authUtils.js';
-import { APP_TOKEN, IS_AUTH, REMOVE_APP_TOKEN, REQUEST_APP_TOKEN_BY_KAKAO_TOKEN, REQUEST_KAKAO_TOKEN_BY_CODE, SET_APP_TOKEN } from '@/store/type/auth_type.js';
 import _ from '@/utils/common/lodashWrapper.js';
 import { actionsNormalTemplate } from '@/store/utils/actionsTemplate.js';
 import RequestConverter from '@/store/converter/requestConverter.js';
 
 const state = {
-    [APP_TOKEN]: getAppToken(),
+    appToken: getAppToken(),
 };
 
 const getters = {
-    [IS_AUTH](state) {
-        return _.isNotEmpty(state[APP_TOKEN]);
+    isAuth(state) {
+        return _.isNotEmpty(state.appToken);
     },
-    [APP_TOKEN](state) {
-        return state[APP_TOKEN];
+    appToken(state) {
+        return state.appToken;
     },
 };
 
 const mutations = {
-    [SET_APP_TOKEN](state, appToken) {
-        state[APP_TOKEN] = appToken;
+    setAppToken(state, appToken) {
+        state.appToken = appToken;
         saveAppTokenToLocalStorage(appToken);
         setAppTokenAsDefaultHeader(axios.defaults.headers);
     },
-    [REMOVE_APP_TOKEN](state) {
-        state[APP_TOKEN] = '';
+    removeAppToken(state) {
+        state.appToken = '';
         removeAppTokenToLocalStorage();
     },
 };
 
 const actions = {
-    async [REQUEST_KAKAO_TOKEN_BY_CODE]({ dispatch }, code) {
+    async requestKakaoTokenByCode({ dispatch }, code) {
         return actionsNormalTemplate(async () => {
             const requestParam = RequestConverter.convertKakaoTokenCode(code);
-            const kakaoTokenInfo = await requestKakaoToken(requestParam);
-            return dispatch(REQUEST_APP_TOKEN_BY_KAKAO_TOKEN, kakaoTokenInfo);
+            const kakaoTokenInfo = await authApi.postKakaoTokenToKakaoServer(requestParam);
+            return dispatch('requestAppTokenByKakaoToken', kakaoTokenInfo);
         });
     },
-    async [REQUEST_APP_TOKEN_BY_KAKAO_TOKEN]({ commit }, kakaoTokenInfo) {
+    async requestAppTokenByKakaoToken({ commit }, kakaoTokenInfo) {
         return actionsNormalTemplate(
             async () => {
                 const requestParam = RequestConverter.convertKakaoTokenInfo(kakaoTokenInfo);
-                const { appToken, isRegistered } = await saveKakaoTokenAndGetAppToken(requestParam);
-                commit(SET_APP_TOKEN, appToken);
+                const { appToken, isRegistered } = await authApi.postSaveKakaoToken(requestParam);
+                commit('setAppToken', appToken);
                 return isRegistered;
             },
-            () => commit(REMOVE_APP_TOKEN),
+            () => commit('removeAppToken'),
         );
     },
 };

@@ -1,42 +1,39 @@
-import { CHANGE_LOADING, CLOSE_SNACKBAR, DEFAULT_SNACKBAR_OPTIONS, IS_LOADING, OPEN_SNACKBAR, SNACKBAR_OPTIONS, UPLOAD_TEMP_IMAGE } from '@/store/type/common_type.js';
 import { actionsLoadingTemplate } from '@/store/utils/actionsTemplate.js';
-import { uploadTempImage } from '@/apis/common.js';
+import commonApi from '@/apis/CommonApi.js';
+import defaultBuilder from '@/store/utils/DefaultBuilder.js';
 
 const state = {
     loading: false,
-    [SNACKBAR_OPTIONS]: DEFAULT_SNACKBAR_OPTIONS,
+    snackBarOptions: defaultBuilder.buildDefaultSnackBarOption(),
 };
 
 const getters = {
-    [IS_LOADING](state) {
+    isLoading(state) {
         return state.loading;
     },
-    [SNACKBAR_OPTIONS](state) {
-        return state[SNACKBAR_OPTIONS];
+    snackBarOptions(state) {
+        return state.snackBarOptions;
     },
 };
 
 const mutations = {
-    [CHANGE_LOADING](state, value) {
+    changeLoading(state, value) {
         state.loading = !!value;
     },
-    [OPEN_SNACKBAR](state, snackBarOptions) {
-        state[SNACKBAR_OPTIONS].message = snackBarOptions.message || state[SNACKBAR_OPTIONS].message;
-        state[SNACKBAR_OPTIONS].color = snackBarOptions.color || state[SNACKBAR_OPTIONS].color;
-        state[SNACKBAR_OPTIONS].location = snackBarOptions.location || state[SNACKBAR_OPTIONS].location;
-        state[SNACKBAR_OPTIONS].time = snackBarOptions.time || state[SNACKBAR_OPTIONS].time;
-        state[SNACKBAR_OPTIONS].open = true;
+    openSnackBar(state, snackBarOptions) {
+        state.snackBarOptions = snackBarOptions;
+        state.snackBarOptions.open = true;
     },
-    [CLOSE_SNACKBAR](state) {
-        state[SNACKBAR_OPTIONS].open = false;
+    closeSnackBar(state) {
+        state.snackBarOptions.open = false;
     },
 };
 
 const actions = {
-    [UPLOAD_TEMP_IMAGE]({ commit }, formData) {
+    uploadTempImage({ commit }, formData) {
         if (formData instanceof FormData) {
             return actionsLoadingTemplate(commit, async () => {
-                const tempImageInfo = await uploadTempImage(formData);
+                const tempImageInfo = await commonApi.postTempImage(formData);
                 return { ...tempImageInfo };
             });
         }

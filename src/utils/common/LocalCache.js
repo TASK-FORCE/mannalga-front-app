@@ -1,5 +1,5 @@
-export default class LocalCache {
-    constructor(clearSize = 100_000) {
+export class LocalCache {
+    constructor(clearSize = 10000) {
         this.store = {};
         this.count = 0;
         this.clearSize = clearSize;

@@ -29,7 +29,7 @@ import ClubMainInfoTab from '@/components/club/main/ClubMainInfoTab.vue';
 import ClubMainScheduleTab from '@/components/club/main/ClubMainScheduleTab.vue';
 import ClubMainBoardTab from '@/components/club/main/ClubMainBoardTab.vue';
 import ClubMainAlbumTab from '@/components/club/main/ClubMainAlbumTab.vue';
-import { gettersHelper } from '@/store/helper/gettersHelper.js';
+import gettersHelper from '@/store/helper/GettersHelper.js';
 import RenderFunction from '@/utils/common/renderFunction.js';
 import { clubTabStore } from '@/utils/ClubTabStore.js';
 

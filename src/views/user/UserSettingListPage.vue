@@ -10,9 +10,9 @@
 
 <script>
 import CommonHeader from '@/components/ui/header/CommonHeader.vue';
-import { gettersHelper } from '@/store/helper/gettersHelper.js';
+import gettersHelper from '@/store/helper/GettersHelper.js';
 import UserSettingList from '@/components/user/settings/UserSettingList.vue';
-import { actionsHelper } from '@/store/helper/actionsHelper.js';
+import actionsHelper from '@/store/helper/ActionsHelper.js';
 import SimpleBtnFooter from '@/components/ui/footer/SimpleBtnFooter.vue';
 import { PATH } from '@/router/route_path_type.js';
 

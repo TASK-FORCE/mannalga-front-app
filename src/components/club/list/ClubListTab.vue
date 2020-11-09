@@ -13,8 +13,8 @@
 <script>
 import SearchFilterMain from '@/components/search/SearchFilterMain.vue';
 import ClubList from '@/components/club/list/ClubList.vue';
-import { gettersHelper } from '@/store/helper/gettersHelper.js';
-import { actionsHelper } from '@/store/helper/actionsHelper.js';
+import gettersHelper from '@/store/helper/GettersHelper.js';
+import actionsHelper from '@/store/helper/ActionsHelper.js';
 import _ from '@/utils/common/lodashWrapper.js';
 
 export default {

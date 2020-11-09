@@ -11,11 +11,11 @@
             </template>
         </v-list-item-group>
     </v-list>
-</template>
+</template><!---->
 
 <script>
 import ClubPost from '@/components/club/list/ClubPost.vue';
-import { GET_DEFAULT_PAGE } from '@/store/type/club_list_type.js';
+import defaultBuilder from '@/store/utils/DefaultBuilder.js';
 
 export default {
     name: 'ClubList',
@@ -23,7 +23,7 @@ export default {
     props: {
         page: {
             type: Object,
-            default: () => GET_DEFAULT_PAGE(),
+            default: () => defaultBuilder.buildPage(),
         },
         clubList: {
             type: Array,

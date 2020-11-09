@@ -27,9 +27,9 @@
 import { moveToKakaoLoginPage } from '@/utils/auth/kakao/utlls.js';
 import { MESSAGE } from '@/utils/common/constant/constant.js';
 import { PATH } from '@/router/route_path_type.js';
-import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
-import { gettersHelper } from '@/store/helper/gettersHelper.js';
-import { actionsHelper } from '@/store/helper/actionsHelper.js';
+import mutationsHelper from '@/store/helper/MutationsHelper.js';
+import gettersHelper from '@/store/helper/GettersHelper.js';
+import actionsHelper from '@/store/helper/ActionsHelper.js';
 
 export default {
     name: 'LoginPage',

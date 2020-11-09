@@ -29,7 +29,7 @@ export const getChildRoutePath = (path) => {
     return split[split.length - 1];
 };
 
-export const combineParamPath = (path, params) => {
+export const generateParamPath = (path, params) => {
     if (!Array.isArray(params)) {
         throw Error('params must be Array');
     }

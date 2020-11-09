@@ -17,7 +17,7 @@
 
 <script>
 import MyClubPost from '@/components/club/list/MyClubPost.vue';
-import { GET_DEFAULT_PAGE } from '@/store/type/club_list_type.js';
+import defaultBuilder from '@/store/utils/DefaultBuilder.js';
 
 export default {
     name: 'MyClubList',
@@ -25,7 +25,7 @@ export default {
     props: {
         page: {
             type: Object,
-            default: () => GET_DEFAULT_PAGE(),
+            default: () => defaultBuilder.buildPage(),
         },
         myClubContextList: {
             type: Array,

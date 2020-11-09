@@ -53,8 +53,8 @@
 import CommonCenterBtn from '@/components/ui/button/CommonCenterBtn.vue';
 import InterestIcons from '@/components/InterestIcons.vue';
 import FixedTextBtnShowByHeight from '@/components/ui/button/FixedTextBtnShowByHeight.vue';
-import { actionsHelper } from '@/store/helper/actionsHelper.js';
-import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
+import actionsHelper from '@/store/helper/ActionsHelper.js';
+import mutationsHelper from '@/store/helper/MutationsHelper.js';
 
 export default {
     name: 'ClubMainInfoDetailSection',

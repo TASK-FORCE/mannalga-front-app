@@ -31,7 +31,7 @@
 
 <script>
 import FixedCreateBtn from '@/components/ui/button/FixedCreateBtn.vue';
-import { combineParamPath, PATH } from '@/router/route_path_type.js';
+import { generateParamPath, PATH } from '@/router/route_path_type.js';
 
 export default {
     name: 'ClubMainBoardTab',
@@ -48,11 +48,11 @@ export default {
         },
     },
     mounted() {
-        this.clubBoardCreate = combineParamPath(PATH.CLUB.BOARD_CREATE, [this.clubSeq]);
+        this.clubBoardCreate = generateParamPath(PATH.CLUB.BOARD_CREATE, [this.clubSeq]);
     },
     methods: {
         clubBoardPath() {
-            return combineParamPath(PATH.CLUB.BOARD_CREATE, [this.clubSeq]);
+            return generateParamPath(PATH.CLUB.BOARD_CREATE, [this.clubSeq]);
         },
     },
 };

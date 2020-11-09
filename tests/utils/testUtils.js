@@ -1,6 +1,6 @@
-import { gettersHelper } from '@/store/helper/gettersHelper.js';
-import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
-import { actionsHelper } from '@/store/helper/actionsHelper.js';
+import gettersHelper from '@/store/helper/GettersHelper.js';
+import mutationsHelper from '@/store/helper/MutationsHelper.js';
+import actionsHelper from '@/store/helper/ActionsHelper.js';
 import { actionsFetcherService } from '@/store/service/actionsFetcherService.js';
 
 function gettersMocking(sandbox) {

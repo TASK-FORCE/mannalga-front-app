@@ -11,9 +11,9 @@ import UserInterest from '@/components/user/UserInterest.vue';
 import { MESSAGE } from '@/utils/common/constant/constant.js';
 import _ from '@/utils/common/lodashWrapper.js';
 import { PATH } from '@/router/route_path_type.js';
-import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
-import { gettersHelper } from '@/store/helper/gettersHelper.js';
-import { actionsHelper } from '@/store/helper/actionsHelper.js';
+import mutationsHelper from '@/store/helper/MutationsHelper.js';
+import gettersHelper from '@/store/helper/GettersHelper.js';
+import actionsHelper from '@/store/helper/ActionsHelper.js';
 
 export default {
     name: 'RegisterInterestNestedPage',

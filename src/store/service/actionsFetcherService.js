@@ -1,12 +1,11 @@
 import _ from '@/utils/common/lodashWrapper.js';
 import store from '@/store';
 import router from '@/router';
-import { CHANGE_LOADING, COMMON } from '@/store/type/common_type.js';
-import { REQUEST_INTEREST_TEMPLATE, REQUEST_REGION_TEMPLATE, TEMPLATE } from '@/store/type/template_type.js';
-import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
-import { gettersHelper } from '@/store/helper/gettersHelper.js';
+import mutationsHelper from '@/store/helper/MutationsHelper.js';
+import gettersHelper from '@/store/helper/GettersHelper.js';
 import { MESSAGE } from '@/utils/common/constant/constant.js';
 import { combineWithModuleName } from '@/store/utils/vuexUtils.js';
+import { MODULE } from '@/store/type/type.js';
 
 const actionsFetcherService = {
     async fetchInterestAndRegionTemplate(withLoading, routePathWhenFail) {
@@ -18,15 +17,15 @@ const actionsFetcherService = {
         let interestsPromise;
 
         if (withLoading) {
-            store.commit(combineWithModuleName(COMMON, CHANGE_LOADING), true);
+            store.commit(combineWithModuleName(MODULE.COMMON, 'changeLoading'), true);
         }
 
         if (_.isEmpty(gettersHelper.rootRegions())) {
-            regionsPromise = store.dispatch(combineWithModuleName(TEMPLATE, REQUEST_REGION_TEMPLATE));
+            regionsPromise = store.dispatch(combineWithModuleName('template', 'requestRegionTemplate'));
         }
 
         if (_.isEmpty(gettersHelper.rootInterests())) {
-            interestsPromise = store.dispatch(combineWithModuleName(TEMPLATE, REQUEST_INTEREST_TEMPLATE));
+            interestsPromise = store.dispatch(combineWithModuleName('template', 'requestInterestTemplate'));
         }
 
         try {
@@ -40,7 +39,7 @@ const actionsFetcherService = {
             catchPromise.then(() => mutationsHelper.openSnackBar(MESSAGE.SERVER_INSTABILITY));
         } finally {
             if (withLoading) {
-                store.commit(combineWithModuleName(COMMON, CHANGE_LOADING), false);
+                store.commit(combineWithModuleName(MODULE.COMMON, 'changeLoading'), false);
             }
         }
     },

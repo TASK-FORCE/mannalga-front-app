@@ -35,7 +35,7 @@
 
 <script>
 import InterestIcons from '@/components/InterestIcons.vue';
-import { combineParamPath, PATH } from '@/router/route_path_type.js';
+import { generateParamPath, PATH } from '@/router/route_path_type.js';
 
 export default {
     name: 'ClubPost',
@@ -52,7 +52,7 @@ export default {
     },
     methods: {
         clubPath(seq) {
-            return combineParamPath(PATH.CLUB.MAIN, [seq]);
+            return generateParamPath(PATH.CLUB.MAIN, [seq]);
         },
     },
 };

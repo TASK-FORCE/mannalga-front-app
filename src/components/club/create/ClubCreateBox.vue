@@ -43,9 +43,9 @@ import BottomSheetInterestCard from '@/components/ui/bottom-sheet/BottomSheetInt
 import BottomSheetRegionCard from '@/components/ui/bottom-sheet/BottomSheetRegionCard.vue';
 import { MESSAGE } from '@/utils/common/constant/constant.js';
 import ClubCreateForm from '@/components/club/create/ClubCreateForm.vue';
-import { actionsHelper } from '@/store/helper/actionsHelper.js';
-import { gettersHelper } from '@/store/helper/gettersHelper.js';
-import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
+import actionsHelper from '@/store/helper/ActionsHelper.js';
+import gettersHelper from '@/store/helper/GettersHelper.js';
+import mutationsHelper from '@/store/helper/MutationsHelper.js';
 import { actionsFetcherService } from '@/store/service/actionsFetcherService.js';
 import { PATH } from '@/router/route_path_type.js';
 

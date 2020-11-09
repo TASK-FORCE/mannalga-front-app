@@ -33,6 +33,8 @@ module.exports = {
             'no-unused-vars',
             'no-trailing-spaces',
             'camelcase',
+            'lines-between-class-members',
+            'class-methods-use-this',
         ]),
         'no-plusplus': ['error', { 'allowForLoopAfterthoughts': true }],
         'no-shadow': ['error', { 'allow': ['state'] }],

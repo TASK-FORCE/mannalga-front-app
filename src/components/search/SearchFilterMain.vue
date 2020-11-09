@@ -37,9 +37,9 @@ import BottomSheetRegionCard from '@/components/ui/bottom-sheet/BottomSheetRegio
 import SearchFilterSelectBtn from '@/components/search/SearchFilterSelectBtn';
 import BottomSheetInterestCard from '@/components/ui/bottom-sheet/BottomSheetInterestCard.vue';
 import { PATH } from '@/router/route_path_type.js';
-import { gettersHelper } from '@/store/helper/gettersHelper.js';
+import gettersHelper from '@/store/helper/GettersHelper.js';
 import { actionsFetcherService } from '@/store/service/actionsFetcherService.js';
-import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
+import mutationsHelper from '@/store/helper/MutationsHelper.js';
 
 export default {
     name: 'SearchFilterMain',

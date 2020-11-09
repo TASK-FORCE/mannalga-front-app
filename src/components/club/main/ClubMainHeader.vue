@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { gettersHelper } from '@/store/helper/gettersHelper.js';
+import gettersHelper from '@/store/helper/GettersHelper.js';
 import { PATH } from '@/router/route_path_type.js';
 
 export default {

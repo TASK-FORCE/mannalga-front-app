@@ -10,9 +10,9 @@
 
 <script>
 import MyClubList from '@/components/club/list/MyClubList.vue';
-import { gettersHelper } from '@/store/helper/gettersHelper.js';
+import gettersHelper from '@/store/helper/GettersHelper.js';
 import _ from '@/utils/common/lodashWrapper.js';
-import { actionsHelper } from '@/store/helper/actionsHelper.js';
+import actionsHelper from '@/store/helper/ActionsHelper.js';
 
 export default {
     name: 'MyClubListTab',
