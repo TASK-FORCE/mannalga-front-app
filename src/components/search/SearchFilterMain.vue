@@ -12,11 +12,6 @@
                     />
                     <SearchFilterSelectBtn :attrs="attrs"
                                            :on="on"
-                                           :text="searchSortText"
-                                           @click="changeBottomSheetComponent('SORT')"
-                    />
-                    <SearchFilterSelectBtn :attrs="attrs"
-                                           :on="on"
                                            :text="searchInterestText"
                                            @click="changeBottomSheetComponent('INTEREST')"
                     />
@@ -32,9 +27,6 @@
                                          :canSelectRoot="true"
                                          @selectSubInterest="selectSearchInterest"
                 />
-                <BottomSheetSortCard v-else-if="currentBottomSheetCard === 'SORT'"
-                                     @selectSortOption="selectSearchSort"
-                />
             </v-bottom-sheet>
         </div>
     </div>
@@ -43,7 +35,6 @@
 <script>
 import BottomSheetRegionCard from '@/components/ui/bottom-sheet/BottomSheetRegionCard.vue';
 import SearchFilterSelectBtn from '@/components/search/SearchFilterSelectBtn';
-import BottomSheetSortCard from '@/components/ui/bottom-sheet/BottomSheetSortCard.vue';
 import BottomSheetInterestCard from '@/components/ui/bottom-sheet/BottomSheetInterestCard.vue';
 import { PATH } from '@/router/route_path_type.js';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';
@@ -54,7 +45,6 @@ export default {
     name: 'SearchFilterMain',
     components: {
         BottomSheetInterestCard,
-        BottomSheetSortCard,
         SearchFilterSelectBtn,
         BottomSheetRegionCard,
     },
@@ -64,7 +54,6 @@ export default {
             seq: null,
             searchRegionText: '지역 선택',
             searchInterestText: '관심사 선택',
-            searchSortText: '정렬',
             currentBottomSheetCard: null,
         };
     },
@@ -95,12 +84,6 @@ export default {
             mutationsHelper.changeInterestSearchFilter(interestFilter);
             this.changedSearchFilter();
             this.searchInterestText = interest.name;
-            this.sheet = false;
-        },
-        selectSearchSort(sort) {
-            // sort로 검색
-            this.searchSortText = sort.name;
-            this.changedSearchFilter();
             this.sheet = false;
         },
         changeBottomSheetComponent(cardComponent) {
