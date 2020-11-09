@@ -35,7 +35,7 @@ const mutations = {
         state.clubPage = clubPage;
     },
     addNextMyClubList(state, { clubList, clubPage }) {
-        const currentClubList = state.clubList;
+        const currentClubList = state.myClubList;
         state.myClubList = [...currentClubList, ...clubList];
         state.myClubPage = clubPage;
     },

@@ -1,16 +1,16 @@
 <template>
     <div>
         <ClubMainHeader />
-        <ClubMainTab />
+        <ClubMainTabs />
     </div>
 </template>
 
 <script>
 import ClubMainHeader from '@/components/club/main/ClubMainHeader.vue';
-import ClubMainTab from '@/components/club/main/ClubMainTab.vue';
+import ClubMainTabs from '@/components/club/main/ClubMainTabs.vue';
 
 export default {
     name: 'ClubMainPage',
-    components: { ClubMainHeader, ClubMainTab },
+    components: { ClubMainTabs, ClubMainHeader },
 };
 </script>

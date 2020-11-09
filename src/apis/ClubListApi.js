@@ -9,7 +9,7 @@ class ClubListApi {
     }
 
     getMyClubListWithPage(requestParams) {
-        return axios.get('/api/clubs/my', { data: requestParams })
+        return axios.get('/api/clubs/my', { params: requestParams })
             .then(ResponseConverter.extractSuperInventionResponseData)
             .then(ResponseConverter.converterClubList);
     }

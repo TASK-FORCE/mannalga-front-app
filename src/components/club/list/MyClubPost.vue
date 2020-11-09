@@ -1,7 +1,6 @@
 <template>
     <div>
-        <v-list-item :key="myClub.seq"
-                     :to="`/club/${myClub.seq}`"
+        <v-list-item :to="myClubPath(myClub.seq)"
         >
             <div>
                 <v-img src="@/images/vue.png"
@@ -42,6 +41,8 @@
 
 <script>
 
+import { generateParamPath, PATH } from '@/router/route_path_type.js';
+
 export default {
     name: 'MyClubPost',
     props: {
@@ -55,6 +56,11 @@ export default {
         },
         myRoles() {
             return this.myClubContext.roles;
+        },
+    },
+    methods: {
+        myClubPath(clubSeq) {
+            return generateParamPath(PATH.CLUB.MAIN, [clubSeq]);
         },
     },
 };

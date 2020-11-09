@@ -6,15 +6,20 @@
                 grow
         >
             <v-tab v-for="menu in menus"
-                   :key="menu"
+                   :key="menu.key"
+                   :href="`#${menu.key}`"
             >
-                {{ menu }}
+                {{ menu.name }}
             </v-tab>
         </v-tabs>
 
         <v-tabs-items v-model="tab">
-            <ClubListTab />
-            <MyClubListTab />
+            <v-tab-item value="club">
+                <ClubListTab />
+            </v-tab-item>
+            <v-tab-item value="myClub">
+                <MyClubListTab />
+            </v-tab-item>
         </v-tabs-items>
     </div>
 </template>
@@ -23,6 +28,7 @@
 import goTo from 'vuetify/es5/services/goto';
 import ClubListTab from '@/components/club/list/ClubListTab.vue';
 import MyClubListTab from '@/components/club/list/MyClubListTab.vue';
+import clubListTabStore from '@/utils/ClubListTabStore.js';
 
 export default {
     name: 'ClubListMainTabs',
@@ -30,14 +36,25 @@ export default {
     data() {
         return {
             tab: null,
-            menus: ['전체 모임', '내 모임'],
+            menus: [
+                { name: '전체 모임', key: 'club' },
+                { name: '내모임', key: 'myClub' },
+            ],
         };
+    },
+    watch: {
+        tab() {
+            clubListTabStore.save(this.tab);
+        },
     },
     updated() {
         const { rememberPositionY } = this.$route.query;
         if (rememberPositionY) {
             goTo(rememberPositionY);
         }
+    },
+    created() {
+        this.tab = clubListTabStore.get();
     },
 };
 </script>

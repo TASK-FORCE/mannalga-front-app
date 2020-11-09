@@ -18,4 +18,5 @@ class ClubTabStore {
     }
 }
 
-export const clubTabStore = new ClubTabStore();
+const clubTabStore = new ClubTabStore();
+export default clubTabStore;

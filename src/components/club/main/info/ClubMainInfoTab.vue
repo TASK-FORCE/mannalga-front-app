@@ -7,9 +7,9 @@
 </template>
 
 <script>
-import ClubMainInfoDetailSection from '@/components/club/main/ClubMainInfoDetailSection.vue';
-import ClubMainInfoMeetingSection from '@/components/club/main/ClubMainInfoMeetingSection.vue';
-import ClubMainInfoMemberSection from '@/components/club/main/ClubMainInfoMemberSection.vue';
+import ClubMainInfoDetailSection from '@/components/club/main/info/ClubMainInfoDetailSection.vue';
+import ClubMainInfoMeetingSection from '@/components/club/main/info/ClubMainInfoMeetingSection.vue';
+import ClubMainInfoMemberSection from '@/components/club/main/info/ClubMainInfoMemberSection.vue';
 
 export default {
     name: 'ClubMainInfoTab',

@@ -14,27 +14,32 @@
         </v-tabs>
 
         <v-tabs-items v-model="tab">
-            <v-tab-item v-for="tabItem in tabItems"
-                        :key="tabItem.key"
-                        :value="tabItem.key"
-            >
-                <component :is="tabItem.component" />
+            <v-tab-item value="main">
+                <ClubMainInfoTab :clubInfo="clubData.clubInfo" />
+            </v-tab-item>
+            <v-tab-item value="meeting">
+                <ClubMainScheduleTab />
+            </v-tab-item>
+            <v-tab-item value="board">
+                <ClubMainBoardTab :boardList="clubData.boardList" />
+            </v-tab-item>
+            <v-tab-item value="album">
+                <ClubMainAlbumTab :albumList="clubData.albumList" />
             </v-tab-item>
         </v-tabs-items>
     </div>
 </template>
 
 <script>
-import ClubMainInfoTab from '@/components/club/main/ClubMainInfoTab.vue';
+import ClubMainInfoTab from '@/components/club/main/info/ClubMainInfoTab.vue';
 import ClubMainScheduleTab from '@/components/club/main/ClubMainScheduleTab.vue';
 import ClubMainBoardTab from '@/components/club/main/ClubMainBoardTab.vue';
 import ClubMainAlbumTab from '@/components/club/main/ClubMainAlbumTab.vue';
 import gettersHelper from '@/store/helper/GettersHelper.js';
-import RenderFunction from '@/utils/common/renderFunction.js';
-import { clubTabStore } from '@/utils/ClubTabStore.js';
+import clubTabStore from '@/utils/ClubTabStore.js';
 
 export default {
-    name: 'ClubMainTab',
+    name: 'ClubMainTabs',
     components: { ClubMainInfoTab, ClubMainScheduleTab, ClubMainBoardTab, ClubMainAlbumTab },
     data() {
         return {
@@ -51,26 +56,6 @@ export default {
         clubData: () => gettersHelper.clubData(),
         clubSeq() {
             return this.$route.params.clubSeq;
-        },
-        tabItems() {
-            return [
-                {
-                    component: RenderFunction.createComponent(ClubMainInfoTab, { clubInfo: this.clubData.clubInfo }),
-                    key: 'main',
-                },
-                {
-                    component: RenderFunction.createComponent(ClubMainScheduleTab, { scheduleList: this.clubData.scheduleList }),
-                    key: 'meeting',
-                },
-                {
-                    component: RenderFunction.createComponent(ClubMainBoardTab, { boardList: this.clubData.boardList }),
-                    key: 'board',
-                },
-                {
-                    component: RenderFunction.createComponent(ClubMainAlbumTab, { albumList: this.clubData.albumList }),
-                    key: 'album',
-                },
-            ];
         },
     },
     watch: {

@@ -4,7 +4,7 @@
             <v-list three-line>
                 <template v-for="board in boardList.boards">
                     <v-list-item :key="board.seq"
-                                 @click="$router.push(clubBoardPath())"
+                                 @click="$router.push(clubBoardPath(board.seq))"
                     >
                         <v-list-item-content>
                             <v-list-item-title>{{ board.title }}</v-list-item-title>
@@ -51,8 +51,8 @@ export default {
         this.clubBoardCreate = generateParamPath(PATH.CLUB.BOARD_CREATE, [this.clubSeq]);
     },
     methods: {
-        clubBoardPath() {
-            return generateParamPath(PATH.CLUB.BOARD_CREATE, [this.clubSeq]);
+        clubBoardPath(boardSeq) {
+            return generateParamPath(PATH.CLUB.BOARD_POST, [this.clubSeq, boardSeq]);
         },
     },
 };
