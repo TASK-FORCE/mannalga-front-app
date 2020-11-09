@@ -2,10 +2,13 @@ import {
     ADD_NEXT_CLUB_LIST,
     ADD_NEXT_MY_CLUB_LIST,
     CHANGE_CLUB_LIST_WITH_PAGE,
+    CHANGE_CLUB_SEARCH_FILTER_INFO,
     CHANGE_IS_REQUESTING_NEXT_PAGE,
     CHANGE_MY_CLUB_LIST_WITH_PAGE,
     CLUB_LIST,
     CLUB_PAGE,
+    CLUB_SEARCH_FILTER_INFO,
+    GET_DEFAULT_CLUB_SEARCH_FILTER_INFO,
     GET_DEFAULT_PAGE,
     INIT_CLUB_LIST_AND_PAGE,
     INIT_MY_CLUB_LIST_AND_PAGE,
@@ -26,6 +29,7 @@ const state = {
     [CLUB_PAGE]: GET_DEFAULT_PAGE(),
     [MY_CLUB_LIST]: [],
     [MY_CLUB_PAGE]: GET_DEFAULT_PAGE(),
+    [CLUB_SEARCH_FILTER_INFO]: GET_DEFAULT_CLUB_SEARCH_FILTER_INFO(),
     [IS_REQUESTING_NEXT_PAGE]: false,
 };
 
@@ -34,6 +38,7 @@ const getters = {
     [CLUB_PAGE]: (state) => state[CLUB_PAGE],
     [MY_CLUB_LIST]: (state) => state[MY_CLUB_LIST],
     [MY_CLUB_PAGE]: (state) => state[MY_CLUB_PAGE],
+    [CLUB_SEARCH_FILTER_INFO]: (state) => state[CLUB_SEARCH_FILTER_INFO],
 };
 
 const mutations = {
@@ -66,19 +71,23 @@ const mutations = {
         state[MY_CLUB_LIST] = [];
         state[MY_CLUB_PAGE] = GET_DEFAULT_PAGE();
     },
+    [CHANGE_CLUB_SEARCH_FILTER_INFO](state, clubSearchFilterInfo) {
+        state[CLUB_SEARCH_FILTER_INFO] = clubSearchFilterInfo;
+    },
 };
 
 const actions = {
-    [REQUEST_FIRST_CLUB_LIST]({ commit, state }, searchFilterDto) {
+    [REQUEST_FIRST_CLUB_LIST]({ commit, state }) {
         commit(INIT_CLUB_LIST_AND_PAGE);
         const callback = async () => {
-            const requestParam = RequestConverter.convertClubList(state[CLUB_PAGE], searchFilterDto);
+            const requestParam = RequestConverter.convertClubList(state[CLUB_PAGE], state[CLUB_SEARCH_FILTER_INFO]);
             const clubListInfo = await requestClubListWithPage(requestParam);
+            console.log(clubListInfo);
             commit(CHANGE_CLUB_LIST_WITH_PAGE, clubListInfo);
         };
         return actionsLoadingTemplate(commit, callback);
     },
-    [REQUEST_NEXT_CLUB_LIST]({ commit, state }, searchFilterDto) {
+    [REQUEST_NEXT_CLUB_LIST]({ commit, state }) {
         if (state[CLUB_PAGE].isLastPage) {
             return Promise.resolve();
         }
@@ -87,8 +96,9 @@ const actions = {
             return Promise.resolve();
         }
         const callback = async () => {
-            const requestParam = RequestConverter.convertClubList(state[CLUB_PAGE], searchFilterDto);
+            const requestParam = RequestConverter.convertClubList(state[CLUB_PAGE], state[CLUB_SEARCH_FILTER_INFO]);
             const clubListInfo = await requestClubListWithPage(requestParam);
+            console.log(clubListInfo);
             commit(ADD_NEXT_CLUB_LIST, clubListInfo);
         };
         return actionsLoadingTemplate({ commit, name: CHANGE_IS_REQUESTING_NEXT_PAGE }, callback);

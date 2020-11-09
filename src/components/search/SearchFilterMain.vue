@@ -7,12 +7,12 @@
                 <template v-slot:activator="{ on, attrs }">
                     <SearchFilterSelectBtn :attrs="attrs"
                                            :on="on"
-                                           :text="searchRegionText"
+                                           :text="regionName || searchRegionText"
                                            @click="changeBottomSheetComponent('REGION')"
                     />
                     <SearchFilterSelectBtn :attrs="attrs"
                                            :on="on"
-                                           :text="searchInterestText"
+                                           :text="interestName || searchInterestText"
                                            @click="changeBottomSheetComponent('INTEREST')"
                     />
                 </template>
@@ -39,6 +39,7 @@ import BottomSheetInterestCard from '@/components/ui/bottom-sheet/BottomSheetInt
 import { PATH } from '@/router/route_path_type.js';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import { actionsFetcherService } from '@/store/service/actionsFetcherService.js';
+import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 
 export default {
     name: 'SearchFilterMain',
@@ -54,37 +55,44 @@ export default {
             searchRegionText: '지역 선택',
             searchInterestText: '관심사 선택',
             currentBottomSheetCard: null,
-            searchFilter: {
-                regionSeq: null,
-                interestSeq: null,
-            },
         };
     },
     computed: {
         rootRegions: () => gettersHelper.rootRegions(),
         rootInterests: () => gettersHelper.rootInterests(),
+        clubSearchFilterInfo: () => gettersHelper.clubSearchFilterInfo(),
+        regionName() {
+            return this.clubSearchFilterInfo.region.name;
+        },
+        interestName() {
+            return this.clubSearchFilterInfo.interest.name;
+        },
     },
     created() {
         actionsFetcherService.fetchInterestAndRegionTemplate(true, PATH.LOGIN);
     },
     methods: {
         selectSearchRegion(region) {
-            this.searchFilter.regionSeq = region.seq;
-            this.changedSearchFilter();
-            this.searchRegionText = region.name;
-            this.sheet = false;
+            const newClubSearchFilterInfo = {
+                region: { name: region.name, seq: region.seq },
+                interest: this.clubSearchFilterInfo.interest,
+            };
+            this.change(newClubSearchFilterInfo);
         },
         selectSearchInterest(interest) {
-            this.searchFilter.interestSeq = interest.seq;
-            this.changedSearchFilter();
-            this.searchInterestText = interest.name;
+            const newClubSearchFilterInfo = {
+                region: this.clubSearchFilterInfo.region,
+                interest: { name: interest.name, seq: interest.seq },
+            };
+            this.change(newClubSearchFilterInfo);
+        },
+        change(newClubSearchFilterInfo) {
+            mutationsHelper.changeClubSearchFilterInfo(newClubSearchFilterInfo);
+            this.$emit('changeSearchFilter');
             this.sheet = false;
         },
         changeBottomSheetComponent(cardComponent) {
             this.currentBottomSheetCard = cardComponent;
-        },
-        changedSearchFilter() {
-            this.$emit('changedSearchFilter', { ...this.searchFilter });
         },
     },
 };

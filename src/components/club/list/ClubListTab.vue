@@ -1,6 +1,6 @@
 <template>
     <v-tab-item>
-        <SearchFilterMain @changedSearchFilter="changedSearchFilter" />
+        <SearchFilterMain @changeSearchFilter="changeSearchFilter" />
         <ClubList ref="clubListComponent"
                   :clubList="clubList"
                   :page="clubPage"
@@ -25,8 +25,8 @@ export default {
         clubPage: () => gettersHelper.clubPage(),
     },
     methods: {
-        changedSearchFilter(searchFilterDto) {
-            actionsHelper.requestFirstClubList(searchFilterDto)
+        changeSearchFilter() {
+            actionsHelper.requestFirstClubList()
                 .then(() => this.$refs.clubListComponent.insertSentinel());
         },
         findFirstClubList(callback) {
