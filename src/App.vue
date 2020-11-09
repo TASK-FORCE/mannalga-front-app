@@ -15,8 +15,8 @@
 <script>
 import MainSnackBar from '@/components/ui/MainSnackBar.vue';
 import MainProgress from '@/components/ui/MainProgress.vue';
-import { gettersHelper } from '@/store/helper/gettersHelper.js';
 import { loadCurrentTheme } from '@/plugins/vuetify.js';
+import gettersHelper from '@/store/helper/GettersHelper.js';
 
 export default {
     name: 'App',

@@ -1,4 +1,4 @@
-import { GET_DEFAULT_PROFILE } from '@/store/type/user_type.js';
+import defaultBuilder from '@/store/utils/DefaultBuilder.js';
 
 /** ResponseConverter
  *  - 백엔드 서버에서 전달받은 response를 converting
@@ -18,7 +18,7 @@ export default class ResponseConverter {
 
     static converterProfile = ({ kakao_account }) => {
         const { thumbnail_image_url, nickname } = kakao_account.profile;
-        const profile = GET_DEFAULT_PROFILE();
+        const profile = defaultBuilder.buildKakaoProfile();
         profile.imgUrl = thumbnail_image_url;
         profile.name = nickname;
         profile.dayOfBirth = '2000-12-13';

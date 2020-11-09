@@ -39,9 +39,9 @@
 import ImageSelectBox from '@/components/image/ImageSelectBox.vue';
 import { RULES } from '@/utils/common/constant/constant.js';
 import CommonCenterBtn from '@/components/ui/button/CommonCenterBtn.vue';
-import { actionsHelper } from '@/store/helper/actionsHelper.js';
-import { combineParamPath, PATH } from '@/router/route_path_type.js';
-import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
+import actionsHelper from '@/store/helper/ActionsHelper.js';
+import { generateParamPath, PATH } from '@/router/route_path_type.js';
+import mutationsHelper from '@/store/helper/MutationsHelper.js';
 
 export default {
     name: 'ClubBoardCreateBox',
@@ -70,7 +70,7 @@ export default {
                 const clubBoardDto = { ...this.clubBoardCreateInfo };
                 this.loading = true;
                 actionsHelper.requestClubCreateBoard({ clubSeq, clubBoardDto })
-                    .then(() => this.$router.push(combineParamPath(PATH.CLUB.MAIN, [clubSeq]))
+                    .then(() => this.$router.push(generateParamPath(PATH.CLUB.MAIN, [clubSeq]))
                         .then(mutationsHelper.openSnackBar('게시글 생성 성공!')))
                     .catch(() => mutationsHelper.openSnackBar('게시글 생성에 실패하였습니다.'))
                     .finally(this.loading = false);

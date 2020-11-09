@@ -1,45 +1,45 @@
-import { requestClubBoardCreate, requestClubCreate, requestClubData, requestClubJoin } from '@/apis/club.js';
-import { CLUB_DATA, CLUB_NAME, GET_DEFAULT_CLUB, REQUEST_CLUB_BOARD_CREATE, REQUEST_CLUB_CREATE, REQUEST_CLUB_DATA, REQUEST_CLUB_JOIN, SET_CLUB_DATA } from '@/store/type/club_type.js';
 import { actionsLoadingTemplate, actionsNormalTemplate } from '@/store/utils/actionsTemplate.js';
 import RequestConverter from '@/store/converter/requestConverter.js';
+import defaultBuilder from '@/store/utils/DefaultBuilder.js';
+import clubApi from '@/apis/ClubApi.js';
 
 const state = {
-    [CLUB_DATA]: GET_DEFAULT_CLUB(),
+    clubData: defaultBuilder.buildClub(),
 };
 
 const getters = {
-    [CLUB_DATA]: (state) => state[CLUB_DATA],
-    [CLUB_NAME]: (state) => state[CLUB_DATA].clubInfo.name,
+    clubData: (state) => state.clubData,
+    clubName: (state) => state.clubData.clubInfo.name,
 };
 
 const mutations = {
-    [SET_CLUB_DATA](state, clubData) {
-        state[CLUB_DATA] = clubData;
+    setClubData(state, clubData) {
+        state.clubData = clubData;
     },
 };
 
 const actions = {
-    async [REQUEST_CLUB_DATA]({ commit }, clubSeq) {
+    async requestClubData({ commit }, clubSeq) {
         return actionsLoadingTemplate(commit, async () => {
-            const response = await requestClubData(clubSeq);
+            const response = await clubApi.getClubData(clubSeq);
             const clubData = response.data;
-            commit(SET_CLUB_DATA, clubData);
+            commit('setClubData', clubData);
         });
     },
-    async [REQUEST_CLUB_CREATE]({ commit }, clubCreateInfo) {
+    async requestClubCreate({ commit }, clubCreateInfo) {
         return actionsNormalTemplate(async () => {
             const clubCreateRequestDto = RequestConverter.convertClubCreateInfo(clubCreateInfo);
-            await requestClubCreate(clubCreateRequestDto);
+            await clubApi.postClubCreate(clubCreateRequestDto);
         });
     },
-    async [REQUEST_CLUB_JOIN]({ commit }, clubSeq) {
+    async requestClubJoin({ commit }, clubSeq) {
         return actionsNormalTemplate(async () => {
-            await requestClubJoin(clubSeq);
+            await clubApi.postClubJoin(clubSeq);
         });
     },
-    async [REQUEST_CLUB_BOARD_CREATE]({ _ }, clubBoardCreateInfo) {
+    async requestClubBoardCreate({ _ }, clubBoardCreateInfo) {
         return actionsNormalTemplate(async () => {
-            await requestClubBoardCreate(clubBoardCreateInfo);
+            await clubApi.postClubBoardCreate(clubBoardCreateInfo);
         });
     },
 };

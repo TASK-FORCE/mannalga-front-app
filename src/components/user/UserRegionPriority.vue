@@ -22,8 +22,8 @@
 
 <script>
 import { COLOR } from '@/utils/common/constant/constant.js';
-import { gettersHelper } from '@/store/helper/gettersHelper.js';
-import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
+import gettersHelper from '@/store/helper/GettersHelper.js';
+import mutationsHelper from '@/store/helper/MutationsHelper.js';
 import { PATH } from '@/router/route_path_type.js';
 
 export default {

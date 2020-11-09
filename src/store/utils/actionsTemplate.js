@@ -1,5 +1,5 @@
-import { CHANGE_LOADING, COMMON } from '@/store/type/common_type.js';
 import _ from '@/utils/common/lodashWrapper.js';
+import { MODULE } from '@/store/type/type.js';
 
 export const actionsLoadingTemplate = async (commitInfo, callback, failCallback) => {
     const { commit, commitName, useRootCommit } = extractCommitInfo(commitInfo);
@@ -38,7 +38,7 @@ function extractCommitInfo(commitInfo) {
     if (_.isFunction(commitInfo)) {
         return {
             commit: commitInfo,
-            commitName: `${COMMON}/${CHANGE_LOADING}`,
+            commitName: `${MODULE.COMMON}/changeLoading`,
             useRootCommit: true,
         };
     }

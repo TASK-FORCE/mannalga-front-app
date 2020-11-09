@@ -2,10 +2,10 @@ import { expect } from 'chai';
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuex from 'vuex';
 import sinon from 'sinon';
-import { GET_DEFAULT_PROFILE } from '@/store/type/user_type.js';
 import RegisterRegionNestedPage from '@/views/register/inner/RegisterRegionNestedPage.vue';
-import { testUtils } from '../../../utils/testUtils.js';
 import { PATH } from '@/router/route_path_type.js';
+import defaultBuilder from '@/store/utils/DefaultBuilder.js';
+import { testUtils } from '../../../utils/testUtils.js';
 
 const sandbox = sinon.createSandbox();
 const localVue = createLocalVue();
@@ -36,7 +36,7 @@ describe('RegisterRegionNestedPage.vue', () => {
 
     it('페이지 진입 시 Profile이 비어있다면 Profile 등록화면으로 라우팅 된다..', () => {
         // given
-        gettersHelper.profile.returns(GET_DEFAULT_PROFILE());
+        gettersHelper.profile.returns(defaultBuilder.buildKakaoProfile());
 
         // when
         shallowMount(RegisterRegionNestedPage, options);

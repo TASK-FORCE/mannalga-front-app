@@ -1,4 +1,4 @@
-import { gettersHelper } from '@/store/helper/gettersHelper.js';
+import gettersHelper from '@/store/helper/GettersHelper.js';
 import { getChildRoutePath, PATH } from '@/router/route_path_type.js';
 
 function validationAuthentication(to, from, next) {

@@ -15,7 +15,7 @@ import ClubListMainTabs from '@/components/club/list/ClubListMainTabs.vue';
 import FixedCreateBtn from '@/components/ui/button/FixedCreateBtn.vue';
 import FixedScrollToTopBtn from '@/components/ui/button/FixedScrollToTopBtn.vue';
 import { PATH } from '@/router/route_path_type.js';
-import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
+import mutationsHelper from '@/store/helper/MutationsHelper.js';
 
 export default {
     name: 'ClubListMainPage',

@@ -1,8 +1,7 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
 import authModule from '@/store/modules/auth.js';
-import * as authApi from '@/apis/login.js';
-import { APP_TOKEN, REQUEST_APP_TOKEN_BY_KAKAO_TOKEN, REQUEST_KAKAO_TOKEN_BY_CODE, SET_APP_TOKEN } from '@/store/type/auth_type.js';
+import * as authApi from '@/apis/AuthApi.js';
 
 describe('actions', () => {
     const { actions } = authModule;
@@ -33,10 +32,10 @@ describe('actions', () => {
             saveKakaoTokenAndGetAppToken.withArgs(kakaoTokenInfo).returns(response);
 
             // when
-            const isRegistered = await actions[REQUEST_APP_TOKEN_BY_KAKAO_TOKEN]({ commit }, kakaoTokenInfo);
+            const isRegistered = await actions.requestAppTokenByKakaoToken({ commit }, kakaoTokenInfo);
 
             // then
-            expect(commit.withArgs(SET_APP_TOKEN, response.data.data.appToken).calledOnce).to.be.true;
+            expect(commit.withArgs('setAppToken', response.data.data.appToken).calledOnce).to.be.true;
             expect(isRegistered).to.be.equal(response.data.data.isRegistered);
         });
     });
@@ -51,10 +50,10 @@ describe('actions', () => {
         sinon.stub(authApi, 'requestKakaoToken').withArgs(code).returns(response);
 
         // when
-        await actions[REQUEST_KAKAO_TOKEN_BY_CODE]({ dispatch }, code);
+        await actions.requestKakaoTokenByCode({ dispatch }, code);
 
         // then
-        expect(dispatch.withArgs(REQUEST_APP_TOKEN_BY_KAKAO_TOKEN, response.data).calledOnce).to.be.true;
+        expect(dispatch.withArgs('requestAppTokenByKakaoToken', response.data).calledOnce).to.be.true;
     });
 });
 
@@ -67,26 +66,26 @@ describe('mutations', () => {
         const appToken = 'appToken';
 
         // when
-        mutations[SET_APP_TOKEN](state, appToken);
+        mutations.setAppToken(state, appToken);
 
         // then
-        expect(state[APP_TOKEN]).to.be.equal(appToken);
-        expect(localStorage.getItem(APP_TOKEN)).to.be.equal(appToken);
+        expect(state.appToken).to.be.equal(appToken);
+        expect(localStorage.getItem('appToken')).to.be.equal(appToken);
     });
 
     it('토큰 제거', () => {
         // given
         const state = {
-            [APP_TOKEN]: 'appToken',
+            appToken: 'appToken',
         };
-        localStorage.setItem(APP_TOKEN, 'token');
+        localStorage.setItem('appToken', 'token');
 
         // when
         mutations.removeAppToken(state);
 
         // then
-        expect(state[APP_TOKEN]).to.be.empty;
-        expect(localStorage.getItem(APP_TOKEN)).to.be.undefined;
+        expect(state.appToken).to.be.empty;
+        expect(localStorage.getItem('appToken')).to.be.undefined;
     });
 });
 

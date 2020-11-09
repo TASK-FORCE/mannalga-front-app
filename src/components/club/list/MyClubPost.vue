@@ -41,14 +41,12 @@
 </template>
 
 <script>
-import { GET_DEFAULT_MY_CLUB_CONTEXT } from '@/store/type/club_list_type.js';
 
 export default {
     name: 'MyClubPost',
     props: {
         myClubContext: {
             type: Object,
-            default: () => GET_DEFAULT_MY_CLUB_CONTEXT(),
         },
     },
     computed: {

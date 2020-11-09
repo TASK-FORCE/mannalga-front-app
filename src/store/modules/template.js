@@ -1,41 +1,36 @@
-import { requestInterestTemplate, requestRegionTemplate } from '@/apis/template.js';
-import { REQUEST_INTEREST_TEMPLATE, REQUEST_REGION_TEMPLATE, ROOT_INTERESTS, ROOT_REGIONS, SET_INTEREST_TEMPLATE, SET_REGION_TEMPLATE } from '@/store/type/template_type.js';
 import { actionsNormalTemplate } from '@/store/utils/actionsTemplate.js';
+import templateApi from '@/apis/TemplateApi.js';
 
 const state = {
-    [ROOT_REGIONS]: [],
-    [ROOT_INTERESTS]: [],
+    rootRegions: [],
+    rootInterests: [],
 };
 
 const getters = {
-    [ROOT_REGIONS](state) {
-        return state[ROOT_REGIONS];
-    },
-    [ROOT_INTERESTS](state) {
-        return state[ROOT_INTERESTS];
-    },
+    rootRegions: (state) => state.rootRegions,
+    rootInterests: (state) => state.rootInterests,
 };
 
 const mutations = {
-    [SET_REGION_TEMPLATE](state, rootRegions) {
-        state[ROOT_REGIONS] = rootRegions;
+    setRegionTemplate(state, rootRegions) {
+        state.rootRegions = rootRegions;
     },
-    [SET_INTEREST_TEMPLATE](state, rootInterests) {
-        state[ROOT_INTERESTS] = rootInterests;
+    setInterestTemplate(state, rootInterests) {
+        state.rootInterests = rootInterests;
     },
 };
 
 const actions = {
-    async [REQUEST_REGION_TEMPLATE]({ commit }) {
+    async requestRegionTemplate({ commit }) {
         return actionsNormalTemplate(async () => {
-            const rootRegions = await requestRegionTemplate();
-            commit(SET_REGION_TEMPLATE, rootRegions);
+            const rootRegions = await templateApi.getRegionTemplate();
+            commit('setRegionTemplate', rootRegions);
         });
     },
-    async [REQUEST_INTEREST_TEMPLATE]({ commit }) {
+    async requestInterestTemplate({ commit }) {
         return actionsNormalTemplate(async () => {
-            const interests = await requestInterestTemplate();
-            commit(SET_INTEREST_TEMPLATE, interests);
+            const interests = await templateApi.getInterestTemplate();
+            commit('setInterestTemplate', interests);
         });
     },
 };

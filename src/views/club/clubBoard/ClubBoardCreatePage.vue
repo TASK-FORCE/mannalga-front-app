@@ -13,7 +13,7 @@ import CommonHeader from '@/components/ui/header/CommonHeader.vue';
 import ClubBoardCreateBox from '@/components/club/create/ClubBoardCreateBox.vue';
 import ImageSelectBox from '@/components/image/ImageSelectBox.vue';
 import CommonCenterBtn from '@/components/ui/button/CommonCenterBtn.vue';
-import { combineParamPath, PATH } from '@/router/route_path_type.js';
+import { generateParamPath, PATH } from '@/router/route_path_type.js';
 
 export default {
     name: 'ClubCreate',
@@ -25,7 +25,7 @@ export default {
     },
     mounted() {
         const { clubSeq } = this.$route.params;
-        this.clubPath = combineParamPath(PATH.CLUB.MAIN, [clubSeq]);
+        this.clubPath = generateParamPath(PATH.CLUB.MAIN, [clubSeq]);
         console.log(this.clubPath);
     },
 };

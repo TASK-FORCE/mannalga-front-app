@@ -12,12 +12,12 @@
 </template>
 
 <script>
-import { gettersHelper } from '@/store/helper/gettersHelper.js';
+import gettersHelper from '@/store/helper/GettersHelper.js';
 import UserRegionPriority from '@/components/user/UserRegionPriority.vue';
 import CommonHeader from '@/components/ui/header/CommonHeader.vue';
-import { actionsHelper } from '@/store/helper/actionsHelper.js';
+import actionsHelper from '@/store/helper/ActionsHelper.js';
 import SimpleBtnFooter from '@/components/ui/footer/SimpleBtnFooter.vue';
-import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
+import mutationsHelper from '@/store/helper/MutationsHelper.js';
 import { MESSAGE } from '@/utils/common/constant/constant.js';
 import _ from '@/utils/common/lodashWrapper.js';
 import { PATH } from '@/router/route_path_type.js';

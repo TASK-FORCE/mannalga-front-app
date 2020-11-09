@@ -1,13 +1,12 @@
-import { APP_TOKEN } from '@/store/type/auth_type.js';
-
-const getAppToken = () => (process.browser ? localStorage.getItem(APP_TOKEN) : null);
+const tokenKey = 'appToken';
+const getAppToken = () => (process.browser ? localStorage.getItem(tokenKey) : null);
 
 const saveAppTokenToLocalStorage = (appToken) => {
-    localStorage.setItem(APP_TOKEN, appToken);
+    localStorage.setItem(tokenKey, appToken);
 };
 
 const removeAppTokenToLocalStorage = () => {
-    localStorage.removeItem(APP_TOKEN);
+    localStorage.removeItem(tokenKey);
 };
 
 const setAppTokenAsDefaultHeader = (headers) => {

@@ -19,8 +19,8 @@
 </template>
 
 <script>
-import { gettersHelper } from '@/store/helper/gettersHelper.js';
-import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
+import gettersHelper from '@/store/helper/GettersHelper.js';
+import mutationsHelper from '@/store/helper/MutationsHelper.js';
 
 export default {
     name: 'CommonSnackBar',

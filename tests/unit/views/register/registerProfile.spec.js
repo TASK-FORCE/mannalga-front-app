@@ -2,10 +2,10 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuex from 'vuex';
 import sinon from 'sinon';
 import { expect } from 'chai';
-import { GET_DEFAULT_PROFILE } from '@/store/type/user_type.js';
 import RegisterProfileNestedPage from '@/views/register/inner/RegisterProfileNestedPage.vue';
-import { testUtils } from '../../../utils/testUtils.js';
+import defaultBuilder from '@/store/utils/DefaultBuilder.js';
 import { PATH } from '@/router/route_path_type.js';
+import { testUtils } from '../../../utils/testUtils.js';
 
 const sandbox = sinon.createSandbox();
 const localVue = createLocalVue();
@@ -36,7 +36,7 @@ describe('regisetProfile.vue', () => {
 
     it('Go Btn 클릭 시 profile name에 공백이 있으면 스낵바가 호출된다.', () => {
         // given
-        const profile = GET_DEFAULT_PROFILE();
+        const profile = defaultBuilder.buildKakaoProfile();
         profile.name = '이 동 명';
         gettersHelper.profile.returns(profile);
 
@@ -50,7 +50,7 @@ describe('regisetProfile.vue', () => {
 
     it('Go Btn 클릭 시 profile name이 비어있으면 스낵바가 호출된다.', () => {
         // given
-        const profile = GET_DEFAULT_PROFILE();
+        const profile = defaultBuilder.buildKakaoProfile();
         gettersHelper.profile.returns(profile);
 
         // when
@@ -63,7 +63,7 @@ describe('regisetProfile.vue', () => {
 
     it('Go Btn 클릭 시 profile name이 정상이면 지역선택으로 라우팅된다..', () => {
         // given
-        const profile = GET_DEFAULT_PROFILE();
+        const profile = defaultBuilder.buildKakaoProfile();
         profile.name = '이동명';
         gettersHelper.profile.returns(profile);
 

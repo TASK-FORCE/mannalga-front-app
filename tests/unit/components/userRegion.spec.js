@@ -3,7 +3,6 @@ import Vuex from 'vuex';
 import sinon from 'sinon';
 import { expect } from 'chai';
 import UserRegion from '@/components/user/UserRegion.vue';
-import { DEFAULT_ROOT_REGION } from '@/store/type/template_type.js';
 import { testUtils } from '../../utils/testUtils.js';
 
 const sandbox = sinon.createSandbox();
@@ -52,7 +51,13 @@ describe('UserRegion.vue', () => {
 
     it('toggleRegion이 호출시 selectedRegion이 추가되고 router.back()이 호출된다.', () => {
         // given
-        const region = DEFAULT_ROOT_REGION;
+        const region = {
+            seq: 1,
+            level: 1,
+            name: '',
+            subRegions: [],
+            superRegionRoot: '',
+        };
 
         // when
         const wrapper = shallowMount(UserRegion, options);

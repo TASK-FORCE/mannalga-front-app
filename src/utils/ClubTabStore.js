@@ -1,4 +1,4 @@
-import LocalCache from '@/utils/common/LocalCache.js';
+import { LocalCache } from '@/utils/common/LocalCache.js';
 
 class ClubTabStore {
     constructor() {
