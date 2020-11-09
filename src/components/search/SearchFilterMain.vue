@@ -7,17 +7,12 @@
                 <template v-slot:activator="{ on, attrs }">
                     <SearchFilterSelectBtn :attrs="attrs"
                                            :on="on"
-                                           :text="searchRegionText"
+                                           :text="regionName || searchRegionText"
                                            @click="changeBottomSheetComponent('REGION')"
                     />
                     <SearchFilterSelectBtn :attrs="attrs"
                                            :on="on"
-                                           :text="searchSortText"
-                                           @click="changeBottomSheetComponent('SORT')"
-                    />
-                    <SearchFilterSelectBtn :attrs="attrs"
-                                           :on="on"
-                                           :text="searchInterestText"
+                                           :text="interestName || searchInterestText"
                                            @click="changeBottomSheetComponent('INTEREST')"
                     />
                 </template>
@@ -32,9 +27,6 @@
                                          :canSelectRoot="true"
                                          @selectSubInterest="selectSearchInterest"
                 />
-                <BottomSheetSortCard v-else-if="currentBottomSheetCard === 'SORT'"
-                                     @selectSortOption="selectSearchSort"
-                />
             </v-bottom-sheet>
         </div>
     </div>
@@ -43,18 +35,16 @@
 <script>
 import BottomSheetRegionCard from '@/components/ui/bottom-sheet/BottomSheetRegionCard.vue';
 import SearchFilterSelectBtn from '@/components/search/SearchFilterSelectBtn';
-import BottomSheetSortCard from '@/components/ui/bottom-sheet/BottomSheetSortCard.vue';
 import BottomSheetInterestCard from '@/components/ui/bottom-sheet/BottomSheetInterestCard.vue';
 import { PATH } from '@/router/route_path_type.js';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';
-import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 import { actionsFetcherService } from '@/store/service/actionsFetcherService.js';
+import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 
 export default {
     name: 'SearchFilterMain',
     components: {
         BottomSheetInterestCard,
-        BottomSheetSortCard,
         SearchFilterSelectBtn,
         BottomSheetRegionCard,
     },
@@ -64,50 +54,45 @@ export default {
             seq: null,
             searchRegionText: '지역 선택',
             searchInterestText: '관심사 선택',
-            searchSortText: '정렬',
             currentBottomSheetCard: null,
         };
     },
     computed: {
         rootRegions: () => gettersHelper.rootRegions(),
         rootInterests: () => gettersHelper.rootInterests(),
-        searchFilter: () => gettersHelper.searchFilter(),
+        clubSearchFilterInfo: () => gettersHelper.clubSearchFilterInfo(),
+        regionName() {
+            return this.clubSearchFilterInfo.region.name;
+        },
+        interestName() {
+            return this.clubSearchFilterInfo.interest.name;
+        },
     },
     created() {
         actionsFetcherService.fetchInterestAndRegionTemplate(true, PATH.LOGIN);
     },
     methods: {
         selectSearchRegion(region) {
-            const regionFilter = {
-                seq: region.seq,
-                priority: 1,
+            const newClubSearchFilterInfo = {
+                region: { name: region.name, seq: region.seq },
+                interest: this.clubSearchFilterInfo.interest,
             };
-            mutationsHelper.changeRegionSearchFilter(regionFilter);
-            this.changedSearchFilter();
-            this.searchRegionText = region.name;
-            this.sheet = false;
+            this.change(newClubSearchFilterInfo);
         },
         selectSearchInterest(interest) {
-            const interestFilter = {
-                seq: interest.seq,
-                priority: 1,
+            const newClubSearchFilterInfo = {
+                region: this.clubSearchFilterInfo.region,
+                interest: { name: interest.name, seq: interest.seq },
             };
-            mutationsHelper.changeInterestSearchFilter(interestFilter);
-            this.changedSearchFilter();
-            this.searchInterestText = interest.name;
-            this.sheet = false;
+            this.change(newClubSearchFilterInfo);
         },
-        selectSearchSort(sort) {
-            // sort로 검색
-            this.searchSortText = sort.name;
-            this.changedSearchFilter();
+        change(newClubSearchFilterInfo) {
+            mutationsHelper.changeClubSearchFilterInfo(newClubSearchFilterInfo);
+            this.$emit('changeSearchFilter');
             this.sheet = false;
         },
         changeBottomSheetComponent(cardComponent) {
             this.currentBottomSheetCard = cardComponent;
-        },
-        changedSearchFilter() {
-            this.$emit('changedSearchFilter');
         },
     },
 };

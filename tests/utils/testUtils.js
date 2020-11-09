@@ -17,7 +17,6 @@ function gettersMocking(sandbox) {
         selectedInterestSeqs: getterHelperMock.expects('selectedInterestSeqs'),
         clubList: getterHelperMock.expects('clubList'),
         clubPage: getterHelperMock.expects('clubPage'),
-        searchFilter: getterHelperMock.expects('searchFilter'),
     };
 }
 
@@ -44,8 +43,6 @@ function mutationsMocking(sandbox) {
         addSelectedRegions: mutationsHelperMock.expects('addSelectedRegions'),
         addSelectedInterestSeqs: mutationsHelperMock.expects('addSelectedInterestSeqs'),
         removeSelectedInterestSeqs: mutationsHelperMock.expects('removeSelectedInterestSeqs'),
-        changeRegionSearchFilter: mutationsHelperMock.expects('changeRegionSearchFilter'),
-        changeInterestSearchFilter: mutationsHelperMock.expects('changeInterestSearchFilter'),
     };
 }
 
