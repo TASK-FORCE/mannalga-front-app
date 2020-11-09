@@ -25,8 +25,8 @@ export default {
         clubPage: () => gettersHelper.clubPage(),
     },
     methods: {
-        changedSearchFilter() {
-            actionsHelper.requestFirstClubList()
+        changedSearchFilter(searchFilterDto) {
+            actionsHelper.requestFirstClubList(searchFilterDto)
                 .then(() => this.$refs.clubListComponent.insertSentinel());
         },
         findFirstClubList(callback) {

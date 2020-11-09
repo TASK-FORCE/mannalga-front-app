@@ -27,7 +27,6 @@ export const CLUB_LIST_MODULE = 'clubList';
 // state, getters
 export const CLUB_LIST = 'clubList';
 export const CLUB_PAGE = 'clubPage';
-export const SEARCH_FILTER = 'searchFilter';
 export const MY_CLUB_LIST = 'myClubList';
 export const MY_CLUB_PAGE = 'myClubPage';
 export const IS_REQUESTING_NEXT_PAGE = 'isRequestingNextPage';
@@ -37,8 +36,6 @@ export const ADD_NEXT_CLUB_LIST = 'addNextClubList';
 export const ADD_NEXT_MY_CLUB_LIST = 'addNextMyClubList';
 export const CHANGE_CLUB_LIST_WITH_PAGE = 'changeClubListWithPage';
 export const CHANGE_MY_CLUB_LIST_WITH_PAGE = 'changeMyClubListWithPage';
-export const CHANGE_REGION_SEARCH_FILTER = 'changeRegionSearchFilter';
-export const CHANGE_INTEREST_SEARCH_FILTER = 'changeInterestSearchFilter';
 export const CHANGE_IS_REQUESTING_NEXT_PAGE = 'changeIsRequestingNextPage';
 export const INIT_CLUB_LIST_AND_PAGE = 'initClubListAndPage';
 export const INIT_MY_CLUB_LIST_AND_PAGE = 'initMyClubListAndPage';

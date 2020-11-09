@@ -2,13 +2,10 @@ import {
     ADD_NEXT_CLUB_LIST,
     ADD_NEXT_MY_CLUB_LIST,
     CHANGE_CLUB_LIST_WITH_PAGE,
-    CHANGE_INTEREST_SEARCH_FILTER,
     CHANGE_IS_REQUESTING_NEXT_PAGE,
     CHANGE_MY_CLUB_LIST_WITH_PAGE,
-    CHANGE_REGION_SEARCH_FILTER,
     CLUB_LIST,
     CLUB_PAGE,
-    DEFAULT_SEARCH_FILTER,
     GET_DEFAULT_PAGE,
     INIT_CLUB_LIST_AND_PAGE,
     INIT_MY_CLUB_LIST_AND_PAGE,
@@ -19,7 +16,6 @@ import {
     REQUEST_FIRST_MY_CLUB_LIST,
     REQUEST_NEXT_CLUB_LIST,
     REQUEST_NEXT_MY_CLUB_LIST,
-    SEARCH_FILTER,
 } from '@/store/type/club_list_type.js';
 import { actionsLoadingTemplate } from '@/store/utils/actionsTemplate.js';
 import { requestClubListWithPage, requestMyClubListWithPage } from '@/apis/clubList.js';
@@ -30,25 +26,17 @@ const state = {
     [CLUB_PAGE]: GET_DEFAULT_PAGE(),
     [MY_CLUB_LIST]: [],
     [MY_CLUB_PAGE]: GET_DEFAULT_PAGE(),
-    [SEARCH_FILTER]: DEFAULT_SEARCH_FILTER,
     [IS_REQUESTING_NEXT_PAGE]: false,
 };
 
 const getters = {
     [CLUB_LIST]: (state) => state[CLUB_LIST],
     [CLUB_PAGE]: (state) => state[CLUB_PAGE],
-    [SEARCH_FILTER]: (state) => state[SEARCH_FILTER],
     [MY_CLUB_LIST]: (state) => state[MY_CLUB_LIST],
     [MY_CLUB_PAGE]: (state) => state[MY_CLUB_PAGE],
 };
 
 const mutations = {
-    [CHANGE_INTEREST_SEARCH_FILTER](state, interestFilter) {
-        state[SEARCH_FILTER].interestList = [interestFilter];
-    },
-    [CHANGE_REGION_SEARCH_FILTER](state, regionFilter) {
-        state[SEARCH_FILTER].regionList = [regionFilter];
-    },
     [CHANGE_CLUB_LIST_WITH_PAGE](state, { clubList, clubPage }) {
         state[CLUB_LIST] = clubList;
         state[CLUB_PAGE] = clubPage;
@@ -81,16 +69,16 @@ const mutations = {
 };
 
 const actions = {
-    [REQUEST_FIRST_CLUB_LIST]({ commit, state }) {
+    [REQUEST_FIRST_CLUB_LIST]({ commit, state }, searchFilterDto) {
         commit(INIT_CLUB_LIST_AND_PAGE);
         const callback = async () => {
-            const requestParam = RequestConverter.convertClubList(state[CLUB_PAGE], state[SEARCH_FILTER]);
+            const requestParam = RequestConverter.convertClubList(state[CLUB_PAGE], searchFilterDto);
             const clubListInfo = await requestClubListWithPage(requestParam);
             commit(CHANGE_CLUB_LIST_WITH_PAGE, clubListInfo);
         };
         return actionsLoadingTemplate(commit, callback);
     },
-    [REQUEST_NEXT_CLUB_LIST]({ commit, state }) {
+    [REQUEST_NEXT_CLUB_LIST]({ commit, state }, searchFilterDto) {
         if (state[CLUB_PAGE].isLastPage) {
             return Promise.resolve();
         }
@@ -99,7 +87,7 @@ const actions = {
             return Promise.resolve();
         }
         const callback = async () => {
-            const requestParam = RequestConverter.convertClubList(state[CLUB_PAGE], state[SEARCH_FILTER]);
+            const requestParam = RequestConverter.convertClubList(state[CLUB_PAGE], searchFilterDto);
             const clubListInfo = await requestClubListWithPage(requestParam);
             commit(ADD_NEXT_CLUB_LIST, clubListInfo);
         };

@@ -38,7 +38,6 @@ import SearchFilterSelectBtn from '@/components/search/SearchFilterSelectBtn';
 import BottomSheetInterestCard from '@/components/ui/bottom-sheet/BottomSheetInterestCard.vue';
 import { PATH } from '@/router/route_path_type.js';
 import { gettersHelper } from '@/store/helper/gettersHelper.js';
-import { mutationsHelper } from '@/store/helper/mutationsHelper.js';
 import { actionsFetcherService } from '@/store/service/actionsFetcherService.js';
 
 export default {
@@ -55,33 +54,28 @@ export default {
             searchRegionText: '지역 선택',
             searchInterestText: '관심사 선택',
             currentBottomSheetCard: null,
+            searchFilter: {
+                regionSeq: null,
+                interestSeq: null,
+            },
         };
     },
     computed: {
         rootRegions: () => gettersHelper.rootRegions(),
         rootInterests: () => gettersHelper.rootInterests(),
-        searchFilter: () => gettersHelper.searchFilter(),
     },
     created() {
         actionsFetcherService.fetchInterestAndRegionTemplate(true, PATH.LOGIN);
     },
     methods: {
         selectSearchRegion(region) {
-            const regionFilter = {
-                seq: region.seq,
-                priority: 1,
-            };
-            mutationsHelper.changeRegionSearchFilter(regionFilter);
+            this.searchFilter.regionSeq = region.seq;
             this.changedSearchFilter();
             this.searchRegionText = region.name;
             this.sheet = false;
         },
         selectSearchInterest(interest) {
-            const interestFilter = {
-                seq: interest.seq,
-                priority: 1,
-            };
-            mutationsHelper.changeInterestSearchFilter(interestFilter);
+            this.searchFilter.interestSeq = interest.seq;
             this.changedSearchFilter();
             this.searchInterestText = interest.name;
             this.sheet = false;
@@ -90,7 +84,7 @@ export default {
             this.currentBottomSheetCard = cardComponent;
         },
         changedSearchFilter() {
-            this.$emit('changedSearchFilter');
+            this.$emit('changedSearchFilter', { ...this.searchFilter });
         },
     },
 };

@@ -2,7 +2,7 @@ import axios from 'axios';
 import ResponseConverter from '@/apis/converter/responseConverter.js';
 
 function requestClubListWithPage(requestParams) {
-    return axios.post('/api/clubs/search', requestParams)
+    return axios.get('/api/clubs/search', { params: requestParams })
         .then(ResponseConverter.extractSuperInventionResponseData)
         .then(ResponseConverter.converterClubList);
 }
