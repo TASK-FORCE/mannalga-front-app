@@ -38,7 +38,7 @@ import BottomSheetInterestCard from '@/components/bottom-sheet/BottomSheetIntere
 import ClubListSearchFilterBtn from '@/views/clubList/components/club/ClubListSearchFilterBtn.vue';
 import { PATH } from '@/router/route_path_type.js';
 import gettersHelper from '@/store/helper/GettersHelper.js';
-import { actionsFetcherService } from '@/store/service/actionsFetcherService.js';
+import regionAndInterestRequester from '@/store/service/RegionAndInterestRequester.js';
 import mutationsHelper from '@/store/helper/MutationsHelper.js';
 
 export default {
@@ -69,7 +69,7 @@ export default {
         },
     },
     created() {
-        actionsFetcherService.fetchInterestAndRegionTemplate(true, PATH.LOGIN);
+        regionAndInterestRequester.request(true, PATH.LOGIN);
     },
     methods: {
         selectSearchRegion(region) {

@@ -37,6 +37,7 @@ import ClubDetailBoard from '@/views/clubDetail/components/board/ClubDetailBoard
 import ClubDetailAlbum from '@/views/clubDetail/components/album/ClubDetailAlbum.vue';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import clubTabStore from '@/utils/ClubTabStore.js';
+import regionAndInterestRequester from '@/store/service/RegionAndInterestRequester.js';
 
 export default {
     name: 'ClubDetailPageBody',

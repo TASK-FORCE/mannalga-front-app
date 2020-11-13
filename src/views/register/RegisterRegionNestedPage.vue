@@ -11,7 +11,7 @@ import GoBackBtnFooter from '@/components/footer/GoBackBtnFooter.vue';
 import _ from '@/utils/common/lodashWrapper.js';
 import mutationsHelper from '@/store/helper/MutationsHelper.js';
 import gettersHelper from '@/store/helper/GettersHelper.js';
-import { actionsFetcherService } from '@/store/service/actionsFetcherService.js';
+import regionAndInterestRequester from '@/store/service/RegionAndInterestRequester.js';
 import { MESSAGE } from '@/utils/common/constant/constant.js';
 import { PATH } from '@/router/route_path_type.js';
 
@@ -27,7 +27,7 @@ export default {
             this.$router.push(PATH.REGISTER.PROFILE);
         }
 
-        actionsFetcherService.fetchInterestAndRegionTemplate(false);
+        regionAndInterestRequester.request(false);
     },
     methods: {
         clickGoBtn() {

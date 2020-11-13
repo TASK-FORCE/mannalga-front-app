@@ -18,14 +18,14 @@
 
 <script>
 import ClubListSearchFilter from '@/views/clubList/components/club/ClubListSearchFilter.vue';
+import ClubPost from '@/views/clubList/components/club/ClubPost.vue';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
 import _ from '@/utils/common/lodashWrapper.js';
-import ClubPost from '@/views/clubList/components/club/ClubPost.vue';
 
 export default {
     name: 'ClubList',
-    components: { ClubPost, ClubListSearchFilter },
+    components: { ClubListSearchFilter, ClubPost },
     data() {
         return {
             sentinel: null,
