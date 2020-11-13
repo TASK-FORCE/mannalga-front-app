@@ -9,6 +9,7 @@ class MutationsHelper {
     // common module
     closeSnackBar = (payload) => commit(MODULE.COMMON, 'closeSnackBar', payload);
     openSnackBar = (payload) => commit(MODULE.COMMON, 'openSnackBar', createSnackbarOption(payload));
+    changeCommonLoading = (payload) => commit(MODULE.COMMON, 'changeLoading', payload);
 
     // user module
     changeProfileName = (payload) => commit(MODULE.USER, 'changeProfileName', payload);

@@ -2,14 +2,14 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuex from 'vuex';
 import sinon from 'sinon';
 import { expect } from 'chai';
-import UserRegion from '@/components/user/UserRegion.vue';
+import UserRegion from '@/views/regionSelect/RegionSelectPageBody.vue';
 import { testUtils } from '../../utils/testUtils.js';
 
 const sandbox = sinon.createSandbox();
 const localVue = createLocalVue();
 localVue.use(Vuex);
 
-describe('UserRegion.vue', () => {
+describe('RegionSelectPageBody.vue', () => {
     let gettersHelper;
     let mutationsHelper;
     let options;

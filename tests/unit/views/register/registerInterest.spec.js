@@ -2,7 +2,7 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuex from 'vuex';
 import sinon from 'sinon';
 import { expect } from 'chai';
-import RegisterInterestNestedPage from '@/views/register/inner/RegisterInterestNestedPage.vue';
+import RegisterInterestNestedPage from '@/views/register/RegisterInterestNestedPage.vue';
 import { PATH } from '@/router/route_path_type.js';
 import defaultBuilder from '@/store/utils/DefaultBuilder.js';
 import { testUtils } from '../../../utils/testUtils.js';
