@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuex from 'vuex';
 import sinon from 'sinon';
-import RegisterRegionNestedPage from '@/views/register/inner/RegisterRegionNestedPage.vue';
+import RegisterRegionNestedPage from '@/views/register/RegisterRegionNestedPage.vue';
 import { PATH } from '@/router/route_path_type.js';
 import defaultBuilder from '@/store/utils/DefaultBuilder.js';
 import { testUtils } from '../../../utils/testUtils.js';

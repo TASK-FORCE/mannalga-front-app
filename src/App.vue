@@ -7,20 +7,20 @@
                 <router-view :key="$route.fullPath" />
             </transition>
         </v-main>
-        <MainProgress v-show="isLoading" />
-        <MainSnackBar />
+        <Progress v-show="isLoading" />
+        <SnackBar />
     </v-app>
 </template>
 
 <script>
-import MainSnackBar from '@/components/ui/MainSnackBar.vue';
-import MainProgress from '@/components/ui/MainProgress.vue';
+import SnackBar from '@/components/SnackBar.vue';
+import Progress from '@/components/Progress.vue';
 import { loadCurrentTheme } from '@/plugins/vuetify.js';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 
 export default {
     name: 'App',
-    components: { MainProgress, MainSnackBar },
+    components: { SnackBar, Progress },
     computed: {
         isLoading: () => gettersHelper.isLoading(),
     },

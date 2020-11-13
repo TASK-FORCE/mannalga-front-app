@@ -17,26 +17,26 @@ const routes = [
     {
         path: PATH.LOGIN,
         name: 'Login',
-        component: () => import('@/views/LoginPage.vue'),
+        component: () => import('@/views/login/LoginPage.vue'),
     },
     {
         path: PATH.REGISTER.MAIN,
         name: 'Register',
-        component: () => import('@/views/register/RegisterMainPage.vue'),
+        component: () => import('@/views/register/RegisterRootPage.vue'),
         beforeEnter: validationAuthentication,
         children: [
             {
                 path: getChildRoutePath(PATH.REGISTER.PROFILE),
-                component: () => import('@/views/register/inner/RegisterProfileNestedPage.vue'),
+                component: () => import('@/views/register/RegisterProfileNestedPage.vue'),
                 meta: { isFirstPage: true },
             },
             {
                 path: getChildRoutePath(PATH.REGISTER.REGION),
-                component: () => import('@/views/register/inner/RegisterRegionNestedPage.vue'),
+                component: () => import('@/views/register/RegisterRegionNestedPage.vue'),
             },
             {
                 path: getChildRoutePath(PATH.REGISTER.INTEREST),
-                component: () => import('@/views/register/inner/RegisterInterestNestedPage.vue'),
+                component: () => import('@/views/register/RegisterInterestNestedPage.vue'),
                 meta: { isLastPage: true },
             },
         ],
@@ -44,50 +44,50 @@ const routes = [
     {
         path: PATH.SELECT_REGION,
         name: 'SelectRegion',
-        component: () => import('@/views/SelectRegionPage.vue'),
+        component: () => import('@/views/regionSelect/RegionSelectPage.vue'),
         beforeEnter: validationAuthentication,
     },
     {
         path: PATH.APP_MAIN,
         name: 'AppMain',
-        component: () => import('@/views/ClubListMainPage.vue'),
+        component: () => import('@/views/clubList/ClubListPage.vue'),
         beforeEnter: validationAuthentication,
     },
     {
         path: PATH.CLUB.MAIN,
         name: 'ClubMain',
-        component: () => import('@/views/club/ClubMainPage.vue'),
+        component: () => import('@/views/clubDetail/ClubDetailPage.vue'),
     },
     {
         path: PATH.CLUB.CREATE,
         name: 'ClubCreate',
-        component: () => import('@/views/club/ClubCreatePage.vue'),
+        component: () => import('@/views/clubCreate/ClubCreatePage.vue'),
         beforeEnter: validationAuthentication,
     },
     {
         path: PATH.CLUB.BOARD_CREATE,
         name: 'ClubBoardCreate',
-        component: () => import('@/views/club/clubBoard/ClubBoardCreatePage.vue'),
+        component: () => import('@/views/clubBoardCreate/ClubBoardCreatePage.vue'),
     },
     {
         path: PATH.CLUB.BOARD_POST,
         name: 'ClubBoardPost',
-        component: () => import('@/views/club/clubBoard/ClubBoardPostPage.vue'),
+        component: () => import('@/views/clubBoardPost/ClubBoardPostPage.vue'),
     },
     {
         path: PATH.USER.SETTINGS,
         name: 'UserSettings',
-        component: () => import('@/views/user/UserSettingListPage.vue'),
+        component: () => import('@/views/userSetting/UserSettingPage.vue'),
     },
     {
         path: PATH.USER.REGION_EDIT,
         name: 'UserRegionEdit',
-        component: () => import('@/views/user/UserRegionEditPage.vue'),
+        component: () => import('@/views/userRegionEdit/UserRegionEditPage.vue'),
     },
     {
         path: PATH.USER.INTEREST_EDIT,
         name: 'UserInterestEdit',
-        component: () => import('@/views/user/UserInterestEditPage.vue'),
+        component: () => import('@/views/userInterestEdit/UserInterestEditPage.vue'),
     },
 ];
 
