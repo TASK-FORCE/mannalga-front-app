@@ -24,7 +24,7 @@ function requestInterests() {
     return Promise.resolve();
 }
 
-function handlingError(routePathWhenFail) {
+function handleError(routePathWhenFail) {
     let catchPromise = Promise.resolve();
     if (routePathWhenFail) {
         catchPromise = router.push(routePathWhenFail);
@@ -45,7 +45,7 @@ class RegionAndInterestRequester {
             await Promise.all([requestRegions(), requestInterests()]);
         } catch (e) {
             console.warn(e);
-            handlingError(routePathWhenFail);
+            handleError(routePathWhenFail);
         } finally {
             if (withLoading) {
                 mutationsHelper.changeCommonLoading(false);
