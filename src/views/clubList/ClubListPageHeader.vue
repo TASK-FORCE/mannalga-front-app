@@ -3,15 +3,14 @@
         class="elevation-0 app-main-header"
         app
     >
-        <v-btn icon
-               large
-               class="mr-2 ml-2"
-        >
-            <v-icon left>
-                mdi-bell-outline
-            </v-icon>
-        </v-btn>
+        <v-text-field class="club-search-bar"
+                      label="모임 검색"
+                      prepend-icon="mdi-magnify"
+                      @click="$router.push('/search')"
+        />
+
         <v-spacer />
+
         <v-btn icon
                large
                class="mr-1"
@@ -19,13 +18,6 @@
         >
             <v-icon v-if="isThemeDark">mdi-water</v-icon>
             <v-icon v-else>mdi-water-outline</v-icon>
-        </v-btn>
-
-        <v-btn to="/search"
-               class="mr-1"
-               icon
-        >
-            <v-icon right>mdi-magnify</v-icon>
         </v-btn>
 
         <v-btn icon
@@ -61,7 +53,9 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss"
+       scoped
+>
 .v-toolbar__content {
     padding: 0 !important;
 }
