@@ -6,7 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "storybook": "start-storybook -p 9001 -c .storybook"
   },
   "dependencies": {
     "@mdi/font": "^5.3.45",
@@ -20,6 +21,7 @@
     "vuex": "^3.5.1"
   },
   "devDependencies": {
+    "@storybook/vue": "^6.0.28",
     "@vue/cli-plugin-babel": "~4.4.0",
     "@vue/cli-plugin-eslint": "~4.4.0",
     "@vue/cli-plugin-unit-mocha": "~4.4.0",
