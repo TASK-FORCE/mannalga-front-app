@@ -107,6 +107,8 @@ export default {
 }
 
 .main-icon {
-    font-size: 200px;
+    width: 200px !important;
+    height: 200px !important;
+    font-size: 200px !important;
 }
 </style>
