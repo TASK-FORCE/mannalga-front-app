@@ -3,8 +3,8 @@
         <v-btn v-for="(interestGroupType, index) in interestGroupTypes"
                :key="index"
                fab
-               width="20"
-               height="20"
+               height="25"
+               width="25"
                outlined
                :color="interestGroupType.color"
                :class="index > 0 ? 'ml-2' : ''"
@@ -56,6 +56,6 @@ function extractInterestsOrderByPriority(interestsWithPriority) {
 
 <style scoped>
 .interest-icon {
-    font-size: 13px !important;
+    font-size: 15px !important;
 }
 </style>

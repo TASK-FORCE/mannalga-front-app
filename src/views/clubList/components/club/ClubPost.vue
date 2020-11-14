@@ -10,10 +10,15 @@
             />
             <div class="ml-3">
                 <div>
-                    <InterestIcons :interestWithPriority="club.interests"
-                                   :maxSize="1"
-                    />
-                    <span class="ml-1 f-09">{{ firstRegion.name }}</span>
+                    <div class="interest-region-wrapper">
+                        <InterestIcons
+                            :interestWithPriority="club.interests"
+                            :maxSize="1"
+                        />
+                        <VerticalBarDivider :margin="1" />
+                        <RootRegionTag :rootRegionName="rootRegionName" />
+                        <span class="ml-1 f-09">{{ firstRegion.name }}</span>
+                    </div>
                 </div>
                 <div class="mt-1">{{ club.name }}</div>
             </div>
@@ -32,15 +37,20 @@
 <script>
 import InterestIcons from '@/components/interest/InterestIcons.vue';
 import { generateParamPath, PATH } from '@/router/route_path_type.js';
+import VerticalBarDivider from '@/components/VerticalBarDivider.vue';
+import RootRegionTag from '@/components/region/RootRegionTag.vue';
 
 export default {
     name: 'ClubPost',
-    components: { InterestIcons },
+    components: { RootRegionTag, VerticalBarDivider, InterestIcons },
     props: ['club'],
     computed: {
         firstRegion() {
             const { region } = this.club.regions.find(({ priority }) => priority === 1);
             return region;
+        },
+        rootRegionName() {
+            return this.firstRegion.superRegionRoot.split('/')[0];
         },
         imgUrl() {
             return this.club.mainImageUrl || 'https://w7.pngwing.com/pngs/70/60/png-transparent-vue-js-javascript-library-github-github-angle-text-triangle.png';
@@ -54,10 +64,16 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss"
+       scoped
+>
 .user-count-wrapper {
     position: absolute;
     right: 0;
     bottom: 10px;
+}
+
+.interest-region-wrapper {
+    margin-bottom: 5px;
 }
 </style>

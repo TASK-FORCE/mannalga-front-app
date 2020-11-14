@@ -55,7 +55,7 @@ export default {
     min-width: auto !important;
     z-index: 4;
     left: 16px;
-    bottom: 25px;
+    bottom: 10px;
 }
 
 .scroll-to-top-enter-active {

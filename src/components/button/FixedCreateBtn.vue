@@ -26,6 +26,6 @@ export default {
     min-width: auto !important;
     z-index: 4;
     right: 16px;
-    bottom: 25px;
+    bottom: 10px;
 }
 </style>

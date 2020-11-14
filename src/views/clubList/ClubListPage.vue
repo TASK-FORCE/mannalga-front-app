@@ -1,5 +1,5 @@
 <template>
-    <v-container class="pa-1">
+    <v-container class="pa-2">
         <ClubListPageHeader />
         <ClubListPageBody />
     </v-container>

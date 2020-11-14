@@ -39,7 +39,7 @@ module.exports = {
         'no-plusplus': ['error', { 'allowForLoopAfterthoughts': true }],
         'no-shadow': ['error', { 'allow': ['state'] }],
         'no-return-assign': ['error', 'except-parens'],
-        'indent': ['error', 4],
+        'indent': ['error', 4, { 'SwitchCase': 1 }],
         'max-len': ['error', {
             'code': 200,
             'ignoreComments': true,
