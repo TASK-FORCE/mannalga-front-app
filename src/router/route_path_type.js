@@ -15,6 +15,7 @@ export const PATH = {
         MAIN: '/club/:clubSeq',
         BOARD_POST: '/club/:clubSeq/board/:boardSeq',
         BOARD_CREATE: '/club/:clubSeq/create/board',
+        SEARCH: '/search/club',
     },
     USER: {
         SETTINGS: '/user/settings',

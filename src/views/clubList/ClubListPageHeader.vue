@@ -6,7 +6,7 @@
         <v-text-field class="club-search-bar"
                       label="모임 검색"
                       prepend-icon="mdi-magnify"
-                      @click="$router.push('/search')"
+                      @click="$router.push(clubSearchPagePath)"
         />
 
         <v-spacer />
@@ -39,6 +39,7 @@ export default {
     data() {
         return {
             isThemeDark: isCurrentThemeDark(),
+            clubSearchPagePath: PATH.CLUB.SEARCH,
         };
     },
     methods: {

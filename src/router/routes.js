@@ -75,6 +75,11 @@ const routes = [
         component: () => import('@/views/clubBoardPost/ClubBoardPostPage.vue'),
     },
     {
+        path: PATH.CLUB.SEARCH,
+        name: 'ClubSearch',
+        component: () => import('@/views/clubSearch/ClubSearchPage.vue'),
+    },
+    {
         path: PATH.USER.SETTINGS,
         name: 'UserSettings',
         component: () => import('@/views/userSetting/UserSettingPage.vue'),

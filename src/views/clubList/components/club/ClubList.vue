@@ -2,9 +2,7 @@
     <div>
         <ClubListSearchFilter @changeSearchFilter="initFirstClubList" />
         <v-list class="py-0">
-            <v-list-item-group id="club-list-group"
-                               active-class="pink--text"
-            >
+            <v-list-item-group id="club-list-group">
                 <div id="club-list-sentinel" />
                 <template v-for="club in clubList">
                     <ClubPost :key="club.seq"
@@ -46,10 +44,12 @@ export default {
     mounted() {
         this.listGroup = document.querySelector('#club-list-group');
         this.sentinel = document.querySelector('#club-list-sentinel');
-        this.setInfiniteScrollObserver();
         if (_.isEmpty(this.clubList)) {
             this.initFirstClubList();
+        } else {
+            this.insertSentinel();
         }
+        this.setInfiniteScrollObserver();
     },
     methods: {
         initFirstClubList() {
