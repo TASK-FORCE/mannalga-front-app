@@ -21,13 +21,13 @@ import _ from '@/utils/common/lodashWrapper.js';
 export default {
     name: 'InterestIcons',
     props: {
-        interestWithPriority: Array,
+        interestListWithPriority: Array,
         maxSize: Number,
     },
     computed: {
         interestGroupTypes() {
-            if (this.interestWithPriority) {
-                const interests = extractInterestsOrderByPriority(this.interestWithPriority);
+            if (this.interestListWithPriority) {
+                const interests = extractInterestsOrderByPriority(this.interestListWithPriority);
                 const interestGroupTypes = interests.map(this.buildInterestGroupType);
                 const interestGroupTypeSet = [...new Set(interestGroupTypes)];
                 if (this.maxSize && this.maxSize > 0) {

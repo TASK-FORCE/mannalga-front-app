@@ -24,7 +24,7 @@
                            class="py-0"
                     >
                         <div class="text-center">
-                            <InterestIcons :interestWithPriority="clubInfo.clubInterest" />
+                            <InterestIcons :interestListWithPriority="clubInfo.clubInterest" />
                             <div class="title">{{ clubInterestsText }}</div>
                         </div>
                     </v-col>

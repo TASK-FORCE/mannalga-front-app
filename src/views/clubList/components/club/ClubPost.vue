@@ -8,25 +8,25 @@
                    max-width="80"
                    height="60"
             />
-            <div class="ml-3">
+            <div class="ml-3 w-100">
                 <div>
-                    <div class="interest-region-wrapper">
-                        <InterestIcons
-                            :interestWithPriority="club.interests"
-                            :maxSize="1"
+                    <div class="interest-wrapper">
+                        <InterestIcons :interestListWithPriority="[firstInterestWithPriority]"
+                                       :maxSize="1"
                         />
-                        <VerticalBarDivider :margin="1" />
+                        <span class="ml-1 f-09">{{ firstInterestWithPriority.interest.name }}</span>
+                    </div>
+                    <div class="region-wrapper">
                         <RootRegionTag :rootRegionName="rootRegionName" />
                         <span class="ml-1 f-09">{{ firstRegion.name }}</span>
                     </div>
                 </div>
-                <div class="mt-1">{{ club.name }}</div>
-            </div>
-            <v-spacer />
-            <div class="text-body-2 mr-3 user-count-wrapper">
-                <div class="f-08">
-                    <v-icon>mdi-account-multiple</v-icon>
-                    {{ club.userCount }}/{{ club.maximumNumber }}
+                <div>
+                    <span>{{ club.name }}</span>
+                    <span class="f-08 float-right mr-2">
+                        <v-icon>mdi-account-multiple</v-icon>
+                        {{ club.userCount }}/{{ club.maximumNumber }}
+                    </span>
                 </div>
             </div>
         </v-list-item>
@@ -37,17 +37,19 @@
 <script>
 import InterestIcons from '@/components/interest/InterestIcons.vue';
 import { generateParamPath, PATH } from '@/router/route_path_type.js';
-import VerticalBarDivider from '@/components/VerticalBarDivider.vue';
 import RootRegionTag from '@/components/region/RootRegionTag.vue';
 
 export default {
     name: 'ClubPost',
-    components: { RootRegionTag, VerticalBarDivider, InterestIcons },
+    components: { RootRegionTag, InterestIcons },
     props: ['club'],
     computed: {
         firstRegion() {
             const { region } = this.club.regions.find(({ priority }) => priority === 1);
             return region;
+        },
+        firstInterestWithPriority() {
+            return this.club.interests.find(({ priority }) => priority === 1);
         },
         rootRegionName() {
             return this.firstRegion.superRegionRoot.split('/')[0];
@@ -67,13 +69,21 @@ export default {
 <style lang="scss"
        scoped
 >
-.user-count-wrapper {
-    position: absolute;
-    right: 0;
-    bottom: 10px;
+.interest-wrapper {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100px;
+    height: 25px;
 }
 
-.interest-region-wrapper {
-    margin-bottom: 5px;
+.region-wrapper {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-left: 5px;
+    height: 25px;
 }
 </style>
