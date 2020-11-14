@@ -1,6 +1,6 @@
 <template>
     <div>
-        ClubMainInfoMeetingSection
+        최신 일정 보여주기
     </div>
 </template>
 

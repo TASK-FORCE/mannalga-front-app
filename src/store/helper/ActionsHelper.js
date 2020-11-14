@@ -11,6 +11,7 @@ class ActionsHelper {
     requestClubData = (payload) => dispatch(MODULE.CLUB, 'requestClubData', payload);
     requestClubJoin = (payload) => dispatch(MODULE.CLUB, 'requestClubJoin', payload);
     requestClubCreateBoard = (payload) => dispatch(MODULE.CLUB, 'requestClubBoardCreate', payload);
+    requestClubInfoAndUserInfo = (payload) => dispatch(MODULE.CLUB, 'requestClubInfoAndUserInfo', payload);
 
     // clubList module
     requestFirstClubList = (payload) => dispatch(MODULE.CLUB_LIST, 'requestFirstClubList', payload);
@@ -22,6 +23,8 @@ class ActionsHelper {
     uploadTempImage = (payload) => dispatch(MODULE.COMMON, 'uploadTempImage', payload);
 
     // template module
+    requestRegionTemplate = (payload) => dispatch(MODULE.TEMPLATE, 'requestRegionTemplate', payload);
+    requestInterestTemplate = (payload) => dispatch(MODULE.TEMPLATE, 'requestInterestTemplate', payload);
 
     // user module
     requestKakaoProfile = (payload) => dispatch(MODULE.USER, 'requestKakaoProfile', payload);

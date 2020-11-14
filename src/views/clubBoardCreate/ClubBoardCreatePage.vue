@@ -24,7 +24,6 @@ export default {
     mounted() {
         const { clubSeq } = this.$route.params;
         this.clubPath = generateParamPath(PATH.CLUB.MAIN, [clubSeq]);
-        console.log(this.clubPath);
     },
 };
 </script>

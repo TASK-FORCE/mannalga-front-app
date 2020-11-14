@@ -1,8 +1,11 @@
 <template>
     <div>
-        <v-img src="https://picsum.photos/510/300?random"
-               aspect-ratio="2"
-        />
+        <div v-if="clubInfo.mainImageUrl !== ''">
+            <v-img :src="clubInfo.mainImageUrl"
+                   aspect-ratio="2"
+            />
+        </div>
+        <!--    TODO 사진이 없다면 사진 등록 권고(MASTER role에게만)    -->
         <v-list-item>
             <v-list-item-content>
                 <v-row>
@@ -11,13 +14,13 @@
                     >
                         <div class="text-center">
                             <v-btn fab
-                                   width="24"
-                                   height="24"
+                                   height="20"
+                                   width="20"
                                    outlined
                             >
-                                <v-icon style="font-size: 19px">mdi-map-marker-outline</v-icon>
+                                <v-icon class="region-icon">mdi-map-marker-outline</v-icon>
                             </v-btn>
-                            <div class="title">강동구, 강서구</div>
+                            <div class="title">{{ clubRegionsText }}</div>
                         </div>
                     </v-col>
                     <v-col cols="6"
@@ -35,7 +38,7 @@
                 <v-list-item-subtitle v-html="description" />
             </v-list-item-content>
         </v-list-item>
-        <div>
+        <div v-if="!userInfo.isMember">
             <CommonCenterBtn id="registerBtn"
                              text="가입하기"
                              outlined
@@ -59,7 +62,16 @@ import mutationsHelper from '@/store/helper/MutationsHelper.js';
 export default {
     name: 'ClubDetailMainClubInfo',
     components: { FixedTextBtnShowByHeight, InterestIcons, CommonCenterBtn },
-    props: ['clubInfo'],
+    props: {
+        clubInfo: {
+            type: Object,
+            required: true,
+        },
+        userInfo: {
+            type: Object,
+            required: true,
+        },
+    },
     data() {
         return {
             heightBoundaryToShowRegistBtn: 500,
@@ -72,6 +84,10 @@ export default {
         clubInterestsText() {
             const interestNames = this.clubInfo.clubInterest.map(({ interest }) => interest).map(({ name }) => name);
             return interestNames.join(', ');
+        },
+        clubRegionsText() {
+            const clubRegionNames = this.clubInfo.clubRegion.map(({ name }) => name);
+            return clubRegionNames.join(', ');
         },
     },
     mounted() {
@@ -99,5 +115,11 @@ export default {
 
 .title {
     font-size: 0.8rem !important;
+}
+
+.region-icon {
+    width: 14px !important;
+    height: 14px !important;
+    font-size: 14px !important;
 }
 </style>
