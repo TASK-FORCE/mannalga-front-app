@@ -1,7 +1,7 @@
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import mutationsHelper from '@/store/helper/MutationsHelper.js';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
-import regionAndInterestRequester from '@/store/service/RegionAndInterestRequester.js';
+import regionAndInterestDispatcher from '@/store/service/RegionAndInterestDispatcher.js';
 
 function gettersMocking(sandbox) {
     const getterHelperMock = sandbox.mock(gettersHelper);
@@ -47,7 +47,7 @@ function mutationsMocking(sandbox) {
 }
 
 function fetcherServiceMocking(sandbox) {
-    const actionsFetcherServiceMock = sandbox.mock(regionAndInterestRequester);
+    const actionsFetcherServiceMock = sandbox.mock(regionAndInterestDispatcher);
     return {
         fetchInterestAndRegionTemplate: actionsFetcherServiceMock.expects('fetchInterestAndRegionTemplate'),
     };

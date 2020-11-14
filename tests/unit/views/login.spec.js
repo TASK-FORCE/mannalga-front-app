@@ -75,7 +75,7 @@ describe('LoginPage.vue', () => {
 
         // then
         expect(actionsHelper.requestKakaoTokenByCode.called).to.be.true;
-        expect($router.push.withArgs(PATH.APP_MAIN).calledOnce).to.be.true;
+        expect($router.push.withArgs(PATH.CLUB_LIST).calledOnce).to.be.true;
     });
 
     it('페이지 진입 시 code가 존재하면 Token 요청 후 예외가 발생하면 Snackbar가 호출된다.', async () => {

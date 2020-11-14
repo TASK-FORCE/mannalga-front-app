@@ -36,7 +36,7 @@ export default {
     },
     methods: {
         pushToAppMain() {
-            this.$router.push(PATH.APP_MAIN);
+            this.$router.push(PATH.CLUB_LIST);
         },
     },
 };

@@ -2,7 +2,7 @@ import gettersHelper from '@/store/helper/GettersHelper.js';
 import { getChildRoutePath, PATH } from '@/router/route_path_type.js';
 
 function validationAuthentication(to, from, next) {
-    if (gettersHelper.isAuth()) {
+    if (gettersHelper.hasToken()) {
         next();
     } else {
         next(`${PATH.LOGIN}?validationFail=true`);
@@ -48,8 +48,8 @@ const routes = [
         beforeEnter: validationAuthentication,
     },
     {
-        path: PATH.APP_MAIN,
-        name: 'AppMain',
+        path: PATH.CLUB_LIST,
+        name: 'ClubList',
         component: () => import('@/views/clubList/ClubListPage.vue'),
         beforeEnter: validationAuthentication,
     },

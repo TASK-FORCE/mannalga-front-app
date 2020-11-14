@@ -28,3 +28,16 @@
         width: 0;
     }
 }
+
+.club-search-bar {
+    margin-right: 3px;
+    //margin-bottom: 10px;
+
+    .v-input__prepend-outer {
+        margin-top: 10px
+    }
+
+    .v-text-field__details {
+        display: none;
+    }
+}

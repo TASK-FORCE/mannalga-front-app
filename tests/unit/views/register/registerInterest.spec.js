@@ -80,7 +80,7 @@ describe('RegisterInterestNestedPage.vue', () => {
 
         // then
         expect(actionsHelper.postRegister.calledOnce).to.be.true;
-        expect($router.push.withArgs(PATH.APP_MAIN).calledOnce).to.be.true;
+        expect($router.push.withArgs(PATH.CLUB_LIST).calledOnce).to.be.true;
         expect(mutationsHelper.openSnackBar.calledOnce).to.be.true;
     });
 

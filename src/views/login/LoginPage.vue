@@ -1,14 +1,17 @@
 <template>
     <v-container>
-        <div class="absolute-center">
-            <v-img height="200"
-                   src="../../images/vue.png"
-            />
-            <div class="text-center my-10">
-                <p class="display-1">서비스명 1</p>
+        <div class="login-wrapper">
+            <!--            <v-img height="200"-->
+            <!--                   src="../../images/vue.png"-->
+            <!--            />-->
+            <div class="text-center">
+                <v-icon class="main-icon">mdi-account-group</v-icon>
             </div>
             <div class="text-center">
-                <v-btn class="mx-auto font-weight-bold"
+                <p class="display-1">모임서비스</p>
+            </div>
+            <div class="text-center mt-5">
+                <v-btn class="mx-auto font-weight-bold black--text"
                        color="yellow"
                        :loading="loading"
                        @click="login"
@@ -39,7 +42,7 @@ export default {
         };
     },
     computed: {
-        isAuth: () => gettersHelper.isAuth(),
+        hasToken: () => gettersHelper.hasToken(),
         appToken: () => gettersHelper.appToken(),
         code() {
             return this.$route.query.code;
@@ -55,11 +58,11 @@ export default {
         }
 
         // TODO 백엔드에게 api 요청 후 변경 필요
-        if (this.isAuth && false) {
+        if (this.hasToken && false) {
             this.requestTemplateWithLoading(
                 async () => {
                     const isRegistered = await actionsHelper.requestRegisterStatus(this.appToken);
-                    isRegistered ? this.$router.push(PATH.APP_MAIN) : this.$router.push(PATH.REGISTER.PROFILE);
+                    isRegistered ? this.$router.push(PATH.CLUB_LIST) : this.$router.push(PATH.REGISTER.PROFILE);
                 },
             );
         }
@@ -69,7 +72,7 @@ export default {
                 async () => {
                     try {
                         const isRegistered = await actionsHelper.requestKakaoTokenByCode(this.code);
-                        isRegistered ? this.$router.push(PATH.APP_MAIN) : this.$router.push(PATH.REGISTER.PROFILE);
+                        isRegistered ? this.$router.push(PATH.CLUB_LIST) : this.$router.push(PATH.REGISTER.PROFILE);
                     } catch (e) {
                         mutationsHelper.openSnackBar(MESSAGE.LOGIN_FAIL);
                     }
@@ -95,3 +98,15 @@ export default {
     },
 };
 </script>
+<style scoped>
+.login-wrapper {
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%, -45%);
+}
+
+.main-icon {
+    font-size: 200px;
+}
+</style>

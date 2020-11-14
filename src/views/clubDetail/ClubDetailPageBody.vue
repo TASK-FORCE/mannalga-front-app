@@ -37,7 +37,9 @@ import ClubDetailBoard from '@/views/clubDetail/components/board/ClubDetailBoard
 import ClubDetailAlbum from '@/views/clubDetail/components/album/ClubDetailAlbum.vue';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import clubTabStore from '@/utils/ClubTabStore.js';
-import regionAndInterestRequester from '@/store/service/RegionAndInterestRequester.js';
+import regionAndInterestDispatcher from '@/store/service/RegionAndInterestDispatcher.js';
+import clubDetailDispatcher from '@/store/service/ClubDetailDispatcher.js';
+import { PATH } from '@/router/route_path_type.js';
 
 export default {
     name: 'ClubDetailPageBody',
@@ -66,6 +68,7 @@ export default {
     },
     created() {
         this.tab = clubTabStore.get(this.clubSeq);
+        clubDetailDispatcher.dispatch(this.clubSeq, true, PATH.CLUB_LIST);
     },
 };
 </script>

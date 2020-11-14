@@ -42,7 +42,7 @@ export default {
             };
 
             actionsHelper.postRegister(registerInfo)
-                .then(() => this.$router.push(PATH.APP_MAIN)
+                .then(() => this.$router.push(PATH.CLUB_LIST)
                     .then(() => mutationsHelper.openSnackBar(MESSAGE.SUCCESS_REGISTER)))
                 .catch(() => this.$router.push(PATH.REGISTER.PROFILE)
                     .then(() => mutationsHelper.openSnackBar(MESSAGE.SERVER_INSTABILITY)));

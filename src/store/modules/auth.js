@@ -10,7 +10,7 @@ const state = {
 };
 
 const getters = {
-    isAuth(state) {
+    hasToken(state) {
         return _.isNotEmpty(state.appToken);
     },
     appToken(state) {

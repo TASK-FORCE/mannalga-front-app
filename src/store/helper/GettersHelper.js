@@ -6,7 +6,7 @@ const { getters } = store;
 
 class GettersHelper {
     // auth module
-    isAuth = () => get(MODULE.AUTH, 'isAuth');
+    hasToken = () => get(MODULE.AUTH, 'hasToken');
     appToken = () => get(MODULE.AUTH, 'appToken');
 
     // club module
