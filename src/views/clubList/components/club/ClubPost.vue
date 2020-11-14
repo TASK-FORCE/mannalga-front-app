@@ -5,8 +5,8 @@
                      class="py-2 pl-0"
         >
             <v-img :src="imgUrl"
-                   max-width="80"
                    height="60"
+                   width="80"
             />
             <div class="ml-3 w-100">
                 <div>
@@ -14,19 +14,23 @@
                         <InterestIcons :interestListWithPriority="[firstInterestWithPriority]"
                                        :maxSize="1"
                         />
-                        <span class="ml-1 f-09">{{ firstInterestWithPriority.interest.name }}</span>
+                        <span class="ml-1 f-08">{{ firstInterestWithPriority.interest.name }}</span>
                     </div>
                     <div class="region-wrapper">
-                        <RootRegionTag :rootRegionName="rootRegionName" />
-                        <span class="ml-1 f-09">{{ firstRegion.name }}</span>
+                        <RootRegionTag :color="badgeColor"
+                                       :rootRegionName="rootRegionName"
+                        />
+                        <span class="ml-1 f-08">{{ firstRegion.name }}</span>
                     </div>
                 </div>
                 <div>
                     <span>{{ club.name }}</span>
-                    <span class="f-08 float-right mr-2">
-                        <v-icon>mdi-account-multiple</v-icon>
-                        {{ club.userCount }}/{{ club.maximumNumber }}
-                    </span>
+                    <div class="d-inline-block float-right mr-2">
+                        <span class="f-07">
+                            <v-icon small>mdi-account-multiple</v-icon>
+                            {{ club.userCount }}/{{ club.maximumNumber }}
+                        </span>
+                    </div>
                 </div>
             </div>
         </v-list-item>
@@ -38,6 +42,7 @@
 import InterestIcons from '@/components/interest/InterestIcons.vue';
 import { generateParamPath, PATH } from '@/router/route_path_type.js';
 import RootRegionTag from '@/components/region/RootRegionTag.vue';
+import InterestUtils from '@/utils/interest/InterestUtils.js';
 
 export default {
     name: 'ClubPost',
@@ -50,6 +55,10 @@ export default {
         },
         firstInterestWithPriority() {
             return this.club.interests.find(({ priority }) => priority === 1);
+        },
+        badgeColor() {
+            const { interest } = this.firstInterestWithPriority;
+            return InterestUtils.findInterestGroupVo(interest).color;
         },
         rootRegionName() {
             return this.firstRegion.superRegionRoot.split('/')[0];

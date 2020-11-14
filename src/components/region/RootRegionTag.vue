@@ -1,6 +1,6 @@
 <template>
     <div class="d-inline-block">
-        <span :style="`background-color: ${rootRegion.color}`"
+        <span :style="`background-color: ${getColor}`"
               class="root-region-tag"
         >
             {{ rootRegion.name }}
@@ -36,11 +36,18 @@ export default {
             type: String,
             required: true,
         },
+        color: {
+            type: String,
+            required: false,
+        },
     },
     computed: {
         rootRegion() {
             const rootRegion = regionStore[this.rootRegionName];
             return rootRegion || { name: this.rootRegionName, color: 'red' };
+        },
+        getColor() {
+            return this.color || this.rootRegion.color;
         },
     },
 };
@@ -51,7 +58,7 @@ export default {
     padding: 4px;
     font-weight: bold;
     border-radius: 5px;
-    font-size: 0.75rem;
+    font-size: 0.6rem;
     color: white;
 }
 </style>

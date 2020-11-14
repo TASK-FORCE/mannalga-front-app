@@ -1,21 +1,22 @@
 <template>
     <div class="d-inline">
-        <v-btn v-for="(interestGroupType, index) in interestGroupTypes"
+        <v-btn v-for="(interestGroupVo, index) in interestGroupVos"
                :key="index"
+               :color="interestGroupVo.color"
                fab
-               height="25"
-               width="25"
+               height="20"
+               width="20"
                outlined
-               :color="interestGroupType.color"
+               x-small
                :class="index > 0 ? 'ml-2' : ''"
         >
-            <v-icon class="interest-icon">{{ interestGroupType.icon }}</v-icon>
+            <v-icon class="interest-icon">{{ interestGroupVo.icon }}</v-icon>
         </v-btn>
     </div>
 </template>
 
 <script>
-import { INTEREST_GROUP_TYPES } from '@/utils/common/constant/type_constant.js';
+import InterestUtils from '@/utils/interest/InterestUtils.js';
 import _ from '@/utils/common/lodashWrapper.js';
 
 export default {
@@ -25,25 +26,17 @@ export default {
         maxSize: Number,
     },
     computed: {
-        interestGroupTypes() {
+        interestGroupVos() {
             if (this.interestListWithPriority) {
                 const interests = extractInterestsOrderByPriority(this.interestListWithPriority);
-                const interestGroupTypes = interests.map(this.buildInterestGroupType);
-                const interestGroupTypeSet = [...new Set(interestGroupTypes)];
+                const interestGroupVos = interests.map(InterestUtils.findInterestGroupVo);
+                const interestGroupVoSet = [...new Set(interestGroupVos)];
                 if (this.maxSize && this.maxSize > 0) {
-                    return interestGroupTypeSet.slice(0, this.maxSize);
+                    return interestGroupVoSet.slice(0, this.maxSize);
                 }
-                return interestGroupTypeSet;
+                return interestGroupVoSet;
             }
             return [];
-        },
-    },
-    methods: {
-        buildInterestGroupType(interest) {
-            const { interestGroup } = interest;
-            const interestGroupType = Object.values(INTEREST_GROUP_TYPES)
-                .find(type => type.name === interestGroup.name);
-            return interestGroupType || INTEREST_GROUP_TYPES.DEFAULT;
         },
     },
 };
@@ -56,6 +49,8 @@ function extractInterestsOrderByPriority(interestsWithPriority) {
 
 <style scoped>
 .interest-icon {
-    font-size: 15px !important;
+    width: 14px !important;
+    height: 14px !important;
+    font-size: 14px !important;
 }
 </style>
