@@ -12,7 +12,7 @@ const state = {
 const getters = {
     clubData: (state) => state.clubData,
     clubInfo: (state) => state.clubInfo,
-    clubName: (state) => state.clubData.clubInfo.name,
+    clubName: (state) => state.clubInfo.name,
     userInfo: (state) => state.userInfo,
 };
 

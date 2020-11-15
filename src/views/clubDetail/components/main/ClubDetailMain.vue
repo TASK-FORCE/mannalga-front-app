@@ -4,7 +4,7 @@
                                 :userInfo="userInfo"
         />
         <ClubDetailMainMeeting />
-        <ClubDetailMainMember style="height: 1000px" />
+        <ClubDetailMainMember />
     </div>
 </template>
 
