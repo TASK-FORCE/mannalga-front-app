@@ -1,8 +1,7 @@
 import _ from '@/utils/common/lodashWrapper.js';
-import store from '@/store';
 import gettersHelper from '@/store/helper/GettersHelper.js';
-import { combineWithModuleName } from '@/store/utils/vuexUtils.js';
 import RequestHelper from '@/store/service/helper/RequestHelper.js';
+import actionsHelper from '@/store/helper/ActionsHelper.js';
 
 function isCached() {
     return _.isNotEmpty(gettersHelper.rootRegions()) && _.isNotEmpty(gettersHelper.rootInterests());
@@ -10,14 +9,14 @@ function isCached() {
 
 function dispatchRegions() {
     if (_.isEmpty(gettersHelper.rootRegions())) {
-        return store.dispatch(combineWithModuleName('template', 'requestRegionTemplate'));
+        return actionsHelper.requestRegionTemplate();
     }
     return Promise.resolve();
 }
 
 function dispatchInterests() {
     if (_.isEmpty(gettersHelper.rootInterests())) {
-        return store.dispatch(combineWithModuleName('template', 'requestInterestTemplate'));
+        return actionsHelper.requestInterestTemplate();
     }
     return Promise.resolve();
 }
@@ -28,7 +27,7 @@ class RegionAndInterestDispatcher {
             return;
         }
         const promiseList = [dispatchRegions(), dispatchInterests()];
-        RequestHelper.dispatchAll(withLoading, routePathWhenFail, promiseList);
+        await RequestHelper.dispatchAll(withLoading, routePathWhenFail, promiseList);
     }
 }
 

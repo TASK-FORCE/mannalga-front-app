@@ -1,6 +1,6 @@
 <template>
     <div>
-        ClubMainInfoMemberSection
+        모임 멤버 목록 보여주기
     </div>
 </template>
 

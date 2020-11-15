@@ -1,6 +1,8 @@
 <template>
     <div>
-        <ClubDetailMainClubInfo :clubInfo="clubInfo" />
+        <ClubDetailMainClubInfo :clubInfo="clubInfo"
+                                :userInfo="userInfo"
+        />
         <ClubDetailMainMeeting />
         <ClubDetailMainMember style="height: 1000px" />
     </div>
@@ -16,6 +18,7 @@ export default {
     components: { ClubDetailMainClubInfo, ClubDetailMainMeeting, ClubDetailMainMember },
     props: {
         clubInfo: Object,
+        userInfo: Object,
     },
 };
 </script>

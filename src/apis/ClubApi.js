@@ -2,13 +2,13 @@ import axios from 'axios';
 import ResponseConverter from '@/apis/converter/ResponseConverter.js';
 
 class ClubApi {
-    getClubData(clubSeq) {
-        return axios.get('/api/clubs/clubData', { params: clubSeq });
+    getClubInfoAndUserInfo(clubSeq) {
+        return axios.get(`/api/clubs/${clubSeq}`)
+            .then(ResponseConverter.extractSuperInventionResponseData);
     }
 
     postClubCreate(clubCreateDto) {
-        return axios
-            .post('/api/clubs', clubCreateDto)
+        return axios.post('/api/clubs', clubCreateDto)
             .then(ResponseConverter.extractSuperInventionResponseData);
     }
 
