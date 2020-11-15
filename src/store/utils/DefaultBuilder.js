@@ -1,7 +1,6 @@
 class DefaultBuilder {
     buildDefaultSnackBarOption = () => ({
         message: '',
-        open: false,
         color: 'pink',
         location: 'bottom',
     });

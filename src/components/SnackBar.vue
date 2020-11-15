@@ -26,9 +26,10 @@ export default {
     name: 'SnackBar',
     computed: {
         snackBarOptions: () => gettersHelper.snackBarOptions(),
+        openSnackBar: () => gettersHelper.openSnackBar(),
         safeOpen: {
             get() {
-                return this.snackBarOptions.open;
+                return this.openSnackBar;
             },
             set() {
                 this.closeSnackBar();

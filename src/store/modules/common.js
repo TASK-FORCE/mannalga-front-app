@@ -5,15 +5,13 @@ import defaultBuilder from '@/store/utils/DefaultBuilder.js';
 const state = {
     loading: false,
     snackBarOptions: defaultBuilder.buildDefaultSnackBarOption(),
+    openSnackBar: false,
 };
 
 const getters = {
-    isLoading(state) {
-        return state.loading;
-    },
-    snackBarOptions(state) {
-        return state.snackBarOptions;
-    },
+    isLoading: (state) => state.loading,
+    snackBarOptions: (state) => state.snackBarOptions,
+    openSnackBar: (state) => state.openSnackBar,
 };
 
 const mutations = {
@@ -22,10 +20,10 @@ const mutations = {
     },
     openSnackBar(state, snackBarOptions) {
         state.snackBarOptions = snackBarOptions;
-        state.snackBarOptions.open = true;
+        state.openSnackBar = true;
     },
     closeSnackBar(state) {
-        state.snackBarOptions.open = false;
+        state.openSnackBar = false;
     },
 };
 
