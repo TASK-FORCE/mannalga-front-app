@@ -2,15 +2,15 @@ import axios from 'axios';
 import ResponseConverter from '@/apis/converter/ResponseConverter.js';
 
 class UserApi {
+    getIsMember() {
+        return axios.get('/api/users/check-already-register')
+            .then(ResponseConverter.extractSuperInventionResponseData);
+    }
+
     getKakaoProfile() {
         return axios.get('/api/users/kakao-profile')
             .then(ResponseConverter.extractSuperInventionResponseData)
             .then(ResponseConverter.converterProfile);
-    }
-
-    postRegister(registerRequestDto) {
-        return axios.post('/api/users/regist', registerRequestDto)
-            .then(ResponseConverter.extractSuperInventionResponseData);
     }
 
     getRegisterStatus(appToken) {
@@ -33,12 +33,16 @@ class UserApi {
         return axios.put('/api/users/regions', userRegionsChangeDto);
     }
 
-    gettUserInterest() {
+    postRegister(registerRequestDto) {
+        return axios.post('/api/users/regist', registerRequestDto)
+            .then(ResponseConverter.extractSuperInventionResponseData);
+    }
+
+    getUserInterest() {
         return axios.get('/api/users/interests')
             .then(ResponseConverter.extractSuperInventionResponseData)
             .then(ResponseConverter.convertUserInterests);
     }
-
     putUserInterests(userInterestsChangeDto) {
         return axios.put('/api/users/interests', userInterestsChangeDto);
     }

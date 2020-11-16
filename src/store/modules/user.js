@@ -81,7 +81,7 @@ const actions = {
     },
     requestUserInterests({ commit }) {
         return actionsLoadingTemplate(commit, async () => {
-            const selectedInterestSeqs = await userApi.gettUserInterest();
+            const selectedInterestSeqs = await userApi.getUserInterest();
             selectedInterestSeqs.forEach(seq => commit('addSelectedInterestSeqs', seq));
         });
     },
@@ -93,6 +93,12 @@ const actions = {
             },
             () => commit('clearSelectedInterest'),
         );
+    },
+    requestCheckIsMember() {
+        return actionsNormalTemplate(async () => {
+            const { isMember } = await userApi.getIsMember();
+            return isMember;
+        });
     },
 };
 

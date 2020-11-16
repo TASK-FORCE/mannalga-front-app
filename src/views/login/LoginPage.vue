@@ -57,14 +57,9 @@ export default {
             return;
         }
 
-        // TODO 백엔드에게 api 요청 후 변경 필요
-        if (this.hasToken && false) {
-            this.requestTemplateWithLoading(
-                async () => {
-                    const isRegistered = await actionsHelper.requestRegisterStatus(this.appToken);
-                    isRegistered ? this.$router.push(PATH.CLUB_LIST) : this.$router.push(PATH.REGISTER.PROFILE);
-                },
-            );
+        if (this.hasToken) {
+            actionsHelper.requestCheckIsMember()
+                .then(isMember => this.$router.push(isMember ? PATH.CLUB_LIST : PATH.REGISTER.PROFILE));
         }
 
         if (this.code) {
