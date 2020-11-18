@@ -4,11 +4,25 @@
         <v-list class="py-0">
             <v-list-item-group id="club-list-group">
                 <div id="club-list-sentinel" />
-                <template v-for="club in clubList">
-                    <ClubPost :key="club.seq"
-                              :club="club"
-                    />
-                </template>
+                <div v-if="clubList && clubList.length > 0">
+                    <template v-for="club in clubList">
+                        <ClubPost :key="club.seq"
+                                  :club="club"
+                        />
+                    </template>
+                </div>
+                <div v-else
+                     class="club-empty-box-wrapper"
+                >
+                    <div class="club-empty-box">
+                        <div>
+                            <v-icon x-large>mdi-emoticon-cry-outline</v-icon>
+                        </div>
+                        <div>
+                            모임이 없어요
+                        </div>
+                    </div>
+                </div>
             </v-list-item-group>
         </v-list>
     </div>
@@ -82,5 +96,17 @@ export default {
 </script>
 
 <style scoped>
+.club-empty-box-wrapper {
+    position: relative;
+    height: 500px;
+}
 
+.club-empty-box {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-size: 2rem;
+}
 </style>
