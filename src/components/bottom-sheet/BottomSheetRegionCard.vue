@@ -1,8 +1,17 @@
 <template>
     <v-card>
-        <v-card-title class="pa-3"
-                      v-text="title"
-        />
+        <div class="title-wrapper">
+            <v-btn v-show="!showRootRegions"
+                   icon
+                   class="title-back-btn"
+                   @click="showRoot"
+            >
+                <v-icon size="28">mdi-keyboard-backspace</v-icon>
+            </v-btn>
+            <div class="title-text">
+                {{ title }}
+            </div>
+        </div>
         <v-divider />
         <v-card-text style="height: 300px;"
                      class="pa-0"
@@ -11,7 +20,7 @@
                 <v-list-item-group>
                     <template v-for="region in regions">
                         <v-list-item :key="region.seq"
-                                     @click="selectRegion(region)"
+                                     @click="triggerRegion(region)"
                         >
                             {{ region.name }}
                         </v-list-item>
@@ -35,6 +44,7 @@ export default {
             showRootRegions: true,
             title: '지역 선택',
             regions: this.rootRegions,
+            lastSelectedRegion: null,
         };
     },
     watch: {
@@ -43,8 +53,15 @@ export default {
         },
     },
     methods: {
-        selectRegion(region) {
-            this.showRootRegions ? this.selectRootRegion(region) : this.selectSubRegion(region);
+        showRoot() {
+            this.showRootRegions = true;
+            this.regions = this.rootRegions;
+        },
+        triggerRegion(region) {
+            if (region) {
+                this.lastSelectedRegion = region;
+            }
+            this.showRootRegions ? this.selectRootRegion(this.lastSelectedRegion) : this.selectSubRegion(this.lastSelectedRegion);
         },
         selectRootRegion(region) {
             this.title = region.name;
@@ -68,6 +85,23 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped
+       lang="scss"
+>
+.title-wrapper {
+    height: 60px;
+    line-height: 44px;
+    padding: 0.5rem 1rem;
 
+    .title-back-btn {
+        margin-right: 0.5rem;
+    }
+
+    .title-text {
+        display: inline;
+        align-items: center;
+        font-size: 1.3rem;
+        font-weight: 500;
+    }
+}
 </style>

@@ -4,9 +4,8 @@
         app
     >
         <v-text-field class="club-search-bar"
-                      label="모임 검색"
+                      placeholder="모임 검색"
                       prepend-icon="mdi-magnify"
-                      @click="$router.push(clubSearchPagePath)"
         />
 
         <v-spacer />

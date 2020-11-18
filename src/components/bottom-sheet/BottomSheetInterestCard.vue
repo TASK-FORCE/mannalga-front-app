@@ -1,8 +1,17 @@
 <template>
     <v-card>
-        <v-card-title class="pa-3"
-                      v-text="title"
-        />
+        <div class="title-wrapper">
+            <v-btn v-show="!showRootInterests"
+                   icon
+                   class="title-back-btn"
+                   @click="showRoot"
+            >
+                <v-icon size="28">mdi-keyboard-backspace</v-icon>
+            </v-btn>
+            <div class="title-text">
+                {{ title }}
+            </div>
+        </div>
         <v-divider />
         <v-card-text style="height: 300px;"
                      class="pa-0"
@@ -43,6 +52,10 @@ export default {
         },
     },
     methods: {
+        showRoot() {
+            this.showRootInterests = true;
+            this.interests = this.rootInterests;
+        },
         selectInterest(interest) {
             this.showRootInterests ? this.selectRootInterest(interest) : this.selectSubInterest(interest);
         },
@@ -66,6 +79,23 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped
+       lang="scss"
+>
+.title-wrapper {
+    height: 60px;
+    line-height: 44px;
+    padding: 0.5rem 1rem;
 
+    .title-back-btn {
+        margin-right: 0.5rem;
+    }
+
+    .title-text {
+        display: inline;
+        align-items: center;
+        font-size: 1.3rem;
+        font-weight: 500;
+    }
+}
 </style>
