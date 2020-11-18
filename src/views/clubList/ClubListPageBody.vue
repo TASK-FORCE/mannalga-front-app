@@ -13,7 +13,9 @@
             </v-tab>
         </v-tabs>
 
-        <v-tabs-items v-model="tab">
+        <v-tabs-items v-model="tab"
+                      class="pa-2"
+        >
             <v-tab-item value="club">
                 <ClubList />
             </v-tab-item>
