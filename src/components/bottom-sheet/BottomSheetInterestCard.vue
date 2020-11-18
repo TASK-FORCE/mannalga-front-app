@@ -33,6 +33,7 @@
 </template>
 
 <script>
+const TITLE = '관심사 선택';
 export default {
     name: 'BottomSheetInterestCard',
     props: {
@@ -42,7 +43,7 @@ export default {
     data() {
         return {
             showRootInterests: true,
-            title: '관심사 선택',
+            title: TITLE,
             interests: this.rootInterests,
         };
     },
@@ -55,6 +56,7 @@ export default {
         showRoot() {
             this.showRootInterests = true;
             this.interests = this.rootInterests;
+            this.title = TITLE;
         },
         selectInterest(interest) {
             this.showRootInterests ? this.selectRootInterest(interest) : this.selectSubInterest(interest);
@@ -71,7 +73,7 @@ export default {
             this.$emit('selectSubInterest', interest);
             setTimeout(() => {
                 this.showRootInterests = true;
-                this.title = '관심사 선택';
+                this.title = TITLE;
                 this.interests = this.rootInterests;
             }, 100);
         },

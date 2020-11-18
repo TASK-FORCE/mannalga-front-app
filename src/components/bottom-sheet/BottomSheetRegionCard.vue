@@ -33,6 +33,8 @@
 </template>
 
 <script>
+const TITLE = '지역 선택';
+
 export default {
     name: 'BottomSheetRegionCard',
     props: {
@@ -42,7 +44,7 @@ export default {
     data() {
         return {
             showRootRegions: true,
-            title: '지역 선택',
+            title: TITLE,
             regions: this.rootRegions,
             lastSelectedRegion: null,
         };
@@ -56,6 +58,7 @@ export default {
         showRoot() {
             this.showRootRegions = true;
             this.regions = this.rootRegions;
+            this.title = TITLE;
         },
         triggerRegion(region) {
             if (region) {
@@ -77,7 +80,7 @@ export default {
             this.$emit('selectSubRegion', region);
             setTimeout(() => {
                 this.showRootRegions = true;
-                this.title = '지역 선택';
+                this.title = TITLE;
                 this.regions = this.rootRegions;
             }, 100);
         },
