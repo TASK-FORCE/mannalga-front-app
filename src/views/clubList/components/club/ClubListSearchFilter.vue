@@ -17,7 +17,7 @@
                                                  @click="changeBottomSheetComponent('INTEREST')"
                         />
                     </div>
-                    <div class="mt-1">
+                    <div class="mt-2">
                         <v-chip
                             v-if="regionName"
                             close
@@ -99,33 +99,18 @@ export default {
     },
     methods: {
         selectSearchRegion(region) {
-            this.changeSearchFilter({
-                region: { name: region.superRegionRoot, seq: region.seq },
-                interest: this.clubSearchFilterInfo.interest,
-            });
+            mutationsHelper.changeClubSearchRegion({ name: region.superRegionRoot, seq: region.seq });
+            this.sheet = false;
         },
         selectSearchInterest(interest) {
-            this.changeSearchFilter({
-                region: this.clubSearchFilterInfo.region,
-                interest: { name: interest.name, seq: interest.seq },
-            });
+            mutationsHelper.changeClubSearchInterest({ name: interest.name, seq: interest.seq });
+            this.sheet = false;
         },
         cancelRegionSelect() {
-            this.changeSearchFilter({
-                region: defaultBuilder.buildClubSearchFilterInfo().region,
-                interest: this.clubSearchFilterInfo.interest,
-            });
+            mutationsHelper.changeClubSearchRegion(defaultBuilder.buildClubSearchFilterInfo().region);
         },
         cancelInterestSelect() {
-            this.changeSearchFilter({
-                region: this.clubSearchFilterInfo.region,
-                interest: defaultBuilder.buildClubSearchFilterInfo().interest,
-            });
-        },
-        changeSearchFilter(newClubSearchFilterInfo) {
-            mutationsHelper.changeClubSearchFilterInfo(newClubSearchFilterInfo);
-            this.$emit('changeSearchFilter');
-            this.sheet = false;
+            mutationsHelper.changeClubSearchInterest(defaultBuilder.buildClubSearchFilterInfo().interest);
         },
         changeBottomSheetComponent(cardComponent) {
             this.currentBottomSheetCard = cardComponent;
