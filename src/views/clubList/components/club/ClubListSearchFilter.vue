@@ -5,16 +5,41 @@
                             scrollable
             >
                 <template v-slot:activator="{ on, attrs }">
-                    <ClubListSearchFilterBtn :attrs="attrs"
-                                             :on="on"
-                                             :text="regionName || searchRegionText"
-                                             @click="changeBottomSheetComponent('REGION')"
-                    />
-                    <ClubListSearchFilterBtn :attrs="attrs"
-                                             :on="on"
-                                             :text="interestName || searchInterestText"
-                                             @click="changeBottomSheetComponent('INTEREST')"
-                    />
+                    <div>
+                        <ClubListSearchFilterBtn :attrs="attrs"
+                                                 :on="on"
+                                                 :text="searchRegionText"
+                                                 @click="changeBottomSheetComponent('REGION')"
+                        />
+                        <ClubListSearchFilterBtn :attrs="attrs"
+                                                 :on="on"
+                                                 :text="searchInterestText"
+                                                 @click="changeBottomSheetComponent('INTEREST')"
+                        />
+                    </div>
+                    <div class="mt-1">
+                        <v-chip
+                            v-if="regionName"
+                            close
+                            color="#009688"
+                            outlined
+                            small
+                            @click:close="cancelRegionSelect"
+                        >
+                            {{ regionName }}
+                        </v-chip>
+                        <v-chip
+                            v-if="interestName"
+                            class="ml-2"
+                            close
+                            color="#795548"
+                            outlined
+                            small
+                            @click:close="cancelInterestSelect"
+                        >
+                            {{ interestName }}
+                        </v-chip>
+                    </div>
                 </template>
 
                 <BottomSheetRegionCard v-if="currentBottomSheetCard === 'REGION'"
@@ -40,6 +65,7 @@ import { PATH } from '@/router/route_path_type.js';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import regionAndInterestDispatcher from '@/store/service/RegionAndInterestDispatcher.js';
 import mutationsHelper from '@/store/helper/MutationsHelper.js';
+import defaultBuilder from '@/store/utils/DefaultBuilder.js';
 
 export default {
     name: 'ClubListSearchFilter',
@@ -73,20 +99,30 @@ export default {
     },
     methods: {
         selectSearchRegion(region) {
-            const newClubSearchFilterInfo = {
-                region: { name: region.name, seq: region.seq },
+            this.changeSearchFilter({
+                region: { name: region.superRegionRoot, seq: region.seq },
                 interest: this.clubSearchFilterInfo.interest,
-            };
-            this.change(newClubSearchFilterInfo);
+            });
         },
         selectSearchInterest(interest) {
-            const newClubSearchFilterInfo = {
+            this.changeSearchFilter({
                 region: this.clubSearchFilterInfo.region,
                 interest: { name: interest.name, seq: interest.seq },
-            };
-            this.change(newClubSearchFilterInfo);
+            });
         },
-        change(newClubSearchFilterInfo) {
+        cancelRegionSelect() {
+            this.changeSearchFilter({
+                region: defaultBuilder.buildClubSearchFilterInfo().region,
+                interest: this.clubSearchFilterInfo.interest,
+            });
+        },
+        cancelInterestSelect() {
+            this.changeSearchFilter({
+                region: this.clubSearchFilterInfo.region,
+                interest: defaultBuilder.buildClubSearchFilterInfo().interest,
+            });
+        },
+        changeSearchFilter(newClubSearchFilterInfo) {
             mutationsHelper.changeClubSearchFilterInfo(newClubSearchFilterInfo);
             this.$emit('changeSearchFilter');
             this.sheet = false;
@@ -97,7 +133,3 @@ export default {
     },
 };
 </script>
-
-<style scoped>
-
-</style>
