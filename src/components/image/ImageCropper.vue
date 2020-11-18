@@ -52,6 +52,8 @@
 import 'cropperjs/dist/cropper.css';
 import Cropper from 'cropperjs';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
+import mutationsHelper from '@/store/helper/MutationsHelper.js';
+import { MESSAGE } from '@/utils/common/constant/constant.js';
 
 export default {
     name: 'ImageCropper',
@@ -140,6 +142,10 @@ export default {
                     .then(tempImageDto => {
                         this.$emit('handleUploadedImgDto', tempImageDto);
                         this.destroy();
+                    })
+                    .catch(() => {
+                        this.isLoading = false;
+                        mutationsHelper.openSnackBar(MESSAGE.FAIL_UPLOAD_IMAGE);
                     });
             });
         },
