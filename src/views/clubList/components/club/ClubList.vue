@@ -1,7 +1,9 @@
 <template>
-    <div>
-        <ClubListSearchFilter @changeSearchFilter="initFirstClubList" />
-        <v-list class="py-0">
+    <div class="h-100">
+        <ClubListSearchFilter id="club-search-filter" />
+        <v-list v-show="!isLoading"
+                class="py-0"
+        >
             <v-list-item-group id="club-list-group">
                 <div id="club-list-sentinel" />
                 <div v-if="clubList && clubList.length > 0">
@@ -12,9 +14,10 @@
                     </template>
                 </div>
                 <div v-else
-                     class="club-empty-box-wrapper"
+                     class="club-empty-result-wrapper"
+                     :style="{height: `${calculateEmptyPageHeight()}px`}"
                 >
-                    <div class="club-empty-box">
+                    <div class="club-empty-result-box">
                         <div>
                             <v-icon x-large>mdi-emoticon-cry-outline</v-icon>
                         </div>
@@ -42,12 +45,15 @@ export default {
         return {
             sentinel: null,
             listGroup: null,
+            searchFilterElement: null,
             isRequesting: false,
         };
     },
     computed: {
+        isLoading: () => gettersHelper.isLoading(),
         clubList: () => gettersHelper.clubList(),
         clubPage: () => gettersHelper.clubPage(),
+        clubSearchFilterInfo: () => gettersHelper.clubSearchFilterInfo(),
         isLastPage() {
             return this.clubPage.isLastPage;
         },
@@ -55,18 +61,24 @@ export default {
             return this.clubPage.nextPage === 0;
         },
     },
+    watch: {
+        clubSearchFilterInfo() {
+            this.fetchFirstPage();
+        },
+    },
     mounted() {
         this.listGroup = document.querySelector('#club-list-group');
         this.sentinel = document.querySelector('#club-list-sentinel');
+        this.searchFilterElement = document.querySelector('#club-search-filter');
         if (_.isEmpty(this.clubList)) {
-            this.initFirstClubList();
+            this.fetchFirstPage();
         } else {
             this.insertSentinel();
         }
         this.setInfiniteScrollObserver();
     },
     methods: {
-        initFirstClubList() {
+        fetchFirstPage() {
             actionsHelper.requestFirstClubList().then(() => this.insertSentinel());
         },
         insertSentinel() {
@@ -91,22 +103,30 @@ export default {
         canRequest() {
             return !this.isRequesting && !this.isLastPage && !this.isFirstPage;
         },
+        calculateEmptyPageHeight() {
+            if (this.searchFilterElement) {
+                const { bottom } = this.searchFilterElement.getBoundingClientRect();
+                return window.innerHeight - bottom;
+            }
+            return 500;
+        },
     },
 };
 </script>
 
-<style scoped>
-.club-empty-box-wrapper {
+<style scoped
+       lang="scss"
+>
+.club-empty-result-wrapper {
     position: relative;
-    height: 500px;
-}
 
-.club-empty-box {
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    font-size: 2rem;
+    .club-empty-result-box {
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        font-size: 1.5rem;
+    }
 }
 </style>

@@ -1,4 +1,4 @@
-import { cloneDeep, findIndex, isEmpty, isEqual, isFunction, isNumber, sortBy, throttle } from 'lodash';
+import { cloneDeep, debounce, findIndex, isEmpty, isEqual, isFunction, isNumber, sortBy, throttle } from 'lodash';
 
 /** 기본적으로는 lodash 라이브러리 함수들을 forwarding 한다.
  *  - 코드 자동 완성과 추후 빌드 번들 크기를 편리하게 줄이기 위해 wrapping utils 사용
@@ -26,6 +26,7 @@ const _ = {
     isFunction: (value) => isFunction(value),
     throttle: (callback, wait) => throttle(callback, wait),
     sortBy: (list, sortTargetFunction) => sortBy(list, sortTargetFunction),
+    debounce: (callback, wait, options) => debounce(callback, wait, options),
 };
 
 export default _;

@@ -50,8 +50,23 @@ const mutations = {
         state.myClubList = [];
         state.myClubPage = defaultBuilder.buildPage();
     },
-    changeClubSearchFilterInfo(state, clubSearchFilterInfo) {
-        state.clubSearchFilterInfo = clubSearchFilterInfo;
+    changeClubSearchRegion(state, region) {
+        state.clubSearchFilterInfo = {
+            ...state.clubSearchFilterInfo,
+            region,
+        };
+    },
+    changeClubSearchInterest(state, interest) {
+        state.clubSearchFilterInfo = {
+            ...state.clubSearchFilterInfo,
+            interest,
+        };
+    },
+    changeClubSearchText(state, searchText) {
+        state.clubSearchFilterInfo = {
+            ...state.clubSearchFilterInfo,
+            searchText: searchText ? searchText.trim() : null,
+        };
     },
 };
 

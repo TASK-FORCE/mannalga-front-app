@@ -3,7 +3,8 @@
         class="elevation-0 app-main-header"
         app
     >
-        <v-text-field class="club-search-bar"
+        <v-text-field v-model="searchText"
+                      class="club-search-bar"
                       placeholder="모임 검색"
                       prepend-icon="mdi-magnify"
         />
@@ -32,6 +33,10 @@
 <script>
 import { changeThemeAndLoad, isCurrentThemeDark } from '@/plugins/vuetify.js';
 import { PATH } from '@/router/route_path_type.js';
+import _ from '@/utils/common/lodashWrapper.js';
+import mutationsHelper from '@/store/helper/MutationsHelper.js';
+
+const SEARCH_WAIT_TIME = 500;
 
 export default {
     name: 'ClubListPageHeader',
@@ -39,7 +44,14 @@ export default {
         return {
             isThemeDark: isCurrentThemeDark(),
             clubSearchPagePath: PATH.CLUB.SEARCH,
+            searchText: null,
+            searchCallback: _.debounce(() => mutationsHelper.changeClubSearchText(this.searchText), SEARCH_WAIT_TIME),
         };
+    },
+    watch: {
+        searchText() {
+            this.searchCallback();
+        },
     },
     methods: {
         moveToUserSettings() {

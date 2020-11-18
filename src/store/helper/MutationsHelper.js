@@ -4,7 +4,9 @@ import { MODULE } from '@/store/type/type.js';
 
 class MutationsHelper {
     // clubList module
-    changeClubSearchFilterInfo = (payload) => commit(MODULE.CLUB_LIST, 'changeClubSearchFilterInfo', payload);
+    changeClubSearchRegion = (payload) => commit(MODULE.CLUB_LIST, 'changeClubSearchRegion', payload);
+    changeClubSearchInterest = (payload) => commit(MODULE.CLUB_LIST, 'changeClubSearchInterest', payload);
+    changeClubSearchText = (payload) => commit(MODULE.CLUB_LIST, 'changeClubSearchText', payload);
 
     // common module
     closeSnackBar = (payload) => commit(MODULE.COMMON, 'closeSnackBar', payload);
