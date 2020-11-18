@@ -11,6 +11,7 @@ const MESSAGE = {
     SUCCESS_CHANGE_INTERESTS: '관심사 변경 완료!',
     SELECT_INTEREST_OVER_COUNT: '관심사는 최대 5개까지 선택할 수 있습니다.',
     FAIL_CLUB_CREATE: '모임 생성에 실패했습니다.',
+    FAIL_UPLOAD_IMAGE: '사진 등록에 실패하였습니다.',
 };
 
 const COLOR = {

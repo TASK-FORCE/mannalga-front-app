@@ -2,6 +2,7 @@ import { actionsNormalTemplate } from '@/store/utils/actionsTemplate.js';
 import RequestConverter from '@/store/converter/requestConverter.js';
 import defaultBuilder from '@/store/utils/DefaultBuilder.js';
 import clubApi from '@/apis/ClubApi.js';
+import { MODULE } from '@/store/type/type.js';
 
 const state = {
     clubData: defaultBuilder.buildClub(),
@@ -21,12 +22,12 @@ const mutations = {
         state.clubInfo = clubInfo;
     },
     setUserInfo(state, userInfo) {
-        const { role, isLiked } = userInfo;
+        const { role, isLiked } = userInfo || {};
         state.userInfo = {
             isMaster: role && !!role.find(roleName => roleName === 'MASTER'),
             isManager: role && !!role.find(roleName => roleName === 'MANAGER'),
             isMember: role && !!role.find(roleName => roleName === 'CLUB_MEMBER'),
-            roles: userInfo.role,
+            roles: role,
             isLiked,
         };
     },
@@ -44,6 +45,8 @@ const actions = {
         return actionsNormalTemplate(async () => {
             const clubCreateRequestDto = RequestConverter.convertClubCreateInfo(clubCreateInfo);
             await clubApi.postClubCreate(clubCreateRequestDto);
+            commit(`${MODULE.CLUB_LIST}/initClubListAndPage`, {}, { root: true });
+            commit(`${MODULE.CLUB_LIST}/initMyClubListAndPage`, {}, { root: true });
         });
     },
     async requestClubJoin({ commit }, clubSeq) {
