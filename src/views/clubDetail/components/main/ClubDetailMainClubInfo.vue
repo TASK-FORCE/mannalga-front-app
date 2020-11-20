@@ -100,8 +100,8 @@ export default {
             const { clubSeq } = this.$route.params;
             // TODO 서버 측 에러 수정 필요
             actionsHelper.requestClubJoin(clubSeq)
-                .then(mutationsHelper.openSnackBar('클럽 가입 성공'))
-                .catch(mutationsHelper.openSnackBar('클럽 가입 실패'));
+                .then(() => mutationsHelper.openSnackBar('모임 가입 성공'))
+                .catch(() => mutationsHelper.openSnackBar('모임 가입 실패'));
         },
     },
 };
