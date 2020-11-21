@@ -50,6 +50,7 @@ export default {
     },
     watch: {
         searchText() {
+            mutationsHelper.changeCommonLoading(true);
             this.searchCallback();
         },
     },
