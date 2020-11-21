@@ -56,7 +56,7 @@ import { generateParamPath, PATH } from '@/router/route_path_type.js';
 import mutationsHelper from '@/store/helper/MutationsHelper.js';
 
 const toMoment = (localDate) => moment(`${localDate.date} ${localDate.time}`.trim());
-const toTimeStamp = (localDate) => `${localDate} ${localDate}:00`;
+const toTimeStamp = (localDate) => `${localDate.date} ${localDate.time}:00`;
 const isSameDate = (source, other) => {
     const sourceMoment = toMoment(source);
     const otherMoment = toMoment(other);
