@@ -47,6 +47,8 @@ const routes = [
         component: () => import('@/views/regionSelect/RegionSelectPage.vue'),
         beforeEnter: validationAuthentication,
     },
+
+    // club
     {
         path: PATH.CLUB_LIST,
         name: 'ClubList',
@@ -75,10 +77,17 @@ const routes = [
         component: () => import('@/views/clubBoardPost/ClubBoardPostPage.vue'),
     },
     {
+        path: PATH.CLUB.MEETING_CREATE,
+        name: 'ClubMeetingCreate',
+        component: () => import('@/views/clubMeetingCreate/ClubMeetingCreatePage.vue'),
+    },
+    {
         path: PATH.CLUB.SEARCH,
         name: 'ClubSearch',
         component: () => import('@/views/clubSearch/ClubSearchPage.vue'),
     },
+
+    // user
     {
         path: PATH.USER.SETTINGS,
         name: 'UserSettings',

@@ -15,6 +15,7 @@ export const PATH = {
         MAIN: '/club/:clubSeq',
         BOARD_POST: '/club/:clubSeq/board/:boardSeq',
         BOARD_CREATE: '/club/:clubSeq/create/board',
+        MEETING_CREATE: '/club/:clubSeq/create/meeting',
         SEARCH: '/search/club',
     },
     USER: {
@@ -32,7 +33,8 @@ export const getChildRoutePath = (path) => {
 
 export const generateParamPath = (path, params) => {
     if (!Array.isArray(params)) {
-        throw Error('params must be Array');
+        // eslint-disable-next-line no-param-reassign
+        params = [params];
     }
     if (_.isEmpty(path) || _.isEmpty(params)) {
         throw Error(`path or params must not be empty. path: ${path}, params: ${params}`);

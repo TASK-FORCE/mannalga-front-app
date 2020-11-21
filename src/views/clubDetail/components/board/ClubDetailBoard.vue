@@ -32,6 +32,7 @@
 <script>
 import FixedCreateBtn from '@/components/button/FixedCreateBtn.vue';
 import { generateParamPath, PATH } from '@/router/route_path_type.js';
+import routerParamHelper from '@/router/RouterParamHelper.js';
 
 export default {
     name: 'ClubDetailBoard',
@@ -43,9 +44,7 @@ export default {
         };
     },
     computed: {
-        clubSeq() {
-            return this.$route.params.clubSeq;
-        },
+        clubSeq: () => routerParamHelper.clubSeq(),
     },
     mounted() {
         this.clubBoardCreate = generateParamPath(PATH.CLUB.BOARD_CREATE, [this.clubSeq]);
