@@ -20,7 +20,7 @@
                 />
             </v-tab-item>
             <v-tab-item value="meeting">
-                <ClubDetailMeeting />
+                <ClubDetailMeeting :userInfo="userInfo"/>
             </v-tab-item>
             <v-tab-item value="board">
                 <ClubDetailBoard :boardList="clubData.boardList" />

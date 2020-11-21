@@ -90,7 +90,8 @@ export default {
             return clubRegionNames.join(', ');
         },
         needToShowRegisterBtn() {
-            return !this.userInfo.isMember;
+            const { isMaster, isManager, isMember } = this.userInfo;
+            return !(isMaster || isManager || isMember);
         },
     },
     mounted() {

@@ -24,9 +24,9 @@ const mutations = {
     setUserInfo(state, userInfo) {
         const { role, isLiked } = userInfo || {};
         state.userInfo = {
-            isMaster: role && !!role.find(roleName => roleName === 'MASTER'),
-            isManager: role && !!role.find(roleName => roleName === 'MANAGER'),
-            isMember: role && !!role.find(roleName => roleName === 'CLUB_MEMBER'),
+            isMaster: role && !!role.includes('MASTER'),
+            isManager: role && !!role.includes('MANAGER'),
+            isMember: role && !!role.includes('CLUB_MEMBER'),
             roles: role,
             isLiked,
         };
