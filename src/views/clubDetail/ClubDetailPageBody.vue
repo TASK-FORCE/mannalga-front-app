@@ -51,7 +51,7 @@ export default {
             tab: null,
             menus: [
                 { name: '메인', key: 'main' },
-                { name: '일정', key: 'meeting' },
+                { name: '만남', key: 'meeting' },
                 { name: '게시판', key: 'board' },
                 { name: '사진첩', key: 'album' },
             ],
