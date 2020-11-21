@@ -6,7 +6,7 @@
                 <v-text-field v-model="title"
                               :rules="RULES.CLUB_MEETING_TITLE"
                               class="pa-0"
-                              label="일정 제목"
+                              label="만남 제목"
                 />
                 <DateTimePicker :dateTime="startDateTime"
                                 :minDate="today()"
@@ -30,7 +30,7 @@
                 <v-select :items="maximumNumberList"
                           :rules="RULES.CLUB_MEETING_MAXIMUM_NUMBER"
                           class="px-10 pt-2"
-                          label="일정 최대 인원"
+                          label="만남 최대 인원"
                           @change="value => this.maximumNumber = value"
                 />
             </v-form>
@@ -122,7 +122,7 @@ export default {
                 this.loading = true;
                 actionsHelper.requestClubMeetingCreate(this.buildRequestDto())
                     .then(() => this.$router.push(generateParamPath(PATH.CLUB.MAIN, routerParamHelper.clubSeq())))
-                    .catch(() => mutationsHelper.openSnackBar('일정 생성 실패!'))
+                    .catch(() => mutationsHelper.openSnackBar('만남 생성 실패!'))
                     .finally(this.loading = false);
             }
         },

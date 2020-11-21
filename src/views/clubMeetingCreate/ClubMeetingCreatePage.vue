@@ -1,6 +1,6 @@
 <template>
     <div>
-        <CommonHeader title="일정 생성"
+        <CommonHeader title="만남 생성"
                       @click="$router.push(clubDetailPath())"
         />
         <ClubMeetingCreatePageBody />

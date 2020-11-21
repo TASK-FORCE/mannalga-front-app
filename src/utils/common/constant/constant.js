@@ -32,8 +32,8 @@ const RULES = {
     CLUB_MAXIMUM_NUMBER: [v => !!v || '모임 최대인원을 작성해주세요.'],
     CLUB_BOARD_TITLE: [v => !!v || '게시글 제목을 작성해주세요.'],
     CLUB_BOARD_CONTENT: [v => !!v || '게시글 내용을 작성해주세요.'],
-    CLUB_MEETING_TITLE: [v => !!v || '일정 제목을 작성해주세요.'],
-    CLUB_MEETING_MAXIMUM_NUMBER: [v => !!v || '일정 최대인원을 작성해주세요.'],
+    CLUB_MEETING_TITLE: [v => !!v || '만남 제목을 작성해주세요.'],
+    CLUB_MEETING_MAXIMUM_NUMBER: [v => !!v || '만남 최대인원을 작성해주세요.'],
     DATE: [v => !!v || '날짜을 지정해주세요.'],
     TIME: [v => !!v || '시간를 지정해주세요.'],
 };
