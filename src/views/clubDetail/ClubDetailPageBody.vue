@@ -41,6 +41,7 @@ import gettersHelper from '@/store/helper/GettersHelper.js';
 import clubTabStore from '@/utils/ClubTabStore.js';
 import clubDetailDispatcher from '@/store/service/ClubDetailDispatcher.js';
 import { PATH } from '@/router/route_path_type.js';
+import routerParamHelper from '@/router/RouterParamHelper.js';
 
 export default {
     name: 'ClubDetailPageBody',
@@ -60,9 +61,7 @@ export default {
         clubData: () => gettersHelper.clubData(),
         clubInfo: () => gettersHelper.clubInfo(),
         userInfo: () => gettersHelper.userInfo(),
-        clubSeq() {
-            return this.$route.params.clubSeq;
-        },
+        clubSeq: () => routerParamHelper.clubSeq(),
     },
     watch: {
         tab() {

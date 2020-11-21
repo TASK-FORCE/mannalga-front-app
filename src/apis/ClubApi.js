@@ -19,6 +19,10 @@ class ClubApi {
     postClubBoardCreate({ clubSeq, clubBoardDto }) {
         return axios.post(`/api/clubs/${clubSeq}/boards`, clubBoardDto);
     }
+
+    postClubMeetingCreate({ clubSeq, clubMeetingCreateDto }) {
+        return axios.post(`/api/clubs/${clubSeq}/meetings`, clubMeetingCreateDto);
+    }
 }
 
 const clubApi = new ClubApi();

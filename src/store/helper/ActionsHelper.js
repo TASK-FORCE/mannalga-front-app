@@ -12,6 +12,7 @@ class ActionsHelper {
     requestClubJoin = (payload) => dispatch(MODULE.CLUB, 'requestClubJoin', payload);
     requestClubCreateBoard = (payload) => dispatch(MODULE.CLUB, 'requestClubBoardCreate', payload);
     requestClubInfoAndUserInfo = (payload) => dispatch(MODULE.CLUB, 'requestClubInfoAndUserInfo', payload);
+    requestClubMeetingCreate = (payload) => dispatch(MODULE.CLUB, 'requestClubMeetingCreate', payload);
 
     // clubList module
     requestFirstClubList = (payload) => dispatch(MODULE.CLUB_LIST, 'requestFirstClubList', payload);

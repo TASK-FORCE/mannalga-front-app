@@ -20,6 +20,7 @@ const COLOR = {
 };
 
 const RULES = {
+    EMPTY_RULE: [v => !!v],
     PROFILE_NAME: [
         v => !!v || '이름을 작성해주세요.',
         v => !/\s/.test(v) || '공백을 제거해주세요!',
@@ -31,8 +32,13 @@ const RULES = {
     CLUB_MAXIMUM_NUMBER: [v => !!v || '모임 최대인원을 작성해주세요.'],
     CLUB_BOARD_TITLE: [v => !!v || '게시글 제목을 작성해주세요.'],
     CLUB_BOARD_CONTENT: [v => !!v || '게시글 내용을 작성해주세요.'],
+    CLUB_MEETING_TITLE: [v => !!v || '일정 제목을 작성해주세요.'],
+    CLUB_MEETING_MAXIMUM_NUMBER: [v => !!v || '일정 최대인원을 작성해주세요.'],
+    DATE: [v => !!v || '날짜을 지정해주세요.'],
+    TIME: [v => !!v || '시간를 지정해주세요.'],
 };
 
 const CLUB_MAXIMUM_NUMBER_LIST = createClubMaximumNumberList(10, 100, 10);
+const MEETING_MAXIMUM_NUMBER_LIST = createClubMaximumNumberList(10, 100, 5);
 
-export { MESSAGE, COLOR, CLUB_MAXIMUM_NUMBER_LIST, RULES };
+export { MESSAGE, COLOR, CLUB_MAXIMUM_NUMBER_LIST, MEETING_MAXIMUM_NUMBER_LIST, RULES };

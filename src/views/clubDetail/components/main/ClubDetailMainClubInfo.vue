@@ -38,7 +38,7 @@
                 <v-list-item-subtitle v-html="description" />
             </v-list-item-content>
         </v-list-item>
-        <div v-if="!userInfo.isMember">
+        <div v-if="needToShowRegisterBtn">
             <CommonCenterBtn id="registerBtn"
                              text="가입하기"
                              outlined
@@ -89,11 +89,15 @@ export default {
             const clubRegionNames = this.clubInfo.clubRegion.map(({ name }) => name);
             return clubRegionNames.join(', ');
         },
+        needToShowRegisterBtn() {
+            return !this.userInfo.isMember;
+        },
     },
     mounted() {
-        const registerBtn = document.getElementById('registerBtn');
-        // 스크롤이 registerBtn을 50%이상 가리게 되면 fixedRegistBtn을 보여주도록 한다.
-        this.heightBoundaryToShowRegistBtn = registerBtn.offsetTop + (registerBtn.offsetHeight / 2);
+        if (this.needToShowRegisterBtn) {
+            const registerBtn = document.getElementById('registerBtn');
+            this.heightBoundaryToShowRegistBtn = registerBtn.offsetTop + (registerBtn.offsetHeight / 2);
+        }
     },
     methods: {
         requestClubRegist() {
