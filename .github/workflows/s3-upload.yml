@@ -1,4 +1,4 @@
-name: VUE-CI
+name: `[Deploy] AWS S3 - deprecated`
 
 on:
   push:
