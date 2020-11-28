@@ -36,48 +36,10 @@
 
         <v-btn color="primary"
                dark
-               @click="dialog = true"
+               @click="dialogOpen = true"
         >
             Open Dialog
         </v-btn>
-        <v-dialog v-model="dialog"
-                  persistent
-        >
-            <div class="image-modal-box bg">
-                <div class="image-modal-close-wrapper">
-                    <v-btn class="pl-1 mt-1 white--text"
-                           text
-                           @click="dialog = false"
-                    >
-                        <v-icon large>mdi-close</v-icon>
-                    </v-btn>
-                </div>
-                <v-carousel v-model="model"
-                            :show-arrows="colors.length > 1"
-                            hide-delimiters
-                >
-                    <v-carousel-item v-for="(color) in colors"
-                                     :key="color"
-                    >
-                        <v-sheet class="bg"
-                                 height="100%"
-                                 tile
-                        >
-                            <v-img src="https://super-invention-static.s3.ap-northeast-2.amazonaws.com/temp/img/20201127015224-0c427f9f-124b-468b-aab0-101b15324995-test.png"
-                                   class="image-model-sheet__image"
-                            />
-                        </v-sheet>
-                    </v-carousel-item>
-                </v-carousel>
-                <div class="image-modal-btn-wrapper">
-                    <v-btn class="white--text mb-2"
-                           outlined
-                    >
-                        사진 변경
-                    </v-btn>
-                </div>
-            </div>
-        </v-dialog>
     </div>
 </template>
 
@@ -104,15 +66,8 @@ export default {
                 isNotifiable: false, // 존재 이유 파악하기
                 imgList: [],
             },
-            dialog: true,
-            model: 0,
-            colors: [
-                'primary',
-                'secondary',
-                'yellow darken-2',
-                'red',
-                'orange',
-            ],
+            dialogOpen: true,
+            imgPath: 'https://super-invention-static.s3.ap-northeast-2.amazonaws.com/temp/img/20201127015224-0c427f9f-124b-468b-aab0-101b15324995-test.png',
         };
     },
     methods: {
@@ -156,22 +111,23 @@ export default {
     }
 }
 
-.image-modal-box {
+.image-dialog-box {
     background-color: #0d47a1;
 
-    .image-modal-btn-wrapper {
+    .image-dialog-btn-wrapper {
         text-align: center;
         padding: 5px;
     }
 
-    .image-model-sheet {
+    .image-dialog-sheet {
         position: relative;
     }
 
-    .image-model-sheet__image {
+    .image-dialog-sheet__image {
         position: absolute;
         top: 50%;
-        transform: translate(0, -50%);
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
 }
 

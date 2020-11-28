@@ -2,7 +2,7 @@
     <div>
         <div class="image-selector-container"
              :style="setHeight"
-             @click="triggerCropper"
+             @click="clickSelectBox"
         >
             <div v-if="imageUrl"
                  class="wh-100"
@@ -24,16 +24,32 @@
         <ImageCropper ref="cropper"
                       @handleUploadedImgDto="handleUploadedImgDto"
         />
+        <ImageCarouselDialog :open="openDialog"
+                             :paths="[imageUrl]"
+                             @close="openDialog = false"
+        >
+            <template v-slot:footer>
+                <div class="pa-2 text-center">
+                    <v-btn class="white--text mb-2"
+                           outlined
+                           @click="triggerCropper"
+                    >
+                        사진 변경
+                    </v-btn>
+                </div>
+            </template>
+        </ImageCarouselDialog>
     </div>
 </template>
 
 <script>
 import 'cropperjs/dist/cropper.css';
 import ImageCropper from '@/components/image/ImageCropper.vue';
+import ImageCarouselDialog from '@/components/image/ImageCarouselDialog.vue';
 
 export default {
     name: 'ImageSelectBox',
-    components: { ImageCropper },
+    components: { ImageCarouselDialog, ImageCropper },
     props: {
         text: {
             type: String,
@@ -47,6 +63,7 @@ export default {
     data() {
         return {
             imageUrl: '',
+            openDialog: false,
         };
     },
     computed: {
@@ -57,14 +74,22 @@ export default {
         },
     },
     methods: {
-        triggerCropper() {
-            this.$refs.cropper.trigger();
+        clickSelectBox() {
+            if (this.imageUrl) {
+                this.openDialog = true;
+            } else {
+                this.triggerCropper();
+            }
         },
         handleUploadedImgDto(imageDto) {
+            this.openDialog = false;
             const imageUrl = imageDto.absolutePath;
             this.imageUrl = imageUrl;
             this.$emit('handleImageUrl', imageUrl);
             this.$emit('handleImageDto', imageDto);
+        },
+        triggerCropper() {
+            this.$refs.cropper.trigger();
         },
     },
 };

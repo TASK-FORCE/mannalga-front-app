@@ -1,4 +1,4 @@
-name: `[Deploy] AWS S3 - deprecated`
+name: '[Deploy] AWS S3 - deprecated'
 
 on:
   push:
