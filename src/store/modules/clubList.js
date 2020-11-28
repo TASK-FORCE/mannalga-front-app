@@ -1,4 +1,4 @@
-import { actionsLoadingTemplate } from '@/store/utils/actionsTemplate.js';
+import { actionsLoadingTemplate, actionsNormalTemplate } from '@/store/utils/actionsTemplate.js';
 import clubListApi from '@/apis/ClubListApi.js';
 import RequestConverter from '@/store/converter/requestConverter.js';
 import defaultBuilder from '@/store/utils/DefaultBuilder.js';
@@ -71,14 +71,14 @@ const mutations = {
 };
 
 const actions = {
-    requestFirstClubList({ commit, state }) {
+    requestFirstClubList({ commit, state }, disableLoading) {
         commit('initClubListAndPage');
         const callback = async () => {
             const requestParam = RequestConverter.convertClubList(state.clubPage, state.clubSearchFilterInfo);
             const clubListInfo = await clubListApi.getClubListWithPage(requestParam);
             commit('changeClubListWithPage', clubListInfo);
         };
-        return actionsLoadingTemplate(commit, callback);
+        return disableLoading ? actionsNormalTemplate(callback) : actionsLoadingTemplate(commit, callback);
     },
     requestNextClubList({ commit, state }) {
         if (state.clubPage.isLastPage) {
@@ -95,14 +95,14 @@ const actions = {
         };
         return actionsLoadingTemplate({ commit, name: 'changeIsRequestingNextPage' }, callback);
     },
-    requestFirstMyClubList({ commit, state }) {
+    requestFirstMyClubList({ commit, state }, disableLoading) {
         commit('initMyClubListAndPage');
         const callback = async () => {
             const requestParam = RequestConverter.convertMyClubList(state.myClubPage);
             const clubListInfo = await clubListApi.getMyClubListWithPage(requestParam);
             commit('changeMyClubListWithPage', clubListInfo);
         };
-        return actionsLoadingTemplate(commit, callback);
+        return disableLoading ? actionsNormalTemplate(callback) : actionsLoadingTemplate(commit, callback);
     },
     requestNextMyClubList({ commit, state }) {
         if (state.myClubPage.isLastPage) {

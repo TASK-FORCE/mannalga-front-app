@@ -32,8 +32,8 @@
 </template>
 
 <script>
-import ClubListSearchFilter from '@/views/clubList/components/club/ClubListSearchFilter.vue';
-import ClubPost from '@/views/clubList/components/club/ClubPost.vue';
+import ClubListSearchFilter from '@/views/clubList/components/ClubListSearchFilter.vue';
+import ClubPost from '@/views/clubList/components/ClubPost.vue';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
 import _ from '@/utils/common/lodashWrapper.js';

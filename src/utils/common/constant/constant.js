@@ -38,7 +38,13 @@ const RULES = {
     TIME: [v => !!v || '시간를 지정해주세요.'],
 };
 
+const CLUB_ROLE = {
+    MASTER: 'MASTER',
+    MANAGER: 'MANAGER',
+    MEMBER: 'CLUB_MEMBER',
+};
+
 const CLUB_MAXIMUM_NUMBER_LIST = createClubMaximumNumberList(10, 100, 10);
 const MEETING_MAXIMUM_NUMBER_LIST = createClubMaximumNumberList(10, 100, 5);
 
-export { MESSAGE, COLOR, CLUB_MAXIMUM_NUMBER_LIST, MEETING_MAXIMUM_NUMBER_LIST, RULES };
+export { MESSAGE, COLOR, CLUB_MAXIMUM_NUMBER_LIST, MEETING_MAXIMUM_NUMBER_LIST, RULES, CLUB_ROLE };

@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import ClubListSearchFilter from '@/views/clubList/components/club/ClubListSearchFilter.vue';
+import ClubListSearchFilter from '@/views/clubList/components/ClubListSearchFilter.vue';
 
 export default {
     name: 'ClubSearchPageBody',

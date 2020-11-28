@@ -3,6 +3,7 @@ import RequestConverter from '@/store/converter/requestConverter.js';
 import defaultBuilder from '@/store/utils/DefaultBuilder.js';
 import clubApi from '@/apis/ClubApi.js';
 import { MODULE } from '@/store/type/type.js';
+import { CLUB_ROLE } from '@/utils/common/constant/constant.js';
 
 const state = {
     clubData: defaultBuilder.buildClub(),
@@ -24,9 +25,9 @@ const mutations = {
     setUserInfo(state, userInfo) {
         const { role, isLiked } = userInfo || {};
         state.userInfo = {
-            isMaster: role && !!role.includes('MASTER'),
-            isManager: role && !!role.includes('MANAGER'),
-            isMember: role && !!role.includes('CLUB_MEMBER'),
+            isMaster: role && !!role.includes(CLUB_ROLE.MASTER),
+            isManager: role && !!role.includes(CLUB_ROLE.MANAGER),
+            isMember: role && !!role.includes(CLUB_ROLE.MEMBER),
             roles: role,
             isLiked,
         };

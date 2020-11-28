@@ -4,19 +4,29 @@
                      :to="clubPath(club.seq)"
                      class="py-2 pl-0"
         >
-            <v-img :src="imgUrl"
-                   height="60"
-                   width="80"
-            />
+            <div>
+                <v-img :src="imgUrl"
+                       height="60"
+                       width="80"
+                />
+                <RoleChip v-if="role"
+                          :role="role"
+                          class="role-chip"
+                />
+            </div>
             <div class="ml-3 w-100">
                 <div>
-                    <div class="interest-wrapper">
+                    <div v-if="firstInterestWithPriority"
+                         class="interest-wrapper"
+                    >
                         <InterestIcons :interestListWithPriority="[firstInterestWithPriority]"
                                        :maxSize="1"
                         />
                         <span class="ml-1 f-08">{{ firstInterestWithPriority.interest.name }}</span>
                     </div>
-                    <div class="region-wrapper">
+                    <div v-if="firstRegion"
+                         class="region-wrapper"
+                    >
                         <RootRegionTag :color="badgeColor"
                                        :rootRegionName="rootRegionName"
                         />
@@ -43,22 +53,35 @@ import InterestIcons from '@/components/interest/InterestIcons.vue';
 import { generateParamPath, PATH } from '@/router/route_path_type.js';
 import RootRegionTag from '@/components/region/RootRegionTag.vue';
 import InterestUtils from '@/utils/interest/InterestUtils.js';
+import RoleChip from '@/components/role/RoleChip.vue';
+import { CLUB_ROLE } from '@/utils/common/constant/constant.js';
 
 export default {
     name: 'ClubPost',
-    components: { RootRegionTag, InterestIcons },
-    props: ['club'],
+    components: { RoleChip, RootRegionTag, InterestIcons },
+    props: {
+        club: Object,
+        role: String,
+    },
+    data() {
+        return {
+            roles: [CLUB_ROLE.MASTER, CLUB_ROLE.MEMBER, CLUB_ROLE.MANAGER],
+        };
+    },
     computed: {
         firstRegion() {
-            const { region } = this.club.regions.find(({ priority }) => priority === 1);
-            return region;
+            const regionWrapper = this.club.regions.find(({ priority }) => priority === 1);
+            return regionWrapper ? regionWrapper.region : null;
         },
         firstInterestWithPriority() {
             return this.club.interests.find(({ priority }) => priority === 1);
         },
         badgeColor() {
-            const { interest } = this.firstInterestWithPriority;
-            return InterestUtils.findInterestGroupVo(interest).color;
+            if (this.firstInterestWithPriority) {
+                const { interest } = this.firstInterestWithPriority;
+                return InterestUtils.findInterestGroupVo(interest).color;
+            }
+            return null;
         },
         rootRegionName() {
             return this.firstRegion.superRegionRoot.split('/')[0];
@@ -94,5 +117,11 @@ export default {
     text-overflow: ellipsis;
     margin-left: 5px;
     height: 25px;
+}
+
+.role-chip {
+    position: absolute;
+    top: -2px;
+    left: -4px;
 }
 </style>

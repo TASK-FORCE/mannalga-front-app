@@ -16,7 +16,7 @@ export default class ResponseConverter {
      */
     static extractSuperInventionResponseData = (response) => response && response.data && response.data.data;
 
-    static converterProfile = ({ kakao_account }) => {
+    static convertProfile = ({ kakao_account }) => {
         const { thumbnail_image_url, nickname } = kakao_account.profile;
         const profile = defaultBuilder.buildKakaoProfile();
         profile.imgUrl = thumbnail_image_url;
@@ -25,13 +25,30 @@ export default class ResponseConverter {
         return profile;
     };
 
-    static converterClubList = (data) => {
+    static convertClubList = (data) => {
         const clubList = data.content;
-        const clubPage = this.converterPage(data);
+        const clubPage = this.convertPage(data);
         return { clubList, clubPage };
     };
 
-    static converterPage = ({ pageable, last, size }) => {
+    static convertMyClubList = (data) => {
+        const myClubListWrapper = data.content.map((wrapper) => {
+            const myClub = wrapper.club;
+            return {
+                ...wrapper,
+                club: {
+                    ...myClub,
+                    // TODO 백엔드에서 변수명 변경 요청하기
+                    interests: myClub.clubInterest ? myClub.clubInterest : [],
+                    regions: myClub.clubRegion ? myClub.clubRegion : [],
+                },
+            };
+        });
+        const clubPage = this.convertPage(data);
+        return { clubList: myClubListWrapper, clubPage };
+    };
+
+    static convertPage = ({ pageable, last, size }) => {
         const currentPage = pageable.pageNumber;
         const nextPage = currentPage + 1;
         return {
