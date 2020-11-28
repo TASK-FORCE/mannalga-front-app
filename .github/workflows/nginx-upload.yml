@@ -17,12 +17,12 @@ jobs:
 
       - name: tar-build-output
         uses: appleboy/ssh-action@master
-          with:
-            host: ${{ secrets.SSH_HOST }}
-            username: ${{ secrets.SSH_USER }}
-            key: ${{ secrets.SSH_KEY }}
-            script: |
-              tar -zcvf build.tar.gz ./dist
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            tar -zcvf build.tar.gz ./dist
 
       - name: Deploy to nginx-server
         uses: appleboy/scp-action@master
