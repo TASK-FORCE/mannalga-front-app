@@ -1,11 +1,10 @@
 name: '[Deploy] AWS EC2 - nginx'
 
 on:
-  push:
-    branches: [ develop ]
+  workflow_dispatch:
 
 jobs:
-  upload_to_aws_s3:
+  upload_to_ec2_nginx:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -16,6 +15,15 @@ jobs:
       - name: build
         run: yarn build
 
+      - name: tar-build-output
+        uses: appleboy/ssh-action@master
+          with:
+            host: ${{ secrets.SSH_HOST }}
+            username: ${{ secrets.SSH_USER }}
+            key: ${{ secrets.SSH_KEY }}
+            script: |
+              tar -zcvf build.tar.gz ./dist
+
       - name: Deploy to nginx-server
         uses: appleboy/scp-action@master
         env:
@@ -24,7 +32,7 @@ jobs:
           USERNAME: ${{ secrets.SSH_USER }}
           KEY: ${{ secrets.SSH_KEY }}
         with:
-          source: "./dist"
+          source: "./build.tar.gz"
           target: "./config-frontend/temp"
           strip_components: 3
 
@@ -33,7 +41,7 @@ jobs:
         uses: fifsky/ssh-action@master
         with:
           command: |
-            sh ~/config-frontend/deploy-frontend.sh
+            sh ~/config-frontend/deploy-to-nginx.sh
           host: ${{ secrets.SSH_HOST }}
           user: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}

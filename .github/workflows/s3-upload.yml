@@ -1,8 +1,7 @@
 name: '[Deploy] AWS S3 - deprecated'
 
 on:
-  push:
-    branches: [ develop ]
+  workflow_dispatch:
 
 jobs:
   upload_to_aws_s3:
