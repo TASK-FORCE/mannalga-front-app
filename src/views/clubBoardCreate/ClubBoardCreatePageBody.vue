@@ -9,6 +9,7 @@
                           label="게시글 제목"
             />
             <v-textarea v-model="clubBoardCreateInfo.content"
+                        class="mt-2"
                         :rules="RULES.CLUB_BOARD_CONTENT"
                         label="내용을 작성해주세요."
                         outlined
@@ -32,6 +33,13 @@
                          text="작성 완료"
                          @click="createClubBoard"
         />
+
+        <v-btn color="primary"
+               dark
+               @click="dialogOpen = true"
+        >
+            Open Dialog
+        </v-btn>
     </div>
 </template>
 
@@ -58,6 +66,8 @@ export default {
                 isNotifiable: false, // 존재 이유 파악하기
                 imgList: [],
             },
+            dialogOpen: true,
+            imgPath: 'https://super-invention-static.s3.ap-northeast-2.amazonaws.com/temp/img/20201127015224-0c427f9f-124b-468b-aab0-101b15324995-test.png',
         };
     },
     methods: {
@@ -84,8 +94,7 @@ export default {
        scoped
 >
 .wrapper {
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding: 0 1rem;
 
     .field-wrapper {
         margin-top: 2rem;
@@ -100,5 +109,29 @@ export default {
             width: 80px;
         }
     }
+}
+
+.image-dialog-box {
+    background-color: #0d47a1;
+
+    .image-dialog-btn-wrapper {
+        text-align: center;
+        padding: 5px;
+    }
+
+    .image-dialog-sheet {
+        position: relative;
+    }
+
+    .image-dialog-sheet__image {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.bg {
+    background-color: #130f0f;
 }
 </style>
