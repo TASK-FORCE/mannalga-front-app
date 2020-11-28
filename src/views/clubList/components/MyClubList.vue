@@ -7,9 +7,10 @@
                                active-class="pink--text"
             >
                 <div id="my-club-list-sentinel" />
-                <template v-for="myClubContext in myClubContextList">
-                    <MyClubPost :key="myClubContext.seq"
-                                :myClubContext="myClubContext"
+                <template v-for="{seq, club, roles} in myClubWrapperList">
+                    <ClubPost :key="seq"
+                              :club="club"
+                              :role="roles[0].name"
                     />
                 </template>
             </v-list-item-group>
@@ -21,11 +22,11 @@
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import _ from '@/utils/common/lodashWrapper.js';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
-import MyClubPost from '@/views/clubList/components/myClub/MyClubPost.vue';
+import ClubPost from '@/views/clubList/components/ClubPost.vue';
 
 export default {
     name: 'MyClubList',
-    components: { MyClubPost },
+    components: { ClubPost },
     data() {
         return {
             sentinel: null,
@@ -34,7 +35,7 @@ export default {
         };
     },
     computed: {
-        myClubContextList: () => gettersHelper.myClubList(),
+        myClubWrapperList: () => gettersHelper.myClubList(),
         myClubPage: () => gettersHelper.myClubPage(),
         isLastPage() {
             return this.myClubPage.isLastPage;
@@ -47,8 +48,10 @@ export default {
         this.listGroup = document.querySelector('#my-club-list-group');
         this.sentinel = document.querySelector('#my-club-list-sentinel');
         this.setInfiniteScrollObserver();
-        if (_.isEmpty(this.myClubContextList)) {
+        if (_.isEmpty(this.myClubWrapperList)) {
             actionsHelper.requestFirstMyClubList().then(() => this.insertSentinel());
+        } else {
+            this.insertSentinel();
         }
     },
     methods: {

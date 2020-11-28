@@ -1,6 +1,6 @@
 <template>
     <div class="d-inline-block">
-        <span :style="`background-color: ${getColor}`"
+        <span :style="getStyle(getColor)"
               class="root-region-tag"
         >
             {{ rootRegion.name }}
@@ -50,6 +50,14 @@ export default {
             return this.color || this.rootRegion.color;
         },
     },
+    methods: {
+        getStyle(color) {
+            return {
+                color,
+                border: `1px solid ${color}`,
+            };
+        },
+    },
 };
 </script>
 
@@ -59,6 +67,6 @@ export default {
     font-weight: bold;
     border-radius: 5px;
     font-size: 0.6rem;
-    color: white;
+    vertical-align: middle;
 }
 </style>

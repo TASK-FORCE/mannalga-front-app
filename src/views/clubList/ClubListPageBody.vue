@@ -32,12 +32,13 @@
 
 <script>
 import goTo from 'vuetify/es5/services/goto';
-import ClubList from '@/views/clubList/components/club/ClubList.vue';
-import MyClubList from '@/views/clubList/components/myClub/MyClubList.vue';
+import ClubList from '@/views/clubList/components/ClubList.vue';
+import MyClubList from '@/views/clubList/components/MyClubList.vue';
 import clubListTabStore from '@/utils/ClubListTabStore.js';
 import FixedCreateBtn from '@/components/button/FixedCreateBtn.vue';
 import FixedScrollToTopBtn from '@/components/button/FixedScrollToTopBtn.vue';
 import { PATH } from '@/router/route_path_type.js';
+import actionsHelper from '@/store/helper/ActionsHelper.js';
 
 export default {
     name: 'ClubListPageBody',
@@ -65,6 +66,12 @@ export default {
     },
     created() {
         this.tab = clubListTabStore.get();
+        const disableLoading = true;
+        if (this.tab === 'club') {
+            actionsHelper.requestFirstMyClubList(disableLoading);
+        } else if (this.tab === 'myClub') {
+            actionsHelper.requestFirstClubList(disableLoading);
+        }
     },
 };
 </script>

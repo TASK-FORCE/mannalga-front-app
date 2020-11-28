@@ -60,7 +60,7 @@
 <script>
 import BottomSheetRegionCard from '@/components/bottom-sheet/BottomSheetRegionCard.vue';
 import BottomSheetInterestCard from '@/components/bottom-sheet/BottomSheetInterestCard.vue';
-import ClubListSearchFilterBtn from '@/views/clubList/components/club/ClubListSearchFilterBtn.vue';
+import ClubListSearchFilterBtn from '@/views/clubList/components/ClubListSearchFilterBtn.vue';
 import { PATH } from '@/router/route_path_type.js';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import regionAndInterestDispatcher from '@/store/service/RegionAndInterestDispatcher.js';

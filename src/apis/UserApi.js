@@ -10,7 +10,7 @@ class UserApi {
     getKakaoProfile() {
         return axios.get('/api/users/kakao-profile')
             .then(ResponseConverter.extractSuperInventionResponseData)
-            .then(ResponseConverter.converterProfile);
+            .then(ResponseConverter.convertProfile);
     }
 
     getRegisterStatus(appToken) {

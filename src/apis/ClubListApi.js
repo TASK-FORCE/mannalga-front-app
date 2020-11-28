@@ -5,13 +5,13 @@ class ClubListApi {
     getClubListWithPage(requestParams) {
         return axios.get('/api/clubs/search', { params: requestParams })
             .then(ResponseConverter.extractSuperInventionResponseData)
-            .then(ResponseConverter.converterClubList);
+            .then(ResponseConverter.convertClubList);
     }
 
     getMyClubListWithPage(requestParams) {
         return axios.get('/api/clubs/my', { params: requestParams })
             .then(ResponseConverter.extractSuperInventionResponseData)
-            .then(ResponseConverter.converterClubList);
+            .then(ResponseConverter.convertMyClubList);
     }
 }
 
