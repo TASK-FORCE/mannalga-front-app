@@ -42,7 +42,7 @@ import ClubDetailBoard from '@/views/clubDetail/components/board/ClubDetailBoard
 import ClubDetailAlbum from '@/views/clubDetail/components/album/ClubDetailAlbum.vue';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import clubTabStore from '@/utils/ClubTabStore.js';
-import clubDetailDispatcher from '@/store/service/ClubDetailDispatcher.js';
+import clubDetailVuexService from '@/store/service/ClubDetailVuexService.js';
 import { PATH } from '@/router/route_path_type.js';
 import routerParamHelper from '@/router/RouterParamHelper.js';
 
@@ -75,7 +75,10 @@ export default {
     },
     created() {
         this.tab = clubTabStore.get(this.clubSeq);
-        clubDetailDispatcher.dispatch(this.clubSeq, true, PATH.CLUB_LIST);
+        clubDetailVuexService.dispatch(this.clubSeq, true, PATH.CLUB_LIST);
+    },
+    beforeDestroy() {
+        clubDetailVuexService.reset();
     },
 };
 </script>
