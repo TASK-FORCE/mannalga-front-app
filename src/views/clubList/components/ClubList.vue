@@ -1,20 +1,23 @@
 <template>
-    <div class="h-100">
-        <ClubListSearchFilter id="club-search-filter" />
-        <v-list v-show="!isLoading"
-                class="py-0"
+    <div>
+        <ClubListSearchFilter class="club-search-filter" />
+        <InfiniteScrollTemplate ref="clubScrollTemplate"
+                                name="club"
+                                :firstPageCallback="this.fetchFirstPage"
+                                :nextPageCallback="this.fetchNextPage"
+                                :pageElements="clubList"
+                                :pageInfo="clubPage"
         >
-            <v-list-item-group id="club-list-group">
-                <div id="club-list-sentinel" />
-                <div v-if="clubList && clubList.length > 0">
-                    <template v-for="club in clubList">
-                        <ClubPost :key="club.seq"
-                                  :club="club"
-                        />
-                    </template>
+            <template v-slot:list-main>
+                <div v-for="club in clubList"
+                     :key="club.seq"
+                >
+                    <ClubPost :club="club" />
                 </div>
-                <div v-else
-                     class="club-empty-result-wrapper"
+            </template>
+
+            <template v-slot:fallback>
+                <div class="club-empty-result-wrapper"
                      :style="{height: `${calculateEmptyPageHeight()}px`}"
                 >
                     <div class="club-empty-result-box">
@@ -26,8 +29,8 @@
                         </div>
                     </div>
                 </div>
-            </v-list-item-group>
-        </v-list>
+            </template>
+        </InfiniteScrollTemplate>
     </div>
 </template>
 
@@ -36,11 +39,11 @@ import ClubListSearchFilter from '@/views/clubList/components/ClubListSearchFilt
 import ClubPost from '@/views/clubList/components/ClubPost.vue';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
-import _ from '@/utils/common/lodashWrapper.js';
+import InfiniteScrollTemplate from '@/components/InfiniteScrollTemplate.vue';
 
 export default {
     name: 'ClubList',
-    components: { ClubListSearchFilter, ClubPost },
+    components: { InfiniteScrollTemplate, ClubListSearchFilter, ClubPost },
     data() {
         return {
             sentinel: null,
@@ -50,58 +53,24 @@ export default {
         };
     },
     computed: {
-        isLoading: () => gettersHelper.isLoading(),
         clubList: () => gettersHelper.clubList(),
         clubPage: () => gettersHelper.clubPage(),
         clubSearchFilterInfo: () => gettersHelper.clubSearchFilterInfo(),
-        isLastPage() {
-            return this.clubPage.isLastPage;
-        },
-        isFirstPage() {
-            return this.clubPage.nextPage === 0;
-        },
     },
     watch: {
         clubSearchFilterInfo() {
-            this.fetchFirstPage();
+            this.$refs.clubScrollTemplate.requestFirstPage();
         },
     },
     mounted() {
-        this.listGroup = document.querySelector('#club-list-group');
-        this.sentinel = document.querySelector('#club-list-sentinel');
         this.searchFilterElement = document.querySelector('#club-search-filter');
-        if (_.isEmpty(this.clubList)) {
-            this.fetchFirstPage();
-        } else {
-            this.insertSentinel();
-        }
-        this.setInfiniteScrollObserver();
     },
     methods: {
         fetchFirstPage() {
-            actionsHelper.requestFirstClubList().then(() => this.insertSentinel());
+            return actionsHelper.requestFirstClubList();
         },
-        insertSentinel() {
-            this.listGroup.insertBefore(this.sentinel, this.listGroup.children[this.listGroup.children.length - 2]);
-        },
-        setInfiniteScrollObserver() {
-            const infiniteScrollCallback = entries => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting && entry.target === this.sentinel && this.canRequest()) {
-                        this.isRequesting = true;
-                        actionsHelper.requestNextClubList().then(() => this.moveSentinel());
-                    }
-                });
-            };
-            const observer = new IntersectionObserver(infiniteScrollCallback, { threshold: 0.75 });
-            observer.observe(this.sentinel);
-        },
-        moveSentinel() {
-            this.insertSentinel();
-            this.isRequesting = false;
-        },
-        canRequest() {
-            return !this.isRequesting && !this.isLastPage && !this.isFirstPage;
+        fetchNextPage() {
+            return actionsHelper.requestNextClubList();
         },
         calculateEmptyPageHeight() {
             if (this.searchFilterElement) {
