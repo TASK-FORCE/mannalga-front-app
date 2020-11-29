@@ -38,7 +38,7 @@
                              class="mt-3"
                              color="primary"
                              outlined
-                             text="작성 완료"
+                             text="만남 생성"
                              @click="click"
             />
         </div>
