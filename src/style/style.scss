@@ -1,3 +1,9 @@
+.app-body, .app-header, .v-app-bar {
+    max-width: 600px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
 .component-fade-enter-active, .component-fade-leave-active {
     transition: opacity .15s ease;
 }

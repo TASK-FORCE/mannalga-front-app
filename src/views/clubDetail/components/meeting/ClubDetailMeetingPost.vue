@@ -106,7 +106,7 @@ export default {
 }
 
 .meeting-time-text {
-    border: 1px solid black;
+    border: 1px solid #795548;
     padding: 2px 8px;
     border-radius: 10px;
 }

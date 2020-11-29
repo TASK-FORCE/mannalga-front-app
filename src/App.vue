@@ -4,7 +4,9 @@
             <transition name="component-fade"
                         mode="out-in"
             >
-                <router-view :key="$route.fullPath" />
+                <router-view :key="$route.fullPath"
+                             class="app-body"
+                />
             </transition>
         </v-main>
         <Progress v-show="isLoading" />
