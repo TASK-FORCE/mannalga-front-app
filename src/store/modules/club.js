@@ -60,11 +60,6 @@ const actions = {
             await clubApi.postClubBoardCreate(clubBoardCreateInfo);
         });
     },
-    async requestClubMeetingCreate({ _ }, clubMeetingCreateInfo) {
-        return actionsNormalTemplate(async () => {
-            await clubApi.postClubMeetingCreate(clubMeetingCreateInfo);
-        });
-    },
 };
 
 export default {
