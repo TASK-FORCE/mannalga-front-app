@@ -5,8 +5,8 @@ function dispatchClubInfoAndUserInfo(clubSeq) {
     return actionsHelper.requestClubInfoAndUserInfo(clubSeq);
 }
 
-function dispatchClubMeetings() {
-    return Promise.resolve();
+function dispatchClubMeetings(clubSeq) {
+    return actionsHelper.requestFirstMeetingList(clubSeq);
 }
 
 function dispatchClubBoards() {
@@ -21,7 +21,7 @@ class ClubDetailDispatcher {
     async dispatch(clubSeq, withLoading, routePathWhenFail) {
         const promiseList = [
             dispatchClubInfoAndUserInfo(clubSeq),
-            dispatchClubMeetings(),
+            dispatchClubMeetings(clubSeq),
             dispatchClubBoards(),
             dispatchClubAlbums(),
         ];

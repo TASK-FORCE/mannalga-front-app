@@ -120,7 +120,7 @@ export default {
         click() {
             if (this.$refs.clubMeetingCreateForm.validate()) {
                 this.loading = true;
-                actionsHelper.requestClubMeetingCreate(this.buildRequestDto())
+                actionsHelper.requestMeetingCreate(this.buildRequestDto())
                     .then(() => this.$router.push(generateParamPath(PATH.CLUB.MAIN, routerParamHelper.clubSeq())))
                     .catch(() => mutationsHelper.openSnackBar('만남 생성 실패!'))
                     .finally(this.loading = false);

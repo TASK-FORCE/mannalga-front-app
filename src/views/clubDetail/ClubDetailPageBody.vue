@@ -20,7 +20,10 @@
                 />
             </v-tab-item>
             <v-tab-item value="meeting">
-                <ClubDetailMeeting :userInfo="userInfo"/>
+                <ClubDetailMeetingList :userInfo="userInfo"
+                                       :meetingList="meetingList"
+                                       :meetingPage="meetingPage"
+                />
             </v-tab-item>
             <v-tab-item value="board">
                 <ClubDetailBoard :boardList="clubData.boardList" />
@@ -34,7 +37,7 @@
 
 <script>
 import ClubDetailMain from '@/views/clubDetail/components/main/ClubDetailMain.vue';
-import ClubDetailMeeting from '@/views/clubDetail/components/meeting/ClubDetailMeeting.vue';
+import ClubDetailMeetingList from '@/views/clubDetail/components/meeting/ClubDetailMeetingList.vue';
 import ClubDetailBoard from '@/views/clubDetail/components/board/ClubDetailBoard.vue';
 import ClubDetailAlbum from '@/views/clubDetail/components/album/ClubDetailAlbum.vue';
 import gettersHelper from '@/store/helper/GettersHelper.js';
@@ -45,7 +48,7 @@ import routerParamHelper from '@/router/RouterParamHelper.js';
 
 export default {
     name: 'ClubDetailPageBody',
-    components: { ClubDetailMain, ClubDetailMeeting, ClubDetailBoard, ClubDetailAlbum },
+    components: { ClubDetailMain, ClubDetailMeetingList, ClubDetailBoard, ClubDetailAlbum },
     data() {
         return {
             tab: null,
@@ -58,10 +61,12 @@ export default {
         };
     },
     computed: {
+        clubSeq: () => routerParamHelper.clubSeq(),
         clubData: () => gettersHelper.clubData(),
         clubInfo: () => gettersHelper.clubInfo(),
         userInfo: () => gettersHelper.userInfo(),
-        clubSeq: () => routerParamHelper.clubSeq(),
+        meetingList: () => gettersHelper.meetingList(),
+        meetingPage: () => gettersHelper.meetingPage(),
     },
     watch: {
         tab() {
