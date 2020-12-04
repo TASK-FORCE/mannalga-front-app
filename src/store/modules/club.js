@@ -53,6 +53,9 @@ const actions = {
     async requestClubJoin({ commit }, clubSeq) {
         return actionsNormalTemplate(async () => {
             await clubApi.postClubJoin(clubSeq);
+            const { clubInfo, userInfo } = await clubApi.getClubInfoAndUserInfo(clubSeq);
+            commit('setClubInfo', clubInfo);
+            commit('setUserInfo', userInfo);
         });
     },
     async requestClubBoardCreate({ _ }, clubBoardCreateInfo) {
