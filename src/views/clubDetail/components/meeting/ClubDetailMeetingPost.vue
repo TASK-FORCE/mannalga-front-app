@@ -9,24 +9,22 @@
              class="flex-grow-1"
              @click="log('메인페이지')"
         >
-            <div class="px-2 py-2">
+            <div class="px-2 pt-3 pb-1">
                 <div class="text-center f-07">
                     <span class="meeting-time-text">{{ meeting.startTime }}</span>
                     <span class="mx-1 font-weight-bold">~</span>
                     <span class="meeting-time-text">{{ meeting.endTime }}</span>
                 </div>
-                <div class="text-center py-1">{{ meeting.title }}</div>
+                <div class="text-center py-2">{{ meeting.title }}</div>
                 <div class="d-flex px-3">
-                <span class="f-07">
+                <span class="f-07 flex-grow-1">
                     <v-icon small>mdi-cash-usd</v-icon>
                     미정
                 </span>
-                    <v-spacer />
-                    <span class="f-07">
+                    <span class="f-07 flex-grow-1">
                     <v-icon small>mdi-map-marker</v-icon>
                     미정
                 </span>
-                    <v-spacer />
                     <span class="f-07">
                    <v-icon small>mdi-account-multiple</v-icon>
                     1/20
@@ -55,7 +53,7 @@
             <v-chip v-show="meeting.isRegistered"
                     outlined
                     x-small
-                    class="font-weight-bold py-2 f-07 mt-1"
+                    class="font-weight-bold py-2 f-07 mt-3"
                     color="#e91e63"
                     @click="log('신청취소')"
             >
