@@ -1,6 +1,7 @@
 <template>
     <!--      사진도 커스텀하게 선택 가능하게?        -->
     <v-avatar :size=size
+              color="red"
     >
         <img :src="profileImg"
              alt="profile"

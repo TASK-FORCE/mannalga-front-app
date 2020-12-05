@@ -49,24 +49,13 @@ export default class ResponseConverter {
     };
 
     static convertMeetingList = (data) => {
-        const meetingList = data.content.map(it => ({
-            seq: it.seq,
-            title: it.title,
-            content: it.content,
-            startTime: it.startTimestamp.substring(0, 16),
-            endTime: it.endTimestamp.substring(0, 16),
-            isRegistered: it.isCurrentUserApplicationMeeting,
-            isCreator: it.isCurrentUserRegMeeting,
-            // === 임시 목킹용 ===
-            // isRegistered: (Math.round(Math.random() * 10) % 2) < 1,
-            // isCreator: (Math.round(Math.random() * 10) % 2) < 1,
-            maximumNumber: it.maximumNumber,
-            regClubUser: it.regClubUser,
-            meetingRegisters: it.meetingApplications,
-        }));
+        const meetingList = data.content.map(mapMeeting);
         const meetingPage = this.convertPage(data);
         return { meetingList, meetingPage };
     };
+
+    // TODO: check
+    static convertMeeting = (data) => mapMeeting(data)
 
     static convertPage = ({ pageable, last, size }) => {
         const currentPage = pageable.pageNumber;
@@ -90,4 +79,21 @@ const mapUserRegion = ({ priority, region }) => ({
         seq: region.seq,
         name: region.superRegionRoot,
     },
+});
+
+const mapMeeting = (meeting) => ({
+    seq: meeting.seq,
+    title: meeting.title,
+    content: meeting.content,
+    startTime: meeting.startTimestamp.substring(0, 16),
+    endTime: meeting.endTimestamp.substring(0, 16),
+    isRegistered: meeting.isCurrentUserApplicationMeeting,
+    isCreator: meeting.isCurrentUserRegMeeting,
+    maximumNumber: meeting.maximumNumber,
+    registerUser: meeting.regClubUser,
+    applicationUsers: meeting.meetingApplications.map(({ userInfo }) => ({
+        seq: userInfo.uesrSeq,
+        name: userInfo.userName,
+        imgUrl: userInfo.profileImageLink,
+    })),
 });
