@@ -7,7 +7,7 @@
         </div>
         <div v-ripple
              class="flex-grow-1"
-             @click="log('메인페이지')"
+             @click="goToMeetingDetailPage"
         >
             <div class="px-2 pt-3 pb-1">
                 <MeetingTimeRange :startTime="meeting.startTime"
@@ -69,6 +69,8 @@ import routerParamHelper from '@/router/RouterParamHelper.js';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
 import mutationsHelper from '@/store/helper/MutationsHelper.js';
 import { MESSAGE } from '@/utils/common/constant/constant.js';
+import { generateParamPath, PATH } from '@/router/route_path_type.js';
+import gettersHelper from '@/store/helper/GettersHelper.js';
 
 export default {
     name: 'ClubDetailMeetingPost',
@@ -93,8 +95,9 @@ export default {
             }).then(() => mutationsHelper.openSnackBar(MESSAGE.SUCCESS_APPLY_MEETING))
                 .finally(() => (this.applyLoading = false));
         },
-        log(text) {
-            console.log(text);
+        goToMeetingDetailPage() {
+            mutationsHelper.setMeeting(this.meeting);
+            this.$router.push(generateParamPath(PATH.CLUB.MEETING_POST, [this.clubSeq, this.meeting.seq]));
         },
     },
 };

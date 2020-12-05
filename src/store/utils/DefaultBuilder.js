@@ -52,6 +52,19 @@ class DefaultBuilder {
         isLiked: false,
     });
 
+    buildMeeting = () => ({
+        seq: 0,
+        title: '',
+        content: '',
+        startTime: '',
+        endTime: '',
+        isRegistered: false,
+        isCreator: false,
+        maximumNumber: 0,
+        registerUser: {},
+        applicationUsers: [],
+    });
+
     // TODO: to be deleted
     buildClub = () => ({
         boardList: {

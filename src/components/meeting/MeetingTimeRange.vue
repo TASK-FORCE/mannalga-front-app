@@ -1,5 +1,7 @@
 <template>
-    <div class="text-center f-07">
+    <div class="text-center"
+         :class="large ? 'f-08' : 'f-07'"
+    >
         <span class="meeting-time-text">{{ startTime }}</span>
         <span class="mx-1 font-weight-bold">~</span>
         <span class="meeting-time-text">{{ endTime }}</span>
@@ -17,6 +19,10 @@ export default {
         endTime: {
             type: String,
             required: true,
+        },
+        large: {
+            type: Boolean,
+            default: false,
         },
     },
 };

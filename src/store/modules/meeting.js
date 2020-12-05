@@ -5,15 +5,21 @@ import RequestConverter from '@/store/converter/requestConverter.js';
 
 const state = {
     meetingList: [],
+    meeting: defaultBuilder.buildMeeting(),
     meetingPage: defaultBuilder.buildPage(),
 };
 
 const getters = {
+    meeting: (state) => state.meeting,
     meetingList: (state) => state.meetingList,
     meetingPage: (state) => state.meetingPage,
 };
 
 const mutations = {
+    setMeeting(state, meeting) {
+        state.meeting = meeting;
+    },
+
     setMeetingList(state, { meetingList, meetingPage }) {
         state.meetingList = meetingList;
         state.meetingPage = meetingPage;
@@ -25,8 +31,9 @@ const mutations = {
     },
 
     changeIsRegistered(state, { meetingSeq, value }) {
+        const meetingSeqNum = parseInt(meetingSeq, 10);
         state.meetingList = state.meetingList.map(meeting => {
-            if (meeting.seq === meetingSeq) {
+            if (meeting.seq === meetingSeqNum) {
                 return {
                     ...meeting,
                     isRegistered: value,
@@ -34,6 +41,12 @@ const mutations = {
             }
             return meeting;
         });
+        if (state.meeting.seq === meetingSeqNum) {
+            state.meeting = {
+                ...state.meeting,
+                isRegistered: value,
+            };
+        }
     },
 };
 
@@ -68,7 +81,8 @@ const actions = {
 
     async requestMeetingApplication({ commit }, meetingApplicationInfo) {
         return actionsNormalTemplate(async () => {
-            await meetingApi.postMeetingApplication(meetingApplicationInfo);
+            // TODO 변경 필요(해당 응답값이 meeting으로 와야함)
+            const savedMeeting = await meetingApi.postMeetingApplication(meetingApplicationInfo);
             commit('changeIsRegistered', {
                 meetingSeq: meetingApplicationInfo.meetingSeq,
                 value: true,

@@ -13,7 +13,9 @@ class MeetingApi {
     }
 
     postMeetingApplication({ clubSeq, meetingSeq }) {
-        return axios.post(`/api/clubs/${clubSeq}/meetings/${meetingSeq}/applications`);
+        return axios.post(`/api/clubs/${clubSeq}/meetings/${meetingSeq}/applications`)
+            .then(ResponseConverter.extractSuperInventionResponseData)
+            .then(ResponseConverter.convertMeeting);
     }
 
     deleteMeetingApplication({ clubSeq, meetingSeq }) {
