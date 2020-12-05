@@ -2,7 +2,7 @@
     <v-list v-show="!isLoading"
             class="py-0"
     >
-        <v-list-item-group>
+        <v-list-item-group v-if="withListGroup">
             <div :class="`${name}-list-sentinel`" />
             <div :class="`${name}-list-group`">
                 <slot v-if="isRequesting || (pageElements && pageElements.length > 0)"
@@ -13,6 +13,17 @@
                 />
             </div>
         </v-list-item-group>
+        <div v-else>
+            <div :class="`${name}-list-sentinel`" />
+            <div :class="`${name}-list-group`">
+                <slot v-if="isRequesting || (pageElements && pageElements.length > 0)"
+                      name="list-main"
+                />
+                <slot v-else
+                      name="fallback"
+                />
+            </div>
+        </div>
     </v-list>
 </template>
 
@@ -42,6 +53,10 @@ export default {
         name: {
             type: String,
             required: true,
+        },
+        withListGroup: {
+            type: Boolean,
+            default: true,
         },
     },
     data() {

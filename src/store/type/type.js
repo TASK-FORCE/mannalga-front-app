@@ -5,4 +5,5 @@ export const MODULE = {
     COMMON: 'common',
     TEMPLATE: 'template',
     USER: 'user',
+    MEETING: 'meeting',
 };

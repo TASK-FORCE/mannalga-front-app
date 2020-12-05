@@ -1,7 +1,6 @@
 <template>
-    <v-app-bar
-        class="elevation-0"
-        app
+    <v-app-bar class="elevation-0"
+               app
     >
         <v-btn icon
                @click="pushToAppMain"

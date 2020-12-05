@@ -32,7 +32,7 @@ import _ from '@/utils/common/lodashWrapper.js';
 import { MESSAGE } from '@/utils/common/constant/constant.js';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import mutationsHelper from '@/store/helper/MutationsHelper.js';
-import regionAndInterestDispatcher from '@/store/service/RegionAndInterestDispatcher.js';
+import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.js';
 import { PATH } from '@/router/route_path_type.js';
 
 const MAXIMUM_SELECTABLE_COUNT = 5;
@@ -45,7 +45,7 @@ export default {
         selectedInterestSeqs: () => gettersHelper.selectedInterestSeqs(),
     },
     created() {
-        regionAndInterestDispatcher.dispatch(true, PATH.REGISTER.PROFILE);
+        regionAndInterestVuexService.dispatch(true, PATH.REGISTER.PROFILE);
     },
     methods: {
         toggleInterest(targetSeq) {

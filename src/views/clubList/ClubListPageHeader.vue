@@ -1,7 +1,6 @@
 <template>
-    <v-app-bar
-        class="elevation-0 app-main-header"
-        app
+    <v-app-bar class="elevation-0"
+               app
     >
         <v-text-field v-model="searchText"
                       class="club-search-bar"

@@ -3,7 +3,9 @@
         <CommonHeader title="지역선택"
                       @click="$router.back()"
         />
-        <RegionSelectPageBody :priority="priority" />
+        <RegionSelectPageBody
+                              :priority="priority"
+        />
     </div>
 </template>
 

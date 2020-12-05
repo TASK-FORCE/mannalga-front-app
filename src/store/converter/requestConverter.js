@@ -4,6 +4,11 @@ import { KAKAO } from '@/utils/auth/kakao/utlls.js';
  *  - 백엔드 서버로 전달하는 request 정보를 converting
  */
 export default class RequestConverter {
+    static convertPage = (page) => ({
+        size: page.size,
+        page: page.nextPage,
+    });
+
     static convertClubList = (clubPage, clubSearchFilterInfo) => {
         const { size, nextPage } = clubPage;
         const regionSeq = clubSearchFilterInfo.region.seq;

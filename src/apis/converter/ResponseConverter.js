@@ -48,6 +48,26 @@ export default class ResponseConverter {
         return { clubList: myClubListWrapper, clubPage };
     };
 
+    static convertMeetingList = (data) => {
+        const meetingList = data.content.map(it => ({
+            seq: it.seq,
+            title: it.title,
+            content: it.content,
+            startTime: it.startTimestamp.substring(0, 16),
+            endTime: it.endTimestamp.substring(0, 16),
+            isRegistered: it.isCurrentUserApplicationMeeting,
+            isCreator: it.isCurrentUserRegMeeting,
+            // === 임시 목킹용 ===
+            // isRegistered: (Math.round(Math.random() * 10) % 2) < 1,
+            // isCreator: (Math.round(Math.random() * 10) % 2) < 1,
+            maximumNumber: it.maximumNumber,
+            regClubUser: it.regClubUser,
+            meetingRegisters: it.meetingApplications,
+        }));
+        const meetingPage = this.convertPage(data);
+        return { meetingList, meetingPage };
+    };
+
     static convertPage = ({ pageable, last, size }) => {
         const currentPage = pageable.pageNumber;
         const nextPage = currentPage + 1;
