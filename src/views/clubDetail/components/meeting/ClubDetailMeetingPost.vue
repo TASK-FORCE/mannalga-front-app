@@ -10,11 +10,9 @@
              @click="log('메인페이지')"
         >
             <div class="px-2 pt-3 pb-1">
-                <div class="text-center f-07">
-                    <span class="meeting-time-text">{{ meeting.startTime }}</span>
-                    <span class="mx-1 font-weight-bold">~</span>
-                    <span class="meeting-time-text">{{ meeting.endTime }}</span>
-                </div>
+                <MeetingTimeRange :startTime="meeting.startTime"
+                                  :endTime="meeting.endTime"
+                />
                 <div class="text-center py-2">{{ meeting.title }}</div>
                 <div class="d-flex px-3">
                 <span class="f-07 flex-grow-1">
@@ -27,20 +25,21 @@
                 </span>
                     <span class="f-07">
                    <v-icon small>mdi-account-multiple</v-icon>
-                    1/20
+                    1/{{ meeting.maximumNumber }}
                 </span>
                 </div>
             </div>
         </div>
         <div class="pr-2">
             <div class="p-relative">
-                <v-btn outlined
+                <v-btn :loading="applyLoading"
+                       outlined
                        class="pa-0"
                        width="60"
                        :height="meeting.isRegistered ? 40 : 60"
                        color="#3f51b5"
                        :disabled="meeting.isRegistered"
-                       @click="log('신청')"
+                       @click="applyMeeting"
                 >
                     <span v-if="meeting.isRegistered"
                           class="register-success-text"
@@ -55,7 +54,7 @@
                     x-small
                     class="font-weight-bold py-2 f-07 mt-3"
                     color="#e91e63"
-                    @click="log('신청취소')"
+                    @click="$emit('openCancelDialog')"
             >
                 신청 취소
             </v-chip>
@@ -64,17 +63,42 @@
 </template>
 
 <script>
+
+import MeetingTimeRange from '@/components/meeting/MeetingTimeRange.vue';
+import routerParamHelper from '@/router/RouterParamHelper.js';
+import actionsHelper from '@/store/helper/ActionsHelper.js';
+import mutationsHelper from '@/store/helper/MutationsHelper.js';
+import { MESSAGE } from '@/utils/common/constant/constant.js';
+
 export default {
     name: 'ClubDetailMeetingPost',
+    components: { MeetingTimeRange },
     props: {
         meeting: Object,
     },
+    data() {
+        return {
+            applyLoading: false,
+        };
+    },
+    computed: {
+        clubSeq: () => routerParamHelper.clubSeq(),
+    },
     methods: {
+        applyMeeting() {
+            this.applyLoading = true;
+            actionsHelper.requestMeetingApplication({
+                clubSeq: this.clubSeq,
+                meetingSeq: this.meeting.seq,
+            }).then(() => mutationsHelper.openSnackBar(MESSAGE.SUCCESS_APPLY_MEETING))
+                .finally(() => (this.applyLoading = false));
+        },
         log(text) {
             console.log(text);
         },
     },
 };
+
 </script>
 
 <style scoped
@@ -101,11 +125,5 @@ export default {
         font-size: 0.7rem;
         font-weight: bold;
     }
-}
-
-.meeting-time-text {
-    border: 1px solid #795548;
-    padding: 2px 8px;
-    border-radius: 10px;
 }
 </style>

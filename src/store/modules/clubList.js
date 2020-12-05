@@ -30,13 +30,11 @@ const mutations = {
         state.myClubPage = clubPage;
     },
     addNextClubList(state, { clubList, clubPage }) {
-        const currentClubList = state.clubList;
-        state.clubList = [...currentClubList, ...clubList];
+        state.clubList = state.clubList.concat(clubList);
         state.clubPage = clubPage;
     },
     addNextMyClubList(state, { clubList, clubPage }) {
-        const currentClubList = state.myClubList;
-        state.myClubList = [...currentClubList, ...clubList];
+        state.myClubList = state.myClubList.concat(clubList);
         state.myClubPage = clubPage;
     },
     changeIsRequestingNextPage(state, loading) {

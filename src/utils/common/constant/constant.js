@@ -9,6 +9,7 @@ const MESSAGE = {
     SUCCESS_CLUB_CREATE: '모임생성 완료!',
     SUCCESS_CHANGE_REGIONS: '지역 변경 완료!',
     SUCCESS_CHANGE_INTERESTS: '관심사 변경 완료!',
+    SUCCESS_APPLY_MEETING: '만남 신청 성공!',
     SELECT_INTEREST_OVER_COUNT: '관심사는 최대 5개까지 선택할 수 있습니다.',
     FAIL_CLUB_CREATE: '모임 생성에 실패했습니다.',
     FAIL_UPLOAD_IMAGE: '사진 등록에 실패하였습니다.',

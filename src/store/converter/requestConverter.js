@@ -6,7 +6,7 @@ import { KAKAO } from '@/utils/auth/kakao/utlls.js';
 export default class RequestConverter {
     static convertPage = (page) => ({
         size: page.size,
-        nextPage: page.nextPage,
+        page: page.nextPage,
     });
 
     static convertClubList = (clubPage, clubSearchFilterInfo) => {

@@ -18,6 +18,23 @@ const mutations = {
         state.meetingList = meetingList;
         state.meetingPage = meetingPage;
     },
+
+    addNextMeetingList(state, { meetingList, meetingPage }) {
+        state.meetingList = state.meetingList.concat(meetingList);
+        state.meetingPage = meetingPage;
+    },
+
+    changeIsRegistered(state, { meetingSeq, value }) {
+        state.meetingList = state.meetingList.map(meeting => {
+            if (meeting.seq === meetingSeq) {
+                return {
+                    ...meeting,
+                    isRegistered: value,
+                };
+            }
+            return meeting;
+        });
+    },
 };
 
 const actions = {
@@ -35,6 +52,37 @@ const actions = {
             };
             const meetingListInfo = await meetingApi.getMeetingList(requestDto);
             commit('setMeetingList', meetingListInfo);
+        });
+    },
+
+    async requestNextMeetingList({ commit, state }, clubSeq) {
+        return actionsNormalTemplate(async () => {
+            const requestDto = {
+                clubSeq,
+                requestParams: RequestConverter.convertPage(state.meetingPage),
+            };
+            const meetingListInfo = await meetingApi.getMeetingList(requestDto);
+            commit('addNextMeetingList', meetingListInfo);
+        });
+    },
+
+    async requestMeetingApplication({ commit }, meetingApplicationInfo) {
+        return actionsNormalTemplate(async () => {
+            await meetingApi.postMeetingApplication(meetingApplicationInfo);
+            commit('changeIsRegistered', {
+                meetingSeq: meetingApplicationInfo.meetingSeq,
+                value: true,
+            });
+        });
+    },
+
+    async requestCancelMeetingApplication({ commit }, meetingApplicationInfo) {
+        return actionsNormalTemplate(async () => {
+            await meetingApi.deleteMeetingApplication(meetingApplicationInfo);
+            commit('changeIsRegistered', {
+                meetingSeq: meetingApplicationInfo.meetingSeq,
+                value: false,
+            });
         });
     },
 };

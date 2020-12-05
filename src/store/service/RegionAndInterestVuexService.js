@@ -21,7 +21,7 @@ function dispatchInterests() {
     return Promise.resolve();
 }
 
-class RegionAndInterestDispatcher {
+class RegionAndInterestVuexService {
     async dispatch(withLoading, routePathWhenFail) {
         if (isCached()) {
             return;
@@ -31,5 +31,5 @@ class RegionAndInterestDispatcher {
     }
 }
 
-const regionAndInterestDispatcher = new RegionAndInterestDispatcher();
-export default regionAndInterestDispatcher;
+const regionAndInterestVuexService = new RegionAndInterestVuexService();
+export default regionAndInterestVuexService;

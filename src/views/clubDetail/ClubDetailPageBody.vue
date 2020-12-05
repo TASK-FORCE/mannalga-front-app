@@ -13,7 +13,9 @@
             </v-tab>
         </v-tabs>
 
-        <v-tabs-items v-model="tab">
+        <v-tabs-items v-if="!isLoading"
+                      v-model="tab"
+        >
             <v-tab-item value="main">
                 <ClubDetailMain :clubInfo="clubInfo"
                                 :userInfo="userInfo"
@@ -67,6 +69,7 @@ export default {
         userInfo: () => gettersHelper.userInfo(),
         meetingList: () => gettersHelper.meetingList(),
         meetingPage: () => gettersHelper.meetingPage(),
+        isLoading: () => gettersHelper.isLoading(),
     },
     watch: {
         tab() {

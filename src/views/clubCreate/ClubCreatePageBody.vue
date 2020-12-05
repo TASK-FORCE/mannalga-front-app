@@ -46,7 +46,7 @@ import ClubCreateForm from '@/views/clubCreate/components/ClubCreateForm.vue';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import mutationsHelper from '@/store/helper/MutationsHelper.js';
-import regionAndInterestDispatcher from '@/store/service/RegionAndInterestDispatcher.js';
+import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.js';
 import { PATH } from '@/router/route_path_type.js';
 
 export default {
@@ -84,7 +84,7 @@ export default {
         },
     },
     created() {
-        regionAndInterestDispatcher.dispatch(true, PATH.CLUB_LIST);
+        regionAndInterestVuexService.dispatch(true, PATH.CLUB_LIST);
     },
     methods: {
         openBottomSheetCard(cardComponent) {

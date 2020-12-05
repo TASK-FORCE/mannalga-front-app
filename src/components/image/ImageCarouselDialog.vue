@@ -54,6 +54,9 @@ export default {
         };
     },
     mounted() {
+        document.querySelector('.v-dialog')
+            .style.setProperty('margin', '0', 'important');
+
         if (!Array.isArray(this.paths) || this.paths.length < 1) {
             this.$emit('close');
         }
@@ -73,6 +76,7 @@ export default {
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            width: 100%;
         }
     }
 }

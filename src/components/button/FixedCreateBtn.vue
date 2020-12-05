@@ -1,5 +1,6 @@
 <template>
-    <v-btn class="create-btn v-btn--fab darken-2"
+    <v-btn class="v-btn--fab darken-2"
+           :class="left ? 'left-btn' : 'right-btn'"
            :to="path"
            :color="color || 'green'"
     >
@@ -13,12 +14,16 @@ export default {
     props: {
         color: String,
         path: String,
+        left: {
+            type: Boolean,
+            default: false,
+        },
     },
 };
 </script>
 
 <style scoped>
-.create-btn {
+.right-btn {
     position: fixed;
     border-radius: 50%;
     width: 50px !important;
@@ -26,6 +31,17 @@ export default {
     min-width: auto !important;
     z-index: 4;
     right: 16px;
+    bottom: 10px;
+}
+
+.left-btn {
+    position: fixed;
+    border-radius: 50%;
+    width: 50px !important;
+    height: 50px !important;
+    min-width: auto !important;
+    z-index: 4;
+    left: 16px;
     bottom: 10px;
 }
 </style>
