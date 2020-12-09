@@ -51,15 +51,38 @@ export default {
     data() {
         return {
             carouselNum: 0,
+            changedStyle: false,
         };
     },
+    watch: {
+        open(cur, _) {
+            if (cur) {
+                if (!this.changedStyle) {
+                    this.changeDialogStyle(0);
+                }
+            }
+        },
+    },
     mounted() {
-        document.querySelector('.v-dialog')
-            .style.setProperty('margin', '0', 'important');
-
         if (!Array.isArray(this.paths) || this.paths.length < 1) {
             this.$emit('close');
         }
+    },
+    methods: {
+        changeDialogStyle(tryCount) {
+            if (tryCount > 20) {
+                return;
+            }
+
+            const vDialog = document.querySelector('.v-dialog');
+            if (vDialog) {
+                this.changedStyle = true;
+                vDialog.style.setProperty('margin', '0', 'important');
+            } else {
+                setTimeout(() => this.changeDialogStyle(tryCount + 1), 50);
+            }
+        },
+
     },
 };
 </script>
