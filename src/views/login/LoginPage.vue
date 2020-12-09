@@ -63,16 +63,10 @@ export default {
         }
 
         if (this.code) {
-            this.requestTemplateWithLoading(
-                async () => {
-                    try {
-                        const isRegistered = await actionsHelper.requestKakaoTokenByCode(this.code);
-                        isRegistered ? this.$router.push(PATH.CLUB_LIST) : this.$router.push(PATH.REGISTER.PROFILE);
-                    } catch (e) {
-                        mutationsHelper.openSnackBar(MESSAGE.LOGIN_FAIL);
-                    }
-                },
-            );
+            this.startLoading();
+            actionsHelper.requestKakaoTokenByCode(this.code)
+                .then(isRegistered => (isRegistered ? this.$router.push(PATH.CLUB_LIST) : this.$router.push(PATH.REGISTER.PROFILE)))
+                .finally(() => this.endLoading());
         }
     },
     methods: {
@@ -85,10 +79,6 @@ export default {
         },
         endLoading() {
             this.loading = false;
-        },
-        requestTemplateWithLoading(callback) {
-            this.startLoading();
-            callback().finally(() => this.endLoading());
         },
     },
 };
