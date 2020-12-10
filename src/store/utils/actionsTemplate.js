@@ -1,5 +1,7 @@
 import _ from '@/utils/common/lodashWrapper.js';
 import { MODULE } from '@/store/type/type.js';
+import mutationsHelper from '@/store/helper/MutationsHelper.js';
+import { MESSAGE } from '@/utils/common/constant/constant.js';
 
 export const actionsLoadingTemplate = async (commitInfo, callback, failCallback) => {
     const { commit, commitName, useRootCommit } = extractCommitInfo(commitInfo);
@@ -7,11 +9,7 @@ export const actionsLoadingTemplate = async (commitInfo, callback, failCallback)
         commit(commitName, true, { root: useRootCommit });
         return await callback();
     } catch (e) {
-        console.warn(e);
-        if (failCallback) {
-            failCallback();
-        }
-        return Promise.reject(e);
+        return handleException(e, failCallback);
     } finally {
         commit(commitName, false, { root: useRootCommit });
     }
@@ -21,11 +19,7 @@ export const actionsNormalTemplate = async (callback, failCallback) => {
     try {
         return await callback();
     } catch (e) {
-        console.warn(e);
-        if (failCallback) {
-            failCallback();
-        }
-        return Promise.reject(e);
+        return handleException(e, failCallback);
     }
 };
 
@@ -48,4 +42,18 @@ function extractCommitInfo(commitInfo) {
         commitName: commitInfo.name,
         useRootCommit: false,
     };
+}
+
+function handleException(e, failCallback) {
+    const errorMessageFromServer = e.response.data.message;
+    if (errorMessageFromServer) {
+        mutationsHelper.openSnackBar(errorMessageFromServer);
+    } else {
+        mutationsHelper.openSnackBar(MESSAGE.SERVER_INSTABILITY);
+    }
+
+    if (failCallback) {
+        failCallback();
+    }
+    throw e;
 }

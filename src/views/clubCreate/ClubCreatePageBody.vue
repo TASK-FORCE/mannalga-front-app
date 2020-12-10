@@ -103,9 +103,10 @@ export default {
             if (this.$refs.clubCreateForm.validate()) {
                 this.loading = true;
                 actionsHelper.requestClubCreate(this.clubCreateBoxInfo)
-                    .then(() => this.$router.push(PATH.CLUB_LIST)
-                        .then(() => mutationsHelper.openSnackBar(MESSAGE.SUCCESS_CLUB_CREATE)))
-                    .catch(() => mutationsHelper.openSnackBar(MESSAGE.FAIL_CLUB_CREATE))
+                    .then(() => {
+                        mutationsHelper.openSnackBar(MESSAGE.SUCCESS_CLUB_CREATE);
+                        this.$router.push(PATH.CLUB_LIST);
+                    })
                     .finally(() => (this.loading = false));
             }
         },

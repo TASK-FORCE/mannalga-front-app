@@ -23,9 +23,9 @@ jobs:
           USERNAME: ${{ secrets.SSH_USER }}
           KEY: ${{ secrets.SSH_KEY }}
         with:
-          source: "./build.tar.gz"
-          target: "./config-frontend/temp"
-          strip_components: 3
+          source: "./dist/*"
+          target: "~/config-frontend/temp"
+          strip_components: 1
 
       - name: Launch Script in Remote Server
         if: ${{ success() }}
@@ -35,5 +35,5 @@ jobs:
             sh ~/config-frontend/deploy-to-nginx.sh
           host: ${{ secrets.SSH_HOST }}
           user: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_KEY }}
+          key:  ${{ secrets.SSH_KEY }}
           args: "-tt"

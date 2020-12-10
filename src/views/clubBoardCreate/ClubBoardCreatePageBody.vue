@@ -80,9 +80,10 @@ export default {
                 const clubBoardDto = { ...this.clubBoardCreateInfo };
                 this.loading = true;
                 actionsHelper.requestClubCreateBoard({ clubSeq, clubBoardDto })
-                    .then(() => this.$router.push(generateParamPath(PATH.CLUB.MAIN, [clubSeq]))
-                        .then(mutationsHelper.openSnackBar('게시글 생성 성공!')))
-                    .catch(() => mutationsHelper.openSnackBar('게시글 생성에 실패하였습니다.'))
+                    .then(() => {
+                        mutationsHelper.openSnackBar('게시글 생성 성공!');
+                        this.$router.push(generateParamPath(PATH.CLUB.MAIN, [clubSeq]));
+                    })
                     .finally(this.loading = false);
             }
         },

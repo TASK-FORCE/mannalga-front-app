@@ -143,10 +143,7 @@ export default {
                         this.$emit('handleUploadedImgDto', tempImageDto);
                         this.destroy();
                     })
-                    .catch(() => {
-                        this.isLoading = false;
-                        mutationsHelper.openSnackBar(MESSAGE.FAIL_UPLOAD_IMAGE);
-                    });
+                    .finally(() => (this.isLoading = false));
             });
         },
     },

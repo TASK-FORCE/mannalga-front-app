@@ -89,10 +89,12 @@ export default {
     methods: {
         applyMeeting() {
             this.applyLoading = true;
-            actionsHelper.requestMeetingApplication({
+            const meetingApplicationInfo = {
                 clubSeq: this.clubSeq,
                 meetingSeq: this.meeting.seq,
-            }).then(() => mutationsHelper.openSnackBar(MESSAGE.SUCCESS_APPLY_MEETING))
+            };
+            actionsHelper.requestMeetingApplication(meetingApplicationInfo)
+                .then(() => mutationsHelper.openSnackBar(MESSAGE.SUCCESS_APPLY_MEETING))
                 .finally(() => (this.applyLoading = false));
         },
         goToMeetingDetailPage() {
