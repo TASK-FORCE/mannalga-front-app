@@ -53,7 +53,7 @@ export default class RequestConverter {
         const userRegions = buildUserRegionsDto(selectedRegions);
         return {
             userName: profile.name,
-            birthday: profile.dayOfBirth,
+            birthday: '2020-11-11', // TODO 백엔드 필드 확인 후 지우기
             profileImageLink: profile.imgUrl,
             userRegions,
             userInterests,

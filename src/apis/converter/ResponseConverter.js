@@ -21,7 +21,6 @@ export default class ResponseConverter {
         const profile = defaultBuilder.buildKakaoProfile();
         profile.imgUrl = thumbnail_image_url;
         profile.name = nickname;
-        profile.dayOfBirth = '2000-12-13';
         return profile;
     };
 
