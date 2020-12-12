@@ -53,7 +53,6 @@ export default class RequestConverter {
         const userRegions = buildUserRegionsDto(selectedRegions);
         return {
             userName: profile.name,
-            birthday: profile.dayOfBirth,
             profileImageLink: profile.imgUrl,
             userRegions,
             userInterests,
