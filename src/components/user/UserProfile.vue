@@ -19,12 +19,6 @@
                               hide-details="auto"
                               @change="changeProfileName"
                 ></v-text-field>
-                <v-text-field label="생년월일"
-                              readonly
-                              :value="kakaoProfile.dayOfBirth"
-                              class="mt-3"
-                              hide-details="auto"
-                ></v-text-field>
             </v-col>
             <v-btn-toggle v-if="kakaoProfile.gender"
                           class="mt-5"
