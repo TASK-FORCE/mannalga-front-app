@@ -1,5 +1,6 @@
 <template>
     <v-dialog :value="open"
+              fullscreen
               persistent
               max-width="1800"
     >
@@ -29,7 +30,9 @@
                     </v-sheet>
                 </v-carousel-item>
             </v-carousel>
-            <slot name="footer" />
+            <div class="mt-5">
+                <slot name="footer" />
+            </div>
         </div>
     </v-dialog>
 </template>
@@ -51,38 +54,12 @@ export default {
     data() {
         return {
             carouselNum: 0,
-            changedStyle: false,
         };
-    },
-    watch: {
-        open(cur, _) {
-            if (cur) {
-                if (!this.changedStyle) {
-                    this.changeDialogStyle(0);
-                }
-            }
-        },
     },
     mounted() {
         if (!Array.isArray(this.paths) || this.paths.length < 1) {
             this.$emit('close');
         }
-    },
-    methods: {
-        changeDialogStyle(tryCount) {
-            if (tryCount > 20) {
-                return;
-            }
-
-            const vDialog = document.querySelector('.v-dialog');
-            if (vDialog) {
-                this.changedStyle = true;
-                vDialog.style.setProperty('margin', '0', 'important');
-            } else {
-                setTimeout(() => this.changeDialogStyle(tryCount + 1), 50);
-            }
-        },
-
     },
 };
 </script>
@@ -91,6 +68,8 @@ export default {
        lang="scss"
 >
 .image-dialog-wrapper {
+    height: 100%;
+
     .image-dialog__sheet {
         position: relative;
 

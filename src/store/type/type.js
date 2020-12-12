@@ -6,4 +6,5 @@ export const MODULE = {
     TEMPLATE: 'template',
     USER: 'user',
     MEETING: 'meeting',
+    ALBUM: 'album',
 };

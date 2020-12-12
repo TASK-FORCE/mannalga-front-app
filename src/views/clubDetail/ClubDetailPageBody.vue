@@ -31,7 +31,7 @@
                 <ClubDetailBoard :boardList="clubData.boardList" />
             </v-tab-item>
             <v-tab-item value="album">
-                <ClubDetailAlbum />
+                <ClubDetailAlbum :userInfo="userInfo"/>
             </v-tab-item>
         </v-tabs-items>
     </div>

@@ -1,8 +1,8 @@
 <template>
     <v-btn class="v-btn--fab darken-2"
            :class="left ? 'left-btn' : 'right-btn'"
-           :to="path"
            :color="color || 'green'"
+           @click="click"
     >
         <v-icon class="white--text">mdi-plus</v-icon>
     </v-btn>
@@ -17,6 +17,15 @@ export default {
         left: {
             type: Boolean,
             default: false,
+        },
+    },
+    methods: {
+        click() {
+            if (this.path) {
+                this.$router.push(this.path);
+            } else {
+                this.$emit('click');
+            }
         },
     },
 };
