@@ -5,6 +5,8 @@ const MESSAGE = {
     LOGIN_REQUIRE: '로그인이 필요합니다.',
     SERVER_INSTABILITY: '서버가 불안정합니다. 다시 시도해주세요.',
     SELECT_REGION_REQUIRE: '모임에 참여할 지역은 최소 1개 이상 선택해주세요.',
+    SELECT_IMAGE_REQUIRE: '사진을 선택해주세요.',
+    SUCCESS_IMAGE_REGISTER: '사진첩 등록 완료!',
     SUCCESS_REGISTER: '회원가입 완료!',
     SUCCESS_CLUB_CREATE: '모임생성 완료!',
     SUCCESS_CHANGE_REGIONS: '지역 변경 완료!',
@@ -33,6 +35,7 @@ const RULES = {
     CLUB_BOARD_CONTENT: [v => !!v || '게시글 내용을 작성해주세요.'],
     CLUB_MEETING_TITLE: [v => !!v || '만남 제목을 작성해주세요.'],
     CLUB_MEETING_MAXIMUM_NUMBER: [v => !!v || '만남 최대인원을 작성해주세요.'],
+    CLUB_ALBUM_TITLE: [v => !!v || '사진 제목을 작성해주세요.'],
     DATE: [v => !!v || '날짜을 지정해주세요.'],
     TIME: [v => !!v || '시간를 지정해주세요.'],
 };

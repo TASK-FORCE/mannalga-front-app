@@ -1,4 +1,4 @@
-import { actionsLoadingTemplate } from '@/store/utils/actionsTemplate.js';
+import { actionsNormalTemplate } from '@/store/utils/actionsTemplate.js';
 import commonApi from '@/apis/CommonApi.js';
 import defaultBuilder from '@/store/utils/DefaultBuilder.js';
 
@@ -30,7 +30,7 @@ const mutations = {
 const actions = {
     uploadTempImage({ commit }, formData) {
         if (formData instanceof FormData) {
-            return actionsLoadingTemplate(commit, async () => {
+            return actionsNormalTemplate(async () => {
                 const tempImageInfo = await commonApi.postTempImage(formData);
                 return { ...tempImageInfo };
             });
