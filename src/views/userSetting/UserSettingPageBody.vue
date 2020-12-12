@@ -77,7 +77,8 @@ export default {
     },
     methods: {
         createInterestIconsComponent() {
-            return RenderFunction.createComponent(InterestIcons, { interests: this.userProfile.userInterests });
+            console.log(this.userProfile);
+            return RenderFunction.createComponent(InterestIcons, { interestListWithPriority: this.userProfile.userInterests });
         },
         createRegionsNameText() {
             if (this.regionsByPriority && this.regionsByPriority.length > 0) {
