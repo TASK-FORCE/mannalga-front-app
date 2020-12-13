@@ -1,7 +1,9 @@
 <template>
     <div>
         <div class="d-flex pa-3">
-            <UserProfileAvatar :size="50" />
+            <UserProfileAvatar :size="50"
+                               name="김아무개"
+            />
             <div class="ml-2">
                 <div class="meeting-title">{{ meeting.title }}</div>
                 <div class="meeting-subtitle">

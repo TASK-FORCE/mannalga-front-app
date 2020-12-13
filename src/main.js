@@ -10,6 +10,7 @@ import '@mdi/font/css/materialdesignicons.css';
 import './font/roboto.css';
 import './style/style.scss';
 import './style/vuetify-override.scss';
+import '@/utils/prototype.js';
 
 Vue.config.productionTip = false;
 

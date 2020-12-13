@@ -2,6 +2,7 @@
     <div class="d-flex px-3 align-center">
         <UserProfileAvatar :size="40"
                            :imgUrl="imageUrl"
+                           :name="name"
         />
         <div class="ml-3">
             <div class="name">{{ name }}</div>
