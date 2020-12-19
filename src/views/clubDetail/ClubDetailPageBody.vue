@@ -31,7 +31,7 @@
                 <ClubDetailBoard :boardList="clubData.boardList" />
             </v-tab-item>
             <v-tab-item value="album">
-                <ClubDetailAlbum :userInfo="userInfo"/>
+                <ClubDetailAlbumList :userInfo="userInfo"/>
             </v-tab-item>
         </v-tabs-items>
     </div>
@@ -41,16 +41,16 @@
 import ClubDetailMain from '@/views/clubDetail/components/main/ClubDetailMain.vue';
 import ClubDetailMeetingList from '@/views/clubDetail/components/meeting/ClubDetailMeetingList.vue';
 import ClubDetailBoard from '@/views/clubDetail/components/board/ClubDetailBoard.vue';
-import ClubDetailAlbum from '@/views/clubDetail/components/album/ClubDetailAlbum.vue';
+import ClubDetailAlbumList from '@/views/clubDetail/components/album/ClubDetailAlbumList.vue';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import clubTabStore from '@/utils/ClubTabStore.js';
 import clubDetailVuexService from '@/store/service/ClubDetailVuexService.js';
 import { PATH } from '@/router/route_path_type.js';
-import routerParamHelper from '@/router/RouterParamHelper.js';
+import routerHelper from '@/router/RouterHelper.js';
 
 export default {
     name: 'ClubDetailPageBody',
-    components: { ClubDetailMain, ClubDetailMeetingList, ClubDetailBoard, ClubDetailAlbum },
+    components: { ClubDetailMain, ClubDetailMeetingList, ClubDetailBoard, ClubDetailAlbumList },
     data() {
         return {
             tab: null,
@@ -63,7 +63,7 @@ export default {
         };
     },
     computed: {
-        clubSeq: () => routerParamHelper.clubSeq(),
+        clubSeq: () => routerHelper.clubSeq(),
         clubData: () => gettersHelper.clubData(),
         clubInfo: () => gettersHelper.clubInfo(),
         userInfo: () => gettersHelper.userInfo(),

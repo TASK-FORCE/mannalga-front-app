@@ -3,7 +3,7 @@
                app
     >
         <v-btn icon
-               @click="pushToAppMain"
+               @click="$router.back()"
         >
             <v-icon>mdi-keyboard-backspace</v-icon>
         </v-btn>

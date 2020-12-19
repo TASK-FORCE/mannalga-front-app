@@ -11,6 +11,9 @@ class MutationsHelper {
     // meeting
     setMeeting = (payload) => commit(MODULE.MEETING, 'setMeeting', payload);
 
+    // album
+    setAlbum = (payload) => commit(MODULE.ALBUM, 'setAlbum', payload);
+
     // common module
     closeSnackBar = (payload) => commit(MODULE.COMMON, 'closeSnackBar', payload);
     openSnackBar = (payload) => commit(MODULE.COMMON, 'openSnackBar', createSnackbarOption(payload));

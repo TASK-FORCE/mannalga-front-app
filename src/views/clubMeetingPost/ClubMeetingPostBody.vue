@@ -3,6 +3,7 @@
         <div class="d-flex pa-3">
             <UserProfileAvatar :size="50"
                                :name="creatorName"
+                               :appendNumber="appendNumber"
             />
             <div class="ml-2">
                 <div class="meeting-title">{{ meeting.title }}</div>
@@ -37,9 +38,7 @@
                 </div>
             </div>
         </div>
-        <div class="meeting-middle-spacer"
-             :class="isThemeDark ? 'dark-bg' :'white-bg'"
-        />
+        <MiddleDivider class="mt-2"/>
         <div class="meeting-users-box">
             <div class="d-flex pa-2">
                 <div class="meeting-users-title my-auto">
@@ -75,10 +74,7 @@
                      :key="applicationUser.seq"
                      class="my-2"
                 >
-                    <SimpleUserProfile :name="applicationUser.name"
-                                       :imageUrl="applicationUser.imgUrl"
-
-                    />
+                    <SimpleUserProfile :user="applicationUser" />
                 </div>
             </div>
         </div>
@@ -93,12 +89,13 @@ import gettersHelper from '@/store/helper/GettersHelper.js';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
 import mutationsHelper from '@/store/helper/MutationsHelper.js';
 import { MESSAGE } from '@/utils/common/constant/constant.js';
-import routerParamHelper from '@/router/RouterParamHelper.js';
+import routerHelper from '@/router/RouterHelper.js';
 import { isCurrentThemeDark } from '@/plugins/vuetify.js';
+import MiddleDivider from '@/components/MiddleDivider.vue';
 
 export default {
     name: 'ClubMeetingPostBody',
-    components: { SimpleUserProfile, MeetingTimeRange, UserProfileAvatar },
+    components: { MiddleDivider, SimpleUserProfile, MeetingTimeRange, UserProfileAvatar },
     data() {
         return {
             applicationBtnLoading: false,
@@ -109,8 +106,8 @@ export default {
         isLoading: () => gettersHelper.isLoading(),
         meeting: () => gettersHelper.meeting(),
         clubAndMeetingSeq: () => ({
-            clubSeq: routerParamHelper.clubSeq(),
-            meetingSeq: routerParamHelper.meetingSeq(),
+            clubSeq: routerHelper.clubSeq(),
+            meetingSeq: routerHelper.meetingSeq(),
         }),
         creatorName() {
             if (this.meeting && this.meeting.registerUser && this.meeting.registerUser.user) {
@@ -118,9 +115,16 @@ export default {
             }
             return '';
         },
+        appendNumber() {
+            if (this.meeting && this.meeting.registerUser && this.meeting.registerUser.user) {
+                return this.meeting.registerUser.user.seq;
+            }
+            return 0;
+        },
     },
     created() {
-        actionsHelper.requestMeeting(this.clubAndMeetingSeq);
+        actionsHelper.requestMeeting(this.clubAndMeetingSeq)
+            .catch(() => this.$router.back());
     },
     methods: {
         applyMeetingApplication() {
@@ -159,11 +163,6 @@ export default {
     font-weight: bold;
 }
 
-.meeting-middle-spacer {
-    margin-top: 4px;
-    height: 10px;
-}
-
 .meeting-users-box {
     margin: 4px;
 
@@ -172,13 +171,4 @@ export default {
         font-weight: bold;
     }
 }
-
-.white-bg {
-    background-color: #eeeded;
-}
-
-.dark-bg {
-    background-color: #3c3b3b;
-}
-
 </style>

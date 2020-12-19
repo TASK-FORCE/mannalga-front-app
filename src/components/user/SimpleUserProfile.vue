@@ -1,12 +1,13 @@
 <template>
     <div class="d-flex px-3 align-center">
         <UserProfileAvatar :size="40"
-                           :imgUrl="imageUrl"
-                           :name="name"
+                           :imgUrl="user.imageUrl"
+                           :name="user.name"
+                           :appendNumber="user.seq"
         />
         <div class="ml-3">
-            <div class="name">{{ name }}</div>
-            <div class="description">{{ description }}</div>
+            <div class="name">{{ user.name }}</div>
+            <!--            <div class="description">{{ description }}</div>-->
         </div>
         <v-spacer />
         <slot name="tag" />
@@ -20,18 +21,13 @@ export default {
     name: 'SimpleUserProfile',
     components: { UserProfileAvatar },
     props: {
-        name: {
-            type: String,
+        user: {
+            type: Object,
             required: true,
         },
-        description: {
-            type: String,
-            default: '',
-        },
-        imageUrl: {
-            type: String,
-            default: '',
-        },
+    },
+    mounted() {
+        console.log(this.user);
     },
 };
 </script>

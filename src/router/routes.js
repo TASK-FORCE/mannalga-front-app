@@ -87,6 +87,11 @@ const routes = [
         component: () => import('@/views/clubMeetingPost/ClubMeetingPostPage.vue'),
     },
     {
+        path: PATH.CLUB.ALBUM_POST,
+        name: 'ClubAlbumPost',
+        component: () => import('@/views/clubAlbumPost/ClubAlbumPostPage.vue'),
+    },
+    {
         path: PATH.CLUB.SEARCH,
         name: 'ClubSearch',
         component: () => import('@/views/clubSearch/ClubSearchPage.vue'),

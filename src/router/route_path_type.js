@@ -17,6 +17,7 @@ export const PATH = {
         BOARD_POST: '/club/:clubSeq/board/:boardSeq',
         MEETING_CREATE: '/club/:clubSeq/create/meeting',
         MEETING_POST: '/club/:clubSeq/meeting/:meetingSeq',
+        ALBUM_POST: '/club/:clubSeq/album/:albumSeq',
         SEARCH: '/search/club',
     },
     USER: {

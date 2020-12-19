@@ -40,7 +40,7 @@
 <script>
 import MeetingTimeRange from '@/components/meeting/MeetingTimeRange.vue';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
-import routerParamHelper from '@/router/RouterParamHelper.js';
+import routerHelper from '@/router/RouterHelper.js';
 
 export default {
     name: 'MeetingCancelDialog',
@@ -56,7 +56,7 @@ export default {
         },
     },
     computed: {
-        clubSeq: () => routerParamHelper.clubSeq(),
+        clubSeq: () => routerHelper.clubSeq(),
     },
     beforeDestroy() {
         this.closeDialog();

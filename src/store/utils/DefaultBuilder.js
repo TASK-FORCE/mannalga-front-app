@@ -31,7 +31,7 @@ class DefaultBuilder {
         },
     });
 
-    buildPage = () => ({ size: 20, currentPage: 0, nextPage: 0, isLastPage: false });
+    buildPage = (size = 20) => ({ size, currentPage: 0, nextPage: 0, isLastPage: false });
 
     buildClubInfo = () => ({
         clubInterest: [],
@@ -64,6 +64,16 @@ class DefaultBuilder {
         registerUser: {},
         applicationUsers: [],
     });
+
+    buildAlbum = () => ({
+        albumSeq: 0,
+        title: '',
+        file_name: '',
+        imgUrl: '',
+        likeCnt: 0,
+        commentCnt: 0,
+        writer: {},
+    })
 
     // TODO: to be deleted
     buildClub = () => ({

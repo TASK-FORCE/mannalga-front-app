@@ -1,5 +1,5 @@
 <template>
-    <v-dialog :value="open"
+    <v-dialog :value="value"
               fullscreen
               persistent
               max-width="1800"
@@ -8,16 +8,16 @@
             <div class="dialog-bg">
                 <v-btn class="pl-1 mt-1 white--text"
                        text
-                       @click="$emit('close')"
+                       @click="close"
                 >
                     <v-icon large>mdi-close</v-icon>
                 </v-btn>
             </div>
             <v-carousel v-model="carouselNum"
-                        :show-arrows="paths.length > 1"
+                        :show-arrows="imgUrls.length > 1"
                         hide-delimiters
             >
-                <v-carousel-item v-for="(path, index) in paths"
+                <v-carousel-item v-for="(path, index) in imgUrls"
                                  :key="index"
                 >
                     <v-sheet class="image-dialog__sheet dialog-bg"
@@ -41,11 +41,11 @@
 export default {
     name: 'ImageCarouselDialog',
     props: {
-        open: {
+        value: {
             type: Boolean,
-            default: false,
+            required: true,
         },
-        paths: {
+        imgUrls: {
             type: Array,
             default: () => [],
             validator: (array) => array.length > 0,
@@ -57,9 +57,14 @@ export default {
         };
     },
     mounted() {
-        if (!Array.isArray(this.paths) || this.paths.length < 1) {
-            this.$emit('close');
+        if (!Array.isArray(this.imgUrls) || this.imgUrls.length < 1) {
+            this.close();
         }
+    },
+    methods: {
+        close() {
+            this.$emit('input', false);
+        },
     },
 };
 </script>

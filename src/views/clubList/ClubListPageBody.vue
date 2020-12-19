@@ -31,7 +31,6 @@
 </template>
 
 <script>
-import goTo from 'vuetify/es5/services/goto';
 import ClubList from '@/views/clubList/components/ClubList.vue';
 import MyClubList from '@/views/clubList/components/MyClubList.vue';
 import clubListTabStore from '@/utils/ClubListTabStore.js';
@@ -39,6 +38,7 @@ import FixedCreateBtn from '@/components/button/FixedCreateBtn.vue';
 import FixedScrollToTopBtn from '@/components/button/FixedScrollToTopBtn.vue';
 import { PATH } from '@/router/route_path_type.js';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
+import routerHelper from '@/router/RouterHelper.js';
 
 export default {
     name: 'ClubListPageBody',
@@ -58,11 +58,8 @@ export default {
             clubListTabStore.save(this.tab);
         },
     },
-    updated() {
-        const { rememberPositionY } = this.$route.query;
-        if (rememberPositionY) {
-            goTo(rememberPositionY);
-        }
+    mounted() {
+        routerHelper.moveToLastViewedPosition();
     },
     created() {
         this.tab = clubListTabStore.get();

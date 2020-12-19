@@ -70,7 +70,7 @@
 <script>
 
 import MeetingTimeRange from '@/components/meeting/MeetingTimeRange.vue';
-import routerParamHelper from '@/router/RouterParamHelper.js';
+import routerHelper from '@/router/RouterHelper.js';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
 import mutationsHelper from '@/store/helper/MutationsHelper.js';
 import { MESSAGE } from '@/utils/common/constant/constant.js';
@@ -88,7 +88,7 @@ export default {
         };
     },
     computed: {
-        clubSeq: () => routerParamHelper.clubSeq(),
+        clubSeq: () => routerHelper.clubSeq(),
     },
     methods: {
         applyMeetingApplication() {
@@ -98,7 +98,7 @@ export default {
                 meetingSeq: this.meeting.seq,
             };
             actionsHelper.requestMeetingApplication(meetingApplicationInfo)
-                .then(() => mutationsHelper.openSnackBar(MESSAGE.SUCCESS_APPLY_MEETING))
+                .then(() => mutationsHelper.openSnackBar(MESSAGE.SUCCESS_APPLY_MEETING_APPLICATION))
                 .finally(() => (this.applyLoading = false));
         },
         goToMeetingDetailPage() {

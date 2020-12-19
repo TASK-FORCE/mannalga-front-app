@@ -30,6 +30,11 @@ const mutations = {
         state.meetingPage = meetingPage;
     },
 
+    initMeetingList(state) {
+        state.meetingList = [];
+        state.meetingPage = defaultBuilder.buildPage();
+    },
+
     changeIsRegistered(state, { meetingSeq, value }) {
         const meetingSeqNum = parseInt(meetingSeq, 10);
         state.meetingList = state.meetingList.map(meeting => {
@@ -59,6 +64,7 @@ const actions = {
 
     async requestFirstMeetingList({ commit, state }, clubSeq) {
         return actionsNormalTemplate(async () => {
+            commit('initMeetingList');
             const requestDto = {
                 clubSeq,
                 requestParams: RequestConverter.convertPage(state.meetingPage),

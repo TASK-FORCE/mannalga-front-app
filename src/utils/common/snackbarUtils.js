@@ -1,6 +1,6 @@
 class SnackBarOption {
     constructor(
-        message = '요청에 실패했습니다.',
+        message,
         location = SNACKBAR_LOCATION.BOTTOM,
         color = 'blue',
         time = 2000,

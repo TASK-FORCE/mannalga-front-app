@@ -35,10 +35,8 @@ const COLORS = [
     '#008080',
     '#8a2be2',
     '#d2691e',
-    '#dc143c',
     '#008b8b',
     '#b8860b',
-    '#b22222',
     '#daa520',
     '#808080',
     '#ba55d3',
@@ -62,6 +60,10 @@ export default {
             type: Number,
             default: 40,
         },
+        appendNumber: {
+            type: Number,
+            default: 0,
+        },
     },
     methods: {
         getBoxClass(name) {
@@ -69,7 +71,7 @@ export default {
             return {
                 width: `${this.size}px`,
                 height: `${this.size}px`,
-                backgroundColor: COLORS[this.getTruncatedName(name).hashCode() % COLORS.length],
+                backgroundColor: COLORS[(this.getTruncatedName(name).hashCode() + this.appendNumber) % COLORS.length],
             };
         },
         getTruncatedName(name) {

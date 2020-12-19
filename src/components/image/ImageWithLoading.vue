@@ -1,0 +1,36 @@
+<template>
+    <v-img
+        :src="imgUrl"
+        class="grey lighten-2"
+        :max-height="height"
+        @click="$emit('click')"
+    >
+        <template v-slot:placeholder>
+            <v-row
+                class="fill-height ma-0"
+                align="center"
+                justify="center"
+            >
+                <v-progress-circular indeterminate
+                                     color="grey lighten-5"
+                ></v-progress-circular>
+            </v-row>
+        </template>
+    </v-img>
+</template>
+
+<script>
+export default {
+    name: 'ImageWithLoading',
+    props: {
+        imgUrl: {
+            type: String,
+            required: true,
+        },
+        height: Number,
+    },
+};
+</script>
+
+<style scoped>
+</style>
