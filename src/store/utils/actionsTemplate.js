@@ -45,7 +45,7 @@ function extractCommitInfo(commitInfo) {
 }
 
 function handleException(e, failCallback) {
-    const errorMessageFromServer = e.response.data.message;
+    const errorMessageFromServer = extractMessage(e);
     if (errorMessageFromServer) {
         mutationsHelper.openSnackBar(errorMessageFromServer);
     } else {
@@ -56,4 +56,11 @@ function handleException(e, failCallback) {
         failCallback();
     }
     throw e;
+}
+
+function extractMessage(e) {
+    if (e && e.response && e.response.data) {
+        return e.response.data.message;
+    }
+    return null;
 }

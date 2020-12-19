@@ -41,7 +41,6 @@
 import MeetingTimeRange from '@/components/meeting/MeetingTimeRange.vue';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
 import routerParamHelper from '@/router/RouterParamHelper.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
 
 export default {
     name: 'MeetingCancelDialog',
@@ -60,16 +59,19 @@ export default {
         clubSeq: () => routerParamHelper.clubSeq(),
     },
     beforeDestroy() {
-        this.$emit('input', false);
+        this.closeDialog();
     },
     methods: {
         cancelMeeting() {
-            mutationsHelper.openSnackBar('취소 실패!!! 백엔드 데이터 수정 필요!!!');
+            const payload = {
+                clubSeq: this.clubSeq,
+                meetingSeq: this.meeting.seq,
+            };
+            actionsHelper.requestCancelMeetingApplication(payload)
+                .finally(this.closeDialog);
+        },
+        closeDialog() {
             this.$emit('input', false);
-            // actionsHelper.requestCancelMeetingApplication({
-            //     clubSeq: this.clubSeq,
-            //     meetingSeq: this.meeting.seq,
-            // });
         },
     },
 };

@@ -70,10 +70,8 @@ export default {
             return generateParamPath(PATH.CLUB.MEETING_CREATE, routerParamHelper.clubSeq());
         },
         openCancelDialog(cancelMeeting) {
-            console.log(this.cancelDialog);
             this.cancelDialog = true;
             this.cancelMeeting = cancelMeeting;
-            console.log(cancelMeeting);
         },
     },
 

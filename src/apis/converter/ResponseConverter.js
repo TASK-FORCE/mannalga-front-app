@@ -53,8 +53,7 @@ export default class ResponseConverter {
         return { meetingList, meetingPage };
     };
 
-    // TODO: check
-    static convertMeeting = (data) => mapMeeting(data)
+    static convertMeeting = (data) => mapMeeting(data);
 
     static convertPage = ({ pageable, last, size }) => {
         const currentPage = pageable.pageNumber;

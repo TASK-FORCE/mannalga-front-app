@@ -1,4 +1,4 @@
-import { actionsNormalTemplate } from '@/store/utils/actionsTemplate.js';
+import { actionsLoadingTemplate, actionsNormalTemplate } from '@/store/utils/actionsTemplate.js';
 import meetingApi from '@/apis/MeetingApi.js';
 import defaultBuilder from '@/store/utils/DefaultBuilder.js';
 import RequestConverter from '@/store/converter/requestConverter.js';
@@ -79,10 +79,16 @@ const actions = {
         });
     },
 
+    async requestMeeting({ commit }, clubAndMeetingSeq) {
+        return actionsLoadingTemplate(commit, async () => {
+            const meeting = await meetingApi.getMeeting(clubAndMeetingSeq);
+            commit('setMeeting', meeting);
+        });
+    },
+
     async requestMeetingApplication({ commit }, meetingApplicationInfo) {
         return actionsNormalTemplate(async () => {
-            // TODO 변경 필요(해당 응답값이 meeting으로 와야함)
-            const savedMeeting = await meetingApi.postMeetingApplication(meetingApplicationInfo);
+            await meetingApi.postMeetingApplication(meetingApplicationInfo);
             commit('changeIsRegistered', {
                 meetingSeq: meetingApplicationInfo.meetingSeq,
                 value: true,
