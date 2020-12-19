@@ -4,8 +4,8 @@
               persistent
               max-width="1800"
     >
-        <div class="image-dialog-wrapper dialog-bg">
-            <div class="dialog-bg">
+        <div class="image-dialog-wrapper black-bg">
+            <div class="black-bg">
                 <v-btn class="pl-1 mt-1 white--text"
                        text
                        @click="close"
@@ -20,7 +20,7 @@
                 <v-carousel-item v-for="(path, index) in imgUrls"
                                  :key="index"
                 >
-                    <v-sheet class="image-dialog__sheet dialog-bg"
+                    <v-sheet class="image-dialog__sheet black-bg"
                              height="100%"
                              tile
                     >
@@ -86,9 +86,5 @@ export default {
             width: 100%;
         }
     }
-}
-
-.dialog-bg {
-    background-color: #130f0f;
 }
 </style>

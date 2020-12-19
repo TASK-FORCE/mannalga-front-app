@@ -5,7 +5,7 @@
                       persistent
                       fullscreen
             >
-                <div class="h-100 d-flex dialog-bg">
+                <div class="h-100 d-flex black-bg">
                     <div class="my-auto">
                         <div class="image-cropper-container">
                             <img ref="cropImg"
@@ -148,10 +148,6 @@ export default {
 </script>
 
 <style scoped>
-.dialog-bg {
-    background-color: #130f0f;
-}
-
 img {
     width: 100%;
     height: 100%;
