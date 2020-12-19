@@ -6,6 +6,7 @@
         >
             <v-img :src="imageUrl"
                    class="select-image"
+                   max-height="600"
             />
         </div>
         <div v-else
@@ -24,6 +25,7 @@
         </div>
         <!--  @handleUploadedImg 이벤트에서 파라미터로 저장된 이미지의 URL를 넘겨준다   -->
         <ImageCropper ref="cropper"
+                      :aspectRatio="freeSize ? NaN : undefined"
                       @handleUploadedImgDto="handleUploadedImgDto"
         />
         <ImageCarouselDialog :open="openDialog"
@@ -60,6 +62,10 @@ export default {
         height: {
             type: String,
             default: '50',
+        },
+        freeSize: {
+            type: Boolean,
+            default: false,
         },
     },
     data() {

@@ -1,12 +1,12 @@
 <template>
     <div>
         <div v-if="originalImgUrl">
-            <v-row justify="center">
-                <v-dialog :value="openModal"
-                          persistent
-                          max-width="400"
-                >
-                    <v-card>
+            <v-dialog :value="openModal"
+                      persistent
+                      fullscreen
+            >
+                <div class="h-100 d-flex dialog-bg">
+                    <div class="my-auto">
                         <div class="image-cropper-container">
                             <img ref="cropImg"
                                  alt="cropImg"
@@ -16,26 +16,24 @@
                         </div>
                         <v-card-actions class="text-center">
                             <v-btn
-                                class="flex-grow-1"
-                                color="green darken-1"
-                                outlined
+                                class="flex-grow-1 white--text font-weight-bold"
+                                color="green darken-2"
                                 @click="destroy"
                             >
                                 취소
                             </v-btn>
                             <v-btn
-                                class="flex-grow-1"
-                                color="green darken-1"
-                                outlined
+                                class="flex-grow-1 white--text font-weight-bold"
+                                color="green darken-2"
                                 :loading="isLoading"
                                 @click="submit"
                             >
                                 완료
                             </v-btn>
                         </v-card-actions>
-                    </v-card>
-                </v-dialog>
-            </v-row>
+                    </div>
+                </div>
+            </v-dialog>
         </div>
 
         <!--   기존 이미지 오픈 트리거     -->
@@ -52,8 +50,6 @@
 import 'cropperjs/dist/cropper.css';
 import Cropper from 'cropperjs';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
-import { MESSAGE } from '@/utils/common/constant/constant.js';
 
 export default {
     name: 'ImageCropper',
@@ -99,6 +95,7 @@ export default {
                 viewMode: this.viewMode,
                 movable: this.movable,
                 zoomable: this.zoomable,
+                minContainerWidth: window.innerWidth,
             };
         },
     },
@@ -151,9 +148,8 @@ export default {
 </script>
 
 <style scoped>
-.image-cropper-container {
-    position: relative;
-    max-width: 800px;
+.dialog-bg {
+    background-color: #130f0f;
 }
 
 img {

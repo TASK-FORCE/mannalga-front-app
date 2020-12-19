@@ -18,8 +18,9 @@
                                   label="사진 제목"
                     />
                 </v-form>
-                <ImageSelectBox class="mt-1 mb-3"
+                <ImageSelectBox class="mt-1 mb-3 elevation-2"
                                 height="300"
+                                freeSize
                                 @handleImageDto="changeImageDto"
                 />
             </div>
@@ -78,7 +79,7 @@ export default {
                         clubAlbumCreateDto: {
                             title: this.title,
                             file_name: this.fileName,
-                            img_url: this.imgUrl,
+                            imgUrl: this.imgUrl,
                         },
                     };
                     actionsHelper.requestAlbumCreate(clubAlbumCreateInfo)
