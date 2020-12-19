@@ -41,7 +41,7 @@
                                :height="meeting.isRegistered ? 40 : 60"
                                color="#3f51b5"
                                :disabled="meeting.isRegistered"
-                               @click="applyMeeting"
+                               @click="applyMeetingApplication"
                         >
                     <span v-if="meeting.isRegistered"
                           class="register-success-text"
@@ -91,7 +91,7 @@ export default {
         clubSeq: () => routerParamHelper.clubSeq(),
     },
     methods: {
-        applyMeeting() {
+        applyMeetingApplication() {
             this.applyLoading = true;
             const meetingApplicationInfo = {
                 clubSeq: this.clubSeq,
@@ -102,7 +102,6 @@ export default {
                 .finally(() => (this.applyLoading = false));
         },
         goToMeetingDetailPage() {
-            mutationsHelper.setMeeting(this.meeting);
             this.$router.push(generateParamPath(PATH.CLUB.MEETING_POST, [this.clubSeq, this.meeting.seq]));
         },
     },

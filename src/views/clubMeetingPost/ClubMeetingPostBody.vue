@@ -1,13 +1,13 @@
 <template>
-    <div>
+    <div v-if="!isLoading">
         <div class="d-flex pa-3">
             <UserProfileAvatar :size="50"
-                               name="김아무개"
+                               :name="creatorName"
             />
             <div class="ml-2">
                 <div class="meeting-title">{{ meeting.title }}</div>
                 <div class="meeting-subtitle">
-                    김아무개
+                    {{ creatorName }}
                     <span v-if="meeting.isCreator"
                           class="my-meeting-tag"
                     >
@@ -48,15 +48,15 @@
                     >mdi-account-multiple
                     </v-icon>
                     모임 신청 현황
-                    (1/20)
+                    (1/{{ meeting.maximumNumber }})
                 </div>
                 <v-spacer />
                 <v-btn v-if="!meeting.isRegistered"
-                       :loading="applyLoading"
+                       :loading="applicationBtnLoading"
                        class="mt-auto"
                        color="#3f51b5"
                        outlined
-                       @click="applyMeeting"
+                       @click="applyMeetingApplication"
                 >
                     모임 신청
                 </v-btn>
@@ -64,6 +64,7 @@
                        class="mt-auto"
                        color="#e91e63"
                        outlined
+                       @click="cancelMeetingApplication"
                 >
                     신청 취소
                 </v-btn>
@@ -100,27 +101,39 @@ export default {
     components: { SimpleUserProfile, MeetingTimeRange, UserProfileAvatar },
     data() {
         return {
-            applyLoading: false,
+            applicationBtnLoading: false,
             isThemeDark: isCurrentThemeDark(),
         };
     },
     computed: {
+        isLoading: () => gettersHelper.isLoading(),
         meeting: () => gettersHelper.meeting(),
-        clubSeq: () => routerParamHelper.clubSeq(),
-        meetingSeq: () => routerParamHelper.meetingSeq(),
+        clubAndMeetingSeq: () => ({
+            clubSeq: routerParamHelper.clubSeq(),
+            meetingSeq: routerParamHelper.meetingSeq(),
+        }),
+        creatorName() {
+            if (this.meeting && this.meeting.registerUser && this.meeting.registerUser.user) {
+                return this.meeting.registerUser.user.userName;
+            }
+            return '';
+        },
     },
-    mounted() {
-        console.log(this.meeting);
+    created() {
+        actionsHelper.requestMeeting(this.clubAndMeetingSeq);
     },
     methods: {
-        applyMeeting() {
-            this.applyLoading = true;
-            actionsHelper.requestMeetingApplication({
-                clubSeq: this.clubSeq,
-                meetingSeq: this.meetingSeq,
-            })
-                .then(() => mutationsHelper.openSnackBar(MESSAGE.SUCCESS_APPLY_MEETING))
-                .finally(() => (this.applyLoading = false));
+        applyMeetingApplication() {
+            this.applicationBtnLoading = true;
+            actionsHelper.requestMeetingApplication(this.clubAndMeetingSeq)
+                .then(() => mutationsHelper.openSnackBar(MESSAGE.SUCCESS_APPLY_MEETING_APPLICATION))
+                .finally(() => (this.applicationBtnLoading = false));
+        },
+        cancelMeetingApplication() {
+            this.applicationBtnLoading = true;
+            actionsHelper.requestCancelMeetingApplication(this.clubAndMeetingSeq)
+                .then(() => mutationsHelper.openSnackBar(MESSAGE.SUCCESS_CANCEL_MEETING_APPLICATION))
+                .finally(() => (this.applicationBtnLoading = false));
         },
     },
 };

@@ -12,10 +12,15 @@ class MeetingApi {
             .then(ResponseConverter.convertMeetingList);
     }
 
-    postMeetingApplication({ clubSeq, meetingSeq }) {
-        return axios.post(`/api/clubs/${clubSeq}/meetings/${meetingSeq}/applications`)
+    getMeeting({ clubSeq, meetingSeq }) {
+        return axios.get(`/api/clubs/${clubSeq}/meetings/${meetingSeq}`)
             .then(ResponseConverter.extractSuperInventionResponseData)
             .then(ResponseConverter.convertMeeting);
+    }
+
+    postMeetingApplication({ clubSeq, meetingSeq }) {
+        return axios.post(`/api/clubs/${clubSeq}/meetings/${meetingSeq}/applications`)
+            .then(ResponseConverter.extractSuperInventionResponseData);
     }
 
     deleteMeetingApplication({ clubSeq, meetingSeq }) {
