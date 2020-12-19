@@ -3,6 +3,8 @@ import actionsHelper from '@/store/helper/ActionsHelper.js';
 import store from '@/store';
 import { MODULE } from '@/store/type/type.js';
 import defaultBuilder from '@/store/utils/DefaultBuilder.js';
+import gettersHelper from '@/store/helper/GettersHelper.js';
+import _ from '@/utils/common/lodashWrapper.js';
 
 function dispatchClubInfoAndUserInfo(clubSeq) {
     return actionsHelper.requestClubInfoAndUserInfo(clubSeq);
@@ -16,7 +18,10 @@ function dispatchClubBoards() {
     return Promise.resolve();
 }
 
-function dispatchClubAlbums() {
+function dispatchClubAlbums(clubSeq) {
+    if (_.isEmpty(gettersHelper.albumList())) {
+        return actionsHelper.requestFirstAlbumList(clubSeq);
+    }
     return Promise.resolve();
 }
 
@@ -26,7 +31,7 @@ class ClubDetailVuexService {
             dispatchClubInfoAndUserInfo(clubSeq),
             dispatchClubMeetings(clubSeq),
             dispatchClubBoards(),
-            dispatchClubAlbums(),
+            dispatchClubAlbums(clubSeq),
         ];
         await RequestHelper.dispatchAll(withLoading, routePathWhenFail, promiseList);
     }
@@ -34,10 +39,8 @@ class ClubDetailVuexService {
     reset() {
         store.commit(`${MODULE.CLUB}/setClubInfo`, defaultBuilder.buildClubInfo());
         store.commit(`${MODULE.CLUB}/setUserInfo`, defaultBuilder.buildUserInfo());
-        store.commit(`${MODULE.MEETING}/setMeetingList`, {
-            meetingList: [],
-            meetingPage: defaultBuilder.buildPage(),
-        });
+        store.commit(`${MODULE.MEETING}/initMeetingList`);
+        store.commit(`${MODULE.ALBUM}/initAlbumList`);
     }
 }
 

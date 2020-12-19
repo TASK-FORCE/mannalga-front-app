@@ -10,7 +10,7 @@
 <script>
 import CommonHeader from '@/components/header/CommonHeader.vue';
 import { generateParamPath, PATH } from '@/router/route_path_type.js';
-import routerParamHelper from '@/router/RouterParamHelper.js';
+import routerHelper from '@/router/RouterHelper.js';
 import ClubMeetingPostBody from '@/views/clubMeetingPost/ClubMeetingPostBody.vue';
 
 export default {
@@ -18,7 +18,7 @@ export default {
     components: { ClubMeetingPostBody, CommonHeader },
     methods: {
         clubDetailPath() {
-            return generateParamPath(PATH.CLUB.MAIN, routerParamHelper.clubSeq());
+            return generateParamPath(PATH.CLUB.MAIN, routerHelper.clubSeq());
         },
     },
 };

@@ -23,6 +23,8 @@ class ActionsHelper {
 
     // album module
     requestAlbumCreate = (payload) => dispatch(MODULE.ALBUM, 'requestAlbumCreate', payload);
+    requestFirstAlbumList = (payload) => dispatch(MODULE.ALBUM, 'requestFirstAlbumList', payload);
+    requestNextAlbumList = (payload) => dispatch(MODULE.ALBUM, 'requestNextAlbumList', payload);
 
     // clubList module
     requestFirstClubList = (payload) => dispatch(MODULE.CLUB_LIST, 'requestFirstClubList', payload);

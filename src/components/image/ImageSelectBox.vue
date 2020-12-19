@@ -28,9 +28,8 @@
                       :aspectRatio="freeSize ? NaN : undefined"
                       @handleUploadedImgDto="handleUploadedImgDto"
         />
-        <ImageCarouselDialog :open="openDialog"
-                             :paths="[imageUrl]"
-                             @close="openDialog = false"
+        <ImageCarouselDialog v-model="openDialog"
+                             :imgUrls="[imageUrl]"
         >
             <template v-slot:footer>
                 <div class="pa-2 text-center">
@@ -94,6 +93,10 @@ export default {
         },
         triggerCropper() {
             this.$refs.cropper.trigger();
+        },
+        clear() {
+            this.imageUrl = '';
+            this.openDialog = false;
         },
     },
 };

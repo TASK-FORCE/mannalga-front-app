@@ -18,7 +18,8 @@
                                   label="사진 제목"
                     />
                 </v-form>
-                <ImageSelectBox class="mt-1 mb-3 elevation-2"
+                <ImageSelectBox ref="imgSelectBox"
+                                class="mt-1 mb-3 elevation-2"
                                 height="300"
                                 freeSize
                                 @handleImageDto="changeImageDto"
@@ -49,12 +50,12 @@
 
 import { MESSAGE, RULES } from '@/utils/common/constant/constant.js';
 import ImageSelectBox from '@/components/image/ImageSelectBox.vue';
-import routerParamHelper from '@/router/RouterParamHelper.js';
+import routerHelper from '@/router/RouterHelper.js';
 import mutationsHelper from '@/store/helper/MutationsHelper.js';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
 
 export default {
-    name: 'AlbumCreateDialog',
+    name: 'AlbumImageCreateDialog',
     components: { ImageSelectBox },
     props: {
         value: {
@@ -75,7 +76,7 @@ export default {
             if (this.$refs.form.validate()) {
                 if (this.imgUrl && this.fileName) {
                     const clubAlbumCreateInfo = {
-                        clubSeq: routerParamHelper.clubSeq(),
+                        clubSeq: routerHelper.clubSeq(),
                         clubAlbumCreateDto: {
                             title: this.title,
                             file_name: this.fileName,
@@ -84,6 +85,7 @@ export default {
                     };
                     actionsHelper.requestAlbumCreate(clubAlbumCreateInfo)
                         .then(() => {
+                            actionsHelper.requestFirstAlbumList(routerHelper.clubSeq());
                             this.clear();
                             mutationsHelper.openSnackBar(MESSAGE.SUCCESS_IMAGE_REGISTER);
                         });
@@ -101,6 +103,8 @@ export default {
             this.imgUrl = null;
             this.fileName = null;
             this.$emit('input', false);
+            this.$refs.imgSelectBox.clear();
+            this.$refs.form.resetValidation();
         },
     },
 };

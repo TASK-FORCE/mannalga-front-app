@@ -55,6 +55,12 @@ export default class ResponseConverter {
 
     static convertMeeting = (data) => mapMeeting(data);
 
+    static convertAlbumList = (data) => {
+        const albumList = data.content;
+        const albumPage = this.convertPage(data);
+        return { albumList, albumPage };
+    };
+
     static convertPage = ({ pageable, last, size }) => {
         const currentPage = pageable.pageNumber;
         const nextPage = currentPage + 1;
@@ -90,7 +96,7 @@ const mapMeeting = (meeting) => ({
     maximumNumber: meeting.maximumNumber,
     registerUser: meeting.regClubUser,
     applicationUsers: meeting.meetingApplications.map(({ userInfo }) => ({
-        seq: userInfo.uesrSeq,
+        seq: userInfo.userSeq,
         name: userInfo.userName,
         imgUrl: userInfo.profileImageLink,
     })),

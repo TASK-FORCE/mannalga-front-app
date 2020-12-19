@@ -51,9 +51,8 @@ import DateTimePicker from '@/components/DateTimePicker.vue';
 import moment from 'moment';
 import { MEETING_MAXIMUM_NUMBER_LIST, RULES } from '@/utils/common/constant/constant.js';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
-import routerParamHelper from '@/router/RouterParamHelper.js';
+import routerHelper from '@/router/RouterHelper.js';
 import { generateParamPath, PATH } from '@/router/route_path_type.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
 
 const toMoment = (localDate) => moment(`${localDate.date} ${localDate.time}`.trim());
 const toTimeStamp = (localDate) => `${localDate.date} ${localDate.time}:00`;
@@ -121,7 +120,7 @@ export default {
             if (this.$refs.clubMeetingCreateForm.validate()) {
                 this.loading = true;
                 actionsHelper.requestMeetingCreate(this.buildRequestDto())
-                    .then(() => this.$router.push(generateParamPath(PATH.CLUB.MAIN, routerParamHelper.clubSeq())))
+                    .then(() => this.$router.push(generateParamPath(PATH.CLUB.MAIN, routerHelper.clubSeq())))
                     .finally(this.loading = false);
             }
         },
@@ -135,7 +134,7 @@ export default {
             };
             return {
                 clubMeetingCreateDto,
-                clubSeq: routerParamHelper.clubSeq(),
+                clubSeq: routerHelper.clubSeq(),
             };
         },
     },

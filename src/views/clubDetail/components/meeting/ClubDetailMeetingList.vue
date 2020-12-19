@@ -32,7 +32,7 @@
 
 import FixedCreateBtn from '@/components/button/FixedCreateBtn.vue';
 import { generateParamPath, PATH } from '@/router/route_path_type.js';
-import routerParamHelper from '@/router/RouterParamHelper.js';
+import routerHelper from '@/router/RouterHelper.js';
 import ClubDetailMeetingPost from '@/views/clubDetail/components/meeting/ClubDetailMeetingPost.vue';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
 import InfiniteScrollTemplate from '@/components/InfiniteScrollTemplate.vue';
@@ -53,7 +53,7 @@ export default {
         };
     },
     computed: {
-        clubSeq: () => routerParamHelper.clubSeq(),
+        clubSeq: () => routerHelper.clubSeq(),
         canCreateMeeting() {
             const { isMaster, isManager } = this.userInfo;
             return isMaster || isManager;
@@ -67,7 +67,7 @@ export default {
             return actionsHelper.requestNextClubList(this.clubSeq);
         },
         meetingCreatePath() {
-            return generateParamPath(PATH.CLUB.MEETING_CREATE, routerParamHelper.clubSeq());
+            return generateParamPath(PATH.CLUB.MEETING_CREATE, routerHelper.clubSeq());
         },
         openCancelDialog(cancelMeeting) {
             this.cancelDialog = true;
