@@ -76,12 +76,11 @@ export default {
             clubTabStore.save(this.clubSeq, this.tab);
         },
     },
-    created() {
+    mounted() {
         this.tab = clubTabStore.get(this.clubSeq);
-        clubDetailVuexService.dispatch(this.clubSeq, true, PATH.CLUB_LIST);
-    },
-    beforeDestroy() {
-        clubDetailVuexService.reset();
+        if (this.clubInfo.seq === 0) {
+            clubDetailVuexService.dispatch(this.clubSeq, true, PATH.CLUB_LIST);
+        }
     },
 };
 </script>

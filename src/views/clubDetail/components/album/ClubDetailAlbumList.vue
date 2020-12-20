@@ -76,9 +76,6 @@ export default {
             return ((window.innerWidth / 2) - 8) * 0.85;
         },
     },
-    mounted() {
-        routerHelper.moveToLastViewedPosition();
-    },
     methods: {
         fetchFirstPage() {
             return actionsHelper.requestFirstAlbumList(this.clubSeq);

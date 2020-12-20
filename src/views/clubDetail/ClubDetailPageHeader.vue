@@ -3,7 +3,7 @@
                app
     >
         <v-btn icon
-               @click="$router.back()"
+               @click="moveToClubListPage"
         >
             <v-icon>mdi-keyboard-backspace</v-icon>
         </v-btn>
@@ -22,15 +22,27 @@
 <script>
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import { PATH } from '@/router/route_path_type.js';
+import clubDetailVuexService from '@/store/service/ClubDetailVuexService.js';
+import scrollHelper from '@/utils/ScrollHelper.js';
+import clubTabStore from '@/utils/ClubTabStore.js';
+import routerHelper from '@/router/RouterHelper.js';
 
 export default {
     name: 'ClubDetailPageHeader',
+    data() {
+        return {
+            clubListPath: PATH.CLUB_LIST,
+        };
+    },
     computed: {
         clubName: () => gettersHelper.clubName(),
     },
     methods: {
-        pushToAppMain() {
-            this.$router.push(PATH.CLUB_LIST);
+        moveToClubListPage() {
+            scrollHelper.init(this.$route.fullPath);
+            clubTabStore.save(routerHelper.clubSeq(), 'main');
+            this.$router.push(this.clubListPath);
+            clubDetailVuexService.reset();
         },
     },
 };

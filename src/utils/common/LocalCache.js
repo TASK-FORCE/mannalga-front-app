@@ -1,7 +1,7 @@
 export class LocalCache {
     constructor(clearSize = 10000) {
         this.store = {};
-        this.count = 0;
+        this.size = 0;
         this.clearSize = clearSize;
     }
 
@@ -10,12 +10,16 @@ export class LocalCache {
     }
 
     put(key, value) {
-        if (this.count >= this.clearSize) {
+        if (this.size >= this.clearSize) {
             this.store = {};
         }
         if (!this.get(key)) {
-            this.count += 1;
+            this.size += 1;
         }
         this.store[key] = value;
+    }
+
+    print() {
+        console.log(this.store);
     }
 }

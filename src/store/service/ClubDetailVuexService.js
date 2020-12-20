@@ -3,8 +3,6 @@ import actionsHelper from '@/store/helper/ActionsHelper.js';
 import store from '@/store';
 import { MODULE } from '@/store/type/type.js';
 import defaultBuilder from '@/store/utils/DefaultBuilder.js';
-import gettersHelper from '@/store/helper/GettersHelper.js';
-import _ from '@/utils/common/lodashWrapper.js';
 
 function dispatchClubInfoAndUserInfo(clubSeq) {
     return actionsHelper.requestClubInfoAndUserInfo(clubSeq);
@@ -19,21 +17,30 @@ function dispatchClubBoards() {
 }
 
 function dispatchClubAlbums(clubSeq) {
-    if (_.isEmpty(gettersHelper.albumList())) {
-        return actionsHelper.requestFirstAlbumList(clubSeq);
-    }
-    return Promise.resolve();
+    return actionsHelper.requestFirstAlbumList(clubSeq);
 }
 
 class ClubDetailVuexService {
+    constructor() {
+        this.dispatching = false;
+    }
+
     async dispatch(clubSeq, withLoading, routePathWhenFail) {
-        const promiseList = [
-            dispatchClubInfoAndUserInfo(clubSeq),
-            dispatchClubMeetings(clubSeq),
-            dispatchClubBoards(),
-            dispatchClubAlbums(clubSeq),
-        ];
-        await RequestHelper.dispatchAll(withLoading, routePathWhenFail, promiseList);
+        if (this.dispatching) {
+            return;
+        }
+        try {
+            this.dispatching = true;
+            const promiseList = [
+                dispatchClubInfoAndUserInfo(clubSeq),
+                dispatchClubMeetings(clubSeq),
+                dispatchClubBoards(),
+                dispatchClubAlbums(clubSeq),
+            ];
+            await RequestHelper.dispatchAll(withLoading, routePathWhenFail, promiseList);
+        } finally {
+            this.dispatching = false;
+        }
     }
 
     reset() {

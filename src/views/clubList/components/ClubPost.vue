@@ -1,8 +1,8 @@
 <template>
     <div>
         <v-list-item :key="club.seq"
-                     :to="clubPath(club.seq)"
                      class="py-2 pl-0"
+                     @click="moveToClubDetailPage(club.seq)"
         >
             <div>
                 <v-img :src="imgUrl"
@@ -55,6 +55,7 @@ import RootRegionTag from '@/components/region/RootRegionTag.vue';
 import InterestUtils from '@/utils/interest/InterestUtils.js';
 import RoleChip from '@/components/role/RoleChip.vue';
 import { CLUB_ROLE } from '@/utils/common/constant/constant.js';
+import clubDetailVuexService from '@/store/service/ClubDetailVuexService.js';
 
 export default {
     name: 'ClubPost',
@@ -91,8 +92,9 @@ export default {
         },
     },
     methods: {
-        clubPath(seq) {
-            return generateParamPath(PATH.CLUB.MAIN, [seq]);
+        moveToClubDetailPage(seq) {
+            this.$router.push(generateParamPath(PATH.CLUB.MAIN, [seq]))
+                .then(() => clubDetailVuexService.dispatch(seq, true, PATH.CLUB_LIST));
         },
     },
 };

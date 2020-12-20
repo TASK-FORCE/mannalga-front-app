@@ -1,26 +1,34 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import goTo from 'vuetify/es5/services/goto';
+import scrollHelper from '@/utils/ScrollHelper.js';
 import routes from './routes.js';
 
 if (!process || process.env.NODE_ENV !== 'test') {
     Vue.use(VueRouter);
 }
 
-const scrollBehavior = (to, from, savedPosition) => {
-    let positionY = 0;
+const scrollBehavior = (to, from) => {
+    scrollHelper.save(from.fullPath);
 
-    if (to.hash) {
-        positionY = to.hash;
-    } else if (savedPosition) {
-        positionY = savedPosition.y;
+    const positionY = scrollHelper.get(to.fullPath) || 0;
+
+    if (positionY === 0) {
+        return new Promise(
+            (resolve) => setTimeout(
+                () => resolve(window.scrollTo({ top: 0 })), 100,
+            ),
+        );
     }
 
-    // mounted 이후에 랜더링이 되는경우 컴포넌트에서 직접 스크롤해줘야 하므로 query에 이전 position 정보를 담아둔다.
-    // eslint-disable-next-line no-param-reassign
-    to.query.rememberPositionY = positionY;
-
-    return goTo(positionY);
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(window.scrollTo({ top: 0 }));
+        }, 100);
+        setTimeout(() => {
+            resolve(goTo(positionY));
+        }, 300);
+    });
 };
 
 const router = new VueRouter({
