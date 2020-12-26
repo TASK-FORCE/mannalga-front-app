@@ -38,9 +38,9 @@
                 </div>
             </div>
         </div>
-        <MiddleDivider class="mt-2"/>
+        <MiddleDivider class="mt-2" />
         <div class="meeting-users-box">
-            <div class="d-flex pa-2">
+            <div class="d-flex px-2 pt-2">
                 <div class="meeting-users-title my-auto">
                     <v-icon color="#ff9800"
                             large
@@ -68,15 +68,7 @@
                     신청 취소
                 </v-btn>
             </div>
-            <v-divider />
-            <div>
-                <div v-for="applicationUser in meeting.applicationUsers"
-                     :key="applicationUser.seq"
-                     class="my-2"
-                >
-                    <SimpleUserProfile :user="applicationUser" />
-                </div>
-            </div>
+            <SimpleUserProfileList :users="meeting.applicationUsers" />
         </div>
     </div>
 </template>
@@ -84,7 +76,6 @@
 <script>
 import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
 import MeetingTimeRange from '@/components/meeting/MeetingTimeRange.vue';
-import SimpleUserProfile from '@/components/user/SimpleUserProfile.vue';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
 import mutationsHelper from '@/store/helper/MutationsHelper.js';
@@ -92,10 +83,11 @@ import { MESSAGE } from '@/utils/common/constant/constant.js';
 import routerHelper from '@/router/RouterHelper.js';
 import { isCurrentThemeDark } from '@/plugins/vuetify.js';
 import MiddleDivider from '@/components/MiddleDivider.vue';
+import SimpleUserProfileList from '@/components/user/SimpleUserProfileList.vue';
 
 export default {
     name: 'ClubMeetingPostBody',
-    components: { MiddleDivider, SimpleUserProfile, MeetingTimeRange, UserProfileAvatar },
+    components: { SimpleUserProfileList, MiddleDivider, MeetingTimeRange, UserProfileAvatar },
     data() {
         return {
             applicationBtnLoading: false,

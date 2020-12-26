@@ -42,7 +42,7 @@ export default {
     name: 'ClubDetailMeeting',
     components: { MeetingCancelDialog, InfiniteScrollTemplate, ClubDetailMeetingPost, FixedCreateBtn },
     props: {
-        userInfo: Object,
+        currentUserInfo: Object,
         meetingList: Array,
         meetingPage: Object,
     },
@@ -55,7 +55,7 @@ export default {
     computed: {
         clubSeq: () => routerHelper.clubSeq(),
         canCreateMeeting() {
-            const { isMaster, isManager } = this.userInfo;
+            const { isMaster, isManager } = this.currentUserInfo;
             return isMaster || isManager;
         },
     },

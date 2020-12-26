@@ -45,7 +45,7 @@ class ClubDetailVuexService {
 
     reset() {
         store.commit(`${MODULE.CLUB}/setClubInfo`, defaultBuilder.buildClubInfo());
-        store.commit(`${MODULE.CLUB}/setUserInfo`, defaultBuilder.buildUserInfo());
+        store.commit(`${MODULE.CLUB}/setUserInfo`, defaultBuilder.buildCurrentUserInfo());
         store.commit(`${MODULE.MEETING}/initMeetingList`);
         store.commit(`${MODULE.ALBUM}/initAlbumList`);
     }

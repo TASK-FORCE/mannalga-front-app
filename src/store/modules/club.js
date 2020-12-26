@@ -8,21 +8,23 @@ import { CLUB_ROLE } from '@/utils/common/constant/constant.js';
 const state = {
     clubData: defaultBuilder.buildClub(),
     clubInfo: defaultBuilder.buildClubInfo(),
-    userInfo: defaultBuilder.buildUserInfo(),
+    currentUserInfo: defaultBuilder.buildCurrentUserInfo(),
+    clubUserList: [],
 };
 
 const getters = {
     clubData: (state) => state.clubData,
     clubInfo: (state) => state.clubInfo,
     clubName: (state) => state.clubInfo.name,
-    userInfo: (state) => state.userInfo,
+    currentUserInfo: (state) => state.currentUserInfo,
+    clubUserList: (state) => state.clubUserList,
 };
 
 const mutations = {
     setClubInfo(state, clubInfo) {
         state.clubInfo = clubInfo;
     },
-    setUserInfo(state, userInfo) {
+    setCurrentUserInfo(state, userInfo) {
         const { role, isLiked } = userInfo || {};
         state.userInfo = {
             isMaster: role && !!role.includes(CLUB_ROLE.MASTER),
@@ -32,14 +34,18 @@ const mutations = {
             isLiked,
         };
     },
+    setClubUserList(state, userList) {
+        state.clubUserList = userList;
+    },
 };
 
 const actions = {
     async requestClubInfoAndUserInfo({ commit }, clubSeq) {
         return actionsNormalTemplate(async () => {
-            const { clubInfo, userInfo } = await clubApi.getClubInfoAndUserInfo(clubSeq);
+            const { clubInfo, userInfo, userList } = await clubApi.getClubInfoAndUserInfo(clubSeq);
             commit('setClubInfo', clubInfo);
-            commit('setUserInfo', userInfo);
+            commit('setCurrentUserInfo', userInfo);
+            commit('setClubUserList', userList);
         });
     },
     async requestClubCreate({ commit }, clubCreateInfo) {
@@ -53,9 +59,10 @@ const actions = {
     async requestClubJoin({ commit }, clubSeq) {
         return actionsNormalTemplate(async () => {
             await clubApi.postClubJoin(clubSeq);
-            const { clubInfo, userInfo } = await clubApi.getClubInfoAndUserInfo(clubSeq);
+            const { clubInfo, userInfo, userList } = await clubApi.getClubInfoAndUserInfo(clubSeq);
             commit('setClubInfo', clubInfo);
-            commit('setUserInfo', userInfo);
+            commit('setCurrentUserInfo', userInfo);
+            commit('setClubUserList', userList);
         });
     },
     async requestClubBoardCreate({ _ }, clubBoardCreateInfo) {

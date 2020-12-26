@@ -1,24 +1,25 @@
 <template>
     <div>
         <ClubDetailMainClubInfo :clubInfo="clubInfo"
-                                :userInfo="userInfo"
+                                :currentUserInfo="currentUserInfo"
         />
-        <ClubDetailMainMeeting />
-        <ClubDetailMainMember />
+        <MiddleDivider :height="10" />
+        <ClubDetailMainMember :clubUserList="clubUserList" />
     </div>
 </template>
 
 <script>
 import ClubDetailMainClubInfo from '@/views/clubDetail/components/main/ClubDetailMainClubInfo.vue';
-import ClubDetailMainMeeting from '@/views/clubDetail/components/main/ClubDetailMainMeeting.vue';
 import ClubDetailMainMember from '@/views/clubDetail/components/main/ClubDetailMainMember.vue';
+import MiddleDivider from '@/components/MiddleDivider.vue';
 
 export default {
     name: 'ClubDetailMain',
-    components: { ClubDetailMainClubInfo, ClubDetailMainMeeting, ClubDetailMainMember },
+    components: { MiddleDivider, ClubDetailMainClubInfo, ClubDetailMainMember },
     props: {
         clubInfo: Object,
-        userInfo: Object,
+        currentUserInfo: Object,
+        clubUserList: Array,
     },
 };
 </script>

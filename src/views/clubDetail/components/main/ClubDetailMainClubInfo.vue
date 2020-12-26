@@ -1,53 +1,47 @@
 <template>
     <div>
         <div v-if="clubInfo.mainImageUrl !== ''">
+            <!--    TODO 사진이 없다면 사진 등록 권고(MASTER role에게만)    -->
             <v-img :src="clubInfo.mainImageUrl"
                    aspect-ratio="2"
             />
         </div>
-        <!--    TODO 사진이 없다면 사진 등록 권고(MASTER role에게만)    -->
-        <v-list-item>
-            <v-list-item-content>
-                <v-row>
-                    <v-col cols="6"
-                           class="py-0"
-                    >
-                        <div class="text-center">
-                            <v-btn fab
-                                   height="20"
-                                   width="20"
-                                   outlined
-                            >
-                                <v-icon class="region-icon">mdi-map-marker-outline</v-icon>
-                            </v-btn>
-                            <div class="title">{{ clubRegionsText }}</div>
-                        </div>
-                    </v-col>
-                    <v-col cols="6"
-                           class="py-0"
-                    >
-                        <div class="text-center">
-                            <InterestIcons :interestListWithPriority="clubInfo.clubInterest" />
-                            <div class="title">{{ clubInterestsText }}</div>
-                        </div>
-                    </v-col>
-                </v-row>
-                <div class="mb-2 club-name">
-                    {{ clubInfo.name }}
+        <div class="pa-3">
+            <div class="d-flex">
+                <div class="flex-grow-1">
+                    <div class="text-center">
+                        <v-btn fab
+                               height="20"
+                               width="20"
+                               outlined
+                        >
+                            <v-icon class="region-icon">mdi-map-marker-outline</v-icon>
+                        </v-btn>
+                        <div class="title">{{ clubRegionsText }}</div>
+                    </div>
                 </div>
-                <v-list-item-subtitle v-html="description" />
-            </v-list-item-content>
-        </v-list-item>
-        <div v-if="needToShowRegisterBtn">
-            <CommonCenterBtn id="registerBtn"
-                             text="가입하기"
-                             outlined
-                             @click="requestClubRegist"
-            />
-            <FixedTextBtnShowByHeight text="가입"
-                                      :heightBoundaryToShow="heightBoundaryToShowRegistBtn"
-                                      @click="requestClubRegist"
-            />
+                <div class="flex-grow-1">
+                    <div class="text-center">
+                        <InterestIcons :interestListWithPriority="clubInfo.clubInterest" />
+                        <div class="title">{{ clubInterestsText }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-2 club-name">
+                {{ clubInfo.name }}
+            </div>
+            <v-list-item-subtitle v-html="description" />
+            <div v-if="needToShowRegisterBtn">
+                <CommonCenterBtn id="registerBtn"
+                                 text="가입하기"
+                                 outlined
+                                 @click="requestClubRegist"
+                />
+                <FixedTextBtnShowByHeight text="가입"
+                                          :heightBoundaryToShow="heightBoundaryToShowRegistBtn"
+                                          @click="requestClubRegist"
+                />
+            </div>
         </div>
     </div>
 </template>
@@ -67,7 +61,7 @@ export default {
             type: Object,
             required: true,
         },
-        userInfo: {
+        currentUserInfo: {
             type: Object,
             required: true,
         },
@@ -90,7 +84,7 @@ export default {
             return clubRegionNames.join(', ');
         },
         needToShowRegisterBtn() {
-            const { isMaster, isManager, isMember } = this.userInfo;
+            const { isMaster, isManager, isMember } = this.currentUserInfo;
             return !(isMaster || isManager || isMember);
         },
     },

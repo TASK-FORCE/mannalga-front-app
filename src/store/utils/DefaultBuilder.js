@@ -44,7 +44,7 @@ class DefaultBuilder {
         seq: 0,
     });
 
-    buildUserInfo = () => ({
+    buildCurrentUserInfo = () => ({
         isMaster: false,
         isMember: false,
         isManager: false,

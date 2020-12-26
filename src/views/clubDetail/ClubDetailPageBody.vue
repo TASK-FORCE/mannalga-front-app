@@ -18,11 +18,12 @@
         >
             <v-tab-item value="main">
                 <ClubDetailMain :clubInfo="clubInfo"
-                                :userInfo="userInfo"
+                                :currentUserInfo="currentUserInfo"
+                                :clubUserList="clubUserList"
                 />
             </v-tab-item>
             <v-tab-item value="meeting">
-                <ClubDetailMeetingList :userInfo="userInfo"
+                <ClubDetailMeetingList :currentUserInfo="currentUserInfo"
                                        :meetingList="meetingList"
                                        :meetingPage="meetingPage"
                 />
@@ -31,7 +32,7 @@
                 <ClubDetailBoard :boardList="clubData.boardList" />
             </v-tab-item>
             <v-tab-item value="album">
-                <ClubDetailAlbumList :userInfo="userInfo"/>
+                <ClubDetailAlbumList :currentUserInfo="currentUserInfo" />
             </v-tab-item>
         </v-tabs-items>
     </div>
@@ -66,7 +67,8 @@ export default {
         clubSeq: () => routerHelper.clubSeq(),
         clubData: () => gettersHelper.clubData(),
         clubInfo: () => gettersHelper.clubInfo(),
-        userInfo: () => gettersHelper.userInfo(),
+        currentUserInfo: () => gettersHelper.currentUserInfo(),
+        clubUserList: () => gettersHelper.clubUserList(),
         meetingList: () => gettersHelper.meetingList(),
         meetingPage: () => gettersHelper.meetingPage(),
         isLoading: () => gettersHelper.isLoading(),
