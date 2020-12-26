@@ -55,7 +55,7 @@ export default {
         FixedCreateBtn,
     },
     props: {
-        userInfo: Object,
+        currentUserInfo: Object,
     },
     data() {
         return {
@@ -70,7 +70,7 @@ export default {
             return _.chunk(this.albumList, 2);
         },
         canCreateAlbum() {
-            const { isMaster, isManager } = this.userInfo;
+            const { isMaster, isManager } = this.currentUserInfo;
             return isMaster || isManager;
         },
         imgHeight() {

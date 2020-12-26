@@ -12,7 +12,8 @@ class GettersHelper {
     // club module
     clubData = () => get(MODULE.CLUB, 'clubData');
     clubInfo = () => get(MODULE.CLUB, 'clubInfo');
-    userInfo = () => get(MODULE.CLUB, 'userInfo');
+    currentUserInfo = () => get(MODULE.CLUB, 'currentUserInfo');
+    clubUserList = () => get(MODULE.CLUB, 'clubUserList');
     clubName = () => get(MODULE.CLUB, 'clubName');
 
     // meeting module
