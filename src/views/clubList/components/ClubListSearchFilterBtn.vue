@@ -3,6 +3,7 @@
         class="mx-1 px-2"
         outlined
         small
+        :color="color"
         v-bind="attrs"
         v-on="on"
         @click="$emit('click')"
@@ -15,7 +16,7 @@
 <script>
 export default {
     name: 'ClubListSearchFilterBtn',
-    props: ['attrs', 'on', 'text'],
+    props: ['attrs', 'on', 'text', 'color'],
 };
 </script>
 

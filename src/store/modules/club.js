@@ -26,7 +26,7 @@ const mutations = {
     },
     setCurrentUserInfo(state, userInfo) {
         const { role, isLiked } = userInfo || {};
-        state.userInfo = {
+        state.currentUserInfo = {
             isMaster: role && !!role.includes(CLUB_ROLE.MASTER),
             isManager: role && !!role.includes(CLUB_ROLE.MANAGER),
             isMember: role && !!role.includes(CLUB_ROLE.MEMBER),

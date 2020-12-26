@@ -39,6 +39,17 @@
                         >
                             {{ interestName }}
                         </v-chip>
+                        <v-chip
+                            v-if="searchText"
+                            class="ml-2"
+                            close
+                            color="#2196f3"
+                            outlined
+                            small
+                            @click:close="cancelSearchTextSelect"
+                        >
+                            검색어: {{ searchText }}
+                        </v-chip>
                     </div>
                 </template>
 
@@ -93,6 +104,9 @@ export default {
         interestName() {
             return this.clubSearchFilterInfo.interest.name;
         },
+        searchText() {
+            return this.clubSearchFilterInfo.searchText;
+        },
     },
     created() {
         regionAndInterestVuexService.dispatch(true, PATH.LOGIN);
@@ -111,6 +125,9 @@ export default {
         },
         cancelInterestSelect() {
             mutationsHelper.changeClubSearchInterest(defaultBuilder.buildClubSearchFilterInfo().interest);
+        },
+        cancelSearchTextSelect() {
+            mutationsHelper.changeClubSearchText(null);
         },
         changeBottomSheetComponent(cardComponent) {
             this.currentBottomSheetCard = cardComponent;
