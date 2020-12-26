@@ -1,8 +1,5 @@
 <template>
-    <v-footer fixed
-              class="pa-1"
-              app
-    >
+    <div class="footer">
         <div class="d-flex w-100 pa-2">
             <div class="my-auto flex-grow-1">
                 <v-text-field placeholder="댓글을 작성해주세요."
@@ -20,15 +17,36 @@
                 </v-btn>
             </div>
         </div>
-    </v-footer>
+    </div>
 </template>
 
 <script>
 export default {
     name: 'CommentWriteFooter',
+    created() {
+        this.$vuetify.application.footer = 60;
+    },
+    beforeDestroy() {
+        this.$vuetify.application.footer = 0;
+    },
 };
 </script>
 
-<style scoped>
+<style scoped
+       lang="scss"
+>
+.footer {
+    height: 60px;
+    position: fixed;
+    bottom: 0;
+    z-index: 5;
+    width: 100%;
+    background-color: white;
+}
 
+.theme--dark {
+    .footer {
+        background-color: #1e1e1e;
+    }
+}
 </style>

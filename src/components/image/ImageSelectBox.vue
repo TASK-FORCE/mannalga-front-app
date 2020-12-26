@@ -32,8 +32,8 @@
                              :imgUrls="[imageUrl]"
         >
             <template v-slot:footer>
-                <div class="pa-2 text-center">
-                    <v-btn class="white--text mb-2"
+                <div class="pa-2 text-center w-100">
+                    <v-btn class="white--text"
                            outlined
                            @click="triggerCropper"
                     >

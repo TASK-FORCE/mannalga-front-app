@@ -4,18 +4,19 @@
               persistent
               max-width="1800"
     >
+        <div class="header">
+            <v-btn class="pl-1 mt-1 white--text"
+                   icon
+                   @click="close"
+            >
+                <v-icon large>mdi-close</v-icon>
+            </v-btn>
+        </div>
         <div class="image-dialog-wrapper black-bg">
-            <div class="black-bg">
-                <v-btn class="pl-1 mt-1 white--text"
-                       text
-                       @click="close"
-                >
-                    <v-icon large>mdi-close</v-icon>
-                </v-btn>
-            </div>
             <v-carousel v-model="carouselNum"
                         :show-arrows="imgUrls.length > 1"
                         hide-delimiters
+                        class="image-dialog-carousel"
             >
                 <v-carousel-item v-for="(path, index) in imgUrls"
                                  :key="index"
@@ -30,10 +31,14 @@
                     </v-sheet>
                 </v-carousel-item>
             </v-carousel>
-            <div class="mt-5">
-                <slot name="footer" />
-            </div>
         </div>
+        <v-footer fixed
+                  class="black-bg"
+                  style="height: 60px"
+                  app
+        >
+            <slot name="footer" />
+        </v-footer>
     </v-dialog>
 </template>
 
@@ -72,8 +77,17 @@ export default {
 <style scoped
        lang="scss"
 >
+.header {
+    position: fixed;
+    top: 0;
+    height: 60px;
+    padding: 4px;
+    background-color: #0e0e0e;
+    z-index: 5;
+}
+
 .image-dialog-wrapper {
-    height: 100%;
+    height: 100% !important;
 
     .image-dialog__sheet {
         position: relative;
@@ -85,6 +99,11 @@ export default {
             transform: translate(-50%, -50%);
             width: 100%;
         }
+    }
+
+    .image-dialog-carousel {
+        height: 100% !important;
+        padding: 60px 0;
     }
 }
 </style>

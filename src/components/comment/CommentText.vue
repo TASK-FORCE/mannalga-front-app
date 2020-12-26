@@ -29,7 +29,7 @@ export default {
     padding: 4px 12px;
     border-radius: 10px;
     display: flex;
-    background-color: #e0e0e0;
+    background-color: #efefef;
 
     .text-divider {
         height: 1px;

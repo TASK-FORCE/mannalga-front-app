@@ -64,7 +64,7 @@ export default {
     components: { CommentWriteFooter, Comment, ImageWithDialog, MiddleDivider, UserProfileAvatar },
     data() {
         return {
-            comments: [false, true, false, true, false],
+            comments: [false, true, false, true, false, false],
         };
     },
     computed: {
