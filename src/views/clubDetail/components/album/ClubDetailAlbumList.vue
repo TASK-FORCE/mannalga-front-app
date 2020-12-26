@@ -14,7 +14,8 @@
                     <v-col
                         v-for="album in twoAlbums"
                         :key="album.albumSeq"
-                        class="d-flex pa-1"
+                        class="d-flex"
+                        style="padding: 6px"
                         cols="6"
                     >
                         <ClubDetailAlbumImage :album="album"
@@ -73,7 +74,7 @@ export default {
             return isMaster || isManager;
         },
         imgHeight() {
-            return ((window.innerWidth / 2) - 8) * 0.85;
+            return ((window.innerWidth / 2) - 8) * 0.75;
         },
     },
     methods: {

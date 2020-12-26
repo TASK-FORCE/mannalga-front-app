@@ -4,6 +4,7 @@
             @click="goToAlbumImagePostPage"
     >
         <ImageWithLoading :imgUrl="album.imgUrl"
+                          style="border-radius: 5px"
         />
         <div class="img-bottom">
             <v-spacer />

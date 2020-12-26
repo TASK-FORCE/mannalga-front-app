@@ -1,6 +1,5 @@
 <template>
-    <div class="meeting-middle-spacer"
-         :class="isThemeDark ? 'dark-bg' :'white-bg'"
+    <div :class="isThemeDark ? 'dark-bg' :'white-bg'"
          :style="{'height': `${height}px`}"
     />
 </template>
