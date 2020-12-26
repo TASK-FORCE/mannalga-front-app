@@ -49,3 +49,9 @@
         }
     }
 }
+
+.image-dialog-wrapper {
+    .v-carousel__item {
+        height: 100% !important;
+    }
+}
