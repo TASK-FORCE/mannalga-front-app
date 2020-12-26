@@ -29,6 +29,7 @@ class DefaultBuilder {
             seq: null,
             name: null,
         },
+        searchText: null,
     });
 
     buildPage = (size = 20) => ({ size, currentPage: 0, nextPage: 0, isLastPage: false });

@@ -34,6 +34,7 @@ import { changeThemeAndLoad, isCurrentThemeDark } from '@/plugins/vuetify.js';
 import { PATH } from '@/router/route_path_type.js';
 import _ from '@/utils/common/lodashWrapper.js';
 import mutationsHelper from '@/store/helper/MutationsHelper.js';
+import gettersHelper from '@/store/helper/GettersHelper.js';
 
 const SEARCH_WAIT_TIME = 500;
 
@@ -47,10 +48,19 @@ export default {
             searchCallback: _.debounce(() => mutationsHelper.changeClubSearchText(this.searchText), SEARCH_WAIT_TIME),
         };
     },
+    computed: {
+        clubSearchFilterInfo: () => gettersHelper.clubSearchFilterInfo(),
+    },
     watch: {
-        searchText() {
+        searchText(value) {
+            if (value === null) {
+                return;
+            }
             mutationsHelper.changeCommonLoading(true);
             this.searchCallback();
+        },
+        clubSearchFilterInfo() {
+            this.searchText = this.clubSearchFilterInfo.searchText;
         },
     },
     methods: {
