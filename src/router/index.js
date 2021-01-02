@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import goTo from 'vuetify/es5/services/goto';
-import scrollHelper from '@/utils/ScrollHelper.js';
+import ScrollHelper from '@/utils/scroll/ScrollHelper.js';
+import scrollRememberStore from '@/utils/scroll/ScrollRememberStore.js';
 import routes from './routes.js';
 
 if (!process || process.env.NODE_ENV !== 'test') {
@@ -9,9 +9,11 @@ if (!process || process.env.NODE_ENV !== 'test') {
 }
 
 const scrollBehavior = (to, from) => {
-    scrollHelper.save(from.fullPath);
+    if (from.meta && from.meta.disableScrollBehavior) return Promise.resolve();
 
-    const positionY = scrollHelper.get(to.fullPath) || 0;
+    scrollRememberStore.save(from.fullPath);
+
+    const positionY = scrollRememberStore.get(to.fullPath) || 0;
 
     if (positionY === 0) {
         return new Promise(
@@ -26,7 +28,7 @@ const scrollBehavior = (to, from) => {
             resolve(window.scrollTo({ top: 0 }));
         }, 100);
         setTimeout(() => {
-            resolve(goTo(positionY));
+            resolve(ScrollHelper.scrollTo(positionY));
         }, 300);
     });
 };

@@ -13,6 +13,7 @@ class MutationsHelper {
 
     // album
     setAlbum = (payload) => commit(MODULE.ALBUM, 'setAlbum', payload);
+    initAlbumCommentList = (payload) => commit(MODULE.ALBUM, 'initAlbumCommentList', payload);
 
     // common module
     closeSnackBar = (payload) => commit(MODULE.COMMON, 'closeSnackBar', payload);

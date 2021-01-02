@@ -31,6 +31,12 @@ import routerHelper from '@/router/RouterHelper.js';
 
 export default {
     name: 'CommentWriteFooter',
+    props: {
+        postProcessor: {
+            type: Function,
+            default: () => {},
+        },
+    },
     data() {
         return {
             EMPTY_COMMENT_TEXT: MESSAGE.EMPTY_COMMENT_TEXT,
@@ -56,7 +62,10 @@ export default {
                     },
                 };
                 actionsHelper.requestAlbumCommentWrite(albumCommentWriteInfo)
-                    .then(() => (this.content = null))
+                    .then(() => {
+                        this.postProcessor();
+                        this.content = null;
+                    })
                     .finally(() => (this.loading = false));
                 return;
             }

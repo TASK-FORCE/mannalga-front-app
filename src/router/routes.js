@@ -90,6 +90,7 @@ const routes = [
         path: PATH.CLUB.ALBUM_POST,
         name: 'ClubAlbumPost',
         component: () => import('@/views/clubAlbumPost/ClubAlbumPostPage.vue'),
+        meta: { disableScrollBehavior: true },
     },
     {
         path: PATH.CLUB.SEARCH,

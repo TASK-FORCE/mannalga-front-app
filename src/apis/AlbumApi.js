@@ -15,6 +15,12 @@ class AlbumApi {
     postClubAlbumCommentWrite({ clubSeq, albumSeq, albumCommentWriteDto }) {
         return axios.post(`/api/club/${clubSeq}/album/${albumSeq}/comment`, albumCommentWriteDto);
     }
+
+    getClubAlbumCommentList({ clubSeq, albumSeq, requestParams }) {
+        return axios.get(`/api/club/${clubSeq}/album/${albumSeq}/comment`, { params: requestParams })
+            .then(ResponseConverter.extractSuperInventionResponseData)
+            .then(ResponseConverter.convertAlbumCommentList);
+    }
 }
 
 const albumApi = new AlbumApi();

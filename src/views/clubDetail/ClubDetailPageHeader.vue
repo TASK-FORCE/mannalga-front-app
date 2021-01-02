@@ -23,7 +23,7 @@
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import { PATH } from '@/router/route_path_type.js';
 import clubDetailVuexService from '@/store/service/ClubDetailVuexService.js';
-import scrollHelper from '@/utils/ScrollHelper.js';
+import scrollRememberStore from '@/utils/scroll/ScrollRememberStore.js';
 import clubTabStore from '@/utils/ClubTabStore.js';
 import routerHelper from '@/router/RouterHelper.js';
 
@@ -39,7 +39,7 @@ export default {
     },
     methods: {
         moveToClubListPage() {
-            scrollHelper.init(this.$route.fullPath);
+            scrollRememberStore.init(this.$route.fullPath);
             clubTabStore.save(routerHelper.clubSeq(), 'main');
             this.$router.push(this.clubListPath);
             clubDetailVuexService.reset();

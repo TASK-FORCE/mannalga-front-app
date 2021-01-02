@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import goTo from 'vuetify/es5/services/goto';
 import _ from '@/utils/common/lodashWrapper.js';
+import ScrollHelper from '@/utils/scroll/ScrollHelper.js';
 
 const DEFAULT_THROTTLE_DELAY = 300;
 const DEFAULT_BOUNDARY = 100;
@@ -37,7 +37,7 @@ export default {
     },
     methods: {
         scrollToTop() {
-            goTo(0);
+            ScrollHelper.scrollToTop();
         },
         handleScroll() {
             this.active = window.pageYOffset > DEFAULT_BOUNDARY;

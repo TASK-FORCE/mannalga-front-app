@@ -7,12 +7,16 @@ const state = {
     album: defaultBuilder.buildAlbum(),
     albumList: [],
     albumPage: defaultBuilder.buildPage(),
+    albumCommentList: [],
+    albumCommentPage: defaultBuilder.buildPage(),
 };
 
 const getters = {
     album: (state) => state.album,
     albumList: (state) => state.albumList,
     albumPage: (state) => state.albumPage,
+    albumCommentList: (state) => state.albumCommentList,
+    albumCommentPage: (state) => state.albumCommentPage,
 };
 
 const mutations = {
@@ -33,6 +37,21 @@ const mutations = {
     initAlbumList(state) {
         state.albumList = [];
         state.albumPage = defaultBuilder.buildPage();
+    },
+
+    setAlbumCommentList(state, { albumCommentList, albumCommentPage }) {
+        state.albumCommentList = albumCommentList;
+        state.albumCommentPage = albumCommentPage;
+    },
+
+    addNextAlbumCommentList(state, { albumCommentList, albumCommentPage }) {
+        state.albumCommentList = state.albumCommentList.concat(albumCommentList);
+        state.albumCommentPage = albumCommentPage;
+    },
+
+    initAlbumCommentList(state) {
+        state.albumCommentList = [];
+        state.albumCommentPage = defaultBuilder.buildPage();
     },
 };
 
@@ -70,6 +89,44 @@ const actions = {
         return actionsNormalTemplate(async () => {
             await albumApi.postClubAlbumCommentWrite(albumCommentWriteInfo);
         });
+    },
+
+    async requestFirstAlbumCommentList({ commit, state }, albumCommentRequestInfo) {
+        return actionsNormalTemplate(async () => {
+            commit('initAlbumCommentList');
+            const requestDto = {
+                ...albumCommentRequestInfo,
+                requestParams: RequestConverter.convertPage(state.albumCommentPage),
+            };
+            const albumListInfo = await albumApi.getClubAlbumCommentList(requestDto);
+            commit('setAlbumCommentList', albumListInfo);
+        });
+    },
+
+    async requestNextAlbumCommentList({ commit, state }, albumCommentRequestInfo) {
+        return actionsNormalTemplate(async () => {
+            const requestDto = {
+                ...albumCommentRequestInfo,
+                requestParams: RequestConverter.convertPage(state.albumCommentPage),
+            };
+            const albumListInfo = await albumApi.getClubAlbumCommentList(requestDto);
+            commit('addNextAlbumCommentList', albumListInfo);
+        });
+    },
+
+    async requestAllAlbumCommentListWithPaging({ commit, state }, albumCommentRequestInfo) {
+        const requestCommentListRecursive = async () => {
+            if (state.albumCommentPage.isLastPage) return;
+
+            const requestDto = {
+                ...albumCommentRequestInfo,
+                requestParams: RequestConverter.convertPage(state.albumCommentPage),
+            };
+            const albumListInfo = await albumApi.getClubAlbumCommentList(requestDto);
+            commit('addNextAlbumCommentList', albumListInfo);
+            requestCommentListRecursive();
+        };
+        return actionsNormalTemplate(async () => requestCommentListRecursive());
     },
 };
 
