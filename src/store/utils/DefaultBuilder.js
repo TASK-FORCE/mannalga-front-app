@@ -73,8 +73,9 @@ class DefaultBuilder {
         imgUrl: '',
         likeCnt: 0,
         commentCnt: 0,
+        isLike: false,
         writer: {},
-    })
+    });
 
     // TODO: to be deleted
     buildClub = () => ({

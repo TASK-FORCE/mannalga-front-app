@@ -21,6 +21,16 @@ class AlbumApi {
             .then(ResponseConverter.extractSuperInventionResponseData)
             .then(ResponseConverter.convertAlbumCommentList);
     }
+
+    postLikeClubAlbum({ clubSeq, albumSeq }) {
+        return axios.post(`/api/club/${clubSeq}/album/${albumSeq}/like`)
+            .then(ResponseConverter.extractSuperInventionResponseData);
+    }
+
+    deleteLikeClubAlbum({ clubSeq, albumSeq }) {
+        return axios.delete(`/api/club/${clubSeq}/album/${albumSeq}/like`)
+            .then(ResponseConverter.extractSuperInventionResponseData);
+    }
 }
 
 const albumApi = new AlbumApi();

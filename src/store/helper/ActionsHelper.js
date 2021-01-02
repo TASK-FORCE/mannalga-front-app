@@ -29,6 +29,8 @@ class ActionsHelper {
     requestFirstAlbumCommentList = (payload) => dispatch(MODULE.ALBUM, 'requestFirstAlbumCommentList', payload);
     requestNextAlbumCommentList = (payload) => dispatch(MODULE.ALBUM, 'requestNextAlbumCommentList', payload);
     requestAllAlbumCommentListWithPaging = (payload) => dispatch(MODULE.ALBUM, 'requestAllAlbumCommentListWithPaging', payload);
+    requestApplyLikeClubAlbum = (payload) => dispatch(MODULE.ALBUM, 'requestApplyLikeClubAlbum', payload);
+    requestDeleteLikeClubAlbum = (payload) => dispatch(MODULE.ALBUM, 'requestDeleteLikeClubAlbum', payload);
 
     // clubList module
     requestFirstClubList = (payload) => dispatch(MODULE.CLUB_LIST, 'requestFirstClubList', payload);

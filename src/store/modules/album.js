@@ -64,13 +64,20 @@ const mutations = {
         state.albumCommentList = [];
         state.albumCommentPage = defaultBuilder.buildPage();
     },
+
+    changeAlbumLike(state, { likeCnt, isLike }) {
+        state.album.likeCnt = likeCnt;
+        state.album.isLike = isLike;
+    },
 };
 
 const actions = {
     async requestAlbumCreate({ _ }, clubAlbumCreateInfo) {
-        return actionsNormalTemplate(async () => {
-            await albumApi.postClubAlbumCreate(clubAlbumCreateInfo);
-        });
+        return actionsNormalTemplate(
+            async () => {
+                await albumApi.postClubAlbumCreate(clubAlbumCreateInfo);
+            },
+        );
     },
 
     async requestFirstAlbumList({ commit, state }, clubSeq) {
@@ -86,43 +93,51 @@ const actions = {
     },
 
     async requestNextAlbumList({ commit, state }, clubSeq) {
-        return actionsNormalTemplate(async () => {
-            const requestDto = {
-                clubSeq,
-                requestParams: RequestConverter.convertPage(state.albumPage),
-            };
-            const albumListInfo = await albumApi.getClubAlbumList(requestDto);
-            commit('addNextAlbumList', albumListInfo);
-        });
+        return actionsNormalTemplate(
+            async () => {
+                const requestDto = {
+                    clubSeq,
+                    requestParams: RequestConverter.convertPage(state.albumPage),
+                };
+                const albumListInfo = await albumApi.getClubAlbumList(requestDto);
+                commit('addNextAlbumList', albumListInfo);
+            },
+        );
     },
 
     async requestAlbumCommentWrite({ _ }, albumCommentWriteInfo) {
-        return actionsNormalTemplate(async () => {
-            await albumApi.postClubAlbumCommentWrite(albumCommentWriteInfo);
-        });
+        return actionsNormalTemplate(
+            async () => {
+                await albumApi.postClubAlbumCommentWrite(albumCommentWriteInfo);
+            },
+        );
     },
 
     async requestFirstAlbumCommentList({ commit, state }, albumCommentRequestInfo) {
-        return actionsNormalTemplate(async () => {
-            commit('initAlbumCommentList');
-            const requestDto = {
-                ...albumCommentRequestInfo,
-                requestParams: RequestConverter.convertPage(state.albumCommentPage),
-            };
-            const albumListInfo = await albumApi.getClubAlbumCommentList(requestDto);
-            commit('setAlbumCommentList', albumListInfo);
-        });
+        return actionsNormalTemplate(
+            async () => {
+                commit('initAlbumCommentList');
+                const requestDto = {
+                    ...albumCommentRequestInfo,
+                    requestParams: RequestConverter.convertPage(state.albumCommentPage),
+                };
+                const albumListInfo = await albumApi.getClubAlbumCommentList(requestDto);
+                commit('setAlbumCommentList', albumListInfo);
+            },
+        );
     },
 
     async requestNextAlbumCommentList({ commit, state }, albumCommentRequestInfo) {
-        return actionsNormalTemplate(async () => {
-            const requestDto = {
-                ...albumCommentRequestInfo,
-                requestParams: RequestConverter.convertPage(state.albumCommentPage),
-            };
-            const albumListInfo = await albumApi.getClubAlbumCommentList(requestDto);
-            commit('addNextAlbumCommentList', albumListInfo);
-        });
+        return actionsNormalTemplate(
+            async () => {
+                const requestDto = {
+                    ...albumCommentRequestInfo,
+                    requestParams: RequestConverter.convertPage(state.albumCommentPage),
+                };
+                const albumListInfo = await albumApi.getClubAlbumCommentList(requestDto);
+                commit('addNextAlbumCommentList', albumListInfo);
+            },
+        );
     },
 
     async requestAllAlbumCommentListWithPaging({ commit, state }, albumCommentRequestInfo) {
@@ -150,6 +165,24 @@ const actions = {
             requestCommentListRecursive();
         };
         return actionsNormalTemplate(async () => requestCommentListRecursive());
+    },
+
+    async requestApplyLikeClubAlbum({ commit }, seqInfo) {
+        return actionsNormalTemplate(
+            async () => {
+                const { likeCnt } = await albumApi.postLikeClubAlbum(seqInfo);
+                commit('changeAlbumLike', { likeCnt, isLike: true });
+            },
+        );
+    },
+
+    async requestDeleteLikeClubAlbum({ commit }, seqInfo) {
+        return actionsNormalTemplate(
+            async () => {
+                const { likeCnt } = await albumApi.deleteLikeClubAlbum(seqInfo);
+                commit('changeAlbumLike', { likeCnt, isLike: false });
+            },
+        );
     },
 };
 
