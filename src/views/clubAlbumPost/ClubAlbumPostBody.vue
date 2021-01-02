@@ -20,8 +20,11 @@
         </div>
         <MiddleDivider :height="2" />
         <div class="d-flex pa-3">
-            <v-btn outlined
+            <v-btn v-if="!album.isLike"
+                   outlined
                    small
+                   color="#2196f3"
+                   @click="requestApplyLike"
             >
                 <v-icon left
                         small
@@ -30,10 +33,22 @@
                 </v-icon>
                 <span class="f-09">좋아요</span>
             </v-btn>
+            <v-btn v-else
+                   outlined
+                   small
+                   @click="requestDeleteLike"
+            >
+                <v-icon left
+                        small
+                >
+                    mdi-heart
+                </v-icon>
+                <span class="f-09">좋아요 취소</span>
+            </v-btn>
             <v-spacer />
             <div class="d-lg-flex my-auto">
                 <div>
-                    <span class="like-count-text">1명</span>이 사진을 좋아합니다.
+                    <span class="like-count-text">{{ album.likeCnt }}명</span>이 사진을 좋아합니다.
                 </div>
             </div>
         </div>
@@ -93,10 +108,9 @@ export default {
         albumCommentList: () => gettersHelper.albumCommentList(),
         albumCommentPage: () => gettersHelper.albumCommentPage(),
         writer() {
-            console.log(this.album);
             return this.album.writer;
         },
-        requestDto() {
+        seqInfo() {
             return {
                 clubSeq: routerHelper.clubSeq(),
                 albumSeq: routerHelper.albumSeq(),
@@ -113,13 +127,13 @@ export default {
     },
     methods: {
         fetchFirstPage() {
-            return actionsHelper.requestFirstAlbumCommentList(this.requestDto);
+            return actionsHelper.requestFirstAlbumCommentList(this.seqInfo);
         },
         fetchNextPage() {
-            return actionsHelper.requestNextAlbumCommentList(this.requestDto);
+            return actionsHelper.requestNextAlbumCommentList(this.seqInfo);
         },
         callbackAfterCommentWrite() {
-            actionsHelper.requestAllAlbumCommentListWithPaging(this.requestDto)
+            actionsHelper.requestAllAlbumCommentListWithPaging(this.seqInfo)
                 .then(() => this.scrollToBottomWhenLastPage());
         },
         scrollToBottomWhenLastPage() {
@@ -128,6 +142,12 @@ export default {
                 return;
             }
             setTimeout(this.scrollToBottomWhenLastPage, 100);
+        },
+        requestApplyLike() {
+            actionsHelper.requestApplyLikeClubAlbum(this.seqInfo);
+        },
+        requestDeleteLike() {
+            actionsHelper.requestDeleteLikeClubAlbum(this.seqInfo);
         },
     },
 };
