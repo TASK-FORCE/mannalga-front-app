@@ -11,6 +11,10 @@ class AlbumApi {
     postClubAlbumCreate({ clubSeq, clubAlbumCreateDto }) {
         return axios.post(`/api/club/${clubSeq}/album`, clubAlbumCreateDto);
     }
+
+    postClubAlbumCommentWrite({ clubSeq, albumSeq, albumCommentWriteDto }) {
+        return axios.post(`/api/club/${clubSeq}/album/${albumSeq}/comment`, albumCommentWriteDto);
+    }
 }
 
 const albumApi = new AlbumApi();

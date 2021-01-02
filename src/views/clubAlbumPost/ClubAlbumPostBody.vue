@@ -40,8 +40,8 @@
         <MiddleDivider :height="2" />
 
         <div class="px-1 h-100">
-            <div v-for="comment in comments"
-                 :key="comment"
+            <div v-for="(comment, index) in comments"
+                 :key="index"
             >
                 <Comment :myComment="comment" />
             </div>

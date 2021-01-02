@@ -65,6 +65,12 @@ const actions = {
             commit('addNextAlbumList', albumListInfo);
         });
     },
+
+    async requestAlbumCommentWrite({ _ }, albumCommentWriteInfo) {
+        return actionsNormalTemplate(async () => {
+            await albumApi.postClubAlbumCommentWrite(albumCommentWriteInfo);
+        });
+    },
 };
 
 export default {
