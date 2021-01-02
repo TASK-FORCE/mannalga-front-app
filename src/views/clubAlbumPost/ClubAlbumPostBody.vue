@@ -4,7 +4,7 @@
             <UserProfileAvatar :size="40"
                                :imgUrl="writer.imgUrl"
                                :name="writer.name"
-                               :appendNumber="writer.writerSeq"
+                               :appendNumber="writer.writerUserSeq"
             />
             <div class="ml-2">
                 <div class="album-title">{{ album.title }}</div>
@@ -93,6 +93,7 @@ export default {
         albumCommentList: () => gettersHelper.albumCommentList(),
         albumCommentPage: () => gettersHelper.albumCommentPage(),
         writer() {
+            console.log(this.album);
             return this.album.writer;
         },
         requestDto() {

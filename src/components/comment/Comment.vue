@@ -3,7 +3,7 @@
         <div class="py-1 mr-2">
             <UserProfileAvatar :size="40"
                                :name="comment.writer"
-                               :appendNumber="comment.writeClubUserSeq"
+                               :appendNumber="comment.writerSeq"
                                :imgUrl="comment.imgUrl"
             />
         </div>
