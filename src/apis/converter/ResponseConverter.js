@@ -61,6 +61,12 @@ export default class ResponseConverter {
         return { albumList, albumPage };
     };
 
+    static convertAlbumCommentList = (data) => {
+        const albumCommentList = data.content;
+        const albumCommentPage = this.convertPage(data);
+        return { albumCommentList, albumCommentPage };
+    };
+
     static convertPage = ({ pageable, last, size }) => {
         const currentPage = pageable.pageNumber;
         const nextPage = currentPage + 1;

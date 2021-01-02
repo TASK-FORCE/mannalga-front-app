@@ -14,6 +14,7 @@ const MESSAGE = {
     SUCCESS_APPLY_MEETING_APPLICATION: '만남 신청 성공!',
     SUCCESS_CANCEL_MEETING_APPLICATION: '만남 취소 성공!',
     SELECT_INTEREST_OVER_COUNT: '관심사는 최대 5개까지 선택할 수 있습니다.',
+    EMPTY_COMMENT_TEXT: '댓글을 작성해주세요.',
 };
 
 const COLOR = {
@@ -39,6 +40,7 @@ const RULES = {
     CLUB_ALBUM_TITLE: [v => !!v || '사진 제목을 작성해주세요.'],
     DATE: [v => !!v || '날짜을 지정해주세요.'],
     TIME: [v => !!v || '시간를 지정해주세요.'],
+    COMMENT: [v => !!v || '댓글을 작성해주세요.'],
 };
 
 const CLUB_ROLE = {

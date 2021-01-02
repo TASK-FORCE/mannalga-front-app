@@ -4,7 +4,7 @@
             <UserProfileAvatar :size="40"
                                :imgUrl="writer.imgUrl"
                                :name="writer.name"
-                               :appendNumber="writer.writerUserSeq"
+                               :appendNumber="writer.writerSeq"
             />
             <div class="ml-2">
                 <div class="album-title">{{ album.title }}</div>
@@ -40,14 +40,23 @@
         <MiddleDivider :height="2" />
 
         <div class="px-1 h-100">
-            <div v-for="comment in comments"
-                 :key="comment"
+            <InfiniteScrollTemplate name="album-comment"
+                                    :firstPageCallback="fetchFirstPage"
+                                    :nextPageCallback="fetchNextPage"
+                                    :pageElements="albumCommentList"
+                                    :pageInfo="albumCommentPage"
+                                    :withListGroup="false"
             >
-                <Comment :myComment="comment" />
-            </div>
+                <template v-slot:list-main>
+                    <div v-for="(comment, index) in albumCommentList"
+                         :key="index"
+                    >
+                        <Comment :comment="comment" />
+                    </div>
+                </template>
+            </InfiniteScrollTemplate>
         </div>
-
-        <CommentWriteFooter />
+        <CommentWriteFooter :postProcessor="callbackAfterCommentWrite" />
     </div>
 </template>
 
@@ -58,10 +67,22 @@ import ImageWithDialog from '@/components/image/ImageWithDialog.vue';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import Comment from '@/components/comment/Comment.vue';
 import CommentWriteFooter from '@/components/comment/CommentWriteFooter.vue';
+import InfiniteScrollTemplate from '@/components/InfiniteScrollTemplate.vue';
+import actionsHelper from '@/store/helper/ActionsHelper.js';
+import routerHelper from '@/router/RouterHelper.js';
+import mutationsHelper from '@/store/helper/MutationsHelper.js';
+import ScrollHelper from '@/utils/scroll/ScrollHelper.js';
 
 export default {
     name: 'ClubAlbumPostBody',
-    components: { CommentWriteFooter, Comment, ImageWithDialog, MiddleDivider, UserProfileAvatar },
+    components: {
+        InfiniteScrollTemplate,
+        CommentWriteFooter,
+        Comment,
+        ImageWithDialog,
+        MiddleDivider,
+        UserProfileAvatar,
+    },
     data() {
         return {
             comments: [false, true, false, true, false, false],
@@ -69,14 +90,44 @@ export default {
     },
     computed: {
         album: () => gettersHelper.album(),
+        albumCommentList: () => gettersHelper.albumCommentList(),
+        albumCommentPage: () => gettersHelper.albumCommentPage(),
         writer() {
             return this.album.writer;
+        },
+        requestDto() {
+            return {
+                clubSeq: routerHelper.clubSeq(),
+                albumSeq: routerHelper.albumSeq(),
+            };
         },
     },
     mounted() {
         if (!this.album.imgUrl) {
             this.$router.back();
         }
+    },
+    beforeDestroy() {
+        mutationsHelper.initAlbumCommentList();
+    },
+    methods: {
+        fetchFirstPage() {
+            return actionsHelper.requestFirstAlbumCommentList(this.requestDto);
+        },
+        fetchNextPage() {
+            return actionsHelper.requestNextAlbumCommentList(this.requestDto);
+        },
+        callbackAfterCommentWrite() {
+            actionsHelper.requestAllAlbumCommentListWithPaging(this.requestDto)
+                .then(() => this.scrollToBottomWhenLastPage());
+        },
+        scrollToBottomWhenLastPage() {
+            if (this.albumCommentPage.isLastPage) {
+                ScrollHelper.scrollToBottom();
+                return;
+            }
+            setTimeout(this.scrollToBottomWhenLastPage, 100);
+        },
     },
 };
 </script>

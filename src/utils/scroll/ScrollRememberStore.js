@@ -1,6 +1,6 @@
 import { LocalCache } from '@/utils/common/LocalCache.js';
 
-class ScrollHelper {
+class ScrollRememberStore {
     constructor() {
         this.scrollYCache = new LocalCache(100);
     }
@@ -18,5 +18,5 @@ class ScrollHelper {
     }
 }
 
-const scrollHelper = new ScrollHelper();
-export default scrollHelper;
+const scrollRememberStore = new ScrollRememberStore();
+export default scrollRememberStore;
