@@ -27,11 +27,26 @@
                             label="내용을 작성해주세요."
                             outlined
                 ></v-textarea>
-                <v-select :items="maximumNumberList"
-                          :rules="RULES.CLUB_MEETING_MAXIMUM_NUMBER"
-                          class="px-10 pt-2"
-                          label="만남 최대 인원"
-                          @change="value => this.maximumNumber = value"
+                <div class="d-flex">
+                    <v-text-field v-model="cost"
+                                  :rules="RULES.COST"
+                                  label="비용"
+                                  prepend-icon="mdi-cash-usd"
+                                  class="pr-3"
+                                  @focus="costFocus"
+                                  @focusout="costFocusout"
+                    />
+                    <v-text-field v-model="region"
+                                  label="만남 위치"
+                                  prepend-icon="mdi-map-marker"
+                                  class="pr-3"
+                    />
+                </div>
+                <v-text-field v-model="maximumNumber"
+                              :rules="RULES.CLUB_MEETING_MAXIMUM_NUMBER"
+                              label="만남 최대 인원(빈값: 제한 없음)"
+                              class="px-10"
+                              prepend-icon="mdi-account-group"
                 />
             </v-form>
             <CommonCenterBtn :loading="loading"
@@ -49,10 +64,11 @@
 import CommonCenterBtn from '@/components/button/CommonCenterBtn.vue';
 import DateTimePicker from '@/components/DateTimePicker.vue';
 import moment from 'moment';
-import { MEETING_MAXIMUM_NUMBER_LIST, RULES } from '@/utils/common/constant/constant.js';
+import { RULES } from '@/utils/common/constant/constant.js';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
 import routerHelper from '@/router/RouterHelper.js';
 import { generateParamPath, PATH } from '@/router/route_path_type.js';
+import { toCurrency } from '@/utils/common/utils.js';
 
 const toMoment = (localDate) => moment(`${localDate.date} ${localDate.time}`.trim());
 const toTimeStamp = (localDate) => `${localDate.date} ${localDate.time}:00`;
@@ -80,11 +96,12 @@ export default {
     data() {
         return {
             RULES,
-            maximumNumberList: MEETING_MAXIMUM_NUMBER_LIST,
             loading: false,
             title: null,
             content: null,
             maximumNumber: null,
+            cost: null,
+            region: null,
             startDateTime: { date: this.today(), time: '' },
             endDateTime: { date: this.today(), time: '' },
         };
@@ -119,26 +136,45 @@ export default {
         click() {
             if (this.$refs.clubMeetingCreateForm.validate()) {
                 this.loading = true;
-                actionsHelper.requestMeetingCreate(this.buildRequestDto())
-                    .then(() => this.$router.push(generateParamPath(PATH.CLUB.MAIN, routerHelper.clubSeq())))
+                const clubMeetingCreateInfo = {
+                    clubMeetingCreateDto: {
+                        title: this.title,
+                        content: this.content,
+                        maximumNumber: this.maximumNumber,
+                        startTimestamp: toTimeStamp(this.startDateTime),
+                        endTimestamp: toTimeStamp(this.endDateTime),
+                        cost: this.cost ? toNumber(this.cost) : this.cost,
+                        region: this.region,
+                    },
+                    clubSeq: routerHelper.clubSeq(),
+                };
+                actionsHelper.requestMeetingCreate(clubMeetingCreateInfo)
+                    .then(() => {
+                        actionsHelper.requestFirstMeetingList(clubMeetingCreateInfo.clubSeq);
+                        this.$router.push(generateParamPath(PATH.CLUB.MAIN, routerHelper.clubSeq()));
+                    })
                     .finally(this.loading = false);
             }
         },
-        buildRequestDto() {
-            const clubMeetingCreateDto = {
-                title: this.title,
-                content: this.content,
-                maximumNumber: this.maximumNumber,
-                startTimestamp: toTimeStamp(this.startDateTime),
-                endTimestamp: toTimeStamp(this.endDateTime),
-            };
-            return {
-                clubMeetingCreateDto,
-                clubSeq: routerHelper.clubSeq(),
-            };
+        costFocus() {
+            if (this.cost) {
+                this.cost = toNumber(this.cost);
+            }
+        },
+        costFocusout() {
+            if (this.cost) {
+                this.cost = toCurrency(toNumber(this.cost));
+            }
         },
     },
 };
+
+function toNumber(value) {
+    if (typeof value === 'string') {
+        return value.replaceAll(',', '');
+    }
+    return value;
+}
 </script>
 
 <style lang="scss"
