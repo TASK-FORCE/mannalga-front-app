@@ -35,6 +35,7 @@ module.exports = {
             'camelcase',
             'lines-between-class-members',
             'class-methods-use-this',
+            'no-restricted-globals',
         ]),
         'no-plusplus': ['error', { 'allowForLoopAfterthoughts': true }],
         'no-shadow': ['error', { 'allow': ['state'] }],

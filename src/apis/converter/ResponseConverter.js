@@ -1,4 +1,5 @@
 import defaultBuilder from '@/store/utils/DefaultBuilder.js';
+import { toCurrency } from '@/utils/common/utils.js';
 
 /** ResponseConverter
  *  - 백엔드 서버에서 전달받은 response를 converting
@@ -91,19 +92,31 @@ const mapUserRegion = ({ priority, region }) => ({
     },
 });
 
-const mapMeeting = (meeting) => ({
-    seq: meeting.seq,
-    title: meeting.title,
-    content: meeting.content,
-    startTime: meeting.startTimestamp.substring(0, 16),
-    endTime: meeting.endTimestamp.substring(0, 16),
-    isRegistered: meeting.isCurrentUserApplicationMeeting,
-    isCreator: meeting.isCurrentUserRegMeeting,
-    maximumNumber: meeting.maximumNumber,
-    registerUser: meeting.regClubUser,
-    applicationUsers: meeting.meetingApplications.map(({ userInfo }) => ({
-        seq: userInfo.userSeq,
-        name: userInfo.userName,
-        imgUrl: userInfo.profileImageLink,
-    })),
-});
+const mapMeeting = (meeting) => {
+    const registerNumber = meeting.meetingApplications.length;
+    const { maximumNumber } = meeting;
+    let numberInfoText = registerNumber;
+    if (maximumNumber) {
+        numberInfoText = `${numberInfoText}/${maximumNumber}`;
+    }
+    return {
+        seq: meeting.seq,
+        title: meeting.title,
+        content: meeting.content,
+        startTime: meeting.startTimestamp.substring(0, 16),
+        endTime: meeting.endTimestamp.substring(0, 16),
+        isRegistered: meeting.isCurrentUserApplicationMeeting,
+        isCreator: meeting.isCurrentUserRegMeeting,
+        registerUser: meeting.regClubUser,
+        cost: toCurrency(meeting.cost),
+        region: meeting.region,
+        registerNumber,
+        maximumNumber,
+        numberInfoText,
+        applicationUsers: meeting.meetingApplications.map(({ userInfo }) => ({
+            seq: userInfo.userSeq,
+            name: userInfo.userName,
+            imgUrl: userInfo.profileImageLink,
+        })),
+    };
+};

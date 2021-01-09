@@ -19,15 +19,15 @@
                         <div class="d-flex px-3">
                         <span class="f-07 flex-grow-1">
                             <v-icon small>mdi-cash-usd</v-icon>
-                            미정
+                            {{ meeting.cost ? meeting.cost : '미정' }}
                         </span>
                             <span class="f-07 flex-grow-1">
                             <v-icon small>mdi-map-marker</v-icon>
-                            미정
+                            {{ meeting.region ? meeting.region : '미정' }}
                         </span>
                             <span class="f-07">
                            <v-icon small>mdi-account-multiple</v-icon>
-                            1/{{ meeting.maximumNumber }}
+                            {{ meeting.numberInfoText }}
                         </span>
                         </div>
                     </div>

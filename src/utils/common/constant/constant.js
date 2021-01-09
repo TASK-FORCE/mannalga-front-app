@@ -1,4 +1,6 @@
 import { createClubMaximumNumberList } from '@/utils/common/constant/constantUtils.js';
+import _ from '@/utils/common/lodashWrapper.js';
+import { isNumeric } from '@/utils/common/utils.js';
 
 const MESSAGE = {
     LOGIN_FAIL: '로그인에 실패했습니다. 다시 한번 더 시도해주세요.',
@@ -36,8 +38,29 @@ const RULES = {
     CLUB_BOARD_TITLE: [v => !!v || '게시글 제목을 작성해주세요.'],
     CLUB_BOARD_CONTENT: [v => !!v || '게시글 내용을 작성해주세요.'],
     CLUB_MEETING_TITLE: [v => !!v || '만남 제목을 작성해주세요.'],
-    CLUB_MEETING_MAXIMUM_NUMBER: [v => !!v || '만남 최대인원을 작성해주세요.'],
+    CLUB_MEETING_MAXIMUM_NUMBER: [v => {
+        if (_.isEmpty(v)) return true;
+        if (!isNumeric(v)) {
+            return '숫자를 입력해주세요.';
+        }
+        const number = parseInt(v, 10);
+        if (number < 2) {
+            return '만남 최대 인원은 2명 이상으로 입력해주세요.';
+        }
+        if (number > 999) {
+            return '만남 최대 인원은 999명 이하로 입력해주세요.';
+        }
+        return true;
+    }],
     CLUB_ALBUM_TITLE: [v => !!v || '사진 제목을 작성해주세요.'],
+    COST: [v => {
+        if (_.isEmpty(v)) return true;
+        const number = v.replaceAll(',', '');
+        if (!isNumeric(number)) {
+            return '숫자를 입력해주세요.';
+        }
+        return true;
+    }],
     DATE: [v => !!v || '날짜을 지정해주세요.'],
     TIME: [v => !!v || '시간를 지정해주세요.'],
     COMMENT: [v => !!v || '댓글을 작성해주세요.'],
@@ -50,6 +73,5 @@ const CLUB_ROLE = {
 };
 
 const CLUB_MAXIMUM_NUMBER_LIST = createClubMaximumNumberList(10, 100, 10);
-const MEETING_MAXIMUM_NUMBER_LIST = createClubMaximumNumberList(10, 100, 5);
 
-export { MESSAGE, COLOR, CLUB_MAXIMUM_NUMBER_LIST, MEETING_MAXIMUM_NUMBER_LIST, RULES, CLUB_ROLE };
+export { MESSAGE, COLOR, CLUB_MAXIMUM_NUMBER_LIST, RULES, CLUB_ROLE };

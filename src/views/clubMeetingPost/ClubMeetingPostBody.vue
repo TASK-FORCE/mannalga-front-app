@@ -30,11 +30,11 @@
             <div class="d-flex px-3 justify-center">
                 <div class="f-09">
                     <v-icon color="green">mdi-cash-usd</v-icon>
-                    미정
+                    {{ meeting.cost ? meeting.cost : '미정' }}
                 </div>
                 <div class="f-09 ml-5">
                     <v-icon color="blue">mdi-map-marker</v-icon>
-                    미정
+                    {{ meeting.region ? meeting.region : '미정' }}
                 </div>
             </div>
         </div>
@@ -47,7 +47,7 @@
                     >mdi-account-multiple
                     </v-icon>
                     모임 신청 현황
-                    (1/{{ meeting.maximumNumber }})
+                    ({{ meeting.numberInfoText }})
                 </div>
                 <v-spacer />
                 <v-btn v-if="!meeting.isRegistered"
