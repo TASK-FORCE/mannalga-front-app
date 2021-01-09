@@ -22,6 +22,18 @@
                     </v-icon>
                 </v-btn>
             </div>
+            <div class="text-center mt-5">
+                <v-btn class="mx-auto font-weight-bold black--text"
+                       color="green"
+                       :loading="loading"
+                       @click="$router.push(PATH.BACKDOOR_LOGIN)"
+                >
+                    Backdoor Login
+                    <v-icon right>
+                        mdi-facebook-messenger
+                    </v-icon>
+                </v-btn>
+            </div>
         </div>
     </v-container>
 </template>
@@ -33,12 +45,14 @@ import { PATH } from '@/router/route_path_type.js';
 import mutationsHelper from '@/store/helper/MutationsHelper.js';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
+import { removeAppTokenToLocalStorage } from '@/utils/auth/authUtils.js';
 
 export default {
     name: 'LoginPage',
     data() {
         return {
             loading: false,
+            PATH,
         };
     },
     computed: {
@@ -58,8 +72,13 @@ export default {
         }
 
         if (this.hasToken) {
-            actionsHelper.requestCheckIsMember()
-                .then(isMember => this.$router.push(isMember ? PATH.CLUB_LIST : PATH.REGISTER.PROFILE));
+            if (localStorage.getItem('backdoor') === 'true') {
+                localStorage.removeItem('appToken');
+                localStorage.removeItem('backdoor');
+            } else {
+                actionsHelper.requestCheckIsMember()
+                    .then(isMember => this.$router.push(isMember ? PATH.CLUB_LIST : PATH.REGISTER.PROFILE));
+            }
         }
 
         if (this.code) {

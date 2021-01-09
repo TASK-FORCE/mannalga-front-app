@@ -2,6 +2,7 @@ import _ from '@/utils/common/lodashWrapper.js';
 
 export const PATH = {
     LOGIN: '/login',
+    BACKDOOR_LOGIN: '/backdoor',
     CLUB_LIST: '/clubList',
     SELECT_REGION: '/select/region',
     REGISTER: {
