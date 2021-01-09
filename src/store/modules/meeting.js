@@ -35,13 +35,13 @@ const mutations = {
         state.meetingPage = defaultBuilder.buildPage();
     },
 
-    changeIsRegistered(state, { meetingSeq, value }) {
+    changeMeetingApplicationsStatus(state, { meetingSeq, newStatus }) {
         const meetingSeqNum = parseInt(meetingSeq, 10);
         state.meetingList = state.meetingList.map(meeting => {
             if (meeting.seq === meetingSeqNum) {
                 return {
                     ...meeting,
-                    isRegistered: value,
+                    ...newStatus,
                 };
             }
             return meeting;
@@ -49,7 +49,7 @@ const mutations = {
         if (state.meeting.seq === meetingSeqNum) {
             state.meeting = {
                 ...state.meeting,
-                isRegistered: value,
+                ...newStatus,
             };
         }
     },
@@ -57,59 +57,76 @@ const mutations = {
 
 const actions = {
     async requestMeetingCreate({ _ }, clubMeetingCreateInfo) {
-        return actionsNormalTemplate(async () => {
-            await meetingApi.postClubMeetingCreate(clubMeetingCreateInfo);
-        });
+        return actionsNormalTemplate(
+            async () => {
+                await meetingApi.postClubMeetingCreate(clubMeetingCreateInfo);
+            },
+        );
     },
 
     async requestFirstMeetingList({ commit, state }, clubSeq) {
-        return actionsNormalTemplate(async () => {
-            commit('initMeetingList');
-            const requestDto = {
-                clubSeq,
-                requestParams: RequestConverter.convertPage(state.meetingPage),
-            };
-            const meetingListInfo = await meetingApi.getMeetingList(requestDto);
-            commit('setMeetingList', meetingListInfo);
-        });
+        return actionsNormalTemplate(
+            async () => {
+                commit('initMeetingList');
+                const requestDto = {
+                    clubSeq,
+                    requestParams: RequestConverter.convertPage(state.meetingPage),
+                };
+                const meetingListInfo = await meetingApi.getMeetingList(requestDto);
+                commit('setMeetingList', meetingListInfo);
+            },
+        );
     },
 
     async requestNextMeetingList({ commit, state }, clubSeq) {
-        return actionsNormalTemplate(async () => {
-            const requestDto = {
-                clubSeq,
-                requestParams: RequestConverter.convertPage(state.meetingPage),
-            };
-            const meetingListInfo = await meetingApi.getMeetingList(requestDto);
-            commit('addNextMeetingList', meetingListInfo);
-        });
+        return actionsNormalTemplate(
+            async () => {
+                const requestDto = {
+                    clubSeq,
+                    requestParams: RequestConverter.convertPage(state.meetingPage),
+                };
+                const meetingListInfo = await meetingApi.getMeetingList(requestDto);
+                commit('addNextMeetingList', meetingListInfo);
+            },
+        );
     },
 
     async requestMeeting({ commit }, clubAndMeetingSeq) {
-        return actionsLoadingTemplate(commit, async () => {
-            const meeting = await meetingApi.getMeeting(clubAndMeetingSeq);
-            commit('setMeeting', meeting);
-        });
+        return actionsLoadingTemplate(commit,
+            async () => {
+                const meeting = await meetingApi.getMeeting(clubAndMeetingSeq);
+                commit('setMeeting', meeting);
+            });
     },
 
-    async requestMeetingApplication({ commit }, meetingApplicationInfo) {
-        return actionsNormalTemplate(async () => {
-            await meetingApi.postMeetingApplication(meetingApplicationInfo);
-            commit('changeIsRegistered', {
-                meetingSeq: meetingApplicationInfo.meetingSeq,
-                value: true,
-            });
-        });
+    async requestMeetingApplication({ commit, dispatch }, meetingApplicationInfo) {
+        return actionsNormalTemplate(
+            async () => {
+                await meetingApi.postMeetingApplication(meetingApplicationInfo);
+                dispatch('requestMeetingApplicationStatus', meetingApplicationInfo);
+            },
+        );
     },
 
-    async requestCancelMeetingApplication({ commit }, meetingApplicationInfo) {
-        return actionsNormalTemplate(async () => {
-            await meetingApi.deleteMeetingApplication(meetingApplicationInfo);
-            commit('changeIsRegistered', {
-                meetingSeq: meetingApplicationInfo.meetingSeq,
-                value: false,
-            });
-        });
+    async requestCancelMeetingApplication({ commit, dispatch }, meetingApplicationInfo) {
+        return actionsNormalTemplate(
+            async () => {
+                await meetingApi.deleteMeetingApplication(meetingApplicationInfo);
+                dispatch('requestMeetingApplicationStatus', meetingApplicationInfo);
+            },
+        );
+    },
+
+    async requestMeetingApplicationStatus({ commit }, meetingApplicationInfo) {
+        return actionsNormalTemplate(
+            async () => {
+                const newStatus = await meetingApi.getMeetingApplicationStatus(meetingApplicationInfo);
+                commit('changeMeetingApplicationsStatus', {
+                    meetingSeq: meetingApplicationInfo.meetingSeq,
+                    newStatus,
+                });
+            },
+        );
     },
 };
 
