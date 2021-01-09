@@ -20,6 +20,11 @@ const routes = [
         component: () => import('@/views/login/LoginPage.vue'),
     },
     {
+        path: PATH.BACKDOOR_LOGIN,
+        name: 'BackdoorLogin',
+        component: () => import('@/views/login/BackdoorLoginPage.vue'),
+    },
+    {
         path: PATH.REGISTER.MAIN,
         name: 'Register',
         component: () => import('@/views/register/RegisterRootPage.vue'),

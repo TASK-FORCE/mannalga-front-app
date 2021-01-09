@@ -3,6 +3,9 @@ import { combineWithModuleName, createSnackbarOption } from '@/store/utils/vuexU
 import { MODULE } from '@/store/type/type.js';
 
 class MutationsHelper {
+    // auth
+    setAppToken = (payload) => commit(MODULE.AUTH, 'setAppToken', payload);
+
     // clubList module
     changeClubSearchRegion = (payload) => commit(MODULE.CLUB_LIST, 'changeClubSearchRegion', payload);
     changeClubSearchInterest = (payload) => commit(MODULE.CLUB_LIST, 'changeClubSearchInterest', payload);
