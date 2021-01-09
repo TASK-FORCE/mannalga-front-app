@@ -26,6 +26,12 @@ class MeetingApi {
     deleteMeetingApplication({ clubSeq, meetingSeq }) {
         return axios.delete(`/api/clubs/${clubSeq}/meetings/${meetingSeq}/applications`);
     }
+
+    getMeetingApplicationStatus({ clubSeq, meetingSeq }) {
+        return axios.get(`/api/clubs/${clubSeq}/meetings/${meetingSeq}/applications/status`)
+            .then(ResponseConverter.extractSuperInventionResponseData)
+            .then(ResponseConverter.convertMeetingApplicationStatus);
+    }
 }
 
 const meetingApi = new MeetingApi();

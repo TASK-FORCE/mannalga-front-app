@@ -56,6 +56,8 @@ export default class ResponseConverter {
 
     static convertMeeting = (data) => mapMeeting(data);
 
+    static convertMeetingApplicationStatus = (data) => mapMeetingApplicationStatus(data)
+
     static convertAlbumList = (data) => {
         const albumList = data.content;
         const albumPage = this.convertPage(data);
@@ -92,28 +94,34 @@ const mapUserRegion = ({ priority, region }) => ({
     },
 });
 
-const mapMeeting = (meeting) => {
-    const registerNumber = meeting.meetingApplications.length;
-    const { maximumNumber } = meeting;
+const mapMeeting = (meeting) => ({
+    seq: meeting.seq,
+    title: meeting.title,
+    content: meeting.content,
+    startTime: meeting.startTimestamp.substring(0, 16),
+    endTime: meeting.endTimestamp.substring(0, 16),
+    isRegistered: meeting.isCurrentUserApplicationMeeting,
+    isCreator: meeting.isCurrentUserRegMeeting,
+    registerUser: meeting.regClubUser,
+    cost: toCurrency(meeting.cost),
+    region: meeting.region,
+    ...mapMeetingApplicationStatus(meeting),
+});
+
+const mapMeetingApplicationStatus = (dto) => {
+    const registerNumber = dto.meetingApplications.length;
+    const { maximumNumber } = dto;
     let numberInfoText = registerNumber;
     if (maximumNumber) {
         numberInfoText = `${numberInfoText}/${maximumNumber}`;
     }
     return {
-        seq: meeting.seq,
-        title: meeting.title,
-        content: meeting.content,
-        startTime: meeting.startTimestamp.substring(0, 16),
-        endTime: meeting.endTimestamp.substring(0, 16),
-        isRegistered: meeting.isCurrentUserApplicationMeeting,
-        isCreator: meeting.isCurrentUserRegMeeting,
-        registerUser: meeting.regClubUser,
-        cost: toCurrency(meeting.cost),
-        region: meeting.region,
+        isRegistered: dto.isCurrentUserApplicationMeeting,
+        isCreator: dto.isCurrentUserRegMeeting,
         registerNumber,
         maximumNumber,
         numberInfoText,
-        applicationUsers: meeting.meetingApplications.map(({ userInfo }) => ({
+        applicationUsers: dto.meetingApplications.map(({ userInfo }) => ({
             seq: userInfo.userSeq,
             name: userInfo.userName,
             imgUrl: userInfo.profileImageLink,
