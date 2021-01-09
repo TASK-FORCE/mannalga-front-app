@@ -10,16 +10,21 @@
             <!--            <div class="description">{{ description }}</div>-->
         </div>
         <v-spacer />
-        <slot name="tag" />
+        <div v-if="user.role">
+            <RoleChip :role="user.role"
+                      large
+            />
+        </div>
     </div>
 </template>
 
 <script>
 import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
+import RoleChip from '@/components/role/RoleChip.vue';
 
 export default {
     name: 'SimpleUserProfile',
-    components: { UserProfileAvatar },
+    components: { RoleChip, UserProfileAvatar },
     props: {
         user: {
             type: Object,
