@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="!loading">
         <div class="d-flex px-2 mt-3">
             <UserProfileAvatar :size="40"
                                :imgUrl="writer.imgUrl"
@@ -107,6 +107,7 @@ export default {
         album: () => gettersHelper.album(),
         albumCommentList: () => gettersHelper.albumCommentList(),
         albumCommentPage: () => gettersHelper.albumCommentPage(),
+        loading: () => gettersHelper.isLoading(),
         writer() {
             return this.album.writer;
         },
@@ -117,10 +118,9 @@ export default {
             };
         },
     },
-    mounted() {
-        if (!this.album.imgUrl) {
-            this.$router.back();
-        }
+    created() {
+        actionsHelper.requestAlbum(this.seqInfo)
+            .catch(() => this.$router.back());
     },
     beforeDestroy() {
         mutationsHelper.initAlbumCommentList();

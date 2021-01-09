@@ -1,4 +1,4 @@
-import { actionsNormalTemplate } from '@/store/utils/actionsTemplate.js';
+import { actionsLoadingTemplate, actionsNormalTemplate } from '@/store/utils/actionsTemplate.js';
 import albumApi from '@/apis/AlbumApi.js';
 import RequestConverter from '@/store/converter/requestConverter.js';
 import defaultBuilder from '@/store/utils/DefaultBuilder.js';
@@ -66,8 +66,11 @@ const mutations = {
     },
 
     changeAlbumLike(state, { likeCnt, isLike }) {
-        state.album.likeCnt = likeCnt;
-        state.album.isLike = isLike;
+        state.album = {
+            ...state.album,
+            likeCnt,
+            isLike,
+        };
     },
 };
 
@@ -76,6 +79,16 @@ const actions = {
         return actionsNormalTemplate(
             async () => {
                 await albumApi.postClubAlbumCreate(clubAlbumCreateInfo);
+            },
+        );
+    },
+
+    async requestAlbum({ commit }, seqInfo) {
+        return actionsLoadingTemplate(
+            commit,
+            async () => {
+                const album = await albumApi.getClubAlbum(seqInfo);
+                commit('setAlbum', album);
             },
         );
     },
