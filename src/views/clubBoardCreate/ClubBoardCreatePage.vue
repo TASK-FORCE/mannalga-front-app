@@ -1,6 +1,6 @@
 <template>
     <div>
-        <CommonHeader title="글쓰기"
+        <CommonHeader title="게시글 작성"
                       @click="$router.push(clubPath)"
         />
         <ClubBoardCreatePageBody />

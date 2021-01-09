@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper">
+    <div class="board-create-container">
         <v-form ref="clubBoardCreateForm"
                 class="field-wrapper"
         >
@@ -10,15 +10,15 @@
             />
             <v-textarea v-model="clubBoardCreateInfo.content"
                         class="mt-2"
+                        height="300"
                         :rules="RULES.CLUB_BOARD_CONTENT"
                         label="내용을 작성해주세요."
                         outlined
             ></v-textarea>
         </v-form>
-        <div class="image-box-wrapper d-flex">
+        <div class="image-box-wrapper">
             <div v-for="(_, index) in enableImageSize"
                  :key="index"
-                 class="float-left"
             >
                 <ImageSelectBox class="image-box"
                                 height="80"
@@ -33,13 +33,6 @@
                          text="작성 완료"
                          @click="createClubBoard"
         />
-
-        <v-btn color="primary"
-               dark
-               @click="dialogOpen = true"
-        >
-            Open Dialog
-        </v-btn>
     </div>
 </template>
 
@@ -66,7 +59,6 @@ export default {
                 isNotifiable: false, // 존재 이유 파악하기
                 imgList: [],
             },
-            dialogOpen: true,
             imgPath: 'https://super-invention-static.s3.ap-northeast-2.amazonaws.com/temp/img/20201127015224-0c427f9f-124b-468b-aab0-101b15324995-test.png',
         };
     },
@@ -94,41 +86,20 @@ export default {
 <style lang="scss"
        scoped
 >
-.wrapper {
-    padding: 0 1rem;
-
-    .field-wrapper {
-        margin-top: 2rem;
-    }
+.board-create-container {
+    padding-top: 1.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
 
     .image-box-wrapper {
-        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
 
         .image-box {
             display: inline-block;
             margin-right: 10px;
             width: 80px;
         }
-    }
-}
-
-.image-dialog-box {
-    background-color: #0d47a1;
-
-    .image-dialog-btn-wrapper {
-        text-align: center;
-        padding: 5px;
-    }
-
-    .image-dialog-sheet {
-        position: relative;
-    }
-
-    .image-dialog-sheet__image {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
     }
 }
 </style>

@@ -25,6 +25,7 @@
         </v-card>
         <FixedCreateBtn color="blue"
                         :path="clubBoardCreate"
+                        left
         />
     </div>
 </template>

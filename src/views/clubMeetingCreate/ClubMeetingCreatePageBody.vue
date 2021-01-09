@@ -1,62 +1,61 @@
 <template>
-    <div class="club-meeting-create-page-body">
-        <div class="wrapper">
-            <v-form ref="clubMeetingCreateForm"
-            >
-                <v-text-field v-model="title"
-                              :rules="RULES.CLUB_MEETING_TITLE"
-                              class="pa-0"
-                              label="만남 제목"
-                />
-                <DateTimePicker :dateTime="startDateTime"
-                                :minDate="today()"
-                                dateLabel="시작날짜"
-                                timeLabel="시작시간"
-                                @changeDateTime="changeStartDateTime"
-                />
-                <DateTimePicker :dateTime="endDateTime"
-                                :minDate="this.startDateTime.date || today()"
-                                :minTime="endDateMinTime"
-                                dateLabel="종료날짜"
-                                timeLabel="종료시간"
-                                @changeDateTime="changeEndDateTime"
-                />
-                <v-textarea v-model="content"
-                            :rules="RULES.EMPTY_RULE"
-                            class="mt-2 club-meeting-create-page-body__content"
-                            label="내용을 작성해주세요."
-                            outlined
-                ></v-textarea>
-                <div class="d-flex">
-                    <v-text-field v-model="cost"
-                                  :rules="RULES.COST"
-                                  label="비용"
-                                  prepend-icon="mdi-cash-usd"
-                                  class="pr-3"
-                                  @focus="costFocus"
-                                  @focusout="costFocusout"
-                    />
-                    <v-text-field v-model="region"
-                                  label="만남 위치"
-                                  prepend-icon="mdi-map-marker"
-                                  class="pr-3"
-                    />
-                </div>
-                <v-text-field v-model="maximumNumber"
-                              :rules="RULES.CLUB_MEETING_MAXIMUM_NUMBER"
-                              label="만남 최대 인원(빈값: 제한 없음)"
-                              class="px-10"
-                              prepend-icon="mdi-account-group"
-                />
-            </v-form>
-            <CommonCenterBtn :loading="loading"
-                             class="mt-3"
-                             color="primary"
-                             outlined
-                             text="만남 생성"
-                             @click="click"
+    <div class="meeting-create-container">
+        <v-form ref="clubMeetingCreateForm"
+        >
+            <v-text-field v-model="title"
+                          :rules="RULES.CLUB_MEETING_TITLE"
+                          class="pa-0"
+                          label="만남 제목"
             />
-        </div>
+            <DateTimePicker :dateTime="startDateTime"
+                            :minDate="today()"
+                            dateLabel="시작날짜"
+                            timeLabel="시작시간"
+                            @changeDateTime="changeStartDateTime"
+            />
+            <DateTimePicker :dateTime="endDateTime"
+                            :minDate="this.startDateTime.date || today()"
+                            :minTime="endDateMinTime"
+                            dateLabel="종료날짜"
+                            timeLabel="종료시간"
+                            @changeDateTime="changeEndDateTime"
+            />
+            <v-textarea v-model="content"
+                        :rules="RULES.EMPTY_RULE"
+                        class="mt-2 club-meeting-create-page-body__content"
+                        label="내용을 작성해주세요."
+                        hide-details
+                        outlined
+            ></v-textarea>
+            <div class="d-flex">
+                <v-text-field v-model="cost"
+                              :rules="RULES.COST"
+                              label="비용"
+                              prepend-icon="mdi-cash-usd"
+                              class="pr-3"
+                              @focus="costFocus"
+                              @focusout="costFocusout"
+                />
+                <v-text-field v-model="region"
+                              label="만남 위치"
+                              prepend-icon="mdi-map-marker"
+                              class="pr-3"
+                />
+            </div>
+            <v-text-field v-model="maximumNumber"
+                          :rules="RULES.CLUB_MEETING_MAXIMUM_NUMBER"
+                          label="만남 최대 인원(빈값: 제한 없음)"
+                          class="px-10"
+                          prepend-icon="mdi-account-group"
+            />
+        </v-form>
+        <CommonCenterBtn :loading="loading"
+                         class="mt-3"
+                         color="primary"
+                         outlined
+                         text="만남 생성"
+                         @click="click"
+        />
     </div>
 </template>
 
@@ -180,9 +179,9 @@ function toNumber(value) {
 <style lang="scss"
        scoped
 >
-.wrapper {
+.meeting-create-container {
+    padding-top: 1.5rem;
     padding-left: 1rem;
     padding-right: 1rem;
-    padding-top: 1rem;
 }
 </style>
