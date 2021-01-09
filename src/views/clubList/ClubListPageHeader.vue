@@ -63,6 +63,11 @@ export default {
             this.searchText = this.clubSearchFilterInfo.searchText;
         },
     },
+    mounted() {
+        if (process.env.NODE_ENV !== 'production') {
+            this.searchText = '테스트 18';
+        }
+    },
     methods: {
         moveToUserSettings() {
             this.$router.push(PATH.USER.SETTINGS);

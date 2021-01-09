@@ -28,6 +28,7 @@
         <AlbumImageCreateDialog v-model="isOpenImageRegisterDialog" />
         <FixedCreateBtn v-if="canCreateAlbum"
                         color="green"
+                        left
                         @click="isOpenImageRegisterDialog = true"
         />
         <FixedScrollToTopBtn color="red" />

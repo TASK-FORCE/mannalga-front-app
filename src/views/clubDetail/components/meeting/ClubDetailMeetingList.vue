@@ -23,7 +23,7 @@
         <FixedCreateBtn v-if="canCreateMeeting"
                         :path="meetingCreatePath()"
                         color="red"
-                        :left="true"
+                        left
         />
     </div>
 </template>
