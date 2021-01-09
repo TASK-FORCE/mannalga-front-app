@@ -26,6 +26,7 @@ export default {
                 seq: user.userSeq,
                 imageUrl: user.imgUrl,
                 name: user.name,
+                role: user.role.length > 0 ? user.role[0] : null,
             }));
         },
     },

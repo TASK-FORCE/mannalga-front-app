@@ -1,6 +1,6 @@
 <template>
     <div class="d-inline-block">
-        <span :style="`background-color: ${chipInfo.color}`"
+        <span :style="resolveStyle"
               class="root-role-tag"
         >
             {{ chipInfo.name }}
@@ -36,6 +36,10 @@ export default {
             type: String,
             required: true,
         },
+        large: {
+            type: Boolean,
+            default: false,
+        },
     },
     computed: {
         chipInfo() {
@@ -45,16 +49,28 @@ export default {
                 color: clubChipRole.color,
             };
         },
+        resolveStyle() {
+            if (this.large) {
+                return {
+                    padding: '6px',
+                    fontSize: '0.8rem',
+                    backgroundColor: this.chipInfo.color,
+                };
+            }
+            return {
+                padding: '4px',
+                fontSize: '0.6rem',
+                backgroundColor: this.chipInfo.color,
+            };
+        },
     },
 };
 </script>
 
 <style scoped>
 .root-role-tag {
-    padding: 4px;
     font-weight: bold;
     border-radius: 30px;
-    font-size: 0.6rem;
     color: white;
 }
 </style>
