@@ -23,6 +23,7 @@ class ActionsHelper {
 
     // album module
     requestAlbumCreate = (payload) => dispatch(MODULE.ALBUM, 'requestAlbumCreate', payload);
+    requestAlbum = (payload) => dispatch(MODULE.ALBUM, 'requestAlbum', payload);
     requestFirstAlbumList = (payload) => dispatch(MODULE.ALBUM, 'requestFirstAlbumList', payload);
     requestNextAlbumList = (payload) => dispatch(MODULE.ALBUM, 'requestNextAlbumList', payload);
     requestAlbumCommentWrite = (payload) => dispatch(MODULE.ALBUM, 'requestAlbumCommentWrite', payload);

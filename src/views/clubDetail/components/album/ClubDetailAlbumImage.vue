@@ -55,7 +55,6 @@ export default {
     },
     methods: {
         goToAlbumImagePostPage() {
-            mutationsHelper.setAlbum(this.album);
             this.$router.push(generateParamPath(PATH.CLUB.ALBUM_POST, [routerHelper.clubSeq(), this.album.albumSeq || 0]));
         },
     },

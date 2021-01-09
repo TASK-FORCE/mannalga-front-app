@@ -2,6 +2,11 @@ import axios from 'axios';
 import ResponseConverter from '@/apis/converter/ResponseConverter.js';
 
 class AlbumApi {
+    getClubAlbum({ clubSeq, albumSeq }) {
+        return axios.get(`/api/club/${clubSeq}/album/${albumSeq}`)
+            .then(ResponseConverter.extractSuperInventionResponseData);
+    }
+
     getClubAlbumList({ clubSeq, requestParams }) {
         return axios.get(`/api/club/${clubSeq}/album`, { params: requestParams })
             .then(ResponseConverter.extractSuperInventionResponseData)

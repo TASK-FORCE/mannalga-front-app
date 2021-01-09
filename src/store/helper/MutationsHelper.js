@@ -15,7 +15,6 @@ class MutationsHelper {
     setMeeting = (payload) => commit(MODULE.MEETING, 'setMeeting', payload);
 
     // album
-    setAlbum = (payload) => commit(MODULE.ALBUM, 'setAlbum', payload);
     initAlbumCommentList = (payload) => commit(MODULE.ALBUM, 'initAlbumCommentList', payload);
 
     // common module
