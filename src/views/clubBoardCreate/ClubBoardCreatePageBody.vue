@@ -38,11 +38,11 @@
 
 <script>
 import ImageSelectBox from '@/components/image/ImageSelectBox.vue';
-import { RULES } from '@/utils/common/constant/constant.js';
 import CommonCenterBtn from '@/components/button/CommonCenterBtn.vue';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
 import { generateParamPath, PATH } from '@/router/route_path_type.js';
 import mutationsHelper from '@/store/helper/MutationsHelper.js';
+import { RULES } from '@/utils/common/constant/rules.js';
 
 export default {
     name: 'ClubBoardCreateBox',

@@ -1,10 +1,10 @@
 import { actionsNormalTemplate } from '@/store/utils/actionsTemplate.js';
 import commonApi from '@/apis/CommonApi.js';
-import defaultBuilder from '@/store/utils/DefaultBuilder.js';
+import DefaultBuilder from '@/store/utils/DefaultBuilder.js';
 
 const state = {
     loading: false,
-    snackBarOptions: defaultBuilder.buildDefaultSnackBarOption(),
+    snackBarOptions: DefaultBuilder.buildDefaultSnackBarOption(),
     openSnackBar: false,
 };
 

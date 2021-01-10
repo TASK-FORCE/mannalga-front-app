@@ -44,7 +44,7 @@ import ClubDetailMeetingList from '@/views/clubDetail/components/meeting/ClubDet
 import ClubDetailBoard from '@/views/clubDetail/components/board/ClubDetailBoard.vue';
 import ClubDetailAlbumList from '@/views/clubDetail/components/album/ClubDetailAlbumList.vue';
 import gettersHelper from '@/store/helper/GettersHelper.js';
-import clubTabStore from '@/utils/ClubTabStore.js';
+import lastClubTabCache from '@/utils/cache/LastClubTabCache.js';
 import clubDetailVuexService from '@/store/service/ClubDetailVuexService.js';
 import { PATH } from '@/router/route_path_type.js';
 import routerHelper from '@/router/RouterHelper.js';
@@ -75,11 +75,11 @@ export default {
     },
     watch: {
         tab() {
-            clubTabStore.save(this.clubSeq, this.tab);
+            lastClubTabCache.save(this.clubSeq, this.tab);
         },
     },
     mounted() {
-        this.tab = clubTabStore.get(this.clubSeq);
+        this.tab = lastClubTabCache.get(this.clubSeq);
         if (this.clubInfo.seq === 0) {
             clubDetailVuexService.dispatch(this.clubSeq, true, PATH.CLUB_LIST);
         }

@@ -14,4 +14,4 @@ class ScrollHelper {
     }
 }
 
-export default ScrollHelper;
+export { ScrollHelper };

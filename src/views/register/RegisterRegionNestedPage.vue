@@ -12,8 +12,8 @@ import _ from '@/utils/common/lodashWrapper.js';
 import mutationsHelper from '@/store/helper/MutationsHelper.js';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.js';
-import { MESSAGE } from '@/utils/common/constant/constant.js';
 import { PATH } from '@/router/route_path_type.js';
+import { MESSAGE } from '@/utils/common/constant/messages.js';
 
 export default {
     name: 'RegisterRegionNestedPage',

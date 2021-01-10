@@ -33,7 +33,7 @@
 <script>
 import ClubList from '@/views/clubList/components/ClubList.vue';
 import MyClubList from '@/views/clubList/components/MyClubList.vue';
-import clubListTabStore from '@/utils/ClubListTabStore.js';
+import lastClubListTabCache from '@/utils/cache/LastClubListTabCache.js';
 import FixedCreateBtn from '@/components/button/FixedCreateBtn.vue';
 import FixedScrollToTopBtn from '@/components/button/FixedScrollToTopBtn.vue';
 import { PATH } from '@/router/route_path_type.js';
@@ -54,11 +54,11 @@ export default {
     },
     watch: {
         tab() {
-            clubListTabStore.save(this.tab);
+            lastClubListTabCache.save(this.tab);
         },
     },
     created() {
-        this.tab = clubListTabStore.get();
+        this.tab = lastClubListTabCache.get();
         const disableLoading = true;
         if (this.tab === 'club') {
             actionsHelper.requestFirstMyClubList(disableLoading);

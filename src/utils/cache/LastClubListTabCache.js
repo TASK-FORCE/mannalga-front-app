@@ -1,4 +1,4 @@
-class ClubListTabStore {
+class LastClubListTabCache {
     constructor() {
         this.lastTab = 'club';
     }
@@ -12,5 +12,5 @@ class ClubListTabStore {
     }
 }
 
-const clubListTabStore = new ClubListTabStore();
-export default clubListTabStore;
+const lastClubListTabCache = new LastClubListTabCache();
+export default lastClubListTabCache;

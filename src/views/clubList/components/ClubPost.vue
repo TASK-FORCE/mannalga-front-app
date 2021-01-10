@@ -52,9 +52,9 @@
 import InterestIcons from '@/components/interest/InterestIcons.vue';
 import { generateParamPath, PATH } from '@/router/route_path_type.js';
 import RootRegionTag from '@/components/region/RootRegionTag.vue';
-import InterestUtils from '@/utils/interest/InterestUtils.js';
+import { InterestUtils } from '@/utils/interest.js';
 import RoleChip from '@/components/role/RoleChip.vue';
-import { CLUB_ROLE } from '@/utils/common/constant/constant.js';
+import { CLUB_ROLE } from '@/utils/role.js';
 import clubDetailVuexService from '@/store/service/ClubDetailVuexService.js';
 
 export default {

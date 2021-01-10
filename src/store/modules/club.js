@@ -1,14 +1,14 @@
 import { actionsNormalTemplate } from '@/store/utils/actionsTemplate.js';
-import RequestConverter from '@/store/converter/requestConverter.js';
-import defaultBuilder from '@/store/utils/DefaultBuilder.js';
+import RequestConverter from '@/store/converter/RequestConverter.js';
+import DefaultBuilder from '@/store/utils/DefaultBuilder.js';
 import clubApi from '@/apis/ClubApi.js';
 import { MODULE } from '@/store/type/type.js';
-import { CLUB_ROLE } from '@/utils/common/constant/constant.js';
+import { CLUB_ROLE } from '@/utils/role.js';
 
 const state = {
-    clubData: defaultBuilder.buildClub(),
-    clubInfo: defaultBuilder.buildClubInfo(),
-    currentUserInfo: defaultBuilder.buildCurrentUserInfo(),
+    clubData: DefaultBuilder.buildClub(),
+    clubInfo: DefaultBuilder.buildClubInfo(),
+    currentUserInfo: DefaultBuilder.buildCurrentUserInfo(),
     clubUserList: [],
 };
 

@@ -1,5 +1,5 @@
-import defaultBuilder from '@/store/utils/DefaultBuilder.js';
-import { toCurrency } from '@/utils/common/utils.js';
+import DefaultBuilder from '@/store/utils/DefaultBuilder.js';
+import { toCurrency } from '@/utils/common/commonUtils.js';
 
 /** ResponseConverter
  *  - 백엔드 서버에서 전달받은 response를 converting
@@ -19,7 +19,7 @@ export default class ResponseConverter {
 
     static convertProfile = ({ kakao_account }) => {
         const { thumbnail_image_url, nickname } = kakao_account.profile;
-        const profile = defaultBuilder.buildKakaoProfile();
+        const profile = DefaultBuilder.buildKakaoProfile();
         profile.imgUrl = thumbnail_image_url;
         profile.name = nickname;
         return profile;

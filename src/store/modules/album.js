@@ -1,14 +1,14 @@
 import { actionsLoadingTemplate, actionsNormalTemplate } from '@/store/utils/actionsTemplate.js';
 import albumApi from '@/apis/AlbumApi.js';
-import RequestConverter from '@/store/converter/requestConverter.js';
-import defaultBuilder from '@/store/utils/DefaultBuilder.js';
+import RequestConverter from '@/store/converter/RequestConverter.js';
+import DefaultBuilder from '@/store/utils/DefaultBuilder.js';
 
 const state = {
-    album: defaultBuilder.buildAlbum(),
+    album: DefaultBuilder.buildAlbum(),
     albumList: [],
-    albumPage: defaultBuilder.buildPage(),
+    albumPage: DefaultBuilder.buildPage(),
     albumCommentList: [],
-    albumCommentPage: defaultBuilder.buildPage(),
+    albumCommentPage: DefaultBuilder.buildPage(),
 };
 
 const getters = {
@@ -36,7 +36,7 @@ const mutations = {
 
     initAlbumList(state) {
         state.albumList = [];
-        state.albumPage = defaultBuilder.buildPage();
+        state.albumPage = DefaultBuilder.buildPage();
     },
 
     setAlbumCommentList(state, { albumCommentList, albumCommentPage }) {
@@ -62,7 +62,7 @@ const mutations = {
 
     initAlbumCommentList(state) {
         state.albumCommentList = [];
-        state.albumCommentPage = defaultBuilder.buildPage();
+        state.albumCommentPage = DefaultBuilder.buildPage();
     },
 
     changeAlbumLike(state, { likeCnt, isLike }) {

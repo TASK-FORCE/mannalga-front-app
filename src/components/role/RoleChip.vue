@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { CLUB_ROLE } from '@/utils/common/constant/constant.js';
+import { CLUB_ROLE } from '@/utils/role.js';
 
 const CLUB_CHIP_ROLES = [
     {

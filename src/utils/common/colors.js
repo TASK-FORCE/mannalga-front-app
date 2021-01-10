@@ -146,3 +146,5 @@ const COLORS = [
     '#f5f5f5',
     '#9acd32',
 ];
+
+export default COLORS;

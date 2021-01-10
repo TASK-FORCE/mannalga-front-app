@@ -18,9 +18,9 @@ import CommonHeader from '@/components/header/CommonHeader.vue';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
 import SimpleBtnFooter from '@/components/footer/SimpleBtnFooter.vue';
 import mutationsHelper from '@/store/helper/MutationsHelper.js';
-import { MESSAGE } from '@/utils/common/constant/constant.js';
 import _ from '@/utils/common/lodashWrapper.js';
 import { PATH } from '@/router/route_path_type.js';
+import { MESSAGE } from '@/utils/common/constant/messages.js';
 
 export default {
     name: 'UserRegionEditPage',

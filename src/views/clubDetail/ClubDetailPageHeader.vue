@@ -23,8 +23,8 @@
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import { PATH } from '@/router/route_path_type.js';
 import clubDetailVuexService from '@/store/service/ClubDetailVuexService.js';
-import scrollRememberStore from '@/utils/scroll/ScrollRememberStore.js';
-import clubTabStore from '@/utils/ClubTabStore.js';
+import lastScrollPositionCache from '@/utils/cache/LastScrollPositionCache.js';
+import lastClubTabCache from '@/utils/cache/LastClubTabCache.js';
 import routerHelper from '@/router/RouterHelper.js';
 
 export default {
@@ -39,8 +39,8 @@ export default {
     },
     methods: {
         moveToClubListPage() {
-            scrollRememberStore.init(this.$route.fullPath);
-            clubTabStore.save(routerHelper.clubSeq(), 'main');
+            lastScrollPositionCache.init(this.$route.fullPath);
+            lastClubTabCache.save(routerHelper.clubSeq(), 'main');
             this.$router.push(this.clubListPath);
             clubDetailVuexService.reset();
         },

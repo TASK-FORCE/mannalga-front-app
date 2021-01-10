@@ -1,12 +1,12 @@
 import { actionsLoadingTemplate, actionsNormalTemplate } from '@/store/utils/actionsTemplate.js';
 import meetingApi from '@/apis/MeetingApi.js';
-import defaultBuilder from '@/store/utils/DefaultBuilder.js';
-import RequestConverter from '@/store/converter/requestConverter.js';
+import DefaultBuilder from '@/store/utils/DefaultBuilder.js';
+import RequestConverter from '@/store/converter/RequestConverter.js';
 
 const state = {
     meetingList: [],
-    meeting: defaultBuilder.buildMeeting(),
-    meetingPage: defaultBuilder.buildPage(),
+    meeting: DefaultBuilder.buildMeeting(),
+    meetingPage: DefaultBuilder.buildPage(),
 };
 
 const getters = {
@@ -32,7 +32,7 @@ const mutations = {
 
     initMeetingList(state) {
         state.meetingList = [];
-        state.meetingPage = defaultBuilder.buildPage();
+        state.meetingPage = DefaultBuilder.buildPage();
     },
 
     changeMeetingApplicationsStatus(state, { meetingSeq, newStatus }) {

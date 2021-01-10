@@ -2,7 +2,7 @@ import RequestHelper from '@/store/service/helper/RequestHelper.js';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
 import store from '@/store';
 import { MODULE } from '@/store/type/type.js';
-import defaultBuilder from '@/store/utils/DefaultBuilder.js';
+import DefaultBuilder from '@/store/utils/DefaultBuilder.js';
 
 function dispatchClubInfoAndUserInfo(clubSeq) {
     return actionsHelper.requestClubInfoAndUserInfo(clubSeq);
@@ -44,8 +44,8 @@ class ClubDetailVuexService {
     }
 
     reset() {
-        store.commit(`${MODULE.CLUB}/setClubInfo`, defaultBuilder.buildClubInfo());
-        store.commit(`${MODULE.CLUB}/setCurrentUserInfo`, defaultBuilder.buildCurrentUserInfo());
+        store.commit(`${MODULE.CLUB}/setClubInfo`, DefaultBuilder.buildClubInfo());
+        store.commit(`${MODULE.CLUB}/setCurrentUserInfo`, DefaultBuilder.buildCurrentUserInfo());
         store.commit(`${MODULE.MEETING}/initMeetingList`);
         store.commit(`${MODULE.ALBUM}/initAlbumList`);
     }

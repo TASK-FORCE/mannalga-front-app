@@ -1,18 +1,18 @@
 class DefaultBuilder {
-    buildDefaultSnackBarOption = () => ({
+    static buildDefaultSnackBarOption = () => ({
         message: '',
         color: 'pink',
         location: 'bottom',
     });
 
-    buildKakaoProfile = () => ({
+    static buildKakaoProfile = () => ({
         name: '',
         imgUrl: '',
         dayOfBirth: '',
         gender: '',
     });
 
-    buildUserProfile = () => ({
+    static buildUserProfile = () => ({
         userName: '',
         birthday: '',
         profileImageLink: '',
@@ -20,7 +20,7 @@ class DefaultBuilder {
         userInterests: [],
     });
 
-    buildClubSearchFilterInfo = () => ({
+    static buildClubSearchFilterInfo = () => ({
         region: {
             seq: null,
             name: null,
@@ -32,9 +32,9 @@ class DefaultBuilder {
         searchText: null,
     });
 
-    buildPage = (size = 20) => ({ size, currentPage: 0, nextPage: 0, isLastPage: false });
+    static buildPage = (size = 20) => ({ size, currentPage: 0, nextPage: 0, isLastPage: false });
 
-    buildClubInfo = () => ({
+    static buildClubInfo = () => ({
         clubInterest: [],
         clubRegion: [],
         description: '',
@@ -45,7 +45,7 @@ class DefaultBuilder {
         seq: 0,
     });
 
-    buildCurrentUserInfo = () => ({
+    static buildCurrentUserInfo = () => ({
         isMaster: false,
         isMember: false,
         isManager: false,
@@ -53,7 +53,7 @@ class DefaultBuilder {
         isLiked: false,
     });
 
-    buildMeeting = () => ({
+    static buildMeeting = () => ({
         seq: 0,
         title: '',
         content: '',
@@ -66,7 +66,7 @@ class DefaultBuilder {
         applicationUsers: [],
     });
 
-    buildAlbum = () => ({
+    static buildAlbum = () => ({
         albumSeq: 0,
         title: '',
         file_name: '',
@@ -78,7 +78,7 @@ class DefaultBuilder {
     });
 
     // TODO: to be deleted
-    buildClub = () => ({
+    static buildClub = () => ({
         boardList: {
             boards: [
                 {
@@ -161,5 +161,4 @@ class DefaultBuilder {
     });
 }
 
-const defaultBuilder = new DefaultBuilder();
-export default defaultBuilder;
+export default DefaultBuilder;

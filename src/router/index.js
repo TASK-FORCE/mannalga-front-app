@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import ScrollHelper from '@/utils/scroll/ScrollHelper.js';
-import scrollRememberStore from '@/utils/scroll/ScrollRememberStore.js';
+import { ScrollHelper } from '@/utils/scroll.js';
+import lastScrollPositionCache from '@/utils/cache/LastScrollPositionCache.js';
 import routes from './routes.js';
 
 if (!process || process.env.NODE_ENV !== 'test') {
@@ -11,9 +11,9 @@ if (!process || process.env.NODE_ENV !== 'test') {
 const scrollBehavior = (to, from) => {
     if (from.meta && from.meta.disableScrollBehavior) return Promise.resolve();
 
-    scrollRememberStore.save(from.fullPath);
+    lastScrollPositionCache.save(from.fullPath);
 
-    const positionY = scrollRememberStore.get(to.fullPath) || 0;
+    const positionY = lastScrollPositionCache.get(to.fullPath) || 0;
 
     if (positionY === 0) {
         return new Promise(

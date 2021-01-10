@@ -41,13 +41,13 @@ import CommonCenterBtn from '@/components/button/CommonCenterBtn.vue';
 import ImageSelectBox from '@/components/image/ImageSelectBox.vue';
 import BottomSheetInterestCard from '@/components/bottom-sheet/BottomSheetInterestCard.vue';
 import BottomSheetRegionCard from '@/components/bottom-sheet/BottomSheetRegionCard.vue';
-import { MESSAGE } from '@/utils/common/constant/constant.js';
 import ClubCreateForm from '@/views/clubCreate/components/ClubCreateForm.vue';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import mutationsHelper from '@/store/helper/MutationsHelper.js';
 import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.js';
 import { PATH } from '@/router/route_path_type.js';
+import { MESSAGE } from '@/utils/common/constant/messages.js';
 
 export default {
     name: 'ClubCreatePageBody',

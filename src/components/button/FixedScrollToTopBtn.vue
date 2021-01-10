@@ -12,7 +12,7 @@
 
 <script>
 import _ from '@/utils/common/lodashWrapper.js';
-import ScrollHelper from '@/utils/scroll/ScrollHelper.js';
+import { ScrollHelper } from '@/utils/scroll.js';
 
 const DEFAULT_THROTTLE_DELAY = 300;
 const DEFAULT_BOUNDARY = 100;

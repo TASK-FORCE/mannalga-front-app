@@ -86,7 +86,7 @@ import InfiniteScrollTemplate from '@/components/InfiniteScrollTemplate.vue';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
 import routerHelper from '@/router/RouterHelper.js';
 import mutationsHelper from '@/store/helper/MutationsHelper.js';
-import ScrollHelper from '@/utils/scroll/ScrollHelper.js';
+import { ScrollHelper } from '@/utils/scroll.js';
 
 export default {
     name: 'ClubAlbumPostBody',

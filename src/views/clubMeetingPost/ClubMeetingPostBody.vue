@@ -79,11 +79,11 @@ import MeetingTimeRange from '@/components/meeting/MeetingTimeRange.vue';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
 import mutationsHelper from '@/store/helper/MutationsHelper.js';
-import { MESSAGE } from '@/utils/common/constant/constant.js';
 import routerHelper from '@/router/RouterHelper.js';
 import { isCurrentThemeDark } from '@/plugins/vuetify.js';
 import MiddleDivider from '@/components/MiddleDivider.vue';
 import SimpleUserProfileList from '@/components/user/SimpleUserProfileList.vue';
+import { MESSAGE } from '@/utils/common/constant/messages.js';
 
 export default {
     name: 'ClubMeetingPostBody',

@@ -1,25 +1,31 @@
 import _ from '@/utils/common/lodashWrapper.js';
+import mutationsHelper from '@/store/helper/MutationsHelper.js';
 
-function ruleValidationSuccess(target, rules) {
-    if (rules instanceof Array) {
-        return _.isEmpty(getValidationFailTexts(target, rules));
+function validateWithRules(target, rules) {
+    const validationMessages = getValidationMessage(target, rules);
+    if (_.isEmpty(validationMessages)) {
+        return true;
     }
+    mutationsHelper.openSnackBar(validationMessages[0]);
     return false;
 }
 
-function getValidationFailText(target, rules) {
-    if (rules instanceof Array) {
-        const validationFailTexts = getValidationFailTexts(target, rules);
-        return _.isEmpty(validationFailTexts) ? '' : validationFailTexts[0];
-    }
-    return '검증에 실패했습니다.';
+function getValidationMessage(target, rules) {
+    return rules
+        .map(rule => {
+            const value = rule(target);
+            if (typeof value === 'string') {
+                return value;
+            }
+            if (typeof value === 'boolean') {
+                return value ? '' : '잘못된 값입니다.';
+            }
+            console.warn('invalid rule function result. value: ', value);
+            return '';
+        })
+        .filter(value => !_.isEmpty(value));
 }
 
-const getValidationFailTexts = (target, rules) => rules
-    .map(rule => rule(target))
-    .filter(rule => typeof rule === 'string');
-
 export {
-    ruleValidationSuccess,
-    getValidationFailText,
+    validateWithRules,
 };

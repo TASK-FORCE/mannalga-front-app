@@ -10,11 +10,10 @@
 <script>
 import UserProfile from '@/components/user/UserProfile.vue';
 import GoBackBtnFooter from '@/components/footer/GoBackBtnFooter.vue';
-import { getValidationFailText, ruleValidationSuccess } from '@/utils/common/validationUtils.js';
-import { RULES } from '@/utils/common/constant/constant.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
+import { validateWithRules } from '@/utils/common/validationUtils.js';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import { PATH } from '@/router/route_path_type.js';
+import { RULES } from '@/utils/common/constant/rules.js';
 
 export default {
     name: 'RegisterProfileNestedPage',
@@ -25,11 +24,9 @@ export default {
     methods: {
         clickGoBtn() {
             const { name } = this.kakaoProfile;
-            if (ruleValidationSuccess(name, RULES.PROFILE_NAME)) {
+            if (validateWithRules(name, RULES.PROFILE_NAME)) {
                 this.$router.push(PATH.REGISTER.REGION);
-                return;
             }
-            mutationsHelper.openSnackBar(getValidationFailText(name, RULES.PROFILE_NAME));
         },
     },
 };

@@ -31,4 +31,4 @@ class InterestUtils {
     static findInterestGroupVo = (interest) => interestGroupVoStore[interest.interestGroup.name];
 }
 
-export default InterestUtils;
+export { InterestUtils };

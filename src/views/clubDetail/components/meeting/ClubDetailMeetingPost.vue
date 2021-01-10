@@ -73,8 +73,8 @@ import MeetingTimeRange from '@/components/meeting/MeetingTimeRange.vue';
 import routerHelper from '@/router/RouterHelper.js';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
 import mutationsHelper from '@/store/helper/MutationsHelper.js';
-import { MESSAGE } from '@/utils/common/constant/constant.js';
 import { generateParamPath, PATH } from '@/router/route_path_type.js';
+import { MESSAGE } from '@/utils/common/constant/messages.js';
 
 export default {
     name: 'ClubDetailMeetingPost',

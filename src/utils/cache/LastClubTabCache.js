@@ -1,6 +1,6 @@
-import { LocalCache } from '@/utils/common/LocalCache.js';
+import { LocalCache } from '@/utils/cache/LocalCache.js';
 
-class ClubTabStore {
+class LastClubTabCache {
     constructor() {
         this.cache = new LocalCache(1000);
     }
@@ -18,5 +18,5 @@ class ClubTabStore {
     }
 }
 
-const clubTabStore = new ClubTabStore();
-export default clubTabStore;
+const lastClubTabCache = new LastClubTabCache();
+export default lastClubTabCache;

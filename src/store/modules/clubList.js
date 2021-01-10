@@ -1,14 +1,14 @@
 import { actionsLoadingTemplate, actionsNormalTemplate } from '@/store/utils/actionsTemplate.js';
 import clubListApi from '@/apis/ClubListApi.js';
-import RequestConverter from '@/store/converter/requestConverter.js';
-import defaultBuilder from '@/store/utils/DefaultBuilder.js';
+import RequestConverter from '@/store/converter/RequestConverter.js';
+import DefaultBuilder from '@/store/utils/DefaultBuilder.js';
 
 const state = {
     clubList: [],
-    clubPage: defaultBuilder.buildPage(),
+    clubPage: DefaultBuilder.buildPage(),
     myClubList: [],
-    myClubPage: defaultBuilder.buildPage(),
-    clubSearchFilterInfo: defaultBuilder.buildClubSearchFilterInfo(),
+    myClubPage: DefaultBuilder.buildPage(),
+    clubSearchFilterInfo: DefaultBuilder.buildClubSearchFilterInfo(),
     isRequestingNextPage: false,
 };
 
@@ -42,11 +42,11 @@ const mutations = {
     },
     initClubListAndPage(state) {
         state.clubList = [];
-        state.clubPage = defaultBuilder.buildPage();
+        state.clubPage = DefaultBuilder.buildPage();
     },
     initMyClubListAndPage(state) {
         state.myClubList = [];
-        state.myClubPage = defaultBuilder.buildPage();
+        state.myClubPage = DefaultBuilder.buildPage();
     },
     changeClubSearchRegion(state, region) {
         state.clubSearchFilterInfo = {

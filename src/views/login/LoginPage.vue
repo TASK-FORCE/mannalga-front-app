@@ -39,13 +39,12 @@
 </template>
 
 <script>
-import { moveToKakaoLoginPage } from '@/utils/auth/kakao/utlls.js';
-import { MESSAGE } from '@/utils/common/constant/constant.js';
+import { moveToKakaoLoginPage } from '@/utils/kakao/kakao.js';
 import { PATH } from '@/router/route_path_type.js';
 import mutationsHelper from '@/store/helper/MutationsHelper.js';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
-import { removeAppTokenToLocalStorage } from '@/utils/auth/authUtils.js';
+import { MESSAGE } from '@/utils/common/constant/messages.js';
 
 export default {
     name: 'LoginPage',

@@ -1,13 +1,12 @@
 <template>
-    <v-row class="mx-0 date-time-picker-wrapper">
+    <v-row class="mx-0">
         <v-col class="pa-0">
-            <v-menu
-                v-model="dateMenu"
-                :close-on-content-click="false"
-                :nudge-right="40"
-                min-width="290px"
-                offset-y
-                transition="scale-transition"
+            <v-menu v-model="dateMenu"
+                    :close-on-content-click="false"
+                    :nudge-right="40"
+                    min-width="290px"
+                    offset-y
+                    transition="scale-transition"
             >
                 <template v-slot:activator="{ on, attrs }">
                     <v-text-field v-model="date"
@@ -19,21 +18,19 @@
                                   v-on="on"
                     ></v-text-field>
                 </template>
-                <v-date-picker
-                    v-model="date"
-                    :min="minDate"
-                    @input="dateMenu = false"
+                <v-date-picker v-model="date"
+                               :min="minDate"
+                               @input="dateMenu = false"
                 ></v-date-picker>
             </v-menu>
         </v-col>
         <v-col class="py-0">
-            <v-menu
-                v-model="timeMenu"
-                :close-on-content-click="false"
-                :nudge-right="40"
-                min-width="290px"
-                offset-y
-                transition="scale-transition"
+            <v-menu v-model="timeMenu"
+                    :close-on-content-click="false"
+                    :nudge-right="40"
+                    min-width="290px"
+                    offset-y
+                    transition="scale-transition"
             >
                 <template v-slot:activator="{ on, attrs }">
                     <v-text-field v-model="time"
@@ -44,11 +41,10 @@
                                   v-on="on"
                     ></v-text-field>
                 </template>
-                <v-time-picker
-                    v-model="time"
-                    :min="minTime"
-                    format="24hr"
-                    @input="timeMenu = false"
+                <v-time-picker v-model="time"
+                               :min="minTime"
+                               format="24hr"
+                               @input="timeMenu = false"
                 ></v-time-picker>
             </v-menu>
         </v-col>
@@ -57,7 +53,7 @@
 
 <script>
 
-import { RULES } from '@/utils/common/constant/constant.js';
+import { RULES } from '@/utils/common/constant/rules.js';
 
 export default {
     name: 'DateTimePicker',

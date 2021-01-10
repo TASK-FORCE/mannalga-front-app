@@ -1,13 +1,13 @@
 import userApi from '@/apis/UserApi.js';
 import { actionsLoadingTemplate, actionsNormalTemplate } from '@/store/utils/actionsTemplate.js';
-import RequestConverter from '@/store/converter/requestConverter.js';
-import defaultBuilder from '@/store/utils/DefaultBuilder.js';
+import RequestConverter from '@/store/converter/RequestConverter.js';
+import DefaultBuilder from '@/store/utils/DefaultBuilder.js';
 
 const state = {
-    kakaoProfile: defaultBuilder.buildKakaoProfile(),
+    kakaoProfile: DefaultBuilder.buildKakaoProfile(),
     selectedRegions: {},
     selectedInterestSeqs: [],
-    userProfile: defaultBuilder.buildUserProfile(),
+    userProfile: DefaultBuilder.buildUserProfile(),
 };
 
 const getters = {

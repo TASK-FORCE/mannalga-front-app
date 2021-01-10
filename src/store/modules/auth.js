@@ -1,12 +1,12 @@
 import axios from 'axios';
 import authApi from '@/apis/AuthApi.js';
-import { getAppToken, removeAppTokenToLocalStorage, saveAppTokenToLocalStorage, setAppTokenAsDefaultHeader } from '@/utils/auth/authUtils.js';
+import { AuthUtils } from '@/utils/auth.js';
 import _ from '@/utils/common/lodashWrapper.js';
 import { actionsNormalTemplate } from '@/store/utils/actionsTemplate.js';
-import RequestConverter from '@/store/converter/requestConverter.js';
+import RequestConverter from '@/store/converter/RequestConverter.js';
 
 const state = {
-    appToken: getAppToken(),
+    appToken: AuthUtils.getAppToken(),
 };
 
 const getters = {
@@ -21,12 +21,12 @@ const getters = {
 const mutations = {
     setAppToken(state, appToken) {
         state.appToken = appToken;
-        saveAppTokenToLocalStorage(appToken);
-        setAppTokenAsDefaultHeader(axios.defaults.headers);
+        AuthUtils.saveAppTokenToLocalStorage(appToken);
+        AuthUtils.setAppTokenAsDefaultHeader(axios.defaults.headers);
     },
     removeAppToken(state) {
         state.appToken = '';
-        removeAppTokenToLocalStorage();
+        AuthUtils.removeAppTokenToLocalStorage();
     },
 };
 

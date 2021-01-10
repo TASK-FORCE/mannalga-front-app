@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import InterestUtils from '@/utils/interest/InterestUtils.js';
+import { InterestUtils } from '@/utils/interest.js';
 import _ from '@/utils/common/lodashWrapper.js';
 
 export default {

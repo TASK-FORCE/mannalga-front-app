@@ -48,11 +48,12 @@
 
 <script>
 
-import { MESSAGE, RULES } from '@/utils/common/constant/constant.js';
 import ImageSelectBox from '@/components/image/ImageSelectBox.vue';
 import routerHelper from '@/router/RouterHelper.js';
 import mutationsHelper from '@/store/helper/MutationsHelper.js';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
+import { RULES } from '@/utils/common/constant/rules.js';
+import { MESSAGE } from '@/utils/common/constant/messages.js';
 
 export default {
     name: 'AlbumImageCreateDialog',

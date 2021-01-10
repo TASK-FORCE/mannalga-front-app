@@ -76,7 +76,7 @@ import { PATH } from '@/router/route_path_type.js';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.js';
 import mutationsHelper from '@/store/helper/MutationsHelper.js';
-import defaultBuilder from '@/store/utils/DefaultBuilder.js';
+import DefaultBuilder from '@/store/utils/DefaultBuilder.js';
 
 export default {
     name: 'ClubListSearchFilter',
@@ -121,10 +121,10 @@ export default {
             this.sheet = false;
         },
         cancelRegionSelect() {
-            mutationsHelper.changeClubSearchRegion(defaultBuilder.buildClubSearchFilterInfo().region);
+            mutationsHelper.changeClubSearchRegion(DefaultBuilder.buildClubSearchFilterInfo().region);
         },
         cancelInterestSelect() {
-            mutationsHelper.changeClubSearchInterest(defaultBuilder.buildClubSearchFilterInfo().interest);
+            mutationsHelper.changeClubSearchInterest(DefaultBuilder.buildClubSearchFilterInfo().interest);
         },
         cancelSearchTextSelect() {
             mutationsHelper.changeClubSearchText(null);

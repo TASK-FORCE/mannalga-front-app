@@ -25,9 +25,9 @@
 
 <script>
 import mutationsHelper from '@/store/helper/MutationsHelper.js';
-import { MESSAGE } from '@/utils/common/constant/constant.js';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
 import routerHelper from '@/router/RouterHelper.js';
+import { MESSAGE } from '@/utils/common/constant/messages.js';
 
 export default {
     name: 'CommentWriteFooter',

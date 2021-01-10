@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import axios from 'axios';
-import { setAppTokenAsDefaultHeader } from '@/utils/auth/authUtils.js';
+import { AuthUtils } from '@/utils/auth.js';
 import App from './App.vue';
 import { vuetify } from './plugins/vuetify';
 import router from './router';
@@ -18,7 +18,7 @@ Vue.config.productionTip = false;
 // axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? '/' : process.env.VUE_APP_SERVER_URL;
 axios.defaults.baseURL = '/';
 axios.defaults.timeout = process.env.VUE_APP_AXIOS_TIMEOUT;
-setAppTokenAsDefaultHeader(axios.defaults.headers);
+AuthUtils.setAppTokenAsDefaultHeader(axios.defaults.headers);
 
 new Vue({
     vuetify,

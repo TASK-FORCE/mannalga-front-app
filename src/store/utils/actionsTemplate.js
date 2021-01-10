@@ -1,7 +1,7 @@
 import _ from '@/utils/common/lodashWrapper.js';
 import { MODULE } from '@/store/type/type.js';
 import mutationsHelper from '@/store/helper/MutationsHelper.js';
-import { MESSAGE } from '@/utils/common/constant/constant.js';
+import { MESSAGE } from '@/utils/common/constant/messages.js';
 
 export const actionsLoadingTemplate = async (commitInfo, callback, failCallback) => {
     const { commit, commitName, useRootCommit } = extractCommitInfo(commitInfo);

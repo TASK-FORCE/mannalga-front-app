@@ -29,11 +29,11 @@
 
 <script>
 import _ from '@/utils/common/lodashWrapper.js';
-import { MESSAGE } from '@/utils/common/constant/constant.js';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import mutationsHelper from '@/store/helper/MutationsHelper.js';
 import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.js';
 import { PATH } from '@/router/route_path_type.js';
+import { MESSAGE } from '@/utils/common/constant/messages.js';
 
 const MAXIMUM_SELECTABLE_COUNT = 5;
 

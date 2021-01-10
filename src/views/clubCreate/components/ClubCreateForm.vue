@@ -36,7 +36,8 @@
 </template>
 
 <script>
-import { CLUB_MAXIMUM_NUMBER_LIST, RULES } from '@/utils/common/constant/constant.js';
+import { RULES } from '@/utils/common/constant/rules.js';
+import { createClubMaximumNumberList } from '@/utils/common/commonUtils.js';
 
 export default {
     name: 'ClubCreateForm',
@@ -45,7 +46,7 @@ export default {
     },
     data() {
         return {
-            items: CLUB_MAXIMUM_NUMBER_LIST,
+            items: createClubMaximumNumberList(10, 100, 10),
             RULES,
         };
     },
