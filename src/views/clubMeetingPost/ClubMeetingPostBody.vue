@@ -29,7 +29,10 @@
         <div class="px-3">
             <div class="d-flex px-3 justify-center">
                 <div class="f-09">
-                    <v-icon color="green">mdi-cash-usd</v-icon>
+                    <v-icon style="padding: 2px"
+                            color="green"
+                            v-text="'$currencyKrw'"
+                    />
                     {{ meeting.cost ? meeting.cost : '미정' }}
                 </div>
                 <div class="f-09 ml-5">

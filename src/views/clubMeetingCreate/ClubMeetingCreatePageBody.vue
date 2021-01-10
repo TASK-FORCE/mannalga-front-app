@@ -28,18 +28,26 @@
                         outlined
             ></v-textarea>
             <div class="d-flex">
-                <v-text-field v-model="cost"
-                              :rules="RULES.COST"
-                              label="비용"
-                              prepend-icon="mdi-cash-usd"
-                              class="pr-3"
-                              @focus="costFocus"
-                              @focusout="costFocusout"
-                />
+                <div class="d-flex">
+                    <v-icon class="mr-2 mt-5"
+                            style="padding: 2px;"
+                            v-text="'$currencyKrw'"
+                    />
+                    <v-text-field v-model="cost"
+                                  :rules="RULES.COST"
+                                  label="비용"
+                                  suffix="원"
+                                  style="width: 100px"
+                                  class="pr-5"
+                                  @focus="costFocus"
+                                  @focusout="costFocusout"
+                    />
+                </div>
                 <v-text-field v-model="region"
                               label="만남 위치"
-                              prepend-icon="mdi-map-marker"
+                              style="width: 150px"
                               class="pr-3"
+                              prepend-icon="mdi-map-marker"
                 />
             </div>
             <v-text-field v-model="maximumNumber"

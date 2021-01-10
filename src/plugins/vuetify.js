@@ -1,9 +1,17 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify/lib';
+import { mdiCurrencyKrw } from '@mdi/js';
 
 Vue.use(Vuetify);
 
-const vuetify = new Vuetify({});
+const vuetify = new Vuetify({
+    icons: {
+        iconfont: 'mdiSvg',
+        values: {
+            currencyKrw: mdiCurrencyKrw,
+        },
+    },
+});
 
 const Theme = { DARK: 'black', WHITE: 'white' };
 const KEY = 'currentTheme';
