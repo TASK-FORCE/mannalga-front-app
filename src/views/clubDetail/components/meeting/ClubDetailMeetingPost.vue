@@ -18,7 +18,10 @@
                         <div class="text-center py-2">{{ meeting.title }}</div>
                         <div class="d-flex px-3">
                         <span class="f-07 flex-grow-1">
-                            <v-icon small>mdi-cash-usd</v-icon>
+                            <v-icon small
+                                    style="padding: 1px"
+                                    v-text="'$currencyKrw'"
+                            />
                             {{ meeting.cost ? meeting.cost : '미정' }}
                         </span>
                             <span class="f-07 flex-grow-1">
