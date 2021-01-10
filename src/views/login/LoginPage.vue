@@ -5,7 +5,7 @@
             <!--                   src="../../images/vue.png"-->
             <!--            />-->
             <div class="text-center">
-                <v-icon class="main-icon"
+                <v-icon size="200"
                         v-text="'$threePeople'"
                 />
             </div>
@@ -109,11 +109,5 @@ export default {
     left: 50%;
     top: 45%;
     transform: translate(-50%, -45%);
-}
-
-.main-icon {
-    width: 200px !important;
-    height: 200px !important;
-    font-size: 200px !important;
 }
 </style>
