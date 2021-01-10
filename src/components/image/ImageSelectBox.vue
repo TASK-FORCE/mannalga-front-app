@@ -46,7 +46,6 @@
 </template>
 
 <script>
-import 'cropperjs/dist/cropper.css';
 import ImageCropper from '@/components/image/ImageCropper.vue';
 import ImageCarouselDialog from '@/components/image/ImageCarouselDialog.vue';
 

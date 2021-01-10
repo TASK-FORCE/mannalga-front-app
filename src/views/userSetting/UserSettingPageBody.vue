@@ -1,15 +1,13 @@
 <template>
     <div>
         <v-list class="py-0 px-2">
-            <v-list-item-group>
-                <v-divider />
-                <UserSettingProfile :userProfile="userProfile" />
-                <div v-for="setting in settings"
-                     :key="setting.name"
-                >
-                    <UserSettingTemplate :setting="setting" />
-                </div>
-            </v-list-item-group>
+            <v-divider />
+            <UserSettingProfile :userProfile="userProfile" />
+            <div v-for="setting in settings"
+                 :key="setting.name"
+            >
+                <UserSettingTemplate :setting="setting" />
+            </div>
         </v-list>
     </div>
 </template>

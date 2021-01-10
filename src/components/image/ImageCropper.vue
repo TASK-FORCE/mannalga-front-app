@@ -11,10 +11,11 @@
                             <img ref="cropImg"
                                  alt="cropImg"
                                  :src="originalImgUrl"
+                                 :style="resolveImgStyle"
                                  @load.stop="createCropper"
                             >
                         </div>
-                        <v-card-actions class="text-center">
+                        <v-card-actions class="text-center mt-3">
                             <v-btn
                                 class="flex-grow-1 white--text font-weight-bold"
                                 color="green darken-2"
@@ -98,6 +99,11 @@ export default {
                 minContainerWidth: window.innerWidth,
             };
         },
+        resolveImgStyle() {
+            return {
+                maxHeight: `${window.innerHeight - 100}px`,
+            };
+        },
     },
     methods: {
         destroy() {
@@ -149,7 +155,6 @@ export default {
 
 <style scoped>
 img {
-    width: 100%;
-    height: 100%;
+    max-width: 100%;
 }
 </style>
