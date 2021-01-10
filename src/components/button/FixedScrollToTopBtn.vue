@@ -5,7 +5,9 @@
                :color="color || 'green'"
                @click="scrollToTop"
         >
-            <v-icon class="white--text">mdi-chevron-up</v-icon>
+            <v-icon class="white--text"
+                    v-text="'$chevronUp'"
+            />
         </v-btn>
     </transition>
 </template>

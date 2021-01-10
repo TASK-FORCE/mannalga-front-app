@@ -11,9 +11,8 @@
             <div>
                 <v-icon color="white"
                         small
-                >
-                    mdi-heart
-                </v-icon>
+                        v-text="'$heart'"
+                />
                 <span class="f-09">
                                 {{ album.likeCnt }}
                 </span>
@@ -22,9 +21,8 @@
             <div>
                 <v-icon color="white"
                         small
-                >
-                    mdi-comment-multiple
-                </v-icon>
+                        v-text="'$commentMultiple'"
+                />
                 <span class="f-09">
                                 {{ album.commentCnt }}
                 </span>

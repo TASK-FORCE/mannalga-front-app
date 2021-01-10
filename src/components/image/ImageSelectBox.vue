@@ -17,7 +17,7 @@
             <div
                 class="image-selector"
             >
-                <v-icon>mdi-camera-plus-outline</v-icon>
+                <v-icon v-text="'$cameraOut'" />
                 <div class="font-weight-medium mt-2">
                     {{ text }}
                 </div>

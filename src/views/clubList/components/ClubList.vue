@@ -22,7 +22,9 @@
                 >
                     <div class="club-empty-result-box">
                         <div>
-                            <v-icon x-large>mdi-emoticon-cry-outline</v-icon>
+                            <v-icon x-large
+                                    v-text="'$cryOut'"
+                            />
                         </div>
                         <div>
                             모임이 없어요

@@ -15,7 +15,9 @@
                                width="20"
                                outlined
                         >
-                            <v-icon class="region-icon">mdi-map-marker-outline</v-icon>
+                            <v-icon class="region-icon"
+                                    v-text="'$mapMarker'"
+                            />
                         </v-btn>
                         <div class="title">{{ clubRegionsText }}</div>
                     </div>

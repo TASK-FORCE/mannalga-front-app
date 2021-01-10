@@ -13,9 +13,15 @@
                                     {{ board.writeDate }} {{ board.writerName }}
                                 </span>
                                 <span class="float-right">
-                                    <v-icon small>mdi-thumb-up-outline</v-icon> {{ board.favoriteCnt }}
+                                    <v-icon small
+                                            v-text="'$thumbUpOut'"
+                                    />
+                                    {{ board.favoriteCnt }}
                                     &nbsp;
-                                    <v-icon small>mdi-comment-text-outline</v-icon> {{ board.commentCnt }}
+                                    <v-icon small
+                                            v-text="'$commentOut'"
+                                    />
+                                    {{ board.commentCnt }}
                                 </span>
                             </v-list-item-subtitle>
                         </v-list-item-content>

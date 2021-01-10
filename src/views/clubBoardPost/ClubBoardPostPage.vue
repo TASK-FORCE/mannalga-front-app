@@ -17,11 +17,15 @@
 
         <v-card-actions class="float-left">
             <v-btn icon>
-                <v-icon small>mdi-thumb-up-outline</v-icon>
+                <v-icon small
+                        v-text="'$thumbUpOut'"
+                />
                 3
             </v-btn>
             <v-btn icon>
-                <v-icon small>mdi-comment-text-outline</v-icon>
+                <v-icon small
+                        v-text="'$commentOut'"
+                />
                 2
             </v-btn>
         </v-card-actions>

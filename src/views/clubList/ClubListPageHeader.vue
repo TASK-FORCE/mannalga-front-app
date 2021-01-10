@@ -5,7 +5,7 @@
         <v-text-field v-model="searchText"
                       class="club-search-bar"
                       placeholder="모임 검색"
-                      prepend-icon="mdi-magnify"
+                      prepend-icon="$search"
         />
 
         <v-spacer />
@@ -15,8 +15,12 @@
                class="mr-1"
                @click="changeTheme"
         >
-            <v-icon v-if="isThemeDark">mdi-water</v-icon>
-            <v-icon v-else>mdi-water-outline</v-icon>
+            <v-icon v-if="isThemeDark"
+                    v-text="'$water'"
+            />
+            <v-icon v-else
+                    v-text="'$waterOut'"
+            />
         </v-btn>
 
         <v-btn icon
@@ -24,7 +28,7 @@
                class="mr-1"
                @click="moveToUserSettings"
         >
-            <v-icon>mdi-cog-outline</v-icon>
+            <v-icon v-text="'$cogOut'"/>
         </v-btn>
     </v-app-bar>
 </template>

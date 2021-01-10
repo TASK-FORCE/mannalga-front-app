@@ -10,12 +10,16 @@
             <v-btn v-show="!safeHideBackBtn"
                    @click="$router.back()"
             >
-                <v-icon x-large>mdi-arrow-left-bold</v-icon>
+                <v-icon x-large
+                        v-text="'$arrowLeftBold'"
+                />
             </v-btn>
             <v-btn v-show="!safeHideGoBtn"
                    @click="$emit('clickGoBtn')"
             >
-                <v-icon x-large>mdi-arrow-right-bold</v-icon>
+                <v-icon x-large
+                        v-text="'$arrowRightBold'"
+                />
             </v-btn>
         </v-bottom-navigation>
     </v-footer>

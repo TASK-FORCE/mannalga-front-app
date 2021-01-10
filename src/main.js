@@ -6,7 +6,6 @@ import { vuetify } from './plugins/vuetify';
 import router from './router';
 import store from './store';
 
-import '@mdi/font/css/materialdesignicons.css';
 import './font/roboto.css';
 import './style/style.scss';
 import './style/vuetify-override.scss';

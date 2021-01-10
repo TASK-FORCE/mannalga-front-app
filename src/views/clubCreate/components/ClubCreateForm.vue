@@ -8,14 +8,14 @@
                       @input="value => $emit('inputTitle', value)"
         />
         <v-text-field label="관심사"
-                      append-icon="mdi-menu-down"
+                      append-icon="$menuDown"
                       readonly
                       :rules="RULES.CLUB_INTEREST"
                       :value="clubCreateInterest && clubCreateInterest.name"
                       @click="$emit('openBottomSheetCard', 'INTEREST')"
         />
         <v-text-field label="지역"
-                      append-icon="mdi-menu-down"
+                      append-icon="$menuDown"
                       readonly
                       :rules="RULES.CLUB_REGION"
                       :value="clubCreateRegion && clubCreateRegion.superRegionRoot"

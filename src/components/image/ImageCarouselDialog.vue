@@ -9,7 +9,9 @@
                    icon
                    @click="close"
             >
-                <v-icon large>mdi-close</v-icon>
+                <v-icon large
+                        v-text="'$close'"
+                />
             </v-btn>
         </div>
         <div class="image-dialog-wrapper black-bg">

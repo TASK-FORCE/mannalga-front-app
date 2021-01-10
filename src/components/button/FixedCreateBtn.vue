@@ -4,7 +4,9 @@
            :color="color || 'green'"
            @click="click"
     >
-        <v-icon class="white--text">mdi-plus</v-icon>
+        <v-icon class="white--text"
+                v-text="'$plus'"
+        />
     </v-btn>
 </template>
 

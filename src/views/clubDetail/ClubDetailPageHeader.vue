@@ -5,16 +5,16 @@
         <v-btn icon
                @click="moveToClubListPage"
         >
-            <v-icon>mdi-keyboard-backspace</v-icon>
+            <v-icon v-text="'$back'"/>
         </v-btn>
         <h3 class="header-club-name">{{ clubName }}</h3>
         <v-spacer></v-spacer>
 
         <v-btn icon>
-            <v-icon>mdi-share-variant</v-icon>
+            <v-icon v-text="'$shareVariant'"/>
         </v-btn>
         <v-btn icon>
-            <v-icon>mdi-cogs</v-icon>
+            <v-icon v-text="'$cogs'"/>
         </v-btn>
     </v-app-bar>
 </template>

@@ -25,11 +25,15 @@
                             {{ meeting.cost ? meeting.cost : '미정' }}
                         </span>
                             <span class="f-07 flex-grow-1">
-                            <v-icon small>mdi-map-marker</v-icon>
+                            <v-icon small
+                                    v-text="'$mapMarker'"
+                            />
                             {{ meeting.region ? meeting.region : '미정' }}
                         </span>
                             <span class="f-07">
-                           <v-icon small>mdi-account-multiple</v-icon>
+                           <v-icon small
+                                   v-text="'$twoPeople'"
+                           />
                             {{ meeting.numberInfoText }}
                         </span>
                         </div>

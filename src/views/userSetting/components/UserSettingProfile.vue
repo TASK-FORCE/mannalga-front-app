@@ -10,7 +10,7 @@
                 {{ userProfile.birthday }}
             </div>
             <v-spacer />
-            <v-icon>mdi-chevron-right</v-icon>
+            <v-icon v-text="'$chevronRight'"/>
         </v-list-item>
         <v-divider />
     </div>

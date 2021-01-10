@@ -37,39 +37,39 @@ export default {
             return [
                 {
                     name: '지역',
-                    icon: 'mdi-map-marker',
+                    icon: '$mapMarker',
                     path: PATH.USER.REGION_EDIT,
                     text: this.createRegionsNameText(),
                 },
                 {
                     name: '관심사',
-                    icon: 'mdi-account-heart',
+                    icon: '$accountHeart',
                     path: PATH.USER.INTEREST_EDIT,
                     component: this.createInterestIconsComponent(),
                 },
                 {
                     name: '알림설정',
-                    icon: 'mdi-bell',
+                    icon: '$bell',
                     path: '',
                 },
                 {
                     name: '테마 변경(클릭)',
-                    icon: 'mdi-brush',
+                    icon: '$brush',
                     clickCallback: changeThemeAndLoad,
                 },
                 {
                     name: '개선사항 요청',
-                    icon: 'mdi-message-draw',
+                    icon: '$messageDraw',
                     path: '',
                 },
                 {
                     name: '공지사항',
-                    icon: 'mdi-bullhorn',
+                    icon: '$bullhorn',
                     path: '',
                 },
                 {
                     name: '버전정보',
-                    icon: 'mdi-information',
+                    icon: '$information',
                     path: '',
                 },
             ];

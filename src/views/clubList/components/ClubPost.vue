@@ -37,7 +37,9 @@
                     <span>{{ club.name }}</span>
                     <div class="d-inline-block float-right mr-2">
                         <span class="f-07">
-                            <v-icon small>mdi-account-multiple</v-icon>
+                            <v-icon small
+                                    v-text="'$twoPeople'"
+                            />
                             {{ club.userCount }}/{{ club.maximumNumber }}
                         </span>
                     </div>

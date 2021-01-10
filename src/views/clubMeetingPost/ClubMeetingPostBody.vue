@@ -36,7 +36,9 @@
                     {{ meeting.cost ? meeting.cost : '미정' }}
                 </div>
                 <div class="f-09 ml-5">
-                    <v-icon color="blue">mdi-map-marker</v-icon>
+                    <v-icon color="blue"
+                            v-text="'$mapMarker'"
+                    />
                     {{ meeting.region ? meeting.region : '미정' }}
                 </div>
             </div>
@@ -47,8 +49,8 @@
                 <div class="meeting-users-title my-auto">
                     <v-icon color="#ff9800"
                             large
-                    >mdi-account-multiple
-                    </v-icon>
+                            v-text="'$twoPeople'"
+                    />
                     모임 신청 현황
                     ({{ meeting.numberInfoText }})
                 </div>

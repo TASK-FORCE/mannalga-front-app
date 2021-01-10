@@ -28,9 +28,8 @@
             >
                 <v-icon left
                         small
-                >
-                    mdi-heart
-                </v-icon>
+                        v-text="'$heart'"
+                />
                 <span class="f-09">좋아요</span>
             </v-btn>
             <v-btn v-else
@@ -40,9 +39,8 @@
             >
                 <v-icon left
                         small
-                >
-                    mdi-heart
-                </v-icon>
+                        v-text="'$heart'"
+                />
                 <span class="f-09">좋아요 취소</span>
             </v-btn>
             <v-spacer />

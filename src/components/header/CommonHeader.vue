@@ -6,7 +6,7 @@
         <v-btn icon
                @click="$emit('click')"
         >
-            <v-icon>mdi-keyboard-backspace</v-icon>
+            <v-icon v-text="'$back'"/>
         </v-btn>
         <v-spacer />
         <span v-if="title"

@@ -6,7 +6,9 @@
                    class="title-back-btn"
                    @click="showRoot"
             >
-                <v-icon size="28">mdi-keyboard-backspace</v-icon>
+                <v-icon size="28"
+                        v-text="'$back'"
+                />
             </v-btn>
             <div class="title-text">
                 {{ title }}

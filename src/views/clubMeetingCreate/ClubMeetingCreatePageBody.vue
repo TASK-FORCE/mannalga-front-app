@@ -47,14 +47,14 @@
                               label="만남 위치"
                               style="width: 150px"
                               class="pr-3"
-                              prepend-icon="mdi-map-marker"
+                              prepend-icon="$mapMarker"
                 />
             </div>
             <v-text-field v-model="maximumNumber"
                           :rules="RULES.CLUB_MEETING_MAXIMUM_NUMBER"
                           label="만남 최대 인원(빈값: 제한 없음)"
                           class="px-10"
-                          prepend-icon="mdi-account-group"
+                          prepend-icon="$twoPeople"
             />
         </v-form>
         <CommonCenterBtn :loading="loading"

@@ -1,6 +1,6 @@
 <template>
     <div v-show="!isLoading"
-         class="mx-3"
+         class="mx-3 mt-5"
     >
         <div class="text-center">
             관심사를 선택 해주세요. <br>
@@ -10,19 +10,22 @@
              :key="rootInterest.groupSeq"
              class="mt-3"
         >
-            <v-icon>mdi-music-circle-outline</v-icon>
-            {{ rootInterest.name }}
-            <br>
-            <v-btn v-for="{seq, name} in rootInterest.interestList"
-                   :key="seq"
-                   outlined
-                   :class="isInclude(seq)"
-                   class="ma-1"
-                   small
-                   @click="toggleInterest(seq)"
-            >
-                {{ name }}
-            </v-btn>
+            <div>
+                <v-icon v-text="resolveIcon(rootInterest.name)" />
+                {{ rootInterest.name }}
+            </div>
+            <div class="mt-2">
+                <v-btn v-for="{seq, name} in rootInterest.interestList"
+                       :key="seq"
+                       outlined
+                       :class="isInclude(seq)"
+                       class="ma-1"
+                       small
+                       @click="toggleInterest(seq)"
+                >
+                    {{ name }}
+                </v-btn>
+            </div>
         </div>
     </div>
 </template>
@@ -34,6 +37,7 @@ import mutationsHelper from '@/store/helper/MutationsHelper.js';
 import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.js';
 import { PATH } from '@/router/route_path_type.js';
 import { MESSAGE } from '@/utils/common/constant/messages.js';
+import { InterestUtils } from '@/utils/interest.js';
 
 const MAXIMUM_SELECTABLE_COUNT = 5;
 
@@ -65,6 +69,9 @@ export default {
         isInclude(seq) {
             const include = this.selectedInterestSeqs.includes(seq);
             return include ? 'active' : '';
+        },
+        resolveIcon(name) {
+            return InterestUtils.findInterestGroupVoByName(name).icon;
         },
     },
 };

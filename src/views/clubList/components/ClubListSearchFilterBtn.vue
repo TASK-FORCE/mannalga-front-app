@@ -9,7 +9,9 @@
         @click="$emit('click')"
     >
         {{ text }}
-        <v-icon right>mdi-menu-down</v-icon>
+        <v-icon right
+                v-text="'$menuDown'"
+        />
     </v-btn>
 </template>
 

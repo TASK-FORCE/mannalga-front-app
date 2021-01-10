@@ -10,7 +10,6 @@
     "storybook": "start-storybook -p 9001 -c .storybook"
   },
   "dependencies": {
-    "@mdi/font": "^5.3.45",
     "@mdi/js": "^5.8.55",
     "axios": "^0.19.2",
     "core-js": "^3.6.5",

@@ -3,8 +3,8 @@
         <div class="member-title ml-2 mt-2">
             <v-icon color="#ff9800"
                     large
-            >mdi-account-multiple
-            </v-icon>
+                    v-text="'$twoPeople'"
+            />
             모임 멤버({{ simpleUsers.length }})
         </div>
         <SimpleUserProfileList :users="simpleUsers" />

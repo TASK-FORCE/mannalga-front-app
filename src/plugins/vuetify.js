@@ -1,15 +1,13 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify/lib';
-import { mdiCurrencyKrw } from '@mdi/js';
+import { ICONS } from '@/utils/common/constant/icons.js';
 
 Vue.use(Vuetify);
 
 const vuetify = new Vuetify({
     icons: {
         iconfont: 'mdiSvg',
-        values: {
-            currencyKrw: mdiCurrencyKrw,
-        },
+        values: ICONS,
     },
 });
 

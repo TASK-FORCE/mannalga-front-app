@@ -5,7 +5,9 @@
             <!--                   src="../../images/vue.png"-->
             <!--            />-->
             <div class="text-center">
-                <v-icon class="main-icon">mdi-account-group</v-icon>
+                <v-icon class="main-icon"
+                        v-text="'$threePeople'"
+                />
             </div>
             <div class="text-center">
                 <p class="display-1">모임서비스</p>
@@ -17,9 +19,9 @@
                        @click="login"
                 >
                     Kakao Login
-                    <v-icon right>
-                        mdi-facebook-messenger
-                    </v-icon>
+                    <v-icon right
+                            v-text="'$facebookMessenger'"
+                    />
                 </v-btn>
             </div>
             <div class="text-center mt-5">
@@ -29,9 +31,9 @@
                        @click="$router.push(PATH.BACKDOOR_LOGIN)"
                 >
                     Backdoor Login
-                    <v-icon right>
-                        mdi-facebook-messenger
-                    </v-icon>
+                    <v-icon right
+                            v-text="'$facebookMessenger'"
+                    />
                 </v-btn>
             </div>
         </div>
