@@ -23,6 +23,7 @@ import RenderFunction from '@/utils/common/renderFunction.js';
 import InterestIcons from '@/components/interest/InterestIcons.vue';
 import { changeThemeAndLoad } from '@/plugins/vuetify.js';
 import { PATH } from '@/router/route_path_type.js';
+import { AuthUtils } from '@/utils/auth.js';
 
 export default {
     name: 'UserSettingPageBody',
@@ -72,6 +73,11 @@ export default {
                     icon: '$information',
                     path: '',
                 },
+                {
+                    name: '로그아웃',
+                    icon: '$logout',
+                    clickCallback: this.logout,
+                },
             ];
         },
     },
@@ -84,6 +90,10 @@ export default {
                 return this.regionsByPriority.map(({ name }) => name).reduce((prev, cur) => `${prev}, ${cur}`);
             }
             return '';
+        },
+        logout() {
+            AuthUtils.removeAppTokenToLocalStorage();
+            this.$router.push(PATH.LOGIN);
         },
     },
 };

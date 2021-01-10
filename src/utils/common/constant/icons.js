@@ -26,6 +26,7 @@ import {
     mdiHeart,
     mdiInformation,
     mdiKeyboardBackspace,
+    mdiLogoutVariant,
     mdiMagnify,
     mdiMapMarker,
     mdiMenuDown,
@@ -78,6 +79,7 @@ const ICONS = {
     messageDraw: mdiMessageDraw,
     bullhorn: mdiBullhorn,
     information: mdiInformation,
+    logout: mdiLogoutVariant,
 };
 
 export {
