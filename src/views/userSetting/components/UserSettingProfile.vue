@@ -15,27 +15,33 @@
                 </v-btn>
                 <ImageCropper ref="cropper"
                               :aspectRatio="1"
+                              :width="100"
+                              :height="100"
                               @handleUploadedImgDto="handleUploadedImgUrl"
                 />
-                <v-dialog :value="open"
+                <v-dialog :value="dialogOpen"
                           persistent
                 >
                     <v-card class="pa-3">
                         <div class="text-center">
+                            <div class="font-weight-bold title">
+                                변경 후 프로필 이미지
+                            </div>
                             <div class="pa-2">
-                                <UserProfileAvatar :imgUrl="url"
+                                <UserProfileAvatar :imgUrl="newImageUrl"
                                                    :size="200"
                                 />
                             </div>
                             <div class="mt-2">
                                 <v-btn color="green darken-2"
                                        class="font-weight-bold"
-                                       @click="open = false"
+                                       @click="dialogOpen = false"
                                 >
                                     취소
                                 </v-btn>
                                 <v-btn color="green darken-2"
                                        class="font-weight-bold ml-5"
+                                       @click="changeProfileImage"
                                 >
                                     변경
                                 </v-btn>
@@ -44,7 +50,9 @@
                     </v-card>
                 </v-dialog>
             </div>
-            <div class="text-center ml-5">
+            <div class="text-center w-100"
+                 style="font-size: 1.2rem"
+            >
                 {{ userProfile.userName }}
                 <VerticalBarDivider />
                 {{ userProfile.birthday }}
@@ -68,15 +76,18 @@ export default {
     },
     data() {
         return {
-            // url: 'https://super-invention-static.s3.ap-northeast-2.amazonaws.com/temp/img/20210110054440-15b3918a-b7d1-4e29-8bf9-b342049120d6-test.png',
-            url: null,
-            open: false,
+            newImageUrl: null,
+            dialogOpen: false,
         };
     },
     methods: {
         handleUploadedImgUrl({ absolutePath }) {
-            this.url = absolutePath;
-            this.open = true;
+            this.newImageUrl = absolutePath;
+            this.dialogOpen = true;
+        },
+        changeProfileImage() {
+            this.userProfile.profileImageLink = this.newImageUrl;
+            this.dialogOpen = false;
         },
     },
 };
