@@ -11,10 +11,11 @@
                             <img ref="cropImg"
                                  alt="cropImg"
                                  :src="originalImgUrl"
+                                 :style="resolveImgStyle"
                                  @load.stop="createCropper"
                             >
                         </div>
-                        <v-card-actions class="text-center">
+                        <v-card-actions class="text-center mt-3">
                             <v-btn
                                 class="flex-grow-1 white--text font-weight-bold"
                                 color="green darken-2"
@@ -75,6 +76,14 @@ export default {
             type: Boolean,
             default: false,
         },
+        width: {
+            type: Number,
+            default: 0,
+        },
+        height: {
+            type: Number,
+            default: 0,
+        },
     },
     data() {
         return {
@@ -98,6 +107,11 @@ export default {
                 minContainerWidth: window.innerWidth,
             };
         },
+        resolveImgStyle() {
+            return {
+                maxHeight: `${window.innerHeight - 100}px`,
+            };
+        },
     },
     methods: {
         destroy() {
@@ -111,6 +125,19 @@ export default {
         },
         createCropper() {
             this.cropper = new Cropper(this.$refs.cropImg, this.cropperOptions);
+            if (this.width !== 0 && this.height !== 0) {
+                const callback = () => {
+                    if (Object.keys(this.cropper.getCropBoxData()).length === 4) {
+                        this.cropper.setCropBoxData({
+                            width: this.width,
+                            height: this.height,
+                        });
+                    } else {
+                        setTimeout(callback, 50);
+                    }
+                };
+                setTimeout(callback, 50);
+            }
         },
         changeOriginalImage(e) {
             const originalImgInput = e.target;
@@ -149,7 +176,6 @@ export default {
 
 <style scoped>
 img {
-    width: 100%;
-    height: 100%;
+    max-width: 100%;
 }
 </style>

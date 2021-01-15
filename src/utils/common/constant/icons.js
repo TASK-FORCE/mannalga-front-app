@@ -33,6 +33,7 @@ import {
     mdiMessageDraw,
     mdiMusicCircleOutline,
     mdiPartyPopper,
+    mdiPencil,
     mdiPlus,
     mdiShareVariant,
     mdiThumbUpOutline,
@@ -80,6 +81,7 @@ const ICONS = {
     bullhorn: mdiBullhorn,
     information: mdiInformation,
     logout: mdiLogoutVariant,
+    pencil: mdiPencil,
 };
 
 export {
