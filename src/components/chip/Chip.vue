@@ -21,6 +21,10 @@ export default {
             type: Boolean,
             default: false,
         },
+        small: {
+            type: Boolean,
+            default: false,
+        },
         outlined: {
             type: Boolean,
             default: false,
@@ -49,7 +53,10 @@ export default {
                 style.color = 'white';
                 style.backgroundColor = this.color;
             }
-            if (this.large) {
+            if (this.small) {
+                style.padding = '1px 4px';
+                style.fontSize = '0.5rem';
+            } else if (this.large) {
                 style.padding = '4px 6px';
                 style.fontSize = '0.8rem';
             } else {
