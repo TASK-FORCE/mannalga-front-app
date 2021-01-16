@@ -1,15 +1,13 @@
 <template>
-    <div class="d-inline-block">
-        <span :style="resolveStyle"
-              class="root-role-tag"
-        >
-            {{ chipInfo.name }}
-        </span>
-    </div>
+    <Chip :info="chipInfo"
+          :large="large"
+          :outlined="outlined"
+    />
 </template>
 
 <script>
 import { CLUB_ROLE } from '@/utils/role.js';
+import Chip from '@/components/chip/Chip.vue';
 
 const CLUB_CHIP_ROLES = [
     {
@@ -31,12 +29,17 @@ const CLUB_CHIP_ROLES = [
 
 export default {
     name: 'RoleChip',
+    components: { Chip },
     props: {
         role: {
             type: String,
             required: true,
         },
         large: {
+            type: Boolean,
+            default: false,
+        },
+        outlined: {
             type: Boolean,
             default: false,
         },
@@ -49,28 +52,6 @@ export default {
                 color: clubChipRole.color,
             };
         },
-        resolveStyle() {
-            if (this.large) {
-                return {
-                    padding: '6px',
-                    fontSize: '0.8rem',
-                    backgroundColor: this.chipInfo.color,
-                };
-            }
-            return {
-                padding: '4px',
-                fontSize: '0.6rem',
-                backgroundColor: this.chipInfo.color,
-            };
-        },
     },
 };
 </script>
-
-<style scoped>
-.root-role-tag {
-    font-weight: bold;
-    border-radius: 30px;
-    color: white;
-}
-</style>

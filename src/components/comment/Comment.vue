@@ -7,14 +7,21 @@
                                :imgUrl="comment.imgUrl"
             />
         </div>
-        <div class="content-wrapper">
-            <div class="my-auto">
-                <div class="f-08">
-                    <span class="font-weight-bold">{{ comment.writer }}</span>
-                    <span class="ml-2">{{ registerTime }}</span>
+        <div class="comment-content-wrapper">
+            <div>
+                <div class="d-flex align-center">
+                    <div class="comment-writer">{{ comment.writer }}</div>
+                    <VerticalBarDivider :margin="1" />
+                    <div class="comment-datetime">{{ registerTime }}</div>
                     <div v-if="isWriter"
-                          class="content-my-comment"
-                    >내댓글</div>
+                         class="d-flex align-center"
+                    >
+                        <VerticalBarDivider :margin="1" />
+                        <Chip v-if="isWriter"
+                              :info="{name: '내댓글', color: 'green'}"
+                              small
+                        />
+                    </div>
                 </div>
                 <div class="content-divider" />
                 <div class="f-09">
@@ -28,10 +35,12 @@
 
 <script>
 import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
+import VerticalBarDivider from '@/components/VerticalBarDivider.vue';
+import Chip from '@/components/chip/Chip.vue';
 
 export default {
     name: 'Comment',
-    components: { UserProfileAvatar },
+    components: { Chip, VerticalBarDivider, UserProfileAvatar },
     props: {
         comment: {
             type: Object,
@@ -53,19 +62,23 @@ export default {
 <style scoped
        lang="scss"
 >
-.content-wrapper {
+.comment-content-wrapper {
+    display: flex;
+    align-items: center;
     padding: 4px 12px;
     border-radius: 10px;
-    display: flex;
     background-color: #efefef;
 
-    .content-divider {
-        height: 1px;
-        background-color: #00000061;
-        margin: 2px 0;
+    .comment-writer {
+        font-size: 0.8rem;
+        font-weight: bold;
     }
 
-    .content-my-comment {
+    .comment-datetime {
+        font-size: 0.7rem;
+    }
+
+    .my-comment-chip {
         display: inline-block;
         margin-left: 4px;
         padding: 2px 4px;
@@ -74,10 +87,16 @@ export default {
         font-weight: bold;
         border-radius: 8px;
     }
+
+    .content-divider {
+        height: 1px;
+        background-color: #00000061;
+        margin: 2px 0;
+    }
 }
 
 .theme--dark {
-    .content-wrapper {
+    .comment-content-wrapper {
         background-color: #424242;
 
         .content-divider {
