@@ -21,7 +21,7 @@ import RenderFunction from '@/utils/common/renderFunction.js';
 import InterestIcons from '@/components/interest/InterestIcons.vue';
 import { changeThemeAndLoad } from '@/plugins/vuetify.js';
 import { PATH } from '@/router/route_path_type.js';
-import { AuthUtils } from '@/utils/auth.js';
+import mutationsHelper from '@/store/helper/MutationsHelper.js';
 
 export default {
     name: 'UserSettingPageBody',
@@ -90,7 +90,7 @@ export default {
             return '';
         },
         logout() {
-            AuthUtils.removeAppTokenToLocalStorage();
+            mutationsHelper.removeAppToken();
             this.$router.push(PATH.LOGIN);
         },
     },

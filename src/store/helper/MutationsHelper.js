@@ -5,6 +5,7 @@ import { MODULE } from '@/store/type/type.js';
 class MutationsHelper {
     // auth
     setAppToken = (payload) => commit(MODULE.AUTH, 'setAppToken', payload);
+    removeAppToken = (payload) => commit(MODULE.AUTH, 'removeAppToken', payload);
 
     // clubList module
     changeClubSearchRegion = (payload) => commit(MODULE.CLUB_LIST, 'changeClubSearchRegion', payload);

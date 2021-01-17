@@ -25,7 +25,7 @@ const mutations = {
         AuthUtils.setAppTokenAsDefaultHeader(axios.defaults.headers);
     },
     removeAppToken(state) {
-        state.appToken = '';
+        state.appToken = null;
         AuthUtils.removeAppTokenToLocalStorage();
     },
 };
