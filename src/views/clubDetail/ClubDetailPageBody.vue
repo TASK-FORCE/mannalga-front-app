@@ -83,7 +83,9 @@ export default {
         if (this.clubInfo.seq === 0) {
             clubDetailVuexService.dispatch(this.clubSeq, true, PATH.CLUB_LIST);
         }
-        this.tab = 'board';
+        if (process.env.NODE_ENV !== 'production') {
+            this.tab = 'board';
+        }
     },
 };
 </script>
