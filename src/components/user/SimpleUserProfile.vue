@@ -20,7 +20,7 @@
 
 <script>
 import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
-import RoleChip from '@/components/role/RoleChip.vue';
+import RoleChip from '@/components/chip/RoleChip.vue';
 
 export default {
     name: 'SimpleUserProfile',

@@ -8,11 +8,12 @@
         <template v-slot:action="{ attrs }">
             <v-btn
                 :color="snackBarOptions.color"
-                text
+                outlined
+                small
                 v-bind="attrs"
                 @click="closeSnackBar"
             >
-                Close
+                닫기
             </v-btn>
         </template>
     </v-snackbar>
