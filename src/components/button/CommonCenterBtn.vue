@@ -3,6 +3,7 @@
         <v-btn :outlined="!!outlined"
                :color="color || 'blue'"
                :loading="loading"
+               :width="width"
                @click="$emit('click');"
         >
             {{ text }}
@@ -29,6 +30,9 @@ export default {
         loading: {
             type: Boolean,
             default: false,
+        },
+        width: {
+            type: String,
         },
     },
 };

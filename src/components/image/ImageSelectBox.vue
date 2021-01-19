@@ -5,27 +5,29 @@
              @click="openDialog = true"
         >
             <v-img :src="imageUrl"
-                   class="select-image"
+                   :style="resolveImageStyle"
                    max-height="600"
             />
         </div>
         <div v-else
              class="image-selector-container"
-             :style="setHeight"
+             :style="resolveSelectorStyle"
              @click="clickSelectBox"
         >
             <div
                 class="image-selector"
             >
                 <v-icon v-text="'$cameraOut'" />
-                <div class="font-weight-medium mt-2">
+                <div v-if="text"
+                     class="font-weight-medium mt-2"
+                >
                     {{ text }}
                 </div>
             </div>
         </div>
-        <!--  @handleUploadedImg 이벤트에서 파라미터로 저장된 이미지의 URL를 넘겨준다   -->
+        <!--  @handleUploadedImgDto 이벤트에서 파라미터로 저장된 이미지의 URL를 넘겨준다   -->
         <ImageCropper ref="cropper"
-                      :aspectRatio="freeSize ? NaN : undefined"
+                      :aspectRatio="cropFreeSize ? NaN : undefined"
                       @handleUploadedImgDto="handleUploadedImgDto"
         />
         <ImageCarouselDialog v-model="openDialog"
@@ -55,13 +57,20 @@ export default {
     props: {
         text: {
             type: String,
-            default: '',
+            default: null,
+        },
+        width: {
+            type: String,
         },
         height: {
             type: String,
             default: '50',
         },
-        freeSize: {
+        cropFreeSize: {
+            type: Boolean,
+            default: false,
+        },
+        fixImage: {
             type: Boolean,
             default: false,
         },
@@ -73,10 +82,16 @@ export default {
         };
     },
     computed: {
-        setHeight() {
-            return {
-                height: `${this.height}px`,
-            };
+        resolveSelectorStyle() {
+            const style = {};
+            style.height = `${this.height}px`;
+            if (this.width) {
+                style.width = `${this.width}px`;
+            }
+            return style;
+        },
+        resolveImageStyle() {
+            return this.fixImage ? this.resolveSelectorStyle : {};
         },
     },
     methods: {

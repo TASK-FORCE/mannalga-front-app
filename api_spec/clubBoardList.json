@@ -1,0 +1,23 @@
+{
+  "content": [
+    {
+      "boardSeq": 0,
+      "title": "",
+      "simpleContent": "", // content length를 50으로 자른 text
+      "mainImageUrl": "", // 가장 처음에 등록된 이미지
+      "createdAt": "",
+      "category": "",
+      "likeCnt": 0,
+      "commentCnt": 0,
+      "writer": {
+        "writerUserSeq": 2,
+        "writerClubUserSeq": 110,
+        "name": "",
+        "imgUrl": "",
+        "role": [
+          "CLUB_MEMBER"
+        ]
+      }
+    }
+  ]
+}

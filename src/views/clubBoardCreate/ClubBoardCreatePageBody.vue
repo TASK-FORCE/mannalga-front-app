@@ -3,32 +3,44 @@
         <v-form ref="clubBoardCreateForm"
                 class="field-wrapper"
         >
-            <v-text-field v-model="clubBoardCreateInfo.title"
+            <v-text-field v-model="title"
                           :rules="RULES.CLUB_BOARD_TITLE"
-                          class="pa-0"
+                          class="pa-0 ma-0"
                           label="게시글 제목"
             />
-            <v-textarea v-model="clubBoardCreateInfo.content"
-                        class="mt-2"
-                        height="300"
+            <v-select v-model="category"
+                      :items="boardCategoryNames"
+                      :rules="RULES.CLUB_BOARD_CATEGORY"
+                      label="카테고리"
+                      class="mt-2"
+                      outlined
+                      dense
+            />
+            <v-textarea v-model="content"
+                        :height="resolveContentHeight"
                         :rules="RULES.CLUB_BOARD_CONTENT"
                         label="내용을 작성해주세요."
+                        hide-details
                         outlined
-            ></v-textarea>
+            />
         </v-form>
         <div class="image-box-wrapper">
             <div v-for="(_, index) in enableImageSize"
                  :key="index"
+                 class="mx-1"
             >
-                <ImageSelectBox class="image-box"
-                                height="80"
+                <ImageSelectBox :height="resolveImageBoxHeight"
+                                :width="resolveImageBoxWidth"
+                                cropFreeSize
+                                fixImage
                                 @handleImageDto="dto => addImage(dto, index)"
                 />
             </div>
         </div>
         <CommonCenterBtn :loading="loading"
-                         class="mt-5"
+                         class="mt-5 mb-2"
                          color="primary"
+                         width="120"
                          outlined
                          text="작성 완료"
                          @click="createClubBoard"
@@ -43,6 +55,8 @@ import actionsHelper from '@/store/helper/ActionsHelper.js';
 import { generateParamPath, PATH } from '@/router/route_path_type.js';
 import mutationsHelper from '@/store/helper/MutationsHelper.js';
 import { RULES } from '@/utils/common/constant/rules.js';
+import { BoardUtils } from '@/utils/board.js';
+import gettersHelper from '@/store/helper/GettersHelper.js';
 
 export default {
     name: 'ClubBoardCreateBox',
@@ -52,24 +66,36 @@ export default {
             RULES,
             enableImageSize: 3,
             loading: false,
-            clubBoardCreateInfo: {
-                title: null,
-                content: null,
-                isTopFixed: false, // 존재 이유 파악하기
-                isNotifiable: false, // 존재 이유 파악하기
-                imgList: [],
-            },
-            imgPath: 'https://super-invention-static.s3.ap-northeast-2.amazonaws.com/temp/img/20201127015224-0c427f9f-124b-468b-aab0-101b15324995-test.png',
+
+            title: null,
+            content: null,
+            category: null,
+            imgList: [],
         };
+    },
+    computed: {
+        currentUserInfo: () => gettersHelper.currentUserInfo(),
+        resolveImageBoxHeight() {
+            return window.innerHeight / 7;
+        },
+        resolveImageBoxWidth() {
+            return `${(window.innerWidth - 32) / 3 - 8}`;
+        },
+        resolveContentHeight() {
+            return window.innerHeight / 3;
+        },
+        boardCategoryNames() {
+            return BoardUtils.findCategoryByCurrentUserInfo(this.currentUserInfo);
+        },
     },
     methods: {
         addImage(imageDto, index) {
-            this.clubBoardCreateInfo.imgList.splice(index, 0, imageDto);
+            this.imgList.splice(index, 0, imageDto);
         },
         createClubBoard() {
             if (this.$refs.clubBoardCreateForm.validate()) {
                 const { clubSeq } = this.$route.params;
-                const clubBoardDto = { ...this.clubBoardCreateInfo };
+                const clubBoardDto = {};
                 this.loading = true;
                 actionsHelper.requestClubCreateBoard({ clubSeq, clubBoardDto })
                     .then(() => {
@@ -93,13 +119,7 @@ export default {
 
     .image-box-wrapper {
         display: flex;
-        flex-wrap: wrap;
-
-        .image-box {
-            display: inline-block;
-            margin-right: 10px;
-            width: 80px;
-        }
+        margin-top: 24px;
     }
 }
 </style>
