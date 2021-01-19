@@ -47,8 +47,8 @@ class DefaultBuilder {
 
     static buildCurrentUserInfo = () => ({
         isMaster: false,
-        isMember: false,
         isManager: false,
+        isMember: false,
         roles: null,
         isLiked: false,
     });

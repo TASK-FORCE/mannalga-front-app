@@ -21,7 +21,7 @@
                 <ImageSelectBox ref="imgSelectBox"
                                 class="mt-1 mb-3 elevation-2"
                                 height="300"
-                                freeSize
+                                cropFreeSize
                                 @handleImageDto="changeImageDto"
                 />
             </div>

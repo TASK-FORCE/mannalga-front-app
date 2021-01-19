@@ -91,7 +91,8 @@
             </div>
             <MiddleDivider :height="7" />
         </div>
-        <FixedCreateBtn color="blue"
+        <FixedCreateBtn v-if="canCreateBoard"
+                        color="blue"
                         :path="clubBoardCreate"
                         left
         />
@@ -107,39 +108,28 @@ import VerticalBarDivider from '@/components/VerticalBarDivider.vue';
 import MiddleDivider from '@/components/MiddleDivider.vue';
 import RoleChip from '@/components/chip/RoleChip.vue';
 import Chip from '@/components/chip/Chip.vue';
-
-const BOARD_CATEGORY = {
-    NOTICE: {
-        name: '공지사항',
-        color: '#ba6f01',
-    },
-    JOIN_GREETING: {
-        name: '가입인사',
-        color: '#2196f3',
-    },
-    FREE: {
-        name: '자유글',
-        color: '#009688',
-    },
-    MEETING_REVIEW: {
-        name: '모임후기',
-        color: '#795548',
-    },
-};
+import { BOARD_CATEGORY, BoardUtils } from '@/utils/board.js';
 
 export default {
     name: 'ClubDetailBoard',
     components: { Chip, RoleChip, MiddleDivider, VerticalBarDivider, UserProfileAvatar, FixedCreateBtn },
-    props: ['boardList'],
+    props: {
+        currentUserInfo: Object,
+        boardList: Object,
+    },
     data() {
         return {
             clubBoardCreate: null,
-            boardCategoryNames: ['전체보기', ...Object.values(BOARD_CATEGORY).map(({ name }) => name)],
+            boardCategoryNames: ['전체보기', ...BoardUtils.getCategoryNames()],
             selectedCategory: '전체보기',
         };
     },
     computed: {
         clubSeq: () => routerHelper.clubSeq(),
+        canCreateBoard() {
+            const { isMaster, isManager, isMember } = this.currentUserInfo;
+            return isMaster || isManager || isMember;
+        },
     },
     watch: {
         selectedCategory(value) {
@@ -153,9 +143,8 @@ export default {
         clubBoardPath(boardSeq) {
             return generateParamPath(PATH.CLUB.BOARD_POST, [this.clubSeq, boardSeq]);
         },
-        getCategoryInfo(categoryName) {
-            const { name, color } = BOARD_CATEGORY[categoryName];
-            return { name, color };
+        getCategoryInfo(categoryType) {
+            return BoardUtils.findCategoryByType(categoryType);
         },
         clickBoard() {
             console.log('clickBoard');
