@@ -44,7 +44,7 @@
                            color="blue"
                            @click="unFold(false)"
                     >
-                        답글 3개
+                        답글 {{ childCommentCnt }}개
                     </v-btn>
                     <v-btn class="f-08 pa-0"
                            text
@@ -55,17 +55,36 @@
                     </v-btn>
                 </div>
                 <div v-if="!isFolded">
-                    <div>
-                        <div v-for="(comment, index) in childComments"
-                             :key="index"
-                        >
-                            <Comment :comment="comment" />
+                    <div v-if="hasChildComment">
+                        <div v-if="showChildComments && hasChildComment">
+                            <div v-for="(comment, index) in childComments"
+                                 :key="index"
+                            >
+                                <Comment :comment="comment" />
+                            </div>
+                            <div class="d-flex ml-2">
+                                <v-btn x-small
+                                       class="mb-2"
+                                       @click="showChildComments = false"
+                                >
+                                    <v-icon v-text="'$chevronUp'" />
+                                </v-btn>
+                            </div>
                         </div>
-                        <div>
-                            <v-btn> 접기 </v-btn>
+                        <div v-else>
+                            <v-btn class="f-08 ml-2 pa-0 font-weight-bold"
+                                   text
+                                   small
+                                   color="blue"
+                                   @click="showChildComments = true"
+                            >
+                                {{ childComments.length }}개 댓글 보기
+                            </v-btn>
                         </div>
                     </div>
-                    <div class="d-flex w-100 px-2 pt-2 child-comment-info-wrapper">
+                    <div class="d-flex w-100 px-2 child-comment-info-wrapper"
+                         :class="!hasChildComment ? 'mt-2' : null"
+                    >
                         <v-text-field ref="childInput"
                                       filled
                                       rounded
@@ -111,8 +130,70 @@ export default {
     data() {
         return {
             EMPTY_COMMENT_TEXT: MESSAGE.EMPTY_COMMENT_TEXT,
-            childComments: [],
+            childComments: [
+                {
+                    writer: '동명',
+                    writerSeq: 7,
+                    writeClubUserSeq: 6328,
+                    registerTime: '2021-01-02 21:57:56',
+                    content: 'Hello World Hello World',
+                    imgUrl: '',
+                    isWrittenByMe: false,
+                    depth: 2,
+                    childCommentCnt: 0,
+                    onlyDirectChildCnt: false,
+                },
+                {
+                    writer: '동명',
+                    writerSeq: 7,
+                    writeClubUserSeq: 6328,
+                    registerTime: '2021-01-02 21:57:57',
+                    content: 'Hello World Hello World',
+                    imgUrl: '',
+                    isWrittenByMe: false,
+                    depth: 2,
+                    childCommentCnt: 0,
+                    onlyDirectChildCnt: false,
+                },
+                {
+                    writer: '동명',
+                    writerSeq: 7,
+                    writeClubUserSeq: 6328,
+                    registerTime: '2021-01-02 21:57:57',
+                    content: 'Hello World Hello World',
+                    imgUrl: '',
+                    isWrittenByMe: false,
+                    depth: 2,
+                    childCommentCnt: 0,
+                    onlyDirectChildCnt: false,
+                },
+                {
+                    writer: '동명',
+                    writerSeq: 7,
+                    writeClubUserSeq: 6328,
+                    registerTime: '2021-01-02 21:57:58',
+                    content: 'Hello World Hello World',
+                    imgUrl: '',
+                    isWrittenByMe: false,
+                    depth: 2,
+                    childCommentCnt: 0,
+                    onlyDirectChildCnt: false,
+                },
+                {
+                    writer: '동명',
+                    writerSeq: 7,
+                    writeClubUserSeq: 6328,
+                    registerTime: '2021-01-02 21:57:59',
+                    content: 'Hello World Hello World',
+                    imgUrl: '',
+                    isWrittenByMe: false,
+                    depth: 2,
+                    childCommentCnt: 0,
+                    onlyDirectChildCnt: false,
+                },
+            ].splice(0, parseInt((Math.random() * 10) % 5, 10) - 1),
             isFolded: true,
+            showChildComments: true,
         };
     },
     computed: {
@@ -120,7 +201,10 @@ export default {
             return !!this.comment.isWrittenByMe;
         },
         hasChildComment() {
-            return this.comment.childCommentCnt >= 0;
+            return this.childComments.length > 0; // || this.comment.childCommentCnt > 0;
+        },
+        childCommentCnt() {
+            return this.childComments.length;
         },
         isRootComment() {
             return this.comment.depth === 1;
@@ -145,79 +229,9 @@ export default {
             }
         },
         focusChildInput() {
-            const { childInput } = this.$refs;
-            if (childInput) {
-                childInput.focus();
-            } else {
-                setTimeout(this.focusChildInput, 100);
-            }
+            this.$nextTick(() => this.$refs.childInput.focus());
         },
-        settingChildComment() {
-            if (this.childComments.length === 0) {
-                this.childComments = [
-                    {
-                        writer: '동명',
-                        writerSeq: 7,
-                        writeClubUserSeq: 6328,
-                        registerTime: '2021-01-02 21:57:56',
-                        content: 'Hello World Hello World',
-                        imgUrl: '',
-                        isWrittenByMe: false,
-                        depth: 2,
-                        childCommentCnt: 0,
-                        onlyDirectChildCnt: false,
-                    },
-                    {
-                        writer: '동명',
-                        writerSeq: 7,
-                        writeClubUserSeq: 6328,
-                        registerTime: '2021-01-02 21:57:57',
-                        content: 'Hello World Hello World',
-                        imgUrl: '',
-                        isWrittenByMe: false,
-                        depth: 2,
-                        childCommentCnt: 0,
-                        onlyDirectChildCnt: false,
-                    },
-                    {
-                        writer: '동명',
-                        writerSeq: 7,
-                        writeClubUserSeq: 6328,
-                        registerTime: '2021-01-02 21:57:57',
-                        content: 'Hello World Hello World',
-                        imgUrl: '',
-                        isWrittenByMe: false,
-                        depth: 2,
-                        childCommentCnt: 0,
-                        onlyDirectChildCnt: false,
-                    },
-                    {
-                        writer: '동명',
-                        writerSeq: 7,
-                        writeClubUserSeq: 6328,
-                        registerTime: '2021-01-02 21:57:58',
-                        content: 'Hello World Hello World',
-                        imgUrl: '',
-                        isWrittenByMe: false,
-                        depth: 2,
-                        childCommentCnt: 0,
-                        onlyDirectChildCnt: false,
-                    },
-                    {
-                        writer: '동명',
-                        writerSeq: 7,
-                        writeClubUserSeq: 6328,
-                        registerTime: '2021-01-02 21:57:59',
-                        content: 'Hello World Hello World',
-                        imgUrl: '',
-                        isWrittenByMe: false,
-                        depth: 2,
-                        childCommentCnt: 0,
-                        onlyDirectChildCnt: false,
-                    },
-                ];
-            }
-        },
+        settingChildComment() {},
     },
 };
 </script>
