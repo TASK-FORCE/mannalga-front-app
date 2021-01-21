@@ -6,12 +6,14 @@ const state = {
     loading: false,
     snackBarOptions: DefaultBuilder.buildDefaultSnackBarOption(),
     openSnackBar: false,
+    isFocusingChildCommentInput: false,
 };
 
 const getters = {
     isLoading: (state) => state.loading,
     snackBarOptions: (state) => state.snackBarOptions,
     openSnackBar: (state) => state.openSnackBar,
+    isFocusingChildCommentInput: (state) => state.isFocusingChildCommentInput,
 };
 
 const mutations = {
@@ -25,6 +27,13 @@ const mutations = {
     closeSnackBar(state) {
         state.openSnackBar = false;
     },
+    focusChildCommentInput(state) {
+        state.isFocusingChildCommentInput = true;
+    },
+    focusOutChildCommentInput(state) {
+        state.isFocusingChildCommentInput = false;
+    },
+
 };
 
 const actions = {

@@ -39,6 +39,7 @@ class GettersHelper {
     isLoading = () => get(MODULE.COMMON, 'isLoading');
     snackBarOptions = () => get(MODULE.COMMON, 'snackBarOptions');
     openSnackBar = () => get(MODULE.COMMON, 'openSnackBar');
+    isFocusingChildCommentInput = () => get(MODULE.COMMON, 'isFocusingChildCommentInput');
 
     // template module
     rootRegions = () => get(MODULE.TEMPLATE, 'rootRegions');

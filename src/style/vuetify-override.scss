@@ -52,3 +52,11 @@
 .theme--dark.v-application {
     background-color: #1e1e1e;
 }
+
+.child-comment-info-wrapper {
+    .v-input__slot {
+        height: 25px !important;
+        min-height: auto !important;
+        padding: 0 12px !important;
+    }
+}
