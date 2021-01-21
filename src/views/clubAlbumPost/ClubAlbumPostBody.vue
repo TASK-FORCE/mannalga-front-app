@@ -69,7 +69,9 @@
                 </template>
             </InfiniteScrollTemplate>
         </div>
-        <CommentWriteFooter :postProcessor="callbackAfterCommentWrite" />
+        <CommentWriteFooter v-if="!isFocusingChildCommentInput"
+                            :postProcessor="callbackAfterCommentWrite"
+        />
     </div>
 </template>
 
@@ -105,6 +107,7 @@ export default {
         album: () => gettersHelper.album(),
         albumCommentList: () => gettersHelper.albumCommentList(),
         albumCommentPage: () => gettersHelper.albumCommentPage(),
+        isFocusingChildCommentInput: () => gettersHelper.isFocusingChildCommentInput(),
         loading: () => gettersHelper.isLoading(),
         writer() {
             return this.album.writer;
