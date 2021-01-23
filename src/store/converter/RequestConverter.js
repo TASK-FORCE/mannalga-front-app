@@ -13,12 +13,14 @@ export default class RequestConverter {
         const { size, nextPage } = clubPage;
         const regionSeq = clubSearchFilterInfo.region.seq;
         const interestSeq = clubSearchFilterInfo.interest.seq;
+        const interestGroupSeq = clubSearchFilterInfo.interest.groupSeq;
         const text = clubSearchFilterInfo.searchText;
         return {
             size,
             page: nextPage,
             regionSeq,
             interestSeq,
+            interestGroupSeq,
             text,
         };
     };

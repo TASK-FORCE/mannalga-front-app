@@ -26,6 +26,7 @@ class DefaultBuilder {
             name: null,
         },
         interest: {
+            groupSeq: null,
             seq: null,
             name: null,
         },

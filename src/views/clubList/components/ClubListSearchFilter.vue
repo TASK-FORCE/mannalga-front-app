@@ -117,7 +117,12 @@ export default {
             this.sheet = false;
         },
         selectSearchInterest(interest) {
-            mutationsHelper.changeClubSearchInterest({ name: interest.name, seq: interest.seq });
+            const interestDto = {
+                name: interest.name,
+                seq: interest.seq,
+                groupSeq: interest.groupSeq,
+            };
+            mutationsHelper.changeClubSearchInterest(interestDto);
             this.sheet = false;
         },
         cancelRegionSelect() {
