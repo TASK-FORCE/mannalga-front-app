@@ -28,6 +28,12 @@ const mutations = {
         const { priority, region } = selectedRegion;
         state.selectedRegions[priority] = region;
     },
+    removeSelectedRegions(state, priority) {
+        delete state.selectedRegions[priority];
+        state.selectedRegions = {
+            ...state.selectedRegions,
+        };
+    },
     removeSelectedInterestSeqs(state, index) {
         state.selectedInterestSeqs.splice(index, 1);
     },

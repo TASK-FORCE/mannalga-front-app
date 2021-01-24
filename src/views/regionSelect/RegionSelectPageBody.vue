@@ -1,11 +1,6 @@
 <template>
     <div v-show="!isLoading">
-        <div v-if="selectedRegions[priority]"
-             class="text-center"
-        >
-            이전에 선택한 지역: {{ selectedRegions[priority].name }}
-        </div>
-        <v-list>
+        <v-list class="py-0">
             <v-list-group v-for="rootRegion in rootRegions"
                           :key="rootRegion.seq"
                           no-action
@@ -67,7 +62,7 @@ export default {
         },
         alreadySelected(seq) {
             for (const region of Object.values(this.selectedRegions)) {
-                if (seq === region.seq) {
+                if (seq === region.seq && !(this.selectedRegions[this.priority] && seq === this.selectedRegions[this.priority].seq)) {
                     return true;
                 }
             }

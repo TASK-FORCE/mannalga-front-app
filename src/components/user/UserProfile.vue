@@ -34,12 +34,12 @@
 
 <script>
 import _ from '@/utils/common/lodashWrapper.js';
-import { PATH } from '@/router/route_path_type.js';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import mutationsHelper from '@/store/helper/MutationsHelper.js';
-import actionsHelper from '@/store/helper/ActionsHelper.js';
 import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
 import { RULES } from '@/utils/common/constant/rules.js';
+import actionsHelper from '@/store/helper/ActionsHelper.js';
+import { PATH } from '@/router/route_path_type.js';
 
 export default {
     name: 'UserProfile',

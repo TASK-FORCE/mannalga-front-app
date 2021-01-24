@@ -31,11 +31,22 @@ export default {
     },
     methods: {
         clickGoBtn() {
-            if (_.isNotEmpty(this.selectedRegions)) {
+            if (this.validate()) {
                 this.$router.push(PATH.REGISTER.INTEREST);
-                return;
             }
-            mutationsHelper.openSnackBar(MESSAGE.SELECT_REGION_REQUIRE);
+        },
+        validate() {
+            if (_.isEmpty(this.selectedRegions) || !this.isSelectedRegionByPriority(1)) {
+                mutationsHelper.openSnackBar(MESSAGE.SELECT_FIRST_REGION_REQUIRE);
+            } else if (!this.isSelectedRegionByPriority(2) && this.isSelectedRegionByPriority(3)) {
+                mutationsHelper.openSnackBar(MESSAGE.SELECT_SECOND_REGION_REQUIRE);
+            } else {
+                return true;
+            }
+            return false;
+        },
+        isSelectedRegionByPriority(priority) {
+            return !!this.selectedRegions[priority];
         },
     },
 };

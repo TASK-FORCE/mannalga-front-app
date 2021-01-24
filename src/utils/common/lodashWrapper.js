@@ -5,18 +5,20 @@ import { chunk, cloneDeep, debounce, findIndex, isEmpty, isEqual, isFunction, is
  *  - 필요에 따라 추가적인 유틸리티 메서드를 작성한다.
  */
 
-const _ = {
-    isDeepEmpty: (target) => {
-        if (typeof target === 'object') {
-            for (const value of Object.values(target)) {
-                if (!this.isDeepEmpty(value)) {
-                    return false;
-                }
+function isDeepEmpty(target) {
+    if (typeof target === 'object') {
+        for (const value of Object.values(target)) {
+            if (isEmpty(value) || isDeepEmpty(value)) {
+                return true;
             }
-            return true;
         }
-        return isEmpty(target);
-    },
+        return false;
+    }
+    return isEmpty(target);
+}
+
+const _ = {
+    isDeepEmpty,
     isEmpty: (target) => isEmpty(target),
     isNotEmpty: (target) => !isEmpty(target),
     findIndex: (array, predicate) => findIndex(array, predicate),

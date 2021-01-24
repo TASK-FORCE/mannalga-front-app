@@ -1,10 +1,10 @@
 <template>
     <div v-show="!isLoading"
-         class="mx-3 mt-5"
+         class="mx-3"
     >
         <div class="text-center">
             관심사를 선택 해주세요. <br>
-            (원하는 관심사는 최대 5개까지 가능합니다)
+            (관심사는 최대 5개까지 선택 가능합니다)
         </div>
         <div v-for="rootInterest in rootInterests"
              :key="rootInterest.groupSeq"
