@@ -1,11 +1,11 @@
 <template>
-    <div :class="isThemeDark ? 'dark-bg' :'white-bg'"
+    <div :class="isDarkTheme ? 'dark-bg' :'white-bg'"
          :style="{'height': `${height}px`}"
     />
 </template>
 
 <script>
-import { isCurrentThemeDark } from '@/plugins/vuetify.js';
+import { isDarkTheme } from '@/plugins/vuetify.js';
 
 export default {
     name: 'MiddleDivider',
@@ -17,7 +17,7 @@ export default {
     },
     data() {
         return {
-            isThemeDark: isCurrentThemeDark(),
+            isDarkTheme: isDarkTheme(),
         };
     },
 };

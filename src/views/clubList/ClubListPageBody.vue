@@ -14,7 +14,7 @@
         </v-tabs>
 
         <v-tabs-items v-model="tab"
-                      class="px-2 pt-2"
+                      touchless
         >
             <v-tab-item value="club">
                 <ClubList />
@@ -48,7 +48,7 @@ export default {
             tab: null,
             menus: [
                 { name: '전체 모임', key: 'club' },
-                { name: '내모임', key: 'myClub' },
+                { name: '내 모임', key: 'myClub' },
             ],
         };
     },

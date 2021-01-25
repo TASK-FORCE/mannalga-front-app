@@ -31,6 +31,7 @@ import {
     mdiMapMarker,
     mdiMenuDown,
     mdiMessageDraw,
+    mdiMonitor,
     mdiMusicCircleOutline,
     mdiPartyPopper,
     mdiPencil,
@@ -82,6 +83,7 @@ const ICONS = {
     information: mdiInformation,
     logout: mdiLogoutVariant,
     pencil: mdiPencil,
+    monitor: mdiMonitor,
 };
 
 export {

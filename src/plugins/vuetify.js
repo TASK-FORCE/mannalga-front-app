@@ -15,10 +15,10 @@ const Theme = { DARK: 'black', WHITE: 'white' };
 const KEY = 'currentTheme';
 
 const currentTheme = () => localStorage.getItem(KEY);
-const changeTheme = () => { isCurrentThemeDark() ? localStorage.setItem(KEY, Theme.WHITE) : localStorage.setItem(KEY, Theme.DARK); };
+const changeTheme = () => { isDarkTheme() ? localStorage.setItem(KEY, Theme.WHITE) : localStorage.setItem(KEY, Theme.DARK); };
 
-const isCurrentThemeDark = () => currentTheme() === Theme.DARK;
-const loadCurrentTheme = () => (vuetify.framework.theme.dark = isCurrentThemeDark());
+const isDarkTheme = () => currentTheme() === Theme.DARK;
+const loadCurrentTheme = () => (vuetify.framework.theme.dark = isDarkTheme());
 const changeThemeAndLoad = () => {
     changeTheme();
     loadCurrentTheme();
@@ -26,6 +26,6 @@ const changeThemeAndLoad = () => {
 export {
     vuetify,
     changeThemeAndLoad,
-    isCurrentThemeDark,
+    isDarkTheme,
     loadCurrentTheme,
 };

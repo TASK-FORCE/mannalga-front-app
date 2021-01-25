@@ -2,12 +2,15 @@
     <!--      사진도 커스텀하게 선택 가능하게?        -->
     <v-avatar v-if="imgUrl"
               :size=size
+              @click="$emit('click')"
     >
         <img :src="imgUrl"
              alt="profile"
         >
     </v-avatar>
-    <div v-else-if="name">
+    <div v-else-if="name"
+         @click="$emit('click')"
+    >
         <div class="name-avatar"
              :style="getBoxClass(name)"
         >
@@ -20,6 +23,7 @@
     </div>
     <v-avatar v-else
               :size=size
+              @click="$emit('click')"
     >
         <img :src="require('@/images/default_profile_img.png')"
              alt="profile"
