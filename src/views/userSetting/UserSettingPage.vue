@@ -21,9 +21,12 @@ export default {
     components: { CommonHeader, UserSettingPageBody, SimpleBtnFooter },
     computed: {
         isLoading: () => gettersHelper.isLoading(),
+        userProfile: () => gettersHelper.userProfile(),
     },
     created() {
-        actionsHelper.requestUserProfile();
+        if (!this.userProfile.userName) {
+            actionsHelper.requestUserProfile();
+        }
     },
     methods: {
         moveToClubListPage() {

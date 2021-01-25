@@ -1,27 +1,30 @@
 <template>
-    <v-btn
-        class="mx-1 px-2"
-        outlined
-        small
-        :color="color"
-        v-bind="attrs"
-        v-on="on"
-        @click="$emit('click')"
+    <v-btn class="btn"
+           small
+           text
+           v-bind="attrs"
+           v-on="on"
+           @click="$emit('click')"
     >
         {{ text }}
-        <v-icon right
-                v-text="'$menuDown'"
-        />
     </v-btn>
 </template>
 
 <script>
 export default {
     name: 'ClubListSearchFilterBtn',
-    props: ['attrs', 'on', 'text', 'color'],
+    props: ['attrs', 'on', 'text'],
 };
 </script>
 
 <style scoped>
+.btn {
+    border-radius: 30px;
+    color: #9F9F9F;
+    background-color: #FFFFFF;
+}
 
+.theme--dark .btn {
+    background-color: #121212;
+}
 </style>

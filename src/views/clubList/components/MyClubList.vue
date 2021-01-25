@@ -11,6 +11,7 @@
             >
                 <ClubPost :club="club"
                           :role="roles[0].name"
+                          myPost
                 />
             </div>
         </template>

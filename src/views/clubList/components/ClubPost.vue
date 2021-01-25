@@ -1,102 +1,152 @@
 <template>
-    <div>
-        <v-list-item :key="club.seq"
-                     class="py-2 pl-0"
-                     @click="moveToClubDetailPage(club.seq)"
-        >
-            <div>
-                <v-img :src="imgUrl"
-                       height="60"
-                       width="80"
-                />
+    <div v-ripple>
+        <div class="pa-4 p-relative">
+            <div :key="club.seq"
+                 class="d-flex"
+                 @click="moveToClubDetailPage(club.seq)"
+            >
+                <div v-if="imgUrl">
+                    <v-img :src="imgUrl"
+                           :width="imageWidth"
+                           height="105"
+                           style="border-radius: 5px;"
+                    />
+                </div>
+                <div v-else>
+                    <div v-if="myPost"
+                         style="width: 10px"
+                    />
+                </div>
                 <RoleChip v-if="role"
                           :role="role"
                           class="role-chip"
                 />
-            </div>
-            <div class="ml-3 w-100">
-                <div>
-                    <div v-if="firstInterestWithPriority"
-                         class="interest-wrapper"
-                    >
-                        <InterestIcons :interestListWithPriority="[firstInterestWithPriority]"
-                                       :maxSize="1"
-                        />
-                        <span class="ml-1 f-08">{{ firstInterestWithPriority.interest.name }}</span>
+                <div class="px-4"
+                     :style="resolveContentBoxStyle"
+                >
+                    <div class="club-title">
+                        {{ club.name }}
                     </div>
-                    <div v-if="firstRegion"
-                         class="region-wrapper"
-                    >
-                        <RootRegionTag :color="badgeColor"
-                                       :rootRegionName="rootRegionName"
-                        />
-                        <span class="ml-1 f-08">{{ firstRegion.name }}</span>
+                    <div class="club-description">
+                        {{ club.description }}
                     </div>
-                </div>
-                <div>
-                    <span>{{ club.name }}</span>
-                    <div class="d-inline-block float-right mr-2">
-                        <span class="f-07">
+                    <div class="sub-description">
+                        <v-icon size="12"
+                                class="sub-description-icon"
+                                v-text="'$mapMarker'"
+                        />
+                        {{ regionNames }}
+                    </div>
+                    <div class="d-flex sub-description mt-2">
+                        <div>
+                            <v-icon class="sub-description-icon"
+                                    v-text="'$monitor'"
+                            />
+                            {{ interestNames }}
+                        </div>
+                        <v-spacer />
+                        <div>
                             <v-icon small
                                     v-text="'$twoPeople'"
                             />
                             {{ club.userCount }}/{{ club.maximumNumber }}
-                        </span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </v-list-item>
+        </div>
         <v-divider />
     </div>
 </template>
 
 <script>
-import InterestIcons from '@/components/interest/InterestIcons.vue';
 import { generateParamPath, PATH } from '@/router/route_path_type.js';
-import RootRegionTag from '@/components/region/RootRegionTag.vue';
 import { InterestUtils } from '@/utils/interest.js';
 import RoleChip from '@/components/chip/RoleChip.vue';
 import { CLUB_ROLE } from '@/utils/role.js';
 import clubDetailVuexService from '@/store/service/ClubDetailVuexService.js';
+import _ from '@/utils/common/lodashWrapper.js';
+
+const regionStore = {
+    서울특별시: { name: '서울시' },
+    대구광역시: { name: '대구시' },
+    인천광역시: { name: '인천시' },
+    대전광역시: { name: '대구시' },
+    울산광역시: { name: '울산시' },
+    세종특별자치시: { name: '세종시' },
+    강원도: { name: '강원도' },
+    경기도: { name: '경기도' },
+    충청북도: { name: '충청도' },
+    충청남도: { name: '충청도' },
+    광주광역시: { name: '광주시' },
+    전라북도: { name: '전라도' },
+    전라남도: { name: '전라도' },
+    부산광역시: { name: '부산시' },
+    경상북도: { name: '경상도' },
+    경상남도: { name: '경상도' },
+    제주특별자치도: { name: '제주도' },
+};
 
 export default {
     name: 'ClubPost',
-    components: { RoleChip, RootRegionTag, InterestIcons },
+    components: { RoleChip },
     props: {
         club: Object,
         role: String,
+        myPost: {
+            type: Boolean,
+            default: false,
+        },
     },
     data() {
         return {
             roles: [CLUB_ROLE.MASTER, CLUB_ROLE.MEMBER, CLUB_ROLE.MANAGER],
+            imageWidth: 104,
         };
     },
     computed: {
-        firstRegion() {
-            const regionWrapper = this.club.regions.find(({ priority }) => priority === 1);
-            return regionWrapper ? regionWrapper.region : null;
-        },
-        firstInterestWithPriority() {
-            return this.club.interests.find(({ priority }) => priority === 1);
-        },
-        badgeColor() {
-            if (this.firstInterestWithPriority) {
-                const { interest } = this.firstInterestWithPriority;
-                return InterestUtils.findInterestGroupVo(interest).color;
+        extractedRegions() {
+            if (this.myPost) {
+                return this.club.regions;
             }
-            return null;
+            return _.sortBy(this.club.regions, ({ priority }) => priority)
+                .map(({ region }) => region);
         },
-        rootRegionName() {
-            return this.firstRegion.superRegionRoot.split('/')[0];
+        extractedInterests() {
+            return _.sortBy(this.club.interests, ({ priority }) => priority)
+                .map(({ interest }) => interest);
+        },
+        regionNames() {
+            return this.extractedRegions
+                .map(this.getRegionName)
+                .join(',');
+        },
+        interestNames() {
+            return this.extractedInterests
+                .map(interest => interest.name)
+                .join(',');
         },
         imgUrl() {
-            return this.club.mainImageUrl || 'https://w7.pngwing.com/pngs/70/60/png-transparent-vue-js-javascript-library-github-github-angle-text-triangle.png';
+            return this.club.mainImageUrl;
+        },
+        resolveContentBoxStyle() {
+            let minor = 16;
+            if (this.club.mainImageUrl) {
+                minor += 104;
+            }
+            const width = window.innerWidth - minor;
+            return {
+                width: `${width}px`,
+            };
         },
     },
     methods: {
         moveToClubDetailPage(seq) {
             this.$router.push(generateParamPath(PATH.CLUB.MAIN, [seq]))
                 .then(() => clubDetailVuexService.dispatch(seq, true, PATH.CLUB_LIST));
+        },
+        getRegionName(region) {
+            return region.superRegionRoot;
         },
     },
 };
@@ -105,6 +155,26 @@ export default {
 <style lang="scss"
        scoped
 >
+
+.club-title {
+    font-weight: bold;
+    font-size: 15px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.club-description {
+    font-size: 12px;
+    color: #666666;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin: 9px 0;
+    height: 18px;
+    line-height: 18px;
+}
+
 .interest-wrapper {
     display: inline-block;
     overflow: hidden;
@@ -125,7 +195,28 @@ export default {
 
 .role-chip {
     position: absolute;
-    top: -2px;
-    left: -4px;
+    top: 10px;
+    left: 5px;
+}
+
+.sub-description {
+    color: #666666;
+    font-size: 11px;
+
+    .sub-description-icon {
+        margin-right: 2px;
+        width: 12px;
+        height: 10px
+    }
+}
+
+.theme--dark {
+    .club-description {
+        color: #9F9F9F;
+    }
+
+    .sub-description {
+        color: #9F9F9F;
+    }
 }
 </style>

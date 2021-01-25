@@ -1,70 +1,69 @@
 <template>
-    <div class="text-center pt-2">
-        <div class="text-center">
-            <v-bottom-sheet v-model="sheet"
-                            scrollable
-            >
-                <template v-slot:activator="{ on, attrs }">
-                    <div>
-                        <ClubListSearchFilterBtn :attrs="attrs"
-                                                 :on="on"
-                                                 :text="searchRegionText"
-                                                 @click="changeBottomSheetComponent('REGION')"
-                        />
-                        <ClubListSearchFilterBtn :attrs="attrs"
-                                                 :on="on"
-                                                 :text="searchInterestText"
-                                                 @click="changeBottomSheetComponent('INTEREST')"
-                        />
-                    </div>
-                    <div class="mt-2">
-                        <v-chip
-                            v-if="regionName"
-                            close
-                            color="#009688"
-                            outlined
-                            small
-                            @click:close="cancelRegionSelect"
+    <div class="search-filter-bar">
+        <v-bottom-sheet v-model="sheet"
+                        scrollable
+        >
+            <template v-slot:activator="{ on, attrs }">
+                <div class="d-flex h-100 align-center">
+                    <div class="d-flex ml-5">
+                        <v-chip v-if="regionName"
+                                close
+                                color="#E8984E"
+                                outlined
+                                small
+                                @click:close="cancelRegionSelect"
                         >
                             {{ regionName }}
                         </v-chip>
-                        <v-chip
-                            v-if="interestName"
-                            class="ml-2"
-                            close
-                            color="#795548"
-                            outlined
-                            small
-                            @click:close="cancelInterestSelect"
+                        <ClubListSearchFilterBtn v-else
+                                                 :attrs="attrs"
+                                                 :on="on"
+                                                 text="지역 선택"
+                                                 @click="changeBottomSheetComponent('REGION')"
+                        />
+                    </div>
+                    <div class="d-flex ml-3">
+                        <v-chip v-if="interestName"
+                                close
+                                color="#7CBB72"
+                                outlined
+                                small
+                                @click:close="cancelInterestSelect"
                         >
                             {{ interestName }}
                         </v-chip>
-                        <v-chip
-                            v-if="searchText"
-                            class="ml-2"
-                            close
-                            color="#2196f3"
-                            outlined
-                            small
-                            @click:close="cancelSearchTextSelect"
+                        <ClubListSearchFilterBtn v-else
+                                                 :attrs="attrs"
+                                                 :on="on"
+                                                 text="관심사 선택"
+                                                 @click="changeBottomSheetComponent('INTEREST')"
+                        />
+                    </div>
+                    <div class="d-flex ml-3">
+                        <v-chip v-if="searchText"
+                                close
+                                color="#2883C6"
+                                outlined
+                                small
+                                @click:close="cancelSearchTextSelect"
                         >
-                            검색어: {{ searchText }}
+                            {{ searchText }}
                         </v-chip>
                     </div>
-                </template>
+                </div>
+            </template>
 
-                <BottomSheetRegionCard v-if="currentBottomSheetCard === 'REGION'"
-                                       :rootRegions="rootRegions"
-                                       :canSelectRoot="true"
-                                       @selectSubRegion="selectSearchRegion"
-                />
-                <BottomSheetInterestCard v-else-if="currentBottomSheetCard === 'INTEREST'"
-                                         :rootInterests="rootInterests"
-                                         :canSelectRoot="true"
-                                         @selectSubInterest="selectSearchInterest"
-                />
-            </v-bottom-sheet>
-        </div>
+            <BottomSheetRegionCard v-if="currentBottomSheetCard === 'REGION'"
+                                   :rootRegions="rootRegions"
+                                   :canSelectRoot="true"
+                                   @selectSubRegion="selectSearchRegion"
+            />
+            <BottomSheetInterestCard v-else-if="currentBottomSheetCard === 'INTEREST'"
+                                     :rootInterests="rootInterests"
+                                     :canSelectRoot="true"
+                                     @selectSubInterest="selectSearchInterest"
+            />
+        </v-bottom-sheet>
     </div>
 </template>
 
@@ -77,6 +76,7 @@ import gettersHelper from '@/store/helper/GettersHelper.js';
 import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.js';
 import mutationsHelper from '@/store/helper/MutationsHelper.js';
 import DefaultBuilder from '@/store/utils/DefaultBuilder.js';
+import { isDarkTheme } from '@/plugins/vuetify.js';
 
 export default {
     name: 'ClubListSearchFilter',
@@ -89,8 +89,6 @@ export default {
         return {
             sheet: false,
             seq: null,
-            searchRegionText: '지역 선택',
-            searchInterestText: '관심사 선택',
             currentBottomSheetCard: null,
         };
     },
@@ -140,3 +138,17 @@ export default {
     },
 };
 </script>
+
+<style scoped
+       lang="scss"
+>
+.search-filter-bar {
+    height: 60px;
+    overflow-x: scroll;
+    background-color: #F5F5F5;
+}
+
+.theme--dark .search-filter-bar {
+    background-color: #292929;
+}
+</style>

@@ -2,8 +2,10 @@
     <div>
         <v-list-item class="my-2">
             <div class="avatar-wrapper">
-                <UserProfileAvatar :imgUrl="userProfile.profileImageLink"
-                                   :size="60"
+                <UserProfileAvatar :size="60"
+                                   :name="userProfile.userName"
+                                   :appendNumber="userProfile.seq"
+                                   :imgUrl="userProfile.profileImageLink"
                 />
                 <v-btn class="avatar-edit-btn"
                        fab

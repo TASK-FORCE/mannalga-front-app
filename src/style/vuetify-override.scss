@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+
+.v-application {
+    font-family: 'Noto Sans KR', 'Roboto', sans-serif;;
+}
+
 .v-snack__wrapper {
     min-width: auto;
 }
@@ -9,6 +15,18 @@
 
 .app-main-club-tab-header > .v-slide-group__content {
     height: 40px !important;
+}
+
+.app-main-club-tab-header .v-tab {
+    font-weight: bold;
+}
+
+.v-tabs > .v-tabs-bar .v-tab:not(.v-tab--active) {
+    color: black !important;
+}
+
+.theme--dark.v-tabs > .v-tabs-bar .v-tab:not(.v-tab--active) {
+    color: white !important;
 }
 
 .theme--light.v-app-bar.v-toolbar.v-sheet {
@@ -32,6 +50,7 @@
 .club-search-bar {
     margin-right: 3px;
     //margin-bottom: 10px;
+    font-size: 18px;
 
     .v-input__prepend-outer {
         margin-top: 10px
@@ -39,6 +58,14 @@
 
     .v-text-field__details {
         display: none;
+    }
+
+    .v-input__slot:before {
+        border-color: transparent !important;
+    }
+
+    .v-input__slot {
+        margin-top: 6px;
     }
 }
 
