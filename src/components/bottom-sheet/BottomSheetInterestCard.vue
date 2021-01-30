@@ -35,8 +35,6 @@
 </template>
 
 <script>
-import { PATH } from '@/router/route_path_type.js';
-import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.js';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 
 const TITLE = '관심사 선택';

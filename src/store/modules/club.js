@@ -10,6 +10,7 @@ const state = {
     clubInfo: DefaultBuilder.buildClubInfo(),
     currentUserInfo: DefaultBuilder.buildCurrentUserInfo(),
     clubUserList: [],
+    selectedClubRegions: {},
 };
 
 const getters = {
@@ -18,6 +19,7 @@ const getters = {
     clubName: (state) => state.clubInfo.name,
     currentUserInfo: (state) => state.currentUserInfo,
     clubUserList: (state) => state.clubUserList,
+    selectedClubRegions: (state) => state.selectedClubRegions,
 };
 
 const mutations = {

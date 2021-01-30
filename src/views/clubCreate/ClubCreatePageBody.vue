@@ -1,34 +1,65 @@
 <template>
-    <div>
+    <div v-if="!isLoading">
         <ImageSelectBox class="image-box"
                         text="모임 대표 사진 등록"
                         height="140"
-                        @handleImageUrl="value => clubCreateBoxInfo.imageUrl = value"
+                        @handleImageUrl="value => imageUrl = value"
         />
         <v-bottom-sheet v-model="sheet"
                         scrollable
         >
             <template v-slot:activator="{}">
-                <ClubCreateForm ref="clubCreateForm"
-                                :clubCreateBoxInfo="clubCreateBoxInfo"
-                                @openBottomSheetCard="openBottomSheetCard"
-                                @inputTitle="value => clubCreateBoxInfo.title = value"
-                                @inputDescription="value => clubCreateBoxInfo.description = value"
-                                @selectMaximumNumber="value => clubCreateBoxInfo.maximumNumber = value"
-                />
+                <v-form ref="clubCreateForm"
+                        class="club-create-form"
+                >
+                    <v-text-field v-model="title"
+                                  label="모임명"
+                                  hide-details
+                                  :rules="RULES.CLUB_TITLE"
+                    />
+                    <v-text-field label="관심사"
+                                  hide-details
+                                  append-icon="$menuDown"
+                                  readonly
+                                  class="test"
+                                  :rules="RULES.CLUB_INTEREST"
+                                  :value="interest && interest.name"
+                                  @click="openBottomSheetCard"
+                    />
+                    <v-text-field label="지역"
+                                  hide-details
+                                  append-icon="$menuDown"
+                                  readonly
+                                  :rules="RULES.CLUB_REGION"
+                                  :value="selectedClubRegionNames"
+                                  @click="dialog = true"
+                    />
+                    <v-select v-model="maximumNumber"
+                              label="모임 최대 인원"
+                              hide-details
+                              :rules="RULES.CLUB_MAXIMUM_NUMBER"
+                              :items="items"
+                    />
+                    <v-textarea v-model="description"
+                                label="모임설명을 작성해주세요"
+                                hide-details
+                                class="mt-5"
+                                outlined
+                                :rules="RULES.CLUB_DESCRIPTION"
+                    ></v-textarea>
+                </v-form>
             </template>
-            <BottomSheetInterestCard v-if="currentBottomSheetCard === 'INTEREST'"
-                                     @selectSubInterest="selectClubInterest"
-            />
-            <BottomSheetRegionCard v-else-if="currentBottomSheetCard === 'REGION'"
-                                   @selectSubRegion="selectClubRegion"
-            />
+            <BottomSheetInterestCard @selectSubInterest="selectClubInterest" />
         </v-bottom-sheet>
         <CommonCenterBtn text="모임 만들기"
                          color="primary"
+                         class="mt-5"
                          :outlined="true"
                          :loading="loading"
                          @click="createClub"
+        />
+        <SelectRegionDialog v-model="dialog"
+                            @selectRegions="selectRegions"
         />
     </div>
 </template>
@@ -38,65 +69,80 @@
 import CommonCenterBtn from '@/components/button/CommonCenterBtn.vue';
 import ImageSelectBox from '@/components/image/ImageSelectBox.vue';
 import BottomSheetInterestCard from '@/components/bottom-sheet/BottomSheetInterestCard.vue';
-import BottomSheetRegionCard from '@/components/bottom-sheet/BottomSheetRegionCard.vue';
-import ClubCreateForm from '@/views/clubCreate/components/ClubCreateForm.vue';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import mutationsHelper from '@/store/helper/MutationsHelper.js';
-import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.js';
 import { PATH } from '@/router/route_path_type.js';
 import { MESSAGE } from '@/utils/common/constant/messages.js';
+import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.js';
+import { createClubMaximumNumberList } from '@/utils/common/commonUtils.js';
+import { RULES } from '@/utils/common/constant/rules.js';
+import _ from '@/utils/common/lodashWrapper.js';
+import SelectRegionDialog from '@/components/region/SelectRegionDialog.vue';
 
 export default {
     name: 'ClubCreatePageBody',
     components: {
-        ClubCreateForm,
+        SelectRegionDialog,
         ImageSelectBox,
         CommonCenterBtn,
         BottomSheetInterestCard,
-        BottomSheetRegionCard,
     },
     data() {
         return {
             sheet: false,
             loading: false,
-            currentBottomSheetCard: '',
-            clubCreateBoxInfo: {
-                title: null,
-                description: null,
-                maximumNumber: 30,
-                imageUrl: null,
-                interest: null,
-                region: null,
-            },
+            items: createClubMaximumNumberList(10, 100, 10),
+            RULES,
+            dialog: false,
+            // dto
+            title: null,
+            description: null,
+            maximumNumber: null,
+            imageUrl: null,
+            interest: null,
+            selectedRegions: [],
         };
     },
     computed: {
+        isLoading: () => gettersHelper.isLoading(),
         rootInterests: () => gettersHelper.rootInterests(),
-        clubCreateInterest() {
-            return this.clubCreateBoxInfo.interest;
-        },
-        clubCreateRegion() {
-            return this.clubCreateBoxInfo.region;
+        selectedClubRegionNames() {
+            return _.sortBy(this.selectedRegions, ({ priority }) => priority)
+                .map(({ region }) => region.superRegionRoot)
+                .join(', ');
         },
     },
+    created() {
+        regionAndInterestVuexService.dispatch(true);
+    },
     methods: {
-        openBottomSheetCard(cardComponent) {
-            this.currentBottomSheetCard = cardComponent;
+        openBottomSheetCard() {
             this.sheet = true;
         },
         selectClubInterest(interest) {
             this.sheet = false;
-            this.clubCreateBoxInfo.interest = interest;
+            this.interest = interest;
         },
-        selectClubRegion(region) {
-            this.sheet = false;
-            this.clubCreateBoxInfo.region = region;
+        selectRegions(selectedRegions) {
+            this.selectedRegions = Object.keys(selectedRegions)
+                .map(key => ({
+                    priority: key,
+                    region: selectedRegions[key],
+                }));
         },
         createClub() {
             if (this.$refs.clubCreateForm.validate()) {
                 this.loading = true;
-                actionsHelper.requestClubCreate(this.clubCreateBoxInfo)
+                const clubCreateInfo = {
+                    title: this.title,
+                    description: this.description,
+                    maximumNumber: this.maximumNumber,
+                    imageUrl: this.imageUrl,
+                    interest: this.interest,
+                    selectedRegions: this.selectedRegions.map(({ priority, region }) => ({ priority, seq: region.seq })),
+                };
+                actionsHelper.requestClubCreate(clubCreateInfo)
                     .then(() => {
                         mutationsHelper.openSnackBar(MESSAGE.SUCCESS_CLUB_CREATE);
                         this.$router.push(PATH.CLUB_LIST);
@@ -108,9 +154,20 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped
+       lang="scss"
+>
 .image-box {
     margin-top: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.v-text-field {
+    margin: 8px 0;
+}
+
+.club-create-form {
     padding-left: 2rem;
     padding-right: 2rem;
 }

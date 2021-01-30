@@ -70,10 +70,7 @@ export default class RequestConverter {
             seq: clubCreateInfo.interest.seq,
             priority: 1,
         }],
-        regionList: [{
-            seq: clubCreateInfo.region.seq,
-            priority: 1,
-        }],
+        regionList: clubCreateInfo.selectedRegions,
     });
 
     static convertUserRegionsForChange = (selectedRegions) => buildUserRegionsDto(selectedRegions);

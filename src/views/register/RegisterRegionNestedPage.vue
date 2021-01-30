@@ -3,7 +3,15 @@
         <UserRegionSelectList :selectedRegions="selectedRegions"
                               @selectRegion="selectRegion"
         >
-            <template v-slot:footer>
+            <template #header>
+                <div class="text-center mb-7"
+                     style="margin-top: 40%"
+                >
+                    모임에 참여할 지역을 선택 해주세요. <br>
+                    (원하는 지역은 <b>최대 3개</b> 선택 가능합니다)
+                </div>
+            </template>
+            <template #footer>
                 <GoBackBtnFooter v-slot
                                  @clickGoBtn="clickGoBtn"
                 />

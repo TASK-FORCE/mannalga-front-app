@@ -1,17 +1,14 @@
 <template>
     <div>
-        <div class="absolute-center text-center w-100">
-            <div class="text-center mb-7">
-                모임에 참여할 지역을 선택 해주세요. <br>
-                (원하는 지역은 <b>최대 3개</b> 선택 가능합니다)
-            </div>
+        <div class="body">
+            <slot name="header" />
             <div v-for="priority in prioritySize"
                  :key="priority"
                  class="my-7"
             >
                 <div v-if="isSelected(priority)">
                     <v-btn class="selected-region-chip"
-                           color="#2196f3"
+                           color="#4caf50"
                            label
                            outlined
                            :min-width="width"
@@ -112,10 +109,8 @@ export default {
 </script>
 
 <style scoped>
-.absolute-center {
-    position: absolute;
-    left: 50%;
-    top: 40%;
-    transform: translate(-50%, -50%);
+.body {
+    width: 100%;
+    text-align: center;
 }
 </style>

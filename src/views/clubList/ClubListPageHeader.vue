@@ -62,7 +62,7 @@ export default {
     },
     watch: {
         searchText(value) {
-            if (value === null) {
+            if (_.isEmpty(value)) {
                 return;
             }
             mutationsHelper.changeCommonLoading(true);

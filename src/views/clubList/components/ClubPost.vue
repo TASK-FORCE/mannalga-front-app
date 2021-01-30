@@ -116,12 +116,12 @@ export default {
         regionNames() {
             return this.extractedRegions
                 .map(this.getRegionName)
-                .join(',');
+                .join(', ');
         },
         interestNames() {
             return this.extractedInterests
                 .map(interest => interest.name)
-                .join(',');
+                .join(', ');
         },
         imgUrl() {
             return this.club.mainImageUrl;

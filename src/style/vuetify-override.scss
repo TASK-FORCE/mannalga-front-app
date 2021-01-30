@@ -87,3 +87,9 @@
         padding: 0 12px !important;
     }
 }
+
+.club-create-form {
+    input {
+        text-overflow: ellipsis;
+    }
+}
