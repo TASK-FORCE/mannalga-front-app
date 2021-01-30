@@ -19,15 +19,15 @@
                      class="pa-0"
         >
             <v-list class="pt-0">
-                <v-list-item-group>
-                    <template v-for="interest in interests">
-                        <v-list-item :key="interest.seq"
-                                     @click="selectInterest(interest)"
-                        >
-                            {{ interest.name }}
-                        </v-list-item>
-                    </template>
-                </v-list-item-group>
+                <div v-for="interest in getInterests()"
+                     :key="interest.seq"
+                >
+                    <v-list-item
+                        @click="selectInterest(interest)"
+                    >
+                        {{ interest.name }}
+                    </v-list-item>
+                </div>
             </v-list>
         </v-card-text>
         <v-divider />
@@ -35,24 +35,25 @@
 </template>
 
 <script>
+import { PATH } from '@/router/route_path_type.js';
+import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.js';
+import gettersHelper from '@/store/helper/GettersHelper.js';
+
 const TITLE = '관심사 선택';
 export default {
     name: 'BottomSheetInterestCard',
     props: {
-        rootInterests: Array,
         canSelectRoot: Boolean,
     },
     data() {
         return {
             showRootInterests: true,
             title: TITLE,
-            interests: this.rootInterests,
+            interests: null,
         };
     },
-    watch: {
-        rootInterests() {
-            this.interests = this.rootInterests;
-        },
+    computed: {
+        rootInterests: () => gettersHelper.rootInterests(),
     },
     methods: {
         showRoot() {
@@ -73,11 +74,13 @@ export default {
         },
         selectSubInterest(interest) {
             this.$emit('selectSubInterest', interest);
-            setTimeout(() => {
+            this.$nextTick(() => {
                 this.showRootInterests = true;
                 this.title = TITLE;
-                this.interests = this.rootInterests;
-            }, 100);
+            });
+        },
+        getInterests() {
+            return this.showRootInterests ? this.rootInterests : this.interests;
         },
     },
 };

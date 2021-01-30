@@ -19,15 +19,15 @@
                      class="pa-0"
         >
             <v-list class="pt-0">
-                <v-list-item-group>
-                    <template v-for="region in regions">
-                        <v-list-item :key="region.seq"
-                                     @click="triggerRegion(region)"
-                        >
-                            {{ region.name }}
-                        </v-list-item>
-                    </template>
-                </v-list-item-group>
+                <div v-for="region in getRegions()"
+                     :key="region.seq"
+                >
+                    <v-list-item :disabled="selectedRegionSeqs.includes(region.seq)"
+                                 @click="triggerRegion(region)"
+                    >
+                        {{ region.name }}
+                    </v-list-item>
+                </div>
             </v-list>
         </v-card-text>
         <v-divider />
@@ -35,31 +35,34 @@
 </template>
 
 <script>
+
+import gettersHelper from '@/store/helper/GettersHelper.js';
+
 const TITLE = '지역 선택';
 
 export default {
     name: 'BottomSheetRegionCard',
     props: {
-        rootRegions: Array,
         canSelectRoot: Boolean,
+        selectedRegionSeqs: {
+            type: Array,
+            default: () => [],
+        },
     },
     data() {
         return {
             showRootRegions: true,
             title: TITLE,
-            regions: this.rootRegions,
+            regions: null,
             lastSelectedRegion: null,
         };
     },
-    watch: {
-        rootRegions() {
-            this.regions = this.rootRegions;
-        },
+    computed: {
+        rootRegions: () => gettersHelper.rootRegions(),
     },
     methods: {
         showRoot() {
             this.showRootRegions = true;
-            this.regions = this.rootRegions;
             this.title = TITLE;
         },
         triggerRegion(region) {
@@ -80,11 +83,13 @@ export default {
         },
         selectSubRegion(region) {
             this.$emit('selectSubRegion', region);
-            setTimeout(() => {
+            this.$nextTick(() => {
                 this.showRootRegions = true;
                 this.title = TITLE;
-                this.regions = this.rootRegions;
-            }, 100);
+            });
+        },
+        getRegions() {
+            return this.showRootRegions ? this.rootRegions : this.regions;
         },
     },
 };

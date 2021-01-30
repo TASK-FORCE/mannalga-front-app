@@ -26,6 +26,7 @@ export const PATH = {
         REGION_EDIT: '/user/region/edit',
         INTEREST_EDIT: '/user/interest/edit',
     },
+    BACK: 'back',
 };
 
 // route 계층 구조 이용시 child route path를 정의하기 위해 필요

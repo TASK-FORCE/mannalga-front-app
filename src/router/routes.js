@@ -46,12 +46,6 @@ const routes = [
             },
         ],
     },
-    {
-        path: PATH.SELECT_REGION,
-        name: 'SelectRegion',
-        component: () => import('@/views/regionSelect/RegionSelectPage.vue'),
-        beforeEnter: validationAuthentication,
-    },
 
     // club
     {
