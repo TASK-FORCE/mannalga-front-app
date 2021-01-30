@@ -106,9 +106,6 @@ export default {
     },
     computed: {
         extractedRegions() {
-            if (this.myPost) {
-                return this.club.regions;
-            }
             return _.sortBy(this.club.regions, ({ priority }) => priority)
                 .map(({ region }) => region);
         },
