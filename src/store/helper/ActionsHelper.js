@@ -53,7 +53,7 @@ class ActionsHelper {
     requestUserProfile = (payload) => dispatch(MODULE.USER, 'requestUserProfile', payload);
     requestUserRegions = (payload) => dispatch(MODULE.USER, 'requestUserRegions', payload);
     requestUserInterests = (payload) => dispatch(MODULE.USER, 'requestUserInterests', payload);
-    requestChangeUserRegions = (payload) => dispatch(MODULE.USER, 'requestChangeUserRegion', payload);
+    requestChangeUserRegions = (payload) => dispatch(MODULE.USER, 'requestChangeUserRegions', payload);
     requestChangeUserInterests = (payload) => dispatch(MODULE.USER, 'requestChangeUserInterest', payload);
     requestCheckIsMember = (payload) => dispatch(MODULE.USER, 'requestCheckIsMember', payload);
 }

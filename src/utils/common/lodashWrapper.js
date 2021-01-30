@@ -8,11 +8,14 @@ import { chunk, cloneDeep, debounce, findIndex, isEmpty, isEqual, isFunction, is
 function isDeepEmpty(target) {
     if (typeof target === 'object') {
         for (const value of Object.values(target)) {
-            if (isEmpty(value) || isDeepEmpty(value)) {
-                return true;
+            if (typeof value === 'object' && !isDeepEmpty(value)) {
+                return false;
+            }
+            if (!isEmpty(value)) {
+                return false;
             }
         }
-        return false;
+        return true;
     }
     return isEmpty(target);
 }

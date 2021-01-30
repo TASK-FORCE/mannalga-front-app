@@ -54,7 +54,6 @@
             </template>
 
             <BottomSheetRegionCard v-if="currentBottomSheetCard === 'REGION'"
-                                   :rootRegions="rootRegions"
                                    :canSelectRoot="true"
                                    @selectSubRegion="selectSearchRegion"
             />
@@ -107,7 +106,7 @@ export default {
         },
     },
     created() {
-        regionAndInterestVuexService.dispatch(true, PATH.LOGIN);
+        regionAndInterestVuexService.dispatch(true, PATH.BACK);
     },
     methods: {
         selectSearchRegion(region) {

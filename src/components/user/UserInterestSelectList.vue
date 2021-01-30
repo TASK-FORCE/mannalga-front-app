@@ -49,7 +49,7 @@ export default {
         selectedInterestSeqs: () => gettersHelper.selectedInterestSeqs(),
     },
     created() {
-        regionAndInterestVuexService.dispatch(true, PATH.REGISTER.PROFILE);
+        regionAndInterestVuexService.dispatch(true, PATH.BACK);
     },
     methods: {
         toggleInterest(targetSeq) {

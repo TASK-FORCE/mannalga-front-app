@@ -1,7 +1,14 @@
 <template>
     <div>
-        <UserRegionSelectList />
-        <GoBackBtnFooter @clickGoBtn="clickGoBtn" />
+        <UserRegionSelectList :selectedRegions="selectedRegions"
+                              @selectRegion="selectRegion"
+        >
+            <template v-slot:footer>
+                <GoBackBtnFooter v-slot
+                                 @clickGoBtn="clickGoBtn"
+                />
+            </template>
+        </UserRegionSelectList>
     </div>
 </template>
 
@@ -11,42 +18,36 @@ import GoBackBtnFooter from '@/components/footer/GoBackBtnFooter.vue';
 import _ from '@/utils/common/lodashWrapper.js';
 import mutationsHelper from '@/store/helper/MutationsHelper.js';
 import gettersHelper from '@/store/helper/GettersHelper.js';
-import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.js';
 import { PATH } from '@/router/route_path_type.js';
 import { MESSAGE } from '@/utils/common/constant/messages.js';
 
 export default {
     name: 'RegisterRegionNestedPage',
     components: { UserRegionSelectList, GoBackBtnFooter },
+    data() {
+        return {
+            selectedRegions: {},
+        };
+    },
     computed: {
         kakaoProfile: () => gettersHelper.kakaoProfile(),
-        selectedRegions: () => gettersHelper.selectedRegions(),
     },
     created() {
         if (_.isDeepEmpty(this.kakaoProfile)) {
             this.$router.push(PATH.REGISTER.PROFILE);
         }
-
-        regionAndInterestVuexService.dispatch(false);
     },
     methods: {
         clickGoBtn() {
-            if (this.validate()) {
+            if (_.isEmpty(this.selectedRegions)) {
+                mutationsHelper.openSnackBar(MESSAGE.SELECT_REGION_REQUIRE);
+            } else {
+                mutationsHelper.setSelectedRegions(this.selectedRegions);
                 this.$router.push(PATH.REGISTER.INTEREST);
             }
         },
-        validate() {
-            if (_.isEmpty(this.selectedRegions) || !this.isSelectedRegionByPriority(1)) {
-                mutationsHelper.openSnackBar(MESSAGE.SELECT_FIRST_REGION_REQUIRE);
-            } else if (!this.isSelectedRegionByPriority(2) && this.isSelectedRegionByPriority(3)) {
-                mutationsHelper.openSnackBar(MESSAGE.SELECT_SECOND_REGION_REQUIRE);
-            } else {
-                return true;
-            }
-            return false;
-        },
-        isSelectedRegionByPriority(priority) {
-            return !!this.selectedRegions[priority];
+        selectRegion({ priority, region }) {
+            this.$set(this.selectedRegions, priority, region);
         },
     },
 };

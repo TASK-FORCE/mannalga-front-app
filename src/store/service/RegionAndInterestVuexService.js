@@ -22,12 +22,18 @@ function dispatchInterests() {
 }
 
 class RegionAndInterestVuexService {
+    constructor() {
+        this.isDispatching = false;
+    }
+
     async dispatch(withLoading, routePathWhenFail) {
-        if (isCached()) {
+        if (isCached() || this.isDispatching) {
             return;
         }
+        this.isDispatching = true;
         const promiseList = [dispatchRegions(), dispatchInterests()];
         await RequestHelper.dispatchAll(withLoading, routePathWhenFail, promiseList);
+        this.isDispatching = false;
     }
 }
 

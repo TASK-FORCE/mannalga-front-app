@@ -27,8 +27,7 @@ class MutationsHelper {
 
     // user module
     changeProfileName = (payload) => commit(MODULE.USER, 'changeProfileName', payload);
-    addSelectedRegions = (payload) => commit(MODULE.USER, 'addSelectedRegions', payload);
-    removeSelectedRegions = (payload) => commit(MODULE.USER, 'removeSelectedRegions', payload);
+    setSelectedRegions = (payload) => commit(MODULE.USER, 'setSelectedRegions', payload);
     addSelectedInterestSeqs = (payload) => commit(MODULE.USER, 'addSelectedInterestSeqs', payload);
     removeSelectedInterestSeqs = (payload) => commit(MODULE.USER, 'removeSelectedInterestSeqs', payload);
 }

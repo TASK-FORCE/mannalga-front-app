@@ -81,18 +81,10 @@ export default class ResponseConverter {
         };
     };
 
-    static convertUserRegions = ({ userRegions }) => userRegions.map(mapUserRegion);
+    static convertUserRegions = ({ userRegions }) => userRegions
 
     static convertUserInterests = ({ interestList }) => interestList.map(({ interest }) => interest).map(({ seq }) => seq);
 }
-
-const mapUserRegion = ({ priority, region }) => ({
-    priority,
-    region: {
-        seq: region.seq,
-        name: region.superRegionRoot,
-    },
-});
 
 const mapMeeting = (meeting) => ({
     seq: meeting.seq,

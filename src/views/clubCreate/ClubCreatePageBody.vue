@@ -18,11 +18,9 @@
                 />
             </template>
             <BottomSheetInterestCard v-if="currentBottomSheetCard === 'INTEREST'"
-                                     :rootInterests="rootInterests"
                                      @selectSubInterest="selectClubInterest"
             />
             <BottomSheetRegionCard v-else-if="currentBottomSheetCard === 'REGION'"
-                                   :rootRegions="rootRegions"
                                    @selectSubRegion="selectClubRegion"
             />
         </v-bottom-sheet>
@@ -75,16 +73,12 @@ export default {
     },
     computed: {
         rootInterests: () => gettersHelper.rootInterests(),
-        rootRegions: () => gettersHelper.rootRegions(),
         clubCreateInterest() {
             return this.clubCreateBoxInfo.interest;
         },
         clubCreateRegion() {
             return this.clubCreateBoxInfo.region;
         },
-    },
-    created() {
-        regionAndInterestVuexService.dispatch(true, PATH.CLUB_LIST);
     },
     methods: {
         openBottomSheetCard(cardComponent) {

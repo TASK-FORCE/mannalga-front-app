@@ -24,21 +24,11 @@ const mutations = {
     changeProfileName(state, name) {
         state.kakaoProfile.name = name;
     },
-    addSelectedRegions(state, selectedRegion) {
-        const { priority, region } = selectedRegion;
-        state.selectedRegions[priority] = region;
-    },
-    removeSelectedRegions(state, priority) {
-        delete state.selectedRegions[priority];
-        state.selectedRegions = {
-            ...state.selectedRegions,
-        };
-    },
-    removeSelectedInterestSeqs(state, index) {
-        state.selectedInterestSeqs.splice(index, 1);
-    },
     addSelectedInterestSeqs(state, seq) {
         state.selectedInterestSeqs.push(seq);
+    },
+    setSelectedRegions(state, selectedRegions) {
+        state.selectedRegions = selectedRegions;
     },
     setUserProfile(state, userProfile) {
         state.userProfile = userProfile;
@@ -73,16 +63,17 @@ const actions = {
     requestUserRegions({ commit }) {
         return actionsLoadingTemplate(commit, async () => {
             const userRegions = await userApi.getUserRegions();
-            userRegions.forEach(userRegion => commit('addSelectedRegions', userRegion));
+            const selectedRegions = {};
+            userRegions.forEach(({ priority, region }) => (selectedRegions[priority] = region));
+            commit('setSelectedRegions', selectedRegions);
         });
     },
-    requestChangeUserRegion({ commit }, selectedRegions) {
+    requestChangeUserRegions({ commit }, selectedRegions) {
         return actionsNormalTemplate(
             async () => {
                 const userRegionsChangeDto = RequestConverter.convertUserRegionsForChange(selectedRegions);
                 await userApi.putUserRegions(userRegionsChangeDto);
             },
-            () => commit('clearSelectedRegions'),
         );
     },
     requestUserInterests({ commit }) {
