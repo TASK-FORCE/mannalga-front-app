@@ -56,8 +56,6 @@
                  style="font-size: 1.2rem"
             >
                 {{ userProfile.userName }}
-                <VerticalBarDivider />
-                {{ userProfile.birthday }}
             </div>
             <v-spacer />
         </v-list-item>
@@ -67,12 +65,11 @@
 
 <script>
 import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
-import VerticalBarDivider from '@/components/VerticalBarDivider.vue';
 import ImageCropper from '@/components/image/ImageCropper.vue';
 
 export default {
     name: 'UserSettingProfile',
-    components: { ImageCropper, VerticalBarDivider, UserProfileAvatar },
+    components: { ImageCropper, UserProfileAvatar },
     props: {
         userProfile: Object,
     },
