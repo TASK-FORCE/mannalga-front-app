@@ -54,6 +54,7 @@ import InterestIcons from '@/components/interest/InterestIcons.vue';
 import FixedTextBtnShowByHeight from '@/components/button/FixedTextBtnShowByHeight.vue';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
 import mutationsHelper from '@/store/helper/MutationsHelper.js';
+import _ from '@/utils/common/lodashWrapper.js';
 
 export default {
     name: 'ClubDetailMainClubInfo',
@@ -82,7 +83,8 @@ export default {
             return interestNames.join(', ');
         },
         clubRegionsText() {
-            const clubRegionNames = this.clubInfo.clubRegion.map(({ name }) => name);
+            const clubRegionNames = _.sortBy(this.clubInfo.clubRegion, ({ priority }) => priority)
+                .map(({ region }) => region.name);
             return clubRegionNames.join(', ');
         },
         needToShowRegisterBtn() {
