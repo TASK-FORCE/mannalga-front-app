@@ -17,7 +17,7 @@ const KEY = 'currentTheme';
 const currentTheme = () => localStorage.getItem(KEY);
 const changeTheme = () => { isDarkTheme() ? localStorage.setItem(KEY, Theme.WHITE) : localStorage.setItem(KEY, Theme.DARK); };
 
-const isDarkTheme = () => currentTheme() === Theme.DARK;
+const isDarkTheme = () => currentTheme() !== Theme.WHITE;
 const loadCurrentTheme = () => (vuetify.framework.theme.dark = isDarkTheme());
 const changeThemeAndLoad = () => {
     changeTheme();
