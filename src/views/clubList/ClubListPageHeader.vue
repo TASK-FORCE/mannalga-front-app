@@ -7,24 +7,9 @@
                       placeholder="모임을 검색하세요."
                       prepend-icon="$search"
         />
-
         <v-spacer />
-
-<!--        <v-btn v-if="isDevEnv"-->
-<!--                icon-->
-<!--               large-->
-<!--               class="mr-1"-->
-<!--               @click="changeTheme"-->
-<!--        >-->
-<!--            <v-icon v-if="isDarkTheme"-->
-<!--                    v-text="'$water'"-->
-<!--            />-->
-<!--            <v-icon v-else-->
-<!--                    v-text="'$waterOut'"-->
-<!--            />-->
-<!--        </v-btn>-->
-
-        <UserProfileAvatar :size="40"
+        <UserProfileAvatar v-if="userProfile.userName"
+                           :size="40"
                            :name="userProfile.userName"
                            :appendNumber="userProfile.seq"
                            :imgUrl="userProfile.profileImageLink"

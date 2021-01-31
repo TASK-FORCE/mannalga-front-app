@@ -50,7 +50,8 @@ export default {
                 .then((response) => {
                     const appToken = response.data.data;
                     mutationsHelper.setAppToken(appToken);
-                    this.$router.push(PATH.CLUB_LIST);
+                    this.$router.push(PATH.CLUB_LIST)
+                        .then(() => this.$router.go());
                     localStorage.setItem('backdoor', true);
                 })
                 .catch(() => {
