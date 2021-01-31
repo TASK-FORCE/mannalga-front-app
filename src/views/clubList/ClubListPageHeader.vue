@@ -27,7 +27,7 @@
         <UserProfileAvatar :size="40"
                            :name="userProfile.userName"
                            :appendNumber="userProfile.seq"
-                           :imgUrl="userProfile.userProfile"
+                           :imgUrl="userProfile.profileImageLink"
                            @click="moveToUserSettings"
         />
     </v-app-bar>
