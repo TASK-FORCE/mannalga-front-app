@@ -35,14 +35,24 @@
                 <CommonCenterBtn id="registerBtn"
                                  text="가입하기"
                                  outlined
-                                 @click="requestClubRegist"
+                                 @click="showRegisterDialog = true"
                 />
                 <FixedTextBtnShowByHeight text="가입"
-                                          :heightBoundaryToShow="heightBoundaryToShowRegistBtn"
-                                          @click="requestClubRegist"
+                                          :heightBoundaryToShow="heightBoundaryToShowRegisterBtn"
+                                          @click="showRegisterDialog = true"
                 />
             </div>
         </div>
+        <YesOrNoDialog v-model="showRegisterDialog"
+                       title="모임에 가입하시겠습니까?"
+                       :submitPromiseCallback="requestClubRegister"
+        >
+            <template #description>
+                <div class="ml-2">
+                    확인 시 즉시 모임에 가입됩니다.
+                </div>
+            </template>
+        </YesOrNoDialog>
     </div>
 </template>
 
@@ -53,10 +63,11 @@ import FixedTextBtnShowByHeight from '@/components/button/FixedTextBtnShowByHeig
 import actionsHelper from '@/store/helper/ActionsHelper.js';
 import mutationsHelper from '@/store/helper/MutationsHelper.js';
 import _ from '@/utils/common/lodashWrapper.js';
+import YesOrNoDialog from '@/components/YesOrNoDialog.vue';
 
 export default {
     name: 'ClubDetailMainClubInfo',
-    components: { FixedTextBtnShowByHeight, InterestIcons, CommonCenterBtn },
+    components: { YesOrNoDialog, FixedTextBtnShowByHeight, InterestIcons, CommonCenterBtn },
     props: {
         clubInfo: {
             type: Object,
@@ -69,7 +80,8 @@ export default {
     },
     data() {
         return {
-            heightBoundaryToShowRegistBtn: 500,
+            heightBoundaryToShowRegisterBtn: 500,
+            showRegisterDialog: false,
         };
     },
     computed: {
@@ -93,14 +105,17 @@ export default {
     mounted() {
         if (this.needToShowRegisterBtn) {
             const registerBtn = document.getElementById('registerBtn');
-            this.heightBoundaryToShowRegistBtn = registerBtn.offsetTop + (registerBtn.offsetHeight / 2);
+            this.heightBoundaryToShowRegisterBtn = registerBtn.offsetTop + (registerBtn.offsetHeight / 2);
         }
     },
     methods: {
-        requestClubRegist() {
+        requestClubRegister() {
             const { clubSeq } = this.$route.params;
-            actionsHelper.requestClubJoin(clubSeq)
-                .then(() => mutationsHelper.openSnackBar('모임 가입 성공'));
+            return actionsHelper.requestClubJoin(clubSeq)
+                .then(() => {
+                    mutationsHelper.openSnackBar('모임 가입 성공');
+                    this.showRegisterDialog = false;
+                });
         },
     },
 };
