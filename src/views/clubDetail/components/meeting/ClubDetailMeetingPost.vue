@@ -41,14 +41,13 @@
                 </div>
                 <div class="pr-2">
                     <div class="p-relative">
-                        <v-btn :loading="applyLoading"
-                               outlined
+                        <v-btn outlined
                                class="pa-0"
                                width="60"
                                :height="meeting.isRegistered ? 40 : 60"
                                color="#3f51b5"
                                :disabled="meeting.isRegistered"
-                               @click="applyMeetingApplication"
+                               @click="$emit('openRegisterDialog')"
                         >
                     <span v-if="meeting.isRegistered"
                           class="register-success-text"
@@ -98,16 +97,6 @@ export default {
         clubSeq: () => routerHelper.clubSeq(),
     },
     methods: {
-        applyMeetingApplication() {
-            this.applyLoading = true;
-            const meetingApplicationInfo = {
-                clubSeq: this.clubSeq,
-                meetingSeq: this.meeting.seq,
-            };
-            actionsHelper.requestMeetingApplication(meetingApplicationInfo)
-                .then(() => mutationsHelper.openSnackBar(MESSAGE.SUCCESS_APPLY_MEETING_APPLICATION))
-                .finally(() => (this.applyLoading = false));
-        },
         goToMeetingDetailPage() {
             this.$router.push(generateParamPath(PATH.CLUB.MEETING_POST, [this.clubSeq, this.meeting.seq]));
         },
