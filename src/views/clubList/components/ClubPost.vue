@@ -5,18 +5,11 @@
                  class="d-flex"
                  @click="moveToClubDetailPage(club.seq)"
             >
-                <div v-if="imgUrl">
-                    <v-img :src="imgUrl"
-                           :width="imageWidth"
-                           height="105"
-                           style="border-radius: 5px;"
-                    />
-                </div>
-                <div v-else>
-                    <div v-if="myPost"
-                         style="width: 10px"
-                    />
-                </div>
+                <v-img :src="imgUrl"
+                       :width="imageWidth"
+                       height="105"
+                       style="border-radius: 5px;"
+                />
                 <RoleChip v-if="role"
                           :role="role"
                           class="role-chip"
@@ -61,7 +54,6 @@
 
 <script>
 import { generateParamPath, PATH } from '@/router/route_path_type.js';
-import { InterestUtils } from '@/utils/interest.js';
 import RoleChip from '@/components/chip/RoleChip.vue';
 import { CLUB_ROLE } from '@/utils/role.js';
 import clubDetailVuexService from '@/store/service/ClubDetailVuexService.js';
@@ -124,7 +116,7 @@ export default {
                 .join(', ');
         },
         imgUrl() {
-            return this.club.mainImageUrl;
+            return this.club.mainImageUrl || require('@/images/default_club_image.png');
         },
         resolveContentBoxStyle() {
             let minor = 16;

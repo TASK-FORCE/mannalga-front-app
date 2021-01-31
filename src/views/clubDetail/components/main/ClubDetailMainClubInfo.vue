@@ -1,11 +1,9 @@
 <template>
     <div>
-        <div v-if="clubInfo.mainImageUrl !== ''">
-            <!--    TODO 사진이 없다면 사진 등록 권고(MASTER role에게만)    -->
-            <v-img :src="clubInfo.mainImageUrl"
-                   aspect-ratio="2"
-            />
-        </div>
+        <!--    TODO 사진이 없다면 사진 등록 권고(MASTER role에게만)    -->
+        <v-img :src="clubInfo.mainImageUrl || require('@/images/default_club_image.png')"
+               aspect-ratio="2"
+        />
         <div class="pa-3">
             <div class="d-flex">
                 <div class="flex-grow-1">
