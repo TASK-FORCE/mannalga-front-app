@@ -14,7 +14,7 @@
                           :role="role"
                           class="role-chip"
                 />
-                <div class="px-4"
+                <div class="pl-4"
                      :style="resolveContentBoxStyle"
                 >
                     <div class="club-title">
@@ -119,11 +119,10 @@ export default {
             return this.club.mainImageUrl || require('@/images/default_club_image.png');
         },
         resolveContentBoxStyle() {
-            let minor = 16;
-            if (this.club.mainImageUrl) {
-                minor += 104;
-            }
-            const width = window.innerWidth - minor;
+            const paddingWidth = 32;
+            const imageBoxWidth = 104;
+            const { clientWidth } = document.querySelector('#app');
+            const width = clientWidth - imageBoxWidth - paddingWidth;
             return {
                 width: `${width}px`,
             };
@@ -164,24 +163,6 @@ export default {
     line-height: 18px;
 }
 
-.interest-wrapper {
-    display: inline-block;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    width: 100px;
-    height: 25px;
-}
-
-.region-wrapper {
-    display: inline-block;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    margin-left: 5px;
-    height: 25px;
-}
-
 .role-chip {
     position: absolute;
     top: 10px;
@@ -191,6 +172,9 @@ export default {
 .sub-description {
     color: #666666;
     font-size: 11px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 
     .sub-description-icon {
         margin-right: 2px;
