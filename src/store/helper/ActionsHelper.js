@@ -30,6 +30,7 @@ class ActionsHelper {
     requestFirstAlbumCommentList = (payload) => dispatch(MODULE.ALBUM, 'requestFirstAlbumCommentList', payload);
     requestNextAlbumCommentList = (payload) => dispatch(MODULE.ALBUM, 'requestNextAlbumCommentList', payload);
     requestAllAlbumCommentListWithPaging = (payload) => dispatch(MODULE.ALBUM, 'requestAllAlbumCommentListWithPaging', payload);
+    requestAllAlbumSubComments = (payload) => dispatch(MODULE.ALBUM, 'requestAllAlbumSubComments', payload);
     requestApplyLikeClubAlbum = (payload) => dispatch(MODULE.ALBUM, 'requestApplyLikeClubAlbum', payload);
     requestDeleteLikeClubAlbum = (payload) => dispatch(MODULE.ALBUM, 'requestDeleteLikeClubAlbum', payload);
 

@@ -17,6 +17,7 @@ class MutationsHelper {
 
     // album
     initAlbumCommentList = (payload) => commit(MODULE.ALBUM, 'initAlbumCommentList', payload);
+    countChildCommentCnt = (payload) => commit(MODULE.ALBUM, 'countChildCommentCnt', payload);
 
     // common module
     closeSnackBar = (payload) => commit(MODULE.COMMON, 'closeSnackBar', payload);
