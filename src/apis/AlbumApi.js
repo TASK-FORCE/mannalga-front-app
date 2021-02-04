@@ -17,14 +17,21 @@ class AlbumApi {
         return axios.post(`/api/club/${clubSeq}/album`, clubAlbumCreateDto);
     }
 
-    postClubAlbumCommentWrite({ clubSeq, albumSeq, albumCommentWriteDto }) {
-        return axios.post(`/api/club/${clubSeq}/album/${albumSeq}/comment`, albumCommentWriteDto);
+    postClubAlbumCommentWrite({ clubSeq, albumSeq, albumCommentWriteDto, parentCommentSeq }) {
+        return axios.post(`/api/club/${clubSeq}/album/${albumSeq}/comment`, albumCommentWriteDto, {
+            params: { parentCommentSeq },
+        });
     }
 
     getClubAlbumCommentList({ clubSeq, albumSeq, requestParams }) {
         return axios.get(`/api/club/${clubSeq}/album/${albumSeq}/comment`, { params: requestParams })
             .then(ResponseConverter.extractSuperInventionResponseData)
             .then(ResponseConverter.convertAlbumCommentList);
+    }
+
+    getClubAlbumSubCommentList({ clubSeq, albumSeq, parentCommentSeq }) {
+        return axios.get(`/api/club/${clubSeq}/album/${albumSeq}/comment/${parentCommentSeq}?depthLimit=2`)
+            .then(ResponseConverter.extractSuperInventionResponseData);
     }
 
     postLikeClubAlbum({ clubSeq, albumSeq }) {

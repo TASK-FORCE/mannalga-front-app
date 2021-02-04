@@ -50,19 +50,29 @@ const mutations = {
     },
 
     addNextAlbumCommentListWithCheckDuplicate(state, { albumCommentList, albumCommentPage }) {
-        albumCommentList.forEach(comment => {
-            // TODO: seq를 내려주면 그거로 변경하자.
-            const isPresentInList = state.albumCommentList.find(({ registerTime, content }) => (registerTime === comment.registerTime) && (content === comment.content));
-            if (!isPresentInList) {
-                state.albumCommentList.push(comment);
-            }
-        });
+        const alreadyExistSeqs = state.albumCommentList.map(({ commentSeq }) => commentSeq);
+        albumCommentList
+            .filter(({ commentSeq }) => !alreadyExistSeqs.includes(commentSeq))
+            .forEach(comment => state.albumCommentList.push(comment));
         state.albumCommentPage = albumCommentPage;
     },
 
     initAlbumCommentList(state) {
         state.albumCommentList = [];
         state.albumCommentPage = DefaultBuilder.buildPage();
+    },
+
+    countChildCommentCnt(state, seq) {
+        state.albumCommentList = state.albumCommentList
+            .map(comment => {
+                if (comment.commentSeq === seq) {
+                    return {
+                        ...comment,
+                        childCommentCnt: comment.childCommentCnt + 1,
+                    };
+                }
+                return comment;
+            });
     },
 
     changeAlbumLike(state, { likeCnt, isLike }) {
@@ -178,6 +188,12 @@ const actions = {
             requestCommentListRecursive();
         };
         return actionsNormalTemplate(async () => requestCommentListRecursive());
+    },
+
+    async requestAllAlbumSubComments({ _ }, albumSubCommentRequestInfo) {
+        return actionsNormalTemplate(
+            async () => albumApi.getClubAlbumSubCommentList(albumSubCommentRequestInfo),
+        );
     },
 
     async requestApplyLikeClubAlbum({ commit }, seqInfo) {

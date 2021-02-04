@@ -44,7 +44,7 @@
                            color="blue"
                            @click="unFold(false)"
                     >
-                        답글 {{ childCommentCnt }}개
+                        답글 {{ comment.childCommentCnt }}개
                     </v-btn>
                     <v-btn class="f-08 pa-0"
                            text
@@ -57,18 +57,30 @@
                 <div v-if="!isFolded">
                     <div v-if="hasChildComment">
                         <div v-if="showChildComments && hasChildComment">
-                            <div v-for="(comment, index) in childComments"
-                                 :key="index"
+                            <div v-if="subCommentLandingLoading"
+                                 class="text-center py-2"
                             >
-                                <Comment :comment="comment" />
+                                <v-progress-circular indeterminate
+                                                     color="red"
+                                                     :size="20"
+                                />
                             </div>
-                            <div class="d-flex ml-2">
-                                <v-btn x-small
-                                       class="mb-2"
-                                       @click="showChildComments = false"
-                                >
-                                    <v-icon v-text="'$chevronUp'" />
-                                </v-btn>
+                            <div v-else>
+                                <div :class="`sub-comments-${commentSeq}`">
+                                    <div v-for="(comment, index) in childComments"
+                                         :key="index"
+                                    >
+                                        <Comment :comment="comment" />
+                                    </div>
+                                </div>
+                                <div class="d-flex ml-2">
+                                    <v-btn x-small
+                                           class="mb-2"
+                                           @click="showChildComments = false"
+                                    >
+                                        <v-icon v-text="'$chevronUp'" />
+                                    </v-btn>
+                                </div>
                             </div>
                         </div>
                         <div v-else>
@@ -76,7 +88,7 @@
                                    text
                                    small
                                    color="blue"
-                                   @click="showChildComments = true"
+                                   @click="clickShowChildComments"
                             >
                                 {{ childComments.length }}개 댓글 보기
                             </v-btn>
@@ -86,6 +98,7 @@
                          :class="!hasChildComment ? 'mt-2' : null"
                     >
                         <v-text-field ref="childInput"
+                                      v-model="subCommentContent"
                                       filled
                                       rounded
                                       dense
@@ -100,6 +113,8 @@
                                    small
                                    style="border-radius: 8px"
                                    height="25"
+                                   :loading="subCommentSubmitLoading"
+                                   @click="submitSubComment"
                             >
                                 등록
                             </v-btn>
@@ -117,6 +132,18 @@ import VerticalBarDivider from '@/components/VerticalBarDivider.vue';
 import Chip from '@/components/chip/Chip.vue';
 import mutationsHelper from '@/store/helper/MutationsHelper.js';
 import { MESSAGE } from '@/utils/common/constant/messages.js';
+import routerHelper from '@/router/RouterHelper.js';
+import actionsHelper from '@/store/helper/ActionsHelper.js';
+import _ from '@/utils/common/lodashWrapper.js';
+import { ScrollHelper } from '@/utils/scroll.js';
+
+function getHeightAppender(offsetHeight, hideFooter) {
+    const footerSize = hideFooter ? 0 : 56;
+    const foldBtnSize = 28;
+    const subCommentWriterSize = 27;
+    const spaceSize = 6;
+    return (offsetHeight * 2) + footerSize + foldBtnSize + subCommentWriterSize + spaceSize;
+}
 
 export default {
     name: 'Comment',
@@ -130,81 +157,22 @@ export default {
     data() {
         return {
             EMPTY_COMMENT_TEXT: MESSAGE.EMPTY_COMMENT_TEXT,
-            childComments: [
-                {
-                    writer: '동명',
-                    writerSeq: 7,
-                    writeClubUserSeq: 6328,
-                    registerTime: '2021-01-02 21:57:56',
-                    content: 'Hello World Hello World',
-                    imgUrl: '',
-                    isWrittenByMe: false,
-                    depth: 2,
-                    childCommentCnt: 0,
-                    onlyDirectChildCnt: false,
-                },
-                {
-                    writer: '동명',
-                    writerSeq: 7,
-                    writeClubUserSeq: 6328,
-                    registerTime: '2021-01-02 21:57:57',
-                    content: 'Hello World Hello World',
-                    imgUrl: '',
-                    isWrittenByMe: false,
-                    depth: 2,
-                    childCommentCnt: 0,
-                    onlyDirectChildCnt: false,
-                },
-                {
-                    writer: '동명',
-                    writerSeq: 7,
-                    writeClubUserSeq: 6328,
-                    registerTime: '2021-01-02 21:57:57',
-                    content: 'Hello World Hello World',
-                    imgUrl: '',
-                    isWrittenByMe: false,
-                    depth: 2,
-                    childCommentCnt: 0,
-                    onlyDirectChildCnt: false,
-                },
-                {
-                    writer: '동명',
-                    writerSeq: 7,
-                    writeClubUserSeq: 6328,
-                    registerTime: '2021-01-02 21:57:58',
-                    content: 'Hello World Hello World',
-                    imgUrl: '',
-                    isWrittenByMe: false,
-                    depth: 2,
-                    childCommentCnt: 0,
-                    onlyDirectChildCnt: false,
-                },
-                {
-                    writer: '동명',
-                    writerSeq: 7,
-                    writeClubUserSeq: 6328,
-                    registerTime: '2021-01-02 21:57:59',
-                    content: 'Hello World Hello World',
-                    imgUrl: '',
-                    isWrittenByMe: false,
-                    depth: 2,
-                    childCommentCnt: 0,
-                    onlyDirectChildCnt: false,
-                },
-            ].splice(0, parseInt((Math.random() * 10) % 5, 10) - 1),
+            childComments: [],
+            subCommentSubmitLoading: false,
+            subCommentLandingLoading: false,
             isFolded: true,
             showChildComments: true,
+            subCommentContent: null,
         };
     },
     computed: {
+        clubSeq: () => routerHelper.clubSeq(),
+        albumSeq: () => routerHelper.albumSeq(),
         isWriter() {
             return !!this.comment.isWrittenByMe;
         },
         hasChildComment() {
-            return this.childComments.length > 0; // || this.comment.childCommentCnt > 0;
-        },
-        childCommentCnt() {
-            return this.childComments.length;
+            return this.comment.childCommentCnt > 0;
         },
         isRootComment() {
             return this.comment.depth === 1;
@@ -212,6 +180,9 @@ export default {
         registerTime() {
             const time = this.comment.registerTime;
             return time ? time.substring(0, 16) : '';
+        },
+        commentSeq() {
+            return this.comment.commentSeq;
         },
     },
     methods: {
@@ -223,7 +194,7 @@ export default {
         },
         unFold(focusChildInput) {
             this.isFolded = false;
-            this.settingChildComment();
+            this.settingChildComment(focusChildInput);
             if (focusChildInput) {
                 this.focusChildInput();
             }
@@ -231,7 +202,66 @@ export default {
         focusChildInput() {
             this.$nextTick(() => this.$refs.childInput.focus());
         },
-        settingChildComment() {},
+        settingChildComment(focusChildInput) {
+            const albumSubCommentRequestInfo = {
+                clubSeq: this.clubSeq,
+                albumSeq: this.albumSeq,
+                parentCommentSeq: this.commentSeq,
+            };
+            this.subCommentLandingLoading = true;
+            actionsHelper.requestAllAlbumSubComments(albumSubCommentRequestInfo)
+                .then(subComments => (this.childComments = subComments))
+                .finally(() => {
+                    if (this.childComments.length > 0) {
+                        this.moveToLastComment(focusChildInput);
+                    }
+                    this.subCommentLandingLoading = false;
+                });
+        },
+        moveToLastComment(focusChildInput) {
+            this.$nextTick(() => {
+                this.$nextTick(() => {
+                    const subCommentWrapper = document.querySelector(`.sub-comments-${this.commentSeq}`);
+                    const subComments = subCommentWrapper.children;
+                    if (_.isEmpty(subComments)) {
+                        return;
+                    }
+                    const lastComment = subComments[subComments.length - 1];
+                    const appender = getHeightAppender(lastComment.offsetHeight, focusChildInput);
+                    const position = lastComment.offsetTop - window.innerHeight + appender;
+                    if (position > window.scrollY) {
+                        ScrollHelper.scrollTo(position);
+                    }
+                });
+            });
+        },
+        submitSubComment() {
+            if (!this.subCommentContent) {
+                mutationsHelper.openSnackBar(this.EMPTY_COMMENT_TEXT);
+                return;
+            }
+            const albumCommentWriteInfo = {
+                clubSeq: this.clubSeq,
+                albumSeq: this.albumSeq,
+                parentCommentSeq: this.commentSeq,
+                albumCommentWriteDto: {
+                    content: this.subCommentContent,
+                },
+            };
+            this.subCommentSubmitLoading = true;
+            actionsHelper.requestAlbumCommentWrite(albumCommentWriteInfo)
+                .then(() => {
+                    mutationsHelper.countChildCommentCnt(this.commentSeq);
+                    this.settingChildComment(false);
+                    this.subCommentContent = null;
+                    this.showChildComments = true;
+                })
+                .finally(() => (this.subCommentSubmitLoading = false));
+        },
+        clickShowChildComments() {
+            this.showChildComments = true;
+            this.moveToLastComment();
+        },
     },
 };
 </script>
