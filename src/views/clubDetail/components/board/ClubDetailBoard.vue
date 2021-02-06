@@ -1,14 +1,5 @@
 <template>
     <div>
-        <div class="ml-3 mt-1 mb-3">
-            <v-select v-model="selectedCategory"
-                      :items="boardCategoryNames"
-                      outlined
-                      dense
-                      hide-details
-                      style="width: 120px"
-            />
-        </div>
         <div v-for="board in boardList.boards"
              :key="board.seq"
         >
@@ -108,7 +99,7 @@ import VerticalBarDivider from '@/components/VerticalBarDivider.vue';
 import MiddleDivider from '@/components/MiddleDivider.vue';
 import RoleChip from '@/components/chip/RoleChip.vue';
 import Chip from '@/components/chip/Chip.vue';
-import { BOARD_CATEGORY, BoardUtils } from '@/utils/board.js';
+import { BoardUtils } from '@/utils/board.js';
 
 export default {
     name: 'ClubDetailBoard',
@@ -121,7 +112,6 @@ export default {
         return {
             clubBoardCreate: null,
             boardCategoryNames: ['전체보기', ...BoardUtils.getCategoryNames()],
-            selectedCategory: '전체보기',
         };
     },
     computed: {
@@ -129,11 +119,6 @@ export default {
         canCreateBoard() {
             const { isMaster, isManager, isMember } = this.currentUserInfo;
             return isMaster || isManager || isMember;
-        },
-    },
-    watch: {
-        selectedCategory(value) {
-            console.log('selectedCategory changed -> ', value);
         },
     },
     mounted() {
