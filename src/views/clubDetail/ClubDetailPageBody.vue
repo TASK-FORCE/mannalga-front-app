@@ -23,13 +23,10 @@
                 />
             </v-tab-item>
             <v-tab-item value="meeting">
-                <ClubDetailMeetingList :currentUserInfo="currentUserInfo"
-                                       :meetingList="meetingList"
-                                       :meetingPage="meetingPage"
-                />
+                <ClubDetailMeetingList :currentUserInfo="currentUserInfo" />
             </v-tab-item>
             <v-tab-item value="board">
-                <ClubDetailBoard :currentUserInfo="currentUserInfo"
+                <ClubDetailBoardList :currentUserInfo="currentUserInfo"
                                  :boardList="clubData.boardList"
                 />
             </v-tab-item>
@@ -43,7 +40,7 @@
 <script>
 import ClubDetailMain from '@/views/clubDetail/components/main/ClubDetailMain.vue';
 import ClubDetailMeetingList from '@/views/clubDetail/components/meeting/ClubDetailMeetingList.vue';
-import ClubDetailBoard from '@/views/clubDetail/components/board/ClubDetailBoard.vue';
+import ClubDetailBoardList from '@/views/clubDetail/components/board/ClubDetailBoardList.vue';
 import ClubDetailAlbumList from '@/views/clubDetail/components/album/ClubDetailAlbumList.vue';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import lastClubTabCache from '@/utils/cache/LastClubTabCache.js';
@@ -53,7 +50,7 @@ import routerHelper from '@/router/RouterHelper.js';
 
 export default {
     name: 'ClubDetailPageBody',
-    components: { ClubDetailMain, ClubDetailMeetingList, ClubDetailBoard, ClubDetailAlbumList },
+    components: { ClubDetailMain, ClubDetailMeetingList, ClubDetailBoardList, ClubDetailAlbumList },
     data() {
         return {
             tab: null,
@@ -71,8 +68,6 @@ export default {
         clubInfo: () => gettersHelper.clubInfo(),
         currentUserInfo: () => gettersHelper.currentUserInfo(),
         clubUserList: () => gettersHelper.clubUserList(),
-        meetingList: () => gettersHelper.meetingList(),
-        meetingPage: () => gettersHelper.meetingPage(),
         isLoading: () => gettersHelper.isLoading(),
     },
     watch: {

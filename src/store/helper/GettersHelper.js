@@ -22,6 +22,10 @@ class GettersHelper {
     meetingList = () => get(MODULE.MEETING, 'meetingList');
     meetingPage = () => get(MODULE.MEETING, 'meetingPage');
 
+    // board module
+    boardList = () => get(MODULE.BOARD, 'boardList');
+    boardPage = () => get(MODULE.BOARD, 'boardPage');
+
     // album module
     album = () => get(MODULE.ALBUM, 'album');
     albumList = () => get(MODULE.ALBUM, 'albumList');

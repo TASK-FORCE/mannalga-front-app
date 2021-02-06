@@ -5,14 +5,16 @@
         >
             <v-text-field v-model="title"
                           :rules="RULES.CLUB_BOARD_TITLE"
+                          hide-details
                           class="pa-0 ma-0"
                           label="게시글 제목"
             />
             <v-select v-model="category"
                       :items="boardCategoryNames"
                       :rules="RULES.CLUB_BOARD_CATEGORY"
+                      hide-details
                       label="카테고리"
-                      class="mt-2"
+                      class="mt-3"
                       outlined
                       dense
             />
@@ -20,6 +22,7 @@
                         :height="resolveContentHeight"
                         :rules="RULES.CLUB_BOARD_CONTENT"
                         label="내용을 작성해주세요."
+                        class="mt-3"
                         hide-details
                         outlined
             />
@@ -42,7 +45,7 @@
                          color="primary"
                          width="120"
                          outlined
-                         text="작성 완료"
+                         text="작성"
                          @click="createClubBoard"
         />
     </div>
@@ -57,6 +60,7 @@ import mutationsHelper from '@/store/helper/MutationsHelper.js';
 import { RULES } from '@/utils/common/constant/rules.js';
 import { BoardUtils } from '@/utils/board.js';
 import gettersHelper from '@/store/helper/GettersHelper.js';
+import routerHelper from '@/router/RouterHelper.js';
 
 export default {
     name: 'ClubBoardCreateBox',
@@ -70,19 +74,20 @@ export default {
             title: null,
             content: null,
             category: null,
-            imgList: [],
+            selectedImages: {},
         };
     },
     computed: {
+        clubSeq: () => routerHelper.clubSeq(),
         currentUserInfo: () => gettersHelper.currentUserInfo(),
         resolveImageBoxHeight() {
-            return window.innerHeight / 7;
+            return `${window.innerHeight / 7}`;
         },
         resolveImageBoxWidth() {
             return `${(window.innerWidth - 32) / 3 - 8}`;
         },
         resolveContentHeight() {
-            return window.innerHeight / 3;
+            return `${window.innerHeight / 3}`;
         },
         boardCategoryNames() {
             return BoardUtils.findCategoryByCurrentUserInfo(this.currentUserInfo);
@@ -90,17 +95,21 @@ export default {
     },
     methods: {
         addImage(imageDto, index) {
-            this.imgList.splice(index, 0, imageDto);
+            this.selectedImages[index] = imageDto;
         },
         createClubBoard() {
             if (this.$refs.clubBoardCreateForm.validate()) {
-                const { clubSeq } = this.$route.params;
-                const clubBoardDto = {};
+                const clubBoardDto = {
+                    title: this.title,
+                    content: this.content,
+                    category: BoardUtils.findCategoryTypeByName(this.category),
+                    imgList: Object.values(this.selectedImages),
+                };
                 this.loading = true;
-                actionsHelper.requestClubCreateBoard({ clubSeq, clubBoardDto })
+                actionsHelper.requestClubBoardCreate({ clubSeq: this.clubSeq, clubBoardDto })
                     .then(() => {
-                        mutationsHelper.openSnackBar('게시글 생성 성공!');
-                        this.$router.push(generateParamPath(PATH.CLUB.MAIN, [clubSeq]));
+                        actionsHelper.requestFirstBoardList(this.clubSeq);
+                        this.$router.push(generateParamPath(PATH.CLUB.MAIN, [this.clubSeq]));
                     })
                     .finally(this.loading = false);
             }

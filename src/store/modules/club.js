@@ -67,11 +67,6 @@ const actions = {
             commit('setClubUserList', userList);
         });
     },
-    async requestClubBoardCreate({ _ }, clubBoardCreateInfo) {
-        return actionsNormalTemplate(async () => {
-            await clubApi.postClubBoardCreate(clubBoardCreateInfo);
-        });
-    },
 };
 
 export default {

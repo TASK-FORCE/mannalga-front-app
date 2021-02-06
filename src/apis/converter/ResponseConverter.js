@@ -56,7 +56,13 @@ export default class ResponseConverter {
 
     static convertMeeting = (data) => mapMeeting(data);
 
-    static convertMeetingApplicationStatus = (data) => mapMeetingApplicationStatus(data)
+    static convertMeetingApplicationStatus = (data) => mapMeetingApplicationStatus(data);
+
+    static convertBoardList = (data) => {
+        const boardList = data.content.map(mapBoard);
+        const boardPage = this.convertPage(data);
+        return { boardList, boardPage };
+    };
 
     static convertAlbumList = (data) => {
         const albumList = data.content;
@@ -81,7 +87,7 @@ export default class ResponseConverter {
         };
     };
 
-    static convertUserRegions = ({ userRegions }) => userRegions
+    static convertUserRegions = ({ userRegions }) => userRegions;
 
     static convertUserInterests = ({ interestList }) => interestList.map(({ interest }) => interest).map(({ seq }) => seq);
 }
@@ -98,6 +104,21 @@ const mapMeeting = (meeting) => ({
     cost: toCurrency(meeting.cost),
     region: meeting.region,
     ...mapMeetingApplicationStatus(meeting),
+});
+
+const mapBoard = (board) => ({
+    seq: board.boardSeq,
+    category: board.category,
+    commentCnt: board.commentCnt,
+    createAt: board.createAt.substring(0, 16),
+    likeCnt: board.likeCnt,
+    mainImageUrl: board.mainImageUrl,
+    simpleContent: board.simpleContent,
+    title: board.title,
+    writerImage: board.writer.imgUrl,
+    writerName: board.writer.name,
+    writerRole: board.writer.role[0],
+    writerSeq: board.writer.writerUserSeq,
 });
 
 const mapMeetingApplicationStatus = (dto) => {
