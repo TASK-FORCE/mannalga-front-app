@@ -12,8 +12,8 @@ function dispatchClubMeetings(clubSeq) {
     return actionsHelper.requestFirstMeetingList(clubSeq);
 }
 
-function dispatchClubBoards() {
-    return Promise.resolve();
+function dispatchClubBoards(clubSeq) {
+    return actionsHelper.requestFirstBoardList(clubSeq);
 }
 
 function dispatchClubAlbums(clubSeq) {
@@ -34,7 +34,7 @@ class ClubDetailVuexService {
             const promiseList = [
                 dispatchClubInfoAndUserInfo(clubSeq),
                 dispatchClubMeetings(clubSeq),
-                dispatchClubBoards(),
+                dispatchClubBoards(clubSeq),
                 dispatchClubAlbums(clubSeq),
             ];
             await RequestHelper.dispatchAll(withLoading, routePathWhenFail, promiseList);

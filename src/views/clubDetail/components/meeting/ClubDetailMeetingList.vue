@@ -64,14 +64,13 @@ import YesOrNoDialog from '@/components/YesOrNoDialog.vue';
 import MeetingTimeRange from '@/components/meeting/MeetingTimeRange.vue';
 import mutationsHelper from '@/store/helper/MutationsHelper.js';
 import { MESSAGE } from '@/utils/common/constant/messages.js';
+import gettersHelper from '@/store/helper/GettersHelper.js';
 
 export default {
     name: 'ClubDetailMeeting',
     components: { MeetingTimeRange, YesOrNoDialog, InfiniteScrollTemplate, ClubDetailMeetingPost, FixedCreateBtn },
     props: {
         currentUserInfo: Object,
-        meetingList: Array,
-        meetingPage: Object,
     },
     data() {
         return {
@@ -83,6 +82,8 @@ export default {
     },
     computed: {
         clubSeq: () => routerHelper.clubSeq(),
+        meetingList: () => gettersHelper.meetingList(),
+        meetingPage: () => gettersHelper.meetingPage(),
         canCreateMeeting() {
             const { isMaster, isManager } = this.currentUserInfo;
             return isMaster || isManager;

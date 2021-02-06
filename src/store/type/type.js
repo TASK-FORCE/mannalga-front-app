@@ -7,4 +7,5 @@ export const MODULE = {
     USER: 'user',
     MEETING: 'meeting',
     ALBUM: 'album',
+    BOARD: 'board',
 };

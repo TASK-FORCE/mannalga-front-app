@@ -10,7 +10,6 @@ class ActionsHelper {
     requestClubCreate = (payload) => dispatch(MODULE.CLUB, 'requestClubCreate', payload);
     requestClubData = (payload) => dispatch(MODULE.CLUB, 'requestClubData', payload);
     requestClubJoin = (payload) => dispatch(MODULE.CLUB, 'requestClubJoin', payload);
-    requestClubCreateBoard = (payload) => dispatch(MODULE.CLUB, 'requestClubBoardCreate', payload);
     requestClubInfoAndUserInfo = (payload) => dispatch(MODULE.CLUB, 'requestClubInfoAndUserInfo', payload);
 
     // meeting module
@@ -20,6 +19,11 @@ class ActionsHelper {
     requestMeeting = (payload) => dispatch(MODULE.MEETING, 'requestMeeting', payload);
     requestMeetingApplication = (payload) => dispatch(MODULE.MEETING, 'requestMeetingApplication', payload);
     requestCancelMeetingApplication = (payload) => dispatch(MODULE.MEETING, 'requestCancelMeetingApplication', payload);
+
+    // board module
+    requestClubBoardCreate = (payload) => dispatch(MODULE.BOARD, 'requestClubBoardCreate', payload);
+    requestFirstBoardList = (payload) => dispatch(MODULE.BOARD, 'requestFirstBoardList', payload);
+    requestNextBoardList = (payload) => dispatch(MODULE.BOARD, 'requestNextBoardList', payload);
 
     // album module
     requestAlbumCreate = (payload) => dispatch(MODULE.ALBUM, 'requestAlbumCreate', payload);
