@@ -45,6 +45,9 @@ export default {
             this.$router.push(PATH.REGISTER.PROFILE);
         }
     },
+    mounted() {
+        this.selectedRegions = gettersHelper.selectedRegions();
+    },
     methods: {
         clickGoBtn() {
             if (_.isEmpty(this.selectedRegions)) {

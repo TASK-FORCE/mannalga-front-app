@@ -22,7 +22,7 @@ export default {
             } else if (path === PATH.REGISTER.REGION) {
                 this.$router.push(PATH.REGISTER.PROFILE);
             } else if (path === PATH.REGISTER.INTEREST) {
-                this.$router.push(PATH.REGISTER.INTEREST);
+                this.$router.push(PATH.REGISTER.REGION);
             }
         },
     },
