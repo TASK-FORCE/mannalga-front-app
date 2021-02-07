@@ -153,6 +153,14 @@ export default {
             type: Object,
             required: true,
         },
+        requestWriteSubComment: {
+            type: Function,
+            default: (content, parentSeq) => {},
+        },
+        requestSubCommentList: {
+            type: Function,
+            default: (parentSeq) => {},
+        },
     },
     data() {
         return {
@@ -203,13 +211,8 @@ export default {
             this.$nextTick(() => this.$refs.childInput.focus());
         },
         settingChildComment(focusChildInput) {
-            const albumSubCommentRequestInfo = {
-                clubSeq: this.clubSeq,
-                albumSeq: this.albumSeq,
-                parentCommentSeq: this.commentSeq,
-            };
             this.subCommentLandingLoading = true;
-            actionsHelper.requestAllAlbumSubComments(albumSubCommentRequestInfo)
+            this.requestSubCommentList(this.commentSeq)
                 .then(subComments => (this.childComments = subComments))
                 .finally(() => {
                     if (this.childComments.length > 0) {
@@ -240,16 +243,8 @@ export default {
                 mutationsHelper.openSnackBar(this.EMPTY_COMMENT_TEXT);
                 return;
             }
-            const albumCommentWriteInfo = {
-                clubSeq: this.clubSeq,
-                albumSeq: this.albumSeq,
-                parentCommentSeq: this.commentSeq,
-                albumCommentWriteDto: {
-                    content: this.subCommentContent,
-                },
-            };
             this.subCommentSubmitLoading = true;
-            actionsHelper.requestAlbumCommentWrite(albumCommentWriteInfo)
+            this.requestWriteSubComment(this.subCommentContent, this.commentSeq)
                 .then(() => {
                     mutationsHelper.countChildCommentCnt(this.commentSeq);
                     this.settingChildComment(false);
