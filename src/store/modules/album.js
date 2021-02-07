@@ -190,7 +190,7 @@ const actions = {
         return actionsNormalTemplate(async () => requestCommentListRecursive());
     },
 
-    async requestAllAlbumSubComments({ _ }, albumSubCommentRequestInfo) {
+    async requestAllAlbumSubCommentList({ _ }, albumSubCommentRequestInfo) {
         return actionsNormalTemplate(
             async () => albumApi.getClubAlbumSubCommentList(albumSubCommentRequestInfo),
         );

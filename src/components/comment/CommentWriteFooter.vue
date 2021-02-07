@@ -25,13 +25,15 @@
 
 <script>
 import mutationsHelper from '@/store/helper/MutationsHelper.js';
-import actionsHelper from '@/store/helper/ActionsHelper.js';
-import routerHelper from '@/router/RouterHelper.js';
 import { MESSAGE } from '@/utils/common/constant/messages.js';
 
 export default {
     name: 'CommentWriteFooter',
     props: {
+        requestWriteComment: {
+            type: Function,
+            default: (content) => {},
+        },
         postProcessor: {
             type: Function,
             default: () => {},
@@ -54,14 +56,7 @@ export default {
         writeComment() {
             if (this.content) {
                 this.loading = true;
-                const albumCommentWriteInfo = {
-                    clubSeq: routerHelper.clubSeq(),
-                    albumSeq: routerHelper.albumSeq(),
-                    albumCommentWriteDto: {
-                        content: this.content,
-                    },
-                };
-                actionsHelper.requestAlbumCommentWrite(albumCommentWriteInfo)
+                this.requestWriteComment(this.content)
                     .then(() => {
                         this.postProcessor();
                         this.content = null;
