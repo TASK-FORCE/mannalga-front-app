@@ -1,5 +1,6 @@
 import axios from 'axios';
 import ResponseConverter from '@/apis/converter/ResponseConverter.js';
+import { getMeetings } from '@/views/clubDetail/components/meeting/data.js';
 
 class MeetingApi {
     postClubMeetingCreate({ clubSeq, clubMeetingCreateDto }) {
@@ -7,7 +8,8 @@ class MeetingApi {
     }
 
     getMeetingList({ clubSeq, requestParams }) {
-        return axios.get(`/api/clubs/${clubSeq}/meetings`, { params: requestParams })
+        // return axios.get(`/api/clubs/${clubSeq}/meetings`, { params: requestParams })
+        return getMeetings()
             .then(ResponseConverter.extractSuperInventionResponseData)
             .then(ResponseConverter.convertMeetingList);
     }

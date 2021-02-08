@@ -4,15 +4,15 @@ import DefaultBuilder from '@/store/utils/DefaultBuilder.js';
 import RequestConverter from '@/store/converter/RequestConverter.js';
 
 const state = {
-    meetingList: [],
+    meetingGroupList: [],
     meeting: DefaultBuilder.buildMeeting(),
-    meetingPage: DefaultBuilder.buildPage(),
+    meetingGroupPage: DefaultBuilder.buildPage(),
 };
 
 const getters = {
     meeting: (state) => state.meeting,
-    meetingList: (state) => state.meetingList,
-    meetingPage: (state) => state.meetingPage,
+    meetingGroupList: (state) => state.meetingGroupList,
+    meetingGroupPage: (state) => state.meetingGroupPage,
 };
 
 const mutations = {
@@ -20,19 +20,19 @@ const mutations = {
         state.meeting = meeting;
     },
 
-    setMeetingList(state, { meetingList, meetingPage }) {
-        state.meetingList = meetingList;
-        state.meetingPage = meetingPage;
+    setMeetingGroupListInfo(state, { meetingGroupList, meetingGroupPage }) {
+        state.meetingGroupList = meetingGroupList;
+        state.meetingGroupPage = meetingGroupPage;
     },
 
-    addNextMeetingList(state, { meetingList, meetingPage }) {
-        state.meetingList = state.meetingList.concat(meetingList);
-        state.meetingPage = meetingPage;
+    addNextMeetingGroupListInfo(state, { meetingGroupList, meetingGroupPage }) {
+        state.meetingGroupList = state.meetingGroupList.concat(meetingGroupList);
+        state.meetingGroupPage = meetingGroupPage;
     },
 
     initMeetingList(state) {
         state.meetingList = [];
-        state.meetingPage = DefaultBuilder.buildPage();
+        state.meetingGroupPage = DefaultBuilder.buildPage();
     },
 
     changeMeetingApplicationsStatus(state, { meetingSeq, newStatus }) {
@@ -64,29 +64,29 @@ const actions = {
         );
     },
 
-    async requestFirstMeetingList({ commit, state }, clubSeq) {
+    async requestFirstMeetingGroupList({ commit, state }, clubSeq) {
         return actionsNormalTemplate(
             async () => {
                 commit('initMeetingList');
                 const requestDto = {
                     clubSeq,
-                    requestParams: RequestConverter.convertPage(state.meetingPage),
+                    requestParams: RequestConverter.convertPage(state.meetingGroupPage),
                 };
-                const meetingListInfo = await meetingApi.getMeetingList(requestDto);
-                commit('setMeetingList', meetingListInfo);
+                const meetingGroupListInfo = await meetingApi.getMeetingList(requestDto);
+                commit('setMeetingGroupListInfo', meetingGroupListInfo);
             },
         );
     },
 
-    async requestNextMeetingList({ commit, state }, clubSeq) {
+    async requestNextMeetingGroupList({ commit, state }, clubSeq) {
         return actionsNormalTemplate(
             async () => {
                 const requestDto = {
                     clubSeq,
-                    requestParams: RequestConverter.convertPage(state.meetingPage),
+                    requestParams: RequestConverter.convertPage(state.meetingGroupPage),
                 };
                 const meetingListInfo = await meetingApi.getMeetingList(requestDto);
-                commit('addNextMeetingList', meetingListInfo);
+                commit('addNextMeetingGroupListInfo', meetingListInfo);
             },
         );
     },

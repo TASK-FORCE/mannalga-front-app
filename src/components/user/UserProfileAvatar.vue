@@ -11,15 +11,10 @@
     <div v-else-if="name"
          @click="$emit('click')"
     >
-        <div class="name-avatar"
-             :style="getBoxClass(name)"
-        >
-            <span class="name-avatar-text"
-                  :style="`font-size: ${size / 40}rem`"
-            >
-                {{ getTruncatedName(name) }}
-            </span>
-        </div>
+        <TextAvatar :name="getTruncatedName(name)"
+                    :size="size"
+                    :bgColor="backgroundColor"
+        />
     </div>
     <v-avatar v-else
               :size=size
@@ -32,6 +27,8 @@
 </template>
 
 <script>
+
+import TextAvatar from '@/components/user/TextAvatar.vue';
 
 const COLORS = [
     '#800080',
@@ -57,6 +54,7 @@ const COLORS = [
 
 export default {
     name: 'UserProfileAvatar',
+    components: { TextAvatar },
     props: {
         imgUrl: String,
         name: String,
@@ -69,15 +67,12 @@ export default {
             default: 0,
         },
     },
-    methods: {
-        getBoxClass(name) {
-            if (!name) return {};
-            return {
-                width: `${this.size}px`,
-                height: `${this.size}px`,
-                backgroundColor: COLORS[(this.getTruncatedName(name).hashCode() + this.appendNumber) % COLORS.length],
-            };
+    computed: {
+        backgroundColor() {
+            return COLORS[(this.getTruncatedName(this.name).hashCode() + this.appendNumber) % COLORS.length];
         },
+    },
+    methods: {
         getTruncatedName(name) {
             if (!name) return {};
             return name.length > 1 ? name.substring(name.length - 2, name.length) : name;
@@ -85,22 +80,3 @@ export default {
     },
 };
 </script>
-
-<style scoped
-       lang="scss"
->
-.name-avatar {
-    border-radius: 50%;
-    position: relative;
-
-    .name-avatar-text {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        width: 100%;
-        text-align: center;
-        transform: translate(-50%, -50%);
-        color: white;
-    }
-}
-</style>

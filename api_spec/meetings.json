@@ -1,0 +1,45 @@
+{
+  "data": {
+    "pageable": {
+      "pageNumber": 0
+    },
+    "content": [
+      {
+        "groupDate": "2021년 1월", // new
+        "meetings": [
+          {
+            "isSameDayMeeting": true, // new
+            "meetingDay": 10, // new
+            "meetingDayOfWeek": "수요일", // new
+            "seq": 8701,
+            "title": "제 34회 정기 모임",
+            "content": "23",
+            "startDate": "2021년 2월 10일", // changed
+            "startTime": "12:00", // changed
+            "endDate":  "2021년 2월 11일", // changed
+            "endTime":  "13:00", // changed
+            "club": {},
+            "deleteFlag": false,
+            "maximumNumber": 20,
+            "regClubUser": {},
+            "meetingApplications": [],
+            "isCurrentUserRegMeeting": true,
+            "isCurrentUserApplicationMeeting": true,
+            "region": "강남역 2번 출구",
+            "regionURL": null,
+            "cost": 10000,
+            "isOpen": true
+          }
+        ]
+      },
+      {
+        "groupDate": "2020년 12월",
+        "meetings": []
+      }
+    ],
+    "last": true,
+    "size": 20,
+    "totalPages": 1
+  },
+  "message": "success"
+}

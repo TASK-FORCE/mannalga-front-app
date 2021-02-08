@@ -1,7 +1,8 @@
 <template>
-    <v-btn class="v-btn--fab darken-2"
+    <v-btn fab
            :class="left ? 'left-btn' : 'right-btn'"
            :color="color || 'green'"
+           :style="resolveSize"
            @click="click"
     >
         <v-icon class="white--text"
@@ -20,6 +21,19 @@ export default {
             type: Boolean,
             default: false,
         },
+        size: {
+            type: Number,
+            default: 50,
+        },
+
+    },
+    computed: {
+        resolveSize() {
+            return {
+                width: `${this.size}px !important`,
+                height: `${this.size}px !important`,
+            };
+        },
     },
     methods: {
         click() {
@@ -37,8 +51,6 @@ export default {
 .right-btn {
     position: fixed;
     border-radius: 50%;
-    width: 50px !important;
-    height: 50px !important;
     min-width: auto !important;
     z-index: 4;
     right: 16px;
@@ -48,8 +60,6 @@ export default {
 .left-btn {
     position: fixed;
     border-radius: 50%;
-    width: 50px !important;
-    height: 50px !important;
     min-width: auto !important;
     z-index: 4;
     left: 16px;

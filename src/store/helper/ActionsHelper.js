@@ -14,8 +14,8 @@ class ActionsHelper {
 
     // meeting module
     requestMeetingCreate = (payload) => dispatch(MODULE.MEETING, 'requestMeetingCreate', payload);
-    requestFirstMeetingList = (payload) => dispatch(MODULE.MEETING, 'requestFirstMeetingList', payload);
-    requestNextMeetingList = (payload) => dispatch(MODULE.MEETING, 'requestNextMeetingList', payload);
+    requestFirstMeetingGroupList = (payload) => dispatch(MODULE.MEETING, 'requestFirstMeetingGroupList', payload);
+    requestNextMeetingGroupList = (payload) => dispatch(MODULE.MEETING, 'requestNextMeetingGroupList', payload);
     requestMeeting = (payload) => dispatch(MODULE.MEETING, 'requestMeeting', payload);
     requestMeetingApplication = (payload) => dispatch(MODULE.MEETING, 'requestMeetingApplication', payload);
     requestCancelMeetingApplication = (payload) => dispatch(MODULE.MEETING, 'requestCancelMeetingApplication', payload);

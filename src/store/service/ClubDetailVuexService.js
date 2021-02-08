@@ -9,7 +9,7 @@ function dispatchClubInfoAndUserInfo(clubSeq) {
 }
 
 function dispatchClubMeetings(clubSeq) {
-    return actionsHelper.requestFirstMeetingList(clubSeq);
+    return actionsHelper.requestFirstMeetingGroupList(clubSeq);
 }
 
 function dispatchClubBoards(clubSeq) {
