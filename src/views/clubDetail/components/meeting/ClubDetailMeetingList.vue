@@ -3,51 +3,35 @@
         <InfiniteScrollTemplate name="meeting"
                                 :firstPageCallback="this.fetchFirstPage"
                                 :nextPageCallback="this.fetchNextPage"
-                                :pageElements="meetingList"
-                                :pageInfo="meetingPage"
+                                :pageElements="meetingGroupList"
+                                :pageInfo="meetingGroupPage"
                                 :withListGroup="false"
         >
             <template v-slot:list-main>
-                <div v-for="meeting in meetingList"
-                     :key="meeting.seq"
+                <div v-for="(meetingGroup, index) in meetingGroupList"
+                     :key="index"
                 >
-                    <ClubDetailMeetingPost :meeting="meeting"
-                                           @openCancelDialog="openCancelDialog(meeting)"
-                                           @openRegisterDialog="openRegisterDialog(meeting)"
-                    />
+                    <div class="meeting-group">
+                        <div class="meeting-group-date-text">
+                            {{ meetingGroup.groupDateText }}
+                        </div>
+                        <div class="meeting-group-meetings">
+                            <div v-for="(meeting, index) in meetingGroup.meetings"
+                                 :key="meeting.seq"
+                            >
+                                <ClubDetailMeetingPost :meeting="meeting"
+                                                       :class="(index === meetingGroup.meetings.length - 1) ? 'last-child' : null"
+                                />
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </template>
         </InfiniteScrollTemplate>
-        <YesOrNoDialog v-model="showRegisterDialog"
-                       title="만남을 신청하시겠습니까?"
-                       :submitPromiseCallback="registerMeeting"
-        >
-            <template #description>
-                <div class="mb-2">
-                    만남명: {{ registerTargetMeeting.title }}
-                </div>
-                <MeetingTimeRange :startTime="registerTargetMeeting.startTime"
-                                  :endTime="registerTargetMeeting.endTime"
-                />
-            </template>
-        </YesOrNoDialog>
-        <YesOrNoDialog v-model="showCancelDialog"
-                       title="만남 신청을 취소하시겠습니까?"
-                       :submitPromiseCallback="cancelMeeting"
-        >
-            <template #description>
-                <div class="mb-2">
-                    만남명: {{ cancelTargetMeeting.title }}
-                </div>
-                <MeetingTimeRange :startTime="cancelTargetMeeting.startTime"
-                                  :endTime="cancelTargetMeeting.endTime"
-                />
-            </template>
-        </YesOrNoDialog>
         <FixedCreateBtn v-if="canCreateMeeting"
                         :path="meetingCreatePath()"
-                        color="red"
-                        left
+                        color="#E8984E"
+                        :size="60"
         />
     </div>
 </template>
@@ -60,30 +44,20 @@ import routerHelper from '@/router/RouterHelper.js';
 import ClubDetailMeetingPost from '@/views/clubDetail/components/meeting/ClubDetailMeetingPost.vue';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
 import InfiniteScrollTemplate from '@/components/InfiniteScrollTemplate.vue';
-import YesOrNoDialog from '@/components/YesOrNoDialog.vue';
-import MeetingTimeRange from '@/components/meeting/MeetingTimeRange.vue';
 import mutationsHelper from '@/store/helper/MutationsHelper.js';
 import { MESSAGE } from '@/utils/common/constant/messages.js';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 
 export default {
     name: 'ClubDetailMeeting',
-    components: { MeetingTimeRange, YesOrNoDialog, InfiniteScrollTemplate, ClubDetailMeetingPost, FixedCreateBtn },
+    components: { InfiniteScrollTemplate, ClubDetailMeetingPost, FixedCreateBtn },
     props: {
         currentUserInfo: Object,
     },
-    data() {
-        return {
-            showRegisterDialog: false,
-            registerTargetMeeting: {},
-            showCancelDialog: false,
-            cancelTargetMeeting: {},
-        };
-    },
     computed: {
         clubSeq: () => routerHelper.clubSeq(),
-        meetingList: () => gettersHelper.meetingList(),
-        meetingPage: () => gettersHelper.meetingPage(),
+        meetingGroupList: () => gettersHelper.meetingGroupList(),
+        meetingGroupPage: () => gettersHelper.meetingGroupPage(),
         canCreateMeeting() {
             const { isMaster, isManager } = this.currentUserInfo;
             return isMaster || isManager;
@@ -91,17 +65,13 @@ export default {
     },
     methods: {
         fetchFirstPage() {
-            return actionsHelper.requestFirstMeetingList(this.clubSeq);
+            return actionsHelper.requestFirstMeetingGroupList(this.clubSeq);
         },
         fetchNextPage() {
             return actionsHelper.requestNextClubList(this.clubSeq);
         },
         meetingCreatePath() {
             return generateParamPath(PATH.CLUB.MEETING_CREATE, routerHelper.clubSeq());
-        },
-        openRegisterDialog(meeting) {
-            this.showRegisterDialog = true;
-            this.registerTargetMeeting = meeting;
         },
         registerMeeting() {
             const meetingApplicationInfo = {
@@ -110,10 +80,6 @@ export default {
             };
             return actionsHelper.requestMeetingApplication(meetingApplicationInfo)
                 .then(() => mutationsHelper.openSnackBar(MESSAGE.SUCCESS_APPLY_MEETING_APPLICATION));
-        },
-        openCancelDialog(meeting) {
-            this.showCancelDialog = true;
-            this.cancelTargetMeeting = meeting;
         },
         cancelMeeting() {
             const meetingCancelInfo = {
@@ -128,5 +94,20 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped
+       lang="scss"
+>
+.meeting-group {
+    padding: 20px 25px;
+
+    .meeting-group-date-text {
+        font-weight: 700;
+        font-size: 15px;
+        color: #9F9F9F;
+    }
+
+    .meeting-group-meetings {
+        padding-top: 11px;
+    }
+}
 </style>

@@ -49,9 +49,12 @@ export default class ResponseConverter {
     };
 
     static convertMeetingList = (data) => {
-        const meetingList = data.content.map(mapMeeting);
-        const meetingPage = this.convertPage(data);
-        return { meetingList, meetingPage };
+        const meetingGroupList = data.content.map(group => ({
+            groupDateText: group.groupDateText,
+            meetings: group.meetings.map(mapMeeting),
+        }));
+        const meetingGroupPage = this.convertPage(data);
+        return { meetingGroupList, meetingGroupPage };
     };
 
     static convertMeeting = (data) => mapMeeting(data);
@@ -96,8 +99,14 @@ const mapMeeting = (meeting) => ({
     seq: meeting.seq,
     title: meeting.title,
     content: meeting.content,
-    startTime: meeting.startTimestamp.substring(0, 16),
-    endTime: meeting.endTimestamp.substring(0, 16),
+    isOpen: meeting.isOpen,
+    isSameDayMeeting: meeting.isSameDayMeeting,
+    meetingDay: meeting.meetingDay,
+    meetingDayOfWeek: meeting.meetingDayOfWeek,
+    startDate: meeting.startDate,
+    startTime: meeting.startTime,
+    endDate: meeting.endDate,
+    endTime: meeting.endTime,
     isRegistered: meeting.isCurrentUserApplicationMeeting,
     isCreator: meeting.isCurrentUserRegMeeting,
     registerUser: meeting.regClubUser,

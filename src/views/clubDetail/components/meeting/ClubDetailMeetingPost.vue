@@ -1,90 +1,104 @@
 <template>
-    <div>
-        <div class="pb-2 p-relative">
-            <div v-show="meeting.isCreator"
-                 class="my-meeting-flag"
-            >
-                <div class="my-meeting-text">내<br />만<br />남</div>
+    <div v-ripple
+         class="d-flex"
+         :class="resolveClass"
+         @click="() => {}"
+    >
+        <div class="meeting-day-info">
+            <div class="meeting-day">
+                {{ meeting.meetingDay }}
             </div>
-            <v-list-item class="pa-0 p-relative">
-                <div v-ripple
-                     class="flex-grow-1"
-                     @click="goToMeetingDetailPage"
-                >
-                    <div class="px-2 pt-3 pb-1">
-                        <MeetingTimeRange :startTime="meeting.startTime"
-                                          :endTime="meeting.endTime"
-                        />
-                        <div class="text-center py-2">{{ meeting.title }}</div>
-                        <div class="d-flex px-3">
-                        <span class="f-07 flex-grow-1">
-                            <v-icon small
-                                    style="padding: 1px"
-                                    v-text="'$currencyKrw'"
-                            />
-                            {{ meeting.cost ? meeting.cost : '미정' }}
-                        </span>
-                            <span class="f-07 flex-grow-1">
-                            <v-icon small
-                                    v-text="'$mapMarker'"
-                            />
-                            {{ meeting.region ? meeting.region : '미정' }}
-                        </span>
-                            <span class="f-07">
-                           <v-icon small
-                                   v-text="'$twoPeople'"
-                           />
-                            {{ meeting.numberInfoText }}
-                        </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="pr-2">
-                    <div class="p-relative">
-                        <v-btn outlined
-                               class="pa-0"
-                               width="60"
-                               :height="meeting.isRegistered ? 40 : 60"
-                               color="#3f51b5"
-                               :disabled="meeting.isRegistered"
-                               @click="$emit('openRegisterDialog')"
-                        >
-                    <span v-if="meeting.isRegistered"
-                          class="register-success-text"
-                    >
-                        신청완료
-                    </span>
-                            <span v-else>만남<br />신청</span>
-                        </v-btn>
-                    </div>
-                    <v-chip v-show="meeting.isRegistered"
-                            outlined
-                            x-small
-                            class="font-weight-bold py-2 f-07 mt-3"
-                            color="#e91e63"
-                            @click="$emit('openCancelDialog')"
-                    >
-                        신청 취소
-                    </v-chip>
-                </div>
-            </v-list-item>
+            <div class="meeting-day-of-week">
+                {{ meeting.meetingDayOfWeek }}
+            </div>
         </div>
-        <v-divider />
+        <div class="divider" />
+        <div class="meeting-box"
+             :style="resolveMeetingBoxStyle"
+        >
+            <div class="d-flex align-center">
+                <div class="meeting-title">
+                    {{ meeting.title }}
+                </div>
+                <v-spacer />
+                <div v-if="tagText"
+                     class="meeting-tag"
+                >
+                    {{ tagText }}
+                </div>
+            </div>
+            <div class="sub-description-wrapper">
+                <div class="sub-description">
+                    <v-icon size="12"
+                            class="sub-description-icon"
+                            v-text="'$clock'"
+                    />
+                    {{ meetingTime }}
+                </div>
+                <div class="sub-description pt-1">
+                    <v-icon size="12"
+                            class="sub-description-icon"
+                            v-text="'$mapMarker'"
+                    />
+                    {{ meeting.region ? meeting.region : '미정' }}
+                </div>
+                <div class="sub-description pt-1">
+                    <v-icon size="12"
+                            class="sub-description-icon"
+                            v-text="'$currencyKrw'"
+                    />
+                    {{ meeting.cost ? meeting.cost : '미정' }}
+                </div>
+            </div>
+            <div class="d-flex align-center">
+                <div v-for="(user, index) in extractedApplicationUsers"
+                     :key="user.seq"
+                >
+                    <UserProfileAvatar :size="22"
+                                       :name="user.name"
+                                       :appendNumber="user.seq"
+                                       :imgUrl="user.imgUrl"
+                                       :class="index !== 0 ? 'ml-1' : null"
+                    />
+                </div>
+                <div v-if="remainingApplicationUserCount > 0">
+                    <TextAvatar :size="22"
+                                :name="`+${remainingApplicationUserCount}`"
+                                class="ml-1"
+                    />
+                </div>
+                <v-spacer />
+                <div class="meeting-application-users-number">
+                    <div>
+                        <v-icon size="12"
+                                class="users-number-icon"
+                                v-text="'$twoPeople'"
+                        />
+                    </div>
+                    <div>
+                        {{ meeting.applicationUsers.length }}
+                        <span v-if="meeting.maximumNumber">
+                            / {{ meeting.maximumNumber }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
 
-import MeetingTimeRange from '@/components/meeting/MeetingTimeRange.vue';
 import routerHelper from '@/router/RouterHelper.js';
-import actionsHelper from '@/store/helper/ActionsHelper.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
 import { generateParamPath, PATH } from '@/router/route_path_type.js';
-import { MESSAGE } from '@/utils/common/constant/messages.js';
+import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
+import TextAvatar from '@/components/user/TextAvatar.vue';
+
+const SHOW_AVATAR_SIZE = 5;
 
 export default {
     name: 'ClubDetailMeetingPost',
-    components: { MeetingTimeRange },
+    components: { TextAvatar, UserProfileAvatar },
     props: {
         meeting: Object,
     },
@@ -95,6 +109,50 @@ export default {
     },
     computed: {
         clubSeq: () => routerHelper.clubSeq(),
+        resolveClass() {
+            if (!this.meeting.isOpen) {
+                return 'close-meeting';
+            }
+
+            if (this.meeting.isRegistered) {
+                return 'application-meeting';
+            }
+            return null;
+        },
+        resolveMeetingBoxStyle() {
+            const paddingWidth = 50;
+            const dividerWidth = 34;
+            const dateBoxWidth = 50;
+            const { clientWidth } = document.querySelector('#app');
+            const width = clientWidth - paddingWidth - dividerWidth - dateBoxWidth;
+            return {
+                width: `${width}px`,
+            };
+        },
+        tagText() {
+            if (!this.meeting.isOpen) {
+                return '종료';
+            }
+
+            if (this.meeting.isCreator) {
+                return 'MY';
+            }
+            return null;
+        },
+        meetingTime() {
+            const { isSameDayMeeting, startDate, startTime, endDate, endTime } = this.meeting;
+            if (isSameDayMeeting) {
+                return `${startDate} ${startTime} - ${endTime}`;
+            }
+
+            return `${startDate} - ${endDate}`;
+        },
+        extractedApplicationUsers() {
+            return this.meeting.applicationUsers.slice(0, SHOW_AVATAR_SIZE);
+        },
+        remainingApplicationUserCount() {
+            return this.meeting.applicationUsers.length - SHOW_AVATAR_SIZE;
+        },
     },
     methods: {
         goToMeetingDetailPage() {
@@ -108,26 +166,165 @@ export default {
 <style scoped
        lang="scss"
 >
-.register-success-text {
-    font-size: 0.8rem;
-    font-weight: bold;
-    color: #2196f3;
+.meeting-day-info {
+    width: 55px !important;
+    text-align: center;
+
+    .meeting-day {
+        font-weight: 500;
+        font-size: 33px;
+    }
+
+    .meeting-day-of-week {
+        font-weight: 500;
+        font-size: 14px;
+        color: #666666;
+    }
 }
 
-.my-meeting-flag {
-    position: absolute;
-    height: 100%;
-    width: 15px;
-    background-color: #46a046;
+.divider {
+    border-left: #FAF9F9 solid 2px;
+    margin: 0 16px;
+}
 
-    .my-meeting-text {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: white;
-        font-size: 0.7rem;
-        font-weight: bold;
+.meeting-box {
+    width: 100%;
+    background: #F5F5F5;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 16px;
+
+    .meeting-title {
+        font-weight: 700;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .meeting-tag {
+        width: 35px;
+        height: 20px;
+        border: 1.5px solid #666666;
+        border-radius: 5px;
+        font-size: 10px;
+        text-align: center;
+        font-weight: 700;
+    }
+
+    .sub-description-wrapper {
+        padding: 8px 0;
+
+        .sub-description {
+            color: #666666;
+            font-size: 11px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            font-weight: 500;
+
+            .sub-description-icon {
+                margin-right: 5px;
+                width: 12px;
+                height: 10px
+            }
+        }
+    }
+
+    .meeting-application-users-number {
+        display: flex;
+        align-content: center;
+        font-weight: 700;
+        color: #666666;
+        font-size: 11px;
+
+        .users-number-icon {
+            width: 9px;
+            height: 11px;
+            margin-right: 3px;
+        }
+
+    }
+}
+
+.last-child {
+    .meeting-box {
+        margin-bottom: 0;
+    }
+}
+
+.theme--dark {
+    .meeting-day-of-week {
+        color: #9f9f9f;
+    }
+
+    .divider {
+        border-color: #292929;
+    }
+
+    .meeting-box {
+        background: #292929;
+
+        .meeting-title, {
+            color: white;
+        }
+
+        .meeting-tag, .sub-description, .meeting-application-users-number, .sub-description-icon, .users-number-icon {
+            color: #9f9f9f;
+        }
+
+        .meeting-tag {
+            border-color: white;
+        }
+    }
+
+    .close-meeting {
+        .meeting-day, .meeting-day-of-week {
+            color: #3c3c3c !important;
+        }
+
+        .meeting-box {
+            background: #3c3c3c !important;
+        }
+
+        .meeting-title, .meeting-tag, .sub-description, .meeting-application-users-number, .sub-description-icon, .users-number-icon {
+            color: #666666 !important;
+        }
+
+        .meeting-tag {
+            border-color: #666666 !important;
+        }
+    }
+}
+
+.application-meeting {
+    .meeting-box {
+        background: #2883C6;
+    }
+
+    .meeting-title, .meeting-tag, .sub-description, .meeting-application-users-number, .sub-description-icon, .users-number-icon {
+        color: white !important;
+    }
+
+    .meeting-tag {
+        border-color: white;
+    }
+}
+
+.close-meeting {
+    .meeting-day, .meeting-day-of-week {
+        color: #D4D4D4 !important;
+    }
+
+    .meeting-box {
+        background: #D5D5D5 !important;
+    }
+
+    .meeting-title, .meeting-tag, .sub-description, .meeting-application-users-number, .sub-description-icon, .users-number-icon {
+        color: #9F9F9F !important;
+    }
+
+    .meeting-tag {
+        border-color: #9F9F9F !important;
     }
 }
 </style>

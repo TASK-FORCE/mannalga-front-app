@@ -74,7 +74,10 @@ export default {
         submit() {
             this.loading = true;
             this.submitPromiseCallback()
-                .finally(() => (this.loading = false));
+                .finally(() => {
+                    this.loading = false;
+                    this.close();
+                });
         },
         close() {
             this.$emit('input', false);

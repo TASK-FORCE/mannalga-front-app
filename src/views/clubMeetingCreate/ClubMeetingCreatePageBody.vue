@@ -157,7 +157,7 @@ export default {
                 };
                 actionsHelper.requestMeetingCreate(clubMeetingCreateInfo)
                     .then(() => {
-                        actionsHelper.requestFirstMeetingList(clubMeetingCreateInfo.clubSeq);
+                        actionsHelper.requestFirstMeetingGroupList(clubMeetingCreateInfo.clubSeq);
                         this.$router.push(generateParamPath(PATH.CLUB.MAIN, routerHelper.clubSeq()));
                     })
                     .finally(this.loading = false);

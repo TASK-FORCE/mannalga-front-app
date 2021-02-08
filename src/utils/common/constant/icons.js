@@ -15,6 +15,7 @@ import {
     mdiCameraPlusOutline,
     mdiChevronRight,
     mdiChevronUp,
+    mdiClockTimeFourOutline,
     mdiClose,
     mdiCogOutline,
     mdiCogs,
@@ -84,6 +85,7 @@ const ICONS = {
     logout: mdiLogoutVariant,
     pencil: mdiPencil,
     monitor: mdiMonitor,
+    clock: mdiClockTimeFourOutline,
 };
 
 export {
