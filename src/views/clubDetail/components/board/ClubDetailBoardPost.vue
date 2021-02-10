@@ -89,6 +89,8 @@ import Chip from '@/components/chip/Chip.vue';
 import VerticalBarDivider from '@/components/VerticalBarDivider.vue';
 import { BoardUtils } from '@/utils/board.js';
 import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
+import routerHelper from '@/router/RouterHelper.js';
+import { generateParamPath, PATH } from '@/router/route_path_type.js';
 
 export default {
     name: 'ClubDetailBoardPost',
@@ -101,7 +103,7 @@ export default {
     },
     methods: {
         clickBoard() {
-            console.log('clickBoard');
+            this.$router.push(generateParamPath(PATH.CLUB.BOARD_POST, [routerHelper.clubSeq(), this.board.seq]));
         },
         getCategoryInfo(categoryType) {
             return BoardUtils.findCategoryByType(categoryType);

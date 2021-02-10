@@ -24,6 +24,7 @@ class ActionsHelper {
     requestClubBoardCreate = (payload) => dispatch(MODULE.BOARD, 'requestClubBoardCreate', payload);
     requestFirstBoardList = (payload) => dispatch(MODULE.BOARD, 'requestFirstBoardList', payload);
     requestNextBoardList = (payload) => dispatch(MODULE.BOARD, 'requestNextBoardList', payload);
+    requestBoard = (payload) => dispatch(MODULE.BOARD, 'requestBoard', payload);
 
     // album module
     requestAlbumCreate = (payload) => dispatch(MODULE.ALBUM, 'requestAlbumCreate', payload);

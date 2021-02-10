@@ -67,6 +67,8 @@ export default class ResponseConverter {
         return { boardList, boardPage };
     };
 
+    static convertBoard = (data) => mapBoard(data);
+
     static convertAlbumList = (data) => {
         const albumList = data.content;
         const albumPage = this.convertPage(data);
@@ -123,6 +125,8 @@ const mapBoard = (board) => ({
     likeCnt: board.likeCnt,
     mainImageUrl: board.mainImageUrl,
     simpleContent: board.simpleContent,
+    content: board.content,
+    imageList: board.imageList,
     title: board.title,
     writerImage: board.writer.imgUrl,
     writerName: board.writer.name,

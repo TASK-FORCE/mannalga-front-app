@@ -78,6 +78,22 @@ class DefaultBuilder {
         writer: {},
     });
 
+    static buildBoard = () => ({
+        seq: 0,
+        category: '',
+        commentCnt: 0,
+        createAt: '',
+        likeCnt: 0,
+        mainImageUrl: '',
+        content: '',
+        imageList: [],
+        title: '',
+        writerImage: '',
+        writerName: '',
+        writerRole: '',
+        writerSeq: [],
+    });
+
     // TODO: to be deleted
     static buildClub = () => ({
         boardList: {

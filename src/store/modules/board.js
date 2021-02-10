@@ -6,11 +6,13 @@ import RequestConverter from '@/store/converter/RequestConverter.js';
 const state = {
     boardList: [],
     boardPage: DefaultBuilder.buildPage(),
+    board: DefaultBuilder.buildAlbum(),
 };
 
 const getters = {
     boardList: (state) => state.boardList,
     boardPage: (state) => state.boardPage,
+    board: (state) => state.board,
 };
 
 const mutations = {
@@ -27,6 +29,10 @@ const mutations = {
     initBoardList(state) {
         state.boardList = [];
         state.boardPage = DefaultBuilder.buildPage();
+    },
+
+    setBoard(state, board) {
+        state.board = board;
     },
 };
 
@@ -58,6 +64,15 @@ const actions = {
                 };
                 const boardListInfo = await boardApi.getClubBoardList(requestDto);
                 commit('addNextBoardList', boardListInfo);
+            },
+        );
+    },
+
+    async requestBoard({ commit, state }, clubAndBoardSeq) {
+        return actionsNormalTemplate(
+            async () => {
+                const board = await boardApi.getClubBoard(clubAndBoardSeq);
+                commit('setBoard', board);
             },
         );
     },

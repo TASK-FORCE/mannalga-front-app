@@ -11,6 +11,12 @@ class BoardApi {
     postClubBoardCreate({ clubSeq, clubBoardDto }) {
         return axios.post(`/api/clubs/${clubSeq}/board`, clubBoardDto);
     }
+
+    getClubBoard({ clubSeq, boardSeq }) {
+        return axios.get(`/api/clubs/${clubSeq}/board/${boardSeq}`)
+            .then(ResponseConverter.extractSuperInventionResponseData)
+            .then(ResponseConverter.convertBoard);
+    }
 }
 
 const boardApi = new BoardApi();
