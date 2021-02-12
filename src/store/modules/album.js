@@ -2,6 +2,7 @@ import { actionsLoadingTemplate, actionsNormalTemplate } from '@/store/utils/act
 import albumApi from '@/apis/AlbumApi.js';
 import RequestConverter from '@/store/converter/RequestConverter.js';
 import DefaultBuilder from '@/store/utils/DefaultBuilder.js';
+import CommentHelper from '@/store/service/helper/CommentHelper.js';
 
 const state = {
     album: DefaultBuilder.buildAlbum(),
@@ -164,30 +165,18 @@ const actions = {
     },
 
     async requestAllAlbumCommentListWithPaging({ commit, state }, albumCommentRequestInfo) {
-        // 마지막 페이지면 현재 페이지를 조회하여 refresh해준다.
-        if (state.albumCommentPage.isLastPage) {
-            const requestDto = {
-                ...albumCommentRequestInfo,
-                requestParams: {
-                    size: state.albumCommentPage.size,
-                    page: state.albumCommentPage.currentPage,
-                },
-            };
-            const albumListInfo = await albumApi.getClubAlbumCommentList(requestDto);
-            commit('addNextAlbumCommentListWithCheckDuplicate', albumListInfo);
-        }
-        const requestCommentListRecursive = async () => {
-            if (state.albumCommentPage.isLastPage) return;
-
-            const requestDto = {
-                ...albumCommentRequestInfo,
-                requestParams: RequestConverter.convertPage(state.albumCommentPage),
-            };
-            const albumListInfo = await albumApi.getClubAlbumCommentList(requestDto);
-            commit('addNextAlbumCommentList', albumListInfo);
-            requestCommentListRecursive();
-        };
-        return actionsNormalTemplate(async () => requestCommentListRecursive());
+        return CommentHelper.requestAllCommentListWithPaging(
+            albumCommentRequestInfo,
+            () => state.albumCommentPage,
+            async (requestDto) => {
+                const albumListInfo = await albumApi.getClubAlbumCommentList(requestDto);
+                commit('addNextAlbumCommentListWithCheckDuplicate', albumListInfo);
+            },
+            async (requestDto) => {
+                const albumListInfo = await albumApi.getClubAlbumCommentList(requestDto);
+                commit('addNextAlbumCommentList', albumListInfo);
+            },
+        );
     },
 
     async requestAllAlbumSubCommentList({ _ }, albumSubCommentRequestInfo) {

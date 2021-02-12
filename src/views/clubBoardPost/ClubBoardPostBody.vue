@@ -6,16 +6,15 @@
     >
         <template #content>
             <div class="pa-3">
-                <ImageWithDialog class="elevation-2"
-                                 :imgUrl="album.imgUrl"
-                />
+                <div>
+                    {{ board.content }}
+                </div>
             </div>
         </template>
     </BoardTemplate>
 </template>
 
 <script>
-import ImageWithDialog from '@/components/image/ImageWithDialog.vue';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
 import routerHelper from '@/router/RouterHelper.js';
@@ -23,33 +22,32 @@ import mutationsHelper from '@/store/helper/MutationsHelper.js';
 import BoardTemplate from '@/components/BoardTemplate.vue';
 
 export default {
-    name: 'ClubAlbumPostBody',
+    name: 'ClubBoardPostBody',
     components: {
         BoardTemplate,
-        ImageWithDialog,
     },
     computed: {
-        album: () => gettersHelper.album(),
+        board: () => gettersHelper.board(),
         seqInfo() {
             return {
                 clubSeq: routerHelper.clubSeq(),
-                albumSeq: routerHelper.albumSeq(),
+                boardSeq: routerHelper.boardSeq(),
             };
         },
         boardDto() {
             return {
-                writerName: this.album.writer.name,
-                writerSeq: this.album.writer.writerUserSeq,
-                writerImage: this.album.writer.imgUrl,
-                title: this.album.title,
-                isLike: this.album.isLike,
-                likeCnt: this.album.likeCnt,
+                writerName: this.board.writerName,
+                writerSeq: this.board.writerSeq,
+                writerImage: this.board.writerImage,
+                title: this.board.title,
+                isLike: this.board.isLike || false, // TODO check
+                likeCnt: this.board.likeCnt,
             };
         },
         commentContext() {
             return {
-                commentList: gettersHelper.albumCommentList(),
-                commentPage: gettersHelper.albumCommentPage(),
+                commentList: gettersHelper.boardCommentList(),
+                commentPage: gettersHelper.boardCommentPage(),
                 fetchFirstPage: this.fetchFirstPage,
                 fetchNextPage: this.fetchNextPage,
                 requestWriteComment: this.requestWriteComment,
@@ -66,7 +64,7 @@ export default {
         },
     },
     created() {
-        actionsHelper.requestAlbum(this.seqInfo)
+        actionsHelper.requestBoard(this.seqInfo)
             .catch(() => this.$router.back());
     },
     beforeDestroy() {
@@ -74,42 +72,42 @@ export default {
     },
     methods: {
         fetchFirstPage() {
-            return actionsHelper.requestFirstAlbumCommentList(this.seqInfo);
+            return actionsHelper.requestFirstBoardCommentList(this.seqInfo);
         },
         fetchNextPage() {
-            return actionsHelper.requestNextAlbumCommentList(this.seqInfo);
+            return actionsHelper.requestNextBoardCommentList(this.seqInfo);
         },
         requestWriteComment(content) {
-            const albumCommentWriteInfo = {
+            const boardCommentWriteInfo = {
                 ...this.seqInfo,
-                albumCommentWriteDto: { content },
+                boardCommentWriteDto: { content },
             };
-            return actionsHelper.requestAlbumCommentWrite(albumCommentWriteInfo);
+            return actionsHelper.requestBoardCommentWrite(boardCommentWriteInfo);
         },
         requestWriteSubComment(content, parentSeq) {
-            const albumCommentWriteInfo = {
+            const boardCommentWriteInfo = {
                 ...this.seqInfo,
                 parentCommentSeq: parentSeq,
-                albumCommentWriteDto: { content },
+                boardCommentWriteDto: { content },
             };
-            return actionsHelper.requestAlbumCommentWrite(albumCommentWriteInfo)
-                .then(() => mutationsHelper.countChildAlbumCommentCnt(parentSeq));
+            return actionsHelper.requestBoardCommentWrite(boardCommentWriteInfo)
+                .then(() => mutationsHelper.countChildBoardCommentCnt(parentSeq));
         },
         requestSubCommentList(parentSeq) {
-            const albumSubCommentRequestInfo = {
+            const boardSubCommentRequestInfo = {
                 ...this.seqInfo,
                 parentCommentSeq: parentSeq,
             };
-            return actionsHelper.requestAllAlbumSubCommentList(albumSubCommentRequestInfo);
+            return actionsHelper.requestAllBoardSubCommentList(boardSubCommentRequestInfo);
         },
         commentWritePostProcess() {
-            return actionsHelper.requestAllAlbumCommentListWithPaging(this.seqInfo);
+            return actionsHelper.requestAllBoardCommentListWithPaging(this.seqInfo);
         },
         requestApplyLike() {
-            return actionsHelper.requestApplyLikeClubAlbum(this.seqInfo);
+            return actionsHelper.requestApplyLikeClubBoard(this.seqInfo);
         },
         requestDeleteLike() {
-            return actionsHelper.requestDeleteLikeClubAlbum(this.seqInfo);
+            return actionsHelper.requestDeleteLikeClubBoard(this.seqInfo);
         },
     },
 };

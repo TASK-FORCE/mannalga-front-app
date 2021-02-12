@@ -22,9 +22,16 @@ class ActionsHelper {
 
     // board module
     requestClubBoardCreate = (payload) => dispatch(MODULE.BOARD, 'requestClubBoardCreate', payload);
+    requestBoard = (payload) => dispatch(MODULE.BOARD, 'requestBoard', payload);
     requestFirstBoardList = (payload) => dispatch(MODULE.BOARD, 'requestFirstBoardList', payload);
     requestNextBoardList = (payload) => dispatch(MODULE.BOARD, 'requestNextBoardList', payload);
-    requestBoard = (payload) => dispatch(MODULE.BOARD, 'requestBoard', payload);
+    requestFirstBoardCommentList = (payload) => dispatch(MODULE.BOARD, 'requestFirstBoardCommentList', payload);
+    requestNextBoardCommentList = (payload) => dispatch(MODULE.BOARD, 'requestNextBoardCommentList', payload);
+    requestAllBoardCommentListWithPaging = (payload) => dispatch(MODULE.BOARD, 'requestAllBoardCommentListWithPaging', payload);
+    requestBoardCommentWrite = (payload) => dispatch(MODULE.BOARD, 'requestBoardCommentWrite', payload);
+    requestAllBoardSubCommentList = (payload) => dispatch(MODULE.BOARD, 'requestAllBoardSubCommentList', payload);
+    requestApplyLikeClubBoard = (payload) => dispatch(MODULE.BOARD, 'requestApplyLikeClubBoard', payload);
+    requestDeleteLikeClubBoard = (payload) => dispatch(MODULE.BOARD, 'requestDeleteLikeClubBoard', payload);
 
     // album module
     requestAlbumCreate = (payload) => dispatch(MODULE.ALBUM, 'requestAlbumCreate', payload);

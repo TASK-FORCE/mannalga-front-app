@@ -81,6 +81,12 @@ export default class ResponseConverter {
         return { albumCommentList, albumCommentPage };
     };
 
+    static convertBoardCommentList = (data) => {
+        const boardCommentList = data.content;
+        const boardCommentPage = this.convertPage(data);
+        return { boardCommentList, boardCommentPage };
+    };
+
     static convertPage = ({ pageable, last, size }) => {
         const currentPage = pageable.pageNumber;
         const nextPage = currentPage + 1;
@@ -121,7 +127,8 @@ const mapBoard = (board) => ({
     seq: board.boardSeq,
     category: board.category,
     commentCnt: board.commentCnt,
-    createAt: board.createAt.substring(0, 16),
+    createAt: board.createAt && board.createAt.substring(0, 16),
+    createdAt: board.createdAt && board.createdAt.substring(0, 16),
     likeCnt: board.likeCnt,
     mainImageUrl: board.mainImageUrl,
     simpleContent: board.simpleContent,

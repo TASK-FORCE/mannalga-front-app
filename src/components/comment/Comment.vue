@@ -225,6 +225,9 @@ export default {
             this.$nextTick(() => {
                 this.$nextTick(() => {
                     const subCommentWrapper = document.querySelector(`.sub-comments-${this.commentSeq}`);
+                    if (!subCommentWrapper) {
+                        return;
+                    }
                     const subComments = subCommentWrapper.children;
                     if (_.isEmpty(subComments)) {
                         return;
@@ -246,7 +249,7 @@ export default {
             this.subCommentSubmitLoading = true;
             this.requestWriteSubComment(this.subCommentContent, this.commentSeq)
                 .then(() => {
-                    mutationsHelper.countChildCommentCnt(this.commentSeq);
+                    mutationsHelper.countChildAlbumCommentCnt(this.commentSeq);
                     this.settingChildComment(false);
                     this.subCommentContent = null;
                     this.showChildComments = true;
