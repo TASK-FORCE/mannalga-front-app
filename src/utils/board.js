@@ -4,19 +4,11 @@ const BOARD_CATEGORY = {
         name: '공지사항',
         color: '#ba6f01',
     },
-    // JOIN_GREETING: {
-    //     name: '가입인사',
-    //     color: '#2196f3',
-    // },
     NORMAL: {
         type: 'NORMAL',
         name: '자유글',
         color: '#009688',
     },
-    // MEETING_REVIEW: {
-    //     name: '모임후기',
-    //     color: '#795548',
-    // },
 };
 
 class BoardUtils {
@@ -35,10 +27,9 @@ class BoardUtils {
         return BOARD_CATEGORY[type];
     }
 
-    static findCategoryTypeByName(name) {
-        return Object.values(BOARD_CATEGORY)
-            .find(category => category.name === name)
-            .type;
+    static findCategoryTypeByName(targetName) {
+        const category = Object.values(BOARD_CATEGORY).find(({ name }) => name === targetName);
+        return category ? category.type : null;
     }
 }
 

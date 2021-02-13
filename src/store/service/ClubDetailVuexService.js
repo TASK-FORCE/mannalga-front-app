@@ -13,7 +13,7 @@ function dispatchClubMeetings(clubSeq) {
 }
 
 function dispatchClubBoards(clubSeq) {
-    return actionsHelper.requestFirstBoardList(clubSeq);
+    return actionsHelper.requestFirstBoardList({ clubSeq });
 }
 
 function dispatchClubAlbums(clubSeq) {

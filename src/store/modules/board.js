@@ -3,6 +3,7 @@ import boardApi from '@/apis/BoardApi.js';
 import DefaultBuilder from '@/store/utils/DefaultBuilder.js';
 import RequestConverter from '@/store/converter/RequestConverter.js';
 import CommentHelper from '@/store/service/helper/CommentHelper.js';
+import { BOARD_CATEGORY } from '@/utils/board.js';
 
 const state = {
     boardList: [],
@@ -24,6 +25,10 @@ const mutations = {
     setBoardList(state, { boardList, boardPage }) {
         state.boardList = boardList;
         state.boardPage = boardPage;
+    },
+
+    setOnlyBoardList(state, { boardList }) {
+        state.boardList = boardList;
     },
 
     addNextBoardList(state, { boardList, boardPage }) {
@@ -92,24 +97,45 @@ const actions = {
         });
     },
 
-    async requestFirstBoardList({ commit, state }, clubSeq) {
+    async requestFirstBoardList({ commit, state, dispatch }, { clubSeq, category }) {
         return actionsNormalTemplate(async () => {
             commit('initBoardList');
-            const requestDto = {
-                clubSeq,
-                requestParams: RequestConverter.convertPage(state.boardPage),
-            };
-            const boardListInfo = await boardApi.getClubBoardList(requestDto);
-            commit('setBoardList', boardListInfo);
+
+            if (category) {
+                const requestDto = {
+                    clubSeq,
+                    requestParams: {
+                        ...(RequestConverter.convertPage(state.boardPage)),
+                        category,
+                    },
+                };
+                const boardListInfo = await boardApi.getClubBoardList(requestDto);
+                commit('setBoardList', boardListInfo);
+            } else {
+                // 전체보기로 첫번째 페이지를 조회하는 경우 첫 10개 목록은 공지사항을 보여주고 나머지는 일반 게시판을 보여준다.
+                const requestDto = {
+                    clubSeq,
+                    requestParams: {
+                        ...(RequestConverter.convertPage(DefaultBuilder.buildPage(10))),
+                        category: BOARD_CATEGORY.NOTICE.type,
+                    },
+                };
+                const boardListInfo = await boardApi.getClubBoardList(requestDto);
+                commit('setOnlyBoardList', boardListInfo);
+                dispatch('requestNextBoardList', { clubSeq, category: BOARD_CATEGORY.NORMAL.type });
+            }
         });
     },
 
-    async requestNextBoardList({ commit, state }, clubSeq) {
+    async requestNextBoardList({ commit, state }, { clubSeq, category }) {
         return actionsNormalTemplate(
             async () => {
                 const requestDto = {
                     clubSeq,
-                    requestParams: RequestConverter.convertPage(state.boardPage),
+                    requestParams: {
+                        ...(RequestConverter.convertPage(state.boardPage)),
+                        category,
+                    },
                 };
                 const boardListInfo = await boardApi.getClubBoardList(requestDto);
                 commit('addNextBoardList', boardListInfo);
