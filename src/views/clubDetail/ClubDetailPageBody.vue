@@ -27,7 +27,7 @@
             </v-tab-item>
             <v-tab-item value="board">
                 <ClubDetailBoardList :currentUserInfo="currentUserInfo"
-                                 :boardList="clubData.boardList"
+                                     :boardList="clubData.boardList"
                 />
             </v-tab-item>
             <v-tab-item value="album">

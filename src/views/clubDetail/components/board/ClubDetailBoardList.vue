@@ -1,5 +1,14 @@
 <template>
     <div>
+        <div class="ml-3 mt-1 mb-3">
+            <v-select v-model="selectedCategory"
+                      :items="boardCategoryNames"
+                      outlined
+                      dense
+                      hide-details
+                      style="width: 120px"
+            />
+        </div>
         <InfiniteScrollTemplate name="board"
                                 :firstPageCallback="this.fetchFirstPage"
                                 :nextPageCallback="this.fetchNextPage"
@@ -47,6 +56,7 @@ export default {
         return {
             clubBoardCreate: null,
             boardCategoryNames: ['전체보기', ...BoardUtils.getCategoryNames()],
+            selectedCategory: '전체보기',
         };
     },
     computed: {
@@ -57,6 +67,20 @@ export default {
             const { isMaster, isManager, isMember } = this.currentUserInfo;
             return isMaster || isManager || isMember;
         },
+        categoryType() {
+            return BoardUtils.findCategoryTypeByName(this.selectedCategory);
+        },
+        requestDto() {
+            return {
+                clubSeq: this.clubSeq,
+                category: this.categoryType,
+            };
+        },
+    },
+    watch: {
+        selectedCategory(value) {
+            actionsHelper.requestFirstBoardList(this.requestDto);
+        },
     },
     mounted() {
         this.clubBoardCreate = generateParamPath(PATH.CLUB.BOARD_CREATE, [this.clubSeq]);
@@ -66,10 +90,10 @@ export default {
             return generateParamPath(PATH.CLUB.BOARD_POST, [this.clubSeq, boardSeq]);
         },
         fetchFirstPage() {
-            return actionsHelper.requestFirstBoardList(this.clubSeq);
+            return actionsHelper.requestFirstBoardList(this.requestDto);
         },
         fetchNextPage() {
-            return actionsHelper.requestNextBoardList(this.clubSeq);
+            return actionsHelper.requestNextBoardList(this.requestDto);
         },
     },
 };
