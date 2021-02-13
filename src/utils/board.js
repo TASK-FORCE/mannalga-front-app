@@ -6,7 +6,7 @@ const BOARD_CATEGORY = {
     },
     NORMAL: {
         type: 'NORMAL',
-        name: '자유글',
+        name: '일반',
         color: '#009688',
     },
 };

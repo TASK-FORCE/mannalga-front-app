@@ -4,6 +4,7 @@ import DefaultBuilder from '@/store/utils/DefaultBuilder.js';
 import RequestConverter from '@/store/converter/RequestConverter.js';
 import CommentHelper from '@/store/service/helper/CommentHelper.js';
 import { BOARD_CATEGORY } from '@/utils/board.js';
+import BoardHelper from '@/store/service/helper/BoardHelper.js';
 
 const state = {
     boardList: [],
@@ -102,27 +103,16 @@ const actions = {
             commit('initBoardList');
 
             if (category) {
-                const requestDto = {
-                    clubSeq,
-                    requestParams: {
-                        ...(RequestConverter.convertPage(state.boardPage)),
-                        category,
-                    },
-                };
-                const boardListInfo = await boardApi.getClubBoardList(requestDto);
+                const boardListInfo = await BoardHelper.requestBoardList(clubSeq, state.boardPage, category);
                 commit('setBoardList', boardListInfo);
             } else {
                 // 전체보기로 첫번째 페이지를 조회하는 경우 첫 10개 목록은 공지사항을 보여주고 나머지는 일반 게시판을 보여준다.
-                const requestDto = {
-                    clubSeq,
-                    requestParams: {
-                        ...(RequestConverter.convertPage(DefaultBuilder.buildPage(10))),
-                        category: BOARD_CATEGORY.NOTICE.type,
-                    },
-                };
-                const boardListInfo = await boardApi.getClubBoardList(requestDto);
-                commit('setOnlyBoardList', boardListInfo);
-                dispatch('requestNextBoardList', { clubSeq, category: BOARD_CATEGORY.NORMAL.type });
+                const noticeBoardListInfoPromise = BoardHelper.requestBoardList(clubSeq, DefaultBuilder.buildPage(10), BOARD_CATEGORY.NOTICE.type);
+                const normalBoardListInfoPromise = BoardHelper.requestBoardList(clubSeq, state.boardPage, BOARD_CATEGORY.NORMAL.type);
+                const noticeBoardListInfo = await noticeBoardListInfoPromise;
+                commit('setOnlyBoardList', noticeBoardListInfo);
+                const normalBoardListInfo = await normalBoardListInfoPromise;
+                commit('addNextBoardList', normalBoardListInfo);
             }
         });
     },
@@ -130,14 +120,7 @@ const actions = {
     async requestNextBoardList({ commit, state }, { clubSeq, category }) {
         return actionsNormalTemplate(
             async () => {
-                const requestDto = {
-                    clubSeq,
-                    requestParams: {
-                        ...(RequestConverter.convertPage(state.boardPage)),
-                        category,
-                    },
-                };
-                const boardListInfo = await boardApi.getClubBoardList(requestDto);
+                const boardListInfo = await BoardHelper.requestBoardList(clubSeq, state.boardPage, category);
                 commit('addNextBoardList', boardListInfo);
             },
         );
