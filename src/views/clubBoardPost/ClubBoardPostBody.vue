@@ -68,7 +68,7 @@ export default {
             .catch(() => this.$router.back());
     },
     beforeDestroy() {
-        mutationsHelper.initAlbumCommentList();
+        mutationsHelper.initBoardCommentList();
     },
     methods: {
         fetchFirstPage() {

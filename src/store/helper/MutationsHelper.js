@@ -16,6 +16,7 @@ class MutationsHelper {
     setMeeting = (payload) => commit(MODULE.MEETING, 'setMeeting', payload);
 
     // board
+    initBoardCommentList = (payload) => commit(MODULE.BOARD, 'initBoardCommentList', payload);
     countChildBoardCommentCnt = (payload) => commit(MODULE.BOARD, 'countChildBoardCommentCnt', payload);
 
     // album
