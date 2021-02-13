@@ -6,7 +6,7 @@
                       fullscreen
             >
                 <div class="h-100 d-flex black-bg">
-                    <div class="my-auto">
+                    <div class="my-auto w-100 text-center">
                         <div class="image-cropper-container">
                             <img ref="cropImg"
                                  alt="cropImg"
@@ -174,8 +174,11 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped
+       lang="scss"
+>
 img {
-    max-width: 100%;
+    height: auto;
+    width: 100%;
 }
 </style>
