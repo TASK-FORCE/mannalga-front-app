@@ -67,6 +67,8 @@ export default class ResponseConverter {
         return { boardList, boardPage };
     };
 
+    static convertBoard = (data) => mapBoard(data);
+
     static convertAlbumList = (data) => {
         const albumList = data.content;
         const albumPage = this.convertPage(data);
@@ -77,6 +79,12 @@ export default class ResponseConverter {
         const albumCommentList = data.content;
         const albumCommentPage = this.convertPage(data);
         return { albumCommentList, albumCommentPage };
+    };
+
+    static convertBoardCommentList = (data) => {
+        const boardCommentList = data.content;
+        const boardCommentPage = this.convertPage(data);
+        return { boardCommentList, boardCommentPage };
     };
 
     static convertPage = ({ pageable, last, size }) => {
@@ -119,10 +127,13 @@ const mapBoard = (board) => ({
     seq: board.boardSeq,
     category: board.category,
     commentCnt: board.commentCnt,
-    createAt: board.createAt.substring(0, 16),
+    createAt: board.createAt && board.createAt.substring(0, 16),
+    createdAt: board.createdAt && board.createdAt.substring(0, 16),
     likeCnt: board.likeCnt,
     mainImageUrl: board.mainImageUrl,
     simpleContent: board.simpleContent,
+    content: board.content,
+    imageList: board.imageList,
     title: board.title,
     writerImage: board.writer.imgUrl,
     writerName: board.writer.name,

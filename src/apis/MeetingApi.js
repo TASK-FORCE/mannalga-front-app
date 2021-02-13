@@ -8,6 +8,7 @@ class MeetingApi {
     }
 
     getMeetingList({ clubSeq, requestParams }) {
+        // FIXME
         // return axios.get(`/api/clubs/${clubSeq}/meetings`, { params: requestParams })
         return getMeetings()
             .then(ResponseConverter.extractSuperInventionResponseData)

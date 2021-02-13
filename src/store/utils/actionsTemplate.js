@@ -9,6 +9,7 @@ export const actionsLoadingTemplate = async (commitInfo, callback, failCallback)
         commit(commitName, true, { root: useRootCommit });
         return await callback();
     } catch (e) {
+        console.log(e);
         return handleException(e, failCallback);
     } finally {
         commit(commitName, false, { root: useRootCommit });
@@ -19,6 +20,7 @@ export const actionsNormalTemplate = async (callback, failCallback) => {
     try {
         return await callback();
     } catch (e) {
+        console.log(e);
         return handleException(e, failCallback);
     }
 };

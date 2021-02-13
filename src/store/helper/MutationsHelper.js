@@ -15,9 +15,12 @@ class MutationsHelper {
     // meeting
     setMeeting = (payload) => commit(MODULE.MEETING, 'setMeeting', payload);
 
+    // board
+    countChildBoardCommentCnt = (payload) => commit(MODULE.BOARD, 'countChildBoardCommentCnt', payload);
+
     // album
     initAlbumCommentList = (payload) => commit(MODULE.ALBUM, 'initAlbumCommentList', payload);
-    countChildCommentCnt = (payload) => commit(MODULE.ALBUM, 'countChildCommentCnt', payload);
+    countChildAlbumCommentCnt = (payload) => commit(MODULE.ALBUM, 'countChildCommentCnt', payload);
 
     // common module
     closeSnackBar = (payload) => commit(MODULE.COMMON, 'closeSnackBar', payload);
