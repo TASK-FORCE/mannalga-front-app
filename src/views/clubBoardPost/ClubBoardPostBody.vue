@@ -40,7 +40,7 @@ export default {
                 writerSeq: this.board.writerSeq,
                 writerImage: this.board.writerImage,
                 title: this.board.title,
-                isLike: this.board.isLike || false, // TODO check
+                isLiked: this.board.isLiked,
                 likeCnt: this.board.likeCnt,
             };
         },

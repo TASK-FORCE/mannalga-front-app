@@ -74,7 +74,7 @@ class DefaultBuilder {
         imgUrl: '',
         likeCnt: 0,
         commentCnt: 0,
-        isLike: false,
+        isLiked: false,
         writer: {},
     });
 

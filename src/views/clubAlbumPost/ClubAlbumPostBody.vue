@@ -37,12 +37,13 @@ export default {
             };
         },
         boardDto() {
+            console.log(this.album);
             return {
                 writerName: this.album.writer.name,
                 writerSeq: this.album.writer.writerUserSeq,
                 writerImage: this.album.writer.imgUrl,
                 title: this.album.title,
-                isLike: this.album.isLike,
+                isLiked: this.album.isLiked,
                 likeCnt: this.album.likeCnt,
             };
         },

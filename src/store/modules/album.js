@@ -76,11 +76,11 @@ const mutations = {
             });
     },
 
-    changeAlbumLike(state, { likeCnt, isLike }) {
+    changeAlbumLike(state, { likeCnt, isLiked }) {
         state.album = {
             ...state.album,
             likeCnt,
-            isLike,
+            isLiked,
         };
     },
 };
@@ -189,7 +189,7 @@ const actions = {
         return actionsNormalTemplate(
             async () => {
                 const { likeCnt } = await albumApi.postLikeClubAlbum(seqInfo);
-                commit('changeAlbumLike', { likeCnt, isLike: true });
+                commit('changeAlbumLike', { likeCnt, isLiked: true });
             },
         );
     },
@@ -198,7 +198,7 @@ const actions = {
         return actionsNormalTemplate(
             async () => {
                 const { likeCnt } = await albumApi.deleteLikeClubAlbum(seqInfo);
-                commit('changeAlbumLike', { likeCnt, isLike: false });
+                commit('changeAlbumLike', { likeCnt, isLiked: false });
             },
         );
     },

@@ -82,11 +82,11 @@ const mutations = {
             });
     },
 
-    changeBoardLike(state, { likeCnt, isLike }) {
+    changeBoardLike(state, { likeCnt, isLiked }) {
         state.board = {
             ...state.board,
             likeCnt,
-            isLike,
+            isLiked,
         };
     },
 };
@@ -195,7 +195,7 @@ const actions = {
         return actionsNormalTemplate(
             async () => {
                 const { likeCnt } = await boardApi.postLikeClubBoard(seqInfo);
-                commit('changeBoardLike', { likeCnt, isLike: true });
+                commit('changeBoardLike', { likeCnt, isLiked: true });
             },
         );
     },
@@ -204,7 +204,7 @@ const actions = {
         return actionsNormalTemplate(
             async () => {
                 const { likeCnt } = await boardApi.deleteLikeClubBoard(seqInfo);
-                commit('changeBoardLike', { likeCnt, isLike: false });
+                commit('changeBoardLike', { likeCnt, isLiked: false });
             },
         );
     },

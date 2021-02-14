@@ -16,7 +16,7 @@
         <slot name="content"/>
         <MiddleDivider :height="2" />
         <div class="d-flex pa-3">
-            <v-btn v-if="!boardDto.isLike"
+            <v-btn v-if="!boardDto.isLiked"
                    outlined
                    small
                    color="#2196f3"
@@ -100,7 +100,7 @@ export default {
          *      writerSeq: 0,
          *      writerImage: '',
          *      title: '',
-         *      isLike: false,,
+         *      isLiked: false,,
          *      likeCnt: 0,
          * };
          */
