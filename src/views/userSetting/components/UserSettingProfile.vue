@@ -17,8 +17,8 @@
                 </v-btn>
                 <ImageCropper ref="cropper"
                               :aspectRatio="1"
-                              :width="100"
-                              :height="100"
+                              :width="200"
+                              :height="200"
                               @handleUploadedImgDto="handleUploadedImgUrl"
                 />
                 <v-dialog :value="dialogOpen"
@@ -30,19 +30,20 @@
                                 변경 후 프로필 이미지
                             </div>
                             <div class="pa-2">
-                                <UserProfileAvatar :imgUrl="newImageUrl"
+                                <UserProfileAvatar :imgUrl="profileImageDto.absolutePath"
                                                    :size="200"
                                 />
                             </div>
                             <div class="mt-2">
                                 <v-btn color="green darken-2"
-                                       class="font-weight-bold"
+                                       class="white--text font-weight-bold"
                                        @click="dialogOpen = false"
                                 >
                                     취소
                                 </v-btn>
                                 <v-btn color="green darken-2"
-                                       class="font-weight-bold ml-5"
+                                       class="white--text font-weight-bold ml-5"
+                                       :loading="loading"
                                        @click="changeProfileImage"
                                 >
                                     변경
@@ -66,6 +67,13 @@
 <script>
 import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
 import ImageCropper from '@/components/image/ImageCropper.vue';
+import actionsHelper from '@/store/helper/ActionsHelper.js';
+
+const DEFAULT = {
+    absolutePath: '',
+    filePath: '',
+    fileName: '',
+};
 
 export default {
     name: 'UserSettingProfile',
@@ -75,18 +83,24 @@ export default {
     },
     data() {
         return {
-            newImageUrl: null,
+            profileImageDto: DEFAULT,
             dialogOpen: false,
+            loading: false,
         };
     },
     methods: {
-        handleUploadedImgUrl({ absolutePath }) {
-            this.newImageUrl = absolutePath;
+        handleUploadedImgUrl(profileImageDto) {
+            this.profileImageDto = profileImageDto;
             this.dialogOpen = true;
         },
         changeProfileImage() {
-            this.userProfile.profileImageLink = this.newImageUrl;
-            this.dialogOpen = false;
+            this.loading = true;
+            actionsHelper.requestChangeUserProfile(this.profileImageDto)
+                .finally(() => {
+                    this.profileImageDto = DEFAULT;
+                    this.loading = false;
+                    this.dialogOpen = false;
+                });
         },
     },
 };

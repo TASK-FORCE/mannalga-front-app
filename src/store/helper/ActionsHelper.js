@@ -69,6 +69,7 @@ class ActionsHelper {
     requestChangeUserRegions = (payload) => dispatch(MODULE.USER, 'requestChangeUserRegions', payload);
     requestChangeUserInterests = (payload) => dispatch(MODULE.USER, 'requestChangeUserInterest', payload);
     requestCheckIsMember = (payload) => dispatch(MODULE.USER, 'requestCheckIsMember', payload);
+    requestChangeUserProfile = (payload) => dispatch(MODULE.USER, 'requestChangeUserProfile', payload);
 }
 
 const dispatch = (moduleName, actionsName, payload) => store.dispatch(combineWithModuleName(moduleName, actionsName), payload);

@@ -97,6 +97,12 @@ const actions = {
             return isMember;
         });
     },
+    requestChangeUserProfile({ commit, dispatch }, userProfileDto) {
+        return actionsNormalTemplate(async () => {
+            await userApi.patchUserProfileImage(userProfileDto);
+            dispatch('requestUserProfile');
+        });
+    },
 };
 
 export default {
