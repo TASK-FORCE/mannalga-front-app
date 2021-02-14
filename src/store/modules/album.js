@@ -76,12 +76,36 @@ const mutations = {
             });
     },
 
-    changeAlbumLike(state, { likeCnt, isLiked }) {
+    changeAlbumLike(state, { albumSeq, likeCnt, isLiked }) {
+        const albumSeqNum = parseInt(albumSeq, 10);
+        state.albumList = state.albumList.map(album => {
+            if (album.albumSeq === albumSeqNum) {
+                return {
+                    ...album,
+                    likeCnt,
+                    isLiked,
+                };
+            }
+            return album;
+        });
         state.album = {
             ...state.album,
             likeCnt,
             isLiked,
         };
+    },
+
+    countAlbumCommentCnt(state, albumSeq) {
+        const albumSeqNum = parseInt(albumSeq, 10);
+        state.albumList = state.albumList.map(album => {
+            if (album.albumSeq === albumSeqNum) {
+                return {
+                    ...album,
+                    commentCnt: album.commentCnt + 1,
+                };
+            }
+            return album;
+        });
     },
 };
 
@@ -188,8 +212,9 @@ const actions = {
     async requestApplyLikeClubAlbum({ commit }, seqInfo) {
         return actionsNormalTemplate(
             async () => {
+                const { albumSeq } = seqInfo;
                 const { likeCnt } = await albumApi.postLikeClubAlbum(seqInfo);
-                commit('changeAlbumLike', { likeCnt, isLiked: true });
+                commit('changeAlbumLike', { albumSeq, likeCnt, isLiked: true });
             },
         );
     },
@@ -197,8 +222,9 @@ const actions = {
     async requestDeleteLikeClubAlbum({ commit }, seqInfo) {
         return actionsNormalTemplate(
             async () => {
+                const { albumSeq } = seqInfo;
                 const { likeCnt } = await albumApi.deleteLikeClubAlbum(seqInfo);
-                commit('changeAlbumLike', { likeCnt, isLiked: false });
+                commit('changeAlbumLike', { albumSeq, likeCnt, isLiked: false });
             },
         );
     },

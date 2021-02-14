@@ -82,12 +82,37 @@ const mutations = {
             });
     },
 
-    changeBoardLike(state, { likeCnt, isLiked }) {
+    changeBoardLike(state, { boardSeq, likeCnt, isLiked }) {
+        const boardSeqNum = parseInt(boardSeq, 10);
+        state.boardList = state.boardList.map(board => {
+            if (board.seq === boardSeqNum) {
+                return {
+                    ...board,
+                    likeCnt,
+                    isLiked,
+                };
+            }
+            return board;
+        });
+
         state.board = {
             ...state.board,
             likeCnt,
             isLiked,
         };
+    },
+
+    countBoardCommentCnt(state, boardSeq) {
+        const boardSeqNum = parseInt(boardSeq, 10);
+        state.boardList = state.boardList.map(board => {
+            if (board.seq === boardSeqNum) {
+                return {
+                    ...board,
+                    commentCnt: board.commentCnt + 1,
+                };
+            }
+            return board;
+        });
     },
 };
 
@@ -194,8 +219,9 @@ const actions = {
     async requestApplyLikeClubBoard({ commit }, seqInfo) {
         return actionsNormalTemplate(
             async () => {
+                const { boardSeq } = seqInfo;
                 const { likeCnt } = await boardApi.postLikeClubBoard(seqInfo);
-                commit('changeBoardLike', { likeCnt, isLiked: true });
+                commit('changeBoardLike', { boardSeq, likeCnt, isLiked: true });
             },
         );
     },
@@ -203,8 +229,9 @@ const actions = {
     async requestDeleteLikeClubBoard({ commit }, seqInfo) {
         return actionsNormalTemplate(
             async () => {
+                const { boardSeq } = seqInfo;
                 const { likeCnt } = await boardApi.deleteLikeClubBoard(seqInfo);
-                commit('changeBoardLike', { likeCnt, isLiked: false });
+                commit('changeBoardLike', { boardSeq, likeCnt, isLiked: false });
             },
         );
     },

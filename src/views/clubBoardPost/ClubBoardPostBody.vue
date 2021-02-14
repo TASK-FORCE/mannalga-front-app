@@ -82,7 +82,8 @@ export default {
                 ...this.seqInfo,
                 boardCommentWriteDto: { content },
             };
-            return actionsHelper.requestBoardCommentWrite(boardCommentWriteInfo);
+            return actionsHelper.requestBoardCommentWrite(boardCommentWriteInfo)
+                .then(() => mutationsHelper.countBoardCommentCnt(this.board.seq));
         },
         requestWriteSubComment(content, parentSeq) {
             const boardCommentWriteInfo = {
@@ -91,7 +92,10 @@ export default {
                 boardCommentWriteDto: { content },
             };
             return actionsHelper.requestBoardCommentWrite(boardCommentWriteInfo)
-                .then(() => mutationsHelper.countChildBoardCommentCnt(parentSeq));
+                .then(() => {
+                    mutationsHelper.countBoardCommentCnt(this.board.seq);
+                    mutationsHelper.countChildBoardCommentCnt(parentSeq);
+                });
         },
         requestSubCommentList(parentSeq) {
             const boardSubCommentRequestInfo = {
