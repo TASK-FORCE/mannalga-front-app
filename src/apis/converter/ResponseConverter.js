@@ -132,6 +132,7 @@ const mapBoard = (board) => ({
     createAt: board.createAt && board.createAt.substring(0, 16),
     createdAt: board.createdAt && board.createdAt.substring(0, 16),
     likeCnt: board.likeCnt,
+    isLiked: board.isLiked,
     mainImageUrl: board.mainImageUrl,
     simpleContent: board.simpleContent,
     content: board.content,

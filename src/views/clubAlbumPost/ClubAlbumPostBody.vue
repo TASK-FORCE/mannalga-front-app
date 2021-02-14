@@ -37,7 +37,6 @@ export default {
             };
         },
         boardDto() {
-            console.log(this.album);
             return {
                 writerName: this.album.writer.name,
                 writerSeq: this.album.writer.writerUserSeq,
@@ -85,7 +84,8 @@ export default {
                 ...this.seqInfo,
                 albumCommentWriteDto: { content },
             };
-            return actionsHelper.requestAlbumCommentWrite(albumCommentWriteInfo);
+            return actionsHelper.requestAlbumCommentWrite(albumCommentWriteInfo)
+                .then(() => mutationsHelper.countAlbumCommentCnt(this.album.albumSeq));
         },
         requestWriteSubComment(content, parentSeq) {
             const albumCommentWriteInfo = {
@@ -94,7 +94,10 @@ export default {
                 albumCommentWriteDto: { content },
             };
             return actionsHelper.requestAlbumCommentWrite(albumCommentWriteInfo)
-                .then(() => mutationsHelper.countChildAlbumCommentCnt(parentSeq));
+                .then(() => {
+                    mutationsHelper.countChildAlbumCommentCnt(parentSeq);
+                    mutationsHelper.countAlbumCommentCnt(this.album.albumSeq);
+                });
         },
         requestSubCommentList(parentSeq) {
             const albumSubCommentRequestInfo = {
