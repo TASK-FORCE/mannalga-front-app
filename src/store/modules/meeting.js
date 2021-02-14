@@ -3,10 +3,12 @@ import meetingApi from '@/apis/MeetingApi.js';
 import DefaultBuilder from '@/store/utils/DefaultBuilder.js';
 import RequestConverter from '@/store/converter/RequestConverter.js';
 
+const defaultPage = DefaultBuilder.buildPage(20);
+
 const state = {
     meetingGroupList: [],
     meeting: DefaultBuilder.buildMeeting(),
-    meetingGroupPage: DefaultBuilder.buildPage(),
+    meetingGroupPage: defaultPage,
 };
 
 const getters = {
@@ -26,26 +28,44 @@ const mutations = {
     },
 
     addNextMeetingGroupListInfo(state, { meetingGroupList, meetingGroupPage }) {
-        state.meetingGroupList = state.meetingGroupList.concat(meetingGroupList);
         state.meetingGroupPage = meetingGroupPage;
+        if (meetingGroupList.length === 0) {
+            return;
+        }
+        let lastGroupForPresent = state.meetingGroupList.pop();
+        const firstGroupForNew = meetingGroupList.shift();
+        if (lastGroupForPresent.groupYearMonth === firstGroupForNew.groupYearMonth) {
+            lastGroupForPresent = {
+                groupYearMonth: lastGroupForPresent.groupYearMonth,
+                meetings: lastGroupForPresent.meetings.concat(firstGroupForNew.meetings),
+            };
+        } else {
+            meetingGroupList.unshift(firstGroupForNew);
+        }
+        state.meetingGroupList.push(lastGroupForPresent);
+        state.meetingGroupList = state.meetingGroupList.concat(meetingGroupList);
     },
 
-    initMeetingList(state) {
-        state.meetingList = [];
-        state.meetingGroupPage = DefaultBuilder.buildPage();
+    initMeetingGroupList(state) {
+        state.meetingGroupList = [];
+        state.meetingGroupPage = defaultPage;
     },
 
     changeMeetingApplicationsStatus(state, { meetingSeq, newStatus }) {
         const meetingSeqNum = parseInt(meetingSeq, 10);
-        state.meetingList = state.meetingList.map(meeting => {
-            if (meeting.seq === meetingSeqNum) {
-                return {
-                    ...meeting,
-                    ...newStatus,
-                };
-            }
-            return meeting;
-        });
+        state.meetingGroupList = state.meetingGroupList
+            .map(meetingGroup => ({
+                groupYearMonth: meetingGroup.groupYearMonth,
+                meetings: meetingGroup.meetings.map(meeting => {
+                    if (meeting.seq === meetingSeqNum) {
+                        return {
+                            ...meeting,
+                            ...newStatus,
+                        };
+                    }
+                    return meeting;
+                }),
+            }));
         if (state.meeting.seq === meetingSeqNum) {
             state.meeting = {
                 ...state.meeting,
@@ -67,12 +87,12 @@ const actions = {
     async requestFirstMeetingGroupList({ commit, state }, clubSeq) {
         return actionsNormalTemplate(
             async () => {
-                commit('initMeetingList');
+                commit('initMeetingGroupList');
                 const requestDto = {
                     clubSeq,
                     requestParams: RequestConverter.convertPage(state.meetingGroupPage),
                 };
-                const meetingGroupListInfo = await meetingApi.getMeetingList(requestDto);
+                const meetingGroupListInfo = await meetingApi.getMeetingGroupList(requestDto);
                 commit('setMeetingGroupListInfo', meetingGroupListInfo);
             },
         );
@@ -85,8 +105,8 @@ const actions = {
                     clubSeq,
                     requestParams: RequestConverter.convertPage(state.meetingGroupPage),
                 };
-                const meetingListInfo = await meetingApi.getMeetingList(requestDto);
-                commit('addNextMeetingGroupListInfo', meetingListInfo);
+                const meetingGroupListInfo = await meetingApi.getMeetingGroupList(requestDto);
+                commit('addNextMeetingGroupListInfo', meetingGroupListInfo);
             },
         );
     },

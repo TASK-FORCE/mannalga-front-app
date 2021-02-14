@@ -2,7 +2,7 @@
     <div v-ripple
          class="d-flex"
          :class="resolveClass"
-         @click="() => {}"
+         @click="goToMeetingDetailPage"
     >
         <div class="meeting-day-info">
             <div class="meeting-day">

@@ -13,7 +13,7 @@
                 >
                     <div class="meeting-group">
                         <div class="meeting-group-date-text">
-                            {{ meetingGroup.groupDateText }}
+                            {{ meetingGroup.groupYearMonth }}
                         </div>
                         <div class="meeting-group-meetings">
                             <div v-for="(meeting, index) in meetingGroup.meetings"
@@ -68,7 +68,7 @@ export default {
             return actionsHelper.requestFirstMeetingGroupList(this.clubSeq);
         },
         fetchNextPage() {
-            return actionsHelper.requestNextClubList(this.clubSeq);
+            return actionsHelper.requestNextMeetingGroupList(this.clubSeq);
         },
         meetingCreatePath() {
             return generateParamPath(PATH.CLUB.MEETING_CREATE, routerHelper.clubSeq());
