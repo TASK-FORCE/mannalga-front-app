@@ -18,8 +18,8 @@
             </div>
         </div>
         <div class="pa-1">
-            <MeetingTimeRange :startTime="meeting.startTime"
-                              :endTime="meeting.endTime"
+            <MeetingTimeRange :startTime="meeting.startTimestamp"
+                              :endTime="meeting.endTimestamp"
                               large
             />
             <div class="mt-3 px-2 f-09">
@@ -55,23 +55,25 @@
                     ({{ meeting.numberInfoText }})
                 </div>
                 <v-spacer />
-                <v-btn v-if="!meeting.isRegistered"
-                       :loading="applicationBtnLoading"
-                       class="mt-auto"
-                       color="#3f51b5"
-                       outlined
-                       @click="applyMeetingApplication"
-                >
-                    모임 신청
-                </v-btn>
-                <v-btn v-else
-                       class="mt-auto"
-                       color="#e91e63"
-                       outlined
-                       @click="cancelMeetingApplication"
-                >
-                    신청 취소
-                </v-btn>
+                <div v-if="meeting.isOpen">
+                    <v-btn v-if="!meeting.isRegistered"
+                           :loading="applicationBtnLoading"
+                           class="mt-auto"
+                           color="#3f51b5"
+                           outlined
+                           @click="applyMeetingApplication"
+                    >
+                        모임 신청
+                    </v-btn>
+                    <v-btn v-else
+                           class="mt-auto"
+                           color="#e91e63"
+                           outlined
+                           @click="cancelMeetingApplication"
+                    >
+                        신청 취소
+                    </v-btn>
+                </div>
             </div>
             <SimpleUserProfileList :users="meeting.applicationUsers" />
         </div>
