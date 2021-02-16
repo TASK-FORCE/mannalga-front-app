@@ -79,7 +79,15 @@ const actions = {
     async requestMeetingCreate({ _ }, clubMeetingCreateInfo) {
         return actionsNormalTemplate(
             async () => {
-                await meetingApi.postClubMeetingCreate(clubMeetingCreateInfo);
+                await meetingApi.postClubMeeting(clubMeetingCreateInfo);
+            },
+        );
+    },
+
+    async requestMeetingEdit({ _ }, clubMeetingEditInfo) {
+        return actionsNormalTemplate(
+            async () => {
+                await meetingApi.putClubMeeting(clubMeetingEditInfo);
             },
         );
     },
