@@ -15,6 +15,7 @@ class GettersHelper {
     currentUserInfo = () => get(MODULE.CLUB, 'currentUserInfo');
     clubUserList = () => get(MODULE.CLUB, 'clubUserList');
     clubName = () => get(MODULE.CLUB, 'clubName');
+    currentTab = () => get(MODULE.CLUB, 'currentTab');
     selectedClubRegions = () => get(MODULE.CLUB, 'selectedClubRegions');
 
     // meeting module

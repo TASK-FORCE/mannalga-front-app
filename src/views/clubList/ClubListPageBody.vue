@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-tabs v-model="tab"
+        <v-tabs v-model="currentTab"
                 class="app-main-club-tab-header"
                 centered
                 grow
@@ -13,7 +13,7 @@
             </v-tab>
         </v-tabs>
 
-        <v-tabs-items v-model="tab"
+        <v-tabs-items v-model="currentTab"
                       touchless
         >
             <v-tab-item value="club">
@@ -38,6 +38,8 @@ import FixedCreateBtn from '@/components/button/FixedCreateBtn.vue';
 import FixedScrollToTopBtn from '@/components/button/FixedScrollToTopBtn.vue';
 import { PATH } from '@/router/route_path_type.js';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
+import mutationsHelper from '@/store/helper/MutationsHelper.js';
+import gettersHelper from '@/store/helper/GettersHelper.js';
 
 export default {
     name: 'ClubListPageBody',
@@ -52,9 +54,15 @@ export default {
             ],
         };
     },
-    watch: {
-        tab() {
-            lastClubListTabCache.save(this.tab);
+    computed: {
+        currentTab: {
+            get() {
+                return gettersHelper.currentTab();
+            },
+            set(tab) {
+                lastClubListTabCache.save(tab);
+                mutationsHelper.setCurrentTab(tab);
+            },
         },
     },
     created() {

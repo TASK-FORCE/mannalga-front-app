@@ -11,6 +11,7 @@ const state = {
     currentUserInfo: DefaultBuilder.buildCurrentUserInfo(),
     clubUserList: [],
     selectedClubRegions: {},
+    currentTab: null,
 };
 
 const getters = {
@@ -20,11 +21,15 @@ const getters = {
     currentUserInfo: (state) => state.currentUserInfo,
     clubUserList: (state) => state.clubUserList,
     selectedClubRegions: (state) => state.selectedClubRegions,
+    currentTab: (state) => state.currentTab,
 };
 
 const mutations = {
     setClubInfo(state, clubInfo) {
         state.clubInfo = clubInfo;
+    },
+    setCurrentTab(state, tab) {
+        state.currentTab = tab;
     },
     setCurrentUserInfo(state, userInfo) {
         const { role, isLiked } = userInfo || {};

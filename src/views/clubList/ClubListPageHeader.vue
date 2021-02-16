@@ -37,19 +37,21 @@ export default {
             isDarkTheme: isDarkTheme(),
             clubSearchPagePath: PATH.CLUB.SEARCH,
             searchText: null,
-            searchCallback: _.debounce(() => mutationsHelper.changeClubSearchText(this.searchText), SEARCH_WAIT_TIME),
+            searchCallback: _.debounce(this.search, SEARCH_WAIT_TIME),
             isDevEnv: process.env.NODE_ENV !== 'production',
         };
     },
     computed: {
         clubSearchFilterInfo: () => gettersHelper.clubSearchFilterInfo(),
         userProfile: () => gettersHelper.userProfile(),
+        currentTab: () => gettersHelper.currentTab(),
     },
     watch: {
         searchText(value) {
             if (_.isEmpty(value)) {
                 return;
             }
+            mutationsHelper.setCurrentTab('club');
             mutationsHelper.changeCommonLoading(true);
             this.searchCallback();
         },
@@ -74,6 +76,9 @@ export default {
         changeTheme() {
             changeThemeAndLoad();
             this.isDarkTheme = isDarkTheme();
+        },
+        search() {
+            mutationsHelper.changeClubSearchText(this.searchText);
         },
     },
 };
