@@ -13,9 +13,7 @@
             </div>
         </div>
         <div class="divider" />
-        <div class="meeting-box"
-             :style="resolveMeetingBoxStyle"
-        >
+        <div class="meeting-box">
             <div class="d-flex align-center">
                 <div class="meeting-title">
                     {{ meeting.title }}
@@ -193,6 +191,9 @@ export default {
     border-radius: 5px;
     padding: 15px;
     margin-bottom: 16px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 
     .meeting-title {
         font-weight: 700;
@@ -217,10 +218,10 @@ export default {
         .sub-description {
             color: #666666;
             font-size: 11px;
+            font-weight: 500;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
-            font-weight: 500;
 
             .sub-description-icon {
                 margin-right: 5px;

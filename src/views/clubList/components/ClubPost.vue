@@ -1,22 +1,20 @@
 <template>
     <div v-ripple>
-        <div class="pa-4 p-relative">
+        <div class="pa-4 p-relative w-100">
             <div :key="club.seq"
                  class="d-flex"
                  @click="moveToClubDetailPage(club.seq)"
             >
                 <v-img :src="imgUrl"
-                       :width="imageWidth"
                        height="105"
+                       width="105"
                        style="border-radius: 5px;"
                 />
                 <RoleChip v-if="role"
                           :role="role"
                           class="role-chip"
                 />
-                <div class="pl-4"
-                     :style="resolveContentBoxStyle"
-                >
+                <div class="club-info">
                     <div class="club-title">
                         {{ club.name }}
                     </div>
@@ -93,7 +91,6 @@ export default {
     data() {
         return {
             roles: [CLUB_ROLE.MASTER, CLUB_ROLE.MEMBER, CLUB_ROLE.MANAGER],
-            imageWidth: 104,
         };
     },
     computed: {
@@ -118,15 +115,6 @@ export default {
         imgUrl() {
             return this.club.mainImageUrl || require('@/images/default_club_image.png');
         },
-        resolveContentBoxStyle() {
-            const paddingWidth = 32;
-            const imageBoxWidth = 104;
-            const { clientWidth } = document.querySelector('#app');
-            const width = clientWidth - imageBoxWidth - paddingWidth;
-            return {
-                width: `${width}px`,
-            };
-        },
     },
     methods: {
         moveToClubDetailPage(seq) {
@@ -144,42 +132,51 @@ export default {
        scoped
 >
 
-.club-title {
-    font-weight: bold;
-    font-size: 15px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-.club-description {
-    font-size: 12px;
-    color: #666666;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    margin: 9px 0;
-    height: 18px;
-    line-height: 18px;
-}
-
 .role-chip {
     position: absolute;
     top: 10px;
     left: 5px;
 }
 
-.sub-description {
-    color: #666666;
-    font-size: 11px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+.club-info {
 
-    .sub-description-icon {
-        margin-right: 2px;
-        width: 12px;
-        height: 10px
+    width: 100%;
+    padding-left: 1rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+
+    .club-title {
+        font-weight: bold;
+        font-size: 15px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .club-description {
+        font-size: 12px;
+        color: #666666;
+        margin: 9px 0;
+        height: 18px;
+        line-height: 18px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .sub-description {
+        color: #666666;
+        font-size: 11px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+
+        .sub-description-icon {
+            margin-right: 2px;
+            width: 12px;
+            height: 10px
+        }
     }
 }
 
