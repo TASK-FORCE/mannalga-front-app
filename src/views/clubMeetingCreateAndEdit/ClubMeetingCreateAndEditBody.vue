@@ -61,7 +61,7 @@
                          class="mt-3"
                          color="primary"
                          outlined
-                         text="만남 생성"
+                         :text="btnText"
                          @click="click"
         />
     </div>
@@ -71,9 +71,6 @@
 import CommonCenterBtn from '@/components/button/CommonCenterBtn.vue';
 import DateTimePicker from '@/components/DateTimePicker.vue';
 import moment from 'moment';
-import actionsHelper from '@/store/helper/ActionsHelper.js';
-import routerHelper from '@/router/RouterHelper.js';
-import { generateParamPath, PATH } from '@/router/route_path_type.js';
 import { toCurrency } from '@/utils/common/commonUtils.js';
 import { RULES } from '@/utils/common/constant/rules.js';
 
@@ -97,9 +94,36 @@ const isAfter = (source, other) => {
     return sourceMoment.isAfter(otherMoment);
 };
 
+const today = () => moment().format('YYYY-MM-DD');
+const DEFAULT_DATE_TIME = { date: today(), time: '' };
+
 export default {
-    name: 'ClubMeetingCreatePageBody',
+    name: 'ClubMeetingCreateAndEditBody',
     components: { DateTimePicker, CommonCenterBtn },
+    props: {
+        btnText: {
+            type: String,
+            required: true,
+        },
+        /**
+         * {
+         *     title
+         *     content
+         *     maximumNumber
+         *     cost
+         *     region
+         *     startDateTime
+         *     endDateTime
+         * }
+         */
+        context: {
+            type: Object,
+        },
+        submitClickCallback: {
+            type: Function, // (dto) => {} : Promise
+            required: true,
+        },
+    },
     data() {
         return {
             RULES,
@@ -109,8 +133,8 @@ export default {
             maximumNumber: null,
             cost: null,
             region: null,
-            startDateTime: { date: this.today(), time: '' },
-            endDateTime: { date: this.today(), time: '' },
+            startDateTime: DEFAULT_DATE_TIME,
+            endDateTime: DEFAULT_DATE_TIME,
         };
     },
     computed: {
@@ -121,8 +145,19 @@ export default {
             return '';
         },
     },
+    mounted() {
+        if (this.context) {
+            this.title = this.context.title;
+            this.content = this.context.content;
+            this.maximumNumber = this.context.maximumNumber;
+            this.cost = this.context.cost;
+            this.region = this.context.region;
+            this.startDateTime = this.context.startDateTime;
+            this.endDateTime = this.context.endDateTime;
+        }
+    },
     methods: {
-        today: () => moment().format('YYYY-MM-DD'),
+        today,
         changeStartDateTime(dateTime) {
             this.startDateTime = dateTime;
             this.recalculateEndDateTime();
@@ -143,24 +178,16 @@ export default {
         click() {
             if (this.$refs.clubMeetingCreateForm.validate()) {
                 this.loading = true;
-                const clubMeetingCreateInfo = {
-                    clubMeetingCreateDto: {
-                        title: this.title,
-                        content: this.content,
-                        maximumNumber: this.maximumNumber,
-                        startTimestamp: toTimeStamp(this.startDateTime),
-                        endTimestamp: toTimeStamp(this.endDateTime),
-                        cost: this.cost ? toNumber(this.cost) : this.cost,
-                        region: this.region,
-                    },
-                    clubSeq: routerHelper.clubSeq(),
+                const meetingDto = {
+                    title: this.title,
+                    content: this.content,
+                    maximumNumber: this.maximumNumber,
+                    startTimestamp: toTimeStamp(this.startDateTime),
+                    endTimestamp: toTimeStamp(this.endDateTime),
+                    cost: this.cost ? toNumber(this.cost) : this.cost,
+                    region: this.region,
                 };
-                actionsHelper.requestMeetingCreate(clubMeetingCreateInfo)
-                    .then(() => {
-                        actionsHelper.requestFirstMeetingGroupList(clubMeetingCreateInfo.clubSeq);
-                        this.$router.push(generateParamPath(PATH.CLUB.MAIN, routerHelper.clubSeq()));
-                    })
-                    .finally(this.loading = false);
+                this.submitClickCallback(meetingDto).finally(this.loading = false);
             }
         },
         costFocus() {

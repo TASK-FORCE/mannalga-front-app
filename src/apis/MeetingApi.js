@@ -2,8 +2,12 @@ import axios from 'axios';
 import ResponseConverter from '@/apis/converter/ResponseConverter.js';
 
 class MeetingApi {
-    postClubMeetingCreate({ clubSeq, clubMeetingCreateDto }) {
+    postClubMeeting({ clubSeq, clubMeetingCreateDto }) {
         return axios.post(`/api/clubs/${clubSeq}/meetings`, clubMeetingCreateDto);
+    }
+
+    putClubMeeting({ clubSeq, meetingSeq, clubMeetingEditDto }) {
+        return axios.put(`/api/clubs/${clubSeq}/meetings/${meetingSeq}`, clubMeetingEditDto);
     }
 
     getMeetingGroupList({ clubSeq, requestParams }) {

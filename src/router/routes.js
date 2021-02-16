@@ -78,7 +78,12 @@ const routes = [
     {
         path: PATH.CLUB.MEETING_CREATE,
         name: 'ClubMeetingCreate',
-        component: () => import('@/views/clubMeetingCreate/ClubMeetingCreatePage.vue'),
+        component: () => import('@/views/clubMeetingCreateAndEdit/ClubMeetingCreatePage.vue'),
+    },
+    {
+        path: PATH.CLUB.MEETING_EDIT,
+        name: 'ClubMeetingEdit',
+        component: () => import('@/views/clubMeetingCreateAndEdit/ClubMeetingEditPage.vue'),
     },
     {
         path: PATH.CLUB.MEETING_POST,

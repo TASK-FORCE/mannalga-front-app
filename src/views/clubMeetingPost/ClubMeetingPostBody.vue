@@ -16,6 +16,15 @@
                     </span>
                 </div>
             </div>
+            <v-spacer />
+            <v-btn v-if="meeting.isCreator"
+                   outlined
+                   small
+                   class="my-auto"
+                   @click="moveToMeetingEditPage"
+            >
+                수정
+            </v-btn>
         </div>
         <div class="pa-1">
             <MeetingTimeRange :startTime="meeting.startTimestamp"
@@ -91,6 +100,7 @@ import { isDarkTheme } from '@/plugins/vuetify.js';
 import MiddleDivider from '@/components/MiddleDivider.vue';
 import SimpleUserProfileList from '@/components/user/SimpleUserProfileList.vue';
 import { MESSAGE } from '@/utils/common/constant/messages.js';
+import { generateParamPath, PATH } from '@/router/route_path_type.js';
 
 export default {
     name: 'ClubMeetingPostBody',
@@ -137,6 +147,10 @@ export default {
             actionsHelper.requestCancelMeetingApplication(this.clubAndMeetingSeq)
                 .then(() => mutationsHelper.openSnackBar(MESSAGE.SUCCESS_CANCEL_MEETING_APPLICATION))
                 .finally(() => (this.applicationBtnLoading = false));
+        },
+        moveToMeetingEditPage() {
+            const { clubSeq, meetingSeq } = this.clubAndMeetingSeq;
+            this.$router.push(generateParamPath(PATH.CLUB.MEETING_EDIT, [clubSeq, meetingSeq]));
         },
     },
 };
