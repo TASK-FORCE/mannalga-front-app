@@ -118,6 +118,10 @@ const routes = [
         name: 'UserInterestEdit',
         component: () => import('@/views/userInterestEdit/UserInterestEditPage.vue'),
     },
+    {
+        path: '*',
+        redirect: PATH.CLUB_LIST,
+    },
 ];
 
 export default routes;

@@ -27,6 +27,12 @@
                     </div>
                 </div>
             </template>
+            <template #empty>
+                <EmptyPage icon="calendarOut"
+                           title="만남이 없습니다."
+                           description="만남을 만들어 모임원들을 만나보세요."
+                />
+            </template>
         </InfiniteScrollTemplate>
         <FixedCreateBtn v-if="canCreateMeeting"
                         :path="meetingCreatePath()"
@@ -47,10 +53,11 @@ import InfiniteScrollTemplate from '@/components/InfiniteScrollTemplate.vue';
 import mutationsHelper from '@/store/helper/MutationsHelper.js';
 import { MESSAGE } from '@/utils/common/constant/messages.js';
 import gettersHelper from '@/store/helper/GettersHelper.js';
+import EmptyPage from '@/components/EmptyPage.vue';
 
 export default {
     name: 'ClubDetailMeeting',
-    components: { InfiniteScrollTemplate, ClubDetailMeetingPost, FixedCreateBtn },
+    components: { EmptyPage, InfiniteScrollTemplate, ClubDetailMeetingPost, FixedCreateBtn },
     props: {
         currentUserInfo: Object,
     },

@@ -16,21 +16,17 @@
                 </div>
             </template>
 
-            <template v-slot:fallback>
-                <div class="club-empty-result-wrapper"
-                     :style="{height: `${calculateEmptyPageHeight()}px`}"
-                >
-                    <div class="club-empty-result-box">
-                        <div>
-                            <v-icon x-large
-                                    v-text="'$cryOut'"
-                            />
-                        </div>
-                        <div>
-                            모임이 없어요
-                        </div>
-                    </div>
-                </div>
+            <template v-slot:empty>
+                <EmptyPage v-if="hasSearchText"
+                           icon="search"
+                           title="검색 결과가 없습니다."
+                           description="검색 조건을 줄이거나, 검색어를 확인해주세요."
+                />
+                <EmptyPage v-else
+                           icon="supervisor"
+                           title="모임이 없습니다."
+                           description="원하는 모임을 직접 만들어 운영해보세요."
+                />
             </template>
         </InfiniteScrollTemplate>
     </div>
@@ -42,15 +38,15 @@ import ClubPost from '@/views/clubList/components/ClubPost.vue';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
 import InfiniteScrollTemplate from '@/components/InfiniteScrollTemplate.vue';
+import EmptyPage from '@/components/EmptyPage.vue';
 
 export default {
     name: 'ClubList',
-    components: { InfiniteScrollTemplate, ClubListSearchFilter, ClubPost },
+    components: { EmptyPage, InfiniteScrollTemplate, ClubListSearchFilter, ClubPost },
     data() {
         return {
             sentinel: null,
             listGroup: null,
-            searchFilterElement: null,
             isRequesting: false,
         };
     },
@@ -58,14 +54,14 @@ export default {
         clubList: () => gettersHelper.clubList(),
         clubPage: () => gettersHelper.clubPage(),
         clubSearchFilterInfo: () => gettersHelper.clubSearchFilterInfo(),
+        hasSearchText() {
+            return this.clubSearchFilterInfo.searchText;
+        },
     },
     watch: {
         clubSearchFilterInfo() {
             this.$refs.clubScrollTemplate.requestFirstPage();
         },
-    },
-    mounted() {
-        this.searchFilterElement = document.querySelector('#club-search-filter');
     },
     methods: {
         fetchFirstPage() {
@@ -74,30 +70,6 @@ export default {
         fetchNextPage() {
             return actionsHelper.requestNextClubList();
         },
-        calculateEmptyPageHeight() {
-            if (this.searchFilterElement) {
-                const { bottom } = this.searchFilterElement.getBoundingClientRect();
-                return window.innerHeight - bottom;
-            }
-            return 500;
-        },
     },
 };
 </script>
-
-<style scoped
-       lang="scss"
->
-.club-empty-result-wrapper {
-    position: relative;
-
-    .club-empty-result-box {
-        position: absolute;
-        top: 40%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        text-align: center;
-        font-size: 1.5rem;
-    }
-}
-</style>

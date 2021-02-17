@@ -2,6 +2,7 @@ import {
     mdiAccountGroup,
     mdiAccountHeart,
     mdiAccountMultiple,
+    mdiAccountSupervisor,
     mdiAirplaneTakeoff,
     mdiAlphabeticalVariant,
     mdiArrowLeftBold,
@@ -12,6 +13,7 @@ import {
     mdiBrush,
     mdiBullhorn,
     mdiCalendar,
+    mdiCalendarTextOutline,
     mdiCameraPlusOutline,
     mdiChevronRight,
     mdiChevronUp,
@@ -25,6 +27,7 @@ import {
     mdiEmoticonCryOutline,
     mdiFacebookMessenger,
     mdiHeart,
+    mdiImage,
     mdiInformation,
     mdiKeyboardBackspace,
     mdiLogoutVariant,
@@ -34,6 +37,7 @@ import {
     mdiMessageDraw,
     mdiMonitor,
     mdiMusicCircleOutline,
+    mdiNoteTextOutline,
     mdiPartyPopper,
     mdiPencil,
     mdiPlus,
@@ -86,6 +90,10 @@ const ICONS = {
     pencil: mdiPencil,
     monitor: mdiMonitor,
     clock: mdiClockTimeFourOutline,
+    supervisor: mdiAccountSupervisor,
+    image: mdiImage,
+    note: mdiNoteTextOutline,
+    calendarOut: mdiCalendarTextOutline,
 };
 
 export {
