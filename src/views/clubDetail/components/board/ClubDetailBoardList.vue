@@ -23,6 +23,12 @@
                     <ClubDetailBoardPost :board="board" />
                 </div>
             </template>
+            <template #empty>
+                <EmptyPage icon="note"
+                           title="게시글이 없습니다."
+                           description="글을 작성하여 모임원들과 이야기하세요."
+                />
+            </template>
         </InfiniteScrollTemplate>
         <FixedCreateBtn v-if="canCreateBoard"
                         color="blue"
@@ -41,10 +47,12 @@ import gettersHelper from '@/store/helper/GettersHelper.js';
 import ClubDetailBoardPost from '@/views/clubDetail/components/board/ClubDetailBoardPost.vue';
 import InfiniteScrollTemplate from '@/components/InfiniteScrollTemplate.vue';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
+import EmptyPage from '@/components/EmptyPage.vue';
 
 export default {
     name: 'ClubDetailBoardList',
     components: {
+        EmptyPage,
         InfiniteScrollTemplate,
         ClubDetailBoardPost,
         FixedCreateBtn,

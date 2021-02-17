@@ -13,7 +13,7 @@
                 </div>
             </div>
         </div>
-        <slot name="content"/>
+        <slot name="content" />
         <MiddleDivider :height="2" />
         <div class="d-flex pa-3">
             <v-btn v-if="!boardDto.isLiked"

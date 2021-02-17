@@ -1,6 +1,7 @@
 <template>
     <v-list v-show="!isLoading"
             class="py-0"
+            :class="`${name}-list-wrapper`"
     >
         <v-list-item-group v-if="withListGroup">
             <div :class="`${name}-list-sentinel`" />
@@ -8,9 +9,14 @@
                 <slot v-if="isRequesting || (pageElements && pageElements.length > 0)"
                       name="list-main"
                 />
-                <slot v-else
-                      name="fallback"
-                />
+                <div v-else
+                     class="empty"
+                     :style="{height: `${calculateEmptyPageHeight()}px`}"
+                >
+                    <div class="my-auto">
+                        <slot name="empty" />
+                    </div>
+                </div>
             </div>
         </v-list-item-group>
         <div v-else>
@@ -19,9 +25,14 @@
                 <slot v-if="isRequesting || (pageElements && pageElements.length > 0)"
                       name="list-main"
                 />
-                <slot v-else
-                      name="fallback"
-                />
+                <div v-else
+                     class="empty"
+                     :style="{height: `${calculateEmptyPageHeight()}px`}"
+                >
+                    <div class="my-auto">
+                        <slot name="empty" />
+                    </div>
+                </div>
             </div>
         </div>
     </v-list>
@@ -63,7 +74,7 @@ export default {
         return {
             sentinel: null,
             listGroup: null,
-            searchFilterElement: null,
+            listWrapper: null,
             isRequesting: false,
         };
     },
@@ -77,6 +88,7 @@ export default {
         },
     },
     mounted() {
+        this.listWrapper = document.querySelector(`.${this.name}-list-wrapper`);
         this.sentinel = document.querySelector(`.${this.name}-list-sentinel`);
         if (_.isEmpty(this.pageElements)) {
             this.requestFirstPage();
@@ -121,6 +133,23 @@ export default {
         canRequest() {
             return !this.isRequesting && !this.isLastPage && !this.isFirstPage;
         },
+        calculateEmptyPageHeight() {
+            let top = 0;
+            if (this.listWrapper) {
+                top = this.listWrapper.getBoundingClientRect().top;
+            }
+            return window.innerHeight - top;
+        },
     },
 };
 </script>
+
+<style scoped
+       lang="scss"
+>
+.empty {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 1rem;
+}
+</style>

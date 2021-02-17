@@ -15,6 +15,12 @@
                 />
             </div>
         </template>
+        <template #empty>
+            <EmptyPage icon="supervisor"
+                       title="모임이 없습니다."
+                       description="원하는 모임을 직접 만들어 운영해보세요."
+            />
+        </template>
     </InfiniteScrollTemplate>
 </template>
 
@@ -23,10 +29,11 @@ import gettersHelper from '@/store/helper/GettersHelper.js';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
 import ClubPost from '@/views/clubList/components/ClubPost.vue';
 import InfiniteScrollTemplate from '@/components/InfiniteScrollTemplate.vue';
+import EmptyPage from '@/components/EmptyPage.vue';
 
 export default {
     name: 'MyClubList',
-    components: { InfiniteScrollTemplate, ClubPost },
+    components: { EmptyPage, InfiniteScrollTemplate, ClubPost },
     data() {
         return {
             sentinel: null,

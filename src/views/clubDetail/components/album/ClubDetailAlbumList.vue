@@ -24,6 +24,12 @@
                     </v-col>
                 </v-row>
             </template>
+            <template #empty>
+                <EmptyPage icon="image"
+                           title="사진이 없습니다."
+                           description="사진을 올려 모임원들과 나눠보세요."
+                />
+            </template>
         </InfiniteScrollTemplate>
         <AlbumImageCreateDialog v-model="isOpenImageRegisterDialog" />
         <FixedCreateBtn v-if="canCreateAlbum"
@@ -45,10 +51,12 @@ import InfiniteScrollTemplate from '@/components/InfiniteScrollTemplate.vue';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
 import routerHelper from '@/router/RouterHelper.js';
 import FixedScrollToTopBtn from '@/components/button/FixedScrollToTopBtn.vue';
+import EmptyPage from '@/components/EmptyPage.vue';
 
 export default {
     name: 'ClubDetailAlbumList',
     components: {
+        EmptyPage,
         FixedScrollToTopBtn,
         InfiniteScrollTemplate,
         ClubDetailAlbumImage,
