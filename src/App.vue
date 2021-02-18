@@ -10,19 +10,19 @@
             </transition>
         </v-main>
         <Progress v-show="isLoading" />
-        <SnackBar />
+        <CommonSnackBar />
     </v-app>
 </template>
 
 <script>
-import SnackBar from '@/components/SnackBar.vue';
+import CommonSnackBar from '@/components/CommonSnackBar.vue';
 import Progress from '@/components/Progress.vue';
 import { loadCurrentTheme } from '@/plugins/vuetify.js';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 
 export default {
     name: 'App',
-    components: { SnackBar, Progress },
+    components: { CommonSnackBar, Progress },
     computed: {
         isLoading: () => gettersHelper.isLoading(),
     },

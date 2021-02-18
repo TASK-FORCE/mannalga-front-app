@@ -43,8 +43,13 @@ class UserApi {
             .then(ResponseConverter.extractSuperInventionResponseData)
             .then(ResponseConverter.convertUserInterests);
     }
+
     putUserInterests(userInterestsChangeDto) {
         return axios.put('/api/users/interests', userInterestsChangeDto);
+    }
+
+    patchUserProfileImage(profileImage) {
+        return axios.patch('/api/users', { profileImage });
     }
 }
 

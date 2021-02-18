@@ -12,6 +12,10 @@ class ClubApi {
             .then(ResponseConverter.extractSuperInventionResponseData);
     }
 
+    putClubCreate({ clubSeq, clubChangeRequestDto }) {
+        return axios.put(`/api/clubs/${clubSeq}`, clubChangeRequestDto);
+    }
+
     postClubJoin(seq) {
         return axios.post(`/api/clubs/${seq}/users`);
     }

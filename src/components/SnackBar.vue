@@ -1,5 +1,5 @@
 <template>
-    <v-snackbar v-model="safeOpen"
+    <v-snackbar :value="open"
                 v-bind="{[snackBarOptions.location]: true}"
                 :timeout="snackBarOptions.time"
     >
@@ -11,34 +11,31 @@
                 outlined
                 small
                 v-bind="attrs"
-                @click="closeSnackBar"
+                @click="$emit('click')"
             >
-                닫기
+                {{ btnText }}
             </v-btn>
         </template>
     </v-snackbar>
 </template>
 
 <script>
-import gettersHelper from '@/store/helper/GettersHelper.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
 
 export default {
     name: 'SnackBar',
-    computed: {
-        snackBarOptions: () => gettersHelper.snackBarOptions(),
-        openSnackBar: () => gettersHelper.openSnackBar(),
-        safeOpen: {
-            get() {
-                return this.openSnackBar;
-            },
-            set() {
-                this.closeSnackBar();
-            },
+    props: {
+        open: {
+            type: Boolean,
+            required: true,
         },
-    },
-    methods: {
-        closeSnackBar: () => mutationsHelper.closeSnackBar(),
+        snackBarOptions: {
+            type: Object,
+            required: true,
+        },
+        btnText: {
+            type: String,
+            required: true,
+        },
     },
 };
 </script>

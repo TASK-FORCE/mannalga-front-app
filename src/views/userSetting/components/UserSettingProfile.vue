@@ -9,48 +9,23 @@
                 />
                 <v-btn class="avatar-edit-btn"
                        fab
-                       @click="$refs.cropper.trigger()"
+                       @click="$refs.imageSelector.trigger()"
                 >
                     <v-icon size="15"
                             v-text="'$pencil'"
                     />
                 </v-btn>
-                <ImageCropper ref="cropper"
-                              :aspectRatio="1"
-                              :width="100"
-                              :height="100"
-                              @handleUploadedImgDto="handleUploadedImgUrl"
-                />
-                <v-dialog :value="dialogOpen"
-                          persistent
+                <ImageSelectorWithConfirm ref="imageSelector"
+                                          title="변경 후 프로필 이미지"
+                                          :aspectRatio="1"
+                                          :imageChangeCallback="changeProfileImage"
                 >
-                    <v-card class="pa-3">
-                        <div class="text-center">
-                            <div class="font-weight-bold title">
-                                변경 후 프로필 이미지
-                            </div>
-                            <div class="pa-2">
-                                <UserProfileAvatar :imgUrl="newImageUrl"
-                                                   :size="200"
-                                />
-                            </div>
-                            <div class="mt-2">
-                                <v-btn color="green darken-2"
-                                       class="font-weight-bold"
-                                       @click="dialogOpen = false"
-                                >
-                                    취소
-                                </v-btn>
-                                <v-btn color="green darken-2"
-                                       class="font-weight-bold ml-5"
-                                       @click="changeProfileImage"
-                                >
-                                    변경
-                                </v-btn>
-                            </div>
-                        </div>
-                    </v-card>
-                </v-dialog>
+                    <template #image="{ imageUrl }">
+                        <UserProfileAvatar :imgUrl="imageUrl"
+                                           :size="200"
+                        />
+                    </template>
+                </ImageSelectorWithConfirm>
             </div>
             <div class="text-center w-100"
                  style="font-size: 1.2rem"
@@ -65,28 +40,24 @@
 
 <script>
 import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
-import ImageCropper from '@/components/image/ImageCropper.vue';
+import actionsHelper from '@/store/helper/ActionsHelper.js';
+import ImageSelectorWithConfirm from '@/components/image/ImageSelectorWithConfirm.vue';
 
 export default {
     name: 'UserSettingProfile',
-    components: { ImageCropper, UserProfileAvatar },
+    components: { ImageSelectorWithConfirm, UserProfileAvatar },
     props: {
         userProfile: Object,
     },
     data() {
         return {
-            newImageUrl: null,
             dialogOpen: false,
+            loading: false,
         };
     },
     methods: {
-        handleUploadedImgUrl({ absolutePath }) {
-            this.newImageUrl = absolutePath;
-            this.dialogOpen = true;
-        },
-        changeProfileImage() {
-            this.userProfile.profileImageLink = this.newImageUrl;
-            this.dialogOpen = false;
+        changeProfileImage(imageDto) {
+            return actionsHelper.requestChangeUserProfile(imageDto);
         },
     },
 };
