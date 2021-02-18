@@ -8,6 +8,7 @@ class ActionsHelper {
 
     // club module
     requestClubCreate = (payload) => dispatch(MODULE.CLUB, 'requestClubCreate', payload);
+    requestClubChange = (payload) => dispatch(MODULE.CLUB, 'requestClubChange', payload);
     requestClubData = (payload) => dispatch(MODULE.CLUB, 'requestClubData', payload);
     requestClubJoin = (payload) => dispatch(MODULE.CLUB, 'requestClubJoin', payload);
     requestClubInfoAndUserInfo = (payload) => dispatch(MODULE.CLUB, 'requestClubInfoAndUserInfo', payload);
@@ -70,6 +71,7 @@ class ActionsHelper {
     requestChangeUserRegions = (payload) => dispatch(MODULE.USER, 'requestChangeUserRegions', payload);
     requestChangeUserInterests = (payload) => dispatch(MODULE.USER, 'requestChangeUserInterest', payload);
     requestCheckIsMember = (payload) => dispatch(MODULE.USER, 'requestCheckIsMember', payload);
+    requestChangeUserProfile = (payload) => dispatch(MODULE.USER, 'requestChangeUserProfile', payload);
 }
 
 const dispatch = (moduleName, actionsName, payload) => store.dispatch(combineWithModuleName(moduleName, actionsName), payload);

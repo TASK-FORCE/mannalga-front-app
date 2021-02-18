@@ -63,6 +63,15 @@ const actions = {
             commit(`${MODULE.CLUB_LIST}/initMyClubListAndPage`, {}, { root: true });
         });
     },
+
+    async requestClubChange({ commit, dispatch }, clubChangeRequestInfo) {
+        return actionsNormalTemplate(async () => {
+            await clubApi.putClubCreate(clubChangeRequestInfo);
+            commit(`${MODULE.CLUB_LIST}/initClubListAndPage`, {}, { root: true });
+            commit(`${MODULE.CLUB_LIST}/initMyClubListAndPage`, {}, { root: true });
+            dispatch('requestClubInfoAndUserInfo', clubChangeRequestInfo.clubSeq);
+        });
+    },
     async requestClubJoin({ commit }, clubSeq) {
         return actionsNormalTemplate(async () => {
             await clubApi.postClubJoin(clubSeq);

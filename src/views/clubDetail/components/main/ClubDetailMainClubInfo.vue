@@ -1,9 +1,20 @@
 <template>
     <div>
-        <!--    TODO 사진이 없다면 사진 등록 권고(MASTER role에게만)    -->
         <v-img :src="clubInfo.mainImageUrl || require('@/images/default_club_image.png')"
                aspect-ratio="2"
         />
+        <SnackBar :open="imageChangeSnackBarOpen"
+                  :snackBarOptions="imageChangeSnackBarOptions"
+                  btnText="추가"
+                  @click="$refs.imageSelector.trigger()"
+        />
+        <ImageSelectorWithConfirm ref="imageSelector"
+                                  :imageChangeCallback="changeClubMainImage"
+        >
+            <template #image="{ imageUrl }">
+                <v-img :src="imageUrl" />
+            </template>
+        </ImageSelectorWithConfirm>
         <div class="pa-3">
             <div class="d-flex">
                 <div class="flex-grow-1">
@@ -64,10 +75,34 @@ import actionsHelper from '@/store/helper/ActionsHelper.js';
 import mutationsHelper from '@/store/helper/MutationsHelper.js';
 import _ from '@/utils/common/lodashWrapper.js';
 import YesOrNoDialog from '@/components/YesOrNoDialog.vue';
+import ImageSelectorWithConfirm from '@/components/image/ImageSelectorWithConfirm.vue';
+import { SNACKBAR_LOCATION, SnackBarOption } from '@/utils/common/snackbarUtils.js';
+import SnackBar from '@/components/SnackBar.vue';
+
+const CHANGE_IMAGE_COOL_TIME_MINUTE = 6 * 60;
+const toMillisecond = (minute) => minute * 60 * 1000;
+const checkCoolTime = (clubSeq) => {
+    const key = 'clubImageChangeSnackbarCoolTime';
+    const timer = JSON.parse(localStorage.getItem(key)) || {};
+    const time = timer[clubSeq];
+    if (!time || time <= Date.now()) {
+        timer[clubSeq] = Date.now() + toMillisecond(CHANGE_IMAGE_COOL_TIME_MINUTE);
+        localStorage.setItem(key, JSON.stringify(timer));
+        return true;
+    }
+    return false;
+};
 
 export default {
     name: 'ClubDetailMainClubInfo',
-    components: { YesOrNoDialog, FixedTextBtnShowByHeight, InterestIcons, CommonCenterBtn },
+    components: {
+        SnackBar,
+        ImageSelectorWithConfirm,
+        YesOrNoDialog,
+        FixedTextBtnShowByHeight,
+        InterestIcons,
+        CommonCenterBtn,
+    },
     props: {
         clubInfo: {
             type: Object,
@@ -82,6 +117,8 @@ export default {
         return {
             heightBoundaryToShowRegisterBtn: 500,
             showRegisterDialog: false,
+            imageChangeSnackBarOpen: false,
+            imageChangeSnackBarOptions: new SnackBarOption('모임 대표 사진을 추가해보세요!', SNACKBAR_LOCATION.BOTTOM, 'blue', 5000),
         };
     },
     computed: {
@@ -107,6 +144,9 @@ export default {
             const registerBtn = document.getElementById('registerBtn');
             this.heightBoundaryToShowRegisterBtn = registerBtn.offsetTop + (registerBtn.offsetHeight / 2);
         }
+        if (!this.clubInfo.mainImageUrl && this.currentUserInfo.isMaster && checkCoolTime(this.clubInfo.seq)) {
+            this.imageChangeSnackBarOpen = true;
+        }
     },
     methods: {
         requestClubRegister() {
@@ -116,6 +156,23 @@ export default {
                     mutationsHelper.openSnackBar('모임 가입 성공');
                     this.showRegisterDialog = false;
                 });
+        },
+        changeClubMainImage({ absolutePath }) {
+            const clubChangeRequestDto = {
+                name: this.clubInfo.name,
+                description: this.clubInfo.description,
+                maximumNumber: this.clubInfo.maximumNumber,
+                mainImageUrl: absolutePath,
+                interestList: this.clubInfo.clubInterest.map(({ interest, priority }) => ({
+                    seq: interest.seq,
+                    priority,
+                })),
+                regionList: this.clubInfo.clubRegion.map(({ region, priority }) => ({ seq: region.seq, priority })),
+            };
+            return actionsHelper.requestClubChange({
+                clubSeq: this.clubInfo.seq,
+                clubChangeRequestDto,
+            });
         },
     },
 };
