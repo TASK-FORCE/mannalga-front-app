@@ -78,12 +78,10 @@ export default class RequestConverter {
     static convertUserInterestForChange = (selectedInterestSeqs) => buildUserInterestsDto(selectedInterestSeqs);
 }
 
-const buildUserRegionsDto = (selectedRegions) => {
-    const userRegions = [];
-    for (const [priority, region] of Object.entries(selectedRegions)) {
-        userRegions.push({ priority, seq: region.seq });
-    }
-    return userRegions;
-};
+const buildUserRegionsDto = (selectedRegions) => selectedRegions
+    .map((region, index) => ({
+        priority: index + 1,
+        seq: region.seq,
+    }));
 
 const buildUserInterestsDto = (seqs) => seqs.map((seq, index) => ({ seq, priority: index + 1 }));

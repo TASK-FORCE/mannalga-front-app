@@ -1,7 +1,7 @@
 <template>
     <div>
         <CommonHeader title="만남 수정"
-                      @click="$router.push(clubDetailPath())"
+                      @back="$router.push(clubDetailPath())"
         />
         <ClubMeetingCreateAndEditBody btnText="만남 수정"
                                       :context="editContext"

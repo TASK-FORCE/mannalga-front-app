@@ -1,7 +1,7 @@
 <template>
     <div>
         <CommonHeader title="모임 만들기"
-                      @click="$router.push(clubListPath)"
+                      @back="$router.push(clubListPath)"
         />
         <ClubCreatePageBody />
     </div>

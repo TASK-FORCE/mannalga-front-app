@@ -63,8 +63,7 @@ const actions = {
     requestUserRegions({ commit }) {
         return actionsLoadingTemplate(commit, async () => {
             const userRegions = await userApi.getUserRegions();
-            const selectedRegions = {};
-            userRegions.forEach(({ priority, region }) => (selectedRegions[priority] = region));
+            const selectedRegions = userRegions.map(({ priority, region }) => region);
             commit('setSelectedRegions', selectedRegions);
         });
     },

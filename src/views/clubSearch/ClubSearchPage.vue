@@ -1,7 +1,7 @@
 <template>
     <div>
         <CommonHeader title="모임 검색"
-                      @click="$router.push(clubListPagePath)"
+                      @back="$router.push(clubListPagePath)"
         />
         <ClubSearchPageBody />
     </div>

@@ -9,6 +9,12 @@ const vuetify = new Vuetify({
         iconfont: 'mdiSvg',
         values: ICONS,
     },
+    theme: {
+        themes: {
+            dark: {
+            },
+        },
+    },
 });
 
 const Theme = { DARK: 'black', WHITE: 'white' };

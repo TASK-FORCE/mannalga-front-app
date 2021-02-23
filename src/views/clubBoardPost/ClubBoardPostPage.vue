@@ -1,7 +1,7 @@
 <template>
     <div>
         <CommonHeader title="게시판"
-                      @click="$router.push(clubDetailPath())"
+                      @back="$router.push(clubDetailPath())"
         />
         <ClubBoardPostBody />
     </div>

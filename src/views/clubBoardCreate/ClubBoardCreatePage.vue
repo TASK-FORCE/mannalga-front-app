@@ -1,7 +1,7 @@
 <template>
     <div>
         <CommonHeader title="게시글 작성"
-                      @click="$router.push(clubPath)"
+                      @back="$router.push(clubPath)"
         />
         <ClubBoardCreatePageBody />
     </div>

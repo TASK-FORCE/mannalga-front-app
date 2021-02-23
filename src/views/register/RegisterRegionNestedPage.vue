@@ -1,28 +1,22 @@
 <template>
     <div>
-        <UserRegionSelectList :selectedRegions="selectedRegions"
-                              @selectRegion="selectRegion"
+        <RegionSelect :selectedRegionsCallback="selectedRegionsCallback"
+                      :backCallback="clickBack"
+                      :submitCallback="goNextStep"
+                      title="회원 가입"
         >
-            <template #header>
-                <div class="text-center mb-7"
-                     style="margin-top: 40%"
-                >
-                    모임에 참여할 지역을 선택 해주세요. <br>
-                    (원하는 지역은 <b>최대 3개</b> 선택 가능합니다)
-                </div>
+            <template #header-title>
+                참여할 지역을 설정해주세요.
             </template>
-            <template #footer>
-                <GoBackBtnFooter v-slot
-                                 @clickGoBtn="clickGoBtn"
-                />
+            <template #header-description>
+                최대 3개까지 선택 가능합니다.
             </template>
-        </UserRegionSelectList>
+        </RegionSelect>
     </div>
 </template>
 
 <script>
-import UserRegionSelectList from '@/components/user/UserRegionSelectList.vue';
-import GoBackBtnFooter from '@/components/footer/GoBackBtnFooter.vue';
+import RegionSelect from '@/components/region/RegionSelect.vue';
 import _ from '@/utils/common/lodashWrapper.js';
 import mutationsHelper from '@/store/helper/MutationsHelper.js';
 import gettersHelper from '@/store/helper/GettersHelper.js';
@@ -31,12 +25,7 @@ import { MESSAGE } from '@/utils/common/constant/messages.js';
 
 export default {
     name: 'RegisterRegionNestedPage',
-    components: { UserRegionSelectList, GoBackBtnFooter },
-    data() {
-        return {
-            selectedRegions: {},
-        };
-    },
+    components: { RegionSelect },
     computed: {
         kakaoProfile: () => gettersHelper.kakaoProfile(),
     },
@@ -45,25 +34,21 @@ export default {
             this.$router.push(PATH.REGISTER.PROFILE);
         }
     },
-    mounted() {
-        this.selectedRegions = gettersHelper.selectedRegions();
-    },
     methods: {
-        clickGoBtn() {
-            if (_.isEmpty(this.selectedRegions)) {
+        goNextStep(selectedRegions) {
+            if (_.isEmpty(selectedRegions)) {
                 mutationsHelper.openSnackBar(MESSAGE.SELECT_REGION_REQUIRE);
             } else {
-                mutationsHelper.setSelectedRegions(this.selectedRegions);
+                mutationsHelper.setSelectedRegions(selectedRegions);
                 this.$router.push(PATH.REGISTER.INTEREST);
             }
         },
-        selectRegion({ priority, region }) {
-            this.$set(this.selectedRegions, priority, region);
+        clickBack() {
+            this.$router.push(PATH.REGISTER.PROFILE);
+        },
+        selectedRegionsCallback() {
+            return new Promise(resolve => resolve([]));
         },
     },
 };
 </script>
-
-<style scoped>
-
-</style>

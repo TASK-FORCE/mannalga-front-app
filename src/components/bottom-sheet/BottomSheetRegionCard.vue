@@ -3,7 +3,7 @@
         <div class="title-wrapper">
             <v-btn v-show="!showRootRegions"
                    icon
-                   class="title-back-btn"
+                   class="title-back-btn my-auto"
                    @click="showRoot"
             >
                 <v-icon size="28"
@@ -13,6 +13,14 @@
             <div class="title-text">
                 {{ title }}
             </div>
+            <v-spacer />
+            <v-btn class="cancel-btn"
+                   outlined
+                   small
+                   @click="$emit('cancelSelectedRegion')"
+            >
+                선택 취소
+            </v-btn>
         </div>
         <v-divider />
         <v-card-text style="height: 300px;"
@@ -44,6 +52,10 @@ export default {
     name: 'BottomSheetRegionCard',
     props: {
         canSelectRoot: Boolean,
+        showCancelBtn: {
+            type: Boolean,
+            default: false,
+        },
         selectedRegionSeqs: {
             type: Array,
             default: () => [],
@@ -102,6 +114,8 @@ export default {
     height: 60px;
     line-height: 44px;
     padding: 0.5rem 1rem;
+    display: flex;
+    align-content: center;
 
     .title-back-btn {
         margin-right: 0.5rem;
@@ -112,6 +126,13 @@ export default {
         align-items: center;
         font-size: 1.3rem;
         font-weight: 500;
+    }
+
+    .cancel-btn {
+        margin: auto 0;
+        font-weight: 500;
+        font-size: 14px;
+        padding: 0 6px !important;
     }
 }
 </style>

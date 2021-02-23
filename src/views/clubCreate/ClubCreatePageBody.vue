@@ -1,5 +1,5 @@
 <template>
-    <div v-if="!isLoading">
+    <div v-show="!isLoading">
         <ImageSelectBox class="image-box"
                         text="모임 대표 사진 등록"
                         height="140"

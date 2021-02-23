@@ -1,7 +1,7 @@
 <template>
     <div>
         <CommonHeader title="만남"
-                      @click="$router.push(clubDetailPath())"
+                      @back="$router.push(clubDetailPath())"
         />
         <ClubMeetingPostBody />
     </div>

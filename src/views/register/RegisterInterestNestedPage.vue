@@ -1,5 +1,8 @@
 <template>
     <div>
+        <CommonHeader title="회원가입"
+                      @back="clickBack"
+        />
         <UserInterestSelectList />
         <GoBackBtnFooter @clickGoBtn="register" />
     </div>
@@ -14,10 +17,11 @@ import mutationsHelper from '@/store/helper/MutationsHelper.js';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
 import { MESSAGE } from '@/utils/common/constant/messages.js';
+import CommonHeader from '@/components/header/CommonHeader.vue';
 
 export default {
     name: 'RegisterInterestNestedPage',
-    components: { UserInterestSelectList, GoBackBtnFooter },
+    components: { CommonHeader, UserInterestSelectList, GoBackBtnFooter },
     computed: {
         kakaoProfile: () => gettersHelper.kakaoProfile(),
         selectedRegions: () => gettersHelper.selectedRegions(),
@@ -45,6 +49,9 @@ export default {
                 .then(() => this.$router.push(PATH.CLUB_LIST)
                     .then(() => mutationsHelper.openSnackBar(MESSAGE.SUCCESS_REGISTER)))
                 .catch(() => this.$router.push(PATH.REGISTER.PROFILE));
+        },
+        clickBack() {
+            this.$router.push(PATH.REGISTER.REGION);
         },
     },
 };

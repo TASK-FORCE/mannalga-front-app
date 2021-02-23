@@ -1,7 +1,7 @@
 <template>
     <div>
         <CommonHeader title="사진첩"
-                      @click="$router.push(clubDetailPath())"
+                      @back="$router.push(clubDetailPath())"
         />
         <ClubAlbumPostBody />
     </div>
