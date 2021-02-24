@@ -56,7 +56,7 @@ class GettersHelper {
     // user module
     kakaoProfile = () => get(MODULE.USER, 'kakaoProfile');
     selectedRegions = () => get(MODULE.USER, 'selectedRegions');
-    selectedInterestSeqs = () => get(MODULE.USER, 'selectedInterestSeqs');
+    selectedInterests = () => get(MODULE.USER, 'selectedInterests');
     userProfile = () => get(MODULE.USER, 'userProfile');
 }
 

@@ -38,8 +38,6 @@ class MutationsHelper {
     // user module
     changeProfileName = (payload) => commit(MODULE.USER, 'changeProfileName', payload);
     setSelectedRegions = (payload) => commit(MODULE.USER, 'setSelectedRegions', payload);
-    addSelectedInterestSeqs = (payload) => commit(MODULE.USER, 'addSelectedInterestSeqs', payload);
-    removeSelectedInterestSeqs = (payload) => commit(MODULE.USER, 'removeSelectedInterestSeqs', payload);
 }
 
 const commit = (moduleName, commitName, payload) => store.commit(combineWithModuleName(moduleName, commitName), payload);

@@ -50,8 +50,8 @@ export default class RequestConverter {
         };
     };
 
-    static convertRegisterInfo = ({ profile, selectedRegions, selectedInterestSeqs }) => {
-        const userInterests = buildUserInterestsDto(selectedInterestSeqs);
+    static convertRegisterInfo = ({ profile, selectedRegions, selectedInterests }) => {
+        const userInterests = buildUserInterestsDto(selectedInterests);
         const userRegions = buildUserRegionsDto(selectedRegions);
         return {
             userName: profile.name,
@@ -75,7 +75,7 @@ export default class RequestConverter {
 
     static convertUserRegionsForChange = (selectedRegions) => buildUserRegionsDto(selectedRegions);
 
-    static convertUserInterestForChange = (selectedInterestSeqs) => buildUserInterestsDto(selectedInterestSeqs);
+    static convertUserInterestForChange = (selectedInterests) => buildUserInterestsDto(selectedInterests);
 }
 
 const buildUserRegionsDto = (selectedRegions) => selectedRegions
@@ -84,4 +84,8 @@ const buildUserRegionsDto = (selectedRegions) => selectedRegions
         seq: region.seq,
     }));
 
-const buildUserInterestsDto = (seqs) => seqs.map((seq, index) => ({ seq, priority: index + 1 }));
+const buildUserInterestsDto = (selectedInterests) => selectedInterests
+    .map((interest, index) => ({
+        priority: index + 1,
+        seq: interest.seq,
+    }));

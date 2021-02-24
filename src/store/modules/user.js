@@ -6,14 +6,14 @@ import DefaultBuilder from '@/store/utils/DefaultBuilder.js';
 const state = {
     kakaoProfile: DefaultBuilder.buildKakaoProfile(),
     selectedRegions: {},
-    selectedInterestSeqs: [],
+    selectedInterests: [],
     userProfile: DefaultBuilder.buildUserProfile(),
 };
 
 const getters = {
     kakaoProfile: (state) => state.kakaoProfile,
     selectedRegions: (state) => state.selectedRegions,
-    selectedInterestSeqs: (state) => state.selectedInterestSeqs,
+    selectedInterests: (state) => state.selectedInterests,
     userProfile: (state) => state.userProfile,
 };
 
@@ -24,8 +24,8 @@ const mutations = {
     changeProfileName(state, name) {
         state.kakaoProfile.name = name;
     },
-    addSelectedInterestSeqs(state, seq) {
-        state.selectedInterestSeqs.push(seq);
+    setSelectedInterests(state, selectedInterests) {
+        state.selectedInterests = selectedInterests;
     },
     setSelectedRegions(state, selectedRegions) {
         state.selectedRegions = selectedRegions;
@@ -77,17 +77,16 @@ const actions = {
     },
     requestUserInterests({ commit }) {
         return actionsLoadingTemplate(commit, async () => {
-            const selectedInterestSeqs = await userApi.getUserInterest();
-            selectedInterestSeqs.forEach(seq => commit('addSelectedInterestSeqs', seq));
+            const selectedInterests = await userApi.getUserInterest();
+            commit('setSelectedInterests', selectedInterests);
         });
     },
-    requestChangeUserInterest({ commit }, selectedInterestSeqs) {
+    requestChangeUserInterests({ commit }, selectedInterests) {
         return actionsNormalTemplate(
             async () => {
-                const userInterestsChangeDto = RequestConverter.convertUserInterestForChange(selectedInterestSeqs);
+                const userInterestsChangeDto = RequestConverter.convertUserInterestForChange(selectedInterests);
                 await userApi.putUserInterests(userInterestsChangeDto);
             },
-            () => commit('clearSelectedInterest'),
         );
     },
     requestCheckIsMember() {
