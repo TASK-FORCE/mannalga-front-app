@@ -1,7 +1,6 @@
 <template>
     <div>
-        <RegionSelect :selectedRegionsCallback="selectedRegionsCallback"
-                      :backCallback="clickBack"
+        <RegionSelect :backCallback="clickBack"
                       :submitCallback="goNextStep"
                       title="회원 가입"
         >
@@ -45,9 +44,6 @@ export default {
         },
         clickBack() {
             this.$router.push(PATH.REGISTER.PROFILE);
-        },
-        selectedRegionsCallback() {
-            return new Promise(resolve => resolve([]));
         },
     },
 };

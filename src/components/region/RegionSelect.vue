@@ -1,12 +1,12 @@
 <template>
     <div>
         <CommonHeader :title="title"
+                      :isDialog="isDialog"
                       showSubmitBtn
                       @back="backCallback"
                       @submit="submit"
         />
         <div class="body">
-            <slot name="header" />
             <div class="header">
                 <div class="header-title">
                     <slot name="header-title" />
@@ -52,7 +52,6 @@
                                    @cancelSelectedRegion="cancelSelectedRegion"
             />
         </v-bottom-sheet>
-        <slot name="footer" />
     </div>
 </template>
 
@@ -68,6 +67,7 @@ export default {
     props: {
         selectedRegionsCallback: {
             type: Function, // () => Promise(selectedRegions)
+            default: () => new Promise(resolve => resolve([])),
         },
         backCallback: {
             type: Function,
@@ -78,6 +78,10 @@ export default {
         title: {
             type: String,
             required: true,
+        },
+        isDialog: {
+            type: Boolean,
+            default: false,
         },
     },
     data() {
@@ -109,7 +113,7 @@ export default {
         selectSubRegion(region) {
             this.sheet = false;
             if (this.currentIndex) {
-                this.selectedRegions[this.currentIndex] = region;
+                this.selectedRegions.splice(this.currentIndex, 1, region);
             } else {
                 this.selectedRegions.push(region);
             }

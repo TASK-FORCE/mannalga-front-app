@@ -58,8 +58,9 @@
                          :loading="loading"
                          @click="createClub"
         />
-        <SelectRegionDialog v-model="dialog"
-                            @selectRegions="selectRegions"
+        <RegionSelectDialog v-model="dialog"
+                            :selectedRegions="selectedRegions"
+                            @selectRegions="regions => (selectedRegions = regions)"
         />
     </div>
 </template>
@@ -77,13 +78,12 @@ import { MESSAGE } from '@/utils/common/constant/messages.js';
 import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.js';
 import { createClubMaximumNumberList } from '@/utils/common/commonUtils.js';
 import { RULES } from '@/utils/common/constant/rules.js';
-import _ from '@/utils/common/lodashWrapper.js';
-import SelectRegionDialog from '@/components/region/SelectRegionDialog.vue';
+import RegionSelectDialog from '@/components/region/RegionSelectDialog.vue';
 
 export default {
     name: 'ClubCreatePageBody',
     components: {
-        SelectRegionDialog,
+        RegionSelectDialog,
         ImageSelectBox,
         CommonCenterBtn,
         BottomSheetInterestCard,
@@ -95,7 +95,6 @@ export default {
             items: createClubMaximumNumberList(10, 100, 10),
             RULES,
             dialog: false,
-            // dto
             title: null,
             description: null,
             maximumNumber: null,
@@ -108,8 +107,8 @@ export default {
         isLoading: () => gettersHelper.isLoading(),
         rootInterests: () => gettersHelper.rootInterests(),
         selectedClubRegionNames() {
-            return _.sortBy(this.selectedRegions, ({ priority }) => priority)
-                .map(({ region }) => region.superRegionRoot)
+            return this.selectedRegions
+                .map(({ superRegionRoot }) => superRegionRoot)
                 .join(', ');
         },
     },
@@ -124,31 +123,31 @@ export default {
             this.sheet = false;
             this.interest = interest;
         },
-        selectRegions(selectedRegions) {
-            this.selectedRegions = Object.keys(selectedRegions)
-                .map(key => ({
-                    priority: key,
-                    region: selectedRegions[key],
-                }));
-        },
         createClub() {
             if (this.$refs.clubCreateForm.validate()) {
                 this.loading = true;
-                const clubCreateInfo = {
-                    title: this.title,
-                    description: this.description,
-                    maximumNumber: this.maximumNumber,
-                    imageUrl: this.imageUrl,
-                    interest: this.interest,
-                    selectedRegions: this.selectedRegions.map(({ priority, region }) => ({ priority, seq: region.seq })),
-                };
-                actionsHelper.requestClubCreate(clubCreateInfo)
+                const clubCreateDto = this.buildClubCreateDto();
+                actionsHelper.requestClubCreate(clubCreateDto)
                     .then(() => {
                         mutationsHelper.openSnackBar(MESSAGE.SUCCESS_CLUB_CREATE);
                         this.$router.push(PATH.CLUB_LIST);
                     })
                     .finally(() => (this.loading = false));
             }
+        },
+        buildClubCreateDto() {
+            return {
+                title: this.title,
+                description: this.description,
+                maximumNumber: this.maximumNumber,
+                imageUrl: this.imageUrl,
+                interest: this.interest,
+                selectedRegions: this.selectedRegions
+                    .map((region, index) => ({
+                        priority: index + 1,
+                        seq: region.seq,
+                    })),
+            };
         },
     },
 };

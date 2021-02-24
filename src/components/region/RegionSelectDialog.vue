@@ -25,7 +25,7 @@
 import RegionSelect from '@/components/region/RegionSelect.vue';
 
 export default {
-    name: 'SelectRegionDialog',
+    name: 'RegionSelectDialog',
     components: { RegionSelect },
     props: {
         value: {

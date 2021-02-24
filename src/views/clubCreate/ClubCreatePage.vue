@@ -1,7 +1,7 @@
 <template>
     <div>
         <CommonHeader title="모임 만들기"
-                      @back="$router.push(clubListPath)"
+                      @back="back"
         />
         <ClubCreatePageBody />
     </div>
@@ -16,10 +16,10 @@ import { PATH } from '@/router/route_path_type.js';
 export default {
     name: 'ClubCreatePage',
     components: { CommonHeader, ClubCreatePageBody },
-    data() {
-        return {
-            clubListPath: PATH.CLUB_LIST,
-        };
+    methods: {
+        back() {
+            this.$router.push(PATH.CLUB_LIST);
+        },
     },
 };
 </script>

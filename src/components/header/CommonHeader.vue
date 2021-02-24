@@ -1,7 +1,7 @@
 <template>
     <v-app-bar class="elevation-0 app-header"
                height="60px"
-               app
+               :app="!isDialog"
     >
         <v-btn icon
                @click="$emit('back')"
@@ -33,6 +33,10 @@ export default {
     props: {
         title: String,
         showSubmitBtn: {
+            type: Boolean,
+            default: false,
+        },
+        isDialog: {
             type: Boolean,
             default: false,
         },
