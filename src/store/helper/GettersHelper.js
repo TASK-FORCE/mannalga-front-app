@@ -16,7 +16,6 @@ class GettersHelper {
     clubUserList = () => get(MODULE.CLUB, 'clubUserList');
     clubName = () => get(MODULE.CLUB, 'clubName');
     currentTab = () => get(MODULE.CLUB, 'currentTab');
-    selectedClubRegions = () => get(MODULE.CLUB, 'selectedClubRegions');
 
     // meeting module
     meeting = () => get(MODULE.MEETING, 'meeting');
@@ -57,7 +56,7 @@ class GettersHelper {
     // user module
     kakaoProfile = () => get(MODULE.USER, 'kakaoProfile');
     selectedRegions = () => get(MODULE.USER, 'selectedRegions');
-    selectedInterestSeqs = () => get(MODULE.USER, 'selectedInterestSeqs');
+    selectedInterests = () => get(MODULE.USER, 'selectedInterests');
     userProfile = () => get(MODULE.USER, 'userProfile');
 }
 

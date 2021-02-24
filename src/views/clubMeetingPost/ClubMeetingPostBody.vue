@@ -1,5 +1,5 @@
 <template>
-    <div v-if="!isLoading">
+    <div v-show="!isLoading">
         <div class="d-flex pa-3">
             <UserProfileAvatar :size="50"
                                :name="creatorName"

@@ -100,7 +100,7 @@ export default class ResponseConverter {
 
     static convertUserRegions = ({ userRegions }) => userRegions;
 
-    static convertUserInterests = ({ interestList }) => interestList.map(({ interest }) => interest).map(({ seq }) => seq);
+    static convertUserInterests = ({ interestList }) => interestList.map(({ interest }) => interest);
 }
 
 const mapMeeting = (meeting) => ({

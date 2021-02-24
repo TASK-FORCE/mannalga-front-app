@@ -63,3 +63,13 @@
 .black-bg {
     background-color: #0e0e0e !important;
 }
+
+.theme--dark {
+    &.v-application {
+        background-color: #121212 !important;
+    }
+
+    .app-header {
+        background-color: #121212 !important;
+    }
+}

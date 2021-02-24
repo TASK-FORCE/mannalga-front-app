@@ -13,7 +13,7 @@
             </v-tab>
         </v-tabs>
 
-        <v-tabs-items v-if="!isLoading"
+        <v-tabs-items v-show="!isLoading"
                       v-model="tab"
         >
             <v-tab-item value="main">

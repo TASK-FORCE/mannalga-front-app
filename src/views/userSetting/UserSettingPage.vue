@@ -1,7 +1,7 @@
 <template>
-    <div v-if="!isLoading">
+    <div v-show="!isLoading">
         <CommonHeader title="설정"
-                      @click="moveToClubListPage"
+                      @back="moveToClubListPage"
         />
         <UserSettingPageBody />
         <SimpleBtnFooter text="회원 탈퇴" />
