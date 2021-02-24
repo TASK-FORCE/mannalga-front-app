@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-tabs v-model="currentTab"
-                class="app-main-club-tab-header"
+                class="app-main-club-tab-header px-5"
                 centered
                 grow
         >

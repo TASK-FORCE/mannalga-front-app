@@ -57,21 +57,6 @@ export default {
                     clickCallback: changeThemeAndLoad,
                 },
                 {
-                    name: '개선사항 요청',
-                    icon: '$messageDraw',
-                    path: '',
-                },
-                {
-                    name: '공지사항',
-                    icon: '$bullhorn',
-                    path: '',
-                },
-                {
-                    name: '버전정보',
-                    icon: '$information',
-                    path: '',
-                },
-                {
                     name: '로그아웃',
                     icon: '$logout',
                     clickCallback: this.logout,

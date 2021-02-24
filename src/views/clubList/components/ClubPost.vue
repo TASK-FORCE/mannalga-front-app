@@ -1,5 +1,7 @@
 <template>
-    <div v-ripple>
+    <div v-ripple
+         class="club-post"
+    >
         <div class="pa-4 p-relative w-100">
             <div :key="club.seq"
                  class="d-flex"
@@ -46,7 +48,6 @@
                 </div>
             </div>
         </div>
-        <v-divider />
     </div>
 </template>
 
@@ -132,61 +133,70 @@ export default {
        scoped
 >
 
-.role-chip {
-    position: absolute;
-    top: 10px;
-    left: 5px;
-}
+.club-post {
 
-.club-info {
+    border-bottom: 1px solid #F5F5F5;
 
-    width: 100%;
-    padding-left: 1rem;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-
-    .club-title {
-        font-weight: bold;
-        font-size: 15px;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
+    .role-chip {
+        position: absolute;
+        top: 10px;
+        left: 5px;
     }
 
-    .club-description {
-        font-size: 12px;
-        color: #666666;
-        margin: 9px 0;
-        height: 18px;
-        line-height: 18px;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-    }
+    .club-info {
 
-    .sub-description {
-        color: #666666;
-        font-size: 11px;
-        overflow: hidden;
-        white-space: nowrap;
+        width: 100%;
+        padding-left: 1rem;
         text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
 
-        .sub-description-icon {
-            margin-right: 2px;
-            width: 12px;
-            height: 10px
+        .club-title {
+            font-weight: bold;
+            font-size: 15px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .club-description {
+            font-size: 12px;
+            color: #666666;
+            margin: 9px 0;
+            height: 18px;
+            line-height: 18px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .sub-description {
+            color: #666666;
+            font-size: 11px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+
+            .sub-description-icon {
+                margin-right: 2px;
+                width: 12px;
+                height: 10px
+            }
         }
     }
 }
 
 .theme--dark {
-    .club-description {
-        color: #9F9F9F;
-    }
+    .club-post {
+        border-color: #292929;
 
-    .sub-description {
-        color: #9F9F9F;
+        .club-description {
+            color: #9F9F9F;
+        }
+
+        .sub-description {
+            color: #9F9F9F;
+        }
     }
 }
 </style>

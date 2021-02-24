@@ -65,11 +65,7 @@
 }
 
 .theme--dark {
-    &.v-application {
-        background-color: #121212 !important;
-    }
-
-    .app-header {
+    &.v-application, &.v-sheet, .app-header, .v-card, .v-list, &.v-tabs > .v-tabs-bar {
         background-color: #121212 !important;
     }
 }

@@ -23,8 +23,8 @@
                                   readonly
                                   class="test"
                                   :rules="RULES.CLUB_INTEREST"
-                                  :value="interest && interest.name"
-                                  @click="openBottomSheetCard"
+                                  :value="selectedInterestNames"
+                                  @click="interestDialog = true"
                     />
                     <v-text-field label="지역"
                                   hide-details
@@ -32,7 +32,7 @@
                                   readonly
                                   :rules="RULES.CLUB_REGION"
                                   :value="selectedClubRegionNames"
-                                  @click="dialog = true"
+                                  @click="regionDialog = true"
                     />
                     <v-select v-model="maximumNumber"
                               label="모임 최대 인원"
@@ -58,9 +58,13 @@
                          :loading="loading"
                          @click="createClub"
         />
-        <RegionSelectDialog v-model="dialog"
+        <RegionSelectDialog v-model="regionDialog"
                             :selectedRegions="selectedRegions"
                             @selectRegions="regions => (selectedRegions = regions)"
+        />
+        <InterestSelectDialog v-model="interestDialog"
+                              :selectedInterests="selectedInterests"
+                              @selectInterests="interests => (selectedInterests = interests)"
         />
     </div>
 </template>
@@ -79,10 +83,12 @@ import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexS
 import { createClubMaximumNumberList } from '@/utils/common/commonUtils.js';
 import { RULES } from '@/utils/common/constant/rules.js';
 import RegionSelectDialog from '@/components/region/RegionSelectDialog.vue';
+import InterestSelectDialog from '@/components/interest/InterestSelectDialog.vue';
 
 export default {
     name: 'ClubCreatePageBody',
     components: {
+        InterestSelectDialog,
         RegionSelectDialog,
         ImageSelectBox,
         CommonCenterBtn,
@@ -94,21 +100,27 @@ export default {
             loading: false,
             items: createClubMaximumNumberList(10, 100, 10),
             RULES,
-            dialog: false,
+            regionDialog: false,
+            interestDialog: false,
             title: null,
             description: null,
             maximumNumber: null,
             imageUrl: null,
             interest: null,
+            selectedInterests: [],
             selectedRegions: [],
         };
     },
     computed: {
         isLoading: () => gettersHelper.isLoading(),
-        rootInterests: () => gettersHelper.rootInterests(),
         selectedClubRegionNames() {
             return this.selectedRegions
                 .map(({ superRegionRoot }) => superRegionRoot)
+                .join(', ');
+        },
+        selectedInterestNames() {
+            return this.selectedInterests
+                .map(({ name }) => name)
                 .join(', ');
         },
     },
@@ -141,7 +153,11 @@ export default {
                 description: this.description,
                 maximumNumber: this.maximumNumber,
                 imageUrl: this.imageUrl,
-                interest: this.interest,
+                selectedInterests: this.selectedInterests
+                    .map((interest, index) => ({
+                        priority: index + 1,
+                        seq: interest.seq,
+                    })),
                 selectedRegions: this.selectedRegions
                     .map((region, index) => ({
                         priority: index + 1,

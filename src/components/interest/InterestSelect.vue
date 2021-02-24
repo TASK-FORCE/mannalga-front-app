@@ -39,7 +39,6 @@
 
 <script>
 import { PATH } from '@/router/route_path_type.js';
-import BottomSheetRegionCard from '@/components/bottom-sheet/BottomSheetRegionCard.vue';
 import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.js';
 import CommonHeader from '@/components/header/CommonHeader.vue';
 import gettersHelper from '@/store/helper/GettersHelper.js';
@@ -69,10 +68,13 @@ export default {
             type: Boolean,
             default: false,
         },
+        maxSize: {
+            type: Number,
+            default: 5,
+        },
     },
     data() {
         return {
-            maxSize: 5,
             sheet: false,
             currentIndex: null,
             selectedInterest: [],
@@ -98,7 +100,7 @@ export default {
             }
 
             if (this.selectedInterestSeqs.length >= this.maxSize) {
-                mutationsHelper.openSnackBar(MESSAGE.SELECT_INTEREST_OVER_COUNT);
+                mutationsHelper.openSnackBar(MESSAGE.SELECT_INTEREST_OVER_COUNT(this.maxSize));
                 return;
             }
 

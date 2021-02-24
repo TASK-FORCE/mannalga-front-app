@@ -66,10 +66,7 @@ export default class RequestConverter {
         description: clubCreateInfo.description,
         maximumNumber: clubCreateInfo.maximumNumber,
         mainImageUrl: clubCreateInfo.imageUrl,
-        interestList: [{
-            seq: clubCreateInfo.interest.seq,
-            priority: 1,
-        }],
+        interestList: clubCreateInfo.selectedInterests,
         regionList: clubCreateInfo.selectedRegions,
     });
 
