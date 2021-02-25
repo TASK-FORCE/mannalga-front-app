@@ -15,6 +15,7 @@
 
         <v-tabs-items v-model="currentTab"
                       touchless
+                      :style="style"
         >
             <v-tab-item value="club">
                 <ClubList />
@@ -52,6 +53,7 @@ export default {
                 { name: '전체 모임', key: 'club' },
                 { name: '내 모임', key: 'myClub' },
             ],
+            style: {},
         };
     },
     computed: {
@@ -74,9 +76,31 @@ export default {
             actionsHelper.requestFirstClubList(disableLoading);
         }
     },
+    mounted() {
+        this.$nextTick(() => {
+            const header = document.querySelector('.app-main-club-tab-header');
+            if (header) {
+                this.style = {
+                    paddingTop: `${header.clientHeight}px`,
+                };
+            }
+        });
+    },
 };
 </script>
 
-<style scoped>
+<style scoped
+       lang="scss"
+>
+.app-main-club-tab-header {
+    position: fixed;
+    z-index: 5;
+}
 
+.theme--dark {
+    .app-main-club-tab-header {
+        background-color: #121212;
+    }
+
+}
 </style>
