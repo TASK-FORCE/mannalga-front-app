@@ -145,6 +145,9 @@ export default {
     height: 60px;
     overflow-x: scroll;
     background-color: #F5F5F5;
+    position: fixed;
+    z-index: 6;
+    width: 100%;
 }
 
 .theme--dark .search-filter-bar {

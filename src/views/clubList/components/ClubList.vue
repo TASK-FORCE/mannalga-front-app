@@ -3,6 +3,7 @@
         <ClubListSearchFilter class="club-search-filter" />
         <InfiniteScrollTemplate ref="clubScrollTemplate"
                                 name="club"
+                                :style="style"
                                 :firstPageCallback="this.fetchFirstPage"
                                 :nextPageCallback="this.fetchNextPage"
                                 :pageElements="clubList"
@@ -48,6 +49,7 @@ export default {
             sentinel: null,
             listGroup: null,
             isRequesting: false,
+            style: {},
         };
     },
     computed: {
@@ -57,11 +59,26 @@ export default {
         hasSearchText() {
             return this.clubSearchFilterInfo.searchText;
         },
+        resolveStyle() {
+            return {
+                'padding-top': '50px !important',
+            };
+        },
     },
     watch: {
         clubSearchFilterInfo() {
             this.$refs.clubScrollTemplate.requestFirstPage();
         },
+    },
+    mounted() {
+        this.$nextTick(() => {
+            const header = document.querySelector('.club-search-filter');
+            if (header) {
+                this.style = {
+                    paddingTop: `${header.clientHeight}px !important`,
+                };
+            }
+        });
     },
     methods: {
         fetchFirstPage() {
