@@ -61,15 +61,6 @@ export default class RequestConverter {
         };
     };
 
-    static convertClubCreateInfo = (clubCreateInfo) => ({
-        name: clubCreateInfo.title,
-        description: clubCreateInfo.description,
-        maximumNumber: clubCreateInfo.maximumNumber,
-        mainImageUrl: clubCreateInfo.imageUrl,
-        interestList: clubCreateInfo.selectedInterests,
-        regionList: clubCreateInfo.selectedRegions,
-    });
-
     static convertUserRegionsForChange = (selectedRegions) => buildUserRegionsDto(selectedRegions);
 
     static convertUserInterestForChange = (selectedInterests) => buildUserInterestsDto(selectedInterests);

@@ -23,7 +23,7 @@
                     <div class="px-16">
                         <v-btn class="selected-btn"
                                text
-                               @click="openSheet(index)"
+                               @click="openSheet(index + 1)"
                         >
                             <div>{{ getText(region) }}</div>
                         </v-btn>
@@ -113,7 +113,7 @@ export default {
         selectSubRegion(region) {
             this.sheet = false;
             if (this.currentIndex) {
-                this.selectedRegions.splice(this.currentIndex, 1, region);
+                this.selectedRegions.splice(this.currentIndex - 1, 1, region);
             } else {
                 this.selectedRegions.push(region);
             }
@@ -126,7 +126,7 @@ export default {
             return this.submitCallback(this.selectedRegions);
         },
         cancelSelectedRegion() {
-            this.selectedRegions.splice(this.currentIndex, 1);
+            this.selectedRegions.splice(this.currentIndex - 1, 1);
             this.sheet = false;
             this.currentIndex = null;
         },

@@ -62,7 +62,13 @@ const routes = [
     {
         path: PATH.CLUB.CREATE,
         name: 'ClubCreate',
-        component: () => import('@/views/clubCreate/ClubCreatePage.vue'),
+        component: () => import('@/views/clubCreateAndEdit/ClubCreatePage.vue'),
+        beforeEnter: validationAuthentication,
+    },
+    {
+        path: PATH.CLUB.EDIT,
+        name: 'ClubEdit',
+        component: () => import('@/views/clubCreateAndEdit/ClubEditPage.vue'),
         beforeEnter: validationAuthentication,
     },
     {
