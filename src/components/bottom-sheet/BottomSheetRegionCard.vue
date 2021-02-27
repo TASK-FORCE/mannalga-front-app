@@ -14,7 +14,8 @@
                 {{ title }}
             </div>
             <v-spacer />
-            <v-btn class="cancel-btn"
+            <v-btn v-if="showCancelBtn"
+                   class="cancel-btn"
                    outlined
                    small
                    @click="$emit('cancelSelectedRegion')"

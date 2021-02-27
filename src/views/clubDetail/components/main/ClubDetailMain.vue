@@ -3,8 +3,11 @@
         <ClubDetailMainClubInfo :clubInfo="clubInfo"
                                 :currentUserInfo="currentUserInfo"
         />
-        <MiddleDivider :height="10" />
-        <ClubDetailMainMember :clubUserList="clubUserList" />
+        <MiddleDivider :height="5" />
+        <ClubDetailMainMember :clubInfo="clubInfo"
+                              :clubUserList="clubUserList"
+                              :currentUserInfo="currentUserInfo"
+        />
     </div>
 </template>
 

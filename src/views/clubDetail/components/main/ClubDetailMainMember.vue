@@ -1,24 +1,37 @@
 <template>
-    <div class="px-1">
-        <div class="member-title ml-2 mt-2">
-            <v-icon color="#ff9800"
-                    large
-                    v-text="'$twoPeople'"
-            />
-            모임 멤버({{ simpleUsers.length }})
+    <div class="meeting-members-wrapper">
+        <div class="title">
+            모임 멤버 ({{ simpleUsers.length }}/{{ clubInfo.maximumNumber }})
         </div>
-        <SimpleUserProfileList :users="simpleUsers" />
+        <div class="member-infos">
+            <div v-for="user in simpleUsers"
+                 :key="user.seq"
+                 class="mt-3"
+            >
+                <ClubMemberInfo :user="user"
+                                :currentUserInfo="currentUserInfo"
+                />
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
-import SimpleUserProfileList from '@/components/user/SimpleUserProfileList.vue';
+import ClubMemberInfo from '@/components/user/ClubMemberInfo.vue';
 
 export default {
     name: 'ClubDetailMainMember',
-    components: { SimpleUserProfileList },
+    components: { ClubMemberInfo },
     props: {
         clubUserList: Array,
+        clubInfo: {
+            type: Object,
+            required: true,
+        },
+        currentUserInfo: {
+            type: Object,
+            required: true,
+        },
     },
     computed: {
         simpleUsers() {
@@ -33,9 +46,26 @@ export default {
 };
 </script>
 
-<style scoped>
-.member-title {
-    font-size: 1.4rem;
-    font-weight: bold;
+<style scoped
+       lang="scss"
+>
+.meeting-members-wrapper {
+    padding: 20px 15px;
+
+    .title {
+        font-size: 17px;
+        font-weight: bold;
+        color: #292929;
+    }
+
+    .member-infos {
+        margin-top: 20px;
+    }
+}
+
+.theme--dark {
+    .title {
+        color: #F5F5F5;
+    }
 }
 </style>

@@ -1,4 +1,4 @@
-.app-body, .app-header, .v-app-bar, .footer {
+.app-body, .app-header, .v-app-bar, .footer, .app-main-club-tab-header, .search-filter-bar {
     max-width: 600px !important;
     margin-left: auto !important;
     margin-right: auto !important;
@@ -65,7 +65,7 @@
 }
 
 .theme--dark {
-    &.v-application, &.v-sheet, .app-header, .v-card, .v-list, &.v-tabs > .v-tabs-bar {
+    &.v-application, &.v-sheet, &.v-tabs-items, .app-header, .v-card, .v-list, &.v-tabs > .v-tabs-bar {
         background-color: #121212 !important;
     }
 }
