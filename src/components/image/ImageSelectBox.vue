@@ -1,10 +1,10 @@
 <template>
     <div>
-        <div v-if="imageUrl"
+        <div v-if="imageUrl || initImage"
              class="select-image-wrapper"
              @click="openDialog = true"
         >
-            <v-img :src="imageUrl"
+            <v-img :src="imageUrl || initImage"
                    :style="resolveImageStyle"
                    max-height="600"
             />
@@ -31,7 +31,7 @@
                       @handleUploadedImgDto="handleUploadedImgDto"
         />
         <ImageCarouselDialog v-model="openDialog"
-                             :imgUrls="[imageUrl]"
+                             :imgUrls="[imageUrl || initImage]"
         >
             <template v-slot:footer>
                 <div class="pa-2 text-center w-100">
@@ -73,6 +73,9 @@ export default {
         fixImage: {
             type: Boolean,
             default: false,
+        },
+        initImage: {
+            type: String,
         },
     },
     data() {

@@ -1,5 +1,4 @@
 import { actionsNormalTemplate } from '@/store/utils/actionsTemplate.js';
-import RequestConverter from '@/store/converter/RequestConverter.js';
 import DefaultBuilder from '@/store/utils/DefaultBuilder.js';
 import clubApi from '@/apis/ClubApi.js';
 import { MODULE } from '@/store/type/type.js';
@@ -55,9 +54,8 @@ const actions = {
             commit('setClubUserList', userList);
         });
     },
-    async requestClubCreate({ commit }, clubCreateInfo) {
+    async requestClubCreate({ commit }, clubCreateRequestDto) {
         return actionsNormalTemplate(async () => {
-            const clubCreateRequestDto = RequestConverter.convertClubCreateInfo(clubCreateInfo);
             await clubApi.postClubCreate(clubCreateRequestDto);
             commit(`${MODULE.CLUB_LIST}/initClubListAndPage`, {}, { root: true });
             commit(`${MODULE.CLUB_LIST}/initMyClubListAndPage`, {}, { root: true });

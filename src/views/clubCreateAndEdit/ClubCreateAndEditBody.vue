@@ -3,6 +3,7 @@
         <ImageSelectBox class="image-box"
                         text="모임 대표 사진 등록"
                         height="140"
+                        :initImage="imageUrl"
                         @handleImageUrl="value => imageUrl = value"
         />
         <v-bottom-sheet v-model="sheet"
@@ -12,7 +13,7 @@
                 <v-form ref="clubCreateForm"
                         class="club-create-form"
                 >
-                    <v-text-field v-model="title"
+                    <v-text-field v-model="name"
                                   label="모임명"
                                   hide-details
                                   :rules="RULES.CLUB_TITLE"
@@ -49,14 +50,13 @@
                     ></v-textarea>
                 </v-form>
             </template>
-            <BottomSheetInterestCard @selectSubInterest="selectClubInterest" />
         </v-bottom-sheet>
-        <CommonCenterBtn text="모임 만들기"
+        <CommonCenterBtn :text="btnText"
                          color="primary"
                          class="mt-5"
                          :outlined="true"
                          :loading="loading"
-                         @click="createClub"
+                         @click="click"
         />
         <RegionSelectDialog v-model="regionDialog"
                             :selectedRegions="selectedRegions"
@@ -73,12 +73,7 @@
 
 import CommonCenterBtn from '@/components/button/CommonCenterBtn.vue';
 import ImageSelectBox from '@/components/image/ImageSelectBox.vue';
-import BottomSheetInterestCard from '@/components/bottom-sheet/BottomSheetInterestCard.vue';
-import actionsHelper from '@/store/helper/ActionsHelper.js';
 import gettersHelper from '@/store/helper/GettersHelper.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
-import { PATH } from '@/router/route_path_type.js';
-import { MESSAGE } from '@/utils/common/constant/messages.js';
 import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.js';
 import { createClubMaximumNumberList } from '@/utils/common/commonUtils.js';
 import { RULES } from '@/utils/common/constant/rules.js';
@@ -86,13 +81,31 @@ import RegionSelectDialog from '@/components/region/RegionSelectDialog.vue';
 import InterestSelectDialog from '@/components/interest/InterestSelectDialog.vue';
 
 export default {
-    name: 'ClubCreatePageBody',
+    name: 'ClubCreateAndEditBody',
     components: {
         InterestSelectDialog,
         RegionSelectDialog,
         ImageSelectBox,
         CommonCenterBtn,
-        BottomSheetInterestCard,
+    },
+    props: {
+        btnText: String,
+        /**
+         * name
+         * description
+         * maximumNumber
+         * imageUrl
+         * interestList
+         * regionList
+         */
+        context: {
+            type: Object,
+            default: () => {},
+        },
+        submitClickCallback: {
+            type: Function, // (dto) => {} : Promise
+            required: true,
+        },
     },
     data() {
         return {
@@ -102,11 +115,10 @@ export default {
             RULES,
             regionDialog: false,
             interestDialog: false,
-            title: null,
+            name: null,
             description: null,
             maximumNumber: null,
             imageUrl: null,
-            interest: null,
             selectedInterests: [],
             selectedRegions: [],
         };
@@ -127,6 +139,14 @@ export default {
     created() {
         regionAndInterestVuexService.dispatch(true);
     },
+    mounted() {
+        this.name = this.context.name;
+        this.description = this.context.description;
+        this.maximumNumber = this.context.maximumNumber;
+        this.imageUrl = this.context.imageUrl;
+        this.selectedInterests = this.context.interestList || [];
+        this.selectedRegions = this.context.regionList || [];
+    },
     methods: {
         openBottomSheetCard() {
             this.sheet = true;
@@ -135,30 +155,26 @@ export default {
             this.sheet = false;
             this.interest = interest;
         },
-        createClub() {
+        click() {
             if (this.$refs.clubCreateForm.validate()) {
                 this.loading = true;
                 const clubCreateDto = this.buildClubCreateDto();
-                actionsHelper.requestClubCreate(clubCreateDto)
-                    .then(() => {
-                        mutationsHelper.openSnackBar(MESSAGE.SUCCESS_CLUB_CREATE);
-                        this.$router.push(PATH.CLUB_LIST);
-                    })
+                this.submitClickCallback(clubCreateDto)
                     .finally(() => (this.loading = false));
             }
         },
         buildClubCreateDto() {
             return {
-                title: this.title,
+                name: this.name,
                 description: this.description,
                 maximumNumber: this.maximumNumber,
                 imageUrl: this.imageUrl,
-                selectedInterests: this.selectedInterests
+                interestList: this.selectedInterests
                     .map((interest, index) => ({
                         priority: index + 1,
                         seq: interest.seq,
                     })),
-                selectedRegions: this.selectedRegions
+                regionList: this.selectedRegions
                     .map((region, index) => ({
                         priority: index + 1,
                         seq: region.seq,

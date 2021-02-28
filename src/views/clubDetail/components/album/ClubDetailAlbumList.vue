@@ -1,5 +1,5 @@
 <template>
-    <v-container class="py-0">
+    <div>
         <InfiniteScrollTemplate name="album"
                                 :firstPageCallback="fetchFirstPage"
                                 :nextPageCallback="fetchNextPage"
@@ -10,6 +10,7 @@
             <template v-slot:list-main>
                 <v-row v-for="(twoAlbums, index) in twoAlbumsList"
                        :key="index"
+                       class="px-3"
                 >
                     <v-col
                         v-for="album in twoAlbums"
@@ -38,7 +39,7 @@
                         @click="isOpenImageRegisterDialog = true"
         />
         <FixedScrollToTopBtn color="red" />
-    </v-container>
+    </div>
 </template>
 
 <script>

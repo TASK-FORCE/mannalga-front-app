@@ -13,6 +13,7 @@ export const PATH = {
     },
     CLUB: {
         CREATE: '/create/club',
+        EDIT: '/club/edit/:clubSeq',
         MAIN: '/club/:clubSeq',
         BOARD_CREATE: '/club/:clubSeq/create/board',
         BOARD_POST: '/club/:clubSeq/board/:boardSeq',

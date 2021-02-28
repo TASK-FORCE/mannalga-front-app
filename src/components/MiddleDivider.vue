@@ -1,5 +1,5 @@
 <template>
-    <div :class="isDarkTheme ? 'dark-bg' :'white-bg'"
+    <div class="divider"
          :style="{'height': `${height}px`}"
     />
 </template>
@@ -23,13 +23,16 @@ export default {
 };
 </script>
 
-<style scoped>
-.white-bg {
-    background-color: #eeeded;
+<style scoped
+      lang="scss"
+>
+.divider {
+  background-color: #F5F5F5;
 }
 
-.dark-bg {
-    background-color: #3c3b3b;
+.theme--dark {
+  .divider {
+    background-color: #292929;
+  }
 }
-
 </style>

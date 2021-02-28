@@ -4,7 +4,7 @@
               fullscreen
     >
         <v-card>
-            <InterestSelect :selectedRegionsCallback="getSelectedInterests"
+            <InterestSelect :selectedInterestsCallback="getSelectedInterests"
                             :submitCallback="submit"
                             :backCallback="close"
                             :maxSize="3"
@@ -40,6 +40,7 @@ export default {
     },
     methods: {
         getSelectedInterests() {
+            console.log(this.selectedInterests);
             return new Promise(resolve => resolve([...this.selectedInterests]));
         },
         submit(selectedInterests) {
