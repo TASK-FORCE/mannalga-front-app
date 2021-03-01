@@ -33,6 +33,7 @@ export default {
         changeRequest(selectedRegions) {
             actionsHelper.requestChangeUserRegions(selectedRegions)
                 .then(() => {
+                    actionsHelper.requestUserProfile();
                     mutationsHelper.openSnackBar(MESSAGE.SUCCESS_CHANGE_REGIONS);
                     this.$router.push(PATH.USER.SETTINGS);
                 });

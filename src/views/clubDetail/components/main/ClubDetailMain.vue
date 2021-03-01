@@ -9,7 +9,6 @@
                               :currentUserInfo="currentUserInfo"
         />
         <div v-if="meetingBtnContext">
-
             <MiddleDivider :height="1" />
             <div class="pa-3">
                 <v-btn width="100%"

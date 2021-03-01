@@ -53,7 +53,7 @@
         </v-bottom-sheet>
         <CommonCenterBtn :text="btnText"
                          color="primary"
-                         class="mt-5"
+                         class="my-5"
                          :outlined="true"
                          :loading="loading"
                          @click="click"
@@ -100,7 +100,6 @@ export default {
          */
         context: {
             type: Object,
-            default: () => {},
         },
         submitClickCallback: {
             type: Function, // (dto) => {} : Promise
@@ -140,6 +139,9 @@ export default {
         regionAndInterestVuexService.dispatch(true);
     },
     mounted() {
+        if (!this.context) {
+            return;
+        }
         this.name = this.context.name;
         this.description = this.context.description;
         this.maximumNumber = this.context.maximumNumber;

@@ -38,6 +38,7 @@ export default {
         submit(selectedInterests) {
             return actionsHelper.requestChangeUserInterests(selectedInterests)
                 .then(() => {
+                    actionsHelper.requestUserProfile();
                     this.$router.push(PATH.USER.SETTINGS);
                     mutationsHelper.openSnackBar(MESSAGE.SUCCESS_CHANGE_REGIONS);
                 });
