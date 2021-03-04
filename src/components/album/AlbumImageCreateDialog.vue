@@ -68,20 +68,18 @@ export default {
         return {
             RULES,
             title: null,
-            imgUrl: null,
-            fileName: null,
+            imageDto: null,
         };
     },
     methods: {
         requestAlbumCreate() {
             if (this.$refs.form.validate()) {
-                if (this.imgUrl && this.fileName) {
+                if (this.imageDto) {
                     const clubAlbumCreateInfo = {
                         clubSeq: routerHelper.clubSeq(),
                         clubAlbumCreateDto: {
                             title: this.title,
-                            file_name: this.fileName,
-                            imgUrl: this.imgUrl,
+                            image: { ...this.imageDto },
                         },
                     };
                     actionsHelper.requestAlbumCreate(clubAlbumCreateInfo)
@@ -95,9 +93,8 @@ export default {
                 mutationsHelper.openSnackBar(MESSAGE.SELECT_IMAGE_REQUIRE);
             }
         },
-        changeImageDto({ absolutePath, fileName }) {
-            this.imgUrl = absolutePath;
-            this.fileName = fileName;
+        changeImageDto(imageDto) {
+            this.imageDto = imageDto;
         },
         clear() {
             this.title = null;
