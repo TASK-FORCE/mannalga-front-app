@@ -12,7 +12,7 @@
                        width="105"
                        style="border-radius: 5px;"
                 />
-                <RoleChip v-if="role"
+                <RoleChip v-if="role && role !== 'MEMBER'"
                           :role="role"
                           class="role-chip"
                 />

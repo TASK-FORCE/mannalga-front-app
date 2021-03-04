@@ -13,5 +13,6 @@ const MESSAGE = {
     SUCCESS_CANCEL_MEETING_APPLICATION: '만남 취소 성공!',
     SELECT_INTEREST_OVER_COUNT: (size) => `관심사는 최대 ${size}개까지 선택할 수 있습니다.`,
     EMPTY_COMMENT_TEXT: '댓글을 작성해주세요.',
+    WITHDRAW_CLUB: '모임에 탈퇴되었습니다.',
 };
 export { MESSAGE };
