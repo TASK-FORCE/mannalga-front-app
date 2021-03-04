@@ -43,6 +43,22 @@ const mutations = {
     setClubUserList(state, userList) {
         state.clubUserList = userList;
     },
+    changeUserRole(state, { clubUserSeq, role }) {
+        state.clubUserList = state.clubUserList
+            .map(user => {
+                if (user.clubUserSeq === clubUserSeq) {
+                    return {
+                        ...user,
+                        role: [role],
+                    };
+                }
+                return user;
+            });
+    },
+    deleteUser(state, { clubUserSeq }) {
+        state.clubUserList = state.clubUserList
+            .filter(user => user.clubUserSeq !== clubUserSeq);
+    },
 };
 
 const actions = {
@@ -77,6 +93,26 @@ const actions = {
             commit('setClubInfo', clubInfo);
             commit('setCurrentUserInfo', userInfo);
             commit('setClubUserList', userList);
+        });
+    },
+
+    async requestChangeUserRole({ commit, dispatch }, clubUserRoleChangeInfo) {
+        return actionsNormalTemplate(async () => {
+            await clubApi.putUserRole(clubUserRoleChangeInfo);
+            commit('changeUserRole', clubUserRoleChangeInfo);
+        });
+    },
+
+    async requestKickUser({ commit, dispatch }, clubUserKickInfo) {
+        return actionsNormalTemplate(async () => {
+            await clubApi.deleteKickUser(clubUserKickInfo);
+            commit('deleteUser', clubUserKickInfo);
+        });
+    },
+
+    async requestClubWithdraw({ commit, dispatch }, clubSeq) {
+        return actionsNormalTemplate(async () => {
+            await clubApi.deleteWithdraw(clubSeq);
         });
     },
 };

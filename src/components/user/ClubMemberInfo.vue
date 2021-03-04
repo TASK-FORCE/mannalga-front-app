@@ -15,11 +15,12 @@
         </div>
         <v-spacer />
         <div class="d-flex">
-            <SquareTag v-if="manageTagText"
+            <SquareTag v-if="managementContext"
                        v-ripple
-                       :text="manageTagText"
+                       :text="managementContext.text"
                        blur
                        class="mr-2"
+                       @click="managementContext.click"
             />
             <RoleTag :roleType="user.role" />
         </div>
@@ -31,6 +32,9 @@ import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
 import SquareTag from '@/components/tag/SquareTag.vue';
 import RoleTag from '@/components/tag/RoleTag.vue';
 import { CLUB_ROLE } from '@/utils/role.js';
+import MiddleDivider from '@/components/MiddleDivider.vue';
+import actionsHelper from '@/store/helper/ActionsHelper.js';
+import routerHelper from '@/router/RouterHelper.js';
 
 export default {
     name: 'ClubMemberInfo',
@@ -46,30 +50,57 @@ export default {
         },
     },
     computed: {
+        clubSeq: () => routerHelper.clubSeq(),
         isMe() {
             return false;
         },
-        manageTagText() {
+        managementContext() {
             if (this.currentUserInfo.isMaster) {
-                if (this.isMe) return '';
-                return '관리';
+                if (this.isMe) return null;
+                return {
+                    text: '관리',
+                    click: this.openManagementDialog,
+                };
             }
 
             if (this.currentUserInfo.isManager) {
                 if (this.isMe) {
-                    return '탈퇴';
+                    return {
+                        text: '탈퇴',
+                        click: this.openWithdrawnDialog,
+                    };
                 }
-                if (this.user.role === CLUB_ROLE.MASTER) {
-                    return '';
+                if (this.user.role === CLUB_ROLE.MASTER || this.user.role === CLUB_ROLE.MANAGER) {
+                    return null;
                 }
-                return '추방';
+                return {
+                    text: '추방',
+                    click: this.openKickDialog,
+                };
             }
 
             if (this.isMe) {
-                return '탈퇴';
+                return {
+                    text: '탈퇴',
+                    click: this.openWithdrawnDialog,
+                };
             }
 
-            return '';
+            return null;
+        },
+    },
+    methods: {
+        openManagementDialog() {
+            this.$emit('openManagementDialog', this.user);
+        },
+        openWithdrawnDialog() {
+            this.$emit('openWithdrawnDialog');
+        },
+        openKickDialog() {
+            this.$emit('openKickDialog', this.user);
+        },
+        closeDialog() {
+            this.managementDialog = false;
         },
     },
 };
