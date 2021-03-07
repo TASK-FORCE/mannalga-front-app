@@ -19,10 +19,12 @@
                        v-ripple
                        :text="managementContext.text"
                        blur
-                       class="mr-2"
+                       class="mr-2 my-auto"
                        @click="managementContext.click"
             />
-            <RoleTag :roleType="user.role" />
+            <RoleTag :roleType="user.role"
+                     class="my-auto"
+            />
         </div>
     </div>
 </template>

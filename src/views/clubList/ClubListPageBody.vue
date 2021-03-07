@@ -95,6 +95,7 @@ export default {
 .app-main-club-tab-header {
     position: fixed;
     z-index: 5;
+    background-color: #FFFFFF;
 }
 
 .theme--dark {

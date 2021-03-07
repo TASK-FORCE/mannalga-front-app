@@ -33,7 +33,7 @@ export default {
     border-radius: 7px;
 
     .tag-text {
-        color: #292929;
+        color: #FFFFFF;
         font-size: 13px;
         font-weight: bold;
     }
