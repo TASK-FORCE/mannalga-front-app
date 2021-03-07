@@ -22,10 +22,12 @@ const mutations = {
     },
     openSnackBar(state, snackBarOptions) {
         state.snackBarOptions = snackBarOptions;
-        state.openSnackBar = true;
     },
     closeSnackBar(state) {
-        state.openSnackBar = false;
+        state.snackBarOptions = {
+            ...state.snackBarOptions,
+            open: false,
+        };
     },
     focusChildCommentInput(state) {
         state.isFocusingChildCommentInput = true;
