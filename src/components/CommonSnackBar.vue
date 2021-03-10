@@ -1,30 +1,20 @@
 <template>
-    <v-snackbar v-model="open"
-                v-bind="{[snackBarOptions.location]: true}"
-                :timeout="snackBarOptions.time"
-    >
-        {{ snackBarOptions.message }}
-
-        <template v-slot:action="{ attrs }">
-            <v-btn
-                :color="snackBarOptions.color"
-                outlined
-                small
-                v-bind="attrs"
-                @click="close"
-            >
-                닫기
-            </v-btn>
-        </template>
-    </v-snackbar>
+    <SnackBar :open="open"
+              :snackBarOptions="snackBarOptions"
+              btnText="닫기"
+              @click="close"
+              @input="value => !value ? close() : null"
+    />
 </template>
 
 <script>
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import mutationsHelper from '@/store/helper/MutationsHelper.js';
+import SnackBar from '@/components/SnackBar.vue';
 
 export default {
     name: 'CommonSnackBar',
+    components: { SnackBar },
     data() {
         return {
             open: false,
@@ -36,11 +26,6 @@ export default {
     watch: {
         snackBarOptions(value) {
             this.open = value.open;
-        },
-        open(value) {
-            if (value === false) {
-                this.close();
-            }
         },
     },
     methods: {

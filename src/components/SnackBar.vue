@@ -2,6 +2,7 @@
     <v-snackbar :value="open"
                 v-bind="{[snackBarOptions.location]: true}"
                 :timeout="snackBarOptions.time"
+                @input="value => $emit('input', value)"
     >
         {{ snackBarOptions.message }}
 
