@@ -1,8 +1,9 @@
 <template>
-    <SnackBar :open="safeOpen"
+    <SnackBar :open="open"
               :snackBarOptions="snackBarOptions"
               btnText="닫기"
-              @click="safeOpen.set()"
+              @click="close"
+              @input="value => !value ? close() : null"
     />
 </template>
 
@@ -14,16 +15,22 @@ import SnackBar from '@/components/SnackBar.vue';
 export default {
     name: 'CommonSnackBar',
     components: { SnackBar },
+    data() {
+        return {
+            open: false,
+        };
+    },
     computed: {
         snackBarOptions: () => gettersHelper.snackBarOptions(),
-        openSnackBar: () => gettersHelper.openSnackBar(),
-        safeOpen: {
-            get() {
-                return this.openSnackBar;
-            },
-            set() {
-                mutationsHelper.closeSnackBar();
-            },
+    },
+    watch: {
+        snackBarOptions(value) {
+            this.open = value.open;
+        },
+    },
+    methods: {
+        close() {
+            mutationsHelper.closeSnackBar();
         },
     },
 };

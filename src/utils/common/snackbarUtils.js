@@ -4,11 +4,13 @@ class SnackBarOption {
         location = SNACKBAR_LOCATION.BOTTOM,
         color = 'blue',
         time = 2000,
+        open = true,
     ) {
         this.message = message;
         this.location = location;
         this.color = color;
         this.time = time;
+        this.open = open;
     }
 }
 
