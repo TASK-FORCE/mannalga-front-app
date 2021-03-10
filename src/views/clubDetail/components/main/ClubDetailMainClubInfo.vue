@@ -11,11 +11,11 @@
                 <v-icon size="17"
                         v-text="'$mapMarker'"
                 />
-                <span class="region-text">{{ clubRegionsText }}</span>
+                <span class="region-title">{{ clubRegionsText }}</span>
             </div>
             <div class="d-flex align-center mt-2">
                 <WindMill />
-                <span class="interest-text">{{ clubInterestsText }}</span>
+                <span class="interest-title">{{ clubInterestsText }}</span>
             </div>
         </div>
         <MiddleDivider class="mt-5"
@@ -146,7 +146,7 @@ export default {
     padding: 0 20px;
     margin-top: 15px;
 
-    .interest-text, .region-text {
+    .interest-title, .region-title {
         margin-left: 6px;
         font-size: .8rem;
         color: #292929;
@@ -164,7 +164,7 @@ export default {
 }
 
 .theme--dark {
-    .club-name, .interest-text, .region-text, .description {
+    .club-name, .interest-title, .region-title, .description {
         color: #F5F5F5;
     }
 }

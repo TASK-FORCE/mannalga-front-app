@@ -3,19 +3,14 @@
                app
     >
         <v-btn icon
+               class="back-btn"
                @click="moveToClubListPage"
         >
-            <v-icon v-text="'$back'"/>
+            <v-icon v-text="'$back'" />
         </v-btn>
-        <h3 class="header-club-name">{{ clubName }}</h3>
-        <v-spacer></v-spacer>
-
-        <v-btn icon>
-            <v-icon v-text="'$shareVariant'"/>
-        </v-btn>
-        <v-btn icon>
-            <v-icon v-text="'$cogs'"/>
-        </v-btn>
+        <div class="header-club-name">{{ clubName }}</div>
+        <v-spacer />
+        <UserSettingPageEnterAvatar />
     </v-app-bar>
 </template>
 
@@ -26,9 +21,11 @@ import clubDetailVuexService from '@/store/service/ClubDetailVuexService.js';
 import lastScrollPositionCache from '@/utils/cache/LastScrollPositionCache.js';
 import lastClubTabCache from '@/utils/cache/LastClubTabCache.js';
 import routerHelper from '@/router/RouterHelper.js';
+import UserSettingPageEnterAvatar from '@/components/UserSettingPageEnterAvatar.vue';
 
 export default {
     name: 'ClubDetailPageHeader',
+    components: { UserSettingPageEnterAvatar },
     data() {
         return {
             clubListPath: PATH.CLUB_LIST,
@@ -48,10 +45,25 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped
+       lang="scss"
+>
 .header-club-name {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-size: 18px;
+    font-weight: bold;
+    color: #292929;
+}
+
+.back-btn {
+    color: #292929 !important;
+}
+
+.theme--dark {
+    .header-club-name, .back-btn {
+        color: #F5F5F5 !important;
+    }
 }
 </style>

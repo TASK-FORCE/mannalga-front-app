@@ -1,14 +1,16 @@
 <template>
     <div>
-        <v-list class="py-0 px-2">
-            <v-divider />
-            <UserSettingProfile :userProfile="userProfile" />
-            <div v-for="setting in settings"
-                 :key="setting.name"
-            >
-                <UserSettingTemplate :setting="setting" />
-            </div>
-        </v-list>
+        <UserSettingProfile :userProfile="userProfile" />
+        <MiddleDivider :height="5" />
+        <div v-for="setting in settings"
+             :key="setting.name"
+        >
+            <UserSettingTemplate :setting="setting" />
+        </div>
+        <SettingBar
+            title="어두운 테마 사용"
+            icon="water"
+        />
     </div>
 </template>
 
@@ -22,10 +24,12 @@ import InterestIcons from '@/components/interest/InterestIcons.vue';
 import { changeThemeAndLoad } from '@/plugins/vuetify.js';
 import { PATH } from '@/router/route_path_type.js';
 import mutationsHelper from '@/store/helper/MutationsHelper.js';
+import MiddleDivider from '@/components/MiddleDivider.vue';
+import SettingBar from '@/components/SettingBar.vue';
 
 export default {
     name: 'UserSettingPageBody',
-    components: { UserSettingProfile, UserSettingTemplate },
+    components: { SettingBar, MiddleDivider, UserSettingProfile, UserSettingTemplate },
     computed: {
         userProfile: () => gettersHelper.userProfile(),
         regionsByPriority() {
@@ -34,23 +38,6 @@ export default {
         },
         settings() {
             return [
-                {
-                    name: '지역',
-                    icon: '$mapMarker',
-                    path: PATH.USER.REGION_EDIT,
-                    text: this.createRegionsNameText(),
-                },
-                {
-                    name: '관심사',
-                    icon: '$accountHeart',
-                    path: PATH.USER.INTEREST_EDIT,
-                    component: this.createInterestIconsComponent(),
-                },
-                {
-                    name: '알림설정',
-                    icon: '$bell',
-                    path: '',
-                },
                 {
                     name: '테마 변경(클릭)',
                     icon: '$brush',
@@ -65,15 +52,6 @@ export default {
         },
     },
     methods: {
-        createInterestIconsComponent() {
-            return RenderFunction.createComponent(InterestIcons, { interestListWithPriority: this.userProfile.userInterests });
-        },
-        createRegionsNameText() {
-            if (this.regionsByPriority && this.regionsByPriority.length > 0) {
-                return this.regionsByPriority.map(({ name }) => name).reduce((prev, cur) => `${prev}, ${cur}`);
-            }
-            return '';
-        },
         logout() {
             mutationsHelper.removeAppToken();
             this.$router.push(PATH.LOGIN);
