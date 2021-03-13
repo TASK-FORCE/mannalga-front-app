@@ -11,11 +11,13 @@
         </v-main>
         <Progress v-show="isLoading" />
         <CommonSnackBar />
-        <v-btn class="temp-btn"
-               fab
-               color="red"
-               x-small
-               @click="changeTheme"
+        <v-btn
+            v-if="isDevEnv"
+            class="temp-btn"
+            fab
+            color="red"
+            x-small
+            @click="changeTheme"
         >
             <v-icon class="white--text"
                     v-text="'$plus'"
@@ -33,6 +35,11 @@ import gettersHelper from '@/store/helper/GettersHelper.js';
 export default {
     name: 'App',
     components: { CommonSnackBar, Progress },
+    data() {
+        return {
+            isDevEnv: process.env.NODE_ENV !== 'production',
+        };
+    },
     computed: {
         isLoading: () => gettersHelper.isLoading(),
     },

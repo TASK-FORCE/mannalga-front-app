@@ -1,11 +1,11 @@
 <template>
     <div v-ripple
-         class="pl-5 pr-3 d-flex"
+         class="pl-5 pr-3 mt-4 d-flex"
          @click="$emit('click')"
     >
         <div class="my-auto">
             <WindMill v-if="isWindmill"
-                      color="#292929"
+                      :color="windMillColor"
                       :width="18"
                       :height="18"
                       class="windmill mt-1"
@@ -37,6 +37,7 @@
 
 <script>
 import WindMill from '@/components/icons/WindMill.vue';
+import gettersHelper from '@/store/helper/GettersHelper.js';
 
 export default {
     name: 'SettingBar',
@@ -56,11 +57,19 @@ export default {
         isWindmill() {
             return this.icon === 'windmill';
         },
+        windMillColor() {
+            if (gettersHelper.isDarkTheme()) {
+                return '#F5F5F5';
+            }
+            return '#292929';
+        },
     },
 };
 </script>
 
-<style scoped>
+<style scoped
+       lang="scss"
+>
 .icon {
     color: #292929 !important;
 }
@@ -92,5 +101,19 @@ export default {
     word-break: keep-all;
     text-align: right;
     width: 100%;
+}
+
+.theme--dark {
+    .icon, .bar-title {
+        color: #F5F5F5 !important;
+    }
+
+    .chevron {
+        color: #666666 !important;
+    }
+
+    .bar-description {
+        color: #9f9f9f;
+    }
 }
 </style>

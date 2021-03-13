@@ -29,7 +29,6 @@ export default {
             clubSearchPagePath: PATH.CLUB.SEARCH,
             searchText: null,
             searchCallback: _.debounce(this.search, SEARCH_WAIT_TIME),
-            isDevEnv: process.env.NODE_ENV !== 'production',
         };
     },
     computed: {
