@@ -7,6 +7,7 @@ const state = {
     snackBarOptions: DefaultBuilder.buildDefaultSnackBarOption(),
     openSnackBar: false,
     isFocusingChildCommentInput: false,
+    isDarkTheme: false,
 };
 
 const getters = {
@@ -14,6 +15,7 @@ const getters = {
     snackBarOptions: (state) => state.snackBarOptions,
     openSnackBar: (state) => state.openSnackBar,
     isFocusingChildCommentInput: (state) => state.isFocusingChildCommentInput,
+    isDarkTheme: (state) => state.isDarkTheme,
 };
 
 const mutations = {
@@ -35,7 +37,9 @@ const mutations = {
     focusOutChildCommentInput(state) {
         state.isFocusingChildCommentInput = false;
     },
-
+    setThemeStatus(state, isDarkTheme) {
+        state.isDarkTheme = isDarkTheme;
+    },
 };
 
 const actions = {
