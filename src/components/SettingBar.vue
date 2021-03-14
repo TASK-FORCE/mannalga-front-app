@@ -3,7 +3,7 @@
          class="pl-5 pr-3 mt-4 d-flex"
          @click="$emit('click')"
     >
-        <div class="my-auto">
+        <div>
             <WindMill v-if="isWindmill"
                       :color="windMillColor"
                       :width="18"
@@ -12,10 +12,11 @@
             />
             <v-icon v-else
                     class="icon"
+                    size="25"
                     v-text="`$${icon}`"
             />
         </div>
-        <div class="ml-2 bar-title my-auto"
+        <div class="ml-2 bar-title"
              :style="description ? {width: '70px'} : ''"
         >
             {{ title }}
@@ -26,9 +27,9 @@
         >
             {{ description }}
         </div>
-        <div class="chevron-box my-auto">
+        <div class="chevron-box">
             <v-icon class="chevron"
-                    size="30"
+                    size="25"
                     v-text="'$chevronRight'"
             />
         </div>
