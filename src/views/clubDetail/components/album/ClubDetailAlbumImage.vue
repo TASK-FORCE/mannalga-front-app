@@ -1,33 +1,41 @@
 <template>
-    <v-card class="d-flex elevation-3 p-relative w-100"
+    <v-card class="d-flex elevation-2 p-relative w-100"
             :height="height"
             @click="goToAlbumImagePostPage"
     >
         <ImageWithLoading :imgUrl="album.imgUrl"
                           style="border-radius: 5px"
         />
-        <div class="img-bottom">
-            <v-spacer />
-            <div>
-                <v-icon color="white"
-                        small
-                        v-text="'$heart'"
-                />
-                <span class="f-09">
-                                {{ album.likeCnt }}
-                </span>
+        <div v-if="hasLikeCnt || hasCommentCnt"
+             class="img-bottom"
+        >
+            <div v-if="hasLikeCnt"
+                 class="d-flex align-center"
+            >
+                <div>
+                    <v-icon class="image-bottom-icon"
+                            x-small
+                            v-text="'$heartOut'"
+                    />
+                </div>
+                <div class="f-09 image-bottom-text">
+                    {{ album.likeCnt }}
+                </div>
             </div>
-            <v-spacer />
-            <div>
-                <v-icon color="white"
-                        small
-                        v-text="'$commentMultiple'"
-                />
-                <span class="f-09">
-                                {{ album.commentCnt }}
-                </span>
+            <div v-if="hasCommentCnt"
+                 class="d-flex align-center"
+                 :class="hasLikeCnt ? 'pl-1' : ''"
+            >
+                <div>
+                    <v-icon class="image-bottom-icon"
+                            x-small
+                            v-text="'$commentOut'"
+                    />
+                </div>
+                <div class="image-bottom-text">
+                    {{ album.commentCnt }}
+                </div>
             </div>
-            <v-spacer />
         </div>
     </v-card>
 </template>
@@ -51,6 +59,14 @@ export default {
             required: true,
         },
     },
+    computed: {
+        hasLikeCnt() {
+            return this.album.likeCnt > 0;
+        },
+        hasCommentCnt() {
+            return this.album.commentCnt > 0;
+        },
+    },
     methods: {
         goToAlbumImagePostPage() {
             this.$router.push(generateParamPath(PATH.CLUB.ALBUM_POST, [routerHelper.clubSeq(), this.album.albumSeq || 0]));
@@ -59,14 +75,42 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped
+       lang="scss"
+>
 .img-bottom {
     display: flex;
     position: absolute;
-    bottom: 0;
-    width: 100%;
-    opacity: 0.7;
-    background-color: #3b3636 !important;
-    color: white;
+    bottom: 4px;
+    left: 4px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 5px;
+    height: 23px;
+    line-height: 23px;
+    padding: 0 4px;
+
+    .image-bottom-text {
+        color: #3c3c3c;
+        font-size: 12px;
+        padding-left: 1px;
+    }
+
+    .image-bottom-icon {
+        color: #666666;
+    }
+}
+
+.theme--dark {
+    .img-bottom {
+        background: rgba(18, 18, 18, 0.8);
+
+        .image-bottom-text {
+            color: #F5F5F5;
+        }
+
+        .image-bottom-icon {
+            color: #9f9f9f;
+        }
+    }
 }
 </style>

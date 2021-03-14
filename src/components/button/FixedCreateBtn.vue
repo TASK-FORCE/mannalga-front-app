@@ -6,6 +6,7 @@
            @click="click"
     >
         <v-icon class="white--text"
+                :size="iconSize"
                 v-text="'$plus'"
         />
     </v-btn>
@@ -24,6 +25,10 @@ export default {
         size: {
             type: Number,
             default: 50,
+        },
+        iconSize: {
+            type: Number,
+            default: 24,
         },
 
     },
