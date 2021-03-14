@@ -13,12 +13,16 @@
     padding-bottom: 0 !important;
 }
 
-.app-main-club-tab-header > .v-slide-group__content {
+.app-main-club-tab-header, > .v-slide-group__content {
     height: 40px !important;
 }
 
-.app-main-club-tab-header .v-tab {
+.app-main-club-tab-header .v-tab, .club-main-tab .v-tab {
     font-weight: bold;
+}
+
+.v-tabs .v-tab--active:hover::before, .v-tabs .v-tab--active::before {
+    opacity: 0 !important;
 }
 
 .v-tabs > .v-tabs-bar .v-tab:not(.v-tab--active) {
