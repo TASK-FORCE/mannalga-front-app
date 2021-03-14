@@ -6,9 +6,9 @@
     >
         <template #content>
             <div class="pa-3">
-                <div>
-                    {{ board.content }}
-                </div>
+                <div class="content"
+                     v-text="board.content"
+                />
             </div>
         </template>
     </BoardTemplate>
@@ -116,3 +116,11 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+.content {
+    white-space: pre-wrap;
+    word-break: break-all;
+    width: 100%;
+}
+</style>

@@ -14,7 +14,7 @@
                 <span class="region-title">{{ clubRegionsText }}</span>
             </div>
             <div class="d-flex align-center mt-2">
-                <WindMill />
+                <WindMill :color="windMillColor"/>
                 <span class="interest-title">{{ clubInterestsText }}</span>
             </div>
         </div>
@@ -23,7 +23,7 @@
         />
         <div class="description-wrapper">
             <div class="description"
-                 v-html="description"
+                 v-text="description"
             />
         </div>
         <SnackBar :open="imageChangeSnackBarOpen"
@@ -49,6 +49,7 @@ import { SNACKBAR_LOCATION, SnackBarOption } from '@/utils/common/snackbarUtils.
 import SnackBar from '@/components/SnackBar.vue';
 import WindMill from '@/components/icons/WindMill.vue';
 import MiddleDivider from '@/components/MiddleDivider.vue';
+import gettersHelper from '@/store/helper/GettersHelper.js';
 
 const CHANGE_IMAGE_COOL_TIME_MINUTE = 6 * 60;
 const toMillisecond = (minute) => minute * 60 * 1000;
@@ -90,7 +91,7 @@ export default {
     },
     computed: {
         description() {
-            return this.clubInfo.description.replaceAll('\n', '<br />');
+            return this.clubInfo.description;
         },
         clubInterestsText() {
             return _.sortBy(this.clubInfo.clubInterest, ({ priority }) => priority)
@@ -101,6 +102,12 @@ export default {
             return _.sortBy(this.clubInfo.clubRegion, ({ priority }) => priority)
                 .map(({ region }) => region.superRegionRoot)
                 .join(', ');
+        },
+        windMillColor() {
+            if (gettersHelper.isDarkTheme()) {
+                return '#F5F5F5';
+            }
+            return '#666666';
         },
     },
     mounted() {
@@ -160,6 +167,9 @@ export default {
     .description {
         font-size: 15px;
         color: #292929;
+        white-space: pre-wrap;
+        word-break: break-all;
+        width: 100%;
     }
 }
 
