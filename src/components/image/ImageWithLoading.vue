@@ -3,6 +3,7 @@
         :src="imgUrl"
         class="grey lighten-2"
         :max-height="height"
+        :aspect-ratio="aspectRatio"
         @click="$emit('click')"
     >
         <template v-slot:placeholder>
@@ -27,6 +28,7 @@ export default {
             type: String,
             required: true,
         },
+        aspectRatio: String,
         height: Number,
     },
 };

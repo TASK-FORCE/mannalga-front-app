@@ -6,6 +6,7 @@
             <SettingBar
                 :title="themeSettingTitle"
                 :icon="themeSettingIcon"
+                switch-btn
                 @click="changeTheme"
             />
             <SettingBar

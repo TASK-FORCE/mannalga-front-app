@@ -1,10 +1,10 @@
 <template>
     <v-card class="d-flex elevation-2 p-relative w-100"
-            :height="height"
             @click="goToAlbumImagePostPage"
     >
         <ImageWithLoading :imgUrl="album.imgUrl"
                           style="border-radius: 5px"
+                          aspect-ratio="1"
         />
         <div v-if="hasLikeCnt || hasCommentCnt"
              class="img-bottom"
@@ -50,10 +50,6 @@ export default {
     name: 'ClubDetailAlbumImage',
     components: { ImageWithLoading },
     props: {
-        height: {
-            type: Number,
-            default: 130,
-        },
         album: {
             type: Object,
             required: true,

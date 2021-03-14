@@ -1,7 +1,7 @@
 <template>
     <div v-ripple
          class="pl-5 pr-3 mt-4 d-flex"
-         @click="$emit('click')"
+         @click="click"
     >
         <div>
             <WindMill v-if="isWindmill"
@@ -27,11 +27,22 @@
         >
             {{ description }}
         </div>
-        <div class="chevron-box">
-            <v-icon class="chevron"
-                    size="25"
-                    v-text="'$chevronRight'"
+        <div>
+            <v-switch v-if="switchBtn"
+                      v-model="switchValue"
+                      color="#2883C6"
+                      disabled
+                      class="ma-0 pa-0 switch-btn"
+                      hide-details
             />
+            <div v-else
+                 class="chevron-box"
+            >
+                <v-icon class="chevron"
+                        size="25"
+                        v-text="'$chevronRight'"
+                />
+            </div>
         </div>
     </div>
 </template>
@@ -53,6 +64,15 @@ export default {
             required: true,
         },
         description: String,
+        switchBtn: {
+            type: Boolean,
+            default: false,
+        },
+    },
+    data() {
+        return {
+            switchValue: gettersHelper.isDarkTheme(),
+        };
     },
     computed: {
         isWindmill() {
@@ -63,6 +83,12 @@ export default {
                 return '#F5F5F5';
             }
             return '#292929';
+        },
+    },
+    methods: {
+        click() {
+            this.$emit('click');
+            this.switchValue = !this.switchValue;
         },
     },
 };
@@ -102,6 +128,10 @@ export default {
     word-break: keep-all;
     text-align: right;
     width: 100%;
+}
+
+.switch-btn {
+    opacity: 1 !important;
 }
 
 .theme--dark {

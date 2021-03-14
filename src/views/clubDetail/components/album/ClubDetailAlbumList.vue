@@ -16,17 +16,13 @@
                             cols="6"
                             class="pr-1.5 pb-0"
                     >
-                        <ClubDetailAlbumImage :album="twoAlbums[0]"
-                                              :height="imgHeight"
-                        />
+                        <ClubDetailAlbumImage :album="twoAlbums[0]" />
                     </v-col>
                     <v-col v-if="twoAlbums.length >= 2"
                            cols="6"
                            class="pl-1.5 pb-0"
                     >
-                        <ClubDetailAlbumImage :album="twoAlbums[1]"
-                                              :height="imgHeight"
-                        />
+                        <ClubDetailAlbumImage :album="twoAlbums[1]" />
                     </v-col>
                 </v-row>
             </template>
@@ -88,9 +84,6 @@ export default {
         canCreateAlbum() {
             const { isMaster, isManager } = this.currentUserInfo;
             return isMaster || isManager;
-        },
-        imgHeight() {
-            return ((window.innerWidth / 2) - 8) * 0.9;
         },
     },
     methods: {
