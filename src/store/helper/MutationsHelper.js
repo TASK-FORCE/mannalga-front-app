@@ -34,7 +34,7 @@ class MutationsHelper {
     changeCommonLoading = (payload) => commit(MODULE.COMMON, 'changeLoading', payload);
     focusChildCommentInput = (payload) => commit(MODULE.COMMON, 'focusChildCommentInput', payload);
     focusOutChildCommentInput = (payload) => commit(MODULE.COMMON, 'focusOutChildCommentInput', payload);
-    setThemeStatus = (payload) => commit(MODULE.COMMON, 'setThemeStatus', payload);
+    changeTheme = (payload) => commit(MODULE.COMMON, 'changeTheme', payload);
 
     // user module
     changeProfileName = (payload) => commit(MODULE.USER, 'changeProfileName', payload);

@@ -134,37 +134,13 @@ export default {
     padding-bottom: 25px;
 }
 
-.icon {
-    color: #292929 !important;
-}
-
-.chevron {
-    color: #9f9f9f !important;
-}
-
 .windmill {
     margin-left: 3px;
 }
 
-.region-title, .interest-title {
-    color: #292929;
-    font-weight: 500;
-    font-size: 16px;
-    width: 70px;
-}
-
-.chevron-box {
-    width: 30px;
-}
-
-.region-name, .interest-name {
-    font-size: 14px;
-    font-weight: 500;
-    color: #666666;
-    margin-right: 4px;
-    margin-left: 4px;
-    word-break: keep-all;
-    text-align: right;
-    width: 100%;
+.theme--dark {
+    .name {
+        color: #F5F5F5;
+    }
 }
 </style>

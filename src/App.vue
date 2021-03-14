@@ -29,8 +29,9 @@
 <script>
 import CommonSnackBar from '@/components/CommonSnackBar.vue';
 import Progress from '@/components/Progress.vue';
-import { changeThemeAndLoad, loadCurrentTheme } from '@/plugins/vuetify.js';
 import gettersHelper from '@/store/helper/GettersHelper.js';
+import mutationsHelper from '@/store/helper/MutationsHelper.js';
+import { changeThemeAndLoad } from '@/plugins/vuetify.js';
 
 export default {
     name: 'App',
@@ -44,11 +45,14 @@ export default {
         isLoading: () => gettersHelper.isLoading(),
     },
     created() {
-        loadCurrentTheme();
+        changeThemeAndLoad();
+    },
+    mounted() {
+        mutationsHelper.changeTheme();
     },
     methods: {
         changeTheme() {
-            changeThemeAndLoad();
+            mutationsHelper.changeTheme();
         },
     },
 };

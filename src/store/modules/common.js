@@ -1,6 +1,7 @@
 import { actionsNormalTemplate } from '@/store/utils/actionsTemplate.js';
 import commonApi from '@/apis/CommonApi.js';
 import DefaultBuilder from '@/store/utils/DefaultBuilder.js';
+import { changeThemeAndLoad, isDarkTheme } from '@/plugins/vuetify.js';
 
 const state = {
     loading: false,
@@ -37,8 +38,9 @@ const mutations = {
     focusOutChildCommentInput(state) {
         state.isFocusingChildCommentInput = false;
     },
-    setThemeStatus(state, isDarkTheme) {
-        state.isDarkTheme = isDarkTheme;
+    changeTheme(state) {
+        changeThemeAndLoad();
+        state.isDarkTheme = isDarkTheme();
     },
 };
 

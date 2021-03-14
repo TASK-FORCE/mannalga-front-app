@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify/lib';
 import { ICONS } from '@/utils/common/constant/icons.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
 
 Vue.use(Vuetify);
 
@@ -29,7 +28,6 @@ const loadCurrentTheme = () => (vuetify.framework.theme.dark = isDarkTheme());
 const changeThemeAndLoad = () => {
     changeTheme();
     loadCurrentTheme();
-    mutationsHelper.setThemeStatus(isDarkTheme());
 };
 export {
     vuetify,

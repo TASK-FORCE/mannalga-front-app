@@ -25,7 +25,6 @@
 import UserSettingProfile from '@/views/userSetting/components/UserSettingProfile.vue';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import _ from '@/utils/common/lodashWrapper.js';
-import { changeThemeAndLoad } from '@/plugins/vuetify.js';
 import { PATH } from '@/router/route_path_type.js';
 import mutationsHelper from '@/store/helper/MutationsHelper.js';
 import MiddleDivider from '@/components/MiddleDivider.vue';
@@ -60,7 +59,7 @@ export default {
             this.$router.push(PATH.LOGIN);
         },
         changeTheme() {
-            changeThemeAndLoad();
+            mutationsHelper.changeTheme();
         },
     },
 };
