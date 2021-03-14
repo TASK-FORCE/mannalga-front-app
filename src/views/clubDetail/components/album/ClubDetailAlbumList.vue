@@ -10,16 +10,21 @@
             <template v-slot:list-main>
                 <v-row v-for="(twoAlbums, index) in twoAlbumsList"
                        :key="index"
-                       class="px-3"
+                       class="w-100 ma-0"
                 >
-                    <v-col
-                        v-for="album in twoAlbums"
-                        :key="album.albumSeq"
-                        class="d-flex"
-                        style="padding: 6px"
-                        cols="6"
+                    <v-col v-if="twoAlbums.length >= 1"
+                            cols="6"
+                            class="pr-1.5 pb-0"
                     >
-                        <ClubDetailAlbumImage :album="album"
+                        <ClubDetailAlbumImage :album="twoAlbums[0]"
+                                              :height="imgHeight"
+                        />
+                    </v-col>
+                    <v-col v-if="twoAlbums.length >= 2"
+                           cols="6"
+                           class="pl-1.5 pb-0"
+                    >
+                        <ClubDetailAlbumImage :album="twoAlbums[1]"
                                               :height="imgHeight"
                         />
                     </v-col>
@@ -34,8 +39,9 @@
         </InfiniteScrollTemplate>
         <AlbumImageCreateDialog v-model="isOpenImageRegisterDialog" />
         <FixedCreateBtn v-if="canCreateAlbum"
-                        color="green"
-                        left
+                        color="#E8984E"
+                        :size="60"
+                        :icon-size="40"
                         @click="isOpenImageRegisterDialog = true"
         />
         <FixedScrollToTopBtn color="red" />
@@ -84,7 +90,7 @@ export default {
             return isMaster || isManager;
         },
         imgHeight() {
-            return ((window.innerWidth / 2) - 8) * 0.75;
+            return ((window.innerWidth / 2) - 8) * 0.9;
         },
     },
     methods: {
@@ -97,9 +103,3 @@ export default {
     },
 };
 </script>
-
-<style scoped
-       lang="scss"
->
-
-</style>
