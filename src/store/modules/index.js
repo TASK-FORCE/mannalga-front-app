@@ -8,18 +8,18 @@ function getModuleName(fileName) {
         .replace(/\.\w+$/, '');
 }
 
-const expectedKeySet = new Set(['state', 'getters', 'mutations', 'actions']);
+const tsModules = new Set(['common']);
 
 function makeModules() {
     const modules = {};
     const requireModule = require.context(
         '.',
         true,
-        /^((?!index|init).)*\.js$/,
+        /^((?!index|init).)*\.[jt]s$/,
     );
     requireModule.keys()
         .forEach(fileName => {
-            const definitions = requireModule(fileName).default;
+            const definitions = requireModule(fileName).default || requireModule(fileName);
             if (!definitions || !isObject(definitions)) {
                 if (process.env.NODE_ENV === 'test') {
                     return;
@@ -28,15 +28,9 @@ function makeModules() {
                 return;
             }
 
-            const unexpectedKeys = Object.keys(definitions).filter(key => !expectedKeySet.has(key));
-            if (unexpectedKeys && unexpectedKeys.length > 0) {
-                console.error(`[vuex module] definitions의 key가 올바르지 않습니다. keys: ${unexpectedKeys}`);
-                return;
-            }
-
             const moduleName = getModuleName(fileName);
             modules[moduleName] = {
-                namespaced: true,
+                namespaced: !tsModules.has(moduleName),
                 ...definitions,
             };
         });

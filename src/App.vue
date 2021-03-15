@@ -1,11 +1,13 @@
 <template>
     <v-app>
         <v-main>
-            <transition name="component-fade"
-                        mode="out-in"
+            <transition
+                name="component-fade"
+                mode="out-in"
             >
-                <router-view :key="$route.fullPath"
-                             class="app-body"
+                <router-view
+                    :key="$route.fullPath"
+                    class="app-body"
                 />
             </transition>
         </v-main>
@@ -19,8 +21,9 @@
             x-small
             @click="changeTheme"
         >
-            <v-icon class="white--text"
-                    v-text="'$plus'"
+            <v-icon
+                class="white--text"
+                v-text="'$plus'"
             />
         </v-btn>
     </v-app>

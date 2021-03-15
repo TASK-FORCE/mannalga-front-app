@@ -5,34 +5,39 @@
             <!--                   src="../../images/vue.png"-->
             <!--            />-->
             <div class="text-center">
-                <v-icon size="200"
-                        v-text="'$threePeople'"
+                <v-icon
+                    size="200"
+                    v-text="'$threePeople'"
                 />
             </div>
             <div class="text-center">
                 <p class="display-1">모임서비스</p>
             </div>
             <div class="text-center mt-5">
-                <v-btn class="mx-auto font-weight-bold black--text"
-                       color="yellow"
-                       :loading="loading"
-                       @click="login"
+                <v-btn
+                    class="mx-auto font-weight-bold black--text"
+                    color="yellow"
+                    :loading="loading"
+                    @click="login"
                 >
                     Kakao Login
-                    <v-icon right
-                            v-text="'$facebookMessenger'"
+                    <v-icon
+                        right
+                        v-text="'$facebookMessenger'"
                     />
                 </v-btn>
             </div>
             <div class="text-center mt-5">
-                <v-btn class="mx-auto font-weight-bold black--text"
-                       color="green"
-                       :loading="loading"
-                       @click="$router.push(PATH.BACKDOOR_LOGIN)"
+                <v-btn
+                    class="mx-auto font-weight-bold black--text"
+                    color="green"
+                    :loading="loading"
+                    @click="$router.push(PATH.BACKDOOR_LOGIN)"
                 >
                     Backdoor Login
-                    <v-icon right
-                            v-text="'$facebookMessenger'"
+                    <v-icon
+                        right
+                        v-text="'$facebookMessenger'"
                     />
                 </v-btn>
             </div>

@@ -4,7 +4,7 @@ import RequestConverter from '@/store/converter/RequestConverter.js';
 import DefaultBuilder from '@/store/utils/DefaultBuilder.js';
 import CommentHelper from '@/store/service/helper/CommentHelper.js';
 
-const state = {
+export const state = {
     album: DefaultBuilder.buildAlbum(),
     albumList: [],
     albumPage: DefaultBuilder.buildPage(),
@@ -12,7 +12,7 @@ const state = {
     albumCommentPage: DefaultBuilder.buildPage(),
 };
 
-const getters = {
+export const getters = {
     album: (state) => state.album,
     albumList: (state) => state.albumList,
     albumPage: (state) => state.albumPage,
@@ -20,7 +20,7 @@ const getters = {
     albumCommentPage: (state) => state.albumCommentPage,
 };
 
-const mutations = {
+export const mutations = {
     setAlbum(state, album) {
         state.album = album;
     },
@@ -109,7 +109,7 @@ const mutations = {
     },
 };
 
-const actions = {
+export const actions = {
     async requestAlbumCreate({ _ }, clubAlbumCreateInfo) {
         return actionsNormalTemplate(
             async () => {
@@ -228,11 +228,4 @@ const actions = {
             },
         );
     },
-};
-
-export default {
-    state,
-    getters,
-    mutations,
-    actions,
 };

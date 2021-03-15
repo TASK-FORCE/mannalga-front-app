@@ -10,7 +10,6 @@ class GettersHelper {
     appToken = () => get(MODULE.AUTH, 'appToken');
 
     // club module
-    clubData = () => get(MODULE.CLUB, 'clubData');
     clubInfo = () => get(MODULE.CLUB, 'clubInfo');
     currentUserInfo = () => get(MODULE.CLUB, 'currentUserInfo');
     clubUserList = () => get(MODULE.CLUB, 'clubUserList');

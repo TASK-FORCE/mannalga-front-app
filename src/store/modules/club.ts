@@ -5,7 +5,6 @@ import { MODULE } from '@/store/type/type.js';
 import { CLUB_ROLE } from '@/utils/role.js';
 
 const state = {
-    clubData: DefaultBuilder.buildClub(),
     clubInfo: DefaultBuilder.buildClubInfo(),
     currentUserInfo: DefaultBuilder.buildCurrentUserInfo(),
     clubUserList: [],
@@ -14,7 +13,6 @@ const state = {
 };
 
 const getters = {
-    clubData: (state) => state.clubData,
     clubInfo: (state) => state.clubInfo,
     clubName: (state) => state.clubInfo.name,
     currentUserInfo: (state) => state.currentUserInfo,
@@ -123,3 +121,6 @@ export default {
     mutations,
     actions,
 };
+
+export type ClubMutations = typeof mutations;
+export type ClubGetters = typeof getters;

@@ -26,9 +26,7 @@
                 <ClubDetailMeetingList :currentUserInfo="currentUserInfo" />
             </v-tab-item>
             <v-tab-item value="board">
-                <ClubDetailBoardList :currentUserInfo="currentUserInfo"
-                                     :boardList="clubData.boardList"
-                />
+                <ClubDetailBoardList :currentUserInfo="currentUserInfo" />
             </v-tab-item>
             <v-tab-item value="album">
                 <ClubDetailAlbumList :currentUserInfo="currentUserInfo" />
@@ -64,7 +62,6 @@ export default {
     },
     computed: {
         clubSeq: () => routerHelper.clubSeq(),
-        clubData: () => gettersHelper.clubData(),
         clubInfo: () => gettersHelper.clubInfo(),
         currentUserInfo: () => gettersHelper.currentUserInfo(),
         clubUserList: () => gettersHelper.clubUserList(),

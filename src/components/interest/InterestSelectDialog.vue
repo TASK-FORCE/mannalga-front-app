@@ -40,7 +40,6 @@ export default {
     },
     methods: {
         getSelectedInterests() {
-            console.log(this.selectedInterests);
             return new Promise(resolve => resolve([...this.selectedInterests]));
         },
         submit(selectedInterests) {
