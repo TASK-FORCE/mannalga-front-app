@@ -1,7 +1,7 @@
 import userApi from '@/apis/UserApi.js';
-import { actionsLoadingTemplate, actionsNormalTemplate } from '@/store/utils/actionsTemplate.js';
+import { actionsLoadingTemplate, actionsNormalTemplate } from '@/store/utils/actionsTemplate.ts';
 import RequestConverter from '@/store/converter/RequestConverter.js';
-import DefaultBuilder from '@/store/utils/DefaultBuilder.js';
+import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
 
 const state = {
     kakaoProfile: DefaultBuilder.buildKakaoProfile(),

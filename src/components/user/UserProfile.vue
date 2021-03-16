@@ -1,5 +1,5 @@
 <template>
-    <div v-show="!isLoading">
+    <div v-show="!$store.state.common.loading">
         <v-row justify="center"
                class="mt-40"
         >
@@ -35,7 +35,7 @@
 <script>
 import _ from '@/utils/common/lodashWrapper.js';
 import gettersHelper from '@/store/helper/GettersHelper.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
+import mutationsHelper from '@/store/helper/MutationsHelper.ts';
 import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
 import { RULES } from '@/utils/common/constant/rules.js';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
@@ -51,7 +51,6 @@ export default {
     },
     computed: {
         kakaoProfile: () => gettersHelper.kakaoProfile(),
-        isLoading: () => gettersHelper.isLoading(),
     },
     created() {
         if (_.isDeepEmpty(this.kakaoProfile)) {

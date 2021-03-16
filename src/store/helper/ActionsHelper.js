@@ -57,9 +57,6 @@ class ActionsHelper {
     requestFirstMyClubList = (payload) => dispatch(MODULE.CLUB_LIST, 'requestFirstMyClubList', payload);
     requestNextMyClubList = (payload) => dispatch(MODULE.CLUB_LIST, 'requestNextMyClubList', payload);
 
-    // common module
-    uploadTempImage = (payload) => dispatch(MODULE.COMMON, 'uploadTempImage', payload);
-
     // template module
     requestRegionTemplate = (payload) => dispatch(MODULE.TEMPLATE, 'requestRegionTemplate', payload);
     requestInterestTemplate = (payload) => dispatch(MODULE.TEMPLATE, 'requestInterestTemplate', payload);

@@ -1,28 +1,32 @@
 <template>
-    <v-dialog :value="value"
-              persistent
+    <v-dialog
+        :value="value"
+        persistent
     >
         <v-card>
             <div class="d-flex pa-3">
-                <div class="font-weight-bold ml-2"
-                     style="font-size: 1.3rem"
+                <div
+                    class="font-weight-bold ml-2"
+                    style="font-size: 1.3rem"
                 >
                     사진첩 등록
                 </div>
             </div>
             <div class="px-4">
                 <v-form ref="form">
-                    <v-text-field v-model="title"
-                                  :rules="RULES.CLUB_ALBUM_TITLE"
-                                  class="pa-0"
-                                  label="사진 제목"
+                    <v-text-field
+                        v-model="title"
+                        :rules="RULES.CLUB_ALBUM_TITLE"
+                        class="pa-0"
+                        label="사진 제목"
                     />
                 </v-form>
-                <ImageSelectBox ref="imgSelectBox"
-                                class="mt-1 mb-3 elevation-2"
-                                height="300"
-                                cropFreeSize
-                                @handleImageDto="changeImageDto"
+                <ImageSelectBox
+                    ref="imgSelectBox"
+                    class="mt-1 mb-3 elevation-2"
+                    height="300"
+                    cropFreeSize
+                    @handleUploadedImage="changeToUploadedImage"
                 />
             </div>
             <div class="text-center pa-3">
@@ -46,16 +50,18 @@
     </v-dialog>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
 
 import ImageSelectBox from '@/components/image/ImageSelectBox.vue';
 import routerHelper from '@/router/RouterHelper.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
 import { RULES } from '@/utils/common/constant/rules.js';
 import { MESSAGE } from '@/utils/common/constant/messages.js';
+import { MutationTypes } from '@/store/type/methodTypes.ts';
+import { UploadImageResponse } from '@/interfaces/common.ts';
 
-export default {
+export default Vue.extend({
     name: 'AlbumImageCreateDialog',
     components: { ImageSelectBox },
     props: {
@@ -68,33 +74,33 @@ export default {
         return {
             RULES,
             title: null,
-            imageDto: null,
+            image: null as UploadImageResponse,
         };
     },
     methods: {
         requestAlbumCreate() {
             if (this.$refs.form.validate()) {
-                if (this.imageDto) {
+                if (this.image) {
                     const clubAlbumCreateInfo = {
                         clubSeq: routerHelper.clubSeq(),
                         clubAlbumCreateDto: {
                             title: this.title,
-                            image: { ...this.imageDto },
+                            image: { ...this.image },
                         },
                     };
                     actionsHelper.requestAlbumCreate(clubAlbumCreateInfo)
                         .then(() => {
                             actionsHelper.requestFirstAlbumList(routerHelper.clubSeq());
                             this.clear();
-                            mutationsHelper.openSnackBar(MESSAGE.SUCCESS_IMAGE_REGISTER);
+                            this.$store.commit(MutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_IMAGE_REGISTER);
                         });
                 }
             } else {
-                mutationsHelper.openSnackBar(MESSAGE.SELECT_IMAGE_REQUIRE);
+                this.$store.commit(MutationTypes.OPEN_SNACK_BAR, MESSAGE.SELECT_IMAGE_REQUIRE);
             }
         },
-        changeImageDto(imageDto) {
-            this.imageDto = imageDto;
+        changeToUploadedImage(uploadedImage: UploadImageResponse) {
+            this.image = uploadedImage;
         },
         clear() {
             this.title = null;
@@ -105,7 +111,7 @@ export default {
             this.$refs.form.resetValidation();
         },
     },
-};
+});
 </script>
 
 <style scoped>

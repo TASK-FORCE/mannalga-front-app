@@ -104,7 +104,7 @@ export default {
                 .join(', ');
         },
         windMillColor() {
-            if (gettersHelper.isDarkTheme()) {
+            if (this.$store.state.common.isDarkTheme) {
                 return '#F5F5F5';
             }
             return '#666666';

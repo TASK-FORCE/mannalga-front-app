@@ -40,9 +40,11 @@ import ClubDetailMainMember from '@/views/clubDetail/components/main/ClubDetailM
 import MiddleDivider from '@/components/MiddleDivider.vue';
 import YesOrNoDialog from '@/components/YesOrNoDialog.vue';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
+import mutationsHelper from '@/store/helper/MutationsHelper.ts';
 import routerHelper from '@/router/RouterHelper.js';
 import { generateParamPath, PATH } from '@/router/route_path_type.js';
+import { MutationTypes } from '@/store/type/methodTypes.ts';
+import { MESSAGE } from '@/utils/common/constant/messages.js';
 
 export default {
     name: 'ClubDetailMain',
@@ -84,7 +86,7 @@ export default {
         requestClubRegister() {
             return actionsHelper.requestClubJoin(this.clubSeq)
                 .then(() => {
-                    mutationsHelper.openSnackBar('모임 가입 성공');
+                    this.$store.commit(MutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_JOIN_CLUB);
                     this.showRegisterDialog = false;
                 });
         },

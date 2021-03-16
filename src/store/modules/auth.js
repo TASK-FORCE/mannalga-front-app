@@ -2,7 +2,7 @@ import axios from 'axios';
 import authApi from '@/apis/AuthApi.js';
 import { AuthUtils } from '@/utils/auth.js';
 import _ from '@/utils/common/lodashWrapper.js';
-import { actionsNormalTemplate } from '@/store/utils/actionsTemplate.js';
+import { actionsNormalTemplate } from '@/store/utils/actionsTemplate.ts';
 import RequestConverter from '@/store/converter/RequestConverter.js';
 
 const state = {

@@ -105,11 +105,12 @@ import ClubMemberInfo from '@/components/user/ClubMemberInfo.vue';
 import YesOrNoDialog from '@/components/YesOrNoDialog.vue';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
 import { MESSAGE } from '@/utils/common/constant/messages.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
+import mutationsHelper from '@/store/helper/MutationsHelper.ts';
 import routerHelper from '@/router/RouterHelper.js';
 import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
 import { CLUB_ROLE } from '@/utils/role.js';
 import MiddleDivider from '@/components/MiddleDivider.vue';
+import { MutationTypes } from '@/store/type/methodTypes.ts';
 
 export default {
     name: 'ClubDetailMainMember',
@@ -161,7 +162,7 @@ export default {
         withdraw() {
             return actionsHelper.requestClubWithdraw(this.clubSeq)
                 .then(() => {
-                    mutationsHelper.openSnackBar(MESSAGE.WITHDRAW_CLUB);
+                    this.$store.commit(MutationTypes.OPEN_SNACK_BAR, MESSAGE.WITHDRAW_CLUB);
                     this.$router.go();
                 });
         },

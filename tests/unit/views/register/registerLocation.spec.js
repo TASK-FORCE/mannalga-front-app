@@ -4,7 +4,7 @@ import Vuex from 'vuex';
 import sinon from 'sinon';
 import RegisterRegionNestedPage from '@/views/register/RegisterRegionNestedPage.vue';
 import { PATH } from '@/router/route_path_type.js';
-import DefaultBuilder from '@/store/utils/DefaultBuilder.js';
+import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
 import { testUtils } from '../../../utils/testUtils.js';
 
 const sandbox = sinon.createSandbox();

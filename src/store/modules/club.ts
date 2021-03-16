@@ -1,5 +1,5 @@
-import { actionsNormalTemplate } from '@/store/utils/actionsTemplate.js';
-import DefaultBuilder from '@/store/utils/DefaultBuilder.js';
+import { actionsNormalTemplate } from '@/store/utils/actionsTemplate.ts';
+import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
 import clubApi from '@/apis/ClubApi.js';
 import { MODULE } from '@/store/type/type.js';
 import { CLUB_ROLE } from '@/utils/role.js';

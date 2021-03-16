@@ -1,5 +1,5 @@
 <template>
-    <div v-if="!loading">
+    <div v-if="!$store.state.common.loading">
         <div class="d-flex px-2 mt-3">
             <UserProfileAvatar :size="40"
                                :imgUrl="boardDto.writerImage"
@@ -68,7 +68,7 @@
                 </template>
             </InfiniteScrollTemplate>
         </div>
-        <CommentWriteFooter v-if="!isFocusingChildCommentInput"
+        <CommentWriteFooter v-if="!$store.state.common.focusingChildCommentInput"
                             :requestWriteComment="commentContext.requestWriteComment"
                             :postProcessor="callbackAfterCommentWrite"
         />
@@ -134,10 +134,6 @@ export default {
             type: Object,
             required: true,
         },
-    },
-    computed: {
-        isFocusingChildCommentInput: () => gettersHelper.isFocusingChildCommentInput(),
-        loading: () => gettersHelper.isLoading(),
     },
     methods: {
         callbackAfterCommentWrite() {

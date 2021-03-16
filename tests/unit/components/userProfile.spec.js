@@ -3,7 +3,7 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuex from 'vuex';
 import sinon from 'sinon';
 import UserProfile from '@/components/user/UserProfile.vue';
-import DefaultBuilder from '@/store/utils/DefaultBuilder.js';
+import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
 import { PATH } from '@/router/route_path_type.js';
 import { testUtils } from '../../utils/testUtils.js';
 

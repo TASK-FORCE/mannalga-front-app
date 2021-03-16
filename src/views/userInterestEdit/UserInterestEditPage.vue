@@ -1,5 +1,5 @@
 <template>
-    <div v-show="!isLoading">
+    <div v-show="!$store.state.common.loading">
         <InterestSelect title="관심사 설정"
                         :backCallback="back"
                         :submitCallback="submit"
@@ -18,10 +18,11 @@
 <script>
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
+import mutationsHelper from '@/store/helper/MutationsHelper.ts';
 import { PATH } from '@/router/route_path_type.js';
 import { MESSAGE } from '@/utils/common/constant/messages.js';
 import InterestSelect from '@/components/interest/InterestSelect.vue';
+import { MutationTypes } from '@/store/type/methodTypes.ts';
 
 export default {
     name: 'UserInterestEditPage',
@@ -31,16 +32,13 @@ export default {
             btnLoading: false,
         };
     },
-    computed: {
-        isLoading: () => gettersHelper.isLoading(),
-    },
     methods: {
         submit(selectedInterests) {
             return actionsHelper.requestChangeUserInterests(selectedInterests)
                 .then(() => {
                     actionsHelper.requestUserProfile();
                     this.$router.push(PATH.USER.SETTINGS);
-                    mutationsHelper.openSnackBar(MESSAGE.SUCCESS_CHANGE_REGIONS);
+                    this.$store.commit(MutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_CHANGE_REGIONS);
                 });
         },
         back() {

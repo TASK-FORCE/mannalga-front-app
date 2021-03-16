@@ -51,10 +51,11 @@ import routerHelper from '@/router/RouterHelper.js';
 import ClubDetailMeetingPost from '@/views/clubDetail/components/meeting/ClubDetailMeetingPost.vue';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
 import InfiniteScrollTemplate from '@/components/InfiniteScrollTemplate.vue';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
+import mutationsHelper from '@/store/helper/MutationsHelper.ts';
 import { MESSAGE } from '@/utils/common/constant/messages.js';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import EmptyPage from '@/components/EmptyPage.vue';
+import { MutationTypes } from '@/store/type/methodTypes.ts';
 
 export default {
     name: 'ClubDetailMeeting',
@@ -87,7 +88,7 @@ export default {
                 meetingSeq: this.registerTargetMeeting.seq,
             };
             return actionsHelper.requestMeetingApplication(meetingApplicationInfo)
-                .then(() => mutationsHelper.openSnackBar(MESSAGE.SUCCESS_APPLY_MEETING_APPLICATION));
+                .then(() => this.$store.commit(MutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_APPLY_MEETING_APPLICATION));
         },
         cancelMeeting() {
             const meetingCancelInfo = {

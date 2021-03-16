@@ -1,86 +1,98 @@
 <template>
-    <div v-show="!isLoading">
-        <ImageSelectBox class="image-box"
-                        text="모임 대표 사진 등록"
-                        height="140"
-                        :initImage="imageUrl"
-                        @handleImageUrl="value => imageUrl = value"
+    <div v-show="!$store.state.common.loading">
+        <ImageSelectBox
+            class="image-box"
+            text="모임 대표 사진 등록"
+            height="140"
+            :initImage="imageUrl"
+            @handleUploadedImage="changeToUploadedImage"
         />
-        <v-bottom-sheet v-model="sheet"
-                        scrollable
+        <v-bottom-sheet
+            v-model="sheet"
+            scrollable
         >
             <template v-slot:activator="{}">
-                <v-form ref="clubCreateForm"
-                        class="club-create-form"
+                <v-form
+                    ref="clubCreateForm"
+                    class="club-create-form"
                 >
-                    <v-text-field v-model="name"
-                                  label="모임명"
-                                  hide-details
-                                  :rules="RULES.CLUB_TITLE"
+                    <v-text-field
+                        v-model="name"
+                        label="모임명"
+                        hide-details
+                        :rules="RULES.CLUB_TITLE"
                     />
-                    <v-text-field label="관심사"
-                                  hide-details
-                                  append-icon="$menuDown"
-                                  readonly
-                                  class="test"
-                                  :rules="RULES.CLUB_INTEREST"
-                                  :value="selectedInterestNames"
-                                  @click="interestDialog = true"
+                    <v-text-field
+                        label="관심사"
+                        hide-details
+                        append-icon="$menuDown"
+                        readonly
+                        class="test"
+                        :rules="RULES.CLUB_INTEREST"
+                        :value="selectedInterestNames"
+                        @click="interestDialog = true"
                     />
-                    <v-text-field label="지역"
-                                  hide-details
-                                  append-icon="$menuDown"
-                                  readonly
-                                  :rules="RULES.CLUB_REGION"
-                                  :value="selectedClubRegionNames"
-                                  @click="regionDialog = true"
+                    <v-text-field
+                        label="지역"
+                        hide-details
+                        append-icon="$menuDown"
+                        readonly
+                        :rules="RULES.CLUB_REGION"
+                        :value="selectedClubRegionNames"
+                        @click="regionDialog = true"
                     />
-                    <v-select v-model="maximumNumber"
-                              label="모임 최대 인원"
-                              hide-details
-                              :rules="RULES.CLUB_MAXIMUM_NUMBER"
-                              :items="items"
+                    <v-select
+                        v-model="maximumNumber"
+                        label="모임 최대 인원"
+                        hide-details
+                        :rules="RULES.CLUB_MAXIMUM_NUMBER"
+                        :items="items"
                     />
-                    <v-textarea v-model="description"
-                                label="모임설명을 작성해주세요"
-                                hide-details
-                                class="mt-5"
-                                outlined
-                                :rules="RULES.CLUB_DESCRIPTION"
+                    <v-textarea
+                        v-model="description"
+                        label="모임설명을 작성해주세요"
+                        hide-details
+                        class="mt-5"
+                        outlined
+                        :rules="RULES.CLUB_DESCRIPTION"
                     ></v-textarea>
                 </v-form>
             </template>
         </v-bottom-sheet>
-        <CommonCenterBtn :text="btnText"
-                         color="primary"
-                         class="my-5"
-                         :outlined="true"
-                         :loading="loading"
-                         @click="click"
+        <CommonCenterBtn
+            :text="btnText"
+            color="primary"
+            class="my-5"
+            :outlined="true"
+            :loading="loading"
+            @click="click"
         />
-        <RegionSelectDialog v-model="regionDialog"
-                            :selectedRegions="selectedRegions"
-                            @selectRegions="regions => (selectedRegions = regions)"
+        <RegionSelectDialog
+            v-model="regionDialog"
+            :selectedRegions="selectedRegions"
+            @selectRegions="regions => (selectedRegions = regions)"
         />
-        <InterestSelectDialog v-model="interestDialog"
-                              :selectedInterests="selectedInterests"
-                              @selectInterests="interests => (selectedInterests = interests)"
+        <InterestSelectDialog
+            v-model="interestDialog"
+            :selectedInterests="selectedInterests"
+            @selectInterests="interests => (selectedInterests = interests)"
         />
     </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
 
 import CommonCenterBtn from '@/components/button/CommonCenterBtn.vue';
 import ImageSelectBox from '@/components/image/ImageSelectBox.vue';
-import gettersHelper from '@/store/helper/GettersHelper.js';
 import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.js';
 import { createClubMaximumNumberList } from '@/utils/common/commonUtils.js';
 import { RULES } from '@/utils/common/constant/rules.js';
 import RegionSelectDialog from '@/components/region/RegionSelectDialog.vue';
 import InterestSelectDialog from '@/components/interest/InterestSelectDialog.vue';
+import { UploadImageResponse } from '../../interfaces/common';
 
-export default {
+export default Vue.extend({
     name: 'ClubCreateAndEditBody',
     components: {
         InterestSelectDialog,
@@ -123,7 +135,6 @@ export default {
         };
     },
     computed: {
-        isLoading: () => gettersHelper.isLoading(),
         selectedClubRegionNames() {
             return this.selectedRegions
                 .map(({ superRegionRoot }) => superRegionRoot)
@@ -183,12 +194,16 @@ export default {
                     })),
             };
         },
+        changeToUploadedImage({ absolutePath }: UploadImageResponse) {
+            this.imageUrl = absolutePath;
+        }
     },
-};
+});
 </script>
 
-<style scoped
-       lang="scss"
+<style
+    scoped
+    lang="scss"
 >
 .image-box {
     margin-top: 1rem;

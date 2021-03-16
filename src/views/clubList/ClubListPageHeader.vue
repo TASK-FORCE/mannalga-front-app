@@ -15,9 +15,10 @@
 <script>
 import { PATH } from '@/router/route_path_type.js';
 import _ from '@/utils/common/lodashWrapper.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
+import mutationsHelper from '@/store/helper/MutationsHelper.ts';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import UserSettingPageEnterAvatar from '@/components/UserSettingPageEnterAvatar.vue';
+import { MutationTypes } from '@/store/type/methodTypes.ts';
 
 const SEARCH_WAIT_TIME = 500;
 
@@ -41,7 +42,7 @@ export default {
                 return;
             }
             mutationsHelper.setCurrentTab('club');
-            mutationsHelper.changeCommonLoading(true);
+            this.$store.commit(MutationTypes.CHANGE_LOADING, true);
             this.searchCallback();
         },
         clubSearchFilterInfo() {

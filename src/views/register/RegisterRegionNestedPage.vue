@@ -1,8 +1,9 @@
 <template>
     <div>
-        <RegionSelect :backCallback="clickBack"
-                      :submitCallback="goNextStep"
-                      title="회원 가입"
+        <RegionSelect
+            :backCallback="clickBack"
+            :submitCallback="goNextStep"
+            title="회원 가입"
         >
             <template #header-title>
                 참여할 지역을 설정해주세요.
@@ -17,10 +18,11 @@
 <script>
 import RegionSelect from '@/components/region/RegionSelect.vue';
 import _ from '@/utils/common/lodashWrapper.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
+import mutationsHelper from '@/store/helper/MutationsHelper.ts';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import { PATH } from '@/router/route_path_type.js';
 import { MESSAGE } from '@/utils/common/constant/messages.js';
+import { MutationTypes } from '@/store/type/methodTypes.ts';
 
 export default {
     name: 'RegisterRegionNestedPage',
@@ -36,7 +38,7 @@ export default {
     methods: {
         goNextStep(selectedRegions) {
             if (_.isEmpty(selectedRegions)) {
-                mutationsHelper.openSnackBar(MESSAGE.SELECT_REGION_REQUIRE);
+                this.$store.commit(MutationTypes.OPEN_SNACK_BAR, MESSAGE.SELECT_REGION_REQUIRE);
             } else {
                 mutationsHelper.setSelectedRegions(selectedRegions);
                 this.$router.push(PATH.REGISTER.INTEREST);

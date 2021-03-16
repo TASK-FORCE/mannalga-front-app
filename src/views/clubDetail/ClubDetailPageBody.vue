@@ -13,7 +13,7 @@
             </v-tab>
         </v-tabs>
 
-        <v-tabs-items v-show="!isLoading"
+        <v-tabs-items v-show="!$store.state.common.loading"
                       v-model="tab"
         >
             <v-tab-item value="main">
@@ -65,7 +65,6 @@ export default {
         clubInfo: () => gettersHelper.clubInfo(),
         currentUserInfo: () => gettersHelper.currentUserInfo(),
         clubUserList: () => gettersHelper.clubUserList(),
-        isLoading: () => gettersHelper.isLoading(),
     },
     watch: {
         tab() {

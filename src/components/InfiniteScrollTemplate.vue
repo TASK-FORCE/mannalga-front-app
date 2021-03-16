@@ -1,5 +1,5 @@
 <template>
-    <v-list v-show="!isLoading"
+    <v-list v-show="!$store.state.common.loading"
             class="py-0"
             :class="`${name}-list-wrapper`"
     >
@@ -79,7 +79,6 @@ export default {
         };
     },
     computed: {
-        isLoading: () => gettersHelper.isLoading(),
         isLastPage() {
             return this.pageInfo.isLastPage;
         },

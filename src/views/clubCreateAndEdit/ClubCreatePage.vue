@@ -15,8 +15,9 @@ import CommonHeader from '@/components/header/CommonHeader.vue';
 import ClubCreateAndEditBody from '@/views/clubCreateAndEdit/ClubCreateAndEditBody.vue';
 import { PATH } from '@/router/route_path_type.js';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
+import mutationsHelper from '@/store/helper/MutationsHelper.ts';
 import { MESSAGE } from '@/utils/common/constant/messages.js';
+import { MutationTypes } from '@/store/type/methodTypes.ts';
 
 export default {
     name: 'ClubCreatePage',
@@ -28,7 +29,7 @@ export default {
         createClub(dto) {
             return actionsHelper.requestClubCreate(dto)
                 .then(() => {
-                    mutationsHelper.openSnackBar(MESSAGE.SUCCESS_CLUB_CREATE);
+                    this.$store.commit(MutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_CLUB_CREATE);
                     this.$router.push(PATH.CLUB_LIST);
                 });
         },

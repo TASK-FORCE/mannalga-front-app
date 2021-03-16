@@ -1,5 +1,7 @@
-import DefaultBuilder from '@/store/utils/DefaultBuilder.js';
+import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
 import { toCurrency } from '@/utils/common/commonUtils.js';
+import { AxiosResponse } from 'axios';
+import { SuperInventionResponse } from '@/interfaces/common';
 
 /** ResponseConverter
  *  - 백엔드 서버에서 전달받은 response를 converting
@@ -15,7 +17,9 @@ export default class ResponseConverter {
      *  - Super Invention 서버 응답 데이터를 추출한다.
      *  - 요청이 성공한 경우 response data외에 필요한 정보가 없으므로 data만 추출하여 actions에게 전달한다.
      */
-    static extractSuperInventionResponseData = (response) => response && response.data && response.data.data;
+    static extractSuperInventionResponseData(response: AxiosResponse<SuperInventionResponse>) {
+        return response && response.data && response.data.data;
+    }
 
     static convertProfile = ({ kakao_account }) => {
         const { thumbnail_image_url, nickname } = kakao_account.profile;
@@ -27,7 +31,8 @@ export default class ResponseConverter {
 
     static convertClubList = (data) => {
         const clubList = data.content;
-        const clubPage = this.convertPage(data);
+        // @ts-ignore
+        const clubPage = convertPage(data);
         return { clubList, clubPage };
     };
 
@@ -44,7 +49,8 @@ export default class ResponseConverter {
                 },
             };
         });
-        const clubPage = this.convertPage(data);
+        // @ts-ignore
+        const clubPage = convertPage(data);
         return { clubList: myClubListWrapper, clubPage };
     };
 
@@ -53,7 +59,8 @@ export default class ResponseConverter {
             groupYearMonth: group.groupYearMonth,
             meetings: group.meetings.map(mapMeeting),
         }));
-        const meetingGroupPage = this.convertPage(data);
+        // @ts-ignore
+        const meetingGroupPage = convertPage(data);
         return { meetingGroupList, meetingGroupPage };
     };
 
@@ -63,7 +70,8 @@ export default class ResponseConverter {
 
     static convertBoardList = (data) => {
         const boardList = data.content.map(mapBoard);
-        const boardPage = this.convertPage(data);
+        // @ts-ignore
+        const boardPage = convertPage(data);
         return { boardList, boardPage };
     };
 
@@ -71,37 +79,40 @@ export default class ResponseConverter {
 
     static convertAlbumList = (data) => {
         const albumList = data.content;
-        const albumPage = this.convertPage(data);
+        // @ts-ignore
+        const albumPage = convertPage(data);
         return { albumList, albumPage };
     };
 
     static convertAlbumCommentList = (data) => {
         const albumCommentList = data.content;
-        const albumCommentPage = this.convertPage(data);
+        // @ts-ignore
+        const albumCommentPage = convertPage(data);
         return { albumCommentList, albumCommentPage };
     };
 
     static convertBoardCommentList = (data) => {
         const boardCommentList = data.content;
-        const boardCommentPage = this.convertPage(data);
+        // @ts-ignore
+        const boardCommentPage = convertPage(data);
         return { boardCommentList, boardCommentPage };
-    };
-
-    static convertPage = ({ pageable, last, size }) => {
-        const currentPage = pageable.pageNumber;
-        const nextPage = currentPage + 1;
-        return {
-            isLastPage: last,
-            size,
-            currentPage,
-            nextPage,
-        };
     };
 
     static convertUserRegions = ({ userRegions }) => userRegions;
 
     static convertUserInterests = ({ interestList }) => interestList.map(({ interest }) => interest);
 }
+
+const convertPage = ({ pageable, last, size }) => {
+    const currentPage = pageable.pageNumber;
+    const nextPage = currentPage + 1;
+    return {
+        isLastPage: last,
+        size,
+        currentPage,
+        nextPage,
+    };
+};
 
 const mapMeeting = (meeting) => ({
     seq: meeting.seq,

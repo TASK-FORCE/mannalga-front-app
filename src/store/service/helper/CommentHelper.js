@@ -1,5 +1,5 @@
 import RequestConverter from '@/store/converter/RequestConverter.js';
-import { actionsNormalTemplate } from '@/store/utils/actionsTemplate.js';
+import { actionsNormalTemplate } from '@/store/utils/actionsTemplate.ts';
 
 class CommentHelper {
     static async requestAllCommentListWithPaging(requestInfo, getPageDto, callbackForLastPage, callbackForRecursive) {

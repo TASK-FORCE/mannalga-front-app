@@ -1,43 +1,50 @@
 <template>
     <div>
-        <div v-if="imageUrl || initImage"
-             class="select-image-wrapper"
-             @click="openDialog = true"
+        <div
+            v-if="imageUrl || initImage"
+            class="select-image-wrapper"
+            @click="openDialog = true"
         >
-            <v-img :src="imageUrl || initImage"
-                   :style="resolveImageStyle"
-                   max-height="600"
+            <v-img
+                :src="imageUrl || initImage"
+                :style="resolveImageStyle"
+                max-height="600"
             />
         </div>
-        <div v-else
-             class="image-selector-container"
-             :style="resolveSelectorStyle"
-             @click="clickSelectBox"
+        <div
+            v-else
+            class="image-selector-container"
+            :style="resolveSelectorStyle"
+            @click="clickSelectBox"
         >
             <div
                 class="image-selector"
             >
                 <v-icon v-text="'$cameraOut'" />
-                <div v-if="text"
-                     class="font-weight-medium mt-2"
+                <div
+                    v-if="text"
+                    class="font-weight-medium mt-2"
                 >
                     {{ text }}
                 </div>
             </div>
         </div>
         <!--  @handleUploadedImgDto 이벤트에서 파라미터로 저장된 이미지의 URL를 넘겨준다   -->
-        <ImageCropper ref="cropper"
-                      :aspectRatio="cropFreeSize ? NaN : undefined"
-                      @handleUploadedImgDto="handleUploadedImgDto"
+        <ImageCropper
+            ref="cropper"
+            :aspectRatio="cropFreeSize ? NaN : undefined"
+            @handleUploadedImgDto="handleUploadedImgDto"
         />
-        <ImageCarouselDialog v-model="openDialog"
-                             :imgUrls="[imageUrl || initImage]"
+        <ImageCarouselDialog
+            v-model="openDialog"
+            :imgUrls="[imageUrl || initImage]"
         >
             <template v-slot:footer>
                 <div class="pa-2 text-center w-100">
-                    <v-btn class="white--text"
-                           outlined
-                           @click="triggerCropper"
+                    <v-btn
+                        class="white--text"
+                        outlined
+                        @click="triggerCropper"
                     >
                         사진 변경
                     </v-btn>
@@ -47,11 +54,13 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
 import ImageCropper from '@/components/image/ImageCropper.vue';
 import ImageCarouselDialog from '@/components/image/ImageCarouselDialog.vue';
+import { UploadImageResponse } from '@/interfaces/common';
 
-export default {
+export default Vue.extend({
     name: 'ImageSelectBox',
     components: { ImageCarouselDialog, ImageCropper },
     props: {
@@ -86,12 +95,10 @@ export default {
     },
     computed: {
         resolveSelectorStyle() {
-            const style = {};
-            style.height = `${this.height}px`;
-            if (this.width) {
-                style.width = `${this.width}px`;
-            }
-            return style;
+            return {
+                height: `${this.height}px`,
+                width: this.width ? `${this.width}px` : '',
+            };
         },
         resolveImageStyle() {
             return this.fixImage ? this.resolveSelectorStyle : {};
@@ -101,12 +108,10 @@ export default {
         clickSelectBox() {
             this.triggerCropper();
         },
-        handleUploadedImgDto(imageDto) {
+        handleUploadedImgDto(uploadedImage: UploadImageResponse) {
             this.openDialog = false;
-            const imageUrl = imageDto.absolutePath;
-            this.imageUrl = imageUrl;
-            this.$emit('handleImageUrl', imageUrl);
-            this.$emit('handleImageDto', imageDto);
+            this.imageUrl = uploadedImage.absolutePath;
+            this.$emit('handleUploadedImage', uploadedImage);
         },
         triggerCropper() {
             this.$refs.cropper.trigger();
@@ -116,11 +121,12 @@ export default {
             this.openDialog = false;
         },
     },
-};
+});
 </script>
 
-<style scoped
-       lang="scss"
+<style
+    scoped
+    lang="scss"
 >
 .image-selector-container {
     position: relative;

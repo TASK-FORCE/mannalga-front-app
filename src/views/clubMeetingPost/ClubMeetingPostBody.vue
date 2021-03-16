@@ -1,5 +1,5 @@
 <template>
-    <div v-show="!isLoading">
+    <div v-show="!$store.state.common.loading">
         <div class="d-flex pa-3">
             <UserProfileAvatar :size="50"
                                :name="creatorName"
@@ -94,13 +94,14 @@ import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
 import MeetingTimeRange from '@/components/meeting/MeetingTimeRange.vue';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
+import mutationsHelper from '@/store/helper/MutationsHelper.ts';
 import routerHelper from '@/router/RouterHelper.js';
 import { isDarkTheme } from '@/plugins/vuetify.js';
 import MiddleDivider from '@/components/MiddleDivider.vue';
 import SimpleUserProfileList from '@/components/user/SimpleUserProfileList.vue';
 import { MESSAGE } from '@/utils/common/constant/messages.js';
 import { generateParamPath, PATH } from '@/router/route_path_type.js';
+import { MutationTypes } from '@/store/type/methodTypes.ts';
 
 export default {
     name: 'ClubMeetingPostBody',
@@ -112,7 +113,6 @@ export default {
         };
     },
     computed: {
-        isLoading: () => gettersHelper.isLoading(),
         meeting: () => gettersHelper.meeting(),
         clubAndMeetingSeq: () => ({
             clubSeq: routerHelper.clubSeq(),
@@ -139,13 +139,13 @@ export default {
         applyMeetingApplication() {
             this.applicationBtnLoading = true;
             actionsHelper.requestMeetingApplication(this.clubAndMeetingSeq)
-                .then(() => mutationsHelper.openSnackBar(MESSAGE.SUCCESS_APPLY_MEETING_APPLICATION))
+                .then(() => this.$store.commit(MutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_APPLY_MEETING_APPLICATION))
                 .finally(() => (this.applicationBtnLoading = false));
         },
         cancelMeetingApplication() {
             this.applicationBtnLoading = true;
             actionsHelper.requestCancelMeetingApplication(this.clubAndMeetingSeq)
-                .then(() => mutationsHelper.openSnackBar(MESSAGE.SUCCESS_CANCEL_MEETING_APPLICATION))
+                .then(() => this.$store.commit(MutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_CANCEL_MEETING_APPLICATION))
                 .finally(() => (this.applicationBtnLoading = false));
         },
         moveToMeetingEditPage() {

@@ -1,11 +1,13 @@
 <template>
     <div>
-        <ImageCropper ref="cropper"
-                      :aspectRatio="aspectRatio"
-                      @handleUploadedImgDto="handleUploadedImgDto"
+        <ImageCropper
+            ref="cropper"
+            :aspectRatio="aspectRatio"
+            @handleUploadedImgDto="handleUploadedImgDto"
         />
-        <v-dialog :value="dialogOpen"
-                  persistent
+        <v-dialog
+            :value="dialogOpen"
+            persistent
         >
             <v-card class="pa-3">
                 <div class="text-center">
@@ -13,21 +15,24 @@
                         {{ title }}
                     </div>
                     <div class="pa-2">
-                        <slot name="image"
-                              :imageUrl="imageDto.absolutePath"
+                        <slot
+                            name="image"
+                            :imageUrl="uploadedImage.absolutePath"
                         />
                     </div>
                     <div class="mt-2">
-                        <v-btn color="green darken-2"
-                               class="font-weight-bold"
-                               @click="dialogOpen = false"
+                        <v-btn
+                            color="green darken-2"
+                            class="font-weight-bold"
+                            @click="dialogOpen = false"
                         >
                             취소
                         </v-btn>
-                        <v-btn color="green darken-2"
-                               class="font-weight-bold ml-5"
-                               :loading="loading"
-                               @click="changeImage"
+                        <v-btn
+                            color="green darken-2"
+                            class="font-weight-bold ml-5"
+                            :loading="loading"
+                            @click="changeImage"
                         >
                             변경
                         </v-btn>
@@ -38,16 +43,18 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
 import ImageCropper from '@/components/image/ImageCropper.vue';
+import { UploadImageResponse } from '@/interfaces/common';
 
-const DEFAULT = {
+const EMPTY: UploadImageResponse = {
     absolutePath: '',
     filePath: '',
     fileName: '',
 };
 
-export default {
+export default Vue.extend({
     name: 'ImageSelectorWithConfirm',
     components: { ImageCropper },
     props: {
@@ -66,7 +73,7 @@ export default {
     },
     data() {
         return {
-            imageDto: DEFAULT,
+            uploadedImage: EMPTY as UploadImageResponse,
             loading: false,
             dialogOpen: false,
         };
@@ -75,22 +82,21 @@ export default {
         trigger() {
             this.$refs.cropper.trigger();
         },
-        handleUploadedImgDto(dto) {
-            this.imageDto = dto;
+        handleUploadedImgDto(uploadedImage: UploadImageResponse) {
+            this.uploadedImage = uploadedImage;
             this.dialogOpen = true;
         },
         changeImage() {
             this.loading = true;
-            this.imageChangeCallback(this.imageDto)
+            this.imageChangeCallback(this.uploadedImage)
                 .finally(() => {
                     this.loading = false;
                     this.dialogOpen = false;
-                    this.imageDto = DEFAULT;
+                    this.uploadedImage = EMPTY;
                 });
         },
     },
-};
+});
 </script>
-
 <style scoped>
 </style>

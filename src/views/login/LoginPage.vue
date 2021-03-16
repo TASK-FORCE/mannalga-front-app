@@ -48,10 +48,11 @@
 <script>
 import { moveToKakaoLoginPage } from '@/utils/kakao/kakao.js';
 import { PATH } from '@/router/route_path_type.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
+import mutationsHelper from '@/store/helper/MutationsHelper.ts';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
 import { MESSAGE } from '@/utils/common/constant/messages.js';
+import { MutationTypes } from '@/store/type/methodTypes.ts';
 
 export default {
     name: 'LoginPage',
@@ -73,7 +74,7 @@ export default {
     },
     created() {
         if (this.validationFail) {
-            mutationsHelper.openSnackBar(MESSAGE.LOGIN_REQUIRE);
+            this.$store.commit(MutationTypes.OPEN_SNACK_BAR, MESSAGE.LOGIN_REQUIRE)
             return;
         }
 

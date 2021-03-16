@@ -24,18 +24,21 @@
 </template>
 
 <script>
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
+import mutationsHelper from '@/store/helper/MutationsHelper.ts';
 import { MESSAGE } from '@/utils/common/constant/messages.js';
+import { MutationTypes } from '@/store/type/methodTypes.ts';
 
 export default {
     name: 'CommentWriteFooter',
     props: {
         requestWriteComment: {
             type: Function,
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
             default: (content) => {},
         },
         postProcessor: {
             type: Function,
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
             default: () => {},
         },
     },
@@ -64,7 +67,7 @@ export default {
                     .finally(() => (this.loading = false));
                 return;
             }
-            mutationsHelper.openSnackBar(this.EMPTY_COMMENT_TEXT);
+            this.$store.commit(MutationTypes.OPEN_SNACK_BAR, this.EMPTY_COMMENT_TEXT);
         },
     },
 };

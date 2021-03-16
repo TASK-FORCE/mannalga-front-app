@@ -28,8 +28,9 @@
 
 <script>
 import axios from 'axios';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
+import mutationsHelper from '@/store/helper/MutationsHelper.ts';
 import { PATH } from '@/router/route_path_type.js';
+import { MutationTypes } from '@/store/type/methodTypes.ts';
 
 export default {
     name: 'BackdoorLoginPage',
@@ -55,7 +56,7 @@ export default {
                     localStorage.setItem('backdoor', true);
                 })
                 .catch(() => {
-                    mutationsHelper.openSnackBar('로그인 실패!');
+                    this.$store.commit(MutationTypes.OPEN_SNACK_BAR, '로그인 실패!')
                 })
                 .finally(() => (this.loadingIndex = -1));
         },

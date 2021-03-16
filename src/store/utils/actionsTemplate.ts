@@ -1,7 +1,8 @@
 import _ from '@/utils/common/lodashWrapper.js';
 import { MODULE } from '@/store/type/type.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
 import { MESSAGE } from '@/utils/common/constant/messages.js';
+import store from '@/store';
+import { MutationTypes } from '@/store/type/methodTypes.ts';
 
 export const actionsLoadingTemplate = async (commitInfo, callback, failCallback) => {
     const { commit, commitName, useRootCommit } = extractCommitInfo(commitInfo);
@@ -16,12 +17,12 @@ export const actionsLoadingTemplate = async (commitInfo, callback, failCallback)
     }
 };
 
-export const actionsNormalTemplate = async (callback, failCallback) => {
+export const actionsNormalTemplate = async <T>(callback: () => Promise<T>, failCallback?): Promise<T> => {
     try {
         return await callback();
     } catch (e) {
         console.log(e);
-        return handleException(e, failCallback);
+        handleException(e, failCallback);
     }
 };
 
@@ -49,9 +50,9 @@ function extractCommitInfo(commitInfo) {
 function handleException(e, failCallback) {
     const errorMessageFromServer = extractMessage(e);
     if (errorMessageFromServer) {
-        mutationsHelper.openSnackBar(errorMessageFromServer);
+        store.commit(MutationTypes.OPEN_SNACK_BAR, errorMessageFromServer);
     } else {
-        mutationsHelper.openSnackBar(MESSAGE.SERVER_INSTABILITY);
+        store.commit(MutationTypes.OPEN_SNACK_BAR, MESSAGE.SERVER_INSTABILITY);
     }
 
     if (failCallback) {

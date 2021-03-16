@@ -19,7 +19,7 @@ import ImageWithDialog from '@/components/image/ImageWithDialog.vue';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
 import routerHelper from '@/router/RouterHelper.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
+import mutationsHelper from '@/store/helper/MutationsHelper.ts';
 import BoardTemplate from '@/components/BoardTemplate.vue';
 
 export default {

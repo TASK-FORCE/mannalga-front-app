@@ -1,5 +1,5 @@
 <template>
-    <div v-show="!isLoading">
+    <div v-show="!$store.state.common.loading">
         <CommonHeader title="설정"
                       @back="moveToClubListPage"
         />
@@ -18,7 +18,6 @@ export default {
     name: 'UserSettingPage',
     components: { CommonHeader, UserSettingPageBody },
     computed: {
-        isLoading: () => gettersHelper.isLoading(),
         userProfile: () => gettersHelper.userProfile(),
     },
     created() {

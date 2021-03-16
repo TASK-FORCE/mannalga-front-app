@@ -6,61 +6,54 @@ const { getters } = store;
 
 class GettersHelper {
     // auth module
-    hasToken = () => get(MODULE.AUTH, 'hasToken');
-    appToken = () => get(MODULE.AUTH, 'appToken');
+    hasToken = () => getState(MODULE.AUTH, 'hasToken');
+    appToken = () => getState(MODULE.AUTH, 'appToken');
 
     // club module
-    clubInfo = () => get(MODULE.CLUB, 'clubInfo');
-    currentUserInfo = () => get(MODULE.CLUB, 'currentUserInfo');
-    clubUserList = () => get(MODULE.CLUB, 'clubUserList');
-    clubName = () => get(MODULE.CLUB, 'clubName');
-    currentTab = () => get(MODULE.CLUB, 'currentTab');
+    clubInfo = () => getState(MODULE.CLUB, 'clubInfo');
+    currentUserInfo = () => getState(MODULE.CLUB, 'currentUserInfo');
+    clubUserList = () => getState(MODULE.CLUB, 'clubUserList');
+    clubName = () => getState(MODULE.CLUB, 'clubName');
+    currentTab = () => getState(MODULE.CLUB, 'currentTab');
 
     // meeting module
-    meeting = () => get(MODULE.MEETING, 'meeting');
-    meetingGroupList = () => get(MODULE.MEETING, 'meetingGroupList');
-    meetingGroupPage = () => get(MODULE.MEETING, 'meetingGroupPage');
+    meeting = () => getState(MODULE.MEETING, 'meeting');
+    meetingGroupList = () => getState(MODULE.MEETING, 'meetingGroupList');
+    meetingGroupPage = () => getState(MODULE.MEETING, 'meetingGroupPage');
 
     // board module
-    boardList = () => get(MODULE.BOARD, 'boardList');
-    boardPage = () => get(MODULE.BOARD, 'boardPage');
-    board = () => get(MODULE.BOARD, 'board');
-    boardCommentList = () => get(MODULE.BOARD, 'boardCommentList');
-    boardCommentPage = () => get(MODULE.BOARD, 'boardCommentPage');
+    boardList = () => getState(MODULE.BOARD, 'boardList');
+    boardPage = () => getState(MODULE.BOARD, 'boardPage');
+    board = () => getState(MODULE.BOARD, 'board');
+    boardCommentList = () => getState(MODULE.BOARD, 'boardCommentList');
+    boardCommentPage = () => getState(MODULE.BOARD, 'boardCommentPage');
 
     // album module
-    album = () => get(MODULE.ALBUM, 'album');
-    albumList = () => get(MODULE.ALBUM, 'albumList');
-    albumPage = () => get(MODULE.ALBUM, 'albumPage');
-    albumCommentList = () => get(MODULE.ALBUM, 'albumCommentList');
-    albumCommentPage = () => get(MODULE.ALBUM, 'albumCommentPage');
+    album = () => getState(MODULE.ALBUM, 'album');
+    albumList = () => getState(MODULE.ALBUM, 'albumList');
+    albumPage = () => getState(MODULE.ALBUM, 'albumPage');
+    albumCommentList = () => getState(MODULE.ALBUM, 'albumCommentList');
+    albumCommentPage = () => getState(MODULE.ALBUM, 'albumCommentPage');
 
     // clubList module
-    clubList = () => get(MODULE.CLUB_LIST, 'clubList');
-    clubPage = () => get(MODULE.CLUB_LIST, 'clubPage');
-    myClubList = () => get(MODULE.CLUB_LIST, 'myClubList');
-    myClubPage = () => get(MODULE.CLUB_LIST, 'myClubPage');
-    clubSearchFilterInfo = () => get(MODULE.CLUB_LIST, 'clubSearchFilterInfo');
-
-    // common module
-    isLoading = () => get(MODULE.COMMON, 'isLoading');
-    snackBarOptions = () => get(MODULE.COMMON, 'snackBarOptions');
-    openSnackBar = () => get(MODULE.COMMON, 'openSnackBar');
-    isFocusingChildCommentInput = () => get(MODULE.COMMON, 'isFocusingChildCommentInput');
-    isDarkTheme = () => get(MODULE.COMMON, 'isDarkTheme');
+    clubList = () => getState(MODULE.CLUB_LIST, 'clubList');
+    clubPage = () => getState(MODULE.CLUB_LIST, 'clubPage');
+    myClubList = () => getState(MODULE.CLUB_LIST, 'myClubList');
+    myClubPage = () => getState(MODULE.CLUB_LIST, 'myClubPage');
+    clubSearchFilterInfo = () => getState(MODULE.CLUB_LIST, 'clubSearchFilterInfo');
 
     // template module
-    rootRegions = () => get(MODULE.TEMPLATE, 'rootRegions');
-    rootInterests = () => get(MODULE.TEMPLATE, 'rootInterests');
+    rootRegions = () => getState(MODULE.TEMPLATE, 'rootRegions');
+    rootInterests = () => getState(MODULE.TEMPLATE, 'rootInterests');
 
     // user module
-    kakaoProfile = () => get(MODULE.USER, 'kakaoProfile');
-    selectedRegions = () => get(MODULE.USER, 'selectedRegions');
-    selectedInterests = () => get(MODULE.USER, 'selectedInterests');
-    userProfile = () => get(MODULE.USER, 'userProfile');
+    kakaoProfile = () => getState(MODULE.USER, 'kakaoProfile');
+    selectedRegions = () => getState(MODULE.USER, 'selectedRegions');
+    selectedInterests = () => getState(MODULE.USER, 'selectedInterests');
+    userProfile = () => getState(MODULE.USER, 'userProfile');
 }
 
-const get = (moduleName, getterName) => getters[combineWithModuleName(moduleName, getterName)];
+const getState = (moduleName, getterName) => getters[combineWithModuleName(moduleName, getterName)];
 
 const gettersHelper = new GettersHelper();
 export default gettersHelper;

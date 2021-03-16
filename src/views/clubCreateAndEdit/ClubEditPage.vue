@@ -17,7 +17,7 @@ import ClubCreateAndEditBody from '@/views/clubCreateAndEdit/ClubCreateAndEditBo
 import { generateParamPath, PATH } from '@/router/route_path_type.js';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
+import mutationsHelper from '@/store/helper/MutationsHelper.ts';
 import { MESSAGE } from '@/utils/common/constant/messages.js';
 
 export default {

@@ -1,9 +1,9 @@
+import { SnackBarOption } from '@/utils/common/snackbarUtils';
+
 class DefaultBuilder {
-    static buildDefaultSnackBarOption = () => ({
-        message: '',
-        color: 'pink',
-        location: 'bottom',
-    });
+    static snackbarOption(): SnackBarOption {
+        return new SnackBarOption('', 'bottom', 'blue', 2000, false);
+    }
 
     static buildKakaoProfile = () => ({
         name: '',

@@ -1,10 +1,11 @@
 <template>
     <div>
-        <CommonHeader :title="title"
-                      :isDialog="isDialog"
-                      showSubmitBtn
-                      @back="backCallback"
-                      @submit="submit"
+        <CommonHeader
+            :title="title"
+            :isDialog="isDialog"
+            showSubmitBtn
+            @back="backCallback"
+            @submit="submit"
         />
         <div class="body">
             <div class="header">
@@ -16,18 +17,20 @@
                 </div>
             </div>
             <div class="interest">
-                <div v-for="rootInterest in rootInterests"
-                     :key="rootInterest.groupSeq"
+                <div
+                    v-for="rootInterest in rootInterests"
+                    :key="rootInterest.groupSeq"
                 >
                     <div class="interest-category">
                         {{ rootInterest.name }}
                     </div>
-                    <v-btn v-for="interest in rootInterest.interestList"
-                           :key="interest.seq"
-                           outlined
-                           :class="selectedInterestSeqs.includes(interest.seq) ? 'active' : ''"
-                           class="interest-btn"
-                           @click="toggleInterest(interest)"
+                    <v-btn
+                        v-for="interest in rootInterest.interestList"
+                        :key="interest.seq"
+                        outlined
+                        :class="selectedInterestSeqs.includes(interest.seq) ? 'active' : ''"
+                        class="interest-btn"
+                        @click="toggleInterest(interest)"
                     >
                         {{ interest.name }}
                     </v-btn>
@@ -42,9 +45,10 @@ import { PATH } from '@/router/route_path_type.js';
 import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.js';
 import CommonHeader from '@/components/header/CommonHeader.vue';
 import gettersHelper from '@/store/helper/GettersHelper.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
+import mutationsHelper from '@/store/helper/MutationsHelper.ts';
 import { MESSAGE } from '@/utils/common/constant/messages.js';
 import _ from '@/utils/common/lodashWrapper.js';
+import { MutationTypes } from '@/store/type/methodTypes.ts';
 
 export default {
     name: 'InterestSelect',
@@ -100,7 +104,7 @@ export default {
             }
 
             if (this.selectedInterestSeqs.length >= this.maxSize) {
-                mutationsHelper.openSnackBar(MESSAGE.SELECT_INTEREST_OVER_COUNT(this.maxSize));
+                this.$store.commit(MutationTypes.OPEN_SNACK_BAR, MESSAGE.SELECT_INTEREST_OVER_COUNT(this.maxSize));
                 return;
             }
 
@@ -113,8 +117,9 @@ export default {
 };
 </script>
 
-<style scoped
-       lang="scss"
+<style
+    scoped
+    lang="scss"
 >
 .body {
     width: 100%;

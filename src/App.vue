@@ -11,7 +11,7 @@
                 />
             </transition>
         </v-main>
-        <Progress v-show="isLoading" />
+        <Progress v-show="$store.state.common.loading" />
         <CommonSnackBar />
         <v-btn
             v-if="isDevEnv"
@@ -32,9 +32,9 @@
 <script>
 import CommonSnackBar from '@/components/CommonSnackBar.vue';
 import Progress from '@/components/Progress.vue';
-import gettersHelper from '@/store/helper/GettersHelper.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
+import mutationsHelper from '@/store/helper/MutationsHelper.ts';
 import { changeThemeAndLoad } from '@/plugins/vuetify.js';
+import { MutationTypes } from '@/store/type/methodTypes.ts';
 
 export default {
     name: 'App',
@@ -44,18 +44,15 @@ export default {
             isDevEnv: process.env.NODE_ENV !== 'production',
         };
     },
-    computed: {
-        isLoading: () => gettersHelper.isLoading(),
-    },
     created() {
         changeThemeAndLoad();
     },
     mounted() {
-        mutationsHelper.changeTheme();
+        this.$store.commit(MutationTypes.CHANGE_THEME);
     },
     methods: {
         changeTheme() {
-            mutationsHelper.changeTheme();
+            this.$store.commit(MutationTypes.CHANGE_THEME);
         },
     },
 };

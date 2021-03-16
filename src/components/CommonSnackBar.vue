@@ -1,18 +1,20 @@
 <template>
-    <SnackBar :open="open"
-              :snackBarOptions="snackBarOptions"
-              btnText="닫기"
-              @click="close"
-              @input="value => !value ? close() : null"
+    <SnackBar
+        :open="open"
+        :snackBarOptions="snackBarOptions"
+        btnText="닫기"
+        @click="close"
+        @input="value => !value ? close() : null"
     />
 </template>
 
-<script>
-import gettersHelper from '@/store/helper/GettersHelper.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
+<script lang="ts">
+import Vue from 'vue';
 import SnackBar from '@/components/SnackBar.vue';
+import { SnackBarOption } from '@/utils/common/snackbarUtils';
+import { MutationTypes } from '@/store/type/methodTypes';
 
-export default {
+export default Vue.extend({
     name: 'CommonSnackBar',
     components: { SnackBar },
     data() {
@@ -21,7 +23,9 @@ export default {
         };
     },
     computed: {
-        snackBarOptions: () => gettersHelper.snackBarOptions(),
+        snackBarOptions(): SnackBarOption {
+            return this.$store.state.common.snackBarOptions;
+        }
     },
     watch: {
         snackBarOptions(value) {
@@ -30,10 +34,10 @@ export default {
     },
     methods: {
         close() {
-            mutationsHelper.closeSnackBar();
+            this.$store.commit(MutationTypes.CLOSE_SNACK_BAR);
         },
     },
-};
+});
 </script>
 
 <style scoped>

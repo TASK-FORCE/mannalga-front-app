@@ -44,7 +44,7 @@
 import ImageWithLoading from '@/components/image/ImageWithLoading.vue';
 import { generateParamPath, PATH } from '@/router/route_path_type.js';
 import routerHelper from '@/router/RouterHelper.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
+import mutationsHelper from '@/store/helper/MutationsHelper.ts';
 
 export default {
     name: 'ClubDetailAlbumImage',

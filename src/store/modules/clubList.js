@@ -1,7 +1,7 @@
-import { actionsLoadingTemplate, actionsNormalTemplate } from '@/store/utils/actionsTemplate.js';
+import { actionsLoadingTemplate, actionsNormalTemplate } from '@/store/utils/actionsTemplate.ts';
 import clubListApi from '@/apis/ClubListApi.js';
 import RequestConverter from '@/store/converter/RequestConverter.js';
-import DefaultBuilder from '@/store/utils/DefaultBuilder.js';
+import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
 
 const state = {
     clubList: [],

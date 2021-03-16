@@ -14,6 +14,7 @@ class SnackBarOption {
     }
 }
 
+
 const SNACKBAR_LOCATION = {
     TOP: 'top',
     BOTTOM: 'bottom',

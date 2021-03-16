@@ -1,5 +1,5 @@
 import gettersHelper from '@/store/helper/GettersHelper.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
+import mutationsHelper from '@/store/helper/MutationsHelper.ts';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
 import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.js';
 

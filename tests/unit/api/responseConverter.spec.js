@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import ResponseConverter from '@/apis/converter/ResponseConverter.js';
+import ResponseConverter from '@/apis/converter/ResponseConverter.ts';
 
 describe('ResponseConverter', () => {
     it('extractResponseData Test', () => {

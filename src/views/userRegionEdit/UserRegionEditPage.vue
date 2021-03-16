@@ -1,9 +1,10 @@
 <template>
-    <div v-show="!isLoading">
-        <RegionSelect :selectedRegionsCallback="getSelectedRegions"
-                      :backCallback="moveToSettingPage"
-                      :submitCallback="changeRequest"
-                      title="지역 설정"
+    <div v-show="!$store.state.common.loading">
+        <RegionSelect
+            :selectedRegionsCallback="getSelectedRegions"
+            :backCallback="moveToSettingPage"
+            :submitCallback="changeRequest"
+            title="지역 설정"
         >
             <template #header-title>
                 참여할 지역을 설정해주세요.
@@ -19,22 +20,20 @@
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import RegionSelect from '@/components/region/RegionSelect.vue';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
+import mutationsHelper from '@/store/helper/MutationsHelper.ts';
 import { PATH } from '@/router/route_path_type.js';
 import { MESSAGE } from '@/utils/common/constant/messages.js';
+import { MutationTypes } from '@/store/type/methodTypes.ts';
 
 export default {
     name: 'UserRegionEditPage',
     components: { RegionSelect },
-    computed: {
-        isLoading: () => gettersHelper.isLoading(),
-    },
     methods: {
         changeRequest(selectedRegions) {
             actionsHelper.requestChangeUserRegions(selectedRegions)
                 .then(() => {
                     actionsHelper.requestUserProfile();
-                    mutationsHelper.openSnackBar(MESSAGE.SUCCESS_CHANGE_REGIONS);
+                    this.$store.commit(MutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_CHANGE_REGIONS);
                     this.$router.push(PATH.USER.SETTINGS);
                 });
         },

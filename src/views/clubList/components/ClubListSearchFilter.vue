@@ -73,8 +73,8 @@ import ClubListSearchFilterBtn from '@/views/clubList/components/ClubListSearchF
 import { PATH } from '@/router/route_path_type.js';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
-import DefaultBuilder from '@/store/utils/DefaultBuilder.js';
+import mutationsHelper from '@/store/helper/MutationsHelper.ts';
+import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
 import { isDarkTheme } from '@/plugins/vuetify.js';
 
 export default {

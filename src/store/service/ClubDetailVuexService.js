@@ -1,8 +1,8 @@
 import RequestHelper from '@/store/service/helper/RequestHelper.js';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
-import store from '@/store';
+import store from '@/store/index.ts';
 import { MODULE } from '@/store/type/type.js';
-import DefaultBuilder from '@/store/utils/DefaultBuilder.js';
+import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
 
 function dispatchClubInfoAndUserInfo(clubSeq) {
     return actionsHelper.requestClubInfoAndUserInfo(clubSeq);

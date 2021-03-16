@@ -1,13 +1,13 @@
 import { CommitOptions, DispatchOptions, Store } from 'vuex';
-import { CommonActions, CommonGetters, CommonMutations, CommonState } from '@/store/modules/common';
+import { CommonActions, CommonMutations, CommonState } from '@/store/modules/common';
 import { ClubGetters, ClubMutations } from '@/store/modules/club';
 
 export type RootState = {
     common: CommonState,
 }
 
-type MergedGetters = CommonGetters & ClubGetters
-type MergedMutations = CommonMutations & ClubMutations
+type MergedGetters = ClubGetters
+export type MergedMutations = CommonMutations & ClubMutations
 type MergedActions = CommonActions
 
 type MyGetters = {
@@ -32,4 +32,4 @@ type MyActions = {
 }
 
 
-export type MyStore = Omit<Store<RootState>, 'getters' | 'mutations' | 'actions'> & MyGetters & MyMutations & MyActions;
+export type MyStore = Omit<Store<RootState>, 'getters' | 'commit' | 'actions'> & MyGetters & MyMutations & MyActions;

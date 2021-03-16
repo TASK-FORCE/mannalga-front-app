@@ -1,3 +1,5 @@
+import { ModuleTree } from 'vuex';
+
 function isObject(value) {
     return value && typeof value === 'object' && value.constructor === Object;
 }
@@ -10,8 +12,8 @@ function getModuleName(fileName) {
 
 const tsModules = new Set(['common']);
 
-function makeModules() {
-    const modules = {};
+function makeModules(): ModuleTree<any> {
+    const modules: ModuleTree<any> = {};
     const requireModule = require.context(
         '.',
         true,
@@ -38,5 +40,4 @@ function makeModules() {
 }
 
 const modules = makeModules();
-
 export default modules;

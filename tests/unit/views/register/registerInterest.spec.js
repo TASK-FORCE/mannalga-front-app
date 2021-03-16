@@ -4,7 +4,7 @@ import sinon from 'sinon';
 import { expect } from 'chai';
 import RegisterInterestNestedPage from '@/views/register/RegisterInterestNestedPage.vue';
 import { PATH } from '@/router/route_path_type.js';
-import DefaultBuilder from '@/store/utils/DefaultBuilder.js';
+import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
 import { testUtils } from '../../../utils/testUtils.js';
 
 const sandbox = sinon.createSandbox();

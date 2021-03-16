@@ -39,7 +39,7 @@ import FixedCreateBtn from '@/components/button/FixedCreateBtn.vue';
 import FixedScrollToTopBtn from '@/components/button/FixedScrollToTopBtn.vue';
 import { PATH } from '@/router/route_path_type.js';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
+import mutationsHelper from '@/store/helper/MutationsHelper.ts';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 
 export default {

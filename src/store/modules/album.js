@@ -1,7 +1,7 @@
-import { actionsLoadingTemplate, actionsNormalTemplate } from '@/store/utils/actionsTemplate.js';
+import { actionsLoadingTemplate, actionsNormalTemplate } from '@/store/utils/actionsTemplate.ts';
 import albumApi from '@/apis/AlbumApi.js';
 import RequestConverter from '@/store/converter/RequestConverter.js';
-import DefaultBuilder from '@/store/utils/DefaultBuilder.js';
+import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
 import CommentHelper from '@/store/service/helper/CommentHelper.js';
 
 export const state = {

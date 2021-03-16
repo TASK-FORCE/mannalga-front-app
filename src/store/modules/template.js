@@ -1,4 +1,4 @@
-import { actionsNormalTemplate } from '@/store/utils/actionsTemplate.js';
+import { actionsNormalTemplate } from '@/store/utils/actionsTemplate.ts';
 import templateApi from '@/apis/TemplateApi.js';
 
 const state = {
