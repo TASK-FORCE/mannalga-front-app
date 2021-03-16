@@ -2,10 +2,9 @@ import { actionsNormalTemplate } from '@/store/utils/actionsTemplate.ts';
 import commonApi from '@/apis/CommonApi.ts';
 import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
 import { changeThemeAndLoad, isDarkTheme } from '@/plugins/vuetify.js';
-import { SnackBarOption } from '@/utils/common/snackbarUtils';
 import { ActionTypes, MutationTypes } from '@/store/type/methodTypes';
 import { CommonActionContext } from '@/store/type/actionContextTypes';
-import { UploadImageResponse } from '@/interfaces/common';
+import { SnackBarOption, UploadImageResponse } from '@/interfaces/common';
 
 export const state = {
     loading: false as boolean,
@@ -20,22 +19,17 @@ export const mutations = {
         state.loading = value;
     },
     [MutationTypes.OPEN_SNACK_BAR](state: CommonState, message: string) {
-        state.snackBarOptions = new SnackBarOption(
+        state.snackBarOptions = {
+            ...state.snackBarOptions,
             message,
-            state.snackBarOptions.location,
-            state.snackBarOptions.color,
-            state.snackBarOptions.time,
-            true
-        );
+            open: true
+        }
     },
     [MutationTypes.CLOSE_SNACK_BAR](state: CommonState) {
-        state.snackBarOptions = new SnackBarOption(
-            state.snackBarOptions.message,
-            state.snackBarOptions.location,
-            state.snackBarOptions.color,
-            state.snackBarOptions.time,
-            false
-        );
+        state.snackBarOptions = {
+            ...state.snackBarOptions,
+            open: false,
+        }
     },
     [MutationTypes.FOCUS_CHILD_COMMENT_INPUT](state: CommonState) {
         state.focusingChildCommentInput = true;

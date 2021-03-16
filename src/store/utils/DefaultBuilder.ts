@@ -1,8 +1,12 @@
-import { SnackBarOption } from '@/utils/common/snackbarUtils';
+import { SNACKBAR_LOCATION, SnackBarOption } from '@/interfaces/common';
 
 class DefaultBuilder {
     static snackbarOption(): SnackBarOption {
-        return new SnackBarOption('', 'bottom', 'blue', 2000, false);
+        return {
+            message: '',
+            location: SNACKBAR_LOCATION.BOTTOM,
+            open: false,
+        };
     }
 
     static buildKakaoProfile = () => ({

@@ -147,7 +147,7 @@ export default Vue.extend({
         },
     },
     created() {
-        regionAndInterestVuexService.dispatch(true);
+        regionAndInterestVuexService.dispatch(true, null);
     },
     mounted() {
         if (!this.context) {

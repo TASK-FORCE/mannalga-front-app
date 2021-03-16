@@ -1,38 +1,44 @@
 <template>
     <div>
-        <v-img :src="clubInfo.mainImageUrl || require('@/images/default_club_image.png')"
-               aspect-ratio="2"
+        <v-img
+            :src="clubInfo.mainImageUrl || require('@/images/default_club_image.png')"
+            aspect-ratio="2"
         />
         <div class="club-name">
             {{ clubInfo.name }}
         </div>
         <div class="club-interest-region-wrapper">
             <div class="d-flex align-center">
-                <v-icon size="17"
-                        v-text="'$mapMarker'"
+                <v-icon
+                    size="17"
+                    v-text="'$mapMarker'"
                 />
                 <span class="region-title">{{ clubRegionsText }}</span>
             </div>
             <div class="d-flex align-center mt-2">
-                <WindMill :color="windMillColor"/>
+                <WindMill :color="windMillColor" />
                 <span class="interest-title">{{ clubInterestsText }}</span>
             </div>
         </div>
-        <MiddleDivider class="mt-5"
-                       :height="1"
+        <MiddleDivider
+            class="mt-5"
+            :height="1"
         />
         <div class="description-wrapper">
-            <div class="description"
-                 v-text="description"
+            <div
+                class="description"
+                v-text="description"
             />
         </div>
-        <SnackBar :open="imageChangeSnackBarOpen"
-                  :snackBarOptions="imageChangeSnackBarOptions"
-                  btnText="추가"
-                  @click="$refs.imageSelector.trigger()"
+        <SnackBar
+            :open="imageChangeSnackBarOpen"
+            :snackBarOptions="imageChangeSnackBarOptions"
+            btnText="추가"
+            @click="$refs.imageSelector.trigger()"
         />
-        <ImageSelectorWithConfirm ref="imageSelector"
-                                  :imageChangeCallback="changeClubMainImage"
+        <ImageSelectorWithConfirm
+            ref="imageSelector"
+            :imageChangeCallback="changeClubMainImage"
         >
             <template #image="{ imageUrl }">
                 <v-img :src="imageUrl" />
@@ -41,15 +47,16 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
 import _ from '@/utils/common/lodashWrapper.js';
 import ImageSelectorWithConfirm from '@/components/image/ImageSelectorWithConfirm.vue';
-import { SNACKBAR_LOCATION, SnackBarOption } from '@/utils/common/snackbarUtils.js';
 import SnackBar from '@/components/SnackBar.vue';
 import WindMill from '@/components/icons/WindMill.vue';
 import MiddleDivider from '@/components/MiddleDivider.vue';
-import gettersHelper from '@/store/helper/GettersHelper.js';
+import { MESSAGE } from '@/utils/common/constant/messages.js';
+import { SNACKBAR_LOCATION, SnackBarOption } from '../../../../interfaces/common';
 
 const CHANGE_IMAGE_COOL_TIME_MINUTE = 6 * 60;
 const toMillisecond = (minute) => minute * 60 * 1000;
@@ -65,7 +72,7 @@ const checkCoolTime = (clubSeq) => {
     return false;
 };
 
-export default {
+export default Vue.extend({
     name: 'ClubDetailMainClubInfo',
     components: {
         MiddleDivider,
@@ -86,7 +93,12 @@ export default {
     data() {
         return {
             imageChangeSnackBarOpen: false,
-            imageChangeSnackBarOptions: new SnackBarOption('모임 대표 사진을 추가해보세요!', SNACKBAR_LOCATION.BOTTOM, 'blue', 5000),
+            imageChangeSnackBarOptions: {
+                message: MESSAGE.CLUB_MAIN_IMAGE_ADD_TEXT,
+                location: SNACKBAR_LOCATION.BOTTOM,
+                time: 5000,
+                open: true,
+            } as SnackBarOption,
         };
     },
     computed: {
@@ -134,11 +146,13 @@ export default {
             });
         },
     },
-};
+});
+</script>
 </script>
 
-<style scoped
-       lang="scss"
+<style
+    scoped
+    lang="scss"
 >
 
 .club-name {

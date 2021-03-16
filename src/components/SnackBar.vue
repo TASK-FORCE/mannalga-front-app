@@ -2,14 +2,14 @@
     <v-snackbar
         :value="open"
         v-bind="{[snackBarOptions.location]: true}"
-        :timeout="snackBarOptions.time"
+        :timeout="snackBarOptions.time || 2000"
         @input="value => $emit('input', value)"
     >
         {{ snackBarOptions.message }}
 
         <template v-slot:action="{ attrs }">
             <v-btn
-                :color="snackBarOptions.color"
+                :color="snackBarOptions.color || 'blue'"
                 outlined
                 small
                 v-bind="attrs"
@@ -23,7 +23,7 @@
 
 <script lang="ts">
 import Vue, { PropType } from 'vue';
-import { SnackBarOption } from '@/utils/common/snackbarUtils';
+import { SnackBarOption } from '@/interfaces/common';
 
 export default Vue.extend({
     name: 'SnackBar',

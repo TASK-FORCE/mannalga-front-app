@@ -119,7 +119,7 @@ export default Vue.extend({
                         actionsHelper.requestFirstBoardList(this.clubSeq);
                         this.$router.push(generateParamPath(PATH.CLUB.MAIN, [this.clubSeq]));
                     })
-                    .finally(this.loading = false);
+                    .finally(() => this.loading = false);
             }
         },
     },

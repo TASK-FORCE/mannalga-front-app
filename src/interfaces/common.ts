@@ -8,3 +8,16 @@ export interface UploadImageResponse {
     fileName: string,
     filePath: string,
 }
+
+export interface SnackBarOption {
+    message: string,
+    location: string,
+    color?: string,
+    time?: number,
+    open: boolean,
+}
+
+export const SNACKBAR_LOCATION = {
+    TOP: 'top',
+    BOTTOM: 'bottom',
+};

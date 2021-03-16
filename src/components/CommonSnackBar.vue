@@ -11,8 +11,8 @@
 <script lang="ts">
 import Vue from 'vue';
 import SnackBar from '@/components/SnackBar.vue';
-import { SnackBarOption } from '@/utils/common/snackbarUtils';
 import { MutationTypes } from '@/store/type/methodTypes';
+import { SnackBarOption } from '@/interfaces/common';
 
 export default Vue.extend({
     name: 'CommonSnackBar',
