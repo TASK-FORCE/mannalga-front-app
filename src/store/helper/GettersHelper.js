@@ -9,13 +9,6 @@ class GettersHelper {
     hasToken = () => getState(MODULE.AUTH, 'hasToken');
     appToken = () => getState(MODULE.AUTH, 'appToken');
 
-    // club module
-    clubInfo = () => getState(MODULE.CLUB, 'clubInfo');
-    currentUserInfo = () => getState(MODULE.CLUB, 'currentUserInfo');
-    clubUserList = () => getState(MODULE.CLUB, 'clubUserList');
-    clubName = () => getState(MODULE.CLUB, 'clubName');
-    currentTab = () => getState(MODULE.CLUB, 'currentTab');
-
     // meeting module
     meeting = () => getState(MODULE.MEETING, 'meeting');
     meetingGroupList = () => getState(MODULE.MEETING, 'meetingGroupList');

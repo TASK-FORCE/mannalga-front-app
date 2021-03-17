@@ -1,8 +1,9 @@
 <template>
     <div>
-        <v-tabs v-model="tab"
-                class="club-main-tab px-5"
-                grow
+        <v-tabs
+            v-model="tab"
+            class="club-main-tab px-5"
+            grow
         >
             <v-tab
                 v-for="menu in menus"
@@ -13,13 +14,15 @@
             </v-tab>
         </v-tabs>
 
-        <v-tabs-items v-show="!$store.state.common.loading"
-                      v-model="tab"
+        <v-tabs-items
+            v-show="!$store.state.common.loading"
+            v-model="tab"
         >
             <v-tab-item value="main">
-                <ClubDetailMain :clubInfo="clubInfo"
-                                :currentUserInfo="currentUserInfo"
-                                :clubUserList="clubUserList"
+                <ClubDetailMain
+                    :clubInfo="clubInfo"
+                    :currentUserInfo="currentUserInfo"
+                    :clubUserList="$store.state.club.clubUserList"
                 />
             </v-tab-item>
             <v-tab-item value="meeting">
@@ -35,18 +38,19 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
 import ClubDetailMain from '@/views/clubDetail/components/main/ClubDetailMain.vue';
 import ClubDetailMeetingList from '@/views/clubDetail/components/meeting/ClubDetailMeetingList.vue';
 import ClubDetailBoardList from '@/views/clubDetail/components/board/ClubDetailBoardList.vue';
 import ClubDetailAlbumList from '@/views/clubDetail/components/album/ClubDetailAlbumList.vue';
-import gettersHelper from '@/store/helper/GettersHelper.js';
 import lastClubTabCache from '@/utils/cache/LastClubTabCache.js';
-import clubDetailVuexService from '@/store/service/ClubDetailVuexService.js';
+import clubDetailVuexService from '@/store/service/ClubDetailVuexService.ts';
 import { PATH } from '@/router/route_path_type.js';
 import routerHelper from '@/router/RouterHelper.js';
+import { ClubInfo, CurrentUserInfo } from '@/interfaces/club.ts';
 
-export default {
+export default Vue.extend({
     name: 'ClubDetailPageBody',
     components: { ClubDetailMain, ClubDetailMeetingList, ClubDetailBoardList, ClubDetailAlbumList },
     data() {
@@ -62,9 +66,12 @@ export default {
     },
     computed: {
         clubSeq: () => routerHelper.clubSeq(),
-        clubInfo: () => gettersHelper.clubInfo(),
-        currentUserInfo: () => gettersHelper.currentUserInfo(),
-        clubUserList: () => gettersHelper.clubUserList(),
+        clubInfo(): ClubInfo {
+            return this.$store.state.club.clubInfo;
+        },
+        currentUserInfo(): CurrentUserInfo {
+            return this.$store.state.club.currentUserInfo;
+        },
     },
     watch: {
         tab() {
@@ -77,5 +84,5 @@ export default {
             clubDetailVuexService.dispatch(this.clubSeq, true, PATH.CLUB_LIST);
         }
     },
-};
+});
 </script>

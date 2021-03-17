@@ -1,30 +1,33 @@
 <template>
     <div>
-        <CommonHeader title="모임 수정"
-                      @back="back"
+        <CommonHeader
+            title="모임 수정"
+            @back="back"
         />
-        <ClubCreateAndEditBody btnText="모임 수정"
-                               :submitClickCallback="editClub"
-                               :context="editContext"
+        <ClubCreateAndEditBody
+            btnText="모임 수정"
+            :submitClickCallback="editClub"
+            :context="editContext"
         />
     </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
 
 import CommonHeader from '@/components/header/CommonHeader.vue';
 import ClubCreateAndEditBody from '@/views/clubCreateAndEdit/ClubCreateAndEditBody.vue';
 import { generateParamPath, PATH } from '@/router/route_path_type.js';
-import gettersHelper from '@/store/helper/GettersHelper.js';
-import actionsHelper from '@/store/helper/ActionsHelper.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.ts';
-import { MESSAGE } from '@/utils/common/constant/messages.js';
+import { ActionTypes } from '@/store/type/methodTypes.ts';
+import { ClubInfo, ClubWriteRequest, ClubWriteRequestWithSeq } from '@/interfaces/club.ts';
 
-export default {
+export default Vue.extend({
     name: 'ClubEditPage',
     components: { CommonHeader, ClubCreateAndEditBody },
     computed: {
-        clubInfo: () => gettersHelper.clubInfo(),
+        clubInfo(): ClubInfo {
+            return this.$store.state.club.clubInfo;
+        },
         editContext() {
             if (this.clubInfo.seq === 0) {
                 this.$router.back();
@@ -44,13 +47,16 @@ export default {
         back() {
             this.$router.push(PATH.CLUB_LIST);
         },
-        editClub(dto) {
-            const clubSeq = this.clubInfo.seq;
-            return actionsHelper.requestClubChange({ clubSeq, clubChangeRequestDto: dto })
+        editClub(clubWriteRequest: ClubWriteRequest) {
+            const clubWriteRequestWithSeq: ClubWriteRequestWithSeq = {
+                clubSeq: clubInfo.seq,
+                clubWriteRequest
+            }
+            return this.$store.dispatch(ActionTypes.REQUEST_CLUB_CHANGE, clubWriteRequestWithSeq)
                 .then(() => (this.$router.push(generateParamPath(PATH.CLUB.MAIN, [clubSeq]))));
         },
     },
-};
+});
 </script>
 
 <style scoped>

@@ -91,6 +91,7 @@ import { RULES } from '@/utils/common/constant/rules.js';
 import RegionSelectDialog from '@/components/region/RegionSelectDialog.vue';
 import InterestSelectDialog from '@/components/interest/InterestSelectDialog.vue';
 import { UploadImageResponse } from '../../interfaces/common';
+import { ClubWriteRequest } from '@/interfaces/club';
 
 export default Vue.extend({
     name: 'ClubCreateAndEditBody',
@@ -171,17 +172,16 @@ export default Vue.extend({
         click() {
             if (this.$refs.clubCreateForm.validate()) {
                 this.loading = true;
-                const clubCreateDto = this.buildClubCreateDto();
-                this.submitClickCallback(clubCreateDto)
+                this.submitClickCallback(this.buildClubCreateDto())
                     .finally(() => (this.loading = false));
             }
         },
-        buildClubCreateDto() {
+        buildClubCreateDto(): ClubWriteRequest {
             return {
                 name: this.name,
                 description: this.description,
                 maximumNumber: this.maximumNumber,
-                imageUrl: this.imageUrl,
+                mainImageUrl: this.imageUrl,
                 interestList: this.selectedInterests
                     .map((interest, index) => ({
                         priority: index + 1,

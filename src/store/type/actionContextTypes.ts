@@ -1,10 +1,25 @@
-import { ActionContext } from 'vuex';
-import { MergedMutations, RootState } from '@/store/type/types';
+import { ActionContext, CommitOptions, DispatchOptions } from 'vuex';
+import { MergedActions, MergedMutations, RootState } from '@/store/type/types';
 import { CommonState } from '@/store/modules/common';
+import { ClubState } from '@/store/modules/club';
 
 export type CommonActionContext = {
-    commit<K extends keyof MergedMutations>(
+    commit<K extends keyof MergedMutations, P extends Parameters<MergedMutations[K]>[1]>(
         key: K,
-        payload: Parameters<MergedMutations[K]>[1]
+        payload?: P,
+        options?: CommitOptions
     ): ReturnType<MergedMutations[K]>;
 } & Omit<ActionContext<CommonState, RootState>, 'commit'>
+
+export type ClubActionContext = {
+    commit<K extends keyof MergedMutations, P extends Parameters<MergedMutations[K]>[1]>(
+        key: K,
+        payload?: P,
+        options?: CommitOptions
+    ): ReturnType<MergedMutations[K]>;
+    dispatch<K extends keyof MergedActions>(
+        key: K,
+        payload?: Parameters<MergedActions[K]>[1],
+        options?: DispatchOptions
+    ): ReturnType<MergedActions[K]>;
+} & Omit<ActionContext<ClubState, RootState>, 'commit'>

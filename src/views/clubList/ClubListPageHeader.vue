@@ -34,14 +34,13 @@ export default {
     },
     computed: {
         clubSearchFilterInfo: () => gettersHelper.clubSearchFilterInfo(),
-        currentTab: () => gettersHelper.currentTab(),
     },
     watch: {
         searchText(value) {
             if (_.isEmpty(value)) {
                 return;
             }
-            mutationsHelper.setCurrentTab('club');
+            this.$store.commit(MutationTypes.SET_CURRENT_TAB, 'club');
             this.$store.commit(MutationTypes.CHANGE_LOADING, true);
             this.searchCallback();
         },

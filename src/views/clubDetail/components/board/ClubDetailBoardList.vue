@@ -1,44 +1,50 @@
 <template>
     <div>
         <div class="ml-3 mt-1 mb-3">
-            <v-select v-model="selectedCategory"
-                      :items="boardCategoryNames"
-                      outlined
-                      dense
-                      hide-details
-                      style="width: 120px"
+            <v-select
+                v-model="selectedCategory"
+                :items="boardCategoryNames"
+                outlined
+                dense
+                hide-details
+                style="width: 120px"
             />
         </div>
-        <InfiniteScrollTemplate name="board"
-                                :firstPageCallback="this.fetchFirstPage"
-                                :nextPageCallback="this.fetchNextPage"
-                                :pageElements="boardList"
-                                :pageInfo="boardPage"
-                                withListGroup
+        <InfiniteScrollTemplate
+            name="board"
+            :firstPageCallback="this.fetchFirstPage"
+            :nextPageCallback="this.fetchNextPage"
+            :pageElements="boardList"
+            :pageInfo="boardPage"
+            withListGroup
         >
             <template v-slot:list-main>
-                <div v-for="board in boardList"
-                     :key="board.seq"
+                <div
+                    v-for="board in boardList"
+                    :key="board.seq"
                 >
                     <ClubDetailBoardPost :board="board" />
                 </div>
             </template>
             <template #empty>
-                <EmptyPage icon="note"
-                           title="게시글이 없습니다."
-                           description="글을 작성하여 모임원들과 이야기하세요."
+                <EmptyPage
+                    icon="note"
+                    title="게시글이 없습니다."
+                    description="글을 작성하여 모임원들과 이야기하세요."
                 />
             </template>
         </InfiniteScrollTemplate>
-        <FixedCreateBtn v-if="canCreateBoard"
-                        color="blue"
-                        :path="clubBoardCreate"
-                        left
+        <FixedCreateBtn
+            v-if="canCreateBoard"
+            color="blue"
+            :path="clubBoardCreate"
+            left
         />
     </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue, { PropType } from 'vue';
 import FixedCreateBtn from '@/components/button/FixedCreateBtn.vue';
 import { generateParamPath, PATH } from '@/router/route_path_type.js';
 import routerHelper from '@/router/RouterHelper.js';
@@ -48,8 +54,9 @@ import ClubDetailBoardPost from '@/views/clubDetail/components/board/ClubDetailB
 import InfiniteScrollTemplate from '@/components/InfiniteScrollTemplate.vue';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
 import EmptyPage from '@/components/EmptyPage.vue';
+import { CurrentUserInfo } from '../../../../interfaces/club';
 
-export default {
+export default Vue.extend({
     name: 'ClubDetailBoardList',
     components: {
         EmptyPage,
@@ -58,7 +65,7 @@ export default {
         FixedCreateBtn,
     },
     props: {
-        currentUserInfo: Object,
+        currentUserInfo: Object as PropType<CurrentUserInfo>,
     },
     data() {
         return {
@@ -104,10 +111,11 @@ export default {
             return actionsHelper.requestNextBoardList(this.requestDto);
         },
     },
-};
+});
 </script>
 
-<style scoped
-       lang="scss"
+<style
+    scoped
+    lang="scss"
 >
 </style>

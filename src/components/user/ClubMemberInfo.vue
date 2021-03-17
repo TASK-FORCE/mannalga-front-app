@@ -1,13 +1,15 @@
 <template>
     <div class="member-info-wrapper">
-        <UserProfileAvatar :size="35"
-                           :imgUrl="user.imageUrl"
-                           :name="user.name"
-                           :appendNumber="user.seq"
+        <UserProfileAvatar
+            :size="35"
+            :imgUrl="user.imageUrl"
+            :name="user.name"
+            :appendNumber="user.seq"
         />
         <div class="member-info">
-            <div v-if="isMe"
-                 class="my-tag"
+            <div
+                v-if="isMe"
+                class="my-tag"
             >
                 나
             </div>
@@ -15,30 +17,32 @@
         </div>
         <v-spacer />
         <div class="d-flex">
-            <SquareTag v-if="managementContext"
-                       v-ripple
-                       :text="managementContext.text"
-                       blur
-                       class="mr-2 my-auto"
-                       @click="managementContext.click"
+            <SquareTag
+                v-if="managementContext"
+                v-ripple
+                :text="managementContext.text"
+                blur
+                class="mr-2 my-auto"
+                @click="managementContext.click"
             />
-            <RoleTag :roleType="user.role"
-                     class="my-auto"
+            <RoleTag
+                :roleType="user.role"
+                class="my-auto"
             />
         </div>
     </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue, { PropType } from 'vue';
 import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
 import SquareTag from '@/components/tag/SquareTag.vue';
 import RoleTag from '@/components/tag/RoleTag.vue';
 import { CLUB_ROLE } from '@/utils/role.js';
-import MiddleDivider from '@/components/MiddleDivider.vue';
-import actionsHelper from '@/store/helper/ActionsHelper.js';
 import routerHelper from '@/router/RouterHelper.js';
+import { CurrentUserInfo } from '@/interfaces/club';
 
-export default {
+export default Vue.extend({
     name: 'ClubMemberInfo',
     components: { RoleTag, SquareTag, UserProfileAvatar },
     props: {
@@ -47,7 +51,7 @@ export default {
             required: true,
         },
         currentUserInfo: {
-            type: Object,
+            type: Object as PropType<CurrentUserInfo>,
             required: true,
         },
     },
@@ -105,11 +109,11 @@ export default {
             this.managementDialog = false;
         },
     },
-};
+});
 </script>
-
-<style scoped
-       lang="scss"
+<style
+    scoped
+    lang="scss"
 >
 
 .member-info-wrapper {

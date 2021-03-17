@@ -1,34 +1,27 @@
 import { actionsNormalTemplate } from '@/store/utils/actionsTemplate.ts';
 import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
-import clubApi from '@/apis/ClubApi.js';
-import { MODULE } from '@/store/type/type.js';
+import clubApi from '@/apis/ClubApi.ts';
 import { CLUB_ROLE } from '@/utils/role.js';
+import { ActionTypes, MutationTypes } from '@/store/type/methodTypes';
+import { ClubActionContext } from '@/store/type/actionContextTypes';
+import { ClubInfo, ClubListPageTab, ClubUserInfo, ClubUserKickRequest, ClubUserRoleChangeRequest, ClubWriteRequest, ClubWriteRequestWithSeq, CurrentUserInfo } from '@/interfaces/club';
 
-const state = {
-    clubInfo: DefaultBuilder.buildClubInfo(),
-    currentUserInfo: DefaultBuilder.buildCurrentUserInfo(),
-    clubUserList: [],
-    selectedClubRegions: {},
-    currentTab: null,
+export const state = {
+    clubInfo: DefaultBuilder.clubInfo() as ClubInfo,
+    currentUserInfo: DefaultBuilder.currentUserInfo() as CurrentUserInfo,
+    clubUserList: [] as ClubUserInfo[],
+    currentTab: null as ClubListPageTab,
 };
+export type ClubState = typeof state
 
-const getters = {
-    clubInfo: (state) => state.clubInfo,
-    clubName: (state) => state.clubInfo.name,
-    currentUserInfo: (state) => state.currentUserInfo,
-    clubUserList: (state) => state.clubUserList,
-    selectedClubRegions: (state) => state.selectedClubRegions,
-    currentTab: (state) => state.currentTab,
-};
-
-const mutations = {
-    setClubInfo(state, clubInfo) {
+export const mutations = {
+    [MutationTypes.SET_CLUB_INFO](state: ClubState, clubInfo: ClubInfo) {
         state.clubInfo = clubInfo;
     },
-    setCurrentTab(state, tab) {
+    [MutationTypes.SET_CURRENT_TAB](state: ClubState, tab: ClubListPageTab) {
         state.currentTab = tab;
     },
-    setCurrentUserInfo(state, userInfo) {
+    [MutationTypes.SET_CURRENT_USER_INFO](state: ClubState, userInfo: ClubUserInfo) {
         const { role, isLiked } = userInfo || {};
         state.currentUserInfo = {
             isMaster: role && !!role.includes(CLUB_ROLE.MASTER),
@@ -38,10 +31,10 @@ const mutations = {
             isLiked,
         };
     },
-    setClubUserList(state, userList) {
+    [MutationTypes.SET_CLUB_USER_LIST](state: ClubState, userList: ClubUserInfo[]) {
         state.clubUserList = userList;
     },
-    changeUserRole(state, { clubUserSeq, role }) {
+    [MutationTypes.CHANGE_USER_ROLE](state: ClubState, { clubUserSeq, role }: ClubUserRoleChangeRequest) {
         state.clubUserList = state.clubUserList
             .map(user => {
                 if (user.clubUserSeq === clubUserSeq) {
@@ -53,74 +46,62 @@ const mutations = {
                 return user;
             });
     },
-    deleteUser(state, { clubUserSeq }) {
+    [MutationTypes.DELETE_USER](state: ClubState, { clubUserSeq }: ClubUserKickRequest) {
         state.clubUserList = state.clubUserList
             .filter(user => user.clubUserSeq !== clubUserSeq);
     },
 };
+export type ClubMutations = typeof mutations;
 
-const actions = {
-    async requestClubInfoAndUserInfo({ commit }, clubSeq) {
+export const actions = {
+    async [ActionTypes.REQUEST_CLUB_INFO_AND_USER_INFO]({ commit }: ClubActionContext, clubSeq) {
         return actionsNormalTemplate(async () => {
             const { clubInfo, userInfo, userList } = await clubApi.getClubInfoAndUserInfo(clubSeq);
-            commit('setClubInfo', clubInfo);
-            commit('setCurrentUserInfo', userInfo);
-            commit('setClubUserList', userList);
+            commit(MutationTypes.SET_CLUB_INFO, clubInfo);
+            commit(MutationTypes.SET_CURRENT_USER_INFO, userInfo);
+            commit(MutationTypes.SET_CLUB_USER_LIST, userList);
         });
     },
-    async requestClubCreate({ commit }, clubCreateRequestDto) {
+    async [ActionTypes.REQUEST_CLUB_CREATE]({ commit }: ClubActionContext, clubCreateRequestDto: ClubWriteRequest) {
         return actionsNormalTemplate(async () => {
             await clubApi.postClubCreate(clubCreateRequestDto);
-            commit(`${MODULE.CLUB_LIST}/initClubListAndPage`, {}, { root: true });
-            commit(`${MODULE.CLUB_LIST}/initMyClubListAndPage`, {}, { root: true });
+            commit(MutationTypes.INIT_CLUB_LIST_AND_PAGE, {}, { root: true });
+            commit(MutationTypes.INIT_MY_CLUB_LIST_AND_PAGE, {}, { root: true });
         });
     },
-
-    async requestClubChange({ commit, dispatch }, clubChangeRequestInfo) {
+    async [ActionTypes.REQUEST_CLUB_CHANGE]({ commit, dispatch }: ClubActionContext, clubWriteRequestWishSeq: ClubWriteRequestWithSeq) {
         return actionsNormalTemplate(async () => {
-            await clubApi.putClubCreate(clubChangeRequestInfo);
-            commit(`${MODULE.CLUB_LIST}/initClubListAndPage`, {}, { root: true });
-            commit(`${MODULE.CLUB_LIST}/initMyClubListAndPage`, {}, { root: true });
-            dispatch('requestClubInfoAndUserInfo', clubChangeRequestInfo.clubSeq);
+            await clubApi.putClubCreate(clubWriteRequestWishSeq);
+            commit(MutationTypes.INIT_CLUB_LIST_AND_PAGE, {}, { root: true });
+            commit(MutationTypes.INIT_MY_CLUB_LIST_AND_PAGE, {}, { root: true });
+            dispatch(ActionTypes.REQUEST_CLUB_INFO_AND_USER_INFO, clubWriteRequestWishSeq.clubSeq);
         });
     },
-    async requestClubJoin({ commit }, clubSeq) {
+    async [ActionTypes.REQUEST_CLUB_JOIN]({ commit }: ClubActionContext, clubSeq: number) {
         return actionsNormalTemplate(async () => {
             await clubApi.postClubJoin(clubSeq);
             const { clubInfo, userInfo, userList } = await clubApi.getClubInfoAndUserInfo(clubSeq);
-            commit('setClubInfo', clubInfo);
-            commit('setCurrentUserInfo', userInfo);
-            commit('setClubUserList', userList);
+            commit(MutationTypes.SET_CLUB_INFO, clubInfo);
+            commit(MutationTypes.SET_CURRENT_USER_INFO, userInfo);
+            commit(MutationTypes.SET_CLUB_USER_LIST, userList);
         });
     },
-
-    async requestChangeUserRole({ commit, dispatch }, clubUserRoleChangeInfo) {
+    async [ActionTypes.REQUEST_CHANGE_USER_ROLE]({ commit }: ClubActionContext, clubUserRoleChangeRequest: ClubUserRoleChangeRequest) {
         return actionsNormalTemplate(async () => {
-            await clubApi.putUserRole(clubUserRoleChangeInfo);
-            commit('changeUserRole', clubUserRoleChangeInfo);
+            await clubApi.putUserRole(clubUserRoleChangeRequest);
+            commit(MutationTypes.CHANGE_USER_ROLE, clubUserRoleChangeRequest);
         });
     },
-
-    async requestKickUser({ commit, dispatch }, clubUserKickInfo) {
+    async [ActionTypes.REQUEST_KICK_USER]({ commit }: ClubActionContext, clubUserKickRequest: ClubUserKickRequest) {
         return actionsNormalTemplate(async () => {
-            await clubApi.deleteKickUser(clubUserKickInfo);
-            commit('deleteUser', clubUserKickInfo);
+            await clubApi.deleteKickUser(clubUserKickRequest);
+            commit(MutationTypes.DELETE_USER, clubUserKickRequest);
         });
     },
-
-    async requestClubWithdraw({ commit, dispatch }, clubSeq) {
+    async [ActionTypes.REQUEST_CLUB_WITHDRAW]({ commit }: ClubActionContext, clubSeq: number) {
         return actionsNormalTemplate(async () => {
             await clubApi.deleteWithdraw(clubSeq);
         });
     },
 };
-
-export default {
-    state,
-    getters,
-    mutations,
-    actions,
-};
-
-export type ClubMutations = typeof mutations;
-export type ClubGetters = typeof getters;
+export type ClubActions = typeof actions;

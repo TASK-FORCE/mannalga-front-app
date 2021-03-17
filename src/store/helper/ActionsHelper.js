@@ -6,16 +6,6 @@ class ActionsHelper {
     // auth module
     requestKakaoTokenByCode = (payload) => dispatch(MODULE.AUTH, 'requestKakaoTokenByCode', payload);
 
-    // club module
-    requestClubCreate = (payload) => dispatch(MODULE.CLUB, 'requestClubCreate', payload);
-    requestClubChange = (payload) => dispatch(MODULE.CLUB, 'requestClubChange', payload);
-    requestClubData = (payload) => dispatch(MODULE.CLUB, 'requestClubData', payload);
-    requestClubJoin = (payload) => dispatch(MODULE.CLUB, 'requestClubJoin', payload);
-    requestClubInfoAndUserInfo = (payload) => dispatch(MODULE.CLUB, 'requestClubInfoAndUserInfo', payload);
-    requestChangeUserRole = (payload) => dispatch(MODULE.CLUB, 'requestChangeUserRole', payload);
-    requestKickUser = (payload) => dispatch(MODULE.CLUB, 'requestKickUser', payload);
-    requestClubWithdraw = (payload) => dispatch(MODULE.CLUB, 'requestClubWithdraw', payload);
-
     // meeting module
     requestMeetingCreate = (payload) => dispatch(MODULE.MEETING, 'requestMeetingCreate', payload);
     requestMeetingEdit = (payload) => dispatch(MODULE.MEETING, 'requestMeetingEdit', payload);

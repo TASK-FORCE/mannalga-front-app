@@ -55,7 +55,7 @@
 import { generateParamPath, PATH } from '@/router/route_path_type.js';
 import RoleChip from '@/components/chip/RoleChip.vue';
 import { CLUB_ROLE } from '@/utils/role.js';
-import clubDetailVuexService from '@/store/service/ClubDetailVuexService.js';
+import clubDetailVuexService from '@/store/service/ClubDetailVuexService.ts';
 import _ from '@/utils/common/lodashWrapper.js';
 
 const regionStore = {

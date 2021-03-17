@@ -66,9 +66,9 @@ import actionsHelper from '@/store/helper/ActionsHelper.js';
 import { generateParamPath, PATH } from '@/router/route_path_type.js';
 import { RULES } from '@/utils/common/constant/rules.js';
 import { BoardUtils } from '@/utils/board.js';
-import gettersHelper from '@/store/helper/GettersHelper.js';
 import routerHelper from '@/router/RouterHelper.js';
 import { UploadImageResponse } from '@/interfaces/common';
+import { CurrentUserInfo } from '@/interfaces/club';
 
 export default Vue.extend({
     name: 'ClubBoardCreateBox',
@@ -87,7 +87,9 @@ export default Vue.extend({
     },
     computed: {
         clubSeq: () => routerHelper.clubSeq(),
-        currentUserInfo: () => gettersHelper.currentUserInfo(),
+        currentUserInfo(): CurrentUserInfo {
+            return this.$store.state.club.currentUserInfo;
+        },
         resolveImageBoxHeight() {
             return `${window.innerHeight / 7}`;
         },

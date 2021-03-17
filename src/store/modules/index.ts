@@ -10,7 +10,7 @@ function getModuleName(fileName) {
         .replace(/\.\w+$/, '');
 }
 
-const tsModules = new Set(['common']);
+const tsModules = new Set(['common', 'club']);
 
 function makeModules(): ModuleTree<any> {
     const modules: ModuleTree<any> = {};

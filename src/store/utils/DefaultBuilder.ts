@@ -1,4 +1,5 @@
 import { SNACKBAR_LOCATION, SnackBarOption } from '@/interfaces/common';
+import { ClubInfo, CurrentUserInfo } from '@/interfaces/club';
 
 class DefaultBuilder {
     static snackbarOption(): SnackBarOption {
@@ -39,24 +40,28 @@ class DefaultBuilder {
 
     static buildPage = (size = 20) => ({ size, currentPage: 0, nextPage: 0, isLastPage: false });
 
-    static buildClubInfo = () => ({
-        clubInterest: [],
-        clubRegion: [],
-        description: '',
-        mainImageUrl: '',
-        maximumNumber: 0,
-        userCount: 0,
-        name: '',
-        seq: 0,
-    });
+    static clubInfo(): ClubInfo {
+        return {
+            clubInterest: [],
+            clubRegion: [],
+            description: '',
+            mainImageUrl: '',
+            maximumNumber: 0,
+            userCount: 0,
+            name: '',
+            seq: 0,
+        }
+    }
 
-    static buildCurrentUserInfo = () => ({
-        isMaster: false,
-        isManager: false,
-        isMember: false,
-        roles: null,
-        isLiked: false,
-    });
+    static currentUserInfo(): CurrentUserInfo {
+        return {
+            isMaster: false,
+            isManager: false,
+            isMember: false,
+            roles: null,
+            isLiked: false,
+        };
+    }
 
     static buildMeeting = () => ({
         seq: 0,

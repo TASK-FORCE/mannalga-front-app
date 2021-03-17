@@ -3,24 +3,28 @@ import actionsHelper from '@/store/helper/ActionsHelper.js';
 import store from '@/store/index.ts';
 import { MODULE } from '@/store/type/type.js';
 import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
+import { ActionTypes, MutationTypes } from '@/store/type/methodTypes';
 
-function dispatchClubInfoAndUserInfo(clubSeq) {
-    return actionsHelper.requestClubInfoAndUserInfo(clubSeq);
+function dispatchClubInfoAndUserInfo(clubSeq: number) {
+    return store.dispatch(ActionTypes.REQUEST_CLUB_INFO_AND_USER_INFO, clubSeq);
 }
 
-function dispatchClubMeetings(clubSeq) {
+function dispatchClubMeetings(clubSeq: number) {
     return actionsHelper.requestFirstMeetingGroupList(clubSeq);
 }
 
-function dispatchClubBoards(clubSeq) {
+function dispatchClubBoards(clubSeq: number) {
     return actionsHelper.requestFirstBoardList({ clubSeq });
 }
 
-function dispatchClubAlbums(clubSeq) {
+function dispatchClubAlbums(clubSeq: number) {
     return actionsHelper.requestFirstAlbumList(clubSeq);
 }
 
 class ClubDetailVuexService {
+
+    private dispatching: boolean;
+
     constructor() {
         this.dispatching = false;
     }
@@ -44,8 +48,8 @@ class ClubDetailVuexService {
     }
 
     reset() {
-        store.commit(`${MODULE.CLUB}/setClubInfo`, DefaultBuilder.buildClubInfo());
-        store.commit(`${MODULE.CLUB}/setCurrentUserInfo`, DefaultBuilder.buildCurrentUserInfo());
+        store.commit(MutationTypes.SET_CLUB_INFO, DefaultBuilder.clubInfo());
+        store.commit(MutationTypes.SET_CURRENT_USER_INFO, DefaultBuilder.currentUserInfo());
         store.commit(`${MODULE.MEETING}/initMeetingGroupList`);
         store.commit(`${MODULE.ALBUM}/initAlbumList`);
     }
