@@ -2,17 +2,20 @@
     <div class="py-8">
         <div class="avatar-wrapper">
             <div class="p-relative d-inline-block">
-                <UserProfileAvatar :size="90"
-                                   :name="userProfile.userName"
-                                   :appendNumber="userProfile.seq"
-                                   :imgUrl="userProfile.profileImageLink"
+                <UserProfileAvatar
+                    :size="90"
+                    :name="userProfile.userName"
+                    :appendNumber="userProfile.seq"
+                    :imgUrl="userProfile.profileImageLink"
                 />
-                <v-btn class="avatar-edit-btn"
-                       fab
-                       @click="$refs.imageSelector.trigger()"
+                <v-btn
+                    class="avatar-edit-btn"
+                    fab
+                    @click="$refs.imageSelector.trigger()"
                 >
-                    <v-icon size="18"
-                            v-text="'$camera'"
+                    <v-icon
+                        size="18"
+                        v-text="'$camera'"
                     />
                 </v-btn>
             </div>
@@ -21,14 +24,16 @@
             {{ userProfile.userName }}
         </div>
         <v-spacer />
-        <ImageSelectorWithConfirm ref="imageSelector"
-                                  title="변경 후 프로필 이미지"
-                                  :aspectRatio="1"
-                                  :imageChangeCallback="changeProfileImage"
+        <ImageSelectorWithConfirm
+            ref="imageSelector"
+            title="변경 후 프로필 이미지"
+            :aspectRatio="1"
+            :imageChangeCallback="changeProfileImage"
         >
             <template #image="{ imageUrl }">
-                <UserProfileAvatar :imgUrl="imageUrl"
-                                   :size="200"
+                <UserProfileAvatar
+                    :imgUrl="imageUrl"
+                    :size="200"
                 />
             </template>
         </ImageSelectorWithConfirm>
@@ -50,19 +55,22 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue, { PropType } from 'vue';
 import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
-import actionsHelper from '@/store/helper/ActionsHelper.js';
 import ImageSelectorWithConfirm from '@/components/image/ImageSelectorWithConfirm.vue';
 import _ from '@/utils/common/lodashWrapper.js';
 import { PATH } from '@/router/route_path_type.js';
 import SettingBar from '@/components/SettingBar.vue';
+import { ActionTypes } from '@/store/type/methodTypes.ts';
+import { UploadImageResponse } from '@/interfaces/common';
+import { UserProfile } from '@/interfaces/user';
 
-export default {
+export default Vue.extend({
     name: 'UserSettingProfile',
     components: { SettingBar, ImageSelectorWithConfirm, UserProfileAvatar },
     props: {
-        userProfile: Object,
+        userProfile: Object as PropType<UserProfile>,
     },
     data() {
         return {
@@ -93,8 +101,8 @@ export default {
         },
     },
     methods: {
-        changeProfileImage(imageDto) {
-            return actionsHelper.requestChangeUserProfile(imageDto);
+        changeProfileImage(uploadImageResponse: UploadImageResponse) {
+            return this.$store.dispatch(ActionTypes.REQUEST_CHANGE_USER_PROFILE, uploadImageResponse);
         },
         moveToRegionEditPage() {
             this.$router.push(PATH.USER.REGION_EDIT);
@@ -103,11 +111,12 @@ export default {
             this.$router.push(PATH.USER.INTEREST_EDIT);
         },
     },
-};
+});
 </script>
 
-<style scoped
-       lang="scss"
+<style
+    scoped
+    lang="scss"
 >
 .avatar-wrapper {
     display: flex;

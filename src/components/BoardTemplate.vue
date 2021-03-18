@@ -75,16 +75,16 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
 import MiddleDivider from '@/components/MiddleDivider.vue';
-import gettersHelper from '@/store/helper/GettersHelper.js';
 import Comment from '@/components/comment/Comment.vue';
 import CommentWriteFooter from '@/components/comment/CommentWriteFooter.vue';
 import InfiniteScrollTemplate from '@/components/InfiniteScrollTemplate.vue';
-import { ScrollHelper } from '@/utils/scroll.js';
+import { ScrollHelper } from '@/utils/scroll.ts';
+import Vue from 'vue';
 
-export default {
+export default Vue.extend({
     name: 'BoardTemplate',
     components: {
         InfiniteScrollTemplate,
@@ -148,7 +148,7 @@ export default {
             setTimeout(this.scrollToBottomWhenLastPage, 100);
         },
     },
-};
+});
 </script>
 
 <style scoped>

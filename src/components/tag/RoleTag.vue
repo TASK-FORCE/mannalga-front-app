@@ -5,9 +5,10 @@
     />
 </template>
 
-<script>
+<script lang="ts">
 import SquareTag from '@/components/tag/SquareTag.vue';
 import { CLUB_ROLE } from '@/utils/role.js';
+import Vue from 'vue';
 
 const ROLES = [
     {
@@ -27,7 +28,7 @@ const ROLES = [
     },
 ];
 
-export default {
+export default Vue.extend({
     name: 'RoleTag',
     components: { SquareTag },
     props: {
@@ -38,7 +39,7 @@ export default {
             return ROLES.find(({ type }) => type === this.roleType);
         },
     },
-};
+});
 </script>
 
 <style scoped>

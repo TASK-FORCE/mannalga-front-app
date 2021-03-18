@@ -16,15 +16,16 @@
     </v-app-bar>
 </template>
 
-<script>
+<script lang="ts">
 import { PATH } from '@/router/route_path_type.js';
 import clubDetailVuexService from '@/store/service/ClubDetailVuexService.ts';
 import lastScrollPositionCache from '@/utils/cache/LastScrollPositionCache.js';
 import lastClubTabCache from '@/utils/cache/LastClubTabCache.js';
 import routerHelper from '@/router/RouterHelper.ts';
 import UserSettingPageEnterAvatar from '@/components/UserSettingPageEnterAvatar.vue';
+import Vue from 'vue';
 
-export default {
+export default Vue.extend({
     name: 'ClubDetailPageHeader',
     components: { UserSettingPageEnterAvatar },
     data() {
@@ -40,7 +41,7 @@ export default {
             clubDetailVuexService.reset();
         },
     },
-};
+});
 </script>
 
 <style

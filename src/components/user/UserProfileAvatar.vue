@@ -1,34 +1,41 @@
 <template>
     <!--      사진도 커스텀하게 선택 가능하게?        -->
-    <v-avatar v-if="imgUrl"
-              :size=size
-              @click="$emit('click')"
+    <v-avatar
+        v-if="imgUrl"
+        :size=size
+        @click="$emit('click')"
     >
-        <img :src="imgUrl"
-             alt="profile"
+        <img
+            :src="imgUrl"
+            alt="profile"
         >
     </v-avatar>
-    <div v-else-if="name"
-         @click="$emit('click')"
+    <div
+        v-else-if="name"
+        @click="$emit('click')"
     >
-        <TextAvatar :name="getTruncatedName(name)"
-                    :size="size"
-                    :bgColor="backgroundColor"
+        <TextAvatar
+            :name="getTruncatedName(name)"
+            :size="size"
+            :bgColor="backgroundColor"
         />
     </div>
-    <v-avatar v-else
-              :size=size
-              @click="$emit('click')"
+    <v-avatar
+        v-else
+        :size=size
+        @click="$emit('click')"
     >
-        <img :src="require('@/images/default_profile_img.png')"
-             alt="profile"
+        <img
+            :src="require('@/images/default_profile_img.png')"
+            alt="profile"
         >
     </v-avatar>
 </template>
 
-<script>
+<script lang="ts">
 
 import TextAvatar from '@/components/user/TextAvatar.vue';
+import Vue from 'vue';
 
 const COLORS = [
     '#800080',
@@ -52,7 +59,7 @@ const COLORS = [
     '#ff6347',
 ];
 
-export default {
+export default Vue.extend({
     name: 'UserProfileAvatar',
     components: { TextAvatar },
     props: {
@@ -78,5 +85,5 @@ export default {
             return name.length > 1 ? name.substring(name.length - 2, name.length) : name;
         },
     },
-};
+});
 </script>

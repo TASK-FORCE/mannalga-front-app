@@ -7,12 +7,13 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import CommonHeader from '@/components/header/CommonHeader.vue';
 import { PATH } from '@/router/route_path_type.js';
 import ClubSearchPageBody from '@/views/clubSearch/ClubSearchPageBody.vue';
+import Vue from 'vue';
 
-export default {
+export default Vue.extend({
     name: 'ClubSearchPage',
     components: { ClubSearchPageBody, CommonHeader },
     data() {
@@ -20,7 +21,7 @@ export default {
             clubListPagePath: PATH.CLUB_LIST,
         };
     },
-};
+});
 </script>
 
 <style scoped>

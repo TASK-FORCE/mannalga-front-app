@@ -38,11 +38,11 @@
     </v-list>
 </template>
 
-<script>
-import gettersHelper from '@/store/helper/GettersHelper.js';
+<script lang="ts">
 import _ from '@/utils/common/lodashWrapper.js';
+import Vue from 'vue';
 
-export default {
+export default Vue.extend({
     name: 'InfiniteScrollTemplate',
     props: {
         firstPageCallback: {
@@ -140,7 +140,7 @@ export default {
             return window.innerHeight - top;
         },
     },
-};
+});
 </script>
 
 <style scoped

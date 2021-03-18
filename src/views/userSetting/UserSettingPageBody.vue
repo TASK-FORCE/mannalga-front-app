@@ -26,19 +26,21 @@
 <script lang="ts">
 import Vue from 'vue';
 import UserSettingProfile from '@/views/userSetting/components/UserSettingProfile.vue';
-import gettersHelper from '@/store/helper/GettersHelper.js';
 import _ from '@/utils/common/lodashWrapper.js';
 import { PATH } from '@/router/route_path_type.js';
 import mutationsHelper from '@/store/helper/MutationsHelper.ts';
 import MiddleDivider from '@/components/MiddleDivider.vue';
 import SettingBar from '@/components/SettingBar.vue';
 import { MutationTypes } from '@/store/type/methodTypes';
+import { UserProfile } from '@/interfaces/user';
 
 export default Vue.extend({
     name: 'UserSettingPageBody',
     components: { SettingBar, MiddleDivider, UserSettingProfile },
     computed: {
-        userProfile: () => gettersHelper.userProfile(),
+        userProfile(): UserProfile {
+            return this.$store.state.user.userProfile;
+        },
         isDarkTheme(): boolean {
             return this.$store.state.common.isDarkTheme;
         },

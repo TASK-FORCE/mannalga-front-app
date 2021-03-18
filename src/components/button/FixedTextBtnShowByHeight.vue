@@ -10,13 +10,14 @@
     </transition>
 </template>
 
-<script>
+<script lang="ts">
 import _ from '@/utils/common/lodashWrapper.js';
+import Vue from 'vue';
 
 const DEFAULT_THROTTLE_DELAY = 300;
 
 // props로 내려오는 heightBoundaryToShow를 넘어갈 때에만 FixedBtn을 보여준다.
-export default {
+export default Vue.extend({
     name: 'FixedTextBtnShowByHeight',
     props: {
         color: String,
@@ -44,7 +45,7 @@ export default {
             this.active = window.pageYOffset > this.heightBoundaryToShow;
         },
     },
-};
+});
 </script>
 
 <style scoped>

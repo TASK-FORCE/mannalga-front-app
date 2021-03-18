@@ -31,7 +31,7 @@ export default Vue.extend({
         return {
             clubSearchPagePath: PATH.CLUB.SEARCH,
             searchText: null,
-            searchCallback: _.debounce(this.search, SEARCH_WAIT_TIME),
+            searchCallback: null,
         };
     },
     computed: {
@@ -53,13 +53,14 @@ export default Vue.extend({
         },
     },
     mounted() {
+        this.searchCallback = _.debounce(() => this.search(this.searchText), SEARCH_WAIT_TIME);
         if (process.env.NODE_ENV !== 'production') {
             this.searchText = '';
         }
     },
     methods: {
-        search() {
-            this.$store.commit(MutationTypes.CHANGE_CLUB_SEARCH_TEXT, this.searchText);
+        search(searchText): void {
+            this.$store.commit(MutationTypes.CHANGE_CLUB_SEARCH_TEXT, searchText);
         },
     },
 });

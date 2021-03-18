@@ -140,17 +140,17 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
 import VerticalBarDivider from '@/components/VerticalBarDivider.vue';
 import Chip from '@/components/chip/Chip.vue';
 import mutationsHelper from '@/store/helper/MutationsHelper.ts';
 import { MESSAGE } from '@/utils/common/constant/messages.js';
 import routerHelper from '@/router/RouterHelper.ts';
-import actionsHelper from '@/store/helper/ActionsHelper.js';
 import _ from '@/utils/common/lodashWrapper.js';
-import { ScrollHelper } from '@/utils/scroll.js';
+import { ScrollHelper } from '@/utils/scroll.ts';
 import { MutationTypes } from '@/store/type/methodTypes.ts';
+import Vue from 'vue';
 
 function getHeightAppender(offsetHeight, hideFooter) {
     const footerSize = hideFooter ? 0 : 56;
@@ -160,7 +160,7 @@ function getHeightAppender(offsetHeight, hideFooter) {
     return (offsetHeight * 2) + footerSize + foldBtnSize + subCommentWriterSize + spaceSize;
 }
 
-export default {
+export default Vue.extend({
     name: 'Comment',
     components: { Chip, VerticalBarDivider, UserProfileAvatar },
     props: {
@@ -171,12 +171,14 @@ export default {
         requestWriteSubComment: {
             type: Function,
             // eslint-disable-next-line @typescript-eslint/no-empty-function
-            default: (content, parentSeq) => {},
+            default: (content, parentSeq) => {
+            },
         },
         requestSubCommentList: {
             type: Function,
             // eslint-disable-next-line @typescript-eslint/no-empty-function
-            default: (parentSeq) => {},
+            default: (parentSeq) => {
+            },
         },
     },
     data() {
@@ -241,15 +243,15 @@ export default {
         moveToLastComment(focusChildInput) {
             this.$nextTick(() => {
                 this.$nextTick(() => {
-                    const subCommentWrapper = document.querySelector(`.sub-comments-${this.commentSeq}`);
+                    const subCommentWrapper: Element = document.querySelector(`.sub-comments-${this.commentSeq}`);
                     if (!subCommentWrapper) {
                         return;
                     }
-                    const subComments = subCommentWrapper.children;
+                    const subComments: HTMLCollection = subCommentWrapper.children;
                     if (_.isEmpty(subComments)) {
                         return;
                     }
-                    const lastComment = subComments[subComments.length - 1];
+                    const lastComment: HTMLElement = subComments[subComments.length - 1] as HTMLElement;
                     const appender = getHeightAppender(lastComment.offsetHeight, focusChildInput);
                     const position = lastComment.offsetTop - window.innerHeight + appender;
                     if (position > window.scrollY) {
@@ -278,7 +280,7 @@ export default {
             this.moveToLastComment();
         },
     },
-};
+});
 </script>
 
 <style

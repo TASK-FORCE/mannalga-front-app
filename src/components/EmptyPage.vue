@@ -1,9 +1,10 @@
 <template>
     <div class="text-center">
         <div class="icon-box">
-            <v-icon class="icon"
-                    size="70"
-                    v-text="`$${icon}`"
+            <v-icon
+                class="icon"
+                size="70"
+                v-text="`$${icon}`"
             />
         </div>
         <div class="title">
@@ -15,8 +16,10 @@
     </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue';
+
+export default Vue.extend({
     name: 'EmptyPage',
     props: {
         icon: {
@@ -31,11 +34,12 @@ export default {
             type: String,
         },
     },
-};
+});
 </script>
 
-<style scoped
-       lang="scss"
+<style
+    scoped
+    lang="scss"
 >
 .icon-box {
     display: flex;

@@ -1,3 +1,4 @@
+// @ts-ignore
 // eslint-disable-next-line no-extend-native,func-names
 String.prototype.hashCode = function () {
     let hash = 0;

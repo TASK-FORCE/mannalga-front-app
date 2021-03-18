@@ -26,9 +26,11 @@
     </v-app-bar>
 </template>
 
-<script>
+<script lang="ts">
 
-export default {
+import Vue from 'vue';
+
+export default Vue.extend({
     name: 'CommonHeader',
     props: {
         title: String,
@@ -41,7 +43,7 @@ export default {
             default: false,
         },
     },
-};
+});
 </script>
 
 <style scoped

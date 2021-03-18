@@ -9,7 +9,7 @@ import store from './store';
 import './font/roboto.css';
 import './style/style.scss';
 import './style/vuetify-override.scss';
-import '@/utils/prototype.js';
+import '@/utils/prototype.ts';
 
 Vue.config.productionTip = false;
 

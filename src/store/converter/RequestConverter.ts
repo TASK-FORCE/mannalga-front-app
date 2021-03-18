@@ -1,6 +1,7 @@
 import { KAKAO } from '@/utils/kakao/kakao.js';
 import { ClubListRequest, ClubSearchContext, MyClubListRequest } from '@/interfaces/clubList';
-import { Page } from '@/interfaces/common';
+import { Interest, InterestWriteRequest, Page, Region, RegionWriteRequest } from '@/interfaces/common';
+import { UserRegisterContext, UserRegisterRequest } from '@/interfaces/user';
 
 /** RequestConverter
  *  - 백엔드 서버로 전달하는 request 정보를 converting
@@ -46,30 +47,34 @@ export default class RequestConverter {
         };
     };
 
-    static convertRegisterInfo = ({ profile, selectedRegions, selectedInterests }) => {
-        const userInterests = buildUserInterestsDto(selectedInterests);
-        const userRegions = buildUserRegionsDto(selectedRegions);
+    static convertRegisterInfo({ profile, selectedRegions, selectedInterests }: UserRegisterContext): UserRegisterRequest {
         return {
             userName: profile.name,
             profileImageLink: profile.imgUrl,
-            userRegions,
-            userInterests,
+            userRegions: buildUserRegionsDto(selectedRegions),
+            userInterests: buildUserInterestsDto(selectedInterests),
         };
     };
 
-    static convertUserRegionsForChange = (selectedRegions) => buildUserRegionsDto(selectedRegions);
+    static convertUserRegionsForChange(selectedRegions: Region[]) {
+        return buildUserRegionsDto(selectedRegions);
+    }
 
-    static convertUserInterestForChange = (selectedInterests) => buildUserInterestsDto(selectedInterests);
+    static convertUserInterestForChange(selectedInterests: Interest[]) {
+        return buildUserInterestsDto(selectedInterests);
+    }
 }
 
-const buildUserRegionsDto = (selectedRegions) => selectedRegions
-    .map((region, index) => ({
-        priority: index + 1,
-        seq: region.seq,
-    }));
+const buildUserRegionsDto = (selectedRegions: Region[]): RegionWriteRequest[] =>
+    selectedRegions
+        .map((region, index) => ({
+            priority: index + 1,
+            seq: region.seq,
+        }));
 
-const buildUserInterestsDto = (selectedInterests) => selectedInterests
-    .map((interest, index) => ({
-        priority: index + 1,
-        seq: interest.seq,
-    }));
+const buildUserInterestsDto = (selectedInterests: Interest[]): InterestWriteRequest[] =>
+    selectedInterests
+        .map((interest, index) => ({
+            priority: index + 1,
+            seq: interest.seq,
+        }));

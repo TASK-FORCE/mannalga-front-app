@@ -40,17 +40,17 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import { PATH } from '@/router/route_path_type.js';
 import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.js';
 import CommonHeader from '@/components/header/CommonHeader.vue';
 import gettersHelper from '@/store/helper/GettersHelper.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.ts';
 import { MESSAGE } from '@/utils/common/constant/messages.js';
 import _ from '@/utils/common/lodashWrapper.js';
 import { MutationTypes } from '@/store/type/methodTypes.ts';
+import Vue from 'vue';
 
-export default {
+export default Vue.extend({
     name: 'InterestSelect',
     components: { CommonHeader },
     props: {
@@ -114,7 +114,7 @@ export default {
             return this.submitCallback(this.selectedInterest);
         },
     },
-};
+});
 </script>
 
 <style

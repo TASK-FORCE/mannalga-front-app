@@ -58,7 +58,7 @@ import ClubDetailAlbumImage from '@/views/clubDetail/components/album/ClubDetail
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import _ from '@/utils/common/lodashWrapper.js';
 import InfiniteScrollTemplate from '@/components/InfiniteScrollTemplate.vue';
-import actionsHelper from '@/store/helper/ActionsHelper.js';
+import actionsHelper from '@/store/helper/ActionsHelper.ts';
 import routerHelper from '@/router/RouterHelper.ts';
 import FixedScrollToTopBtn from '@/components/button/FixedScrollToTopBtn.vue';
 import EmptyPage from '@/components/EmptyPage.vue';

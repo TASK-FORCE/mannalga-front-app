@@ -52,7 +52,7 @@ import { BoardUtils } from '@/utils/board.js';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import ClubDetailBoardPost from '@/views/clubDetail/components/board/ClubDetailBoardPost.vue';
 import InfiniteScrollTemplate from '@/components/InfiniteScrollTemplate.vue';
-import actionsHelper from '@/store/helper/ActionsHelper.js';
+import actionsHelper from '@/store/helper/ActionsHelper.ts';
 import EmptyPage from '@/components/EmptyPage.vue';
 import { CurrentUserInfo } from '../../../../interfaces/club';
 

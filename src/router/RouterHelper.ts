@@ -1,4 +1,5 @@
 import router from '@/router/index.ts';
+import { Dictionary } from 'vue-router/types/router';
 
 class RouterHelper {
     clubSeq = () => getParams().clubSeq;
@@ -7,10 +8,7 @@ class RouterHelper {
     albumSeq = () => getParams().albumSeq;
 }
 
-const getParams = () => {
-    console.log(router.currentRoute);
-    return router.currentRoute.params;
-}
+const getParams = (): Dictionary<string> => router.currentRoute.params;
 
 const routerHelper = new RouterHelper();
 export default routerHelper;

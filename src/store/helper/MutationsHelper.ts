@@ -19,10 +19,6 @@ class MutationsHelper {
     initAlbumCommentList = (payload?) => commit(MODULE.ALBUM, 'initAlbumCommentList', payload);
     countChildAlbumCommentCnt = (payload?) => commit(MODULE.ALBUM, 'countChildCommentCnt', payload);
     countAlbumCommentCnt = (payload?) => commit(MODULE.ALBUM, 'countAlbumCommentCnt', payload);
-
-    // user module
-    changeProfileName = (payload?) => commit(MODULE.USER, 'changeProfileName', payload);
-    setSelectedRegions = (payload?) => commit(MODULE.USER, 'setSelectedRegions', payload);
 }
 
 // @ts-ignore

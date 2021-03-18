@@ -45,16 +45,16 @@
     </v-container>
 </template>
 
-<script>
+<script lang="ts">
 import { moveToKakaoLoginPage } from '@/utils/kakao/kakao.js';
 import { PATH } from '@/router/route_path_type.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.ts';
 import gettersHelper from '@/store/helper/GettersHelper.js';
-import actionsHelper from '@/store/helper/ActionsHelper.js';
+import actionsHelper from '@/store/helper/ActionsHelper.ts';
 import { MESSAGE } from '@/utils/common/constant/messages.js';
-import { MutationTypes } from '@/store/type/methodTypes.ts';
+import { ActionTypes, MutationTypes } from '@/store/type/methodTypes.ts';
+import Vue from 'vue';
 
-export default {
+export default Vue.extend({
     name: 'LoginPage',
     data() {
         return {
@@ -74,7 +74,7 @@ export default {
     },
     created() {
         if (this.validationFail) {
-            this.$store.commit(MutationTypes.OPEN_SNACK_BAR, MESSAGE.LOGIN_REQUIRE)
+            this.$store.commit(MutationTypes.OPEN_SNACK_BAR, MESSAGE.LOGIN_REQUIRE);
             return;
         }
 
@@ -83,7 +83,7 @@ export default {
                 localStorage.removeItem('appToken');
                 localStorage.removeItem('backdoor');
             } else {
-                actionsHelper.requestCheckIsMember()
+                this.$store.dispatch(ActionTypes.REQUEST_CHECK_IS_MEMBER)
                     .then(isMember => this.$router.push(isMember ? PATH.CLUB_LIST : PATH.REGISTER.PROFILE));
             }
         }
@@ -107,7 +107,7 @@ export default {
             this.loading = false;
         },
     },
-};
+});
 </script>
 <style scoped>
 .login-wrapper {

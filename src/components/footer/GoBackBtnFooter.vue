@@ -25,8 +25,10 @@
     </v-footer>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue';
+
+export default Vue.extend({
     name: 'GoBackBtnFooter',
     props: {
         hideBackBtn: Boolean,
@@ -40,7 +42,7 @@ export default {
             return !!this.hideGoBtn;
         },
     },
-};
+});
 </script>
 
 <style scoped>

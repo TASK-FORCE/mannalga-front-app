@@ -1,5 +1,5 @@
 import RequestHelper from '@/store/service/helper/RequestHelper.js';
-import actionsHelper from '@/store/helper/ActionsHelper.js';
+import actionsHelper from '@/store/helper/ActionsHelper.ts';
 import store from '@/store/index.ts';
 import { MODULE } from '@/store/type/type.js';
 import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';

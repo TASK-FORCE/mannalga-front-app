@@ -1,8 +1,9 @@
 import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
 import { toCurrency } from '@/utils/common/commonUtils.js';
 import { AxiosResponse } from 'axios';
-import { Page, ServerResponse, SuperInventionResponse } from '@/interfaces/common';
+import { Interest, Page, Region, ServerResponse, SuperInventionResponse } from '@/interfaces/common';
 import { ClubFeed, ClubListResponse, MyClubFeed, MyClubListResponse } from '@/interfaces/clubList';
+import { KakaoProfile, ServerKakaoProfileContext, UserInterestResponse, UserRegionsResponse } from '@/interfaces/user';
 
 /** ResponseConverter
  *  - 백엔드 서버에서 전달받은 response를 converting
@@ -22,9 +23,9 @@ export default class ResponseConverter {
         return response && response.data && response.data.data;
     }
 
-    static convertProfile = ({ kakao_account }) => {
+    static convertProfile({ kakao_account }: ServerKakaoProfileContext): KakaoProfile {
         const { thumbnail_image_url, nickname } = kakao_account.profile;
-        const profile = DefaultBuilder.buildKakaoProfile();
+        const profile = DefaultBuilder.kakaoProfile();
         profile.imgUrl = thumbnail_image_url;
         profile.name = nickname;
         return profile;
@@ -88,9 +89,13 @@ export default class ResponseConverter {
         return { boardCommentList, boardCommentPage };
     };
 
-    static convertUserRegions = ({ userRegions }) => userRegions;
+    static convertUserRegions({ userRegions }: UserRegionsResponse): Region[] {
+        return userRegions.map(({ region }) => region)
+    }
 
-    static convertUserInterests = ({ interestList }) => interestList.map(({ interest }) => interest);
+    static convertUserInterests({ interestList }: UserInterestResponse): Interest[] {
+        return interestList.map(({ interest }) => interest);
+    }
 }
 
 const convertPage = ({ pageable, last, size }: ServerResponse<any>): Page => {

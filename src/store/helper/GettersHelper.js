@@ -31,12 +31,6 @@ class GettersHelper {
     // template module
     rootRegions = () => getState(MODULE.TEMPLATE, 'rootRegions');
     rootInterests = () => getState(MODULE.TEMPLATE, 'rootInterests');
-
-    // user module
-    kakaoProfile = () => getState(MODULE.USER, 'kakaoProfile');
-    selectedRegions = () => getState(MODULE.USER, 'selectedRegions');
-    selectedInterests = () => getState(MODULE.USER, 'selectedInterests');
-    userProfile = () => getState(MODULE.USER, 'userProfile');
 }
 
 const getState = (moduleName, getterName) => getters[combineWithModuleName(moduleName, getterName)];

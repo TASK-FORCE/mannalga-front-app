@@ -23,12 +23,12 @@
     </div>
 </template>
 
-<script>
-import mutationsHelper from '@/store/helper/MutationsHelper.ts';
+<script lang="ts">
 import { MESSAGE } from '@/utils/common/constant/messages.js';
 import { MutationTypes } from '@/store/type/methodTypes.ts';
+import Vue from 'vue';
 
-export default {
+export default Vue.extend({
     name: 'CommentWriteFooter',
     props: {
         requestWriteComment: {
@@ -70,7 +70,7 @@ export default {
             this.$store.commit(MutationTypes.OPEN_SNACK_BAR, this.EMPTY_COMMENT_TEXT);
         },
     },
-};
+});
 </script>
 
 <style scoped

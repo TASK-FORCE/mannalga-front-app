@@ -1,25 +1,28 @@
 <template>
     <transition name="scroll-to-top">
-        <v-btn v-if="active"
-               class="create-btn v-btn--fab darken-2"
-               :color="color || 'green'"
-               @click="scrollToTop"
+        <v-btn
+            v-if="active"
+            class="create-btn v-btn--fab darken-2"
+            :color="color || 'green'"
+            @click="scrollToTop"
         >
-            <v-icon class="white--text"
-                    v-text="'$chevronUp'"
+            <v-icon
+                class="white--text"
+                v-text="'$chevronUp'"
             />
         </v-btn>
     </transition>
 </template>
 
-<script>
+<script lang="ts">
 import _ from '@/utils/common/lodashWrapper.js';
-import { ScrollHelper } from '@/utils/scroll.js';
+import { ScrollHelper } from '@/utils/scroll.ts';
+import Vue from 'vue';
 
 const DEFAULT_THROTTLE_DELAY = 300;
 const DEFAULT_BOUNDARY = 100;
 
-export default {
+export default Vue.extend({
     name: 'FixedScrollToTopBtn',
     props: {
         color: String,
@@ -45,7 +48,7 @@ export default {
             this.active = window.pageYOffset > DEFAULT_BOUNDARY;
         },
     },
-};
+});
 </script>
 
 <style scoped>

@@ -9,14 +9,15 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import CommonHeader from '@/components/header/CommonHeader.vue';
 import ClubMeetingCreateAndEditBody from '@/views/clubMeetingCreateAndEdit/ClubMeetingCreateAndEditBody.vue';
 import { generateParamPath, PATH } from '@/router/route_path_type.js';
 import routerHelper from '@/router/RouterHelper.ts';
-import actionsHelper from '@/store/helper/ActionsHelper.js';
+import actionsHelper from '@/store/helper/ActionsHelper.ts';
+import Vue from 'vue';
 
-export default {
+export default Vue.extend({
     name: 'ClubMeetingCreatePage',
     components: { ClubMeetingCreateAndEditBody, CommonHeader },
     methods: {
@@ -35,7 +36,7 @@ export default {
                 });
         },
     },
-};
+});
 </script>
 
 <style scoped>

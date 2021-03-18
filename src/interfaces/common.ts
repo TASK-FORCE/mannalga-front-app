@@ -68,3 +68,13 @@ export interface InterestWithPriority {
     priority: number;
     interest: Interest;
 }
+
+export interface RegionWriteRequest {
+    seq: number;
+    priority: number;
+}
+
+export interface InterestWriteRequest {
+    seq: number;
+    priority: number;
+}

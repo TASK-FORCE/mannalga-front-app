@@ -1,35 +1,42 @@
 <template>
-    <v-card class="d-flex elevation-2 p-relative w-100"
-            @click="goToAlbumImagePostPage"
+    <v-card
+        class="d-flex elevation-2 p-relative w-100"
+        @click="goToAlbumImagePostPage"
     >
-        <ImageWithLoading :imgUrl="album.imgUrl"
-                          style="border-radius: 5px"
-                          aspect-ratio="1"
+        <ImageWithLoading
+            :imgUrl="album.imgUrl"
+            style="border-radius: 5px"
+            aspect-ratio="1"
         />
-        <div v-if="hasLikeCnt || hasCommentCnt"
-             class="img-bottom"
+        <div
+            v-if="hasLikeCnt || hasCommentCnt"
+            class="img-bottom"
         >
-            <div v-if="hasLikeCnt"
-                 class="d-flex align-center"
+            <div
+                v-if="hasLikeCnt"
+                class="d-flex align-center"
             >
                 <div>
-                    <v-icon class="image-bottom-icon"
-                            x-small
-                            v-text="'$heartOut'"
+                    <v-icon
+                        class="image-bottom-icon"
+                        x-small
+                        v-text="'$heartOut'"
                     />
                 </div>
                 <div class="f-09 image-bottom-text">
                     {{ album.likeCnt }}
                 </div>
             </div>
-            <div v-if="hasCommentCnt"
-                 class="d-flex align-center"
-                 :class="hasLikeCnt ? 'pl-1' : ''"
+            <div
+                v-if="hasCommentCnt"
+                class="d-flex align-center"
+                :class="hasLikeCnt ? 'pl-1' : ''"
             >
                 <div>
-                    <v-icon class="image-bottom-icon"
-                            x-small
-                            v-text="'$commentOut'"
+                    <v-icon
+                        class="image-bottom-icon"
+                        x-small
+                        v-text="'$commentOut'"
                     />
                 </div>
                 <div class="image-bottom-text">
@@ -40,13 +47,13 @@
     </v-card>
 </template>
 
-<script>
+<script lang="ts">
 import ImageWithLoading from '@/components/image/ImageWithLoading.vue';
 import { generateParamPath, PATH } from '@/router/route_path_type.js';
 import routerHelper from '@/router/RouterHelper.ts';
-import mutationsHelper from '@/store/helper/MutationsHelper.ts';
+import Vue from 'vue';
 
-export default {
+export default Vue.extend({
     name: 'ClubDetailAlbumImage',
     components: { ImageWithLoading },
     props: {
@@ -68,11 +75,12 @@ export default {
             this.$router.push(generateParamPath(PATH.CLUB.ALBUM_POST, [routerHelper.clubSeq(), this.album.albumSeq || 0]));
         },
     },
-};
+});
 </script>
 
-<style scoped
-       lang="scss"
+<style
+    scoped
+    lang="scss"
 >
 .img-bottom {
     display: flex;

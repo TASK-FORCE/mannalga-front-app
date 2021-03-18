@@ -18,11 +18,12 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
 import RoleChip from '@/components/chip/RoleChip.vue';
+import Vue from 'vue';
 
-export default {
+export default Vue.extend({
     name: 'SimpleUserProfile',
     components: { RoleChip, UserProfileAvatar },
     props: {
@@ -31,7 +32,7 @@ export default {
             required: true,
         },
     },
-};
+});
 </script>
 
 <style scoped>

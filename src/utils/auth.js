@@ -1,14 +1,14 @@
-const tokenKey = 'appToken';
+const TOKEN_KEY = 'appToken';
 
 class AuthUtils {
-    static getAppToken = () => (process.browser ? localStorage.getItem(tokenKey) : null);
+    static getAppToken = () => (process.browser ? localStorage.getItem(TOKEN_KEY) : null);
 
     static saveAppTokenToLocalStorage = (appToken) => {
-        localStorage.setItem(tokenKey, appToken);
+        localStorage.setItem(TOKEN_KEY, appToken);
     };
 
     static removeAppTokenToLocalStorage = () => {
-        localStorage.removeItem(tokenKey);
+        localStorage.removeItem(TOKEN_KEY);
     };
 
     static setAppTokenAsDefaultHeader = (headers) => {

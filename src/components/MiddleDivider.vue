@@ -1,13 +1,15 @@
 <template>
-    <div class="divider"
-         :style="{'height': `${height}px`}"
+    <div
+        class="divider"
+        :style="{'height': `${height}px`}"
     />
 </template>
 
-<script>
+<script lang="ts">
 import { isDarkTheme } from '@/plugins/vuetify.js';
+import Vue from 'vue';
 
-export default {
+export default Vue.extend({
     name: 'MiddleDivider',
     props: {
         height: {
@@ -20,19 +22,20 @@ export default {
             isDarkTheme: isDarkTheme(),
         };
     },
-};
+});
 </script>
 
-<style scoped
-      lang="scss"
+<style
+    scoped
+    lang="scss"
 >
 .divider {
-  background-color: #F5F5F5;
+    background-color: #F5F5F5;
 }
 
 .theme--dark {
-  .divider {
-    background-color: #292929;
-  }
+    .divider {
+        background-color: #292929;
+    }
 }
 </style>

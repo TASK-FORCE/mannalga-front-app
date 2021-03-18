@@ -1,4 +1,5 @@
 import { ModuleTree } from 'vuex';
+import { mutations } from '@/store/modules/common';
 
 function isObject(value) {
     return value && typeof value === 'object' && value.constructor === Object;
@@ -10,7 +11,7 @@ function getModuleName(fileName) {
         .replace(/\.\w+$/, '');
 }
 
-const tsModules = new Set(['common', 'club', 'clubList']);
+const tsModules = new Set(['common', 'club', 'clubList', 'user']);
 
 function makeModules(): ModuleTree<any> {
     const modules: ModuleTree<any> = {};
@@ -19,6 +20,9 @@ function makeModules(): ModuleTree<any> {
         true,
         /^((?!index|init).)*\.[jt]s$/,
     );
+    console.log(requireModule);
+    console.log(requireModule.keys());
+    console.log(mutations);
     requireModule.keys()
         .forEach(fileName => {
             const definitions = requireModule(fileName).default || requireModule(fileName);
@@ -30,7 +34,11 @@ function makeModules(): ModuleTree<any> {
                 return;
             }
 
-            const moduleName = getModuleName(fileName);
+            const moduleName: string = getModuleName(fileName);
+            console.log(moduleName, { ...definitions });
+            if (moduleName.includes('common')) {
+                debugger;
+            }
             modules[moduleName] = {
                 namespaced: !tsModules.has(moduleName),
                 ...definitions,

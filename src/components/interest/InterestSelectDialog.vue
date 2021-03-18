@@ -1,15 +1,17 @@
 <template>
-    <v-dialog :value="value"
-              persistent
-              fullscreen
+    <v-dialog
+        :value="value"
+        persistent
+        fullscreen
     >
         <v-card>
-            <InterestSelect :selectedInterestsCallback="getSelectedInterests"
-                            :submitCallback="submit"
-                            :backCallback="close"
-                            :maxSize="3"
-                            title="지역 설정"
-                            isDialog
+            <InterestSelect
+                :selectedInterestsCallback="getSelectedInterests"
+                :submitCallback="submit"
+                :backCallback="close"
+                :maxSize="3"
+                title="지역 설정"
+                isDialog
             >
                 <template #header-title>
                     모임 관심사를 설정해주세요.
@@ -22,10 +24,11 @@
     </v-dialog>
 </template>
 
-<script>
+<script lang="ts">
 import InterestSelect from '@/components/interest/InterestSelect.vue';
+import Vue from 'vue';
 
-export default {
+export default Vue.extend({
     name: 'InterestSelectDialog',
     components: { InterestSelect },
     props: {
@@ -50,7 +53,7 @@ export default {
             this.$emit('input', false);
         },
     },
-};
+});
 </script>
 
 <style scoped>

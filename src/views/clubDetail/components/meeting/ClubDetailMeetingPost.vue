@@ -1,8 +1,9 @@
 <template>
-    <div v-ripple
-         class="d-flex"
-         :class="resolveClass"
-         @click="goToMeetingDetailPage"
+    <div
+        v-ripple
+        class="d-flex"
+        :class="resolveClass"
+        @click="goToMeetingDetailPage"
     >
         <div class="meeting-day-info">
             <div class="meeting-day">
@@ -19,58 +20,66 @@
                     {{ meeting.title }}
                 </div>
                 <v-spacer />
-                <div v-if="tagText"
-                     class="meeting-tag"
+                <div
+                    v-if="tagText"
+                    class="meeting-tag"
                 >
                     {{ tagText }}
                 </div>
             </div>
             <div class="sub-description-wrapper">
                 <div class="sub-description">
-                    <v-icon size="12"
-                            class="sub-description-icon"
-                            v-text="'$clock'"
+                    <v-icon
+                        size="12"
+                        class="sub-description-icon"
+                        v-text="'$clock'"
                     />
                     {{ meetingTime }}
                 </div>
                 <div class="sub-description pt-1">
-                    <v-icon size="12"
-                            class="sub-description-icon"
-                            v-text="'$mapMarker'"
+                    <v-icon
+                        size="12"
+                        class="sub-description-icon"
+                        v-text="'$mapMarker'"
                     />
                     {{ meeting.region ? meeting.region : '미정' }}
                 </div>
                 <div class="sub-description pt-1">
-                    <v-icon size="12"
-                            class="sub-description-icon"
-                            v-text="'$currencyKrw'"
+                    <v-icon
+                        size="12"
+                        class="sub-description-icon"
+                        v-text="'$currencyKrw'"
                     />
                     {{ meeting.cost ? meeting.cost : '미정' }}
                 </div>
             </div>
             <div class="d-flex align-center">
-                <div v-for="(user, index) in extractedApplicationUsers"
-                     :key="user.seq"
+                <div
+                    v-for="(user, index) in extractedApplicationUsers"
+                    :key="user.seq"
                 >
-                    <UserProfileAvatar :size="22"
-                                       :name="user.name"
-                                       :appendNumber="user.seq"
-                                       :imgUrl="user.imgUrl"
-                                       :class="index !== 0 ? 'ml-1' : null"
+                    <UserProfileAvatar
+                        :size="22"
+                        :name="user.name"
+                        :appendNumber="user.seq"
+                        :imgUrl="user.imgUrl"
+                        :class="index !== 0 ? 'ml-1' : null"
                     />
                 </div>
                 <div v-if="remainingApplicationUserCount > 0">
-                    <TextAvatar :size="22"
-                                :name="`+${remainingApplicationUserCount}`"
-                                class="ml-1"
+                    <TextAvatar
+                        :size="22"
+                        :name="`+${remainingApplicationUserCount}`"
+                        class="ml-1"
                     />
                 </div>
                 <v-spacer />
                 <div class="meeting-application-users-number">
                     <div>
-                        <v-icon size="12"
-                                class="users-number-icon"
-                                v-text="'$twoPeople'"
+                        <v-icon
+                            size="12"
+                            class="users-number-icon"
+                            v-text="'$twoPeople'"
                         />
                     </div>
                     <div>
@@ -85,16 +94,17 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 
 import routerHelper from '@/router/RouterHelper.ts';
 import { generateParamPath, PATH } from '@/router/route_path_type.js';
 import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
 import TextAvatar from '@/components/user/TextAvatar.vue';
+import Vue from 'vue';
 
 const SHOW_AVATAR_SIZE = 5;
 
-export default {
+export default Vue.extend({
     name: 'ClubDetailMeetingPost',
     components: { TextAvatar, UserProfileAvatar },
     props: {
@@ -157,12 +167,13 @@ export default {
             this.$router.push(generateParamPath(PATH.CLUB.MEETING_POST, [this.clubSeq, this.meeting.seq]));
         },
     },
-};
+});
 
 </script>
 
-<style scoped
-       lang="scss"
+<style
+    scoped
+    lang="scss"
 >
 .meeting-day-info {
     width: 55px !important;

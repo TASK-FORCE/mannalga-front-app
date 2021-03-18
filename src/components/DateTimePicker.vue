@@ -51,11 +51,12 @@
     </v-row>
 </template>
 
-<script>
+<script lang="ts">
 
 import { RULES } from '@/utils/common/constant/rules.js';
+import Vue from 'vue';
 
-export default {
+export default Vue.extend({
     name: 'DateTimePicker',
     props: {
         dateLabel: String,
@@ -87,7 +88,7 @@ export default {
             this.$emit('changeDateTime', { date: this.date, time: this.time });
         },
     },
-};
+});
 </script>
 
 <style scoped>

@@ -55,7 +55,7 @@ import FixedCreateBtn from '@/components/button/FixedCreateBtn.vue';
 import { generateParamPath, PATH } from '@/router/route_path_type.js';
 import routerHelper from '@/router/RouterHelper.ts';
 import ClubDetailMeetingPost from '@/views/clubDetail/components/meeting/ClubDetailMeetingPost.vue';
-import actionsHelper from '@/store/helper/ActionsHelper.js';
+import actionsHelper from '@/store/helper/ActionsHelper.ts';
 import InfiniteScrollTemplate from '@/components/InfiniteScrollTemplate.vue';
 import { MESSAGE } from '@/utils/common/constant/messages.js';
 import gettersHelper from '@/store/helper/GettersHelper.js';

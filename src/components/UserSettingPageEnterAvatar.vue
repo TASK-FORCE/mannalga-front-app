@@ -1,28 +1,32 @@
 <template>
-    <UserProfileAvatar v-if="userProfile.userName"
-                       :size="35"
-                       :name="userProfile.userName"
-                       :appendNumber="userProfile.seq"
-                       :imgUrl="userProfile.profileImageLink"
-                       @click="moveToUserSettings"
+    <UserProfileAvatar
+        v-if="userProfile.userName"
+        :size="35"
+        :name="userProfile.userName"
+        :appendNumber="userProfile.seq"
+        :imgUrl="userProfile.profileImageLink"
+        @click="moveToUserSettings"
     />
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
 import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
-import gettersHelper from '@/store/helper/GettersHelper.js';
-import actionsHelper from '@/store/helper/ActionsHelper.js';
 import { PATH } from '@/router/route_path_type.js';
+import { ActionTypes } from '@/store/type/methodTypes.ts';
+import { UserProfile } from '@/interfaces/user';
 
-export default {
+export default Vue.extend({
     name: 'UserSettingPageEnterAvatar',
     components: { UserProfileAvatar },
     computed: {
-        userProfile: () => gettersHelper.userProfile(),
+        userProfile(): UserProfile {
+            return this.$store.state.user.userProfile;
+        },
     },
     created() {
         if (!this.userProfile.userName) {
-            actionsHelper.requestUserProfile();
+            this.$store.dispatch(ActionTypes.REQUEST_USER_PROFILE);
         }
     },
     methods: {
@@ -30,7 +34,7 @@ export default {
             this.$router.push(PATH.USER.SETTINGS);
         },
     },
-};
+});
 </script>
 
 <style scoped>

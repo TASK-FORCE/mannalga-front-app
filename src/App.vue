@@ -29,14 +29,14 @@
     </v-app>
 </template>
 
-<script>
+<script lang="ts">
 import CommonSnackBar from '@/components/CommonSnackBar.vue';
 import Progress from '@/components/Progress.vue';
-import mutationsHelper from '@/store/helper/MutationsHelper.ts';
-import { changeThemeAndLoad } from '@/plugins/vuetify.js';
+import { loadCurrentTheme } from '@/plugins/vuetify.js';
 import { MutationTypes } from '@/store/type/methodTypes.ts';
+import Vue from 'vue';
 
-export default {
+export default Vue.extend({
     name: 'App',
     components: { CommonSnackBar, Progress },
     data() {
@@ -44,18 +44,15 @@ export default {
             isDevEnv: process.env.NODE_ENV !== 'production',
         };
     },
-    created() {
-        changeThemeAndLoad();
-    },
     mounted() {
-        this.$store.commit(MutationTypes.CHANGE_THEME);
+        loadCurrentTheme();
     },
     methods: {
         changeTheme() {
             this.$store.commit(MutationTypes.CHANGE_THEME);
         },
     },
-};
+});
 </script>
 
 <style>

@@ -90,7 +90,7 @@ import { createClubMaximumNumberList } from '@/utils/common/commonUtils.js';
 import { RULES } from '@/utils/common/constant/rules.js';
 import RegionSelectDialog from '@/components/region/RegionSelectDialog.vue';
 import InterestSelectDialog from '@/components/interest/InterestSelectDialog.vue';
-import { UploadImageResponse } from '../../interfaces/common';
+import { Region, UploadImageResponse } from '../../interfaces/common';
 import { ClubWriteRequest } from '@/interfaces/club';
 
 export default Vue.extend({
@@ -132,7 +132,7 @@ export default Vue.extend({
             maximumNumber: null,
             imageUrl: null,
             selectedInterests: [],
-            selectedRegions: [],
+            selectedRegions: [] as Region[],
         };
     },
     computed: {

@@ -10,15 +10,16 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import CommonHeader from '@/components/header/CommonHeader.vue';
 import ClubMeetingCreateAndEditBody from '@/views/clubMeetingCreateAndEdit/ClubMeetingCreateAndEditBody.vue';
 import { generateParamPath, PATH } from '@/router/route_path_type.js';
 import routerHelper from '@/router/RouterHelper.ts';
 import gettersHelper from '@/store/helper/GettersHelper.js';
-import actionsHelper from '@/store/helper/ActionsHelper.js';
+import actionsHelper from '@/store/helper/ActionsHelper.ts';
+import Vue from 'vue';
 
-export default {
+export default Vue.extend({
     name: 'ClubMeetingEditPage',
     components: { ClubMeetingCreateAndEditBody, CommonHeader },
     computed: {
@@ -60,7 +61,7 @@ export default {
                 });
         },
     },
-};
+});
 </script>
 
 <style scoped>

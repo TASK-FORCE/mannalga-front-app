@@ -22,8 +22,10 @@
     </v-card>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue';
+
+export default Vue.extend({
     name: 'BottomSheetSortCard',
     data() {
         return {
@@ -35,7 +37,7 @@ export default {
             this.$emit('selectSortOption', { name });
         },
     },
-};
+});
 </script>
 
 <style scoped>

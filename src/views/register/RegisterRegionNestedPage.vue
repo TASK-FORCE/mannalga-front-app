@@ -15,23 +15,19 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import RegionSelect from '@/components/region/RegionSelect.vue';
 import _ from '@/utils/common/lodashWrapper.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.ts';
-import gettersHelper from '@/store/helper/GettersHelper.js';
 import { PATH } from '@/router/route_path_type.js';
 import { MESSAGE } from '@/utils/common/constant/messages.js';
 import { MutationTypes } from '@/store/type/methodTypes.ts';
+import Vue from 'vue';
 
-export default {
+export default Vue.extend({
     name: 'RegisterRegionNestedPage',
     components: { RegionSelect },
-    computed: {
-        kakaoProfile: () => gettersHelper.kakaoProfile(),
-    },
     created() {
-        if (_.isDeepEmpty(this.kakaoProfile)) {
+        if (_.isDeepEmpty(this.$store.state.user.kakaoProfile)) {
             this.$router.push(PATH.REGISTER.PROFILE);
         }
     },
@@ -40,7 +36,7 @@ export default {
             if (_.isEmpty(selectedRegions)) {
                 this.$store.commit(MutationTypes.OPEN_SNACK_BAR, MESSAGE.SELECT_REGION_REQUIRE);
             } else {
-                mutationsHelper.setSelectedRegions(selectedRegions);
+                this.$store.commit(MutationTypes.SET_SELECTED_REGIONS, selectedRegions);
                 this.$router.push(PATH.REGISTER.INTEREST);
             }
         },
@@ -48,5 +44,5 @@ export default {
             this.$router.push(PATH.REGISTER.PROFILE);
         },
     },
-};
+});
 </script>

@@ -16,23 +16,21 @@
     </div>
 </template>
 
-<script>
-import gettersHelper from '@/store/helper/GettersHelper.js';
+<script lang="ts">
+import Vue from 'vue';
 import RegionSelect from '@/components/region/RegionSelect.vue';
-import actionsHelper from '@/store/helper/ActionsHelper.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.ts';
 import { PATH } from '@/router/route_path_type.js';
 import { MESSAGE } from '@/utils/common/constant/messages.js';
-import { MutationTypes } from '@/store/type/methodTypes.ts';
+import { ActionTypes, MutationTypes } from '@/store/type/methodTypes.ts';
 
-export default {
+export default Vue.extend({
     name: 'UserRegionEditPage',
     components: { RegionSelect },
     methods: {
         changeRequest(selectedRegions) {
-            actionsHelper.requestChangeUserRegions(selectedRegions)
+            return this.$store.dispatch(ActionTypes.REQUEST_CHANGE_USER_REGIONS, selectedRegions)
                 .then(() => {
-                    actionsHelper.requestUserProfile();
+                    this.$store.dispatch(ActionTypes.REQUEST_USER_PROFILE);
                     this.$store.commit(MutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_CHANGE_REGIONS);
                     this.$router.push(PATH.USER.SETTINGS);
                 });
@@ -41,9 +39,9 @@ export default {
             this.$router.push(PATH.USER.SETTINGS);
         },
         getSelectedRegions() {
-            return actionsHelper.requestUserRegions()
-                .then(() => [...gettersHelper.selectedRegions()]);
+            return this.$store.dispatch(ActionTypes.REQUEST_USER_REGIONS)
+                .then(() => [...this.$store.state.user.selectedRegions]);
         },
     },
-};
+});
 </script>

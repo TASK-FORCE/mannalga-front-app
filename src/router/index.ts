@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import { ScrollHelper } from '@/utils/scroll.js';
+import { ScrollHelper } from '@/utils/scroll.ts';
 import lastScrollPositionCache from '@/utils/cache/LastScrollPositionCache.js';
 import routes from './routes.js';
 import { PositionResult, Route } from 'vue-router/types/router';

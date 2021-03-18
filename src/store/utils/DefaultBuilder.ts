@@ -1,6 +1,7 @@
 import { Page, SnackBarLocation, SnackBarOption } from '@/interfaces/common';
 import { ClubDetailContext, ClubInfo, ClubUserInfo, CurrentUserInfo } from '@/interfaces/club';
 import { ClubSearchContext } from '@/interfaces/clubList';
+import { KakaoProfile, UserProfile } from '@/interfaces/user';
 
 class DefaultBuilder {
     static snackbarOption(): SnackBarOption {
@@ -11,20 +12,25 @@ class DefaultBuilder {
         };
     }
 
-    static buildKakaoProfile = () => ({
-        name: '',
-        imgUrl: '',
-        dayOfBirth: '',
-        gender: '',
-    });
+    static kakaoProfile(): KakaoProfile {
+        return {
+            name: '',
+            imgUrl: '',
+            dayOfBirth: '',
+            gender: '',
+        }
+    }
 
-    static buildUserProfile = () => ({
-        userName: '',
-        birthday: '',
-        profileImageLink: '',
-        userRegions: [],
-        userInterests: [],
-    });
+    static userProfile(): UserProfile {
+        return {
+            seq: 0,
+            userName: '',
+            birthday: '',
+            profileImageLink: '',
+            userRegions: [],
+            userInterests: [],
+        }
+    }
 
     static clubSearchContext(): ClubSearchContext {
         return {

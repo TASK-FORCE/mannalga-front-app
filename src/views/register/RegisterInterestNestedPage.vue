@@ -13,23 +13,27 @@
     </InterestSelect>
 </template>
 
-<script>
-import GoBackBtnFooter from '@/components/footer/GoBackBtnFooter.vue';
+<script lang="ts">
+import Vue from 'vue';
 import { PATH } from '@/router/route_path_type.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.ts';
-import gettersHelper from '@/store/helper/GettersHelper.js';
-import actionsHelper from '@/store/helper/ActionsHelper.js';
 import { MESSAGE } from '@/utils/common/constant/messages.js';
 import InterestSelect from '@/components/interest/InterestSelect.vue';
 import _ from '@/utils/common/lodashWrapper.js';
-import { MutationTypes } from '@/store/type/methodTypes.ts';
+import { ActionTypes, MutationTypes } from '@/store/type/methodTypes.ts';
+import { KakaoProfile, UserRegisterContext } from '@/interfaces/user';
+import { Region } from '@/interfaces/common';
 
-export default {
+
+export default Vue.extend({
     name: 'RegisterInterestNestedPage',
     components: { InterestSelect },
     computed: {
-        kakaoProfile: () => gettersHelper.kakaoProfile(),
-        selectedRegions: () => gettersHelper.selectedRegions(),
+        kakaoProfile(): KakaoProfile {
+            return this.$store.state.user.kakaoProfile;
+        },
+        selectedRegions(): Region[] {
+            return this.$store.state.user.selectedRegions;
+        },
     },
     created() {
         if (_.isDeepEmpty(this.kakaoProfile)) {
@@ -43,13 +47,13 @@ export default {
     },
     methods: {
         register(selectedInterests) {
-            const registerInfo = {
+            const userRegisterContext: UserRegisterContext = {
                 profile: this.kakaoProfile,
                 selectedRegions: this.selectedRegions,
                 selectedInterests,
             };
 
-            actionsHelper.postRegister(registerInfo)
+            this.$store.dispatch(ActionTypes.REQUEST_REGISTER, userRegisterContext)
                 .then(() => this.$router.push(PATH.CLUB_LIST)
                     .then(() => this.$store.commit(MutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_REGISTER)))
                 .catch(() => this.$router.push(PATH.REGISTER.PROFILE));
@@ -58,5 +62,5 @@ export default {
             this.$router.push(PATH.REGISTER.REGION);
         },
     },
-};
+});
 </script>

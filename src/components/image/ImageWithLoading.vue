@@ -20,8 +20,10 @@
     </v-img>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue';
+
+export default Vue.extend({
     name: 'ImageWithLoading',
     props: {
         imgUrl: {
@@ -31,7 +33,7 @@ export default {
         aspectRatio: String,
         height: Number,
     },
-};
+});
 </script>
 
 <style scoped>

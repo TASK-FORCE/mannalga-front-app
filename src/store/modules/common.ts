@@ -10,7 +10,7 @@ export const state = {
     loading: false as boolean,
     snackBarOptions: DefaultBuilder.snackbarOption() as SnackBarOption,
     focusingChildCommentInput: false as boolean,
-    isDarkTheme: false as boolean,
+    isDarkTheme: isDarkTheme() as boolean,
 };
 export type CommonState = typeof state;
 

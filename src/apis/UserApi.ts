@@ -1,57 +1,52 @@
 import axios from 'axios';
 import ResponseConverter from '@/apis/converter/ResponseConverter.ts';
+import { IsMember, KakaoProfile, UserProfile, UserRegisterRequest } from '@/interfaces/user';
+import { Interest, InterestWriteRequest, Region, RegionWriteRequest, UploadImageResponse } from '@/interfaces/common';
 
-class UserApi {
-    getIsMember() {
+const userApi = {
+    getIsMember(): Promise<IsMember> {
         return axios.get('/api/users/check-already-register')
             .then(ResponseConverter.extractSuperInventionResponseData);
-    }
+    },
 
-    getKakaoProfile() {
+    getKakaoProfile(): Promise<KakaoProfile> {
         return axios.get('/api/users/kakao-profile')
             .then(ResponseConverter.extractSuperInventionResponseData)
             .then(ResponseConverter.convertProfile);
-    }
+    },
 
-    getRegisterStatus(appToken) {
-        return axios.get('/api/users/registStatus', { params: appToken })
-            .then(ResponseConverter.extractSuperInventionResponseData);
-    }
-
-    getUserProfile() {
+    getUserProfile(): Promise<UserProfile> {
         return axios.get('/api/users/profile')
             .then(ResponseConverter.extractSuperInventionResponseData);
-    }
+    },
 
-    getUserRegions() {
+    getUserRegions(): Promise<Region[]> {
         return axios.get('/api/users/regions')
             .then(ResponseConverter.extractSuperInventionResponseData)
             .then(ResponseConverter.convertUserRegions);
-    }
+    },
 
-    putUserRegions(userRegionsChangeDto) {
-        return axios.put('/api/users/regions', userRegionsChangeDto);
-    }
+    putUserRegions(regionWriteRequests: RegionWriteRequest[]) {
+        return axios.put('/api/users/regions', regionWriteRequests);
+    },
 
-    postRegister(registerRequestDto) {
-        return axios.post('/api/users/regist', registerRequestDto)
+    postRegister(userRegisterRequest: UserRegisterRequest) {
+        return axios.post('/api/users/regist', userRegisterRequest)
             .then(ResponseConverter.extractSuperInventionResponseData);
-    }
+    },
 
-    getUserInterest() {
+    getUserInterest(): Promise<Interest[]> {
         return axios.get('/api/users/interests')
             .then(ResponseConverter.extractSuperInventionResponseData)
             .then(ResponseConverter.convertUserInterests);
-    }
+    },
 
-    putUserInterests(userInterestsChangeDto) {
-        return axios.put('/api/users/interests', userInterestsChangeDto);
-    }
+    putUserInterests(interestWriteRequests: InterestWriteRequest[]) {
+        return axios.put('/api/users/interests', interestWriteRequests);
+    },
 
-    patchUserProfileImage(profileImage) {
+    patchUserProfileImage(profileImage: UploadImageResponse) {
         return axios.patch('/api/users', { profileImage });
     }
 }
-
-const userApi = new UserApi();
 export default userApi;

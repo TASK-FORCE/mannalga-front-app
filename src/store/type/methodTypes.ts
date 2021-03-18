@@ -7,7 +7,7 @@ export enum MutationTypes {
     CHANGE_THEME = 'common/changeTheme',
 
     SET_CURRENT_TAB = 'club/setCurrentTab',
-    SET_CLUB_DETAIL_CONTEXT= 'club/clubDetailContext',
+    SET_CLUB_DETAIL_CONTEXT = 'club/clubDetailContext',
     CHANGE_USER_ROLE = 'club/changeUserRole',
     DELETE_USER = 'club/deleteUser',
 
@@ -21,6 +21,12 @@ export enum MutationTypes {
     CHANGE_CLUB_SEARCH_REGION = 'clubList/changeClubSearchRegion',
     CHANGE_CLUB_SEARCH_INTEREST = 'clubList/changeClubSearchInterest',
     CHANGE_CLUB_SEARCH_TEXT = 'clubList/changeClubSearchText',
+
+    SET_PROFILE = 'user/setProfile',
+    CHANGE_PROFILE_NAME = 'user/changeProfileName',
+    SET_SELECTED_REGIONS = 'user/setSelectedRegions',
+    SET_SELECTED_INTERESTS = 'user/setSelectedInterests',
+    SET_USER_PROFILE = 'user/setUserProfile',
 }
 
 export enum ActionTypes {
@@ -38,4 +44,14 @@ export enum ActionTypes {
     REQUEST_NEXT_CLUB_LIST = 'clubList/requestNextClubList',
     REQUEST_FIRST_MY_CLUB_LIST = 'clubList/requestFirstMyClubList',
     REQUEST_NEXT_MY_CLUB_LIST = 'clubList/requestNextMyClubList',
+
+    REQUEST_KAKAO_PROFILE = 'user/requestKakaoProfile',
+    REQUEST_REGISTER = 'user/requestRegister',
+    REQUEST_USER_PROFILE = 'user/requestUserProfile',
+    REQUEST_USER_REGIONS = 'user/requestUserRegions',
+    REQUEST_CHANGE_USER_REGIONS = 'user/requestChangeUserRegions',
+    REQUEST_USER_INTERESTS = 'user/requestUserInterests',
+    REQUEST_CHANGE_USER_INTERESTS = 'user/requestChangeUserInterests',
+    REQUEST_CHECK_IS_MEMBER = 'user/requestCheckIsMember',
+    REQUEST_CHANGE_USER_PROFILE = 'user/requestChangeUserProfile',
 }

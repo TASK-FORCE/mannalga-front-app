@@ -1,7 +1,7 @@
 import _ from '@/utils/common/lodashWrapper.js';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import RequestHelper from '@/store/service/helper/RequestHelper.js';
-import actionsHelper from '@/store/helper/ActionsHelper.js';
+import actionsHelper from '@/store/helper/ActionsHelper.ts';
 
 function isCached() {
     return _.isNotEmpty(gettersHelper.rootRegions()) && _.isNotEmpty(gettersHelper.rootInterests());

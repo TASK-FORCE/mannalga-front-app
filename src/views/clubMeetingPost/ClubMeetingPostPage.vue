@@ -7,13 +7,14 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import CommonHeader from '@/components/header/CommonHeader.vue';
 import { generateParamPath, PATH } from '@/router/route_path_type.js';
 import routerHelper from '@/router/RouterHelper.ts';
 import ClubMeetingPostBody from '@/views/clubMeetingPost/ClubMeetingPostBody.vue';
+import Vue from 'vue';
 
-export default {
+export default Vue.extend({
     name: 'ClubMeetingPostPage',
     components: { ClubMeetingPostBody, CommonHeader },
     methods: {
@@ -21,7 +22,7 @@ export default {
             return generateParamPath(PATH.CLUB.MAIN, routerHelper.clubSeq());
         },
     },
-};
+});
 </script>
 
 <style scoped>

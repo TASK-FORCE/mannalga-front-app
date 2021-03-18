@@ -14,15 +14,16 @@
     </BoardTemplate>
 </template>
 
-<script>
+<script lang="ts">
 import ImageWithDialog from '@/components/image/ImageWithDialog.vue';
 import gettersHelper from '@/store/helper/GettersHelper.js';
-import actionsHelper from '@/store/helper/ActionsHelper.js';
+import actionsHelper from '@/store/helper/ActionsHelper.ts';
 import routerHelper from '@/router/RouterHelper.ts';
 import mutationsHelper from '@/store/helper/MutationsHelper.ts';
 import BoardTemplate from '@/components/BoardTemplate.vue';
+import Vue from 'vue';
 
-export default {
+export default Vue.extend({
     name: 'ClubAlbumPostBody',
     components: {
         BoardTemplate,
@@ -116,5 +117,5 @@ export default {
             return actionsHelper.requestDeleteLikeClubAlbum(this.seqInfo);
         },
     },
-};
+});
 </script>

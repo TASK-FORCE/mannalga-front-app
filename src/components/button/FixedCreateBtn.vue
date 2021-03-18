@@ -1,19 +1,23 @@
 <template>
-    <v-btn fab
-           :class="left ? 'left-btn' : 'right-btn'"
-           :color="color || 'green'"
-           :style="resolveSize"
-           @click="click"
+    <v-btn
+        fab
+        :class="left ? 'left-btn' : 'right-btn'"
+        :color="color || 'green'"
+        :style="resolveSize"
+        @click="click"
     >
-        <v-icon class="white--text"
-                :size="iconSize"
-                v-text="'$plus'"
+        <v-icon
+            class="white--text"
+            :size="iconSize"
+            v-text="'$plus'"
         />
     </v-btn>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue';
+
+export default Vue.extend({
     name: 'FixedCreateBtn',
     props: {
         color: String,
@@ -49,7 +53,7 @@ export default {
             }
         },
     },
-};
+});
 </script>
 
 <style scoped>

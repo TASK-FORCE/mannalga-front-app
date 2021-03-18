@@ -1,9 +1,10 @@
 <template>
     <div v-show="!$store.state.common.loading">
-        <InterestSelect title="관심사 설정"
-                        :backCallback="back"
-                        :submitCallback="submit"
-                        :selectedInterestsCallback="selectedInterestsCallback"
+        <InterestSelect
+            title="관심사 설정"
+            :backCallback="back"
+            :submitCallback="submit"
+            :selectedInterestsCallback="selectedInterestsCallback"
         >
             <template #header-title>
                 관심있는 분야를 선택해주세요.
@@ -15,16 +16,14 @@
     </div>
 </template>
 
-<script>
-import gettersHelper from '@/store/helper/GettersHelper.js';
-import actionsHelper from '@/store/helper/ActionsHelper.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.ts';
+<script lang="ts">
+import Vue from 'vue';
 import { PATH } from '@/router/route_path_type.js';
 import { MESSAGE } from '@/utils/common/constant/messages.js';
 import InterestSelect from '@/components/interest/InterestSelect.vue';
-import { MutationTypes } from '@/store/type/methodTypes.ts';
+import { ActionTypes, MutationTypes } from '@/store/type/methodTypes.ts';
 
-export default {
+export default Vue.extend({
     name: 'UserInterestEditPage',
     components: { InterestSelect },
     data() {
@@ -34,9 +33,9 @@ export default {
     },
     methods: {
         submit(selectedInterests) {
-            return actionsHelper.requestChangeUserInterests(selectedInterests)
+            return this.$store.dispatch(ActionTypes.REQUEST_CHANGE_USER_INTERESTS, selectedInterests)
                 .then(() => {
-                    actionsHelper.requestUserProfile();
+                    this.$store.dispatch(ActionTypes.REQUEST_USER_PROFILE);
                     this.$router.push(PATH.USER.SETTINGS);
                     this.$store.commit(MutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_CHANGE_REGIONS);
                 });
@@ -45,9 +44,9 @@ export default {
             this.$router.push(PATH.USER.SETTINGS);
         },
         selectedInterestsCallback() {
-            return actionsHelper.requestUserInterests()
-                .then(() => [...gettersHelper.selectedInterests()]);
+            return this.$store.dispatch(ActionTypes.REQUEST_USER_INTERESTS)
+                .then(() => [...this.$store.state.user.selectedInterests]);
         },
     },
-};
+});
 </script>

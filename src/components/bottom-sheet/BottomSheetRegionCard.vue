@@ -1,38 +1,44 @@
 <template>
     <v-card>
         <div class="title-wrapper">
-            <v-btn v-show="!showRootRegions"
-                   icon
-                   class="title-back-btn my-auto"
-                   @click="showRoot"
+            <v-btn
+                v-show="!showRootRegions"
+                icon
+                class="title-back-btn my-auto"
+                @click="showRoot"
             >
-                <v-icon size="28"
-                        v-text="'$back'"
+                <v-icon
+                    size="28"
+                    v-text="'$back'"
                 />
             </v-btn>
             <div class="title-text">
                 {{ title }}
             </div>
             <v-spacer />
-            <v-btn v-if="showCancelBtn"
-                   class="cancel-btn"
-                   outlined
-                   small
-                   @click="$emit('cancelSelectedRegion')"
+            <v-btn
+                v-if="showCancelBtn"
+                class="cancel-btn"
+                outlined
+                small
+                @click="$emit('cancelSelectedRegion')"
             >
                 선택 취소
             </v-btn>
         </div>
         <v-divider />
-        <v-card-text style="height: 300px;"
-                     class="pa-0"
+        <v-card-text
+            style="height: 300px;"
+            class="pa-0"
         >
             <v-list class="pt-0">
-                <div v-for="region in getRegions()"
-                     :key="region.seq"
+                <div
+                    v-for="region in getRegions()"
+                    :key="region.seq"
                 >
-                    <v-list-item :disabled="selectedRegionSeqs.includes(region.seq)"
-                                 @click="triggerRegion(region)"
+                    <v-list-item
+                        :disabled="selectedRegionSeqs.includes(region.seq)"
+                        @click="triggerRegion(region)"
                     >
                         {{ region.name }}
                     </v-list-item>
@@ -43,13 +49,14 @@
     </v-card>
 </template>
 
-<script>
+<script lang="ts">
 
 import gettersHelper from '@/store/helper/GettersHelper.js';
+import Vue from 'vue';
 
 const TITLE = '지역 선택';
 
-export default {
+export default Vue.extend({
     name: 'BottomSheetRegionCard',
     props: {
         canSelectRoot: Boolean,
@@ -105,11 +112,12 @@ export default {
             return this.showRootRegions ? this.rootRegions : this.regions;
         },
     },
-};
+});
 </script>
 
-<style scoped
-       lang="scss"
+<style
+    scoped
+    lang="scss"
 >
 .title-wrapper {
     height: 60px;
