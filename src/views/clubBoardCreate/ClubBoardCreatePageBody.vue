@@ -66,7 +66,7 @@ import actionsHelper from '@/store/helper/ActionsHelper.js';
 import { generateParamPath, PATH } from '@/router/route_path_type.js';
 import { RULES } from '@/utils/common/constant/rules.js';
 import { BoardUtils } from '@/utils/board.js';
-import routerHelper from '@/router/RouterHelper.js';
+import routerHelper from '@/router/RouterHelper.ts';
 import { UploadImageResponse } from '@/interfaces/common';
 import { CurrentUserInfo } from '@/interfaces/club';
 

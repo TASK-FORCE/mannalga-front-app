@@ -1,4 +1,4 @@
-import router from '@/router/index.js';
+import router from '@/router/index.ts';
 
 class RouterHelper {
     clubSeq = () => getParams().clubSeq;
@@ -7,8 +7,10 @@ class RouterHelper {
     albumSeq = () => getParams().albumSeq;
 }
 
-const getParams = () => router.history.current.params;
+const getParams = () => {
+    console.log(router.currentRoute);
+    return router.currentRoute.params;
+}
 
 const routerHelper = new RouterHelper();
-
 export default routerHelper;

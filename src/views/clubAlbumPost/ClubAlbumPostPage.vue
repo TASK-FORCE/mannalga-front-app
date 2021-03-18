@@ -11,7 +11,7 @@
 import CommonHeader from '@/components/header/CommonHeader.vue';
 import ClubAlbumPostBody from '@/views/clubAlbumPost/ClubAlbumPostBody.vue';
 import { generateParamPath, PATH } from '@/router/route_path_type.js';
-import routerHelper from '@/router/RouterHelper.js';
+import routerHelper from '@/router/RouterHelper.ts';
 
 export default {
     name: 'ClubAlbumPostPage',

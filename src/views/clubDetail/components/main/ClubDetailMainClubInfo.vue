@@ -55,7 +55,7 @@ import SnackBar from '@/components/SnackBar.vue';
 import WindMill from '@/components/icons/WindMill.vue';
 import MiddleDivider from '@/components/MiddleDivider.vue';
 import { MESSAGE } from '@/utils/common/constant/messages.js';
-import { SNACKBAR_LOCATION, SnackBarOption } from '../../../../interfaces/common';
+import { SnackBarLocation, SnackBarOption } from '../../../../interfaces/common';
 import { ActionTypes } from '@/store/type/methodTypes';
 import { ClubInfo, ClubWriteRequest, CurrentUserInfo } from '@/interfaces/club';
 
@@ -96,7 +96,7 @@ export default Vue.extend({
             imageChangeSnackBarOpen: false,
             imageChangeSnackBarOptions: {
                 message: MESSAGE.CLUB_MAIN_IMAGE_ADD_TEXT,
-                location: SNACKBAR_LOCATION.BOTTOM,
+                location: SnackBarLocation.BOTTOM,
                 time: 5000,
                 open: true,
             } as SnackBarOption,

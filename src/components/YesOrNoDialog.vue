@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import routerHelper from '@/router/RouterHelper.js';
+import routerHelper from '@/router/RouterHelper.ts';
 
 export default {
     name: 'YesOrNoDialog',

@@ -47,7 +47,7 @@
 import Vue, { PropType } from 'vue';
 import FixedCreateBtn from '@/components/button/FixedCreateBtn.vue';
 import { generateParamPath, PATH } from '@/router/route_path_type.js';
-import routerHelper from '@/router/RouterHelper.js';
+import routerHelper from '@/router/RouterHelper.ts';
 import { BoardUtils } from '@/utils/board.js';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import ClubDetailBoardPost from '@/views/clubDetail/components/board/ClubDetailBoardPost.vue';

@@ -1,4 +1,4 @@
-import RequestConverter from '@/store/converter/RequestConverter.js';
+import RequestConverter from '@/store/converter/RequestConverter.ts';
 import { actionsNormalTemplate } from '@/store/utils/actionsTemplate.ts';
 
 class CommentHelper {

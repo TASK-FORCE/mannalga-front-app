@@ -1,51 +1,57 @@
 <template>
     <div class="search-filter-bar">
-        <v-bottom-sheet v-model="sheet"
-                        scrollable
+        <v-bottom-sheet
+            v-model="sheet"
+            scrollable
         >
             <template v-slot:activator="{ on, attrs }">
                 <div class="d-flex h-100 align-center">
                     <div class="d-flex ml-5">
-                        <v-chip v-if="regionName"
-                                close
-                                color="#E8984E"
-                                outlined
-                                small
-                                @click:close="cancelRegionSelect"
+                        <v-chip
+                            v-if="regionName"
+                            close
+                            color="#E8984E"
+                            outlined
+                            small
+                            @click:close="cancelRegionSelect"
                         >
                             {{ regionName }}
                         </v-chip>
-                        <ClubListSearchFilterBtn v-else
-                                                 :attrs="attrs"
-                                                 :on="on"
-                                                 text="지역 선택"
-                                                 @click="changeBottomSheetComponent('REGION')"
+                        <ClubListSearchFilterBtn
+                            v-else
+                            :attrs="attrs"
+                            :on="on"
+                            text="지역 선택"
+                            @click="changeBottomSheetComponent('REGION')"
                         />
                     </div>
                     <div class="d-flex ml-3">
-                        <v-chip v-if="interestName"
-                                close
-                                color="#7CBB72"
-                                outlined
-                                small
-                                @click:close="cancelInterestSelect"
+                        <v-chip
+                            v-if="interestName"
+                            close
+                            color="#7CBB72"
+                            outlined
+                            small
+                            @click:close="cancelInterestSelect"
                         >
                             {{ interestName }}
                         </v-chip>
-                        <ClubListSearchFilterBtn v-else
-                                                 :attrs="attrs"
-                                                 :on="on"
-                                                 text="관심사 선택"
-                                                 @click="changeBottomSheetComponent('INTEREST')"
+                        <ClubListSearchFilterBtn
+                            v-else
+                            :attrs="attrs"
+                            :on="on"
+                            text="관심사 선택"
+                            @click="changeBottomSheetComponent('INTEREST')"
                         />
                     </div>
                     <div class="d-flex ml-3">
-                        <v-chip v-if="searchText"
-                                close
-                                color="#2883C6"
-                                outlined
-                                small
-                                @click:close="cancelSearchTextSelect"
+                        <v-chip
+                            v-if="searchText"
+                            close
+                            color="#2883C6"
+                            outlined
+                            small
+                            @click:close="cancelSearchTextSelect"
                         >
                             {{ searchText }}
                         </v-chip>
@@ -53,31 +59,34 @@
                 </div>
             </template>
 
-            <BottomSheetRegionCard v-if="currentBottomSheetCard === 'REGION'"
-                                   :canSelectRoot="true"
-                                   @selectSubRegion="selectSearchRegion"
+            <BottomSheetRegionCard
+                v-if="currentBottomSheetCard === 'REGION'"
+                :canSelectRoot="true"
+                @selectSubRegion="selectSearchRegion"
             />
-            <BottomSheetInterestCard v-else-if="currentBottomSheetCard === 'INTEREST'"
-                                     :rootInterests="rootInterests"
-                                     :canSelectRoot="true"
-                                     @selectSubInterest="selectSearchInterest"
+            <BottomSheetInterestCard
+                v-else-if="currentBottomSheetCard === 'INTEREST'"
+                :rootInterests="rootInterests"
+                :canSelectRoot="true"
+                @selectSubInterest="selectSearchInterest"
             />
         </v-bottom-sheet>
     </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
 import BottomSheetRegionCard from '@/components/bottom-sheet/BottomSheetRegionCard.vue';
 import BottomSheetInterestCard from '@/components/bottom-sheet/BottomSheetInterestCard.vue';
 import ClubListSearchFilterBtn from '@/views/clubList/components/ClubListSearchFilterBtn.vue';
 import { PATH } from '@/router/route_path_type.js';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.ts';
 import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
-import { isDarkTheme } from '@/plugins/vuetify.js';
+import { MutationTypes } from '@/store/type/methodTypes.ts';
+import { ClubSearchContext } from '@/interfaces/clubList';
 
-export default {
+export default Vue.extend({
     name: 'ClubListSearchFilter',
     components: {
         BottomSheetInterestCard,
@@ -94,15 +103,17 @@ export default {
     computed: {
         rootRegions: () => gettersHelper.rootRegions(),
         rootInterests: () => gettersHelper.rootInterests(),
-        clubSearchFilterInfo: () => gettersHelper.clubSearchFilterInfo(),
+        clubSearchContext(): ClubSearchContext {
+            return this.$store.state.clubList.clubSearchContext;
+        },
         regionName() {
-            return this.clubSearchFilterInfo.region.name;
+            return this.clubSearchContext.region.name;
         },
         interestName() {
-            return this.clubSearchFilterInfo.interest.name;
+            return this.clubSearchContext.interest.name;
         },
         searchText() {
-            return this.clubSearchFilterInfo.searchText;
+            return this.clubSearchContext.searchText;
         },
     },
     created() {
@@ -110,7 +121,10 @@ export default {
     },
     methods: {
         selectSearchRegion(region) {
-            mutationsHelper.changeClubSearchRegion({ name: region.superRegionRoot, seq: region.seq });
+            this.$store.commit(MutationTypes.CHANGE_CLUB_SEARCH_REGION, {
+                name: region.superRegionRoot,
+                seq: region.seq,
+            });
             this.sheet = false;
         },
         selectSearchInterest(interest) {
@@ -119,27 +133,27 @@ export default {
                 seq: interest.seq,
                 groupSeq: interest.groupSeq,
             };
-            mutationsHelper.changeClubSearchInterest(interestDto);
+            this.$store.commit(MutationTypes.CHANGE_CLUB_SEARCH_INTEREST, interestDto);
             this.sheet = false;
         },
         cancelRegionSelect() {
-            mutationsHelper.changeClubSearchRegion(DefaultBuilder.buildClubSearchFilterInfo().region);
+            this.$store.commit(MutationTypes.CHANGE_CLUB_SEARCH_REGION, DefaultBuilder.clubSearchContext().region);
         },
         cancelInterestSelect() {
-            mutationsHelper.changeClubSearchInterest(DefaultBuilder.buildClubSearchFilterInfo().interest);
+            this.$store.commit(MutationTypes.CHANGE_CLUB_SEARCH_INTEREST, DefaultBuilder.clubSearchContext().interest);
         },
         cancelSearchTextSelect() {
-            mutationsHelper.changeClubSearchText(null);
+            this.$store.commit(MutationTypes.CHANGE_CLUB_SEARCH_TEXT, null);
         },
         changeBottomSheetComponent(cardComponent) {
             this.currentBottomSheetCard = cardComponent;
         },
     },
-};
-</script>
-
-<style scoped
-       lang="scss"
+});
+;</script>
+<style
+    scoped
+    lang="scss"
 >
 .search-filter-bar {
     height: 60px;

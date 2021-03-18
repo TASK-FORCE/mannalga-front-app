@@ -47,7 +47,7 @@ import ClubDetailAlbumList from '@/views/clubDetail/components/album/ClubDetailA
 import lastClubTabCache from '@/utils/cache/LastClubTabCache.js';
 import clubDetailVuexService from '@/store/service/ClubDetailVuexService.ts';
 import { PATH } from '@/router/route_path_type.js';
-import routerHelper from '@/router/RouterHelper.js';
+import routerHelper from '@/router/RouterHelper.ts';
 import { ClubInfo, CurrentUserInfo } from '@/interfaces/club.ts';
 
 export default Vue.extend({

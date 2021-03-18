@@ -1,6 +1,6 @@
 import userApi from '@/apis/UserApi.js';
 import { actionsLoadingTemplate, actionsNormalTemplate } from '@/store/utils/actionsTemplate.ts';
-import RequestConverter from '@/store/converter/RequestConverter.js';
+import RequestConverter from '@/store/converter/RequestConverter.ts';
 import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
 
 const state = {
@@ -37,31 +37,31 @@ const mutations = {
 
 const actions = {
     requestKakaoProfile({ commit }) {
-        return actionsLoadingTemplate(commit, async () => {
+        return actionsLoadingTemplate(async () => {
             const profile = await userApi.getKakaoProfile();
             commit('setProfile', profile);
         });
     },
     postRegister({ commit }, registerInfo) {
-        return actionsLoadingTemplate(commit, async () => {
+        return actionsLoadingTemplate(async () => {
             const registerRequestDto = RequestConverter.convertRegisterInfo(registerInfo);
             await userApi.postRegister(registerRequestDto);
         });
     },
     requestRegisterStatus({ commit }, appToken) {
-        return actionsLoadingTemplate(commit, async () => {
+        return actionsLoadingTemplate(async () => {
             const { isRegistered } = await userApi.getRegisterStatus(appToken);
             return isRegistered;
         });
     },
     requestUserProfile({ commit }) {
-        return actionsLoadingTemplate(commit, async () => {
+        return actionsLoadingTemplate(async () => {
             const userProfile = await userApi.getUserProfile();
             commit('setUserProfile', userProfile);
         });
     },
     requestUserRegions({ commit }) {
-        return actionsLoadingTemplate(commit, async () => {
+        return actionsLoadingTemplate(async () => {
             const userRegions = await userApi.getUserRegions();
             const selectedRegions = userRegions.map(({ priority, region }) => region);
             commit('setSelectedRegions', selectedRegions);
@@ -76,7 +76,7 @@ const actions = {
         );
     },
     requestUserInterests({ commit }) {
-        return actionsLoadingTemplate(commit, async () => {
+        return actionsLoadingTemplate(async () => {
             const selectedInterests = await userApi.getUserInterest();
             commit('setSelectedInterests', selectedInterests);
         });

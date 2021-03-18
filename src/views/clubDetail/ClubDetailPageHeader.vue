@@ -21,7 +21,7 @@ import { PATH } from '@/router/route_path_type.js';
 import clubDetailVuexService from '@/store/service/ClubDetailVuexService.ts';
 import lastScrollPositionCache from '@/utils/cache/LastScrollPositionCache.js';
 import lastClubTabCache from '@/utils/cache/LastClubTabCache.js';
-import routerHelper from '@/router/RouterHelper.js';
+import routerHelper from '@/router/RouterHelper.ts';
 import UserSettingPageEnterAvatar from '@/components/UserSettingPageEnterAvatar.vue';
 
 export default {

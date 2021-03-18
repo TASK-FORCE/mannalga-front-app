@@ -13,7 +13,7 @@
 import CommonHeader from '@/components/header/CommonHeader.vue';
 import ClubMeetingCreateAndEditBody from '@/views/clubMeetingCreateAndEdit/ClubMeetingCreateAndEditBody.vue';
 import { generateParamPath, PATH } from '@/router/route_path_type.js';
-import routerHelper from '@/router/RouterHelper.js';
+import routerHelper from '@/router/RouterHelper.ts';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
 
 export default {

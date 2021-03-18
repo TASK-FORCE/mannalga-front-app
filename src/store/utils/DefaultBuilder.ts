@@ -1,11 +1,12 @@
-import { SNACKBAR_LOCATION, SnackBarOption } from '@/interfaces/common';
-import { ClubInfo, CurrentUserInfo } from '@/interfaces/club';
+import { Page, SnackBarLocation, SnackBarOption } from '@/interfaces/common';
+import { ClubDetailContext, ClubInfo, ClubUserInfo, CurrentUserInfo } from '@/interfaces/club';
+import { ClubSearchContext } from '@/interfaces/clubList';
 
 class DefaultBuilder {
     static snackbarOption(): SnackBarOption {
         return {
             message: '',
-            location: SNACKBAR_LOCATION.BOTTOM,
+            location: SnackBarLocation.BOTTOM,
             open: false,
         };
     }
@@ -25,20 +26,24 @@ class DefaultBuilder {
         userInterests: [],
     });
 
-    static buildClubSearchFilterInfo = () => ({
-        region: {
-            seq: null,
-            name: null,
-        },
-        interest: {
-            groupSeq: null,
-            seq: null,
-            name: null,
-        },
-        searchText: null,
-    });
+    static clubSearchContext(): ClubSearchContext {
+        return {
+            region: {
+                seq: null,
+                name: null,
+            },
+            interest: {
+                groupSeq: null,
+                seq: null,
+                name: null,
+            },
+            searchText: null,
+        }
+    }
 
-    static buildPage = (size = 20) => ({ size, currentPage: 0, nextPage: 0, isLastPage: false });
+    static buildPage(size = 20): Page {
+        return { size, currentPage: 0, nextPage: 0, isLastPage: false }
+    }
 
     static clubInfo(): ClubInfo {
         return {
@@ -53,6 +58,15 @@ class DefaultBuilder {
         }
     }
 
+    static clubUserInfo(): ClubUserInfo {
+        return {
+            clubUserSeq: 0,
+            userSeq: 0,
+            isLiked: false,
+            role: [],
+        }
+    }
+
     static currentUserInfo(): CurrentUserInfo {
         return {
             isMaster: false,
@@ -61,6 +75,14 @@ class DefaultBuilder {
             roles: null,
             isLiked: false,
         };
+    }
+
+    static clubDetailContext(): ClubDetailContext {
+        return {
+            clubInfo: this.clubInfo(),
+            userInfo: this.clubUserInfo(),
+            userList: [],
+        }
     }
 
     static buildMeeting = () => ({

@@ -1,7 +1,7 @@
 import { actionsLoadingTemplate, actionsNormalTemplate } from '@/store/utils/actionsTemplate.ts';
 import meetingApi from '@/apis/MeetingApi.js';
 import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
-import RequestConverter from '@/store/converter/RequestConverter.js';
+import RequestConverter from '@/store/converter/RequestConverter.ts';
 
 const defaultPage = DefaultBuilder.buildPage(20);
 
@@ -120,11 +120,10 @@ const actions = {
     },
 
     async requestMeeting({ commit }, clubAndMeetingSeq) {
-        return actionsLoadingTemplate(commit,
-            async () => {
-                const meeting = await meetingApi.getMeeting(clubAndMeetingSeq);
-                commit('setMeeting', meeting);
-            });
+        return actionsLoadingTemplate(async () => {
+            const meeting = await meetingApi.getMeeting(clubAndMeetingSeq);
+            commit('setMeeting', meeting);
+        });
     },
 
     async requestMeetingApplication({ commit, dispatch }, meetingApplicationInfo) {

@@ -59,7 +59,7 @@ import gettersHelper from '@/store/helper/GettersHelper.js';
 import _ from '@/utils/common/lodashWrapper.js';
 import InfiniteScrollTemplate from '@/components/InfiniteScrollTemplate.vue';
 import actionsHelper from '@/store/helper/ActionsHelper.js';
-import routerHelper from '@/router/RouterHelper.js';
+import routerHelper from '@/router/RouterHelper.ts';
 import FixedScrollToTopBtn from '@/components/button/FixedScrollToTopBtn.vue';
 import EmptyPage from '@/components/EmptyPage.vue';
 import { CurrentUserInfo } from '../../../../interfaces/club';

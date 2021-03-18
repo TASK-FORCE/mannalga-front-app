@@ -7,11 +7,6 @@ class MutationsHelper {
     setAppToken = (payload?) => commit(MODULE.AUTH, 'setAppToken', payload);
     removeAppToken = (payload?) => commit(MODULE.AUTH, 'removeAppToken', payload);
 
-    // clubList module
-    changeClubSearchRegion = (payload?) => commit(MODULE.CLUB_LIST, 'changeClubSearchRegion', payload);
-    changeClubSearchInterest = (payload?) => commit(MODULE.CLUB_LIST, 'changeClubSearchInterest', payload);
-    changeClubSearchText = (payload?) => commit(MODULE.CLUB_LIST, 'changeClubSearchText', payload);
-
     // meeting
     setMeeting = (payload?) => commit(MODULE.MEETING, 'setMeeting', payload);
 

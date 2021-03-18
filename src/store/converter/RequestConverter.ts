@@ -1,4 +1,6 @@
 import { KAKAO } from '@/utils/kakao/kakao.js';
+import { ClubListRequest, ClubSearchContext, MyClubListRequest } from '@/interfaces/clubList';
+import { Page } from '@/interfaces/common';
 
 /** RequestConverter
  *  - 백엔드 서버로 전달하는 request 정보를 converting
@@ -9,29 +11,23 @@ export default class RequestConverter {
         page: page.nextPage,
     });
 
-    static convertClubList = (clubPage, clubSearchFilterInfo) => {
-        const { size, nextPage } = clubPage;
-        const regionSeq = clubSearchFilterInfo.region.seq;
-        const interestSeq = clubSearchFilterInfo.interest.seq;
-        const interestGroupSeq = clubSearchFilterInfo.interest.groupSeq;
-        const text = clubSearchFilterInfo.searchText;
+    static convertClubList(clubPage: Page, clubSearchContext: ClubSearchContext): ClubListRequest {
         return {
-            size,
-            page: nextPage,
-            regionSeq,
-            interestSeq,
-            interestGroupSeq,
-            text,
-        };
-    };
+            size: clubPage.size,
+            page: clubPage.nextPage,
+            regionSeq: clubSearchContext.region.seq,
+            interestSeq: clubSearchContext.interest.seq,
+            interestGroupSeq: clubSearchContext.interest.groupSeq,
+            text: clubSearchContext.searchText,
+        }
+    }
 
-    static convertMyClubList = (myClubPage) => {
-        const { size, nextPage } = myClubPage;
+    static convertMyClubList(myClubPage: Page): MyClubListRequest {
         return {
-            size,
-            page: nextPage,
-        };
-    };
+            size: myClubPage.size,
+            page: myClubPage.nextPage,
+        }
+    }
 
     static convertKakaoTokenCode = (code) => ({
         grant_type: 'authorization_code',

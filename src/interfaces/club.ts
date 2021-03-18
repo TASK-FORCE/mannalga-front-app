@@ -1,3 +1,5 @@
+import { InterestWithPriority, RegionWithPriority } from '@/interfaces/common';
+
 export interface ClubDetailContext {
     clubInfo: ClubInfo;
     userInfo: ClubUserInfo;
@@ -60,32 +62,4 @@ export enum ClubListPageTab {
     MY_CLUB = 'myClub',
 }
 
-export interface Region {
-    seq: number;
-    level: number;
-    name: string
-    superRegionRoot: string;
-}
-
-export interface RegionWithPriority {
-    priority: number;
-    region: Region;
-}
-
-
-export interface InterestGroup {
-    seq: number;
-    name: string;
-}
-
-export interface Interest {
-    seq: number;
-    name: string;
-    interestGroup: InterestGroup;
-}
-
-export interface InterestWithPriority {
-    priority: number;
-    interest: Interest;
-}
 

@@ -1,4 +1,4 @@
-import RequestConverter from '@/store/converter/RequestConverter.js';
+import RequestConverter from '@/store/converter/RequestConverter.ts';
 import boardApi from '@/apis/BoardApi.js';
 
 class BoardHelper {

@@ -3,12 +3,17 @@ import VueRouter from 'vue-router';
 import { ScrollHelper } from '@/utils/scroll.js';
 import lastScrollPositionCache from '@/utils/cache/LastScrollPositionCache.js';
 import routes from './routes.js';
+import { PositionResult, Route } from 'vue-router/types/router';
 
 if (!process || process.env.NODE_ENV !== 'test') {
     Vue.use(VueRouter);
 }
 
-const scrollBehavior = (to, from) => {
+
+const scrollBehavior = (
+    to: Route,
+    from: Route,
+): Promise<PositionResult> => {
     if (from.meta && from.meta.disableScrollBehavior) return Promise.resolve();
 
     lastScrollPositionCache.save(from.fullPath);
@@ -33,7 +38,7 @@ const scrollBehavior = (to, from) => {
     });
 };
 
-const router = new VueRouter({
+const router: VueRouter = new VueRouter({
     mode: 'history',
     routes,
     scrollBehavior,

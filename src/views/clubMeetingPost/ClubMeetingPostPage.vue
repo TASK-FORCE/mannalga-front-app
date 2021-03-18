@@ -10,7 +10,7 @@
 <script>
 import CommonHeader from '@/components/header/CommonHeader.vue';
 import { generateParamPath, PATH } from '@/router/route_path_type.js';
-import routerHelper from '@/router/RouterHelper.js';
+import routerHelper from '@/router/RouterHelper.ts';
 import ClubMeetingPostBody from '@/views/clubMeetingPost/ClubMeetingPostBody.vue';
 
 export default {

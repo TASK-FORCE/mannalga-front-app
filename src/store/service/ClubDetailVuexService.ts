@@ -48,8 +48,8 @@ class ClubDetailVuexService {
     }
 
     reset() {
-        store.commit(MutationTypes.SET_CLUB_INFO, DefaultBuilder.clubInfo());
-        store.commit(MutationTypes.SET_CURRENT_USER_INFO, DefaultBuilder.currentUserInfo());
+
+        store.commit(MutationTypes.SET_CLUB_DETAIL_CONTEXT, DefaultBuilder.clubDetailContext());
         store.commit(`${MODULE.MEETING}/initMeetingGroupList`);
         store.commit(`${MODULE.ALBUM}/initAlbumList`);
     }

@@ -41,12 +41,6 @@ class ActionsHelper {
     requestApplyLikeClubAlbum = (payload) => dispatch(MODULE.ALBUM, 'requestApplyLikeClubAlbum', payload);
     requestDeleteLikeClubAlbum = (payload) => dispatch(MODULE.ALBUM, 'requestDeleteLikeClubAlbum', payload);
 
-    // clubList module
-    requestFirstClubList = (payload) => dispatch(MODULE.CLUB_LIST, 'requestFirstClubList', payload);
-    requestNextClubList = (payload) => dispatch(MODULE.CLUB_LIST, 'requestNextClubList', payload);
-    requestFirstMyClubList = (payload) => dispatch(MODULE.CLUB_LIST, 'requestFirstMyClubList', payload);
-    requestNextMyClubList = (payload) => dispatch(MODULE.CLUB_LIST, 'requestNextMyClubList', payload);
-
     // template module
     requestRegionTemplate = (payload) => dispatch(MODULE.TEMPLATE, 'requestRegionTemplate', payload);
     requestInterestTemplate = (payload) => dispatch(MODULE.TEMPLATE, 'requestInterestTemplate', payload);

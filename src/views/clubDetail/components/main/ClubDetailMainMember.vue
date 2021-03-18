@@ -120,7 +120,7 @@ import Vue, { PropType } from 'vue';
 import ClubMemberInfo from '@/components/user/ClubMemberInfo.vue';
 import YesOrNoDialog from '@/components/YesOrNoDialog.vue';
 import { MESSAGE } from '@/utils/common/constant/messages.js';
-import routerHelper from '@/router/RouterHelper.js';
+import routerHelper from '@/router/RouterHelper.ts';
 import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
 import { CLUB_ROLE } from '@/utils/role.js';
 import MiddleDivider from '@/components/MiddleDivider.vue';

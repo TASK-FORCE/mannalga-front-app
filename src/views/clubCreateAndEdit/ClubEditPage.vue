@@ -49,11 +49,11 @@ export default Vue.extend({
         },
         editClub(clubWriteRequest: ClubWriteRequest) {
             const clubWriteRequestWithSeq: ClubWriteRequestWithSeq = {
-                clubSeq: clubInfo.seq,
+                clubSeq: this.clubInfo.seq,
                 clubWriteRequest
             }
             return this.$store.dispatch(ActionTypes.REQUEST_CLUB_CHANGE, clubWriteRequestWithSeq)
-                .then(() => (this.$router.push(generateParamPath(PATH.CLUB.MAIN, [clubSeq]))));
+                .then(() => (this.$router.push(generateParamPath(PATH.CLUB.MAIN, [this.clubSeq]))));
         },
     },
 });

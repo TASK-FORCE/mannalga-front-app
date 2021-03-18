@@ -1,6 +1,6 @@
 import { actionsLoadingTemplate, actionsNormalTemplate } from '@/store/utils/actionsTemplate.ts';
 import albumApi from '@/apis/AlbumApi.js';
-import RequestConverter from '@/store/converter/RequestConverter.js';
+import RequestConverter from '@/store/converter/RequestConverter.ts';
 import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
 import CommentHelper from '@/store/service/helper/CommentHelper.js';
 
@@ -120,7 +120,6 @@ export const actions = {
 
     async requestAlbum({ commit }, seqInfo) {
         return actionsLoadingTemplate(
-            commit,
             async () => {
                 const album = await albumApi.getClubAlbum(seqInfo);
                 commit('setAlbum', album);

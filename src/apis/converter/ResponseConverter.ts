@@ -1,7 +1,8 @@
 import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
 import { toCurrency } from '@/utils/common/commonUtils.js';
 import { AxiosResponse } from 'axios';
-import { SuperInventionResponse } from '@/interfaces/common';
+import { Page, ServerResponse, SuperInventionResponse } from '@/interfaces/common';
+import { ClubFeed, ClubListResponse, MyClubFeed, MyClubListResponse } from '@/interfaces/clubList';
 
 /** ResponseConverter
  *  - 백엔드 서버에서 전달받은 response를 converting
@@ -29,29 +30,18 @@ export default class ResponseConverter {
         return profile;
     };
 
-    static convertClubList = (data) => {
-        const clubList = data.content;
-        // @ts-ignore
-        const clubPage = convertPage(data);
-        return { clubList, clubPage };
+    static convertClubList(data: ServerResponse<ClubFeed[]>): ClubListResponse {
+        return {
+            clubList: data.content,
+            clubPage: convertPage(data)
+        };
     };
 
-    static convertMyClubList = (data) => {
-        const myClubListWrapper = data.content.map((wrapper) => {
-            const myClub = wrapper.club;
-            return {
-                ...wrapper,
-                club: {
-                    ...myClub,
-                    // TODO 백엔드에서 변수명 변경 요청하기
-                    interests: myClub.clubInterest ? myClub.clubInterest : [],
-                    regions: myClub.clubRegion ? myClub.clubRegion : [],
-                },
-            };
-        });
-        // @ts-ignore
-        const clubPage = convertPage(data);
-        return { clubList: myClubListWrapper, clubPage };
+    static convertMyClubList(data: ServerResponse<MyClubFeed[]>): MyClubListResponse {
+        return {
+            myClubList: data.content,
+            myClubPage: convertPage(data)
+        };
     };
 
     static convertMeetingList = (data) => {
@@ -103,7 +93,7 @@ export default class ResponseConverter {
     static convertUserInterests = ({ interestList }) => interestList.map(({ interest }) => interest);
 }
 
-const convertPage = ({ pageable, last, size }) => {
+const convertPage = ({ pageable, last, size }: ServerResponse<any>): Page => {
     const currentPage = pageable.pageNumber;
     const nextPage = currentPage + 1;
     return {

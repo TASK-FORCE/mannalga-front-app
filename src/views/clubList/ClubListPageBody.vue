@@ -43,8 +43,7 @@ import lastClubListTabCache from '@/utils/cache/LastClubListTabCache.ts';
 import FixedCreateBtn from '@/components/button/FixedCreateBtn.vue';
 import FixedScrollToTopBtn from '@/components/button/FixedScrollToTopBtn.vue';
 import { PATH } from '@/router/route_path_type.js';
-import actionsHelper from '@/store/helper/ActionsHelper.js';
-import { MutationTypes } from '@/store/type/methodTypes.ts';
+import { ActionTypes, MutationTypes } from '@/store/type/methodTypes.ts';
 import { ClubListPageTab } from '@/interfaces/club';
 
 export default Vue.extend({
@@ -74,11 +73,10 @@ export default Vue.extend({
     },
     created() {
         this.tab = lastClubListTabCache.get();
-        const disableLoading = true;
         if (this.tab === ClubListPageTab.CLUB) {
-            actionsHelper.requestFirstMyClubList(disableLoading);
+            this.$store.dispatch(ActionTypes.REQUEST_FIRST_MY_CLUB_LIST, true);
         } else if (this.tab === ClubListPageTab.MY_CLUB) {
-            actionsHelper.requestFirstClubList(disableLoading);
+            this.$store.dispatch(ActionTypes.REQUEST_FIRST_CLUB_LIST, true);
         }
     },
     mounted() {

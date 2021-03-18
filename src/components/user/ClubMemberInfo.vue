@@ -39,7 +39,6 @@ import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
 import SquareTag from '@/components/tag/SquareTag.vue';
 import RoleTag from '@/components/tag/RoleTag.vue';
 import { CLUB_ROLE } from '@/utils/role.js';
-import routerHelper from '@/router/RouterHelper.js';
 import { CurrentUserInfo } from '@/interfaces/club';
 
 export default Vue.extend({
@@ -56,7 +55,6 @@ export default Vue.extend({
         },
     },
     computed: {
-        clubSeq: () => routerHelper.clubSeq(),
         isMe() {
             return false;
         },

@@ -28,13 +28,6 @@ class GettersHelper {
     albumCommentList = () => getState(MODULE.ALBUM, 'albumCommentList');
     albumCommentPage = () => getState(MODULE.ALBUM, 'albumCommentPage');
 
-    // clubList module
-    clubList = () => getState(MODULE.CLUB_LIST, 'clubList');
-    clubPage = () => getState(MODULE.CLUB_LIST, 'clubPage');
-    myClubList = () => getState(MODULE.CLUB_LIST, 'myClubList');
-    myClubPage = () => getState(MODULE.CLUB_LIST, 'myClubPage');
-    clubSearchFilterInfo = () => getState(MODULE.CLUB_LIST, 'clubSearchFilterInfo');
-
     // template module
     rootRegions = () => getState(MODULE.TEMPLATE, 'rootRegions');
     rootInterests = () => getState(MODULE.TEMPLATE, 'rootInterests');

@@ -1,7 +1,7 @@
 import { actionsNormalTemplate } from '@/store/utils/actionsTemplate.ts';
 import boardApi from '@/apis/BoardApi.js';
 import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
-import RequestConverter from '@/store/converter/RequestConverter.js';
+import RequestConverter from '@/store/converter/RequestConverter.ts';
 import CommentHelper from '@/store/service/helper/CommentHelper.js';
 import { BOARD_CATEGORY } from '@/utils/board.js';
 import BoardHelper from '@/store/service/helper/BoardHelper.js';

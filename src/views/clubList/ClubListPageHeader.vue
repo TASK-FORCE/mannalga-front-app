@@ -1,28 +1,30 @@
 <template>
-    <v-app-bar class="elevation-0"
-               app
+    <v-app-bar
+        class="elevation-0"
+        app
     >
-        <v-text-field v-model="searchText"
-                      class="club-search-bar"
-                      placeholder="모임을 검색하세요."
-                      prepend-icon="$search"
+        <v-text-field
+            v-model="searchText"
+            class="club-search-bar"
+            placeholder="모임을 검색하세요."
+            prepend-icon="$search"
         />
         <v-spacer />
         <UserSettingPageEnterAvatar />
     </v-app-bar>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
 import { PATH } from '@/router/route_path_type.js';
 import _ from '@/utils/common/lodashWrapper.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.ts';
-import gettersHelper from '@/store/helper/GettersHelper.js';
 import UserSettingPageEnterAvatar from '@/components/UserSettingPageEnterAvatar.vue';
 import { MutationTypes } from '@/store/type/methodTypes.ts';
+import { ClubSearchContext } from '@/interfaces/clubList';
 
 const SEARCH_WAIT_TIME = 500;
 
-export default {
+export default Vue.extend({
     name: 'ClubListPageHeader',
     components: { UserSettingPageEnterAvatar },
     data() {
@@ -33,7 +35,9 @@ export default {
         };
     },
     computed: {
-        clubSearchFilterInfo: () => gettersHelper.clubSearchFilterInfo(),
+        clubSearchContext(): ClubSearchContext {
+            return this.$store.state.clubList.clubSearchContext;
+        },
     },
     watch: {
         searchText(value) {
@@ -44,8 +48,8 @@ export default {
             this.$store.commit(MutationTypes.CHANGE_LOADING, true);
             this.searchCallback();
         },
-        clubSearchFilterInfo() {
-            this.searchText = this.clubSearchFilterInfo.searchText;
+        clubSearchContext() {
+            this.searchText = this.clubSearchContext.searchText;
         },
     },
     mounted() {
@@ -55,14 +59,14 @@ export default {
     },
     methods: {
         search() {
-            mutationsHelper.changeClubSearchText(this.searchText);
+            this.$store.commit(MutationTypes.CHANGE_CLUB_SEARCH_TEXT, this.searchText);
         },
     },
-};
+});
 </script>
-
-<style lang="scss"
-       scoped
+<style
+    lang="scss"
+    scoped
 >
 .v-toolbar__content {
     padding: 0 !important;

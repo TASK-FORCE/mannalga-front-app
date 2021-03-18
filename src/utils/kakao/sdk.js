@@ -2369,7 +2369,7 @@ return r;
                 api_ver: API_VER,
                 kakao_agent: _k.KAKAO_AGENT,
                 app_key: _k.RUNTIME.appKey,
-                referer: browserProxy.getOrigin() + location.pathname + location.search,
+                referer: browserProxy.getOrigin() + location.pathname + location.searchText,
             };
             return _.buildQueryString(params);
         }
@@ -4389,7 +4389,7 @@ return r;
                 api_ver: API_VER,
                 kakao_agent: _k.KAKAO_AGENT,
                 app_key: _k.RUNTIME.appKey,
-                referer: browserProxy.getOrigin() + location.pathname + location.search,
+                referer: browserProxy.getOrigin() + location.pathname + location.searchText,
             };
             return _.buildQueryString(params);
         }
@@ -6319,7 +6319,7 @@ return r;
                     aa[ab[0]] = l(ab[1]);
                 }
                 return aa;
-            }(/xdm_e=/.test(q.search) ? q.search : q.hash);
+            }(/xdm_e=/.test(q.searchText) ? q.searchText : q.hash);
 
             function u(Y) {
                 return typeof Y === 'undefined';
@@ -6537,7 +6537,7 @@ return r;
                             if (aa.local === O) {
                                 aa.usePolling = true;
                                 aa.useParent = true;
-                                aa.local = q.protocol + '//' + q.host + q.pathname + q.search;
+                                aa.local = q.protocol + '//' + q.host + q.pathname + q.searchText;
                                 ac.xdm_e = aa.local;
                                 ac.xdm_pa = 1;
                             } else {
