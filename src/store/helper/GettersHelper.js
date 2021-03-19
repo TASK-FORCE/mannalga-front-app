@@ -5,9 +5,6 @@ import { MODULE } from '@/store/type/type.js';
 const { getters } = store;
 
 class GettersHelper {
-    // auth module
-    hasToken = () => getState(MODULE.AUTH, 'hasToken');
-
     // meeting module
     meeting = () => getState(MODULE.MEETING, 'meeting');
     meetingGroupList = () => getState(MODULE.MEETING, 'meetingGroupList');

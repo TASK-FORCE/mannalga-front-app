@@ -47,46 +47,47 @@ export default class ResponseConverter {
         };
     };
 
-    static convertMeetingList = (data) => {
+    static convertMeetingList(data) {
         const meetingGroupList = data.content.map(group => ({
             groupYearMonth: group.groupYearMonth,
             meetings: group.meetings.map(mapMeeting),
         }));
-        // @ts-ignore
         const meetingGroupPage = convertPage(data);
-        return { meetingGroupList, meetingGroupPage };
-    };
+        return { meetingGroupList, meetingGroupPage }
+    }
 
-    static convertMeeting = (data) => mapMeeting(data);
+    static convertMeeting(data) {
+        return mapMeeting(data);
+    }
 
-    static convertMeetingApplicationStatus = (data) => mapMeetingApplicationStatus(data);
+    static convertMeetingApplicationStatus(data) {
+        return mapMeetingApplicationStatus(data);
+    }
 
-    static convertBoardList = (data) => {
+    static convertBoardList(data) {
         const boardList = data.content.map(mapBoard);
-        // @ts-ignore
         const boardPage = convertPage(data);
         return { boardList, boardPage };
     };
 
-    static convertBoard = (data) => mapBoard(data);
+    static convertBoard(data) {
+        return mapBoard(data);
+    }
 
-    static convertAlbumList = (data) => {
+    static convertAlbumList(data) {
         const albumList = data.content;
-        // @ts-ignore
         const albumPage = convertPage(data);
         return { albumList, albumPage };
     };
 
-    static convertAlbumCommentList = (data) => {
+    static convertAlbumCommentList(data) {
         const albumCommentList = data.content;
-        // @ts-ignore
         const albumCommentPage = convertPage(data);
         return { albumCommentList, albumCommentPage };
     };
 
-    static convertBoardCommentList = (data) => {
+    static convertBoardCommentList(data) {
         const boardCommentList = data.content;
-        // @ts-ignore
         const boardCommentPage = convertPage(data);
         return { boardCommentList, boardCommentPage };
     };

@@ -64,7 +64,7 @@ import ImageSelectBox from '@/components/image/ImageSelectBox.vue';
 import CommonCenterBtn from '@/components/button/CommonCenterBtn.vue';
 import actionsHelper from '@/store/helper/ActionsHelper.ts';
 import { generateParamPath, PATH } from '@/router/route_path_type.js';
-import { RULES } from '@/utils/common/constant/rules.js';
+import { RULES } from '@/utils/common/constant/rules.ts';
 import { BoardUtils } from '@/utils/board.js';
 import routerHelper from '@/router/RouterHelper.ts';
 import { UploadImageResponse } from '@/interfaces/common';

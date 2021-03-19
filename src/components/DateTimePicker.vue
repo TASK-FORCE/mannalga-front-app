@@ -53,7 +53,7 @@
 
 <script lang="ts">
 
-import { RULES } from '@/utils/common/constant/rules.js';
+import { RULES } from '@/utils/common/constant/rules.ts';
 import Vue from 'vue';
 
 export default Vue.extend({

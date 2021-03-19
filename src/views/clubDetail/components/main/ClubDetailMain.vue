@@ -47,7 +47,7 @@ import YesOrNoDialog from '@/components/YesOrNoDialog.vue';
 import routerHelper from '@/router/RouterHelper.ts';
 import { generateParamPath, PATH } from '@/router/route_path_type.js';
 import { CommonMutationTypes } from '@/store/type/mutationTypes.ts';
-import { MESSAGE } from '@/utils/common/constant/messages.js';
+import { MESSAGE } from '@/utils/common/constant/messages.ts';
 import { ClubInfo, ClubUserInfo, CurrentUserInfo } from '../../../../interfaces/club';
 import { ClubActionTypes } from '@/store/type/actionTypes';
 

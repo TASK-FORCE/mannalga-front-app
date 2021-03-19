@@ -48,7 +48,7 @@
 <script lang="ts">
 import { moveToKakaoLoginPage } from '@/utils/kakao/kakao.js';
 import { PATH } from '@/router/route_path_type.js';
-import { MESSAGE } from '@/utils/common/constant/messages.js';
+import { MESSAGE } from '@/utils/common/constant/messages.ts';
 import { CommonMutationTypes } from '@/store/type/mutationTypes.ts';
 import Vue from 'vue';
 import { AuthActionTypes, UserActionTypes } from '@/store/type/actionTypes';

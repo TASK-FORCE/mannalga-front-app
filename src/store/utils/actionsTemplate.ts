@@ -1,4 +1,4 @@
-import { MESSAGE } from '@/utils/common/constant/messages.js';
+import { MESSAGE } from '@/utils/common/constant/messages.ts';
 import store from '@/store';
 import { CommonMutationTypes, MutationTypes } from '@/store/type/mutationTypes.ts';
 

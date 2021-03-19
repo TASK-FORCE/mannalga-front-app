@@ -1,6 +1,6 @@
 import userApi from '@/apis/UserApi.ts';
 import { actionsLoadingTemplate, actionsNormalTemplate } from '@/store/utils/actionsTemplate.ts';
-import RequestConverter from '@/store/converter/RequestConverter.ts';
+import RequestConverter from '@/apis/converter/RequestConverter.ts';
 import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
 import { UserMutationTypes } from '@/store/type/mutationTypes';
 import { UserActionContext } from '@/store/type/actionContextTypes';

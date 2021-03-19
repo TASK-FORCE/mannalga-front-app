@@ -44,7 +44,7 @@ import ClubDetailMain from '@/views/clubDetail/components/main/ClubDetailMain.vu
 import ClubDetailMeetingList from '@/views/clubDetail/components/meeting/ClubDetailMeetingList.vue';
 import ClubDetailBoardList from '@/views/clubDetail/components/board/ClubDetailBoardList.vue';
 import ClubDetailAlbumList from '@/views/clubDetail/components/album/ClubDetailAlbumList.vue';
-import lastClubTabCache from '@/utils/cache/LastClubTabCache.js';
+import lastClubTabCache, { ClubTab } from '@/utils/cache/LastClubTabCache.ts';
 import clubDetailVuexService from '@/store/service/ClubDetailVuexService.ts';
 import { PATH } from '@/router/route_path_type.js';
 import routerHelper from '@/router/RouterHelper.ts';
@@ -57,10 +57,10 @@ export default Vue.extend({
         return {
             tab: null,
             menus: [
-                { name: '메인', key: 'main' },
-                { name: '만남', key: 'meeting' },
-                { name: '게시판', key: 'board' },
-                { name: '사진첩', key: 'album' },
+                { name: '메인', key: ClubTab.MAIN },
+                { name: '만남', key: ClubTab.MEETING },
+                { name: '게시판', key: ClubTab.BOARD },
+                { name: '사진첩', key: ClubTab.ALBUM },
             ],
         };
     },

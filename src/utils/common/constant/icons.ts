@@ -50,7 +50,7 @@ import {
     mdiWaterOutline,
 } from '@mdi/js';
 
-const ICONS = {
+export const ICONS = {
     currencyKrw: mdiCurrencyKrw,
     twoPeople: mdiAccountMultiple,
     threePeople: mdiAccountGroup,
@@ -100,8 +100,4 @@ const ICONS = {
     image: mdiImage,
     note: mdiNoteTextOutline,
     calendarOut: mdiCalendarTextOutline,
-};
-
-export {
-    ICONS,
 };

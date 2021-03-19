@@ -3,7 +3,7 @@ import authApi from '@/apis/AuthApi.ts';
 import { AuthUtils } from '@/utils/auth.js';
 import _ from '@/utils/common/lodashWrapper.js';
 import { actionsNormalTemplate } from '@/store/utils/actionsTemplate.ts';
-import RequestConverter from '@/store/converter/RequestConverter.ts';
+import RequestConverter from '@/apis/converter/RequestConverter.ts';
 import { AuthMutationTypes } from '@/store/type/mutationTypes';
 import { AuthActionTypes } from '@/store/type/actionTypes';
 import { AuthActionContext } from '@/store/type/actionContextTypes';

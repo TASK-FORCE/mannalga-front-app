@@ -19,8 +19,8 @@
 <script lang="ts">
 import { PATH } from '@/router/route_path_type.js';
 import clubDetailVuexService from '@/store/service/ClubDetailVuexService.ts';
-import lastScrollPositionCache from '@/utils/cache/LastScrollPositionCache.js';
-import lastClubTabCache from '@/utils/cache/LastClubTabCache.js';
+import lastScrollPositionCache from '@/utils/cache/LastScrollPositionCache.ts';
+import lastClubTabCache, { ClubTab } from '@/utils/cache/LastClubTabCache.ts';
 import routerHelper from '@/router/RouterHelper.ts';
 import UserSettingPageEnterAvatar from '@/components/UserSettingPageEnterAvatar.vue';
 import Vue from 'vue';
@@ -36,7 +36,7 @@ export default Vue.extend({
     methods: {
         moveToClubListPage() {
             lastScrollPositionCache.init(this.$route.fullPath);
-            lastClubTabCache.save(routerHelper.clubSeq(), 'main');
+            lastClubTabCache.save(routerHelper.clubSeq(), ClubTab.MAIN);
             this.$router.push(this.clubListPath);
             clubDetailVuexService.reset();
         },

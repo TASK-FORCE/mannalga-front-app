@@ -1,5 +1,5 @@
-import RequestConverter from '@/store/converter/RequestConverter.ts';
-import boardApi from '@/apis/BoardApi.js';
+import RequestConverter from '@/apis/converter/RequestConverter.ts';
+import boardApi from '@/apis/BoardApi.ts';
 
 class BoardHelper {
     static async requestBoardList(clubSeq, pageDto, category) {

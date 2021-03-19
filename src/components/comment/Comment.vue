@@ -145,7 +145,7 @@ import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
 import VerticalBarDivider from '@/components/VerticalBarDivider.vue';
 import Chip from '@/components/chip/Chip.vue';
 import mutationsHelper from '@/store/helper/MutationsHelper.ts';
-import { MESSAGE } from '@/utils/common/constant/messages.js';
+import { MESSAGE } from '@/utils/common/constant/messages.ts';
 import routerHelper from '@/router/RouterHelper.ts';
 import _ from '@/utils/common/lodashWrapper.js';
 import { ScrollHelper } from '@/utils/scroll.ts';

@@ -54,7 +54,7 @@ import ImageSelectorWithConfirm from '@/components/image/ImageSelectorWithConfir
 import SnackBar from '@/components/SnackBar.vue';
 import WindMill from '@/components/icons/WindMill.vue';
 import MiddleDivider from '@/components/MiddleDivider.vue';
-import { MESSAGE } from '@/utils/common/constant/messages.js';
+import { MESSAGE } from '@/utils/common/constant/messages.ts';
 import { SnackBarLocation, SnackBarOption } from '../../../../interfaces/common';
 import { ClubInfo, ClubWriteRequest, CurrentUserInfo } from '@/interfaces/club';
 import { ClubActionTypes } from '@/store/type/actionTypes';

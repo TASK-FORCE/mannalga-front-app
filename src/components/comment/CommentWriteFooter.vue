@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts">
-import { MESSAGE } from '@/utils/common/constant/messages.js';
+import { MESSAGE } from '@/utils/common/constant/messages.ts';
 import { CommonMutationTypes } from '@/store/type/mutationTypes.ts';
 import Vue from 'vue';
 

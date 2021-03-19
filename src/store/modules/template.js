@@ -1,5 +1,5 @@
 import { actionsNormalTemplate } from '@/store/utils/actionsTemplate.ts';
-import templateApi from '@/apis/TemplateApi.js';
+import templateApi from '@/apis/TemplateApi.ts';
 
 const state = {
     rootRegions: [],

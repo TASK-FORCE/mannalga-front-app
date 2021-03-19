@@ -1,15 +1,20 @@
-export class LocalCache {
+export class LocalCache<V> {
+
+    private store: Store<V>;
+    private size: number;
+    private clearSize: number;
+
     constructor(clearSize = 10000) {
         this.store = {};
         this.size = 0;
         this.clearSize = clearSize;
     }
 
-    get(key) {
+    get(key): V {
         return this.store[key];
     }
 
-    put(key, value) {
+    put(key: Key, value: V) {
         if (this.size >= this.clearSize) {
             this.store = {};
         }
@@ -18,8 +23,9 @@ export class LocalCache {
         }
         this.store[key] = value;
     }
-
-    print() {
-        console.log(this.store);
-    }
 }
+
+type Key = string | number
+type Store<V> = {
+    [key in Key]: V;
+};

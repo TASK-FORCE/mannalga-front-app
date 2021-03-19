@@ -1,7 +1,11 @@
 import _ from '@/utils/common/lodashWrapper.js';
 import { isNumeric } from '@/utils/common/commonUtils.js';
 
-const RULES = {
+export type Rule = (value: any) => boolean | string
+export type Rules = {
+    [key: string]: Rule[]
+}
+export const RULES: Rules = {
     EMPTY_RULE: [v => !!v],
     PROFILE_NAME: [
         v => !!v || '이름을 작성해주세요.',
@@ -44,4 +48,3 @@ const RULES = {
     COMMENT: [v => !!v || '댓글을 작성해주세요.'],
 };
 
-export { RULES };

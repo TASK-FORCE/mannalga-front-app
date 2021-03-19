@@ -41,7 +41,7 @@
 import Vue from 'vue';
 import _ from '@/utils/common/lodashWrapper.js';
 import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
-import { RULES } from '@/utils/common/constant/rules.js';
+import { RULES } from '@/utils/common/constant/rules.ts';
 import { PATH } from '@/router/route_path_type.js';
 import { UserMutationTypes } from '@/store/type/mutationTypes.ts';
 import { KakaoProfile } from '@/interfaces/user';

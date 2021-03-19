@@ -1,6 +1,6 @@
 import { actionsLoadingTemplate, actionsNormalTemplate } from '@/store/utils/actionsTemplate.ts';
 import clubListApi from '@/apis/ClubListApi.ts';
-import RequestConverter from '@/store/converter/RequestConverter.ts';
+import RequestConverter from '@/apis/converter/RequestConverter.ts';
 import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
 import { ClubListMutationTypes } from '@/store/type/mutationTypes';
 import { Page } from '@/interfaces/common';

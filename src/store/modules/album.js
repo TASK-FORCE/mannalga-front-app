@@ -1,6 +1,6 @@
 import { actionsLoadingTemplate, actionsNormalTemplate } from '@/store/utils/actionsTemplate.ts';
-import albumApi from '@/apis/AlbumApi.js';
-import RequestConverter from '@/store/converter/RequestConverter.ts';
+import albumApi from '@/apis/AlbumApi.ts';
+import RequestConverter from '@/apis/converter/RequestConverter.ts';
 import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
 import CommentHelper from '@/store/service/helper/CommentHelper.js';
 

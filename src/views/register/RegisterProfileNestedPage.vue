@@ -17,7 +17,7 @@ import UserProfile from '@/components/user/UserProfile.vue';
 import GoBackBtnFooter from '@/components/footer/GoBackBtnFooter.vue';
 import { validateWithRules } from '@/utils/common/validationUtils.js';
 import { PATH } from '@/router/route_path_type.js';
-import { RULES } from '@/utils/common/constant/rules.js';
+import { RULES } from '@/utils/common/constant/rules.ts';
 import CommonHeader from '@/components/header/CommonHeader.vue';
 import Vue from 'vue';
 

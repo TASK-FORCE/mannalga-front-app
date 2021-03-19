@@ -1,7 +1,7 @@
 import { actionsLoadingTemplate, actionsNormalTemplate } from '@/store/utils/actionsTemplate.ts';
-import meetingApi from '@/apis/MeetingApi.js';
+import meetingApi from '@/apis/MeetingApi.ts';
 import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
-import RequestConverter from '@/store/converter/RequestConverter.ts';
+import RequestConverter from '@/apis/converter/RequestConverter.ts';
 
 const defaultPage = DefaultBuilder.buildPage(20);
 

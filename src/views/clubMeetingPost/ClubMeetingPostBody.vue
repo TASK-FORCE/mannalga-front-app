@@ -107,7 +107,7 @@ import routerHelper from '@/router/RouterHelper.ts';
 import { isDarkTheme } from '@/plugins/vuetify.js';
 import MiddleDivider from '@/components/MiddleDivider.vue';
 import SimpleUserProfileList from '@/components/user/SimpleUserProfileList.vue';
-import { MESSAGE } from '@/utils/common/constant/messages.js';
+import { MESSAGE } from '@/utils/common/constant/messages.ts';
 import { generateParamPath, PATH } from '@/router/route_path_type.js';
 import { CommonMutationTypes } from '@/store/type/mutationTypes.ts';
 import Vue from 'vue';

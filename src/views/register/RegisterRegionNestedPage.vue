@@ -19,7 +19,7 @@
 import RegionSelect from '@/components/region/RegionSelect.vue';
 import _ from '@/utils/common/lodashWrapper.js';
 import { PATH } from '@/router/route_path_type.js';
-import { MESSAGE } from '@/utils/common/constant/messages.js';
+import { MESSAGE } from '@/utils/common/constant/messages.ts';
 import { CommonMutationTypes, UserMutationTypes } from '@/store/type/mutationTypes.ts';
 import Vue from 'vue';
 

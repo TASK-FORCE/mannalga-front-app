@@ -57,7 +57,7 @@ import routerHelper from '@/router/RouterHelper.ts';
 import ClubDetailMeetingPost from '@/views/clubDetail/components/meeting/ClubDetailMeetingPost.vue';
 import actionsHelper from '@/store/helper/ActionsHelper.ts';
 import InfiniteScrollTemplate from '@/components/InfiniteScrollTemplate.vue';
-import { MESSAGE } from '@/utils/common/constant/messages.js';
+import { MESSAGE } from '@/utils/common/constant/messages.ts';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import EmptyPage from '@/components/EmptyPage.vue';
 import { CommonMutationTypes } from '@/store/type/mutationTypes.ts';

@@ -16,7 +16,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { PATH } from '@/router/route_path_type.js';
-import { MESSAGE } from '@/utils/common/constant/messages.js';
+import { MESSAGE } from '@/utils/common/constant/messages.ts';
 import InterestSelect from '@/components/interest/InterestSelect.vue';
 import _ from '@/utils/common/lodashWrapper.js';
 import { CommonMutationTypes } from '@/store/type/mutationTypes.ts';

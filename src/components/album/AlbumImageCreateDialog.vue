@@ -56,8 +56,8 @@ import Vue from 'vue';
 import ImageSelectBox from '@/components/image/ImageSelectBox.vue';
 import routerHelper from '@/router/RouterHelper.ts';
 import actionsHelper from '@/store/helper/ActionsHelper.ts';
-import { RULES } from '@/utils/common/constant/rules.js';
-import { MESSAGE } from '@/utils/common/constant/messages.js';
+import { RULES } from '@/utils/common/constant/rules.ts';
+import { MESSAGE } from '@/utils/common/constant/messages.ts';
 import { CommonMutationTypes } from '@/store/type/mutationTypes.ts';
 import { UploadImageResponse } from '@/interfaces/common.ts';
 
