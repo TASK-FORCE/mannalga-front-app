@@ -7,7 +7,6 @@ const { getters } = store;
 class GettersHelper {
     // auth module
     hasToken = () => getState(MODULE.AUTH, 'hasToken');
-    appToken = () => getState(MODULE.AUTH, 'appToken');
 
     // meeting module
     meeting = () => getState(MODULE.MEETING, 'meeting');

@@ -30,9 +30,8 @@
 
 <script lang="ts">
 import axios from 'axios';
-import mutationsHelper from '@/store/helper/MutationsHelper.ts';
 import { PATH } from '@/router/route_path_type.js';
-import { CommonMutationTypes } from '@/store/type/mutationTypes.ts';
+import { AuthMutationTypes, CommonMutationTypes } from '@/store/type/mutationTypes.ts';
 import Vue from 'vue';
 
 export default Vue.extend({
@@ -53,7 +52,7 @@ export default Vue.extend({
             axios.get(`/api/users/door/${userName}`)
                 .then((response) => {
                     const appToken = response.data.data;
-                    mutationsHelper.setAppToken(appToken);
+                    this.$store.commit(AuthMutationTypes.SET_APP_TOKEN, appToken);
                     this.$router.push(PATH.CLUB_LIST)
                         .then(() => this.$router.go());
                     localStorage.setItem('backdoor', 'true');

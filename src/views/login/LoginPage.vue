@@ -48,12 +48,10 @@
 <script lang="ts">
 import { moveToKakaoLoginPage } from '@/utils/kakao/kakao.js';
 import { PATH } from '@/router/route_path_type.js';
-import gettersHelper from '@/store/helper/GettersHelper.js';
-import actionsHelper from '@/store/helper/ActionsHelper.ts';
 import { MESSAGE } from '@/utils/common/constant/messages.js';
 import { CommonMutationTypes } from '@/store/type/mutationTypes.ts';
 import Vue from 'vue';
-import { UserActionTypes } from '@/store/type/actionTypes';
+import { AuthActionTypes, UserActionTypes } from '@/store/type/actionTypes';
 
 export default Vue.extend({
     name: 'LoginPage',
@@ -64,9 +62,7 @@ export default Vue.extend({
         };
     },
     computed: {
-        hasToken: () => gettersHelper.hasToken(),
-        appToken: () => gettersHelper.appToken(),
-        code() {
+        code(): string {
             return this.$route.query.code;
         },
         validationFail() {
@@ -79,7 +75,7 @@ export default Vue.extend({
             return;
         }
 
-        if (this.hasToken) {
+        if (this.$store.getters.hasToken) {
             if (localStorage.getItem('backdoor') === 'true') {
                 localStorage.removeItem('appToken');
                 localStorage.removeItem('backdoor');
@@ -91,8 +87,8 @@ export default Vue.extend({
 
         if (this.code) {
             this.startLoading();
-            actionsHelper.requestKakaoTokenByCode(this.code)
-                .then(isRegistered => (isRegistered ? this.$router.push(PATH.CLUB_LIST) : this.$router.push(PATH.REGISTER.PROFILE)))
+            this.$store.dispatch(AuthActionTypes.REQUEST_KAKAO_TOKEN_BY_CODE, this.code)
+                .then((isRegistered: boolean) => (isRegistered ? this.$router.push(PATH.CLUB_LIST) : this.$router.push(PATH.REGISTER.PROFILE)))
                 .finally(() => this.endLoading());
         }
     },

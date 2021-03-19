@@ -13,7 +13,9 @@ export default class ResponseConverter {
      *  - 카카오 로그인과 같은 일반 HTTP 요청에 대한 응답 데이터를 추출한다.
      *  - 요청이 성공한 경우 response data외에 필요한 정보가 없으므로 data만 추출하여 actions에게 전달한다.
      */
-    static extractResponseData = (response) => response && response.data;
+    static extractResponseData(response: AxiosResponse) {
+        return response && response.data;
+    }
 
     /** Super Invention 응답 추출용(super invention은 응답 포맷이 다르다)
      *  - Super Invention 서버 응답 데이터를 추출한다.

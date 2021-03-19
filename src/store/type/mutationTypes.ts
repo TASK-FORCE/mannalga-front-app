@@ -1,4 +1,4 @@
-export type MutationTypes = CommonMutationTypes | ClubMutationTypes | ClubListMutationTypes | UserMutationTypes
+export type MutationTypes = CommonMutationTypes | ClubMutationTypes | ClubListMutationTypes | UserMutationTypes | AuthMutationTypes
 
 export enum CommonMutationTypes {
     CHANGE_LOADING = 'common/changeLoading',
@@ -39,3 +39,7 @@ export enum UserMutationTypes {
     SET_USER_PROFILE = 'user/setUserProfile',
 }
 
+export enum AuthMutationTypes {
+    SET_APP_TOKEN = 'auth/setAppToken',
+    REMOVE_APP_TOKEN = 'auth/removeAppToken',
+}

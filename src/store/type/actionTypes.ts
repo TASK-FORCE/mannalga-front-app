@@ -30,3 +30,8 @@ export enum UserActionTypes {
     REQUEST_CHECK_IS_MEMBER = 'user/requestCheckIsMember',
     REQUEST_CHANGE_USER_PROFILE = 'user/requestChangeUserProfile',
 }
+
+export enum AuthActionTypes {
+    REQUEST_KAKAO_TOKEN_BY_CODE = 'auth/requestKakaoTokenByCode',
+    REQUEST_APP_TOKEN_BY_KAKAO_TOKEN = 'auth/requestAppTokenByKakaoToken',
+}

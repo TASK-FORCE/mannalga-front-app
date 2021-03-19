@@ -3,10 +3,6 @@ import { combineWithModuleName } from '@/store/utils/vuexUtils.js';
 import { MODULE } from '@/store/type/type.js';
 
 class MutationsHelper {
-    // auth
-    setAppToken = (payload?) => commit(MODULE.AUTH, 'setAppToken', payload);
-    removeAppToken = (payload?) => commit(MODULE.AUTH, 'removeAppToken', payload);
-
     // meeting
     setMeeting = (payload?) => commit(MODULE.MEETING, 'setMeeting', payload);
 

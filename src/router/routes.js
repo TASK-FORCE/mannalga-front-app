@@ -1,8 +1,8 @@
-import gettersHelper from '@/store/helper/GettersHelper.js';
+import store from '@/store';
 import { getChildRoutePath, PATH } from '@/router/route_path_type.js';
 
 function validationAuthentication(to, from, next) {
-    if (gettersHelper.hasToken()) {
+    if (store.getters.hasToken) {
         next();
     } else {
         next(`${PATH.LOGIN}?validationFail=true`);

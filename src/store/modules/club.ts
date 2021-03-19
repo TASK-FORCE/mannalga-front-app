@@ -2,7 +2,7 @@ import { actionsNormalTemplate } from '@/store/utils/actionsTemplate.ts';
 import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
 import clubApi from '@/apis/ClubApi.ts';
 import { CLUB_ROLE } from '@/utils/role.js';
-import { ClubMutationTypes } from '@/store/type/mutationTypes';
+import { ClubListMutationTypes, ClubMutationTypes } from '@/store/type/mutationTypes';
 import { ClubActionContext } from '@/store/type/actionContextTypes';
 import {
     ClubDetailContext,
@@ -70,15 +70,15 @@ export const actions = {
     async [ClubActionTypes.REQUEST_CLUB_CREATE]({ commit }: ClubActionContext, clubCreateRequestDto: ClubWriteRequest) {
         return actionsNormalTemplate(async () => {
             await clubApi.postClubCreate(clubCreateRequestDto);
-            commit(ClubMutationTypes.INIT_CLUB_LIST_AND_PAGE, undefined, { root: true });
-            commit(ClubMutationTypes.INIT_MY_CLUB_LIST_AND_PAGE, undefined, { root: true });
+            commit(ClubListMutationTypes.INIT_CLUB_LIST_AND_PAGE, undefined, { root: true });
+            commit(ClubListMutationTypes.INIT_MY_CLUB_LIST_AND_PAGE, undefined, { root: true });
         });
     },
     async [ClubActionTypes.REQUEST_CLUB_CHANGE]({ commit, dispatch }: ClubActionContext, clubWriteRequestWishSeq: ClubWriteRequestWithSeq) {
         return actionsNormalTemplate(async () => {
             await clubApi.putClubCreate(clubWriteRequestWishSeq);
-            commit(ClubMutationTypes.INIT_CLUB_LIST_AND_PAGE, undefined, { root: true });
-            commit(ClubMutationTypes.INIT_MY_CLUB_LIST_AND_PAGE, undefined, { root: true });
+            commit(ClubListMutationTypes.INIT_CLUB_LIST_AND_PAGE, undefined, { root: true });
+            commit(ClubListMutationTypes.INIT_MY_CLUB_LIST_AND_PAGE, undefined, { root: true });
             dispatch(ClubActionTypes.REQUEST_CLUB_INFO_AND_USER_INFO, clubWriteRequestWishSeq.clubSeq);
         });
     },

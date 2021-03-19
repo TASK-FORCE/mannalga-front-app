@@ -2,6 +2,7 @@ import { KAKAO } from '@/utils/kakao/kakao.js';
 import { ClubListRequest, ClubSearchContext, MyClubListRequest } from '@/interfaces/clubList';
 import { Interest, InterestWriteRequest, Page, Region, RegionWriteRequest } from '@/interfaces/common';
 import { UserRegisterContext, UserRegisterRequest } from '@/interfaces/user';
+import { KakaoTokenRequest, KakaoTokenResponse, ServerTokenRequest } from '@/interfaces/auth';
 
 /** RequestConverter
  *  - 백엔드 서버로 전달하는 request 정보를 converting
@@ -30,14 +31,16 @@ export default class RequestConverter {
         }
     }
 
-    static convertKakaoTokenCode = (code) => ({
-        grant_type: 'authorization_code',
-        client_id: process.env.VUE_APP_KAKAO_REST_APP_KEY,
-        redirect_uri: KAKAO.REDIRECT_URL,
-        code,
-    });
+    static convertKakaoTokenCode(code): KakaoTokenRequest {
+        return {
+            grant_type: 'authorization_code',
+            client_id: process.env.VUE_APP_KAKAO_REST_APP_KEY,
+            redirect_uri: KAKAO.REDIRECT_URL,
+            code,
+        }
+    }
 
-    static convertKakaoTokenInfo = (kakaoTokenInfo) => {
+    static convertKakaoTokenInfo(kakaoTokenInfo: KakaoTokenResponse): ServerTokenRequest {
         const { access_token, expires_in, refresh_token, refresh_token_expires_in } = kakaoTokenInfo;
         return {
             access_token,

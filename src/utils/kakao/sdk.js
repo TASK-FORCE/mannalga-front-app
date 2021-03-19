@@ -387,7 +387,7 @@ return r;
 }, { 'process/browser.js': 1, 'timers': 2 }],
 3: [function (require, module, exports) {
     module.exports = function () {
-        var _auth = require('./auth.js');
+        var _auth = require('./auth.ts');
 
         function authByAccessToken() {
             return 'Bearer ' + _auth.getAccessToken();
@@ -4032,7 +4032,7 @@ return r;
 
             _k.RUNTIME.appKey = appKey;
 
-            Kakao.Auth = require('./auth.js');
+            Kakao.Auth = require('./auth.ts');
 
             Kakao.API = require('./api.js');
 
@@ -5146,7 +5146,7 @@ return r;
         var _easyXDM = require('../vendor/easyXDM.js');
         var _api = require('./api.js');
         var _authCommon = require('./auth.common.js');
-        var _auth = require('./auth.js');
+        var _auth = require('./auth.ts');
         var _eventObserver = require('./common/everntObserver');
 
         var ADD_POPUP_NAME = '_blank';

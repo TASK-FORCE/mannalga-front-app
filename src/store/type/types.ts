@@ -3,19 +3,29 @@ import { CommonActions, CommonMutations, CommonState } from '@/store/modules/com
 import { ClubActions, ClubMutations, ClubState } from '@/store/modules/club';
 import { ClubListActions, ClubListMutations, ClubListState } from '@/store/modules/clubList';
 import { UserActions, UserMutations, UserState } from '@/store/modules/user';
+import { AuthActions, AuthGetters, AuthMutations, AuthState } from '@/store/modules/auth';
 
 export type RootState = {
     common: CommonState;
     club: ClubState;
     clubList: ClubListState;
     user: UserState;
+    auth: AuthState;
 }
 
-export type MergedMutations = CommonMutations & ClubMutations & ClubListMutations & UserMutations & {
+export type MergedGetters = AuthGetters
+
+export type MergedMutations = CommonMutations & ClubMutations & ClubListMutations & UserMutations & AuthMutations & {
     [key: string]: any
 }
-export type MergedActions = CommonActions & ClubActions & ClubListActions & UserActions & {
+export type MergedActions = CommonActions & ClubActions & ClubListActions & UserActions & AuthActions & {
     [key: string]: any
+}
+
+type MyGetters = {
+    getters: {
+        [K in keyof MergedGetters]: ReturnType<MergedGetters[K]>
+    }
 }
 
 type MyMutations = {
@@ -35,4 +45,4 @@ type MyActions = {
 }
 
 
-export type MyStore = Omit<Store<RootState>, 'commit' | 'dispatch'> & MyMutations & MyActions;
+export type MyStore = Omit<Store<RootState>, 'getters' | 'commit' | 'dispatch'> & MyGetters & MyMutations & MyActions;

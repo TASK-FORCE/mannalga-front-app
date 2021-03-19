@@ -3,9 +3,6 @@ import { combineWithModuleName } from '@/store/utils/vuexUtils.js';
 import { MODULE } from '@/store/type/type.js';
 
 class ActionsHelper {
-    // auth module
-    requestKakaoTokenByCode = (payload): Promise<any> => dispatch(MODULE.AUTH, 'requestKakaoTokenByCode', payload);
-
     // meeting module
     requestMeetingCreate = (payload): Promise<any> => dispatch(MODULE.MEETING, 'requestMeetingCreate', payload);
     requestMeetingEdit = (payload): Promise<any> => dispatch(MODULE.MEETING, 'requestMeetingEdit', payload);

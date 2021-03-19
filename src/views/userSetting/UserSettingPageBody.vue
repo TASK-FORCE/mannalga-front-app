@@ -28,10 +28,9 @@ import Vue from 'vue';
 import UserSettingProfile from '@/views/userSetting/components/UserSettingProfile.vue';
 import _ from '@/utils/common/lodashWrapper.js';
 import { PATH } from '@/router/route_path_type.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.ts';
 import MiddleDivider from '@/components/MiddleDivider.vue';
 import SettingBar from '@/components/SettingBar.vue';
-import { CommonMutationTypes } from '@/store/type/mutationTypes';
+import { AuthMutationTypes, CommonMutationTypes } from '@/store/type/mutationTypes';
 import { UserProfile } from '@/interfaces/user';
 
 export default Vue.extend({
@@ -63,7 +62,7 @@ export default Vue.extend({
     },
     methods: {
         logout() {
-            mutationsHelper.removeAppToken();
+            this.$store.commit(AuthMutationTypes.REMOVE_APP_TOKEN);
             this.$router.push(PATH.LOGIN);
         },
         changeTheme() {
