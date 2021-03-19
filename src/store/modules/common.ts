@@ -2,9 +2,10 @@ import { actionsNormalTemplate } from '@/store/utils/actionsTemplate.ts';
 import commonApi from '@/apis/CommonApi.ts';
 import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
 import { changeThemeAndLoad, isDarkTheme } from '@/plugins/vuetify.js';
-import { ActionTypes, MutationTypes } from '@/store/type/methodTypes';
+import { CommonMutationTypes } from '@/store/type/mutationTypes';
 import { CommonActionContext } from '@/store/type/actionContextTypes';
 import { SnackBarOption, UploadImageResponse } from '@/interfaces/common';
+import { CommonActionTypes } from '@/store/type/actionTypes';
 
 export const state = {
     loading: false as boolean,
@@ -15,29 +16,29 @@ export const state = {
 export type CommonState = typeof state;
 
 export const mutations = {
-    [MutationTypes.CHANGE_LOADING](state: CommonState, value: boolean) {
+    [CommonMutationTypes.CHANGE_LOADING](state: CommonState, value: boolean) {
         state.loading = value;
     },
-    [MutationTypes.OPEN_SNACK_BAR](state: CommonState, message: string) {
+    [CommonMutationTypes.OPEN_SNACK_BAR](state: CommonState, message: string) {
         state.snackBarOptions = {
             ...state.snackBarOptions,
             message,
             open: true
         }
     },
-    [MutationTypes.CLOSE_SNACK_BAR](state: CommonState) {
+    [CommonMutationTypes.CLOSE_SNACK_BAR](state: CommonState) {
         state.snackBarOptions = {
             ...state.snackBarOptions,
             open: false,
         }
     },
-    [MutationTypes.FOCUS_CHILD_COMMENT_INPUT](state: CommonState) {
+    [CommonMutationTypes.FOCUS_CHILD_COMMENT_INPUT](state: CommonState) {
         state.focusingChildCommentInput = true;
     },
-    [MutationTypes.FOCUS_OUT_CHILD_COMMENT_INPUT](state: CommonState) {
+    [CommonMutationTypes.FOCUS_OUT_CHILD_COMMENT_INPUT](state: CommonState) {
         state.focusingChildCommentInput = false;
     },
-    [MutationTypes.CHANGE_THEME](state: CommonState) {
+    [CommonMutationTypes.CHANGE_THEME](state: CommonState) {
         changeThemeAndLoad();
         state.isDarkTheme = isDarkTheme();
     },
@@ -45,7 +46,7 @@ export const mutations = {
 export type CommonMutations = typeof mutations;
 
 export const actions = {
-    async [ActionTypes.UPLOAD_TEMP_IMAGE](context: CommonActionContext, formData: FormData): Promise<UploadImageResponse> {
+    async [CommonActionTypes.UPLOAD_TEMP_IMAGE](context: CommonActionContext, formData: FormData): Promise<UploadImageResponse> {
         return actionsNormalTemplate(async () => {
             const uploadImageResponse = await commonApi.postTempImage(formData);
             return { ...uploadImageResponse };

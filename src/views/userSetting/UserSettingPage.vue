@@ -13,14 +13,14 @@ import Vue from 'vue';
 import CommonHeader from '@/components/header/CommonHeader.vue';
 import UserSettingPageBody from '@/views/userSetting/UserSettingPageBody.vue';
 import { PATH } from '@/router/route_path_type.js';
-import { ActionTypes } from '../../store/type/methodTypes';
+import { UserActionTypes } from '@/store/type/actionTypes';
 
 export default Vue.extend({
     name: 'UserSettingPage',
     components: { CommonHeader, UserSettingPageBody },
     created() {
         if (!this.$store.state.user.userProfile.userName) {
-            this.$store.dispatch(ActionTypes.REQUEST_USER_PROFILE);
+            this.$store.dispatch(UserActionTypes.REQUEST_USER_PROFILE);
         }
     },
     methods: {

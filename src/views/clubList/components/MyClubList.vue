@@ -33,9 +33,9 @@ import Vue from 'vue';
 import ClubPost from '@/views/clubList/components/ClubPost.vue';
 import InfiniteScrollTemplate from '@/components/InfiniteScrollTemplate.vue';
 import EmptyPage from '@/components/EmptyPage.vue';
-import { ActionTypes } from '@/store/type/methodTypes.ts';
 import { MyClubFeed } from '@/interfaces/clubList';
 import { Page } from '@/interfaces/common';
+import { ClubListActionTypes } from '@/store/type/actionTypes';
 
 export default Vue.extend({
     name: 'MyClubList',
@@ -57,10 +57,10 @@ export default Vue.extend({
     },
     methods: {
         fetchFirstPage() {
-            return this.$store.dispatch(ActionTypes.REQUEST_FIRST_MY_CLUB_LIST, false);
+            return this.$store.dispatch(ClubListActionTypes.REQUEST_FIRST_MY_CLUB_LIST, false);
         },
         fetchNextPage() {
-            return this.$store.dispatch(ActionTypes.REQUEST_NEXT_MY_CLUB_LIST);
+            return this.$store.dispatch(ClubListActionTypes.REQUEST_NEXT_MY_CLUB_LIST);
         },
     },
 });

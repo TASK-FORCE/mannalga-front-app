@@ -46,9 +46,10 @@ import MiddleDivider from '@/components/MiddleDivider.vue';
 import YesOrNoDialog from '@/components/YesOrNoDialog.vue';
 import routerHelper from '@/router/RouterHelper.ts';
 import { generateParamPath, PATH } from '@/router/route_path_type.js';
-import { ActionTypes, MutationTypes } from '@/store/type/methodTypes.ts';
+import { CommonMutationTypes } from '@/store/type/mutationTypes.ts';
 import { MESSAGE } from '@/utils/common/constant/messages.js';
 import { ClubInfo, ClubUserInfo, CurrentUserInfo } from '../../../../interfaces/club';
+import { ClubActionTypes } from '@/store/type/actionTypes';
 
 export default Vue.extend({
     name: 'ClubDetailMain',
@@ -88,9 +89,9 @@ export default Vue.extend({
     },
     methods: {
         requestClubRegister() {
-            return this.$store.dispatch(ActionTypes.REQUEST_CLUB_JOIN, this.clubSeq)
+            return this.$store.dispatch(ClubActionTypes.REQUEST_CLUB_JOIN, this.clubSeq)
                 .then(() => {
-                    this.$store.commit(MutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_JOIN_CLUB);
+                    this.$store.commit(CommonMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_JOIN_CLUB);
                     this.showRegisterDialog = false;
                 });
         },

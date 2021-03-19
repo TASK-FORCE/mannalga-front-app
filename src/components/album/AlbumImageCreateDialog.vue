@@ -58,7 +58,7 @@ import routerHelper from '@/router/RouterHelper.ts';
 import actionsHelper from '@/store/helper/ActionsHelper.ts';
 import { RULES } from '@/utils/common/constant/rules.js';
 import { MESSAGE } from '@/utils/common/constant/messages.js';
-import { MutationTypes } from '@/store/type/methodTypes.ts';
+import { CommonMutationTypes } from '@/store/type/mutationTypes.ts';
 import { UploadImageResponse } from '@/interfaces/common.ts';
 
 export default Vue.extend({
@@ -92,11 +92,11 @@ export default Vue.extend({
                         .then(() => {
                             actionsHelper.requestFirstAlbumList(routerHelper.clubSeq());
                             this.clear();
-                            this.$store.commit(MutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_IMAGE_REGISTER);
+                            this.$store.commit(CommonMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_IMAGE_REGISTER);
                         });
                 }
             } else {
-                this.$store.commit(MutationTypes.OPEN_SNACK_BAR, MESSAGE.SELECT_IMAGE_REQUIRE);
+                this.$store.commit(CommonMutationTypes.OPEN_SNACK_BAR, MESSAGE.SELECT_IMAGE_REQUIRE);
             }
         },
         changeToUploadedImage(uploadedImage: UploadImageResponse) {

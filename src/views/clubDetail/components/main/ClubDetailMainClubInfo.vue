@@ -56,8 +56,8 @@ import WindMill from '@/components/icons/WindMill.vue';
 import MiddleDivider from '@/components/MiddleDivider.vue';
 import { MESSAGE } from '@/utils/common/constant/messages.js';
 import { SnackBarLocation, SnackBarOption } from '../../../../interfaces/common';
-import { ActionTypes } from '@/store/type/methodTypes';
 import { ClubInfo, ClubWriteRequest, CurrentUserInfo } from '@/interfaces/club';
+import { ClubActionTypes } from '@/store/type/actionTypes';
 
 const CHANGE_IMAGE_COOL_TIME_MINUTE = 6 * 60;
 const toMillisecond = (minute) => minute * 60 * 1000;
@@ -141,7 +141,7 @@ export default Vue.extend({
                 })),
                 regionList: this.clubInfo.clubRegion.map(({ region, priority }) => ({ seq: region.seq, priority })),
             };
-            return this.$store.dispatch(ActionTypes.REQUEST_CLUB_CHANGE, {
+            return this.$store.dispatch(ClubActionTypes.REQUEST_CLUB_CHANGE, {
                 clubSeq: this.clubInfo.seq,
                 clubWriteRequest,
             });

@@ -32,7 +32,7 @@
 import axios from 'axios';
 import mutationsHelper from '@/store/helper/MutationsHelper.ts';
 import { PATH } from '@/router/route_path_type.js';
-import { MutationTypes } from '@/store/type/methodTypes.ts';
+import { CommonMutationTypes } from '@/store/type/mutationTypes.ts';
 import Vue from 'vue';
 
 export default Vue.extend({
@@ -59,7 +59,7 @@ export default Vue.extend({
                     localStorage.setItem('backdoor', 'true');
                 })
                 .catch(() => {
-                    this.$store.commit(MutationTypes.OPEN_SNACK_BAR, '로그인 실패!')
+                    this.$store.commit(CommonMutationTypes.OPEN_SNACK_BAR, '로그인 실패!')
                 })
                 .finally(() => (this.loadingIndex = -1));
         },

@@ -2,7 +2,7 @@ import { actionsNormalTemplate } from '@/store/utils/actionsTemplate.ts';
 import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
 import clubApi from '@/apis/ClubApi.ts';
 import { CLUB_ROLE } from '@/utils/role.js';
-import { ActionTypes, MutationTypes } from '@/store/type/methodTypes';
+import { ClubMutationTypes } from '@/store/type/mutationTypes';
 import { ClubActionContext } from '@/store/type/actionContextTypes';
 import {
     ClubDetailContext,
@@ -15,6 +15,7 @@ import {
     ClubWriteRequestWithSeq,
     CurrentUserInfo
 } from '@/interfaces/club';
+import { ClubActionTypes } from '@/store/type/actionTypes';
 
 export const state = {
     clubInfo: DefaultBuilder.clubInfo() as ClubInfo,
@@ -25,7 +26,7 @@ export const state = {
 export type ClubState = typeof state
 
 export const mutations = {
-    [MutationTypes.SET_CLUB_DETAIL_CONTEXT](state: ClubState, { clubInfo, userInfo, userList }: ClubDetailContext) {
+    [ClubMutationTypes.SET_CLUB_DETAIL_CONTEXT](state: ClubState, { clubInfo, userInfo, userList }: ClubDetailContext) {
         state.clubInfo = clubInfo;
         state.clubUserList = userList;
         const { role, isLiked } = userInfo || {};
@@ -37,10 +38,10 @@ export const mutations = {
             isLiked,
         };
     },
-    [MutationTypes.SET_CURRENT_TAB](state: ClubState, tab: ClubListPageTab) {
+    [ClubMutationTypes.SET_CURRENT_TAB](state: ClubState, tab: ClubListPageTab) {
         state.currentTab = tab;
     },
-    [MutationTypes.CHANGE_USER_ROLE](state: ClubState, { clubUserSeq, role }: ClubUserRoleChangeRequest) {
+    [ClubMutationTypes.CHANGE_USER_ROLE](state: ClubState, { clubUserSeq, role }: ClubUserRoleChangeRequest) {
         state.clubUserList = state.clubUserList
             .map(user => {
                 if (user.clubUserSeq === clubUserSeq) {
@@ -52,7 +53,7 @@ export const mutations = {
                 return user;
             });
     },
-    [MutationTypes.DELETE_USER](state: ClubState, { clubUserSeq }: ClubUserKickRequest) {
+    [ClubMutationTypes.DELETE_USER](state: ClubState, { clubUserSeq }: ClubUserKickRequest) {
         state.clubUserList = state.clubUserList
             .filter(user => user.clubUserSeq !== clubUserSeq);
     },
@@ -60,47 +61,47 @@ export const mutations = {
 export type ClubMutations = typeof mutations;
 
 export const actions = {
-    async [ActionTypes.REQUEST_CLUB_INFO_AND_USER_INFO]({ commit }: ClubActionContext, clubSeq: number) {
+    async [ClubActionTypes.REQUEST_CLUB_INFO_AND_USER_INFO]({ commit }: ClubActionContext, clubSeq: number) {
         return actionsNormalTemplate(async () => {
             const clubDetailContext = await clubApi.getClubInfoAndUserInfo(clubSeq);
-            commit(MutationTypes.SET_CLUB_DETAIL_CONTEXT, clubDetailContext);
+            commit(ClubMutationTypes.SET_CLUB_DETAIL_CONTEXT, clubDetailContext);
         });
     },
-    async [ActionTypes.REQUEST_CLUB_CREATE]({ commit }: ClubActionContext, clubCreateRequestDto: ClubWriteRequest) {
+    async [ClubActionTypes.REQUEST_CLUB_CREATE]({ commit }: ClubActionContext, clubCreateRequestDto: ClubWriteRequest) {
         return actionsNormalTemplate(async () => {
             await clubApi.postClubCreate(clubCreateRequestDto);
-            commit(MutationTypes.INIT_CLUB_LIST_AND_PAGE, undefined, { root: true });
-            commit(MutationTypes.INIT_MY_CLUB_LIST_AND_PAGE, undefined, { root: true });
+            commit(ClubMutationTypes.INIT_CLUB_LIST_AND_PAGE, undefined, { root: true });
+            commit(ClubMutationTypes.INIT_MY_CLUB_LIST_AND_PAGE, undefined, { root: true });
         });
     },
-    async [ActionTypes.REQUEST_CLUB_CHANGE]({ commit, dispatch }: ClubActionContext, clubWriteRequestWishSeq: ClubWriteRequestWithSeq) {
+    async [ClubActionTypes.REQUEST_CLUB_CHANGE]({ commit, dispatch }: ClubActionContext, clubWriteRequestWishSeq: ClubWriteRequestWithSeq) {
         return actionsNormalTemplate(async () => {
             await clubApi.putClubCreate(clubWriteRequestWishSeq);
-            commit(MutationTypes.INIT_CLUB_LIST_AND_PAGE, undefined, { root: true });
-            commit(MutationTypes.INIT_MY_CLUB_LIST_AND_PAGE, undefined, { root: true });
-            dispatch(ActionTypes.REQUEST_CLUB_INFO_AND_USER_INFO, clubWriteRequestWishSeq.clubSeq);
+            commit(ClubMutationTypes.INIT_CLUB_LIST_AND_PAGE, undefined, { root: true });
+            commit(ClubMutationTypes.INIT_MY_CLUB_LIST_AND_PAGE, undefined, { root: true });
+            dispatch(ClubActionTypes.REQUEST_CLUB_INFO_AND_USER_INFO, clubWriteRequestWishSeq.clubSeq);
         });
     },
-    async [ActionTypes.REQUEST_CLUB_JOIN]({ commit }: ClubActionContext, clubSeq: number) {
+    async [ClubActionTypes.REQUEST_CLUB_JOIN]({ commit }: ClubActionContext, clubSeq: number) {
         return actionsNormalTemplate(async () => {
             await clubApi.postClubJoin(clubSeq);
             const clubDetailContext = await clubApi.getClubInfoAndUserInfo(clubSeq);
-            commit(MutationTypes.SET_CLUB_DETAIL_CONTEXT, clubDetailContext);
+            commit(ClubMutationTypes.SET_CLUB_DETAIL_CONTEXT, clubDetailContext);
         });
     },
-    async [ActionTypes.REQUEST_CHANGE_USER_ROLE]({ commit }: ClubActionContext, clubUserRoleChangeRequest: ClubUserRoleChangeRequest) {
+    async [ClubActionTypes.REQUEST_CHANGE_USER_ROLE]({ commit }: ClubActionContext, clubUserRoleChangeRequest: ClubUserRoleChangeRequest) {
         return actionsNormalTemplate(async () => {
             await clubApi.putUserRole(clubUserRoleChangeRequest);
-            commit(MutationTypes.CHANGE_USER_ROLE, clubUserRoleChangeRequest);
+            commit(ClubMutationTypes.CHANGE_USER_ROLE, clubUserRoleChangeRequest);
         });
     },
-    async [ActionTypes.REQUEST_KICK_USER]({ commit }: ClubActionContext, clubUserKickRequest: ClubUserKickRequest) {
+    async [ClubActionTypes.REQUEST_KICK_USER]({ commit }: ClubActionContext, clubUserKickRequest: ClubUserKickRequest) {
         return actionsNormalTemplate(async () => {
             await clubApi.deleteKickUser(clubUserKickRequest);
-            commit(MutationTypes.DELETE_USER, clubUserKickRequest);
+            commit(ClubMutationTypes.DELETE_USER, clubUserKickRequest);
         });
     },
-    async [ActionTypes.REQUEST_CLUB_WITHDRAW]({ commit }: ClubActionContext, clubSeq: number) {
+    async [ClubActionTypes.REQUEST_CLUB_WITHDRAW]({ commit }: ClubActionContext, clubSeq: number) {
         return actionsNormalTemplate(async () => {
             await clubApi.deleteWithdraw(clubSeq);
         });

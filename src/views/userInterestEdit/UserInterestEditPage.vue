@@ -21,7 +21,8 @@ import Vue from 'vue';
 import { PATH } from '@/router/route_path_type.js';
 import { MESSAGE } from '@/utils/common/constant/messages.js';
 import InterestSelect from '@/components/interest/InterestSelect.vue';
-import { ActionTypes, MutationTypes } from '@/store/type/methodTypes.ts';
+import { CommonMutationTypes } from '@/store/type/mutationTypes.ts';
+import { UserActionTypes } from '@/store/type/actionTypes';
 
 export default Vue.extend({
     name: 'UserInterestEditPage',
@@ -33,18 +34,18 @@ export default Vue.extend({
     },
     methods: {
         submit(selectedInterests) {
-            return this.$store.dispatch(ActionTypes.REQUEST_CHANGE_USER_INTERESTS, selectedInterests)
+            return this.$store.dispatch(UserActionTypes.REQUEST_CHANGE_USER_INTERESTS, selectedInterests)
                 .then(() => {
-                    this.$store.dispatch(ActionTypes.REQUEST_USER_PROFILE);
+                    this.$store.dispatch(UserActionTypes.REQUEST_USER_PROFILE);
                     this.$router.push(PATH.USER.SETTINGS);
-                    this.$store.commit(MutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_CHANGE_REGIONS);
+                    this.$store.commit(CommonMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_CHANGE_REGIONS);
                 });
         },
         back() {
             this.$router.push(PATH.USER.SETTINGS);
         },
         selectedInterestsCallback() {
-            return this.$store.dispatch(ActionTypes.REQUEST_USER_INTERESTS)
+            return this.$store.dispatch(UserActionTypes.REQUEST_USER_INTERESTS)
                 .then(() => [...this.$store.state.user.selectedInterests]);
         },
     },

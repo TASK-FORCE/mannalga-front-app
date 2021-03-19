@@ -19,9 +19,10 @@ import { PATH } from '@/router/route_path_type.js';
 import { MESSAGE } from '@/utils/common/constant/messages.js';
 import InterestSelect from '@/components/interest/InterestSelect.vue';
 import _ from '@/utils/common/lodashWrapper.js';
-import { ActionTypes, MutationTypes } from '@/store/type/methodTypes.ts';
+import { CommonMutationTypes } from '@/store/type/mutationTypes.ts';
 import { KakaoProfile, UserRegisterContext } from '@/interfaces/user';
 import { Region } from '@/interfaces/common';
+import { UserActionTypes } from '@/store/type/actionTypes';
 
 
 export default Vue.extend({
@@ -53,9 +54,9 @@ export default Vue.extend({
                 selectedInterests,
             };
 
-            this.$store.dispatch(ActionTypes.REQUEST_REGISTER, userRegisterContext)
+            this.$store.dispatch(UserActionTypes.REQUEST_REGISTER, userRegisterContext)
                 .then(() => this.$router.push(PATH.CLUB_LIST)
-                    .then(() => this.$store.commit(MutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_REGISTER)))
+                    .then(() => this.$store.commit(CommonMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_REGISTER)))
                 .catch(() => this.$router.push(PATH.REGISTER.PROFILE));
         },
         back() {

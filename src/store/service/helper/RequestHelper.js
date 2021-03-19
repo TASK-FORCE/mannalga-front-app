@@ -1,13 +1,13 @@
 import router from '@/router';
 import { PATH } from '@/router/route_path_type.js';
 import store from '@/store/index.ts';
-import { MutationTypes } from '@/store/type/methodTypes.ts';
+import { CommonMutationTypes } from '@/store/type/mutationTypes.ts';
 
 class RequestHelper {
     static async dispatchAll(withLoading, routePathWhenFail, promiseList) {
         try {
             if (withLoading) {
-                store.commit(MutationTypes.CHANGE_LOADING, true);
+                store.commit(CommonMutationTypes.CHANGE_LOADING, true);
             }
             await Promise.all(promiseList);
         } catch (e) {
@@ -21,7 +21,7 @@ class RequestHelper {
             throw e;
         } finally {
             if (withLoading) {
-                store.commit(MutationTypes.CHANGE_LOADING, false);
+                store.commit(CommonMutationTypes.CHANGE_LOADING, false);
             }
         }
     }

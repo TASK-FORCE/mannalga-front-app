@@ -51,8 +51,9 @@ import { PATH } from '@/router/route_path_type.js';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import actionsHelper from '@/store/helper/ActionsHelper.ts';
 import { MESSAGE } from '@/utils/common/constant/messages.js';
-import { ActionTypes, MutationTypes } from '@/store/type/methodTypes.ts';
+import { CommonMutationTypes } from '@/store/type/mutationTypes.ts';
 import Vue from 'vue';
+import { UserActionTypes } from '@/store/type/actionTypes';
 
 export default Vue.extend({
     name: 'LoginPage',
@@ -74,7 +75,7 @@ export default Vue.extend({
     },
     created() {
         if (this.validationFail) {
-            this.$store.commit(MutationTypes.OPEN_SNACK_BAR, MESSAGE.LOGIN_REQUIRE);
+            this.$store.commit(CommonMutationTypes.OPEN_SNACK_BAR, MESSAGE.LOGIN_REQUIRE);
             return;
         }
 
@@ -83,7 +84,7 @@ export default Vue.extend({
                 localStorage.removeItem('appToken');
                 localStorage.removeItem('backdoor');
             } else {
-                this.$store.dispatch(ActionTypes.REQUEST_CHECK_IS_MEMBER)
+                this.$store.dispatch(UserActionTypes.REQUEST_CHECK_IS_MEMBER)
                     .then(isMember => this.$router.push(isMember ? PATH.CLUB_LIST : PATH.REGISTER.PROFILE));
             }
         }

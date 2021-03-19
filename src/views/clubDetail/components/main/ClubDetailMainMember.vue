@@ -124,8 +124,9 @@ import routerHelper from '@/router/RouterHelper.ts';
 import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
 import { CLUB_ROLE } from '@/utils/role.js';
 import MiddleDivider from '@/components/MiddleDivider.vue';
-import { ActionTypes, MutationTypes } from '@/store/type/methodTypes.ts';
+import { CommonMutationTypes } from '@/store/type/mutationTypes.ts';
 import { ClubUserInfo, CurrentUserInfo } from '@/interfaces/club';
+import { ClubActionTypes } from '@/store/type/actionTypes';
 
 export default Vue.extend({
     name: 'ClubDetailMainMember',
@@ -175,14 +176,14 @@ export default Vue.extend({
             this.managementDialog = true;
         },
         withdraw() {
-            return this.$store.dispatch(ActionTypes.REQUEST_CLUB_WITHDRAW, this.clubSeq)
+            return this.$store.dispatch(ClubActionTypes.REQUEST_CLUB_WITHDRAW, this.clubSeq)
                 .then(() => {
-                    this.$store.commit(MutationTypes.OPEN_SNACK_BAR, MESSAGE.WITHDRAW_CLUB);
+                    this.$store.commit(CommonMutationTypes.OPEN_SNACK_BAR, MESSAGE.WITHDRAW_CLUB);
                     this.$router.go();
                 });
         },
         kick() {
-            return this.$store.dispatch(ActionTypes.REQUEST_KICK_USER,
+            return this.$store.dispatch(ClubActionTypes.REQUEST_KICK_USER,
                 {
                     clubSeq: this.clubSeq,
                     clubUserSeq: this.kickTargetUser.clubUserSeq,
@@ -190,7 +191,7 @@ export default Vue.extend({
             ).finally(() => (this.kickDialog = false));
         },
         kickByManagementDialog() {
-            return this.$store.dispatch(ActionTypes.REQUEST_KICK_USER,
+            return this.$store.dispatch(ClubActionTypes.REQUEST_KICK_USER,
                 {
                     clubSeq: this.clubSeq,
                     clubUserSeq: this.managementTargetUser.clubUserSeq,
@@ -198,7 +199,7 @@ export default Vue.extend({
             ).finally(() => this.closeManagementDialog());
         },
         toManagerFromMember() {
-            return this.$store.dispatch(ActionTypes.REQUEST_CHANGE_USER_ROLE,
+            return this.$store.dispatch(ClubActionTypes.REQUEST_CHANGE_USER_ROLE,
                 {
                     clubSeq: this.clubSeq,
                     clubUserSeq: this.managementTargetUser.clubUserSeq,
@@ -207,7 +208,7 @@ export default Vue.extend({
             ).finally(() => this.closeManagementDialog());
         },
         toMemberFromManager() {
-            return this.$store.dispatch(ActionTypes.REQUEST_CHANGE_USER_ROLE,
+            return this.$store.dispatch(ClubActionTypes.REQUEST_CHANGE_USER_ROLE,
                 {
                     clubSeq: this.clubSeq,
                     clubUserSeq: this.managementTargetUser.clubUserSeq,

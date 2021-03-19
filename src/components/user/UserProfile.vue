@@ -43,8 +43,9 @@ import _ from '@/utils/common/lodashWrapper.js';
 import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
 import { RULES } from '@/utils/common/constant/rules.js';
 import { PATH } from '@/router/route_path_type.js';
-import { ActionTypes, MutationTypes } from '@/store/type/methodTypes.ts';
+import { UserMutationTypes } from '@/store/type/mutationTypes.ts';
 import { KakaoProfile } from '@/interfaces/user';
+import { UserActionTypes } from '@/store/type/actionTypes';
 
 export default Vue.extend({
     name: 'UserProfile',
@@ -61,13 +62,13 @@ export default Vue.extend({
     },
     created() {
         if (_.isDeepEmpty(this.kakaoProfile)) {
-            this.$store.dispatch(ActionTypes.REQUEST_KAKAO_PROFILE)
+            this.$store.dispatch(UserActionTypes.REQUEST_KAKAO_PROFILE)
                 .catch(() => this.$router.push(PATH.LOGIN));
         }
     },
     methods: {
         changeProfileName(name) {
-            this.$store.commit(MutationTypes.CHANGE_PROFILE_NAME, name);
+            this.$store.commit(UserMutationTypes.CHANGE_PROFILE_NAME, name);
         },
     },
 });

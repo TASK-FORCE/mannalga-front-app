@@ -20,7 +20,7 @@ import RegionSelect from '@/components/region/RegionSelect.vue';
 import _ from '@/utils/common/lodashWrapper.js';
 import { PATH } from '@/router/route_path_type.js';
 import { MESSAGE } from '@/utils/common/constant/messages.js';
-import { MutationTypes } from '@/store/type/methodTypes.ts';
+import { CommonMutationTypes, UserMutationTypes } from '@/store/type/mutationTypes.ts';
 import Vue from 'vue';
 
 export default Vue.extend({
@@ -34,9 +34,9 @@ export default Vue.extend({
     methods: {
         goNextStep(selectedRegions) {
             if (_.isEmpty(selectedRegions)) {
-                this.$store.commit(MutationTypes.OPEN_SNACK_BAR, MESSAGE.SELECT_REGION_REQUIRE);
+                this.$store.commit(CommonMutationTypes.OPEN_SNACK_BAR, MESSAGE.SELECT_REGION_REQUIRE);
             } else {
-                this.$store.commit(MutationTypes.SET_SELECTED_REGIONS, selectedRegions);
+                this.$store.commit(UserMutationTypes.SET_SELECTED_REGIONS, selectedRegions);
                 this.$router.push(PATH.REGISTER.INTEREST);
             }
         },

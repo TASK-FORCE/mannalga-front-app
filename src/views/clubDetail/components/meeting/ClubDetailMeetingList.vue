@@ -60,7 +60,7 @@ import InfiniteScrollTemplate from '@/components/InfiniteScrollTemplate.vue';
 import { MESSAGE } from '@/utils/common/constant/messages.js';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import EmptyPage from '@/components/EmptyPage.vue';
-import { MutationTypes } from '@/store/type/methodTypes.ts';
+import { CommonMutationTypes } from '@/store/type/mutationTypes.ts';
 import { CurrentUserInfo } from '../../../../interfaces/club';
 
 export default Vue.extend({
@@ -94,7 +94,7 @@ export default Vue.extend({
                 meetingSeq: this.registerTargetMeeting.seq,
             };
             return actionsHelper.requestMeetingApplication(meetingApplicationInfo)
-                .then(() => this.$store.commit(MutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_APPLY_MEETING_APPLICATION));
+                .then(() => this.$store.commit(CommonMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_APPLY_MEETING_APPLICATION));
         },
         cancelMeeting() {
             const meetingCancelInfo = {

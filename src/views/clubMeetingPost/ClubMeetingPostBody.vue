@@ -109,7 +109,7 @@ import MiddleDivider from '@/components/MiddleDivider.vue';
 import SimpleUserProfileList from '@/components/user/SimpleUserProfileList.vue';
 import { MESSAGE } from '@/utils/common/constant/messages.js';
 import { generateParamPath, PATH } from '@/router/route_path_type.js';
-import { MutationTypes } from '@/store/type/methodTypes.ts';
+import { CommonMutationTypes } from '@/store/type/mutationTypes.ts';
 import Vue from 'vue';
 
 export default Vue.extend({
@@ -148,13 +148,13 @@ export default Vue.extend({
         applyMeetingApplication() {
             this.applicationBtnLoading = true;
             actionsHelper.requestMeetingApplication(this.clubAndMeetingSeq)
-                .then(() => this.$store.commit(MutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_APPLY_MEETING_APPLICATION))
+                .then(() => this.$store.commit(CommonMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_APPLY_MEETING_APPLICATION))
                 .finally(() => (this.applicationBtnLoading = false));
         },
         cancelMeetingApplication() {
             this.applicationBtnLoading = true;
             actionsHelper.requestCancelMeetingApplication(this.clubAndMeetingSeq)
-                .then(() => this.$store.commit(MutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_CANCEL_MEETING_APPLICATION))
+                .then(() => this.$store.commit(CommonMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_CANCEL_MEETING_APPLICATION))
                 .finally(() => (this.applicationBtnLoading = false));
         },
         moveToMeetingEditPage() {

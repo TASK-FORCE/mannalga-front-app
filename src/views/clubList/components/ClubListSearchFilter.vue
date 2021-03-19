@@ -83,7 +83,7 @@ import { PATH } from '@/router/route_path_type.js';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.js';
 import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
-import { MutationTypes } from '@/store/type/methodTypes.ts';
+import { ClubListMutationTypes } from '@/store/type/mutationTypes.ts';
 import { ClubSearchContext } from '@/interfaces/clubList';
 
 export default Vue.extend({
@@ -121,7 +121,7 @@ export default Vue.extend({
     },
     methods: {
         selectSearchRegion(region) {
-            this.$store.commit(MutationTypes.CHANGE_CLUB_SEARCH_REGION, {
+            this.$store.commit(ClubListMutationTypes.CHANGE_CLUB_SEARCH_REGION, {
                 name: region.superRegionRoot,
                 seq: region.seq,
             });
@@ -133,17 +133,17 @@ export default Vue.extend({
                 seq: interest.seq,
                 groupSeq: interest.groupSeq,
             };
-            this.$store.commit(MutationTypes.CHANGE_CLUB_SEARCH_INTEREST, interestDto);
+            this.$store.commit(ClubListMutationTypes.CHANGE_CLUB_SEARCH_INTEREST, interestDto);
             this.sheet = false;
         },
         cancelRegionSelect() {
-            this.$store.commit(MutationTypes.CHANGE_CLUB_SEARCH_REGION, DefaultBuilder.clubSearchContext().region);
+            this.$store.commit(ClubListMutationTypes.CHANGE_CLUB_SEARCH_REGION, DefaultBuilder.clubSearchContext().region);
         },
         cancelInterestSelect() {
-            this.$store.commit(MutationTypes.CHANGE_CLUB_SEARCH_INTEREST, DefaultBuilder.clubSearchContext().interest);
+            this.$store.commit(ClubListMutationTypes.CHANGE_CLUB_SEARCH_INTEREST, DefaultBuilder.clubSearchContext().interest);
         },
         cancelSearchTextSelect() {
-            this.$store.commit(MutationTypes.CHANGE_CLUB_SEARCH_TEXT, null);
+            this.$store.commit(ClubListMutationTypes.CHANGE_CLUB_SEARCH_TEXT, null);
         },
         changeBottomSheetComponent(cardComponent) {
             this.currentBottomSheetCard = cardComponent;

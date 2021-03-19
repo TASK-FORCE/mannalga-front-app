@@ -62,9 +62,9 @@ import ImageSelectorWithConfirm from '@/components/image/ImageSelectorWithConfir
 import _ from '@/utils/common/lodashWrapper.js';
 import { PATH } from '@/router/route_path_type.js';
 import SettingBar from '@/components/SettingBar.vue';
-import { ActionTypes } from '@/store/type/methodTypes.ts';
 import { UploadImageResponse } from '@/interfaces/common';
 import { UserProfile } from '@/interfaces/user';
+import { UserActionTypes } from '@/store/type/actionTypes';
 
 export default Vue.extend({
     name: 'UserSettingProfile',
@@ -102,7 +102,7 @@ export default Vue.extend({
     },
     methods: {
         changeProfileImage(uploadImageResponse: UploadImageResponse) {
-            return this.$store.dispatch(ActionTypes.REQUEST_CHANGE_USER_PROFILE, uploadImageResponse);
+            return this.$store.dispatch(UserActionTypes.REQUEST_CHANGE_USER_PROFILE, uploadImageResponse);
         },
         moveToRegionEditPage() {
             this.$router.push(PATH.USER.REGION_EDIT);

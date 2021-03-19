@@ -13,8 +13,8 @@
 import Vue from 'vue';
 import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
 import { PATH } from '@/router/route_path_type.js';
-import { ActionTypes } from '@/store/type/methodTypes.ts';
 import { UserProfile } from '@/interfaces/user';
+import { UserActionTypes } from '@/store/type/actionTypes';
 
 export default Vue.extend({
     name: 'UserSettingPageEnterAvatar',
@@ -26,7 +26,7 @@ export default Vue.extend({
     },
     created() {
         if (!this.userProfile.userName) {
-            this.$store.dispatch(ActionTypes.REQUEST_USER_PROFILE);
+            this.$store.dispatch(UserActionTypes.REQUEST_USER_PROFILE);
         }
     },
     methods: {

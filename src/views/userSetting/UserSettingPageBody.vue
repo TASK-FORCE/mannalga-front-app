@@ -31,7 +31,7 @@ import { PATH } from '@/router/route_path_type.js';
 import mutationsHelper from '@/store/helper/MutationsHelper.ts';
 import MiddleDivider from '@/components/MiddleDivider.vue';
 import SettingBar from '@/components/SettingBar.vue';
-import { MutationTypes } from '@/store/type/methodTypes';
+import { CommonMutationTypes } from '@/store/type/mutationTypes';
 import { UserProfile } from '@/interfaces/user';
 
 export default Vue.extend({
@@ -67,7 +67,7 @@ export default Vue.extend({
             this.$router.push(PATH.LOGIN);
         },
         changeTheme() {
-            this.$store.commit(MutationTypes.CHANGE_THEME);
+            this.$store.commit(CommonMutationTypes.CHANGE_THEME);
         },
     },
 });

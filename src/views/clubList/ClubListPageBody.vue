@@ -43,8 +43,9 @@ import lastClubListTabCache from '@/utils/cache/LastClubListTabCache.ts';
 import FixedCreateBtn from '@/components/button/FixedCreateBtn.vue';
 import FixedScrollToTopBtn from '@/components/button/FixedScrollToTopBtn.vue';
 import { PATH } from '@/router/route_path_type.js';
-import { ActionTypes, MutationTypes } from '@/store/type/methodTypes.ts';
+import { ClubMutationTypes } from '@/store/type/mutationTypes.ts';
 import { ClubListPageTab } from '@/interfaces/club';
+import { ClubListActionTypes } from '@/store/type/actionTypes';
 
 export default Vue.extend({
     name: 'ClubListPageBody',
@@ -67,16 +68,16 @@ export default Vue.extend({
             },
             set(tab: ClubListPageTab) {
                 lastClubListTabCache.save(tab);
-                this.$store.commit(MutationTypes.SET_CURRENT_TAB, tab);
+                this.$store.commit(ClubMutationTypes.SET_CURRENT_TAB, tab);
             },
         },
     },
     created() {
         this.tab = lastClubListTabCache.get();
         if (this.tab === ClubListPageTab.CLUB) {
-            this.$store.dispatch(ActionTypes.REQUEST_FIRST_MY_CLUB_LIST, true);
+            this.$store.dispatch(ClubListActionTypes.REQUEST_FIRST_MY_CLUB_LIST, true);
         } else if (this.tab === ClubListPageTab.MY_CLUB) {
-            this.$store.dispatch(ActionTypes.REQUEST_FIRST_CLUB_LIST, true);
+            this.$store.dispatch(ClubListActionTypes.REQUEST_FIRST_CLUB_LIST, true);
         }
     },
     mounted() {

@@ -3,10 +3,11 @@ import actionsHelper from '@/store/helper/ActionsHelper.ts';
 import store from '@/store/index.ts';
 import { MODULE } from '@/store/type/type.js';
 import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
-import { ActionTypes, MutationTypes } from '@/store/type/methodTypes';
+import { ClubMutationTypes } from '@/store/type/mutationTypes';
+import { ClubActionTypes } from '@/store/type/actionTypes';
 
 function dispatchClubInfoAndUserInfo(clubSeq: number) {
-    return store.dispatch(ActionTypes.REQUEST_CLUB_INFO_AND_USER_INFO, clubSeq);
+    return store.dispatch(ClubActionTypes.REQUEST_CLUB_INFO_AND_USER_INFO, clubSeq);
 }
 
 function dispatchClubMeetings(clubSeq: number) {
@@ -49,7 +50,7 @@ class ClubDetailVuexService {
 
     reset() {
 
-        store.commit(MutationTypes.SET_CLUB_DETAIL_CONTEXT, DefaultBuilder.clubDetailContext());
+        store.commit(ClubMutationTypes.SET_CLUB_DETAIL_CONTEXT, DefaultBuilder.clubDetailContext());
         store.commit(`${MODULE.MEETING}/initMeetingGroupList`);
         store.commit(`${MODULE.ALBUM}/initAlbumList`);
     }

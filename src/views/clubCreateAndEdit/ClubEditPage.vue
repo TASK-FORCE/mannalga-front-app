@@ -18,8 +18,8 @@ import Vue from 'vue';
 import CommonHeader from '@/components/header/CommonHeader.vue';
 import ClubCreateAndEditBody from '@/views/clubCreateAndEdit/ClubCreateAndEditBody.vue';
 import { generateParamPath, PATH } from '@/router/route_path_type.js';
-import { ActionTypes } from '@/store/type/methodTypes.ts';
 import { ClubInfo, ClubWriteRequest, ClubWriteRequestWithSeq } from '@/interfaces/club.ts';
+import { ClubActionTypes } from '@/store/type/actionTypes';
 
 export default Vue.extend({
     name: 'ClubEditPage',
@@ -52,7 +52,7 @@ export default Vue.extend({
                 clubSeq: this.clubInfo.seq,
                 clubWriteRequest
             }
-            return this.$store.dispatch(ActionTypes.REQUEST_CLUB_CHANGE, clubWriteRequestWithSeq)
+            return this.$store.dispatch(ClubActionTypes.REQUEST_CLUB_CHANGE, clubWriteRequestWithSeq)
                 .then(() => (this.$router.push(generateParamPath(PATH.CLUB.MAIN, [this.clubSeq]))));
         },
     },

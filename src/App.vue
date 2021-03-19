@@ -33,7 +33,7 @@
 import CommonSnackBar from '@/components/CommonSnackBar.vue';
 import Progress from '@/components/Progress.vue';
 import { loadCurrentTheme } from '@/plugins/vuetify.js';
-import { MutationTypes } from '@/store/type/methodTypes.ts';
+import { CommonMutationTypes } from '@/store/type/mutationTypes.ts';
 import Vue from 'vue';
 
 export default Vue.extend({
@@ -49,7 +49,7 @@ export default Vue.extend({
     },
     methods: {
         changeTheme() {
-            this.$store.commit(MutationTypes.CHANGE_THEME);
+            this.$store.commit(CommonMutationTypes.CHANGE_THEME);
         },
     },
 });
