@@ -3,7 +3,7 @@ import meetingApi from '@/apis/MeetingApi.ts';
 import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
 import RequestConverter from '@/apis/converter/RequestConverter.ts';
 
-const defaultPage = DefaultBuilder.buildPage(20);
+const defaultPage = DefaultBuilder.page(20);
 
 const state = {
     meetingGroupList: [],
@@ -98,7 +98,7 @@ const actions = {
                 commit('initMeetingGroupList');
                 const requestDto = {
                     clubSeq,
-                    requestParams: RequestConverter.convertPage(state.meetingGroupPage),
+                    pageRequest: RequestConverter.convertPage(state.meetingGroupPage),
                 };
                 const meetingGroupListInfo = await meetingApi.getMeetingGroupList(requestDto);
                 commit('setMeetingGroupListInfo', meetingGroupListInfo);
@@ -111,7 +111,7 @@ const actions = {
             async () => {
                 const requestDto = {
                     clubSeq,
-                    requestParams: RequestConverter.convertPage(state.meetingGroupPage),
+                    pageRequest: RequestConverter.convertPage(state.meetingGroupPage),
                 };
                 const meetingGroupListInfo = await meetingApi.getMeetingGroupList(requestDto);
                 commit('addNextMeetingGroupListInfo', meetingGroupListInfo);

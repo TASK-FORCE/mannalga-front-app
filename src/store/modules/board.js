@@ -2,16 +2,16 @@ import { actionsNormalTemplate } from '@/store/utils/actionsTemplate.ts';
 import boardApi from '@/apis/BoardApi.ts';
 import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
 import RequestConverter from '@/apis/converter/RequestConverter.ts';
-import CommentHelper from '@/store/service/helper/CommentHelper.js';
+import CommentHelper from '@/store/service/helper/CommentHelper.ts';
 import { BOARD_CATEGORY } from '@/utils/board.js';
 import BoardHelper from '@/store/service/helper/BoardHelper.js';
 
 const state = {
     boardList: [],
-    boardPage: DefaultBuilder.buildPage(),
-    board: DefaultBuilder.buildAlbum(),
+    boardPage: DefaultBuilder.page(),
+    board: DefaultBuilder.album(),
     boardCommentList: [],
-    boardCommentPage: DefaultBuilder.buildPage(),
+    boardCommentPage: DefaultBuilder.page(),
 };
 
 const getters = {
@@ -39,7 +39,7 @@ const mutations = {
 
     initBoardList(state) {
         state.boardList = [];
-        state.boardPage = DefaultBuilder.buildPage();
+        state.boardPage = DefaultBuilder.page();
     },
 
     setBoard(state, board) {
@@ -66,7 +66,7 @@ const mutations = {
 
     initBoardCommentList(state) {
         state.boardCommentList = [];
-        state.boardCommentPage = DefaultBuilder.buildPage();
+        state.boardCommentPage = DefaultBuilder.page();
     },
 
     countChildBoardCommentCnt(state, seq) {
@@ -132,7 +132,7 @@ const actions = {
                 commit('setBoardList', boardListInfo);
             } else {
                 // 전체보기로 첫번째 페이지를 조회하는 경우 첫 10개 목록은 공지사항을 보여주고 나머지는 일반 게시판을 보여준다.
-                const noticeBoardListInfoPromise = BoardHelper.requestBoardList(clubSeq, DefaultBuilder.buildPage(10), BOARD_CATEGORY.NOTICE.type);
+                const noticeBoardListInfoPromise = BoardHelper.requestBoardList(clubSeq, DefaultBuilder.page(10), BOARD_CATEGORY.NOTICE.type);
                 const normalBoardListInfoPromise = BoardHelper.requestBoardList(clubSeq, state.boardPage, BOARD_CATEGORY.NORMAL.type);
                 const noticeBoardListInfo = await noticeBoardListInfoPromise;
                 commit('setOnlyBoardList', noticeBoardListInfo);
@@ -166,7 +166,7 @@ const actions = {
                 commit('initBoardCommentList');
                 const requestDto = {
                     ...boardCommentRequestInfo,
-                    requestParams: RequestConverter.convertPage(state.boardCommentPage),
+                    pageRequest: RequestConverter.convertPage(state.boardCommentPage),
                 };
                 const boardListInfo = await boardApi.getClubBoardCommentList(requestDto);
                 commit('setBoardCommentList', boardListInfo);
@@ -179,7 +179,7 @@ const actions = {
             async () => {
                 const requestDto = {
                     ...boardCommentRequestInfo,
-                    requestParams: RequestConverter.convertPage(state.boardCommentPage),
+                    pageRequest: RequestConverter.convertPage(state.boardCommentPage),
                 };
                 const boardListInfo = await boardApi.getClubBoardCommentList(requestDto);
                 commit('addNextBoardCommentList', boardListInfo);

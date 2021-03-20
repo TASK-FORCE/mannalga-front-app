@@ -55,11 +55,12 @@ import Vue from 'vue';
 
 import ImageSelectBox from '@/components/image/ImageSelectBox.vue';
 import routerHelper from '@/router/RouterHelper.ts';
-import actionsHelper from '@/store/helper/ActionsHelper.ts';
 import { RULES } from '@/utils/common/constant/rules.ts';
 import { MESSAGE } from '@/utils/common/constant/messages.ts';
 import { CommonMutationTypes } from '@/store/type/mutationTypes.ts';
 import { UploadImageResponse } from '@/interfaces/common.ts';
+import { AlbumActionTypes } from '@/store/type/actionTypes';
+import { AlbumWriteRequest } from '@/interfaces/album';
 
 export default Vue.extend({
     name: 'AlbumImageCreateDialog',
@@ -81,16 +82,14 @@ export default Vue.extend({
         requestAlbumCreate() {
             if (this.$refs.form.validate()) {
                 if (this.image) {
-                    const clubAlbumCreateInfo = {
+                    const albumWriteRequest: AlbumWriteRequest = {
                         clubSeq: routerHelper.clubSeq(),
-                        clubAlbumCreateDto: {
-                            title: this.title,
-                            image: { ...this.image },
-                        },
+                        title: this.title,
+                        image: { ...this.image },
                     };
-                    actionsHelper.requestAlbumCreate(clubAlbumCreateInfo)
+                    this.$store.dispatch(AlbumActionTypes.REQUEST_ALBUM_CREATE, albumWriteRequest)
                         .then(() => {
-                            actionsHelper.requestFirstAlbumList(routerHelper.clubSeq());
+                            this.$store.dispatch(AlbumActionTypes.REQUEST_FIRST_ALBUM_LIST, routerHelper.clubSeq());
                             this.clear();
                             this.$store.commit(CommonMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_IMAGE_REGISTER);
                         });

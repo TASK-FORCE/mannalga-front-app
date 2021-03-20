@@ -29,7 +29,7 @@ export default Vue.extend({
     },
     computed: {
         board: () => gettersHelper.board(),
-        seqInfo() {
+        seqContext() {
             return {
                 clubSeq: routerHelper.clubSeq(),
                 boardSeq: routerHelper.boardSeq(),

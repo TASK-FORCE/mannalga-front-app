@@ -10,9 +10,9 @@ import { ClubListActionTypes } from '@/store/type/actionTypes';
 
 export const state = {
     clubList: [] as ClubFeed[],
-    clubPage: DefaultBuilder.buildPage() as Page,
+    clubPage: DefaultBuilder.page() as Page,
     myClubList: [] as MyClubFeed[],
-    myClubPage: DefaultBuilder.buildPage() as Page,
+    myClubPage: DefaultBuilder.page() as Page,
     clubSearchContext: DefaultBuilder.clubSearchContext() as ClubSearchContext,
     isRequestingNextPage: false as boolean,
 };
@@ -41,11 +41,11 @@ export const mutations = {
     },
     [ClubListMutationTypes.INIT_CLUB_LIST_AND_PAGE](state: ClubListState) {
         state.clubList = [];
-        state.clubPage = DefaultBuilder.buildPage();
+        state.clubPage = DefaultBuilder.page();
     },
     [ClubListMutationTypes.INIT_MY_CLUB_LIST_AND_PAGE](state: ClubListState) {
         state.myClubList = [];
-        state.myClubPage = DefaultBuilder.buildPage();
+        state.myClubPage = DefaultBuilder.page();
     },
     [ClubListMutationTypes.CHANGE_CLUB_SEARCH_REGION](state: ClubListState, region: RegionForSearch) {
         state.clubSearchContext = {
@@ -87,8 +87,8 @@ export const actions = {
             return Promise.resolve();
         }
         const callback = async () => {
-            const requestParam = RequestConverter.convertClubList(state.clubPage, state.clubSearchContext);
-            const clubListResponse = await clubListApi.getClubListWithPage(requestParam);
+            const clubListRequest = RequestConverter.convertClubList(state.clubPage, state.clubSearchContext);
+            const clubListResponse = await clubListApi.getClubListWithPage(clubListRequest);
             commit(ClubListMutationTypes.ADD_NEXT_CLUB_LIST, clubListResponse);
         };
         return actionsLoadingTemplate(callback, ClubListMutationTypes.CHANGE_IS_REQUESTING_NEXT_PAGE);
@@ -96,8 +96,8 @@ export const actions = {
     [ClubListActionTypes.REQUEST_FIRST_MY_CLUB_LIST]({ commit, state }: ClubListActionContext, disableLoading: boolean) {
         commit(ClubListMutationTypes.INIT_MY_CLUB_LIST_AND_PAGE);
         const callback = async () => {
-            const requestParam = RequestConverter.convertMyClubList(state.myClubPage);
-            const myClubListResponse = await clubListApi.getMyClubListWithPage(requestParam);
+            const myClubListRequest = RequestConverter.convertMyClubList(state.myClubPage);
+            const myClubListResponse = await clubListApi.getMyClubListWithPage(myClubListRequest);
             commit(ClubListMutationTypes.CHANGE_MY_CLUB_LIST_WITH_PAGE, myClubListResponse);
         };
         return disableLoading ? actionsNormalTemplate(callback) : actionsLoadingTemplate(callback);
@@ -107,8 +107,8 @@ export const actions = {
             return Promise.resolve();
         }
         const callback = async () => {
-            const requestParam = RequestConverter.convertMyClubList(state.myClubPage);
-            const myClubListResponse = await clubListApi.getMyClubListWithPage(requestParam);
+            const myClubListRequest = RequestConverter.convertMyClubList(state.myClubPage);
+            const myClubListResponse = await clubListApi.getMyClubListWithPage(myClubListRequest);
             commit(ClubListMutationTypes.ADD_NEXT_MY_CLUB_LIST, myClubListResponse);
         };
         return actionsLoadingTemplate(callback, ClubListMutationTypes.CHANGE_IS_REQUESTING_NEXT_PAGE);

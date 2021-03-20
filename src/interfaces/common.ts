@@ -17,7 +17,7 @@ export interface SnackBarOption {
     open: boolean,
 }
 
-export interface ServerResponse<T> {
+export interface ServerPageResponse<T> {
     content: T;
     last: boolean;
     pageable: ServerPageable;
@@ -77,4 +77,32 @@ export interface RegionWriteRequest {
 export interface InterestWriteRequest {
     seq: number;
     priority: number;
+}
+
+
+export interface Writer {
+    writerUserSeq: number;
+    writerClubUserSeq: number;
+    name: string;
+    imgUrl: string;
+    role: string[];
+}
+
+export interface PageRequest {
+    size: number;
+    page: number;
+}
+
+export interface Comment {
+    childCommentCnt: number;
+    commentSeq: number;
+    content: string;
+    depth: number;
+    imgUrl: string;
+    isWrittenByMe: boolean;
+    onlyDirectChildCnt: boolean;
+    registerTime: string;
+    writeClubUserSeq: number;
+    writerSeq: number;
+    writer: string;
 }

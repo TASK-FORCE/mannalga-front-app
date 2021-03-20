@@ -1,7 +1,8 @@
-import { Page, SnackBarLocation, SnackBarOption } from '@/interfaces/common';
+import { Page, SnackBarLocation, SnackBarOption, Writer } from '@/interfaces/common';
 import { ClubDetailContext, ClubInfo, ClubUserInfo, CurrentUserInfo } from '@/interfaces/club';
 import { ClubSearchContext } from '@/interfaces/clubList';
 import { KakaoProfile, UserProfile } from '@/interfaces/user';
+import { Album } from '@/interfaces/album';
 
 class DefaultBuilder {
     static snackbarOption(): SnackBarOption {
@@ -47,7 +48,7 @@ class DefaultBuilder {
         }
     }
 
-    static buildPage(size = 20): Page {
+    static page(size = 20): Page {
         return { size, currentPage: 0, nextPage: 0, isLastPage: false }
     }
 
@@ -104,16 +105,28 @@ class DefaultBuilder {
         applicationUsers: [],
     });
 
-    static buildAlbum = () => ({
-        albumSeq: 0,
-        title: '',
-        file_name: '',
-        imgUrl: '',
-        likeCnt: 0,
-        commentCnt: 0,
-        isLiked: false,
-        writer: {},
-    });
+    static album(): Album {
+        return {
+            albumSeq: 0,
+            title: '',
+            file_name: '',
+            imgUrl: '',
+            likeCnt: 0,
+            commentCnt: 0,
+            isLiked: false,
+            writer: this.writer(),
+        }
+    }
+
+    static writer(): Writer {
+        return {
+            writerUserSeq: 0,
+            writerClubUserSeq: 0,
+            name: '',
+            imgUrl: '',
+            role: [],
+        }
+    }
 
     static buildBoard = () => ({
         seq: 0,

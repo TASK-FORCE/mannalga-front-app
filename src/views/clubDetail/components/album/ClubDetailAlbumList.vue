@@ -55,14 +55,15 @@ import Vue, { PropType } from 'vue';
 import FixedCreateBtn from '@/components/button/FixedCreateBtn.vue';
 import AlbumImageCreateDialog from '@/components/album/AlbumImageCreateDialog.vue';
 import ClubDetailAlbumImage from '@/views/clubDetail/components/album/ClubDetailAlbumImage.vue';
-import gettersHelper from '@/store/helper/GettersHelper.js';
 import _ from '@/utils/common/lodashWrapper.js';
 import InfiniteScrollTemplate from '@/components/InfiniteScrollTemplate.vue';
-import actionsHelper from '@/store/helper/ActionsHelper.ts';
 import routerHelper from '@/router/RouterHelper.ts';
 import FixedScrollToTopBtn from '@/components/button/FixedScrollToTopBtn.vue';
 import EmptyPage from '@/components/EmptyPage.vue';
 import { CurrentUserInfo } from '../../../../interfaces/club';
+import { AlbumActionTypes } from '@/store/type/actionTypes';
+import { Page } from '@/interfaces/common';
+import { AlbumFeed } from '@/interfaces/album';
 
 export default Vue.extend({
     name: 'ClubDetailAlbumList',
@@ -83,23 +84,26 @@ export default Vue.extend({
         };
     },
     computed: {
-        albumList: () => gettersHelper.albumList(),
-        albumPage: () => gettersHelper.albumPage(),
-        clubSeq: () => routerHelper.clubSeq(),
-        twoAlbumsList() {
+        albumList(): AlbumFeed[] {
+            return this.$store.state.album.albumList;
+        },
+        albumPage(): Page {
+            return this.$store.state.album.albumPage;
+        },
+        twoAlbumsList(): AlbumFeed[] {
             return _.chunk(this.albumList, 2);
         },
-        canCreateAlbum() {
+        canCreateAlbum(): boolean {
             const { isMaster, isManager } = this.currentUserInfo;
             return isMaster || isManager;
         },
     },
     methods: {
         fetchFirstPage() {
-            return actionsHelper.requestFirstAlbumList(this.clubSeq);
+            return this.$store.dispatch(AlbumActionTypes.REQUEST_FIRST_ALBUM_LIST, routerHelper.clubSeq());
         },
         fetchNextPage() {
-            return actionsHelper.requestNextAlbumList(this.clubSeq);
+            return this.$store.dispatch(AlbumActionTypes.REQUEST_NEXT_ALBUM_LIST, routerHelper.clubSeq())
         },
     },
 });

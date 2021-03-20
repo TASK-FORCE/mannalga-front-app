@@ -1,45 +1,57 @@
 import axios from 'axios';
 import ResponseConverter from '@/apis/converter/ResponseConverter.ts';
+import {
+    Album,
+    AlbumCommentListResponse,
+    AlbumCommentPageRequest,
+    AlbumCommentWriteRequest,
+    AlbumListResponse,
+    AlbumPageRequest,
+    AlbumSeqContext,
+    AlbumSubCommentRequest,
+    AlbumWriteRequest
+} from '@/interfaces/album';
 
 const albumApi = {
-    getClubAlbum({ clubSeq, albumSeq }) {
+    getClubAlbum({ clubSeq, albumSeq }): Promise<Album> {
         return axios.get(`/api/club/${clubSeq}/album/${albumSeq}`)
             .then(ResponseConverter.extractSuperInventionResponseData);
     },
 
-    getClubAlbumList({ clubSeq, requestParams }) {
-        return axios.get(`/api/club/${clubSeq}/album`, { params: requestParams })
+    getClubAlbumList({ clubSeq, pageRequest }: AlbumPageRequest): Promise<AlbumListResponse> {
+        return axios.get(`/api/club/${clubSeq}/album`, { params: pageRequest })
             .then(ResponseConverter.extractSuperInventionResponseData)
             .then(ResponseConverter.convertAlbumList);
     },
 
-    postClubAlbumCreate({ clubSeq, clubAlbumCreateDto }) {
-        return axios.post(`/api/club/${clubSeq}/album`, clubAlbumCreateDto);
+    postClubAlbumCreate({ clubSeq, title, image }: AlbumWriteRequest) {
+        return axios.post(`/api/club/${clubSeq}/album`, { title, image });
     },
 
-    postClubAlbumCommentWrite({ clubSeq, albumSeq, albumCommentWriteDto, parentCommentSeq }) {
-        return axios.post(`/api/club/${clubSeq}/album/${albumSeq}/comment`, albumCommentWriteDto, {
+    postClubAlbumCommentWrite({ albumSeqContext, content, parentCommentSeq }: AlbumCommentWriteRequest) {
+        const { clubSeq, albumSeq } = albumSeqContext;
+        return axios.post(`/api/club/${clubSeq}/album/${albumSeq}/comment`, { content }, {
             params: { parentCommentSeq },
         });
     },
 
-    getClubAlbumCommentList({ clubSeq, albumSeq, requestParams }) {
-        return axios.get(`/api/club/${clubSeq}/album/${albumSeq}/comment`, { params: requestParams })
+    getClubAlbumCommentList({ clubSeq, albumSeq, pageRequest }: AlbumCommentPageRequest): Promise<AlbumCommentListResponse> {
+        return axios.get(`/api/club/${clubSeq}/album/${albumSeq}/comment`, { params: pageRequest })
             .then(ResponseConverter.extractSuperInventionResponseData)
             .then(ResponseConverter.convertAlbumCommentList);
     },
 
-    getClubAlbumSubCommentList({ clubSeq, albumSeq, parentCommentSeq }) {
+    getClubAlbumSubCommentList({ clubSeq, albumSeq, parentCommentSeq }: AlbumSubCommentRequest) {
         return axios.get(`/api/club/${clubSeq}/album/${albumSeq}/comment/${parentCommentSeq}?depthLimit=2`)
             .then(ResponseConverter.extractSuperInventionResponseData);
     },
 
-    postLikeClubAlbum({ clubSeq, albumSeq }) {
+    postLikeClubAlbum({ clubSeq, albumSeq }: AlbumSeqContext) {
         return axios.post(`/api/club/${clubSeq}/album/${albumSeq}/like`)
             .then(ResponseConverter.extractSuperInventionResponseData);
     },
 
-    deleteLikeClubAlbum({ clubSeq, albumSeq }) {
+    deleteLikeClubAlbum({ clubSeq, albumSeq }: AlbumSeqContext) {
         return axios.delete(`/api/club/${clubSeq}/album/${albumSeq}/like`)
             .then(ResponseConverter.extractSuperInventionResponseData);
     },

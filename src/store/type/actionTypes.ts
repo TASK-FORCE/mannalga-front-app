@@ -35,3 +35,18 @@ export enum AuthActionTypes {
     REQUEST_KAKAO_TOKEN_BY_CODE = 'auth/requestKakaoTokenByCode',
     REQUEST_APP_TOKEN_BY_KAKAO_TOKEN = 'auth/requestAppTokenByKakaoToken',
 }
+
+
+export enum AlbumActionTypes {
+    REQUEST_ALBUM_CREATE = 'album/requestAlbumCreate',
+    REQUEST_ALBUM = 'album/requestAlbum',
+    REQUEST_FIRST_ALBUM_LIST = 'album/requestFirstAlbumList',
+    REQUEST_NEXT_ALBUM_LIST = 'album/requestNextAlbumList',
+    REQUEST_ALBUM_COMMENT_WRITE = 'album/requestAlbumCommentWrite',
+    REQUEST_FIRST_ALBUM_COMMENT_LIST = 'album/requestFirstAlbumCommentList',
+    REQUEST_NEXT_ALBUM_COMMENT_LIST = 'album/requestNextAlbumCommentList',
+    REQUEST_ALL_ALBUM_COMMENT_LIST_WITH_PAGING = 'album/requestAllAlbumCommentListWithPaging',
+    REQUEST_ALL_ALBUM_SUB_COMMENT_LIST = 'album/requestAllAlbumSubCommentList',
+    REQUEST_APPLY_LIKE_CLUB_ALBUM = 'album/requestApplyLikeClubAlbum',
+    REQUEST_DELETE_LIKE_CLUB_ALBUM = 'album/requestDeleteLikeClubAlbum',
+}

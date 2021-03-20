@@ -5,7 +5,7 @@ class BoardHelper {
     static async requestBoardList(clubSeq, pageDto, category) {
         const requestDto = {
             clubSeq,
-            requestParams: {
+            pageRequest: {
                 ...(RequestConverter.convertPage(pageDto)),
                 category,
             },

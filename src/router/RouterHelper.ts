@@ -2,10 +2,10 @@ import router from '@/router/index.ts';
 import { Dictionary } from 'vue-router/types/router';
 
 class RouterHelper {
-    clubSeq = () => getParams().clubSeq;
-    meetingSeq = () => getParams().meetingSeq;
-    boardSeq = () => getParams().boardSeq;
-    albumSeq = () => getParams().albumSeq;
+    clubSeq = (): number => parseInt(getParams().clubSeq, 10);
+    meetingSeq = (): number => parseInt(getParams().meetingSeq, 10);
+    boardSeq = (): number => parseInt(getParams().boardSeq, 10);
+    albumSeq = (): number => parseInt(getParams().albumSeq, 10);
 }
 
 const getParams = (): Dictionary<string> => router.currentRoute.params;

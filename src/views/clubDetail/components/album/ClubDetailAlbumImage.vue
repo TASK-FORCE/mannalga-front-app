@@ -51,14 +51,15 @@
 import ImageWithLoading from '@/components/image/ImageWithLoading.vue';
 import { generateParamPath, PATH } from '@/router/route_path_type.js';
 import routerHelper from '@/router/RouterHelper.ts';
-import Vue from 'vue';
+import Vue, { PropType } from 'vue';
+import { Album } from '@/interfaces/album';
 
 export default Vue.extend({
     name: 'ClubDetailAlbumImage',
     components: { ImageWithLoading },
     props: {
         album: {
-            type: Object,
+            type: Object as PropType<Album>,
             required: true,
         },
     },

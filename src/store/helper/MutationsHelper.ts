@@ -10,11 +10,6 @@ class MutationsHelper {
     initBoardCommentList = (payload?) => commit(MODULE.BOARD, 'initBoardCommentList', payload);
     countChildBoardCommentCnt = (payload?) => commit(MODULE.BOARD, 'countChildBoardCommentCnt', payload);
     countBoardCommentCnt = (payload?) => commit(MODULE.BOARD, 'countBoardCommentCnt', payload);
-
-    // album
-    initAlbumCommentList = (payload?) => commit(MODULE.ALBUM, 'initAlbumCommentList', payload);
-    countChildAlbumCommentCnt = (payload?) => commit(MODULE.ALBUM, 'countChildCommentCnt', payload);
-    countAlbumCommentCnt = (payload?) => commit(MODULE.ALBUM, 'countAlbumCommentCnt', payload);
 }
 
 // @ts-ignore

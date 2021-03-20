@@ -1,4 +1,6 @@
-export type MutationTypes = CommonMutationTypes | ClubMutationTypes | ClubListMutationTypes | UserMutationTypes | AuthMutationTypes
+export type MutationTypes =
+    CommonMutationTypes | ClubMutationTypes | ClubListMutationTypes |
+    UserMutationTypes | AuthMutationTypes | AlbumMutationTypes
 
 export enum CommonMutationTypes {
     CHANGE_LOADING = 'common/changeLoading',
@@ -42,4 +44,19 @@ export enum UserMutationTypes {
 export enum AuthMutationTypes {
     SET_APP_TOKEN = 'auth/setAppToken',
     REMOVE_APP_TOKEN = 'auth/removeAppToken',
+}
+
+
+export enum AlbumMutationTypes {
+    SET_ALBUM = 'album/setAlbum',
+    SET_ALBUM_LIST = 'album/setAlbumList',
+    ADD_NEXT_ALBUM_LIST = 'album/addNextAlbumList',
+    INIT_ALBUM_LIST = 'album/initAlbumList',
+    SET_ALBUM_COMMENT_LIST = 'album/setAlbumCommentList',
+    ADD_NEXT_ALBUM_COMMENT_LIST = 'album/addNextAlbumCommentList',
+    ADD_NEXT_ALBUM_COMMENT_LIST_WITH_CHECK_DUPLICATE = 'album/addNextAlbumCommentListWithCheckDuplicate',
+    INIT_ALBUM_COMMENT_LIST = 'album/initAlbumCommentList',
+    COUNT_CHILD_COMMENT_CNT = 'album/countChildCommentCnt',
+    CHANGE_ALBUM_LIKE = 'album/changeAlbumLike',
+    COUNT_ALBUM_COMMENT_CNT = 'album/countAlbumCommentCnt',
 }

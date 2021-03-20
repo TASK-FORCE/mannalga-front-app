@@ -4,7 +4,7 @@ import store from '@/store/index.ts';
 import { MODULE } from '@/store/type/type.js';
 import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
 import { ClubMutationTypes } from '@/store/type/mutationTypes';
-import { ClubActionTypes } from '@/store/type/actionTypes';
+import { AlbumActionTypes, ClubActionTypes } from '@/store/type/actionTypes';
 
 function dispatchClubInfoAndUserInfo(clubSeq: number) {
     return store.dispatch(ClubActionTypes.REQUEST_CLUB_INFO_AND_USER_INFO, clubSeq);
@@ -19,7 +19,7 @@ function dispatchClubBoards(clubSeq: number) {
 }
 
 function dispatchClubAlbums(clubSeq: number) {
-    return actionsHelper.requestFirstAlbumList(clubSeq);
+    return store.dispatch(AlbumActionTypes.REQUEST_FIRST_ALBUM_LIST, clubSeq)
 }
 
 class ClubDetailVuexService {

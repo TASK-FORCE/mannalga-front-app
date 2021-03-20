@@ -17,13 +17,6 @@ class GettersHelper {
     boardCommentList = () => getState(MODULE.BOARD, 'boardCommentList');
     boardCommentPage = () => getState(MODULE.BOARD, 'boardCommentPage');
 
-    // album module
-    album = () => getState(MODULE.ALBUM, 'album');
-    albumList = () => getState(MODULE.ALBUM, 'albumList');
-    albumPage = () => getState(MODULE.ALBUM, 'albumPage');
-    albumCommentList = () => getState(MODULE.ALBUM, 'albumCommentList');
-    albumCommentPage = () => getState(MODULE.ALBUM, 'albumCommentPage');
-
     // template module
     rootRegions = () => getState(MODULE.TEMPLATE, 'rootRegions');
     rootInterests = () => getState(MODULE.TEMPLATE, 'rootInterests');

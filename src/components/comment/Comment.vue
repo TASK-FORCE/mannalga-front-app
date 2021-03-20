@@ -144,12 +144,11 @@
 import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
 import VerticalBarDivider from '@/components/VerticalBarDivider.vue';
 import Chip from '@/components/chip/Chip.vue';
-import mutationsHelper from '@/store/helper/MutationsHelper.ts';
 import { MESSAGE } from '@/utils/common/constant/messages.ts';
 import routerHelper from '@/router/RouterHelper.ts';
 import _ from '@/utils/common/lodashWrapper.js';
 import { ScrollHelper } from '@/utils/scroll.ts';
-import { CommonMutationTypes } from '@/store/type/mutationTypes.ts';
+import { AlbumMutationTypes, CommonMutationTypes } from '@/store/type/mutationTypes.ts';
 import Vue from 'vue';
 
 function getHeightAppender(offsetHeight, hideFooter) {
@@ -268,7 +267,7 @@ export default Vue.extend({
             this.subCommentSubmitLoading = true;
             this.requestWriteSubComment(this.subCommentContent, this.commentSeq)
                 .then(() => {
-                    mutationsHelper.countChildAlbumCommentCnt(this.commentSeq);
+                    this.$store.commit(AlbumMutationTypes.COUNT_CHILD_COMMENT_CNT, this.commentSeq);
                     this.settingChildComment(false);
                     this.subCommentContent = null;
                     this.showChildComments = true;

@@ -1,9 +1,10 @@
 import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
 import { toCurrency } from '@/utils/common/commonUtils.js';
 import { AxiosResponse } from 'axios';
-import { Interest, Page, Region, ServerResponse, SuperInventionResponse } from '@/interfaces/common';
+import { Comment, Interest, Page, Region, ServerPageResponse, SuperInventionResponse } from '@/interfaces/common';
 import { ClubFeed, ClubListResponse, MyClubFeed, MyClubListResponse } from '@/interfaces/clubList';
 import { KakaoProfile, ServerKakaoProfileContext, UserInterestResponse, UserRegionsResponse } from '@/interfaces/user';
+import { AlbumCommentListResponse, AlbumFeed, AlbumListResponse } from '@/interfaces/album';
 
 /** ResponseConverter
  *  - 백엔드 서버에서 전달받은 response를 converting
@@ -33,14 +34,14 @@ export default class ResponseConverter {
         return profile;
     };
 
-    static convertClubList(data: ServerResponse<ClubFeed[]>): ClubListResponse {
+    static convertClubList(data: ServerPageResponse<ClubFeed[]>): ClubListResponse {
         return {
             clubList: data.content,
             clubPage: convertPage(data)
         };
     };
 
-    static convertMyClubList(data: ServerResponse<MyClubFeed[]>): MyClubListResponse {
+    static convertMyClubList(data: ServerPageResponse<MyClubFeed[]>): MyClubListResponse {
         return {
             myClubList: data.content,
             myClubPage: convertPage(data)
@@ -74,16 +75,18 @@ export default class ResponseConverter {
         return mapBoard(data);
     }
 
-    static convertAlbumList(data) {
-        const albumList = data.content;
-        const albumPage = convertPage(data);
-        return { albumList, albumPage };
+    static convertAlbumList(data: ServerPageResponse<AlbumFeed[]>): AlbumListResponse {
+        return {
+            albumList: data.content,
+            albumPage: convertPage(data),
+        };
     };
 
-    static convertAlbumCommentList(data) {
-        const albumCommentList = data.content;
-        const albumCommentPage = convertPage(data);
-        return { albumCommentList, albumCommentPage };
+    static convertAlbumCommentList(data: ServerPageResponse<Comment[]>): AlbumCommentListResponse {
+        return {
+            albumCommentList: data.content,
+            albumCommentPage: convertPage(data)
+        };
     };
 
     static convertBoardCommentList(data) {
@@ -101,7 +104,7 @@ export default class ResponseConverter {
     }
 }
 
-const convertPage = ({ pageable, last, size }: ServerResponse<any>): Page => {
+const convertPage = ({ pageable, last, size }: ServerPageResponse<any>): Page => {
     const currentPage = pageable.pageNumber;
     const nextPage = currentPage + 1;
     return {

@@ -25,19 +25,6 @@ class ActionsHelper {
     requestApplyLikeClubBoard = (payload): Promise<any> => dispatch(MODULE.BOARD, 'requestApplyLikeClubBoard', payload);
     requestDeleteLikeClubBoard = (payload): Promise<any> => dispatch(MODULE.BOARD, 'requestDeleteLikeClubBoard', payload);
 
-    // album module
-    requestAlbumCreate = (payload): Promise<any> => dispatch(MODULE.ALBUM, 'requestAlbumCreate', payload);
-    requestAlbum = (payload): Promise<any> => dispatch(MODULE.ALBUM, 'requestAlbum', payload);
-    requestFirstAlbumList = (payload): Promise<any> => dispatch(MODULE.ALBUM, 'requestFirstAlbumList', payload);
-    requestNextAlbumList = (payload): Promise<any> => dispatch(MODULE.ALBUM, 'requestNextAlbumList', payload);
-    requestAlbumCommentWrite = (payload): Promise<any> => dispatch(MODULE.ALBUM, 'requestAlbumCommentWrite', payload);
-    requestFirstAlbumCommentList = (payload): Promise<any> => dispatch(MODULE.ALBUM, 'requestFirstAlbumCommentList', payload);
-    requestNextAlbumCommentList = (payload): Promise<any> => dispatch(MODULE.ALBUM, 'requestNextAlbumCommentList', payload);
-    requestAllAlbumCommentListWithPaging = (payload): Promise<any> => dispatch(MODULE.ALBUM, 'requestAllAlbumCommentListWithPaging', payload);
-    requestAllAlbumSubCommentList = (payload): Promise<any> => dispatch(MODULE.ALBUM, 'requestAllAlbumSubCommentList', payload);
-    requestApplyLikeClubAlbum = (payload): Promise<any> => dispatch(MODULE.ALBUM, 'requestApplyLikeClubAlbum', payload);
-    requestDeleteLikeClubAlbum = (payload): Promise<any> => dispatch(MODULE.ALBUM, 'requestDeleteLikeClubAlbum', payload);
-
     // template module
     requestRegionTemplate = (payload): Promise<any> => dispatch(MODULE.TEMPLATE, 'requestRegionTemplate', payload);
     requestInterestTemplate = (payload): Promise<any> => dispatch(MODULE.TEMPLATE, 'requestInterestTemplate', payload);
