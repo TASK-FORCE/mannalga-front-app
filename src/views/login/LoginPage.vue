@@ -46,8 +46,8 @@
 </template>
 
 <script lang="ts">
-import { moveToKakaoLoginPage } from '@/utils/kakao/kakao.js';
-import { PATH } from '@/router/route_path_type.js';
+import { moveToKakaoLoginPage } from '@/utils/kakao/kakao.ts';
+import { PATH } from '@/router/route_path_type.ts';
 import { MESSAGE } from '@/utils/common/constant/messages.ts';
 import { CommonMutationTypes } from '@/store/type/mutationTypes.ts';
 import Vue from 'vue';

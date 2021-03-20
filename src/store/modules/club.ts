@@ -1,7 +1,7 @@
 import { actionsNormalTemplate } from '@/store/utils/actionsTemplate.ts';
 import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
 import clubApi from '@/apis/ClubApi.ts';
-import { CLUB_ROLE } from '@/utils/role.js';
+import { CLUB_ROLE } from '@/utils/role.ts';
 import { ClubListMutationTypes, ClubMutationTypes } from '@/store/type/mutationTypes';
 import { ClubActionContext } from '@/store/type/actionContextTypes';
 import {

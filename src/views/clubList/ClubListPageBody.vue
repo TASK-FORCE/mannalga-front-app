@@ -42,7 +42,7 @@ import MyClubList from '@/views/clubList/components/MyClubList.vue';
 import lastClubListTabCache from '@/utils/cache/LastClubListTabCache.ts';
 import FixedCreateBtn from '@/components/button/FixedCreateBtn.vue';
 import FixedScrollToTopBtn from '@/components/button/FixedScrollToTopBtn.vue';
-import { PATH } from '@/router/route_path_type.js';
+import { PATH } from '@/router/route_path_type.ts';
 import { ClubMutationTypes } from '@/store/type/mutationTypes.ts';
 import { ClubListPageTab } from '@/interfaces/club';
 import { ClubListActionTypes } from '@/store/type/actionTypes';

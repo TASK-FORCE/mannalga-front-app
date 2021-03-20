@@ -1,11 +1,11 @@
 import { actionsNormalTemplate } from '@/store/utils/actionsTemplate.ts';
 import commonApi from '@/apis/CommonApi.ts';
 import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
-import { changeThemeAndLoad, isDarkTheme } from '@/plugins/vuetify.js';
 import { CommonMutationTypes } from '@/store/type/mutationTypes';
 import { CommonActionContext } from '@/store/type/actionContextTypes';
 import { SnackBarOption, UploadImageResponse } from '@/interfaces/common';
 import { CommonActionTypes } from '@/store/type/actionTypes';
+import { changeThemeAndLoad, isDarkTheme } from '@/utils/theme';
 
 export const state = {
     loading: false as boolean,

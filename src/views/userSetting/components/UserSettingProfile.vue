@@ -59,8 +59,8 @@
 import Vue, { PropType } from 'vue';
 import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
 import ImageSelectorWithConfirm from '@/components/image/ImageSelectorWithConfirm.vue';
-import _ from '@/utils/common/lodashWrapper.js';
-import { PATH } from '@/router/route_path_type.js';
+import _ from '@/utils/common/lodashWrapper.ts';
+import { PATH } from '@/router/route_path_type.ts';
 import SettingBar from '@/components/SettingBar.vue';
 import { UploadImageResponse } from '@/interfaces/common';
 import { UserProfile } from '@/interfaces/user';

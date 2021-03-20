@@ -38,7 +38,7 @@ import Vue, { PropType } from 'vue';
 import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
 import SquareTag from '@/components/tag/SquareTag.vue';
 import RoleTag from '@/components/tag/RoleTag.vue';
-import { CLUB_ROLE } from '@/utils/role.js';
+import { CLUB_ROLE } from '@/utils/role.ts';
 import { CurrentUserInfo } from '@/interfaces/club';
 
 export default Vue.extend({

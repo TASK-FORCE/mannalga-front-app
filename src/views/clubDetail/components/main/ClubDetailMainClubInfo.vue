@@ -49,7 +49,6 @@
 
 <script lang="ts">
 import Vue, { PropType } from 'vue';
-import _ from '@/utils/common/lodashWrapper.js';
 import ImageSelectorWithConfirm from '@/components/image/ImageSelectorWithConfirm.vue';
 import SnackBar from '@/components/SnackBar.vue';
 import WindMill from '@/components/icons/WindMill.vue';
@@ -58,6 +57,7 @@ import { MESSAGE } from '@/utils/common/constant/messages.ts';
 import { SnackBarLocation, SnackBarOption } from '../../../../interfaces/common';
 import { ClubInfo, ClubWriteRequest, CurrentUserInfo } from '@/interfaces/club';
 import { ClubActionTypes } from '@/store/type/actionTypes';
+import _ from '@/utils/common/lodashWrapper';
 
 const CHANGE_IMAGE_COOL_TIME_MINUTE = 6 * 60;
 const toMillisecond = (minute) => minute * 60 * 1000;

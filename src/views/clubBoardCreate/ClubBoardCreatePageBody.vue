@@ -62,13 +62,14 @@
 import Vue from 'vue';
 import ImageSelectBox from '@/components/image/ImageSelectBox.vue';
 import CommonCenterBtn from '@/components/button/CommonCenterBtn.vue';
-import actionsHelper from '@/store/helper/ActionsHelper.ts';
-import { generateParamPath, PATH } from '@/router/route_path_type.js';
+import { generateParamPath, PATH } from '@/router/route_path_type.ts';
 import { RULES } from '@/utils/common/constant/rules.ts';
-import { BoardUtils } from '@/utils/board.js';
 import routerHelper from '@/router/RouterHelper.ts';
 import { UploadImageResponse } from '@/interfaces/common';
 import { CurrentUserInfo } from '@/interfaces/club';
+import { BoardActionTypes } from '@/store/type/actionTypes';
+import { BoardCategory } from '@/interfaces/board/BoardCategory';
+import { BoardCreateRequestWishSeq } from '@/interfaces/board/board';
 
 export default Vue.extend({
     name: 'ClubBoardCreateBox',
@@ -82,7 +83,9 @@ export default Vue.extend({
             title: null,
             content: null,
             category: null,
-            selectedImages: {},
+            selectedImages: {} as {
+                [index: number]: UploadImageResponse
+            },
         };
     },
     computed: {
@@ -100,7 +103,7 @@ export default Vue.extend({
             return `${window.innerHeight / 3}`;
         },
         boardCategoryNames() {
-            return BoardUtils.findCategoryByCurrentUserInfo(this.currentUserInfo);
+            return BoardCategory.findCategoryNamesByCurrentUserInfo(this.currentUserInfo);
         },
     },
     methods: {
@@ -109,16 +112,19 @@ export default Vue.extend({
         },
         createClubBoard() {
             if (this.$refs.clubBoardCreateForm.validate()) {
-                const clubBoardDto = {
-                    title: this.title,
-                    content: this.content,
-                    category: BoardUtils.findCategoryTypeByName(this.category),
-                    imgList: Object.values(this.selectedImages),
-                };
                 this.loading = true;
-                actionsHelper.requestClubBoardCreate({ clubSeq: this.clubSeq, clubBoardDto })
+                const boardCreateRequestWishSeq: BoardCreateRequestWishSeq = {
+                    clubSeq: this.clubSeq,
+                    boardCreateRequest: {
+                        title: this.title,
+                        content: this.content,
+                        category: BoardCategory.findCategoryTypeByName(this.category),
+                        imgList: Object.values(this.selectedImages),
+                    }
+                };
+                this.$store.dispatch(BoardActionTypes.REQUEST_CLUB_BOARD_CREATE, boardCreateRequestWishSeq)
                     .then(() => {
-                        actionsHelper.requestFirstBoardList(this.clubSeq);
+                        this.$store.dispatch(BoardActionTypes.REQUEST_FIRST_BOARD_LIST, { clubSeq: this.clubSeq });
                         this.$router.push(generateParamPath(PATH.CLUB.MAIN, [this.clubSeq]));
                     })
                     .finally(() => this.loading = false);

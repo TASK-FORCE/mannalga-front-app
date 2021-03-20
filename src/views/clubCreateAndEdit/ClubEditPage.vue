@@ -17,7 +17,7 @@ import Vue from 'vue';
 
 import CommonHeader from '@/components/header/CommonHeader.vue';
 import ClubCreateAndEditBody from '@/views/clubCreateAndEdit/ClubCreateAndEditBody.vue';
-import { generateParamPath, PATH } from '@/router/route_path_type.js';
+import { generateParamPath, PATH } from '@/router/route_path_type.ts';
 import { ClubInfo, ClubWriteRequest, ClubWriteRequestWithSeq } from '@/interfaces/club.ts';
 import { ClubActionTypes } from '@/store/type/actionTypes';
 

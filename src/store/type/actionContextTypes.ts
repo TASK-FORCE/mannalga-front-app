@@ -6,6 +6,7 @@ import { ClubListState } from '@/store/modules/clubList';
 import { UserState } from '@/store/modules/user';
 import { AuthState } from '@/store/modules/auth';
 import { AlbumState } from '@/store/modules/album';
+import { BoardState } from '@/store/modules/board';
 
 export type CommonActionContext = {
     commit<K extends keyof MergedMutations, P extends Parameters<MergedMutations[K]>[1]>(
@@ -84,3 +85,16 @@ export type AlbumActionContext = {
         options?: DispatchOptions
     ): ReturnType<MergedActions[K]>;
 } & Omit<ActionContext<AlbumState, RootState>, 'commit' | 'dispatch'>
+
+export type BoardActionContext = {
+    commit<K extends keyof MergedMutations, P extends Parameters<MergedMutations[K]>[1]>(
+        key: K,
+        payload?: P,
+        options?: CommitOptions
+    ): ReturnType<MergedMutations[K]>;
+    dispatch<K extends keyof MergedActions>(
+        key: K,
+        payload?: Parameters<MergedActions[K]>[1],
+        options?: DispatchOptions
+    ): ReturnType<MergedActions[K]>;
+} & Omit<ActionContext<BoardState, RootState>, 'commit' | 'dispatch'>

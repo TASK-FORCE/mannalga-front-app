@@ -7,7 +7,7 @@
 
 <script lang="ts">
 import SquareTag from '@/components/tag/SquareTag.vue';
-import { CLUB_ROLE } from '@/utils/role.js';
+import { CLUB_ROLE } from '@/utils/role.ts';
 import Vue from 'vue';
 
 const ROLES = [

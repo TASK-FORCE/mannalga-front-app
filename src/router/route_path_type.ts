@@ -1,4 +1,4 @@
-import _ from '@/utils/common/lodashWrapper.js';
+import _ from '@/utils/common/lodashWrapper.ts';
 
 export const PATH = {
     LOGIN: '/login',
@@ -32,12 +32,12 @@ export const PATH = {
 };
 
 // route 계층 구조 이용시 child route path를 정의하기 위해 필요
-export const getChildRoutePath = (path) => {
+export const getChildRoutePath = (path): string => {
     const split = path.split('/');
     return split[split.length - 1];
 };
 
-export const generateParamPath = (path, params) => {
+export const generateParamPath = (path, params): string => {
     if (!Array.isArray(params)) {
         // eslint-disable-next-line no-param-reassign
         params = [params];

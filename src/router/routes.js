@@ -1,5 +1,5 @@
 import store from '@/store';
-import { getChildRoutePath, PATH } from '@/router/route_path_type.js';
+import { getChildRoutePath, PATH } from '@/router/route_path_type.ts';
 
 function validationAuthentication(to, from, next) {
     if (store.getters.hasToken) {

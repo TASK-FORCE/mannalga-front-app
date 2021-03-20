@@ -104,13 +104,13 @@ import MeetingTimeRange from '@/components/meeting/MeetingTimeRange.vue';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import actionsHelper from '@/store/helper/ActionsHelper.ts';
 import routerHelper from '@/router/RouterHelper.ts';
-import { isDarkTheme } from '@/plugins/vuetify.js';
 import MiddleDivider from '@/components/MiddleDivider.vue';
 import SimpleUserProfileList from '@/components/user/SimpleUserProfileList.vue';
 import { MESSAGE } from '@/utils/common/constant/messages.ts';
-import { generateParamPath, PATH } from '@/router/route_path_type.js';
+import { generateParamPath, PATH } from '@/router/route_path_type.ts';
 import { CommonMutationTypes } from '@/store/type/mutationTypes.ts';
 import Vue from 'vue';
+import { isDarkTheme } from '@/utils/theme';
 
 export default Vue.extend({
     name: 'ClubMeetingPostBody',

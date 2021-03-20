@@ -1,5 +1,5 @@
-import _ from '@/utils/common/lodashWrapper.js';
-import { isNumeric } from '@/utils/common/commonUtils.js';
+import _ from '@/utils/common/lodashWrapper.ts';
+import { isNumeric } from '@/utils/common/commonUtils.ts';
 
 export type Rule = (value: any) => boolean | string
 export type Rules = {

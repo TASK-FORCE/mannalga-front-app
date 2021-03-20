@@ -30,7 +30,7 @@
 
 <script lang="ts">
 import axios from 'axios';
-import { PATH } from '@/router/route_path_type.js';
+import { PATH } from '@/router/route_path_type.ts';
 import { AuthMutationTypes, CommonMutationTypes } from '@/store/type/mutationTypes.ts';
 import Vue from 'vue';
 

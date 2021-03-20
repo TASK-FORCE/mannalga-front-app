@@ -45,7 +45,7 @@ import ClubDetailMainMember from '@/views/clubDetail/components/main/ClubDetailM
 import MiddleDivider from '@/components/MiddleDivider.vue';
 import YesOrNoDialog from '@/components/YesOrNoDialog.vue';
 import routerHelper from '@/router/RouterHelper.ts';
-import { generateParamPath, PATH } from '@/router/route_path_type.js';
+import { generateParamPath, PATH } from '@/router/route_path_type.ts';
 import { CommonMutationTypes } from '@/store/type/mutationTypes.ts';
 import { MESSAGE } from '@/utils/common/constant/messages.ts';
 import { ClubInfo, ClubUserInfo, CurrentUserInfo } from '../../../../interfaces/club';

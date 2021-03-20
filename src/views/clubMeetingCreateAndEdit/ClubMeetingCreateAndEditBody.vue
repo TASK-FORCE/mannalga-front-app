@@ -81,7 +81,7 @@
 import CommonCenterBtn from '@/components/button/CommonCenterBtn.vue';
 import DateTimePicker from '@/components/DateTimePicker.vue';
 import moment from 'moment';
-import { toCurrency } from '@/utils/common/commonUtils.js';
+import { toCurrency } from '@/utils/common/commonUtils.ts';
 import { RULES } from '@/utils/common/constant/rules.ts';
 import Vue from 'vue';
 

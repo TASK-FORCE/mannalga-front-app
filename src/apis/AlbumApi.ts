@@ -11,6 +11,7 @@ import {
     AlbumSubCommentRequest,
     AlbumWriteRequest
 } from '@/interfaces/album';
+import { Comment } from '@/interfaces/common';
 
 const albumApi = {
     getClubAlbum({ clubSeq, albumSeq }): Promise<Album> {
@@ -28,8 +29,7 @@ const albumApi = {
         return axios.post(`/api/club/${clubSeq}/album`, { title, image });
     },
 
-    postClubAlbumCommentWrite({ albumSeqContext, content, parentCommentSeq }: AlbumCommentWriteRequest) {
-        const { clubSeq, albumSeq } = albumSeqContext;
+    postClubAlbumCommentWrite({ albumSeqContext: { clubSeq, albumSeq }, content, parentCommentSeq }: AlbumCommentWriteRequest) {
         return axios.post(`/api/club/${clubSeq}/album/${albumSeq}/comment`, { content }, {
             params: { parentCommentSeq },
         });
@@ -41,7 +41,7 @@ const albumApi = {
             .then(ResponseConverter.convertAlbumCommentList);
     },
 
-    getClubAlbumSubCommentList({ clubSeq, albumSeq, parentCommentSeq }: AlbumSubCommentRequest) {
+    getClubAlbumSubCommentList({ clubSeq, albumSeq, parentCommentSeq }: AlbumSubCommentRequest): Promise<Comment[]> {
         return axios.get(`/api/club/${clubSeq}/album/${albumSeq}/comment/${parentCommentSeq}?depthLimit=2`)
             .then(ResponseConverter.extractSuperInventionResponseData);
     },

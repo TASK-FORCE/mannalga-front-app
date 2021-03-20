@@ -97,7 +97,7 @@
 <script lang="ts">
 
 import routerHelper from '@/router/RouterHelper.ts';
-import { generateParamPath, PATH } from '@/router/route_path_type.js';
+import { generateParamPath, PATH } from '@/router/route_path_type.ts';
 import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
 import TextAvatar from '@/components/user/TextAvatar.vue';
 import Vue from 'vue';

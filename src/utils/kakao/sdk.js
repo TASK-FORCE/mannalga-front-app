@@ -2610,7 +2610,7 @@ return r;
                 return createEasyXDM();
             } catch (ex) {
                 if (ex instanceof TypeError) {
-                    throw new KakaoError('kakao.js should be loaded from a web server');
+                    throw new KakaoError('kakao.ts should be loaded from a web server');
                 } else {
                     throw new KakaoError('EasyXDM -' + ex.message);
                 }

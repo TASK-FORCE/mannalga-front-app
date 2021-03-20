@@ -50,3 +50,17 @@ export enum AlbumActionTypes {
     REQUEST_APPLY_LIKE_CLUB_ALBUM = 'album/requestApplyLikeClubAlbum',
     REQUEST_DELETE_LIKE_CLUB_ALBUM = 'album/requestDeleteLikeClubAlbum',
 }
+
+export enum BoardActionTypes {
+    REQUEST_CLUB_BOARD_CREATE = 'board/requestClubBoardCreate',
+    REQUEST_FIRST_BOARD_LIST = 'board/requestFirstBoardList',
+    REQUEST_NEXT_BOARD_LIST = 'board/requestNextBoardList',
+    REQUEST_BOARD = 'board/requestBoard',
+    REQUEST_FIRST_BOARD_COMMENT_LIST = 'board/requestFirstBoardCommentList',
+    REQUEST_NEXT_BOARD_COMMENT_LIST = 'board/requestNextBoardCommentList',
+    REQUEST_ALL_BOARD_COMMENT_LIST_WITH_PAGING = 'board/requestAllBoardCommentListWithPaging',
+    REQUEST_BOARD_COMMENT_WRITE = 'board/requestBoardCommentWrite',
+    REQUEST_ALL_BOARD_SUB_COMMENT_LIST = 'board/requestAllBoardSubCommentList',
+    REQUEST_APPLY_LIKE_CLUB_BOARD = 'board/requestApplyLikeClubBoard',
+    REQUEST_DELETE_LIKE_CLUB_BOARD = 'board/requestDeleteLikeClubBoard',
+}

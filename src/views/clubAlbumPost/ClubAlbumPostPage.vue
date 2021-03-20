@@ -11,7 +11,7 @@
 <script lang="ts">
 import CommonHeader from '@/components/header/CommonHeader.vue';
 import ClubAlbumPostBody from '@/views/clubAlbumPost/ClubAlbumPostBody.vue';
-import { generateParamPath, PATH } from '@/router/route_path_type.js';
+import { generateParamPath, PATH } from '@/router/route_path_type.ts';
 import routerHelper from '@/router/RouterHelper.ts';
 import Vue from 'vue';
 

@@ -1,13 +1,13 @@
-import axios from 'axios';
 import authApi from '@/apis/AuthApi.ts';
-import { AuthUtils } from '@/utils/auth.js';
-import _ from '@/utils/common/lodashWrapper.js';
+import { AuthUtils } from '@/utils/auth.ts';
+import _ from '@/utils/common/lodashWrapper.ts';
 import { actionsNormalTemplate } from '@/store/utils/actionsTemplate.ts';
 import RequestConverter from '@/apis/converter/RequestConverter.ts';
 import { AuthMutationTypes } from '@/store/type/mutationTypes';
 import { AuthActionTypes } from '@/store/type/actionTypes';
 import { AuthActionContext } from '@/store/type/actionContextTypes';
 import { KakaoTokenResponse } from '@/interfaces/auth';
+import { AxiosUtils } from '@/utils/axios';
 
 export const state = {
     appToken: AuthUtils.getAppToken() as string,
@@ -16,7 +16,7 @@ export type AuthState = typeof state;
 
 export const getters = {
     hasToken(state): boolean {
-        return _.isNotEmpty(state.appToken);
+        return !_.isEmpty(state.appToken);
     },
 };
 
@@ -26,7 +26,7 @@ export const mutations = {
     [AuthMutationTypes.SET_APP_TOKEN](state: AuthState, appToken: string) {
         state.appToken = appToken;
         AuthUtils.saveAppTokenToLocalStorage(appToken);
-        AuthUtils.setAppTokenAsDefaultHeader(axios.defaults.headers);
+        AxiosUtils.setAppTokenAsDefaultHeader();
     },
     [AuthMutationTypes.REMOVE_APP_TOKEN](state: AuthState) {
         state.appToken = '';

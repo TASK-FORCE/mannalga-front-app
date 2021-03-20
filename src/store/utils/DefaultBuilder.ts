@@ -3,6 +3,7 @@ import { ClubDetailContext, ClubInfo, ClubUserInfo, CurrentUserInfo } from '@/in
 import { ClubSearchContext } from '@/interfaces/clubList';
 import { KakaoProfile, UserProfile } from '@/interfaces/user';
 import { Album } from '@/interfaces/album';
+import { Board, BoardCategoryType } from '@/interfaces/board/board';
 
 class DefaultBuilder {
     static snackbarOption(): SnackBarOption {
@@ -118,6 +119,22 @@ class DefaultBuilder {
         }
     }
 
+    static board(): Board {
+        return {
+            boardSeq: 0,
+            category: BoardCategoryType.NORMAL,
+            commentCnt: 0,
+            content: '',
+            createdAt: '',
+            imageList: [],
+            isLiked: false,
+            likeCnt: 0,
+            title: '',
+            updatedAt: '',
+            writer: this.writer(),
+        }
+    }
+
     static writer(): Writer {
         return {
             writerUserSeq: 0,
@@ -127,22 +144,6 @@ class DefaultBuilder {
             role: [],
         }
     }
-
-    static buildBoard = () => ({
-        seq: 0,
-        category: '',
-        commentCnt: 0,
-        createAt: '',
-        likeCnt: 0,
-        mainImageUrl: '',
-        content: '',
-        imageList: [],
-        title: '',
-        writerImage: '',
-        writerName: '',
-        writerRole: '',
-        writerSeq: [],
-    });
 }
 
 export default DefaultBuilder;

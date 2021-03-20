@@ -12,7 +12,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
-import { PATH } from '@/router/route_path_type.js';
+import { PATH } from '@/router/route_path_type.ts';
 import { UserProfile } from '@/interfaces/user';
 import { UserActionTypes } from '@/store/type/actionTypes';
 

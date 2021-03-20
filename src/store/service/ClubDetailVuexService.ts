@@ -3,24 +3,8 @@ import actionsHelper from '@/store/helper/ActionsHelper.ts';
 import store from '@/store/index.ts';
 import { MODULE } from '@/store/type/type.js';
 import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
-import { ClubMutationTypes } from '@/store/type/mutationTypes';
-import { AlbumActionTypes, ClubActionTypes } from '@/store/type/actionTypes';
-
-function dispatchClubInfoAndUserInfo(clubSeq: number) {
-    return store.dispatch(ClubActionTypes.REQUEST_CLUB_INFO_AND_USER_INFO, clubSeq);
-}
-
-function dispatchClubMeetings(clubSeq: number) {
-    return actionsHelper.requestFirstMeetingGroupList(clubSeq);
-}
-
-function dispatchClubBoards(clubSeq: number) {
-    return actionsHelper.requestFirstBoardList({ clubSeq });
-}
-
-function dispatchClubAlbums(clubSeq: number) {
-    return store.dispatch(AlbumActionTypes.REQUEST_FIRST_ALBUM_LIST, clubSeq)
-}
+import { AlbumMutationTypes, BoardMutationTypes, ClubMutationTypes } from '@/store/type/mutationTypes';
+import { AlbumActionTypes, BoardActionTypes, ClubActionTypes } from '@/store/type/actionTypes';
 
 class ClubDetailVuexService {
 
@@ -37,10 +21,10 @@ class ClubDetailVuexService {
         try {
             this.dispatching = true;
             const promiseList = [
-                dispatchClubInfoAndUserInfo(clubSeq),
-                dispatchClubMeetings(clubSeq),
-                dispatchClubBoards(clubSeq),
-                dispatchClubAlbums(clubSeq),
+                this.dispatchClubInfoAndUserInfo(clubSeq),
+                this.dispatchClubMeetings(clubSeq),
+                this.dispatchClubBoards(clubSeq),
+                this.dispatchClubAlbums(clubSeq),
             ];
             await RequestHelper.dispatchAll(withLoading, routePathWhenFail, promiseList);
         } finally {
@@ -48,13 +32,31 @@ class ClubDetailVuexService {
         }
     }
 
-    reset() {
+    private dispatchClubInfoAndUserInfo(clubSeq: number) {
+        return store.dispatch(ClubActionTypes.REQUEST_CLUB_INFO_AND_USER_INFO, clubSeq);
+    }
 
+    private dispatchClubMeetings(clubSeq: number) {
+        return actionsHelper.requestFirstMeetingGroupList(clubSeq);
+    }
+
+    private dispatchClubBoards(clubSeq: number) {
+        return store.dispatch(BoardActionTypes.REQUEST_FIRST_BOARD_LIST, { clubSeq });
+    }
+
+    private dispatchClubAlbums(clubSeq: number) {
+        return store.dispatch(AlbumActionTypes.REQUEST_FIRST_ALBUM_LIST, clubSeq)
+    }
+
+    public reset() {
         store.commit(ClubMutationTypes.SET_CLUB_DETAIL_CONTEXT, DefaultBuilder.clubDetailContext());
         store.commit(`${MODULE.MEETING}/initMeetingGroupList`);
-        store.commit(`${MODULE.ALBUM}/initAlbumList`);
+        store.commit(AlbumMutationTypes.INIT_ALBUM_LIST);
+        store.commit(BoardMutationTypes.INIT_BOARD_LIST);
     }
 }
 
 const clubDetailVuexService = new ClubDetailVuexService();
 export default clubDetailVuexService;
+
+

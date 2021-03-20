@@ -79,7 +79,7 @@ import Vue from 'vue';
 import BottomSheetRegionCard from '@/components/bottom-sheet/BottomSheetRegionCard.vue';
 import BottomSheetInterestCard from '@/components/bottom-sheet/BottomSheetInterestCard.vue';
 import ClubListSearchFilterBtn from '@/views/clubList/components/ClubListSearchFilterBtn.vue';
-import { PATH } from '@/router/route_path_type.js';
+import { PATH } from '@/router/route_path_type.ts';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.js';
 import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';

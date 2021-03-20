@@ -16,8 +16,8 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { PATH } from '@/router/route_path_type.js';
-import _ from '@/utils/common/lodashWrapper.js';
+import { PATH } from '@/router/route_path_type.ts';
+import _ from '@/utils/common/lodashWrapper.ts';
 import UserSettingPageEnterAvatar from '@/components/UserSettingPageEnterAvatar.vue';
 import { ClubListMutationTypes, ClubMutationTypes, CommonMutationTypes } from '@/store/type/mutationTypes.ts';
 import { ClubSearchContext } from '@/interfaces/clubList';

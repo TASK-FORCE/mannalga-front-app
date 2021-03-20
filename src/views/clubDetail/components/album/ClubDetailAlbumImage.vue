@@ -49,7 +49,7 @@
 
 <script lang="ts">
 import ImageWithLoading from '@/components/image/ImageWithLoading.vue';
-import { generateParamPath, PATH } from '@/router/route_path_type.js';
+import { generateParamPath, PATH } from '@/router/route_path_type.ts';
 import routerHelper from '@/router/RouterHelper.ts';
 import Vue, { PropType } from 'vue';
 import { Album } from '@/interfaces/album';

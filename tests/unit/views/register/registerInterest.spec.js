@@ -3,7 +3,7 @@ import Vuex from 'vuex';
 import sinon from 'sinon';
 import { expect } from 'chai';
 import RegisterInterestNestedPage from '@/views/register/RegisterInterestNestedPage.vue';
-import { PATH } from '@/router/route_path_type.js';
+import { PATH } from '@/router/route_path_type.ts';
 import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
 import { testUtils } from '../../../utils/testUtils.js';
 

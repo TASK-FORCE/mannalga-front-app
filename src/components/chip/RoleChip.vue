@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts">
-import { CLUB_ROLE } from '@/utils/role.js';
+import { CLUB_ROLE } from '@/utils/role.ts';
 import Chip from '@/components/chip/Chip.vue';
 import Vue from 'vue';
 

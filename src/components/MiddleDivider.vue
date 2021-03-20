@@ -6,8 +6,8 @@
 </template>
 
 <script lang="ts">
-import { isDarkTheme } from '@/plugins/vuetify.js';
 import Vue from 'vue';
+import { isDarkTheme } from '@/utils/theme';
 
 export default Vue.extend({
     name: 'MiddleDivider',

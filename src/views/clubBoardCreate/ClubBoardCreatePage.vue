@@ -11,7 +11,7 @@
 
 import CommonHeader from '@/components/header/CommonHeader.vue';
 import ClubBoardCreatePageBody from '@/views/clubBoardCreate/ClubBoardCreatePageBody.vue';
-import { generateParamPath, PATH } from '@/router/route_path_type.js';
+import { generateParamPath, PATH } from '@/router/route_path_type.ts';
 import Vue from 'vue';
 
 export default Vue.extend({

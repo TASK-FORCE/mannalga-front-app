@@ -60,3 +60,18 @@ export enum AlbumMutationTypes {
     CHANGE_ALBUM_LIKE = 'album/changeAlbumLike',
     COUNT_ALBUM_COMMENT_CNT = 'album/countAlbumCommentCnt',
 }
+
+export enum BoardMutationTypes {
+    SET_BOARD_LIST = 'board/setBoardList',
+    SET_ONLY_BOARD_LIST = 'board/setOnlyBoardList',
+    ADD_NEXT_BOARD_LIST = 'board/addNextBoardList',
+    INIT_BOARD_LIST = 'board/initBoardList',
+    SET_BOARD = 'board/setBoard',
+    SET_BOARD_COMMENT_LIST = 'board/setBoardCommentList',
+    ADD_NEXT_BOARD_COMMENT_LIST = 'board/addNextBoardCommentList',
+    ADD_NEXT_BOARD_COMMENT_LIST_WITH_CHECK_DUPLICATE = 'board/addNextBoardCommentListWithCheckDuplicate',
+    INIT_BOARD_COMMENT_LIST = 'board/initBoardCommentList',
+    COUNT_COMMENT_CNT_OF_BOARD = 'board/countCommentCntOfBoard',
+    COUNT_COMMENT_CNT_OF_PARENT_COMMENT = 'board/countCommentCntOfParentComment',
+    CHANGE_BOARD_LIKE = 'board/changeBoardLike',
+}

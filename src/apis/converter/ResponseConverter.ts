@@ -1,10 +1,11 @@
 import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
-import { toCurrency } from '@/utils/common/commonUtils.js';
+import { toCurrency } from '@/utils/common/commonUtils.ts';
 import { AxiosResponse } from 'axios';
 import { Comment, Interest, Page, Region, ServerPageResponse, SuperInventionResponse } from '@/interfaces/common';
 import { ClubFeed, ClubListResponse, MyClubFeed, MyClubListResponse } from '@/interfaces/clubList';
 import { KakaoProfile, ServerKakaoProfileContext, UserInterestResponse, UserRegionsResponse } from '@/interfaces/user';
 import { AlbumCommentListResponse, AlbumFeed, AlbumListResponse } from '@/interfaces/album';
+import { BoardCommentListResponse, BoardFeed, BoardListResponse } from '@/interfaces/board/board';
 
 /** ResponseConverter
  *  - 백엔드 서버에서 전달받은 response를 converting
@@ -65,15 +66,12 @@ export default class ResponseConverter {
         return mapMeetingApplicationStatus(data);
     }
 
-    static convertBoardList(data) {
-        const boardList = data.content.map(mapBoard);
-        const boardPage = convertPage(data);
-        return { boardList, boardPage };
+    static convertBoardList(data: ServerPageResponse<BoardFeed[]>): BoardListResponse {
+        return {
+            boardList: data.content,
+            boardPage: convertPage(data),
+        };
     };
-
-    static convertBoard(data) {
-        return mapBoard(data);
-    }
 
     static convertAlbumList(data: ServerPageResponse<AlbumFeed[]>): AlbumListResponse {
         return {
@@ -89,10 +87,11 @@ export default class ResponseConverter {
         };
     };
 
-    static convertBoardCommentList(data) {
-        const boardCommentList = data.content;
-        const boardCommentPage = convertPage(data);
-        return { boardCommentList, boardCommentPage };
+    static convertBoardCommentList(data: ServerPageResponse<Comment[]>): BoardCommentListResponse {
+        return {
+            boardCommentList: data.content,
+            boardCommentPage: convertPage(data)
+        };
     };
 
     static convertUserRegions({ userRegions }: UserRegionsResponse): Region[] {
@@ -135,25 +134,6 @@ const mapMeeting = (meeting) => ({
     cost: toCurrency(meeting.cost),
     region: meeting.region,
     ...mapMeetingApplicationStatus(meeting),
-});
-
-const mapBoard = (board) => ({
-    seq: board.boardSeq,
-    category: board.category,
-    commentCnt: board.commentCnt,
-    createAt: board.createAt && board.createAt.substring(0, 16),
-    createdAt: board.createdAt && board.createdAt.substring(0, 16),
-    likeCnt: board.likeCnt,
-    isLiked: board.isLiked,
-    mainImageUrl: board.mainImageUrl,
-    simpleContent: board.simpleContent,
-    content: board.content,
-    imageList: board.imageList,
-    title: board.title,
-    writerImage: board.writer.imgUrl,
-    writerName: board.writer.name,
-    writerRole: board.writer.role[0],
-    writerSeq: board.writer.writerUserSeq,
 });
 
 const mapMeetingApplicationStatus = (dto) => {

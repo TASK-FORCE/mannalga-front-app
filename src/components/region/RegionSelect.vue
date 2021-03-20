@@ -65,7 +65,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { PATH } from '@/router/route_path_type.js';
+import { PATH } from '@/router/route_path_type.ts';
 import BottomSheetRegionCard from '@/components/bottom-sheet/BottomSheetRegionCard.vue';
 import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.js';
 import CommonHeader from '@/components/header/CommonHeader.vue';

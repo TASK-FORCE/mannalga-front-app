@@ -1,10 +1,10 @@
-import _ from '@/utils/common/lodashWrapper.js';
+import _ from '@/utils/common/lodashWrapper.ts';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import RequestHelper from '@/store/service/helper/RequestHelper.js';
 import actionsHelper from '@/store/helper/ActionsHelper.ts';
 
 function isCached() {
-    return _.isNotEmpty(gettersHelper.rootRegions()) && _.isNotEmpty(gettersHelper.rootInterests());
+    return !_.isEmpty(gettersHelper.rootRegions()) && !_.isEmpty(gettersHelper.rootInterests());
 }
 
 function dispatchRegions() {

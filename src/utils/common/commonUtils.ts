@@ -1,12 +1,12 @@
 const numericReg = /^[+-]?\d+$/;
 
-function isNumeric(value) {
+export function isNumeric(value: any): boolean {
     return numericReg.test(value);
 }
 
 const currencyReg = /(^[+-]?\d+)(\d{3})/;
 
-function toCurrency(value) {
+export function toCurrency(value: any): string {
     if (isNumeric(value)) {
         let currencyValue = value.toString();
         while (currencyReg.test(currencyValue)) {
@@ -17,16 +17,10 @@ function toCurrency(value) {
     return value;
 }
 
-function createClubMaximumNumberList(min, max, step) {
+export function createClubMaximumNumberList(min: number, max: number, step: number): number[] {
     const maximumNumberList = [min];
     for (let maximumNumber = min; maximumNumber <= max; maximumNumber += step) {
         maximumNumberList.push(maximumNumber);
     }
     return maximumNumberList;
 }
-
-export {
-    isNumeric,
-    toCurrency,
-    createClubMaximumNumberList,
-};

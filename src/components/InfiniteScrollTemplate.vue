@@ -39,7 +39,7 @@
 </template>
 
 <script lang="ts">
-import _ from '@/utils/common/lodashWrapper.js';
+import _ from '@/utils/common/lodashWrapper.ts';
 import Vue from 'vue';
 
 export default Vue.extend({

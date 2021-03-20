@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts">
-import _ from '@/utils/common/lodashWrapper.js';
+import _ from '@/utils/common/lodashWrapper.ts';
 import { ScrollHelper } from '@/utils/scroll.ts';
 import Vue from 'vue';
 

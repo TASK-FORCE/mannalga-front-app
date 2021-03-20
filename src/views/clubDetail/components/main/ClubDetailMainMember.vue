@@ -122,7 +122,7 @@ import YesOrNoDialog from '@/components/YesOrNoDialog.vue';
 import { MESSAGE } from '@/utils/common/constant/messages.ts';
 import routerHelper from '@/router/RouterHelper.ts';
 import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
-import { CLUB_ROLE } from '@/utils/role.js';
+import { CLUB_ROLE } from '@/utils/role.ts';
 import MiddleDivider from '@/components/MiddleDivider.vue';
 import { CommonMutationTypes } from '@/store/type/mutationTypes.ts';
 import { ClubUserInfo, CurrentUserInfo } from '@/interfaces/club';

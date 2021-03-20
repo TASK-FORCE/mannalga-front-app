@@ -32,9 +32,9 @@
 <script lang="ts">
 import CommonSnackBar from '@/components/CommonSnackBar.vue';
 import Progress from '@/components/Progress.vue';
-import { loadCurrentTheme } from '@/plugins/vuetify.js';
 import { CommonMutationTypes } from '@/store/type/mutationTypes.ts';
 import Vue from 'vue';
+import { loadCurrentTheme } from '@/utils/theme';
 
 export default Vue.extend({
     name: 'App',

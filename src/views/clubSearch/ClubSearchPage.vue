@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import CommonHeader from '@/components/header/CommonHeader.vue';
-import { PATH } from '@/router/route_path_type.js';
+import { PATH } from '@/router/route_path_type.ts';
 import ClubSearchPageBody from '@/views/clubSearch/ClubSearchPageBody.vue';
 import Vue from 'vue';
 

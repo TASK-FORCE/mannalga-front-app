@@ -1,5 +1,5 @@
 import router from '@/router';
-import { PATH } from '@/router/route_path_type.js';
+import { PATH } from '@/router/route_path_type.ts';
 import store from '@/store/index.ts';
 import { CommonMutationTypes } from '@/store/type/mutationTypes.ts';
 

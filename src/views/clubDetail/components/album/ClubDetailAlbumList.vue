@@ -55,7 +55,7 @@ import Vue, { PropType } from 'vue';
 import FixedCreateBtn from '@/components/button/FixedCreateBtn.vue';
 import AlbumImageCreateDialog from '@/components/album/AlbumImageCreateDialog.vue';
 import ClubDetailAlbumImage from '@/views/clubDetail/components/album/ClubDetailAlbumImage.vue';
-import _ from '@/utils/common/lodashWrapper.js';
+import _ from '@/utils/common/lodashWrapper.ts';
 import InfiniteScrollTemplate from '@/components/InfiniteScrollTemplate.vue';
 import routerHelper from '@/router/RouterHelper.ts';
 import FixedScrollToTopBtn from '@/components/button/FixedScrollToTopBtn.vue';

@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { generateParamPath, PATH } from '@/router/route_path_type.js';
+import { generateParamPath, PATH } from '@/router/route_path_type.ts';
 
 describe('test', () => {
     it('combineParamPath', () => {

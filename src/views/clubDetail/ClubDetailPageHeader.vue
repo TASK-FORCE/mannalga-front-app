@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts">
-import { PATH } from '@/router/route_path_type.js';
+import { PATH } from '@/router/route_path_type.ts';
 import clubDetailVuexService from '@/store/service/ClubDetailVuexService.ts';
 import lastScrollPositionCache from '@/utils/cache/LastScrollPositionCache.ts';
 import lastClubTabCache, { ClubTab } from '@/utils/cache/LastClubTabCache.ts';

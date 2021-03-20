@@ -146,7 +146,7 @@ import VerticalBarDivider from '@/components/VerticalBarDivider.vue';
 import Chip from '@/components/chip/Chip.vue';
 import { MESSAGE } from '@/utils/common/constant/messages.ts';
 import routerHelper from '@/router/RouterHelper.ts';
-import _ from '@/utils/common/lodashWrapper.js';
+import _ from '@/utils/common/lodashWrapper.ts';
 import { ScrollHelper } from '@/utils/scroll.ts';
 import { AlbumMutationTypes, CommonMutationTypes } from '@/store/type/mutationTypes.ts';
 import Vue from 'vue';

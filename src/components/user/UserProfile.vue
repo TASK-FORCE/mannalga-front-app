@@ -39,10 +39,10 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import _ from '@/utils/common/lodashWrapper.js';
+import _ from '@/utils/common/lodashWrapper.ts';
 import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
 import { RULES } from '@/utils/common/constant/rules.ts';
-import { PATH } from '@/router/route_path_type.js';
+import { PATH } from '@/router/route_path_type.ts';
 import { UserMutationTypes } from '@/store/type/mutationTypes.ts';
 import { KakaoProfile } from '@/interfaces/user';
 import { UserActionTypes } from '@/store/type/actionTypes';

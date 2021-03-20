@@ -171,7 +171,7 @@ export const actions = {
         );
     },
     async [AlbumActionTypes.REQUEST_ALL_ALBUM_COMMENT_LIST_WITH_PAGING]({ commit, state }: AlbumActionContext, albumSeqContext: AlbumSeqContext) {
-        return CommentHelper.requestAllCommentListWithPaging2<AlbumCommentPageRequest>(
+        return CommentHelper.requestAllCommentListWithPaging<AlbumCommentPageRequest>(
             (page: Page) => RequestConverter.convertAlbumCommentPageRequest(albumSeqContext, page),
             () => state.albumCommentPage,
             async (albumCommentPageRequest: AlbumCommentPageRequest) => {
@@ -184,7 +184,7 @@ export const actions = {
             },
         );
     },
-    async [AlbumActionTypes.REQUEST_ALL_ALBUM_SUB_COMMENT_LIST]({}: AlbumActionContext, albumSubCommentRequest: AlbumSubCommentRequest) {
+    async [AlbumActionTypes.REQUEST_ALL_ALBUM_SUB_COMMENT_LIST]({}: AlbumActionContext, albumSubCommentRequest: AlbumSubCommentRequest): Promise<Comment[]> {
         return actionsNormalTemplate(
             async () => albumApi.getClubAlbumSubCommentList(albumSubCommentRequest),
         );

@@ -60,11 +60,11 @@
 
 <script lang="ts">
 import Vue, { PropType } from 'vue';
-import { generateParamPath, PATH } from '@/router/route_path_type.js';
+import { generateParamPath, PATH } from '@/router/route_path_type.ts';
 import RoleChip from '@/components/chip/RoleChip.vue';
-import { CLUB_ROLE } from '@/utils/role.js';
+import { CLUB_ROLE } from '@/utils/role.ts';
 import clubDetailVuexService from '@/store/service/ClubDetailVuexService.ts';
-import _ from '@/utils/common/lodashWrapper.js';
+import _ from '@/utils/common/lodashWrapper.ts';
 import { ClubFeed } from '@/interfaces/clubList';
 
 const regionStore = {

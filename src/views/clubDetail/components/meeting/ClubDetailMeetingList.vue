@@ -52,7 +52,7 @@
 <script lang="ts">
 import Vue, { PropType } from 'vue';
 import FixedCreateBtn from '@/components/button/FixedCreateBtn.vue';
-import { generateParamPath, PATH } from '@/router/route_path_type.js';
+import { generateParamPath, PATH } from '@/router/route_path_type.ts';
 import routerHelper from '@/router/RouterHelper.ts';
 import ClubDetailMeetingPost from '@/views/clubDetail/components/meeting/ClubDetailMeetingPost.vue';
 import actionsHelper from '@/store/helper/ActionsHelper.ts';

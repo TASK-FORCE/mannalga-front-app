@@ -1,9 +1,10 @@
-import { KAKAO } from '@/utils/kakao/kakao.js';
+import { KAKAO } from '@/utils/kakao/kakao.ts';
 import { ClubListRequest, ClubSearchContext, MyClubListRequest } from '@/interfaces/clubList';
 import { Interest, InterestWriteRequest, Page, PageRequest, Region, RegionWriteRequest } from '@/interfaces/common';
 import { UserRegisterContext, UserRegisterRequest } from '@/interfaces/user';
 import { KakaoTokenRequest, KakaoTokenResponse, ServerTokenRequest } from '@/interfaces/auth';
 import { AlbumCommentPageRequest, AlbumPageRequest, AlbumSeqContext } from '@/interfaces/album';
+import { BoardCommentPageRequest, BoardSeqContext } from '@/interfaces/board/board';
 
 /** RequestConverter
  *  - 백엔드 서버로 전달하는 request 정보를 converting
@@ -73,6 +74,14 @@ export default class RequestConverter {
         return {
             clubSeq,
             albumSeq,
+            pageRequest: this.convertPage(page)
+        }
+    }
+
+    static convertBoardCommentPageRequest({ clubSeq, boardSeq }: BoardSeqContext, page: Page): BoardCommentPageRequest {
+        return {
+            clubSeq,
+            boardSeq,
             pageRequest: this.convertPage(page)
         }
     }

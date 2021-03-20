@@ -7,17 +7,17 @@
             <div class="d-flex align-center pa-2">
                 <UserProfileAvatar
                     :size="30"
-                    :imgUrl="board.writerImage"
-                    :name="board.writerName"
-                    :appendNumber="board.writerSeq"
+                    :imgUrl="board.writer.imgUrl"
+                    :name="board.writer.name"
+                    :appendNumber="board.writer.writerUserSeq"
                 />
                 <div class="d-flex align-center">
                     <div class="board-writer-name d-flex">
                         <span class="my-auto">{{ board.writerName }}</span>
                     </div>
                     <!--                    <div>-->
-                    <!--                        <RoleChip v-if="board.writerRole === 'MASTER' || board.writerRole === 'MANAGER'"-->
-                    <!--                                  :role="board.writerRole"-->
+                    <!--                        <RoleChip v-if="board.writer.role[0] === 'MASTER' || board.writer.role[0] === 'MANAGER'"-->
+                    <!--                                  :role="board.writer.role[0]"-->
                     <!--                                  class="ml-1"-->
                     <!--                                  outlined-->
                     <!--                                  style="margin-bottom: 1px; font-size: 0.5rem;"-->
@@ -94,11 +94,11 @@
 import MiddleDivider from '@/components/MiddleDivider.vue';
 import Chip from '@/components/chip/Chip.vue';
 import VerticalBarDivider from '@/components/VerticalBarDivider.vue';
-import { BoardUtils } from '@/utils/board.js';
 import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
 import routerHelper from '@/router/RouterHelper.ts';
-import { generateParamPath, PATH } from '@/router/route_path_type.js';
+import { generateParamPath, PATH } from '@/router/route_path_type.ts';
 import Vue from 'vue';
+import { BoardCategory } from '@/interfaces/board/BoardCategory';
 
 export default Vue.extend({
     name: 'ClubDetailBoardPost',
@@ -111,10 +111,10 @@ export default Vue.extend({
     },
     methods: {
         clickBoard() {
-            this.$router.push(generateParamPath(PATH.CLUB.BOARD_POST, [routerHelper.clubSeq(), this.board.seq]));
+            this.$router.push(generateParamPath(PATH.CLUB.BOARD_POST, [routerHelper.clubSeq(), this.board.boardSeq]));
         },
-        getCategoryInfo(categoryType) {
-            return BoardUtils.findCategoryByType(categoryType);
+        getCategoryInfo(categoryType): BoardCategory {
+            return BoardCategory.findCategoryByType(categoryType);
         },
     },
 });

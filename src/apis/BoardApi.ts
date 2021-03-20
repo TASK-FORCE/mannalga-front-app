@@ -1,36 +1,47 @@
 import axios from 'axios';
 import ResponseConverter from '@/apis/converter/ResponseConverter.ts';
+import {
+    Board,
+    BoardCommentListResponse,
+    BoardCommentPageRequest,
+    BoardCommentWriteRequest,
+    BoardCreateRequestWishSeq,
+    BoardListResponse,
+    BoardPageRequest,
+    BoardSeqContext,
+    BoardSubCommentRequest
+} from '@/interfaces/board/board';
+import { Comment } from '@/interfaces/common';
 
 const boardApi = {
-    getClubBoardList({ clubSeq, requestParams }) {
-        return axios.get(`/api/clubs/${clubSeq}/board`, { params: requestParams })
+    getClubBoardList({ category, clubSeq, pageRequest }: BoardPageRequest): Promise<BoardListResponse> {
+        return axios.get(`/api/clubs/${clubSeq}/board`, { params: { ...pageRequest, category } })
             .then(ResponseConverter.extractSuperInventionResponseData)
             .then(ResponseConverter.convertBoardList);
     },
 
-    postClubBoardCreate({ clubSeq, clubBoardDto }) {
-        return axios.post(`/api/clubs/${clubSeq}/board`, clubBoardDto);
+    postClubBoardCreate({ clubSeq, boardCreateRequest }: BoardCreateRequestWishSeq) {
+        return axios.post(`/api/clubs/${clubSeq}/board`, boardCreateRequest);
     },
 
-    getClubBoard({ clubSeq, boardSeq }) {
+    getClubBoard({ clubSeq, boardSeq }: BoardSeqContext): Promise<Board> {
         return axios.get(`/api/clubs/${clubSeq}/board/${boardSeq}`)
             .then(ResponseConverter.extractSuperInventionResponseData)
-            .then(ResponseConverter.convertBoard);
     },
 
-    getClubBoardCommentList({ clubSeq, boardSeq, requestParams }) {
-        return axios.get(`/api/club/${clubSeq}/board/${boardSeq}/comment`, { params: requestParams })
+    getClubBoardCommentList({ clubSeq, boardSeq, pageRequest }: BoardCommentPageRequest): Promise<BoardCommentListResponse> {
+        return axios.get(`/api/club/${clubSeq}/board/${boardSeq}/comment`, { params: pageRequest })
             .then(ResponseConverter.extractSuperInventionResponseData)
             .then(ResponseConverter.convertBoardCommentList);
     },
 
-    postClubBoardCommentWrite({ clubSeq, boardSeq, boardCommentWriteDto, parentCommentSeq }) {
-        return axios.post(`/api/club/${clubSeq}/board/${boardSeq}/comment`, boardCommentWriteDto, {
+    postClubBoardCommentWrite({ boardSeqContext: { clubSeq, boardSeq }, content, parentCommentSeq }: BoardCommentWriteRequest) {
+        return axios.post(`/api/club/${clubSeq}/board/${boardSeq}/comment`, { content }, {
             params: { parentCommentSeq },
         });
     },
 
-    getClubBoardSubCommentList({ clubSeq, boardSeq, parentCommentSeq }) {
+    getClubBoardSubCommentList({ clubSeq, boardSeq, parentCommentSeq }: BoardSubCommentRequest): Promise<Comment[]> {
         return axios.get(`/api/club/${clubSeq}/board/${boardSeq}/comment/${parentCommentSeq}?depthLimit=2`)
             .then(ResponseConverter.extractSuperInventionResponseData);
     },

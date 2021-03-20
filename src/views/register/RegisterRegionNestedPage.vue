@@ -17,8 +17,8 @@
 
 <script lang="ts">
 import RegionSelect from '@/components/region/RegionSelect.vue';
-import _ from '@/utils/common/lodashWrapper.js';
-import { PATH } from '@/router/route_path_type.js';
+import _ from '@/utils/common/lodashWrapper.ts';
+import { PATH } from '@/router/route_path_type.ts';
 import { MESSAGE } from '@/utils/common/constant/messages.ts';
 import { CommonMutationTypes, UserMutationTypes } from '@/store/type/mutationTypes.ts';
 import Vue from 'vue';

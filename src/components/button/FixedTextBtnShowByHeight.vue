@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import _ from '@/utils/common/lodashWrapper.js';
+import _ from '@/utils/common/lodashWrapper.ts';
 import Vue from 'vue';
 
 const DEFAULT_THROTTLE_DELAY = 300;

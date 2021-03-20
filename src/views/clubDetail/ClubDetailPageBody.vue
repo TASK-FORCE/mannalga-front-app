@@ -46,7 +46,7 @@ import ClubDetailBoardList from '@/views/clubDetail/components/board/ClubDetailB
 import ClubDetailAlbumList from '@/views/clubDetail/components/album/ClubDetailAlbumList.vue';
 import lastClubTabCache, { ClubTab } from '@/utils/cache/LastClubTabCache.ts';
 import clubDetailVuexService from '@/store/service/ClubDetailVuexService.ts';
-import { PATH } from '@/router/route_path_type.js';
+import { PATH } from '@/router/route_path_type.ts';
 import routerHelper from '@/router/RouterHelper.ts';
 import { ClubInfo, CurrentUserInfo } from '@/interfaces/club.ts';
 

@@ -41,12 +41,12 @@
 </template>
 
 <script lang="ts">
-import { PATH } from '@/router/route_path_type.js';
+import { PATH } from '@/router/route_path_type.ts';
 import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.js';
 import CommonHeader from '@/components/header/CommonHeader.vue';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import { format, MESSAGE } from '@/utils/common/constant/messages.ts';
-import _ from '@/utils/common/lodashWrapper.js';
+import _ from '@/utils/common/lodashWrapper.ts';
 import { CommonMutationTypes } from '@/store/type/mutationTypes.ts';
 import Vue from 'vue';
 

@@ -6,8 +6,9 @@
     >
         <template #content>
             <div class="pa-3">
-                <div class="content"
-                     v-text="board.content"
+                <div
+                    class="content"
+                    v-text="board.content"
                 />
             </div>
         </template>
@@ -15,12 +16,12 @@
 </template>
 
 <script lang="ts">
-import gettersHelper from '@/store/helper/GettersHelper.js';
-import actionsHelper from '@/store/helper/ActionsHelper.ts';
 import routerHelper from '@/router/RouterHelper.ts';
-import mutationsHelper from '@/store/helper/MutationsHelper.ts';
 import BoardTemplate from '@/components/BoardTemplate.vue';
 import Vue from 'vue';
+import { BoardMutationTypes } from '@/store/type/mutationTypes';
+import { BoardActionTypes } from '@/store/type/actionTypes';
+import { BoardCommentWriteRequest, BoardSeqContext, BoardSubCommentRequest } from '@/interfaces/board/board';
 
 export default Vue.extend({
     name: 'ClubBoardPostBody',
@@ -28,8 +29,10 @@ export default Vue.extend({
         BoardTemplate,
     },
     computed: {
-        board: () => gettersHelper.board(),
-        seqContext() {
+        board() {
+            return this.$store.state.board.board;
+        },
+        seqContext(): BoardSeqContext {
             return {
                 clubSeq: routerHelper.clubSeq(),
                 boardSeq: routerHelper.boardSeq(),
@@ -37,18 +40,27 @@ export default Vue.extend({
         },
         boardDto() {
             return {
-                writerName: this.board.writerName,
-                writerSeq: this.board.writerSeq,
-                writerImage: this.board.writerImage,
+                writerName: this.board.writer.name,
+                writerSeq: this.board.writer.writerUserSeq,
+                writerImage: this.board.writer.imgUrl,
                 title: this.board.title,
                 isLiked: this.board.isLiked,
                 likeCnt: this.board.likeCnt,
             };
+
+            // return {
+            //     writerName: this.album.writer.name,
+            //     writerSeq: this.album.writer.writerUserSeq,
+            //     writerImage: this.album.writer.imgUrl,
+            //     title: this.album.title,
+            //     isLiked: this.album.isLiked,
+            //     likeCnt: this.album.likeCnt,
+            // };
         },
         commentContext() {
             return {
-                commentList: gettersHelper.boardCommentList(),
-                commentPage: gettersHelper.boardCommentPage(),
+                commentList: this.$store.state.board.boardCommentList,
+                commentPage: this.$store.state.board.boardCommentPage,
                 fetchFirstPage: this.fetchFirstPage,
                 fetchNextPage: this.fetchNextPage,
                 requestWriteComment: this.requestWriteComment,
@@ -65,54 +77,54 @@ export default Vue.extend({
         },
     },
     created() {
-        actionsHelper.requestBoard(this.seqInfo)
+        this.$store.dispatch(BoardActionTypes.REQUEST_BOARD, this.seqContext)
             .catch(() => this.$router.back());
     },
     beforeDestroy() {
-        mutationsHelper.initBoardCommentList();
+        this.$store.commit(BoardMutationTypes.INIT_BOARD_COMMENT_LIST);
     },
     methods: {
         fetchFirstPage() {
-            return actionsHelper.requestFirstBoardCommentList(this.seqInfo);
+            return this.$store.dispatch(BoardActionTypes.REQUEST_FIRST_BOARD_COMMENT_LIST, this.seqContext);
         },
         fetchNextPage() {
-            return actionsHelper.requestNextBoardCommentList(this.seqInfo);
+            return this.$store.dispatch(BoardActionTypes.REQUEST_NEXT_BOARD_COMMENT_LIST, this.seqContext);
         },
         requestWriteComment(content) {
-            const boardCommentWriteInfo = {
-                ...this.seqInfo,
-                boardCommentWriteDto: { content },
+            const boardCommentWriteRequest: BoardCommentWriteRequest = {
+                boardSeqContext: this.seqContext,
+                content
             };
-            return actionsHelper.requestBoardCommentWrite(boardCommentWriteInfo)
-                .then(() => mutationsHelper.countBoardCommentCnt(this.board.seq));
+            return this.$store.dispatch(BoardActionTypes.REQUEST_BOARD_COMMENT_WRITE, boardCommentWriteRequest)
+                .then(() => this.$store.commit(BoardMutationTypes.COUNT_COMMENT_CNT_OF_BOARD, this.board.boardSeq));
         },
-        requestWriteSubComment(content, parentSeq) {
-            const boardCommentWriteInfo = {
-                ...this.seqInfo,
-                parentCommentSeq: parentSeq,
-                boardCommentWriteDto: { content },
+        requestWriteSubComment(content, parentCommentSeq) {
+            const boardCommentWriteRequest: BoardCommentWriteRequest = {
+                boardSeqContext: this.seqContext,
+                parentCommentSeq,
+                content
             };
-            return actionsHelper.requestBoardCommentWrite(boardCommentWriteInfo)
+            return this.$store.dispatch(BoardActionTypes.REQUEST_BOARD_COMMENT_WRITE, boardCommentWriteRequest)
                 .then(() => {
-                    mutationsHelper.countBoardCommentCnt(this.board.seq);
-                    mutationsHelper.countChildBoardCommentCnt(parentSeq);
+                    this.$store.commit(BoardMutationTypes.COUNT_COMMENT_CNT_OF_BOARD, this.board.seq);
+                    this.$store.commit(BoardMutationTypes.COUNT_COMMENT_CNT_OF_PARENT_COMMENT, parentCommentSeq);
                 });
         },
-        requestSubCommentList(parentSeq) {
-            const boardSubCommentRequestInfo = {
-                ...this.seqInfo,
-                parentCommentSeq: parentSeq,
+        requestSubCommentList(parentCommentSeq) {
+            const boardSubCommentRequest: BoardSubCommentRequest = {
+                ...this.seqContext,
+                parentCommentSeq,
             };
-            return actionsHelper.requestAllBoardSubCommentList(boardSubCommentRequestInfo);
+            return this.$store.dispatch(BoardActionTypes.REQUEST_ALL_BOARD_SUB_COMMENT_LIST, boardSubCommentRequest);
         },
         commentWritePostProcess() {
-            return actionsHelper.requestAllBoardCommentListWithPaging(this.seqInfo);
+            return this.$store.dispatch(BoardActionTypes.REQUEST_ALL_BOARD_COMMENT_LIST_WITH_PAGING, this.seqContext);
         },
         requestApplyLike() {
-            return actionsHelper.requestApplyLikeClubBoard(this.seqInfo);
+            return this.$store.dispatch(BoardActionTypes.REQUEST_APPLY_LIKE_CLUB_BOARD, this.seqContext);
         },
         requestDeleteLike() {
-            return actionsHelper.requestDeleteLikeClubBoard(this.seqInfo);
+            return this.$store.dispatch(BoardActionTypes.REQUEST_DELETE_LIKE_CLUB_BOARD, this.seqContext);
         },
     },
 });

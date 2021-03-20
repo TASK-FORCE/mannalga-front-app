@@ -15,10 +15,10 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { PATH } from '@/router/route_path_type.js';
+import { PATH } from '@/router/route_path_type.ts';
 import { MESSAGE } from '@/utils/common/constant/messages.ts';
 import InterestSelect from '@/components/interest/InterestSelect.vue';
-import _ from '@/utils/common/lodashWrapper.js';
+import _ from '@/utils/common/lodashWrapper.ts';
 import { CommonMutationTypes } from '@/store/type/mutationTypes.ts';
 import { KakaoProfile, UserRegisterContext } from '@/interfaces/user';
 import { Region } from '@/interfaces/common';

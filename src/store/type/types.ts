@@ -5,6 +5,7 @@ import { ClubListActions, ClubListMutations, ClubListState } from '@/store/modul
 import { UserActions, UserMutations, UserState } from '@/store/modules/user';
 import { AuthActions, AuthGetters, AuthMutations, AuthState } from '@/store/modules/auth';
 import { AlbumActions, AlbumMutations, AlbumState } from '@/store/modules/album';
+import { BoardActions, BoardMutations, BoardState } from '@/store/modules/board';
 
 export type RootState = {
     common: CommonState;
@@ -13,18 +14,21 @@ export type RootState = {
     user: UserState;
     auth: AuthState;
     album: AlbumState;
+    board: BoardState;
 }
 
 export type MergedGetters = AuthGetters
 
 export type MergedMutations =
     CommonMutations & ClubMutations & ClubListMutations &
-    UserMutations & AuthMutations & AlbumMutations & {
+    UserMutations & AuthMutations & AlbumMutations &
+    BoardMutations & {
     [key: string]: any
 }
 export type MergedActions =
     CommonActions & ClubActions & ClubListActions &
-    UserActions & AuthActions & AlbumActions & {
+    UserActions & AuthActions & AlbumActions &
+    BoardActions & {
     [key: string]: any
 }
 

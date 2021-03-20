@@ -1,8 +1,8 @@
-import _ from '@/utils/common/lodashWrapper.js';
+import _ from '@/utils/common/lodashWrapper.ts';
 import store from '@/store/index.ts';
 import { CommonMutationTypes } from '@/store/type/mutationTypes.ts';
 
-function validateWithRules(target, rules) {
+export function validateWithRules(target: any, rules: any[]): boolean {
     const validationMessages = getValidationMessage(target, rules);
     if (_.isEmpty(validationMessages)) {
         return true;
@@ -11,7 +11,7 @@ function validateWithRules(target, rules) {
     return false;
 }
 
-function getValidationMessage(target, rules) {
+function getValidationMessage(target: any, rules: any[]) {
     return rules
         .map(rule => {
             const value = rule(target);
@@ -26,7 +26,3 @@ function getValidationMessage(target, rules) {
         })
         .filter(value => !_.isEmpty(value));
 }
-
-export {
-    validateWithRules,
-};
