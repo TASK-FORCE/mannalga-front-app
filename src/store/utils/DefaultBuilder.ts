@@ -4,8 +4,9 @@ import { ClubSearchContext } from '@/interfaces/clubList';
 import { KakaoProfile, UserProfile } from '@/interfaces/user';
 import { Album } from '@/interfaces/album';
 import { Board, BoardCategoryType } from '@/interfaces/board/board';
+import { Meeting } from '@/interfaces/meeting';
 
-class DefaultBuilder {
+export default class DefaultBuilder {
     static snackbarOption(): SnackBarOption {
         return {
             message: '',
@@ -93,18 +94,27 @@ class DefaultBuilder {
         }
     }
 
-    static buildMeeting = () => ({
-        seq: 0,
-        title: '',
-        content: '',
-        startTime: '',
-        endTime: '',
-        isRegistered: false,
-        isCreator: false,
-        maximumNumber: 0,
-        registerUser: {},
-        applicationUsers: [],
-    });
+    static meeting(): Meeting {
+        return {
+            seq: 0,
+            startTimestamp: '',
+            endTimestamp: '',
+            title: '',
+            content: '',
+            maximumNumber: 0,
+            cost: '',
+            region: '',
+            isCreator: false,
+            isRegistered: false,
+            applicationUsers: [],
+            registerUser: {
+                seq: 0,
+                profileImageLink: '',
+                userName: '',
+                userRoles: [],
+            },
+        }
+    }
 
     static album(): Album {
         return {
@@ -145,5 +155,3 @@ class DefaultBuilder {
         }
     }
 }
-
-export default DefaultBuilder;

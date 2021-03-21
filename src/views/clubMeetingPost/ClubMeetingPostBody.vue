@@ -68,7 +68,7 @@
                         v-text="'$twoPeople'"
                     />
                     모임 신청 현황
-                    ({{ meeting.numberInfoText }})
+                    ({{ numberInfoText }})
                 </div>
                 <v-spacer />
                 <div v-if="meeting.isOpen">
@@ -101,8 +101,6 @@
 <script lang="ts">
 import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
 import MeetingTimeRange from '@/components/meeting/MeetingTimeRange.vue';
-import gettersHelper from '@/store/helper/GettersHelper.js';
-import actionsHelper from '@/store/helper/ActionsHelper.ts';
 import routerHelper from '@/router/RouterHelper.ts';
 import MiddleDivider from '@/components/MiddleDivider.vue';
 import SimpleUserProfileList from '@/components/user/SimpleUserProfileList.vue';
@@ -111,6 +109,8 @@ import { generateParamPath, PATH } from '@/router/route_path_type.ts';
 import { UIMutationTypes } from '@/store/type/mutationTypes.ts';
 import Vue from 'vue';
 import { isDarkTheme } from '@/utils/theme';
+import { MeetingActionTypes } from '@/store/type/actionTypes';
+import { Meeting, MeetingSeqContext } from '@/interfaces/meeting';
 
 export default Vue.extend({
     name: 'ClubMeetingPostBody',
@@ -122,43 +122,54 @@ export default Vue.extend({
         };
     },
     computed: {
-        meeting: () => gettersHelper.meeting(),
-        clubAndMeetingSeq: () => ({
-            clubSeq: routerHelper.clubSeq(),
-            meetingSeq: routerHelper.meetingSeq(),
-        }),
+        meeting(): Meeting {
+            return this.$store.state.meeting.meeting;
+        },
+        meetingSeqContext(): MeetingSeqContext {
+            return {
+                clubSeq: routerHelper.clubSeq(),
+                meetingSeq: routerHelper.meetingSeq(),
+            };
+        },
         creatorName() {
-            if (this.meeting && this.meeting.registerUser && this.meeting.registerUser.user) {
-                return this.meeting.registerUser.user.userName;
+            if (this.meeting && this.meeting.registerUser) {
+                return this.meeting.registerUser.userName;
             }
             return '';
         },
         appendNumber() {
-            if (this.meeting && this.meeting.registerUser && this.meeting.registerUser.user) {
-                return this.meeting.registerUser.user.seq;
+            if (this.meeting && this.meeting.registerUser) {
+                return this.meeting.registerUser.seq;
             }
             return 0;
         },
+        numberInfoText() {
+            const registerNumber = this.meeting.applicationUsers.length.toString();
+            if (this.meeting.maximumNumber) {
+                return `${registerNumber}/${this.meeting.maximumNumber}`;
+            }
+            return registerNumber;
+        }
     },
     created() {
-        actionsHelper.requestMeeting(this.clubAndMeetingSeq)
+        this.$store.dispatch(MeetingActionTypes.REQUEST_MEETING, this.meetingSeqContext)
             .catch(() => this.$router.back());
     },
     methods: {
         applyMeetingApplication() {
             this.applicationBtnLoading = true;
-            actionsHelper.requestMeetingApplication(this.clubAndMeetingSeq)
+            this.$store.dispatch(MeetingActionTypes.REQUEST_MEETING_APPLICATION, this.meetingSeqContext)
                 .then(() => this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_APPLY_MEETING_APPLICATION))
                 .finally(() => (this.applicationBtnLoading = false));
         },
         cancelMeetingApplication() {
             this.applicationBtnLoading = true;
-            actionsHelper.requestCancelMeetingApplication(this.clubAndMeetingSeq)
+            this.$store.dispatch(MeetingActionTypes.REQUEST_CANCEL_MEETING_APPLICATION, this.meetingSeqContext)
                 .then(() => this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_CANCEL_MEETING_APPLICATION))
                 .finally(() => (this.applicationBtnLoading = false));
         },
         moveToMeetingEditPage() {
-            const { clubSeq, meetingSeq } = this.clubAndMeetingSeq;
+            const { clubSeq, meetingSeq } = this.meetingSeqContext;
             this.$router.push(generateParamPath(PATH.CLUB.MEETING_EDIT, [clubSeq, meetingSeq]));
         },
     },

@@ -6,6 +6,18 @@ import { ClubFeed, ClubListResponse, MyClubFeed, MyClubListResponse } from '@/in
 import { KakaoProfile, ServerKakaoProfileContext, UserInterestResponse, UserRegionsResponse } from '@/interfaces/user';
 import { AlbumCommentListResponse, AlbumFeed, AlbumListResponse } from '@/interfaces/album';
 import { BoardCommentListResponse, BoardFeed, BoardListResponse } from '@/interfaces/board/board';
+import {
+    Meeting,
+    MeetingApplicationChangeResponse,
+    MeetingApplicationStatus,
+    MeetingApplicationUser,
+    MeetingFeed,
+    MeetingGroupListResponse,
+    ServerMeeting,
+    ServerMeetingApplication,
+    ServerMeetingFeed,
+    ServerMeetingFeedGroup
+} from '@/interfaces/meeting';
 
 /** ResponseConverter
  *  - 백엔드 서버에서 전달받은 response를 converting
@@ -49,21 +61,39 @@ export default class ResponseConverter {
         };
     };
 
-    static convertMeetingList(data) {
-        const meetingGroupList = data.content.map(group => ({
-            groupYearMonth: group.groupYearMonth,
-            meetings: group.meetings.map(mapMeeting),
-        }));
-        const meetingGroupPage = convertPage(data);
-        return { meetingGroupList, meetingGroupPage }
+    static convertMeetingList(data: ServerPageResponse<ServerMeetingFeedGroup[]>): MeetingGroupListResponse {
+        return {
+            meetingGroupList: data.content.map(group => ({
+                groupYearMonth: group.groupYearMonth,
+                meetings: group.meetings.map(mapMeetingFeed),
+            })),
+            meetingGroupPage: convertPage(data)
+        }
     }
 
-    static convertMeeting(data) {
-        return mapMeeting(data);
+    static convertMeeting(meeting: ServerMeeting): Meeting {
+        return {
+            seq: meeting.seq,
+            title: meeting.title,
+            content: meeting.content,
+            startTimestamp: meeting.startTimestamp,
+            endTimestamp: meeting.endTimestamp,
+            isRegistered: meeting.isCurrentUserApplicationMeeting,
+            isCreator: meeting.isCurrentUserRegMeeting,
+            registerUser: meeting.regClubUser.user,
+            cost: toCurrency(meeting.cost),
+            region: meeting.region,
+            maximumNumber: meeting.maximumNumber,
+            applicationUsers: convertMeetingApplicationUsers(meeting.meetingApplications),
+        }
     }
 
-    static convertMeetingApplicationStatus(data) {
-        return mapMeetingApplicationStatus(data);
+    static convertMeetingApplicationStatus(data: MeetingApplicationChangeResponse, meetingSeq: number): MeetingApplicationStatus {
+        return {
+            meetingSeq: meetingSeq,
+            isRegistered: data.isCurrentUserApplicationMeeting,
+            applicationUsers: convertMeetingApplicationUsers(data.meetingApplications),
+        };
     }
 
     static convertBoardList(data: ServerPageResponse<BoardFeed[]>): BoardListResponse {
@@ -103,7 +133,7 @@ export default class ResponseConverter {
     }
 }
 
-const convertPage = ({ pageable, last, size }: ServerPageResponse<any>): Page => {
+function convertPage({ pageable, last, size }: ServerPageResponse<any>): Page {
     const currentPage = pageable.pageNumber;
     const nextPage = currentPage + 1;
     return {
@@ -112,47 +142,34 @@ const convertPage = ({ pageable, last, size }: ServerPageResponse<any>): Page =>
         currentPage,
         nextPage,
     };
-};
+}
 
-const mapMeeting = (meeting) => ({
-    seq: meeting.seq,
-    title: meeting.title,
-    content: meeting.content,
-    isOpen: meeting.isOpen,
-    isSameDayMeeting: meeting.startDate === meeting.endDate,
-    meetingDay: meeting.meetingDay,
-    meetingDayOfWeek: meeting.meetingDayOfWeek,
-    startDate: meeting.startDate,
-    startTime: meeting.startTime,
-    startTimestamp: meeting.startTimestamp,
-    endDate: meeting.endDate,
-    endTime: meeting.endTime,
-    endTimestamp: meeting.endTimestamp,
-    isRegistered: meeting.isCurrentUserApplicationMeeting,
-    isCreator: meeting.isCurrentUserRegMeeting,
-    registerUser: meeting.regClubUser,
-    cost: toCurrency(meeting.cost),
-    region: meeting.region,
-    ...mapMeetingApplicationStatus(meeting),
-});
-
-const mapMeetingApplicationStatus = (dto) => {
-    const registerNumber = dto.meetingApplications.length;
-    const { maximumNumber } = dto;
-    let numberInfoText = registerNumber;
-    if (maximumNumber) {
-        numberInfoText = `${numberInfoText}/${maximumNumber}`;
-    }
+function mapMeetingFeed(meeting: ServerMeetingFeed): MeetingFeed {
     return {
-        isRegistered: dto.isCurrentUserApplicationMeeting,
-        isCreator: dto.isCurrentUserRegMeeting,
-        registerNumber,
-        maximumNumber,
-        numberInfoText,
-        applicationUsers: dto.meetingApplications.map(({ userInfo }) => ({
-            seq: userInfo.userSeq,
-            name: userInfo.userName,
-            imgUrl: userInfo.profileImageLink,
-        })),
-    };
-};
+        seq: meeting.seq,
+        title: meeting.title,
+        isOpen: meeting.isOpen,
+        isSameDayMeeting: meeting.startDate === meeting.endDate,
+        meetingDay: meeting.meetingDay,
+        meetingDayOfWeek: meeting.meetingDayOfWeek,
+        startDate: meeting.startDate,
+        startTime: meeting.startTime,
+        endDate: meeting.endDate,
+        endTime: meeting.endTime,
+        isRegistered: meeting.isCurrentUserApplicationMeeting,
+        isCreator: meeting.isCurrentUserRegMeeting,
+        maximumNumber: meeting.maximumNumber,
+        cost: toCurrency(meeting.cost),
+        region: meeting.region,
+        applicationUsers: convertMeetingApplicationUsers(meeting.meetingApplications),
+    }
+}
+
+function convertMeetingApplicationUsers(serverMeetingApplications: ServerMeetingApplication[]): MeetingApplicationUser[] {
+    return serverMeetingApplications.map(({ userInfo }) => ({
+        seq: userInfo.userSeq,
+        name: userInfo.userName,
+        imgUrl: userInfo.profileImageLink
+    }))
+}
+

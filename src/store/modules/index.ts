@@ -10,8 +10,6 @@ function getModuleName(fileName) {
         .replace(/\.\w+$/, '');
 }
 
-const tsModules = new Set(['ui', 'common', 'club', 'clubList', 'user', 'auth', 'album', 'board']);
-
 function makeModules(): ModuleTree<any> {
     const modules: ModuleTree<any> = {};
     const requireModule = require.context(
@@ -32,7 +30,7 @@ function makeModules(): ModuleTree<any> {
 
             const moduleName: string = getModuleName(fileName);
             modules[moduleName] = {
-                namespaced: !tsModules.has(moduleName),
+                namespaced: false,
                 ...definitions,
             };
         });

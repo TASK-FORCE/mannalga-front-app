@@ -1,10 +1,8 @@
 import RequestHelper from '@/store/service/helper/RequestHelper.ts';
-import actionsHelper from '@/store/helper/ActionsHelper.ts';
 import store from '@/store/index.ts';
-import { MODULE } from '@/store/type/type.js';
 import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
-import { AlbumMutationTypes, BoardMutationTypes, ClubMutationTypes } from '@/store/type/mutationTypes';
-import { AlbumActionTypes, BoardActionTypes, ClubActionTypes } from '@/store/type/actionTypes';
+import { AlbumMutationTypes, BoardMutationTypes, ClubMutationTypes, MeetingMutationTypes } from '@/store/type/mutationTypes';
+import { AlbumActionTypes, BoardActionTypes, ClubActionTypes, MeetingActionTypes } from '@/store/type/actionTypes';
 
 class ClubDetailVuexService {
 
@@ -37,7 +35,7 @@ class ClubDetailVuexService {
     }
 
     private dispatchClubMeetings(clubSeq: number): Promise<any> {
-        return actionsHelper.requestFirstMeetingGroupList(clubSeq);
+        return store.dispatch(MeetingActionTypes.REQUEST_FIRST_MEETING_GROUP_LIST, clubSeq);
     }
 
     private dispatchClubBoards(clubSeq: number): Promise<any> {
@@ -50,7 +48,7 @@ class ClubDetailVuexService {
 
     public reset(): void {
         store.commit(ClubMutationTypes.SET_CLUB_DETAIL_CONTEXT, DefaultBuilder.clubDetailContext());
-        store.commit(`${MODULE.MEETING}/initMeetingGroupList`);
+        store.commit(MeetingMutationTypes.INIT_MEETING_GROUP_LIST);
         store.commit(AlbumMutationTypes.INIT_ALBUM_LIST);
         store.commit(BoardMutationTypes.INIT_BOARD_LIST);
     }

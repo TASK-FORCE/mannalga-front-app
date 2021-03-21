@@ -1,7 +1,7 @@
 export type MutationTypes =
     UIMutationTypes | ClubMutationTypes | ClubListMutationTypes |
     UserMutationTypes | AuthMutationTypes | AlbumMutationTypes |
-    BoardMutationTypes | CommonMutationTypes
+    BoardMutationTypes | CommonMutationTypes | MeetingMutationTypes
 
 export enum UIMutationTypes {
     CHANGE_LOADING = 'ui/changeLoading',
@@ -80,4 +80,12 @@ export enum BoardMutationTypes {
 export enum CommonMutationTypes {
     SET_ROOT_REGIONS = 'common/setRootRegions',
     SET_ROOT_INTERESTS = 'common/setRootInterests',
+}
+
+export enum MeetingMutationTypes {
+    SET_MEETING = 'meeting/SET_MEETING',
+    SET_MEETING_GROUP_LIST_INFO = 'meeting/SET_MEETING_GROUP_LIST_INFO',
+    ADD_NEXT_MEETING_GROUP_LIST_INFO = 'meeting/ADD_NEXT_MEETING_GROUP_LIST_INFO',
+    INIT_MEETING_GROUP_LIST = 'meeting/INIT_MEETING_GROUP_LIST',
+    CHANGE_MEETING_APPLICATIONS_STATUS = 'meeting/CHANGE_MEETING_APPLICATIONS_STATUS',
 }

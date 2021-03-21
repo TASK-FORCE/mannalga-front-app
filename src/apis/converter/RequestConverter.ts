@@ -5,6 +5,7 @@ import { UserRegisterContext, UserRegisterRequest } from '@/interfaces/user';
 import { KakaoTokenRequest, KakaoTokenResponse, ServerTokenRequest } from '@/interfaces/auth';
 import { AlbumCommentPageRequest, AlbumPageRequest, AlbumSeqContext } from '@/interfaces/album';
 import { BoardCommentPageRequest, BoardSeqContext } from '@/interfaces/board/board';
+import { MeetingPageRequest } from '@/interfaces/meeting';
 
 /** RequestConverter
  *  - 백엔드 서버로 전달하는 request 정보를 converting
@@ -92,6 +93,13 @@ export default class RequestConverter {
 
     static convertUserInterestForChange(selectedInterests: Interest[]) {
         return buildUserInterestsDto(selectedInterests);
+    }
+
+    static convertMeetingPageRequest(clubSeq: number, page: Page): MeetingPageRequest {
+        return {
+            clubSeq,
+            pageRequest: this.convertPage(page)
+        }
     }
 }
 

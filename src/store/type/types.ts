@@ -7,6 +7,7 @@ import { AuthActions, AuthGetters, AuthMutations, AuthState } from '@/store/modu
 import { AlbumActions, AlbumMutations, AlbumState } from '@/store/modules/album';
 import { BoardActions, BoardMutations, BoardState } from '@/store/modules/board';
 import { CommonActions, CommonMutations, CommonState } from '@/store/modules/common';
+import { MeetingActions, MeetingMutations, MeetingState } from '@/store/modules/meeting';
 
 export type RootState = {
     ui: UIState;
@@ -17,6 +18,7 @@ export type RootState = {
     auth: AuthState;
     album: AlbumState;
     board: BoardState;
+    meeting: MeetingState;
 }
 
 export type MergedGetters = AuthGetters
@@ -24,13 +26,13 @@ export type MergedGetters = AuthGetters
 export type MergedMutations =
     UIMutations & ClubMutations & ClubListMutations &
     UserMutations & AuthMutations & AlbumMutations &
-    BoardMutations & CommonMutations & {
+    BoardMutations & CommonMutations & MeetingMutations & {
     [key: string]: any
 }
 export type MergedActions =
     UIActions & ClubActions & ClubListActions &
     UserActions & AuthActions & AlbumActions &
-    BoardActions & CommonActions & {
+    BoardActions & CommonActions & MeetingActions & {
     [key: string]: any
 }
 

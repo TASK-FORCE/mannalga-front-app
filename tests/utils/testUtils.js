@@ -1,19 +1,12 @@
-import gettersHelper from '@/store/helper/GettersHelper.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.ts';
-import actionsHelper from '@/store/helper/ActionsHelper.ts';
-
 function gettersMocking(sandbox) {
-    const getterHelperMock = sandbox.mock(gettersHelper);
     return {};
 }
 
 function actionsMocking(sandbox) {
-    const actionHelperMock = sandbox.mock(actionsHelper);
     return {};
 }
 
 function mutationsMocking(sandbox) {
-    const mutationsHelperMock = sandbox.mock(mutationsHelper);
     return {};
 }
 
