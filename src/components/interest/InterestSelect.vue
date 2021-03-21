@@ -44,11 +44,11 @@
 import { PATH } from '@/router/route_path_type.ts';
 import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.ts';
 import CommonHeader from '@/components/header/CommonHeader.vue';
-import gettersHelper from '@/store/helper/GettersHelper.js';
 import { format, MESSAGE } from '@/utils/common/constant/messages.ts';
 import _ from '@/utils/common/lodashWrapper.ts';
 import { UIMutationTypes } from '@/store/type/mutationTypes.ts';
 import Vue from 'vue';
+import { InterestGroupTree } from '@/interfaces/common';
 
 export default Vue.extend({
     name: 'InterestSelect',
@@ -85,7 +85,9 @@ export default Vue.extend({
         };
     },
     computed: {
-        rootInterests: () => gettersHelper.rootInterests(),
+        rootInterests(): InterestGroupTree[] {
+            return this.$store.state.common.rootInterests;
+        },
         selectedInterestSeqs() {
             return this.selectedInterest.map(({ seq }) => seq);
         },

@@ -1,6 +1,7 @@
 export type MutationTypes =
     UIMutationTypes | ClubMutationTypes | ClubListMutationTypes |
-    UserMutationTypes | AuthMutationTypes | AlbumMutationTypes
+    UserMutationTypes | AuthMutationTypes | AlbumMutationTypes |
+    BoardMutationTypes | CommonMutationTypes
 
 export enum UIMutationTypes {
     CHANGE_LOADING = 'ui/changeLoading',
@@ -74,4 +75,9 @@ export enum BoardMutationTypes {
     COUNT_COMMENT_CNT_OF_BOARD = 'board/countCommentCntOfBoard',
     COUNT_COMMENT_CNT_OF_PARENT_COMMENT = 'board/countCommentCntOfParentComment',
     CHANGE_BOARD_LIKE = 'board/changeBoardLike',
+}
+
+export enum CommonMutationTypes {
+    SET_ROOT_REGIONS = 'common/setRootRegions',
+    SET_ROOT_INTERESTS = 'common/setRootInterests',
 }

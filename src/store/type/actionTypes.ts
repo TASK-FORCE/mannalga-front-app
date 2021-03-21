@@ -64,3 +64,8 @@ export enum BoardActionTypes {
     REQUEST_APPLY_LIKE_CLUB_BOARD = 'board/requestApplyLikeClubBoard',
     REQUEST_DELETE_LIKE_CLUB_BOARD = 'board/requestDeleteLikeClubBoard',
 }
+
+export enum CommonActionTypes {
+    REQUEST_ROOT_REGIONS = 'common/requestRootRegions',
+    REQUEST_ROOT_INTERESTS = 'common/requestRootInterests',
+}

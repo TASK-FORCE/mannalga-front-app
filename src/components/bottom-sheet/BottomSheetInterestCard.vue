@@ -39,8 +39,8 @@
 </template>
 
 <script lang="ts">
-import gettersHelper from '@/store/helper/GettersHelper.js';
 import Vue from 'vue';
+import { InterestGroupTree } from '@/interfaces/common';
 
 const TITLE = '관심사 선택';
 export default Vue.extend({
@@ -56,7 +56,9 @@ export default Vue.extend({
         };
     },
     computed: {
-        rootInterests: () => gettersHelper.rootInterests(),
+        rootInterests(): InterestGroupTree[] {
+            return this.$store.state.common.rootInterests;
+        },
     },
     methods: {
         showRoot() {

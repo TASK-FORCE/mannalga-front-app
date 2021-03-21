@@ -51,8 +51,8 @@
 
 <script lang="ts">
 
-import gettersHelper from '@/store/helper/GettersHelper.js';
 import Vue from 'vue';
+import { RegionTree } from '@/interfaces/common';
 
 const TITLE = '지역 선택';
 
@@ -78,7 +78,9 @@ export default Vue.extend({
         };
     },
     computed: {
-        rootRegions: () => gettersHelper.rootRegions(),
+        rootRegions(): RegionTree[] {
+            return this.$store.state.common.rootRegions;
+        },
     },
     methods: {
         showRoot() {

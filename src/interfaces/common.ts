@@ -106,3 +106,17 @@ export interface Comment {
     writerSeq: number;
     writer: string;
 }
+
+export interface RegionTree {
+    seq: number;
+    level: number;
+    name: string
+    superRegionRoot: string;
+    subRegions: RegionTree[];
+}
+
+export interface InterestGroupTree {
+    groupSeq: number;
+    interestList: Interest[];
+    name: string;
+}

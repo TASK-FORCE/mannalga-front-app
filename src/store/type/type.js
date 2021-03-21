@@ -1,4 +1,4 @@
 export const MODULE = {
-    TEMPLATE: 'template',
+    TEMPLATE: 'common',
     MEETING: 'meeting',
 };

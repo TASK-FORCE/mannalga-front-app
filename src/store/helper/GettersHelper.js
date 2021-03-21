@@ -9,10 +9,6 @@ class GettersHelper {
     meeting = () => getState(MODULE.MEETING, 'meeting');
     meetingGroupList = () => getState(MODULE.MEETING, 'meetingGroupList');
     meetingGroupPage = () => getState(MODULE.MEETING, 'meetingGroupPage');
-
-    // template module
-    rootRegions = () => getState(MODULE.TEMPLATE, 'rootRegions');
-    rootInterests = () => getState(MODULE.TEMPLATE, 'rootInterests');
 }
 
 const getState = (moduleName, getterName) => getters[combineWithModuleName(moduleName, getterName)];

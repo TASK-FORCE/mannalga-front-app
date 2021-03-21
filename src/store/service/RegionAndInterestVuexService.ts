@@ -1,7 +1,8 @@
 import _ from '@/utils/common/lodashWrapper.ts';
-import gettersHelper from '@/store/helper/GettersHelper.js';
+import store from '@/store';
 import RequestHelper from '@/store/service/helper/RequestHelper.ts';
-import actionsHelper from '@/store/helper/ActionsHelper.ts';
+import { CommonActionTypes } from '@/store/type/actionTypes';
+import { InterestGroupTree, RegionTree } from '@/interfaces/common';
 
 
 class RegionAndInterestVuexService {
@@ -26,21 +27,29 @@ class RegionAndInterestVuexService {
     }
 
     isCached() {
-        return !_.isEmpty(gettersHelper.rootRegions()) && !_.isEmpty(gettersHelper.rootInterests());
+        return !_.isEmpty(this.getRootRegions()) && !_.isEmpty(this.getRootInterests());
     }
 
     dispatchRegions(): Promise<any> {
-        if (_.isEmpty(gettersHelper.rootRegions())) {
-            return actionsHelper.requestRegionTemplate(null);
+        if (_.isEmpty(this.getRootRegions())) {
+            return store.dispatch(CommonActionTypes.REQUEST_ROOT_REGIONS);
         }
         return Promise.resolve();
     }
 
     dispatchInterests(): Promise<any> {
-        if (_.isEmpty(gettersHelper.rootInterests())) {
-            return actionsHelper.requestInterestTemplate(null);
+        if (_.isEmpty(this.getRootInterests())) {
+            return store.dispatch(CommonActionTypes.REQUEST_ROOT_INTERESTS);
         }
         return Promise.resolve();
+    }
+
+    getRootRegions(): RegionTree[] {
+        return store.state.common.rootRegions;
+    }
+
+    getRootInterests(): InterestGroupTree[] {
+        return store.state.common.rootInterests;
     }
 }
 

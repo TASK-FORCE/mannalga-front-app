@@ -24,7 +24,7 @@ export default Vue.extend({
     },
     computed: {
         snackBarOptions(): SnackBarOption {
-            return this.$store.state.common.snackBarOptions;
+            return this.$store.state.ui.snackBarOptions;
         }
     },
     watch: {

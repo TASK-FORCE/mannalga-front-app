@@ -80,11 +80,11 @@ import BottomSheetRegionCard from '@/components/bottom-sheet/BottomSheetRegionCa
 import BottomSheetInterestCard from '@/components/bottom-sheet/BottomSheetInterestCard.vue';
 import ClubListSearchFilterBtn from '@/views/clubList/components/ClubListSearchFilterBtn.vue';
 import { PATH } from '@/router/route_path_type.ts';
-import gettersHelper from '@/store/helper/GettersHelper.js';
 import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.ts';
 import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
 import { ClubListMutationTypes } from '@/store/type/mutationTypes.ts';
 import { ClubSearchContext } from '@/interfaces/clubList';
+import { InterestGroupTree, RegionTree } from '@/interfaces/common';
 
 export default Vue.extend({
     name: 'ClubListSearchFilter',
@@ -101,8 +101,12 @@ export default Vue.extend({
         };
     },
     computed: {
-        rootRegions: () => gettersHelper.rootRegions(),
-        rootInterests: () => gettersHelper.rootInterests(),
+        rootRegions(): RegionTree[] {
+            return this.$store.state.common.rootRegions;
+        },
+        rootInterests(): InterestGroupTree[] {
+            return this.$store.state.common.rootInterests;
+        },
         clubSearchContext(): ClubSearchContext {
             return this.$store.state.clubList.clubSearchContext;
         },
