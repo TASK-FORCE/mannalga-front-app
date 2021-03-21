@@ -1,6 +1,6 @@
 import { ActionContext, CommitOptions, DispatchOptions } from 'vuex';
 import { MergedActions, MergedMutations, RootState } from '@/store/type/types';
-import { CommonState } from '@/store/modules/common';
+import { UIState } from '@/store/modules/ui';
 import { ClubState } from '@/store/modules/club';
 import { ClubListState } from '@/store/modules/clubList';
 import { UserState } from '@/store/modules/user';
@@ -8,7 +8,7 @@ import { AuthState } from '@/store/modules/auth';
 import { AlbumState } from '@/store/modules/album';
 import { BoardState } from '@/store/modules/board';
 
-export type CommonActionContext = {
+export type UIActionContext = {
     commit<K extends keyof MergedMutations, P extends Parameters<MergedMutations[K]>[1]>(
         key: K,
         payload?: P,
@@ -19,7 +19,7 @@ export type CommonActionContext = {
         payload?: Parameters<MergedActions[K]>[1],
         options?: DispatchOptions
     ): ReturnType<MergedActions[K]>;
-} & Omit<ActionContext<CommonState, RootState>, 'commit' | 'dispatch'>
+} & Omit<ActionContext<UIState, RootState>, 'commit' | 'dispatch'>
 
 export type ClubActionContext = {
     commit<K extends keyof MergedMutations, P extends Parameters<MergedMutations[K]>[1]>(

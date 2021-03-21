@@ -1,5 +1,5 @@
 <template>
-    <div v-show="!$store.state.common.loading">
+    <div v-show="!$store.state.ui.loading">
         <ImageSelectBox
             class="image-box"
             text="모임 대표 사진 등록"

@@ -1,5 +1,5 @@
 <template>
-    <div v-show="!$store.state.common.loading">
+    <div v-show="!$store.state.ui.loading">
         <CommonHeader
             title="설정"
             @back="moveToClubListPage"

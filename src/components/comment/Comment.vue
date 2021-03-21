@@ -148,7 +148,7 @@ import { MESSAGE } from '@/utils/common/constant/messages.ts';
 import routerHelper from '@/router/RouterHelper.ts';
 import _ from '@/utils/common/lodashWrapper.ts';
 import { ScrollHelper } from '@/utils/scroll.ts';
-import { AlbumMutationTypes, CommonMutationTypes } from '@/store/type/mutationTypes.ts';
+import { AlbumMutationTypes, UIMutationTypes } from '@/store/type/mutationTypes.ts';
 import Vue from 'vue';
 
 function getHeightAppender(offsetHeight, hideFooter) {
@@ -213,10 +213,10 @@ export default Vue.extend({
     },
     methods: {
         focusChildCommentInput() {
-            this.$store.commit(CommonMutationTypes.FOCUS_CHILD_COMMENT_INPUT);
+            this.$store.commit(UIMutationTypes.FOCUS_CHILD_COMMENT_INPUT);
         },
         focusOutChildCommentInput() {
-            this.$store.commit(CommonMutationTypes.FOCUS_OUT_CHILD_COMMENT_INPUT);
+            this.$store.commit(UIMutationTypes.FOCUS_OUT_CHILD_COMMENT_INPUT);
         },
         unFold(focusChildInput) {
             this.isFolded = false;
@@ -261,7 +261,7 @@ export default Vue.extend({
         },
         submitSubComment() {
             if (!this.subCommentContent) {
-                this.$store.commit(CommonMutationTypes.OPEN_SNACK_BAR, this.EMPTY_COMMENT_TEXT);
+                this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, this.EMPTY_COMMENT_TEXT);
                 return;
             }
             this.subCommentSubmitLoading = true;

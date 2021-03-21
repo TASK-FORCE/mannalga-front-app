@@ -1,5 +1,5 @@
 import { CommitOptions, DispatchOptions, Store } from 'vuex';
-import { CommonActions, CommonMutations, CommonState } from '@/store/modules/common';
+import { UIActions, UIMutations, UIState } from '@/store/modules/ui';
 import { ClubActions, ClubMutations, ClubState } from '@/store/modules/club';
 import { ClubListActions, ClubListMutations, ClubListState } from '@/store/modules/clubList';
 import { UserActions, UserMutations, UserState } from '@/store/modules/user';
@@ -8,7 +8,7 @@ import { AlbumActions, AlbumMutations, AlbumState } from '@/store/modules/album'
 import { BoardActions, BoardMutations, BoardState } from '@/store/modules/board';
 
 export type RootState = {
-    common: CommonState;
+    ui: UIState;
     club: ClubState;
     clubList: ClubListState;
     user: UserState;
@@ -20,13 +20,13 @@ export type RootState = {
 export type MergedGetters = AuthGetters
 
 export type MergedMutations =
-    CommonMutations & ClubMutations & ClubListMutations &
+    UIMutations & ClubMutations & ClubListMutations &
     UserMutations & AuthMutations & AlbumMutations &
     BoardMutations & {
     [key: string]: any
 }
 export type MergedActions =
-    CommonActions & ClubActions & ClubListActions &
+    UIActions & ClubActions & ClubListActions &
     UserActions & AuthActions & AlbumActions &
     BoardActions & {
     [key: string]: any

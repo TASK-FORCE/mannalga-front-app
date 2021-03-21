@@ -19,7 +19,7 @@ import Vue from 'vue';
 import { PATH } from '@/router/route_path_type.ts';
 import _ from '@/utils/common/lodashWrapper.ts';
 import UserSettingPageEnterAvatar from '@/components/UserSettingPageEnterAvatar.vue';
-import { ClubListMutationTypes, ClubMutationTypes, CommonMutationTypes } from '@/store/type/mutationTypes.ts';
+import { ClubListMutationTypes, ClubMutationTypes, UIMutationTypes } from '@/store/type/mutationTypes.ts';
 import { ClubSearchContext } from '@/interfaces/clubList';
 
 const SEARCH_WAIT_TIME = 500;
@@ -45,7 +45,7 @@ export default Vue.extend({
                 return;
             }
             this.$store.commit(ClubMutationTypes.SET_CURRENT_TAB, 'club');
-            this.$store.commit(CommonMutationTypes.CHANGE_LOADING, true);
+            this.$store.commit(UIMutationTypes.CHANGE_LOADING, true);
             this.searchCallback();
         },
         clubSearchContext() {

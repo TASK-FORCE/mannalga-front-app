@@ -49,7 +49,7 @@
 import { moveToKakaoLoginPage } from '@/utils/kakao/kakao.ts';
 import { PATH } from '@/router/route_path_type.ts';
 import { MESSAGE } from '@/utils/common/constant/messages.ts';
-import { CommonMutationTypes } from '@/store/type/mutationTypes.ts';
+import { UIMutationTypes } from '@/store/type/mutationTypes.ts';
 import Vue from 'vue';
 import { AuthActionTypes, UserActionTypes } from '@/store/type/actionTypes';
 
@@ -71,7 +71,7 @@ export default Vue.extend({
     },
     created() {
         if (this.validationFail) {
-            this.$store.commit(CommonMutationTypes.OPEN_SNACK_BAR, MESSAGE.LOGIN_REQUIRE);
+            this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.LOGIN_REQUIRE);
             return;
         }
 

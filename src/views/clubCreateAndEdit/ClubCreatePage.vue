@@ -18,7 +18,7 @@ import CommonHeader from '@/components/header/CommonHeader.vue';
 import ClubCreateAndEditBody from '@/views/clubCreateAndEdit/ClubCreateAndEditBody.vue';
 import { PATH } from '@/router/route_path_type.ts';
 import { MESSAGE } from '@/utils/common/constant/messages.ts';
-import { CommonMutationTypes } from '@/store/type/mutationTypes.ts';
+import { UIMutationTypes } from '@/store/type/mutationTypes.ts';
 import { ClubWriteRequest } from '@/interfaces/club';
 import { ClubActionTypes } from '@/store/type/actionTypes';
 
@@ -32,7 +32,7 @@ export default Vue.extend({
         createClub(clubWriteRequest: ClubWriteRequest) {
             return this.$store.dispatch(ClubActionTypes.REQUEST_CLUB_CREATE, clubWriteRequest)
                 .then(() => {
-                    this.$store.commit(CommonMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_CLUB_CREATE);
+                    this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_CLUB_CREATE);
                     this.$router.push(PATH.CLUB_LIST);
                 });
         },

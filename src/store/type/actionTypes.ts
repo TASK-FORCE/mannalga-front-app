@@ -1,4 +1,4 @@
-export enum CommonActionTypes {
+export enum UIActionTypes {
     UPLOAD_TEMP_IMAGE = 'common/uploadTempImage',
 }
 

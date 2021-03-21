@@ -1,5 +1,5 @@
 <template>
-    <v-list v-show="!$store.state.common.loading"
+    <v-list v-show="!$store.state.ui.loading"
             class="py-0"
             :class="`${name}-list-wrapper`"
     >

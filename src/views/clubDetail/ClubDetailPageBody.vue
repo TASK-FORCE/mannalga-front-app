@@ -15,7 +15,7 @@
         </v-tabs>
 
         <v-tabs-items
-            v-show="!$store.state.common.loading"
+            v-show="!$store.state.ui.loading"
             v-model="tab"
         >
             <v-tab-item value="main">

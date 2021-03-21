@@ -1,13 +1,13 @@
 import _ from '@/utils/common/lodashWrapper.ts';
 import store from '@/store/index.ts';
-import { CommonMutationTypes } from '@/store/type/mutationTypes.ts';
+import { UIMutationTypes } from '@/store/type/mutationTypes.ts';
 
 export function validateWithRules(target: any, rules: any[]): boolean {
     const validationMessages = getValidationMessage(target, rules);
     if (_.isEmpty(validationMessages)) {
         return true;
     }
-    store.commit(CommonMutationTypes.OPEN_SNACK_BAR, validationMessages[0]);
+    store.commit(UIMutationTypes.OPEN_SNACK_BAR, validationMessages[0]);
     return false;
 }
 

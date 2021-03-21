@@ -25,7 +25,7 @@
 
 <script lang="ts">
 import { MESSAGE } from '@/utils/common/constant/messages.ts';
-import { CommonMutationTypes } from '@/store/type/mutationTypes.ts';
+import { UIMutationTypes } from '@/store/type/mutationTypes.ts';
 import Vue from 'vue';
 
 export default Vue.extend({
@@ -67,7 +67,7 @@ export default Vue.extend({
                     .finally(() => (this.loading = false));
                 return;
             }
-            this.$store.commit(CommonMutationTypes.OPEN_SNACK_BAR, this.EMPTY_COMMENT_TEXT);
+            this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, this.EMPTY_COMMENT_TEXT);
         },
     },
 });

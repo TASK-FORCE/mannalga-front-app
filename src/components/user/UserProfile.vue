@@ -1,5 +1,5 @@
 <template>
-    <div v-show="!$store.state.common.loading">
+    <div v-show="!$store.state.ui.loading">
         <v-row
             justify="center"
             class="mt-40"

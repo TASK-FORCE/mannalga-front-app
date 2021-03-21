@@ -124,7 +124,7 @@ import routerHelper from '@/router/RouterHelper.ts';
 import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
 import { CLUB_ROLE } from '@/utils/role.ts';
 import MiddleDivider from '@/components/MiddleDivider.vue';
-import { CommonMutationTypes } from '@/store/type/mutationTypes.ts';
+import { UIMutationTypes } from '@/store/type/mutationTypes.ts';
 import { ClubUserInfo, CurrentUserInfo } from '@/interfaces/club';
 import { ClubActionTypes } from '@/store/type/actionTypes';
 
@@ -178,7 +178,7 @@ export default Vue.extend({
         withdraw() {
             return this.$store.dispatch(ClubActionTypes.REQUEST_CLUB_WITHDRAW, this.clubSeq)
                 .then(() => {
-                    this.$store.commit(CommonMutationTypes.OPEN_SNACK_BAR, MESSAGE.WITHDRAW_CLUB);
+                    this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.WITHDRAW_CLUB);
                     this.$router.go();
                 });
         },

@@ -47,7 +47,7 @@ import CommonHeader from '@/components/header/CommonHeader.vue';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import { format, MESSAGE } from '@/utils/common/constant/messages.ts';
 import _ from '@/utils/common/lodashWrapper.ts';
-import { CommonMutationTypes } from '@/store/type/mutationTypes.ts';
+import { UIMutationTypes } from '@/store/type/mutationTypes.ts';
 import Vue from 'vue';
 
 export default Vue.extend({
@@ -104,7 +104,7 @@ export default Vue.extend({
             }
 
             if (this.selectedInterestSeqs.length >= this.maxSize) {
-                this.$store.commit(CommonMutationTypes.OPEN_SNACK_BAR, format(MESSAGE.SELECT_INTEREST_OVER_COUNT, this.maxSize));
+                this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, format(MESSAGE.SELECT_INTEREST_OVER_COUNT, this.maxSize));
                 return;
             }
 

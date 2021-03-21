@@ -1,5 +1,5 @@
 <template>
-    <div v-show="!$store.state.common.loading">
+    <div v-show="!$store.state.ui.loading">
         <div class="d-flex pa-3">
             <UserProfileAvatar
                 :size="50"
@@ -108,7 +108,7 @@ import MiddleDivider from '@/components/MiddleDivider.vue';
 import SimpleUserProfileList from '@/components/user/SimpleUserProfileList.vue';
 import { MESSAGE } from '@/utils/common/constant/messages.ts';
 import { generateParamPath, PATH } from '@/router/route_path_type.ts';
-import { CommonMutationTypes } from '@/store/type/mutationTypes.ts';
+import { UIMutationTypes } from '@/store/type/mutationTypes.ts';
 import Vue from 'vue';
 import { isDarkTheme } from '@/utils/theme';
 
@@ -148,13 +148,13 @@ export default Vue.extend({
         applyMeetingApplication() {
             this.applicationBtnLoading = true;
             actionsHelper.requestMeetingApplication(this.clubAndMeetingSeq)
-                .then(() => this.$store.commit(CommonMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_APPLY_MEETING_APPLICATION))
+                .then(() => this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_APPLY_MEETING_APPLICATION))
                 .finally(() => (this.applicationBtnLoading = false));
         },
         cancelMeetingApplication() {
             this.applicationBtnLoading = true;
             actionsHelper.requestCancelMeetingApplication(this.clubAndMeetingSeq)
-                .then(() => this.$store.commit(CommonMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_CANCEL_MEETING_APPLICATION))
+                .then(() => this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_CANCEL_MEETING_APPLICATION))
                 .finally(() => (this.applicationBtnLoading = false));
         },
         moveToMeetingEditPage() {

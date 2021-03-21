@@ -1,5 +1,5 @@
 <template>
-    <div v-show="!$store.state.common.loading">
+    <div v-show="!$store.state.ui.loading">
         <InterestSelect
             title="관심사 설정"
             :backCallback="back"
@@ -21,7 +21,7 @@ import Vue from 'vue';
 import { PATH } from '@/router/route_path_type.ts';
 import { MESSAGE } from '@/utils/common/constant/messages.ts';
 import InterestSelect from '@/components/interest/InterestSelect.vue';
-import { CommonMutationTypes } from '@/store/type/mutationTypes.ts';
+import { UIMutationTypes } from '@/store/type/mutationTypes.ts';
 import { UserActionTypes } from '@/store/type/actionTypes';
 
 export default Vue.extend({
@@ -38,7 +38,7 @@ export default Vue.extend({
                 .then(() => {
                     this.$store.dispatch(UserActionTypes.REQUEST_USER_PROFILE);
                     this.$router.push(PATH.USER.SETTINGS);
-                    this.$store.commit(CommonMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_CHANGE_REGIONS);
+                    this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_CHANGE_REGIONS);
                 });
         },
         back() {

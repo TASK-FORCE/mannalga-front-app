@@ -1,7 +1,7 @@
 import router from '@/router';
 import { PATH } from '@/router/route_path_type.ts';
 import store from '@/store/index.ts';
-import { CommonMutationTypes } from '@/store/type/mutationTypes.ts';
+import { UIMutationTypes } from '@/store/type/mutationTypes.ts';
 
 class RequestHelper {
     static async dispatchAll(
@@ -11,7 +11,7 @@ class RequestHelper {
     ) {
         try {
             if (withLoading) {
-                store.commit(CommonMutationTypes.CHANGE_LOADING, true);
+                store.commit(UIMutationTypes.CHANGE_LOADING, true);
             }
             await Promise.all(promiseList);
         } catch (e) {
@@ -25,7 +25,7 @@ class RequestHelper {
             throw e;
         } finally {
             if (withLoading) {
-                store.commit(CommonMutationTypes.CHANGE_LOADING, false);
+                store.commit(UIMutationTypes.CHANGE_LOADING, false);
             }
         }
     }

@@ -11,7 +11,7 @@
                 />
             </transition>
         </v-main>
-        <Progress v-show="$store.state.common.loading" />
+        <Progress v-show="$store.state.ui.loading" />
         <CommonSnackBar />
         <v-btn
             v-if="isDevEnv"
@@ -32,7 +32,7 @@
 <script lang="ts">
 import CommonSnackBar from '@/components/CommonSnackBar.vue';
 import Progress from '@/components/Progress.vue';
-import { CommonMutationTypes } from '@/store/type/mutationTypes.ts';
+import { UIMutationTypes } from '@/store/type/mutationTypes.ts';
 import Vue from 'vue';
 import { loadCurrentTheme } from '@/utils/theme';
 
@@ -49,7 +49,7 @@ export default Vue.extend({
     },
     methods: {
         changeTheme() {
-            this.$store.commit(CommonMutationTypes.CHANGE_THEME);
+            this.$store.commit(UIMutationTypes.CHANGE_THEME);
         },
     },
 });

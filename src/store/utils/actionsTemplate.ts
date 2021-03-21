@@ -1,10 +1,10 @@
 import { MESSAGE } from '@/utils/common/constant/messages.ts';
 import store from '@/store';
-import { CommonMutationTypes, MutationTypes } from '@/store/type/mutationTypes.ts';
+import { MutationTypes, UIMutationTypes } from '@/store/type/mutationTypes.ts';
 
 export const actionsLoadingTemplate = async <T>(
     callback: () => Promise<T>,
-    mutationTypes: MutationTypes = CommonMutationTypes.CHANGE_LOADING,
+    mutationTypes: MutationTypes = UIMutationTypes.CHANGE_LOADING,
     failCallback?,
 ): Promise<T> => {
     try {
@@ -30,9 +30,9 @@ export const actionsNormalTemplate = async <T>(callback: () => Promise<T>, failC
 function handleException(e, failCallback) {
     const errorMessageFromServer = extractMessage(e);
     if (errorMessageFromServer) {
-        store.commit(CommonMutationTypes.OPEN_SNACK_BAR, errorMessageFromServer);
+        store.commit(UIMutationTypes.OPEN_SNACK_BAR, errorMessageFromServer);
     } else {
-        store.commit(CommonMutationTypes.OPEN_SNACK_BAR, MESSAGE.SERVER_INSTABILITY);
+        store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.SERVER_INSTABILITY);
     }
 
     if (failCallback) {

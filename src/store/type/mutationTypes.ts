@@ -1,14 +1,14 @@
 export type MutationTypes =
-    CommonMutationTypes | ClubMutationTypes | ClubListMutationTypes |
+    UIMutationTypes | ClubMutationTypes | ClubListMutationTypes |
     UserMutationTypes | AuthMutationTypes | AlbumMutationTypes
 
-export enum CommonMutationTypes {
-    CHANGE_LOADING = 'common/changeLoading',
-    OPEN_SNACK_BAR = 'common/openSnackBar',
-    CLOSE_SNACK_BAR = 'common/closeSnackBar',
-    FOCUS_CHILD_COMMENT_INPUT = 'common/focusChildCommentInput',
-    FOCUS_OUT_CHILD_COMMENT_INPUT = 'common/focusOutChildCommentInput',
-    CHANGE_THEME = 'common/changeTheme',
+export enum UIMutationTypes {
+    CHANGE_LOADING = 'ui/changeLoading',
+    OPEN_SNACK_BAR = 'ui/openSnackBar',
+    CLOSE_SNACK_BAR = 'ui/closeSnackBar',
+    FOCUS_CHILD_COMMENT_INPUT = 'ui/focusChildCommentInput',
+    FOCUS_OUT_CHILD_COMMENT_INPUT = 'ui/focusOutChildCommentInput',
+    CHANGE_THEME = 'ui/changeTheme',
 }
 
 

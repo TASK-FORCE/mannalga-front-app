@@ -11,7 +11,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import SnackBar from '@/components/SnackBar.vue';
-import { CommonMutationTypes } from '@/store/type/mutationTypes';
+import { UIMutationTypes } from '@/store/type/mutationTypes';
 import { SnackBarOption } from '@/interfaces/common';
 
 export default Vue.extend({
@@ -34,7 +34,7 @@ export default Vue.extend({
     },
     methods: {
         close() {
-            this.$store.commit(CommonMutationTypes.CLOSE_SNACK_BAR);
+            this.$store.commit(UIMutationTypes.CLOSE_SNACK_BAR);
         },
     },
 });

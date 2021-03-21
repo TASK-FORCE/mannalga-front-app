@@ -54,7 +54,7 @@
 import Vue from 'vue';
 import 'cropperjs/dist/cropper.css';
 import Cropper from 'cropperjs';
-import { CommonActionTypes } from '@/store/type/actionTypes';
+import { UIActionTypes } from '@/store/type/actionTypes';
 
 
 export default Vue.extend({
@@ -167,7 +167,7 @@ export default Vue.extend({
             croppedCanvas.toBlob(blob => {
                 const formData = new FormData();
                 formData.append('file', blob, 'test.png');
-                this.$store.dispatch(CommonActionTypes.UPLOAD_TEMP_IMAGE, formData)
+                this.$store.dispatch(UIActionTypes.UPLOAD_TEMP_IMAGE, formData)
                     .then(tempImageDto => {
                         this.$emit('handleUploadedImgDto', tempImageDto);
                         this.destroy();

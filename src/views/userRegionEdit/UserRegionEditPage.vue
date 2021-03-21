@@ -1,5 +1,5 @@
 <template>
-    <div v-show="!$store.state.common.loading">
+    <div v-show="!$store.state.ui.loading">
         <RegionSelect
             :selectedRegionsCallback="getSelectedRegions"
             :backCallback="moveToSettingPage"
@@ -21,7 +21,7 @@ import Vue from 'vue';
 import RegionSelect from '@/components/region/RegionSelect.vue';
 import { PATH } from '@/router/route_path_type.ts';
 import { MESSAGE } from '@/utils/common/constant/messages.ts';
-import { CommonMutationTypes } from '@/store/type/mutationTypes.ts';
+import { UIMutationTypes } from '@/store/type/mutationTypes.ts';
 import { UserActionTypes } from '@/store/type/actionTypes';
 
 export default Vue.extend({
@@ -32,7 +32,7 @@ export default Vue.extend({
             return this.$store.dispatch(UserActionTypes.REQUEST_CHANGE_USER_REGIONS, selectedRegions)
                 .then(() => {
                     this.$store.dispatch(UserActionTypes.REQUEST_USER_PROFILE);
-                    this.$store.commit(CommonMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_CHANGE_REGIONS);
+                    this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_CHANGE_REGIONS);
                     this.$router.push(PATH.USER.SETTINGS);
                 });
         },

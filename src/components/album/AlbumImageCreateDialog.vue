@@ -57,7 +57,7 @@ import ImageSelectBox from '@/components/image/ImageSelectBox.vue';
 import routerHelper from '@/router/RouterHelper.ts';
 import { RULES } from '@/utils/common/constant/rules.ts';
 import { MESSAGE } from '@/utils/common/constant/messages.ts';
-import { CommonMutationTypes } from '@/store/type/mutationTypes.ts';
+import { UIMutationTypes } from '@/store/type/mutationTypes.ts';
 import { UploadImageResponse } from '@/interfaces/common.ts';
 import { AlbumActionTypes } from '@/store/type/actionTypes';
 import { AlbumWriteRequest } from '@/interfaces/album';
@@ -91,11 +91,11 @@ export default Vue.extend({
                         .then(() => {
                             this.$store.dispatch(AlbumActionTypes.REQUEST_FIRST_ALBUM_LIST, routerHelper.clubSeq());
                             this.clear();
-                            this.$store.commit(CommonMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_IMAGE_REGISTER);
+                            this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_IMAGE_REGISTER);
                         });
                 }
             } else {
-                this.$store.commit(CommonMutationTypes.OPEN_SNACK_BAR, MESSAGE.SELECT_IMAGE_REQUIRE);
+                this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.SELECT_IMAGE_REQUIRE);
             }
         },
         changeToUploadedImage(uploadedImage: UploadImageResponse) {

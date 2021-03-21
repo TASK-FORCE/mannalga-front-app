@@ -30,7 +30,7 @@ import _ from '@/utils/common/lodashWrapper.ts';
 import { PATH } from '@/router/route_path_type.ts';
 import MiddleDivider from '@/components/MiddleDivider.vue';
 import SettingBar from '@/components/SettingBar.vue';
-import { AuthMutationTypes, CommonMutationTypes } from '@/store/type/mutationTypes';
+import { AuthMutationTypes, UIMutationTypes } from '@/store/type/mutationTypes';
 import { UserProfile } from '@/interfaces/user';
 
 export default Vue.extend({
@@ -66,7 +66,7 @@ export default Vue.extend({
             this.$router.push(PATH.LOGIN);
         },
         changeTheme() {
-            this.$store.commit(CommonMutationTypes.CHANGE_THEME);
+            this.$store.commit(UIMutationTypes.CHANGE_THEME);
         },
     },
 });
