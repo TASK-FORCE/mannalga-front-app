@@ -1,19 +1,19 @@
 import { ClubListPageTab } from '@/interfaces/club';
 
 class LastClubListTabCache {
-    private lastTab: ClubListPageTab;
+  private lastTab: ClubListPageTab;
 
-    constructor() {
-        this.lastTab = ClubListPageTab.CLUB;
-    }
+  constructor() {
+    this.lastTab = ClubListPageTab.CLUB;
+  }
 
-    get(): ClubListPageTab {
-        return this.lastTab;
-    }
+  get(): ClubListPageTab {
+    return this.lastTab;
+  }
 
-    save(tab: ClubListPageTab) {
-        this.lastTab = tab;
-    }
+  save(tab: ClubListPageTab) {
+    this.lastTab = tab;
+  }
 }
 
 const lastClubListTabCache = new LastClubListTabCache();

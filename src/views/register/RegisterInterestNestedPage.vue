@@ -1,16 +1,16 @@
 <template>
-    <InterestSelect
-        title="회원가입"
-        :backCallback="back"
-        :submitCallback="register"
-    >
-        <template #header-title>
-            관심있는 분야를 선택해주세요.
-        </template>
-        <template #header-description>
-            최대 5개까지 선택 가능합니다.
-        </template>
-    </InterestSelect>
+  <InterestSelect
+    title="회원가입"
+    :backCallback="back"
+    :submitCallback="register"
+  >
+    <template #header-title>
+      관심있는 분야를 선택해주세요.
+    </template>
+    <template #header-description>
+      최대 5개까지 선택 가능합니다.
+    </template>
+  </InterestSelect>
 </template>
 
 <script lang="ts">
@@ -26,42 +26,42 @@ import { UserActionTypes } from '@/store/type/actionTypes';
 
 
 export default Vue.extend({
-    name: 'RegisterInterestNestedPage',
-    components: { InterestSelect },
-    computed: {
-        kakaoProfile(): KakaoProfile {
-            return this.$store.state.user.kakaoProfile;
-        },
-        selectedRegions(): Region[] {
-            return this.$store.state.user.selectedRegions;
-        },
+  name: 'RegisterInterestNestedPage',
+  components: { InterestSelect },
+  computed: {
+    kakaoProfile(): KakaoProfile {
+      return this.$store.state.user.kakaoProfile;
     },
-    created() {
-        if (_.isDeepEmpty(this.kakaoProfile)) {
-            this.$router.push(PATH.REGISTER.PROFILE);
-            return;
-        }
+    selectedRegions(): Region[] {
+      return this.$store.state.user.selectedRegions;
+    },
+  },
+  created() {
+    if (_.isDeepEmpty(this.kakaoProfile)) {
+      this.$router.push(PATH.REGISTER.PROFILE);
+      return;
+    }
 
-        if (_.isEmpty(this.selectedRegions)) {
-            this.$router.push(PATH.REGISTER.REGION);
-        }
-    },
-    methods: {
-        register(selectedInterests) {
-            const userRegisterContext: UserRegisterContext = {
-                profile: this.kakaoProfile,
-                selectedRegions: this.selectedRegions,
-                selectedInterests,
-            };
+    if (_.isEmpty(this.selectedRegions)) {
+      this.$router.push(PATH.REGISTER.REGION);
+    }
+  },
+  methods: {
+    register(selectedInterests) {
+      const userRegisterContext: UserRegisterContext = {
+        profile: this.kakaoProfile,
+        selectedRegions: this.selectedRegions,
+        selectedInterests,
+      };
 
-            this.$store.dispatch(UserActionTypes.REQUEST_REGISTER, userRegisterContext)
-                .then(() => this.$router.push(PATH.CLUB_LIST)
-                    .then(() => this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_REGISTER)))
-                .catch(() => this.$router.push(PATH.REGISTER.PROFILE));
-        },
-        back() {
-            this.$router.push(PATH.REGISTER.REGION);
-        },
+      this.$store.dispatch(UserActionTypes.REQUEST_REGISTER, userRegisterContext)
+        .then(() => this.$router.push(PATH.CLUB_LIST)
+          .then(() => this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_REGISTER)))
+        .catch(() => this.$router.push(PATH.REGISTER.PROFILE));
     },
+    back() {
+      this.$router.push(PATH.REGISTER.REGION);
+    },
+  },
 });
 </script>

@@ -1,8 +1,8 @@
 <template>
-    <v-container class="pa-0">
-        <ClubListPageHeader />
-        <ClubListPageBody />
-    </v-container>
+  <v-container class="pa-0">
+    <ClubListPageHeader />
+    <ClubListPageBody />
+  </v-container>
 </template>
 
 <script lang="ts">
@@ -11,8 +11,8 @@ import ClubListPageBody from '@/views/clubList/ClubListPageBody.vue';
 import Vue from 'vue';
 
 export default Vue.extend({
-    name: 'ClubListPage',
-    components: { ClubListPageHeader, ClubListPageBody },
+  name: 'ClubListPage',
+  components: { ClubListPageHeader, ClubListPageBody },
 });
 </script>
 

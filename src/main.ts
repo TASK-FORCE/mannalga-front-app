@@ -19,8 +19,8 @@ AxiosUtils.setTimeout(process.env.VUE_APP_AXIOS_TIMEOUT);
 AxiosUtils.setAppTokenAsDefaultHeader();
 
 new Vue({
-    vuetify,
-    router,
-    store,
-    render: (h) => h(App),
+  vuetify,
+  router,
+  store,
+  render: (h) => h(App),
 }).$mount('#app');

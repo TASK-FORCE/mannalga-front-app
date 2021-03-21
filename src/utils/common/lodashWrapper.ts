@@ -6,31 +6,31 @@ import { chunk, debounce, findIndex, isEmpty, isEqual, isFunction, isNumber, sor
  */
 
 function isDeepEmpty(target) {
-    if (typeof target === 'object') {
-        for (const value of Object.values(target)) {
-            if (typeof value === 'object' && !isDeepEmpty(value)) {
-                return false;
-            }
-            if (!isEmpty(value)) {
-                return false;
-            }
-        }
-        return true;
+  if (typeof target === 'object') {
+    for (const value of Object.values(target)) {
+      if (typeof value === 'object' && !isDeepEmpty(value)) {
+        return false;
+      }
+      if (!isEmpty(value)) {
+        return false;
+      }
     }
-    return isEmpty(target);
+    return true;
+  }
+  return isEmpty(target);
 }
 
 const _ = {
-    isDeepEmpty,
-    isEmpty: isEmpty,
-    findIndex: findIndex,
-    isEqual: isEqual,
-    isNumber: isNumber,
-    isFunction: isFunction,
-    throttle: throttle,
-    sortBy: sortBy,
-    debounce: debounce,
-    chunk: chunk,
+  isDeepEmpty,
+  isEmpty: isEmpty,
+  findIndex: findIndex,
+  isEqual: isEqual,
+  isNumber: isNumber,
+  isFunction: isFunction,
+  throttle: throttle,
+  sortBy: sortBy,
+  debounce: debounce,
+  chunk: chunk,
 };
 
 export default _;

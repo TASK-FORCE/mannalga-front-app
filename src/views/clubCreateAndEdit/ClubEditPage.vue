@@ -1,15 +1,15 @@
 <template>
-    <div>
-        <CommonHeader
-            title="모임 수정"
-            @back="back"
-        />
-        <ClubCreateAndEditBody
-            btnText="모임 수정"
-            :submitClickCallback="editClub"
-            :context="editContext"
-        />
-    </div>
+  <div>
+    <CommonHeader
+      title="모임 수정"
+      @back="back"
+    />
+    <ClubCreateAndEditBody
+      btnText="모임 수정"
+      :submitClickCallback="editClub"
+      :context="editContext"
+    />
+  </div>
 </template>
 
 <script lang="ts">
@@ -22,40 +22,40 @@ import { ClubInfo, ClubWriteRequest, ClubWriteRequestWithSeq } from '@/interface
 import { ClubActionTypes } from '@/store/type/actionTypes';
 
 export default Vue.extend({
-    name: 'ClubEditPage',
-    components: { CommonHeader, ClubCreateAndEditBody },
-    computed: {
-        clubInfo(): ClubInfo {
-            return this.$store.state.club.clubInfo;
-        },
-        editContext() {
-            if (this.clubInfo.seq === 0) {
-                this.$router.back();
-                return {};
-            }
-            return {
-                name: this.clubInfo.name,
-                description: this.clubInfo.description,
-                maximumNumber: this.clubInfo.maximumNumber,
-                imageUrl: this.clubInfo.mainImageUrl,
-                interestList: this.clubInfo.clubInterest.map(({ interest }) => interest),
-                regionList: this.clubInfo.clubRegion.map(({ region }) => region),
-            };
-        },
+  name: 'ClubEditPage',
+  components: { CommonHeader, ClubCreateAndEditBody },
+  computed: {
+    clubInfo(): ClubInfo {
+      return this.$store.state.club.clubInfo;
     },
-    methods: {
-        back() {
-            this.$router.push(PATH.CLUB_LIST);
-        },
-        editClub(clubWriteRequest: ClubWriteRequest) {
-            const clubWriteRequestWithSeq: ClubWriteRequestWithSeq = {
-                clubSeq: this.clubInfo.seq,
-                clubWriteRequest
-            }
-            return this.$store.dispatch(ClubActionTypes.REQUEST_CLUB_CHANGE, clubWriteRequestWithSeq)
-                .then(() => (this.$router.push(generateParamPath(PATH.CLUB.MAIN, [this.clubSeq]))));
-        },
+    editContext() {
+      if (this.clubInfo.seq === 0) {
+        this.$router.back();
+        return {};
+      }
+      return {
+        name: this.clubInfo.name,
+        description: this.clubInfo.description,
+        maximumNumber: this.clubInfo.maximumNumber,
+        imageUrl: this.clubInfo.mainImageUrl,
+        interestList: this.clubInfo.clubInterest.map(({ interest }) => interest),
+        regionList: this.clubInfo.clubRegion.map(({ region }) => region),
+      };
     },
+  },
+  methods: {
+    back() {
+      this.$router.push(PATH.CLUB_LIST);
+    },
+    editClub(clubWriteRequest: ClubWriteRequest) {
+      const clubWriteRequestWithSeq: ClubWriteRequestWithSeq = {
+        clubSeq: this.clubInfo.seq,
+        clubWriteRequest
+      }
+      return this.$store.dispatch(ClubActionTypes.REQUEST_CLUB_CHANGE, clubWriteRequestWithSeq)
+        .then(() => (this.$router.push(generateParamPath(PATH.CLUB.MAIN, [this.clubSeq]))));
+    },
+  },
 });
 </script>
 

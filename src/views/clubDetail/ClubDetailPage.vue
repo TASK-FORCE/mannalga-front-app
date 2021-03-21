@@ -1,8 +1,8 @@
 <template>
-    <div>
-        <ClubDetailPageHeader />
-        <ClubDetailPageBody />
-    </div>
+  <div>
+    <ClubDetailPageHeader />
+    <ClubDetailPageBody />
+  </div>
 </template>
 
 <script lang="ts">
@@ -11,7 +11,7 @@ import ClubDetailPageBody from '@/views/clubDetail/ClubDetailPageBody.vue';
 import Vue from 'vue';
 
 export default Vue.extend({
-    name: 'ClubDetailPage',
-    components: { ClubDetailPageHeader, ClubDetailPageBody },
+  name: 'ClubDetailPage',
+  components: { ClubDetailPageHeader, ClubDetailPageBody },
 });
 </script>

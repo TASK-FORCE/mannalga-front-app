@@ -1,35 +1,37 @@
 <template>
-    <v-dialog :value="value"
-              @click:outside="$emit('input', false)"
-    >
-        <v-card>
-            <div class="pt-3 pb-1 px-4 title"
-            >
-                {{ title }}
-            </div>
-            <div class="px-4">
-                <slot name="description" />
-            </div>
-            <div class="text-center pa-3">
-                <v-btn
-                    color="green darken-1"
-                    outlined
-                    @click="close"
-                >
-                    {{ cancelText }}
-                </v-btn>
-                <v-btn
-                    class="ml-3"
-                    color="green darken-1"
-                    outlined
-                    :loading="loading"
-                    @click="submit"
-                >
-                    {{ submitText }}
-                </v-btn>
-            </div>
-        </v-card>
-    </v-dialog>
+  <v-dialog
+    :value="value"
+    @click:outside="$emit('input', false)"
+  >
+    <v-card>
+      <div
+        class="pt-3 pb-1 px-4 title"
+      >
+        {{ title }}
+      </div>
+      <div class="px-4">
+        <slot name="description" />
+      </div>
+      <div class="text-center pa-3">
+        <v-btn
+          color="green darken-1"
+          outlined
+          @click="close"
+        >
+          {{ cancelText }}
+        </v-btn>
+        <v-btn
+          class="ml-3"
+          color="green darken-1"
+          outlined
+          :loading="loading"
+          @click="submit"
+        >
+          {{ submitText }}
+        </v-btn>
+      </div>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script lang="ts">
@@ -37,53 +39,53 @@ import routerHelper from '@/router/RouterHelper.ts';
 import Vue from 'vue';
 
 export default Vue.extend({
-    name: 'YesOrNoDialog',
-    props: {
-        value: {
-            type: Boolean,
-            required: true,
-        },
-        title: {
-            type: String,
-            required: true,
-        },
-        cancelText: {
-            type: String,
-            default: '취소',
-        },
-        submitText: {
-            type: String,
-            default: '확인',
-        },
-        submitPromiseCallback: {
-            type: Function,
-            required: true,
-        },
+  name: 'YesOrNoDialog',
+  props: {
+    value: {
+      type: Boolean,
+      required: true,
     },
-    data() {
-        return {
-            loading: false,
-        };
+    title: {
+      type: String,
+      required: true,
     },
-    computed: {
-        clubSeq: () => routerHelper.clubSeq(),
+    cancelText: {
+      type: String,
+      default: '취소',
     },
-    beforeDestroy() {
-        this.close();
+    submitText: {
+      type: String,
+      default: '확인',
     },
-    methods: {
-        submit() {
-            this.loading = true;
-            this.submitPromiseCallback()
-                .finally(() => {
-                    this.loading = false;
-                    this.close();
-                });
-        },
-        close() {
-            this.$emit('input', false);
-        },
+    submitPromiseCallback: {
+      type: Function,
+      required: true,
     },
+  },
+  data() {
+    return {
+      loading: false,
+    };
+  },
+  computed: {
+    clubSeq: () => routerHelper.clubSeq(),
+  },
+  beforeDestroy() {
+    this.close();
+  },
+  methods: {
+    submit() {
+      this.loading = true;
+      this.submitPromiseCallback()
+        .finally(() => {
+          this.loading = false;
+          this.close();
+        });
+    },
+    close() {
+      this.$emit('input', false);
+    },
+  },
 });
 </script>
 

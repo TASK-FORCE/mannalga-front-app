@@ -1,46 +1,46 @@
 <template>
-    <div>
-        <div class="ml-3 mt-1 mb-3">
-            <v-select
-                v-model="selectedCategory"
-                :items="boardCategoryNames"
-                outlined
-                dense
-                hide-details
-                style="width: 120px"
-            />
-        </div>
-        <InfiniteScrollTemplate
-            name="board"
-            :firstPageCallback="this.fetchFirstPage"
-            :nextPageCallback="this.fetchNextPage"
-            :pageElements="boardList"
-            :pageInfo="boardPage"
-            withListGroup
-        >
-            <template v-slot:list-main>
-                <div
-                    v-for="board in boardList"
-                    :key="board.seq"
-                >
-                    <ClubDetailBoardPost :board="board" />
-                </div>
-            </template>
-            <template #empty>
-                <EmptyPage
-                    icon="note"
-                    title="게시글이 없습니다."
-                    description="글을 작성하여 모임원들과 이야기하세요."
-                />
-            </template>
-        </InfiniteScrollTemplate>
-        <FixedCreateBtn
-            v-if="canCreateBoard"
-            color="blue"
-            :path="clubBoardCreate"
-            left
-        />
+  <div>
+    <div class="ml-3 mt-1 mb-3">
+      <v-select
+        v-model="selectedCategory"
+        :items="boardCategoryNames"
+        outlined
+        dense
+        hide-details
+        style="width: 120px"
+      />
     </div>
+    <InfiniteScrollTemplate
+      name="board"
+      :firstPageCallback="this.fetchFirstPage"
+      :nextPageCallback="this.fetchNextPage"
+      :pageElements="boardList"
+      :pageInfo="boardPage"
+      withListGroup
+    >
+      <template v-slot:list-main>
+        <div
+          v-for="board in boardList"
+          :key="board.seq"
+        >
+          <ClubDetailBoardPost :board="board" />
+        </div>
+      </template>
+      <template #empty>
+        <EmptyPage
+          icon="note"
+          title="게시글이 없습니다."
+          description="글을 작성하여 모임원들과 이야기하세요."
+        />
+      </template>
+    </InfiniteScrollTemplate>
+    <FixedCreateBtn
+      v-if="canCreateBoard"
+      color="blue"
+      :path="clubBoardCreate"
+      left
+    />
+  </div>
 </template>
 
 <script lang="ts">
@@ -56,69 +56,69 @@ import { BoardActionTypes } from '@/store/type/actionTypes';
 import { BoardCategory } from '@/interfaces/board/BoardCategory';
 
 export default Vue.extend({
-    name: 'ClubDetailBoardList',
-    components: {
-        EmptyPage,
-        InfiniteScrollTemplate,
-        ClubDetailBoardPost,
-        FixedCreateBtn,
+  name: 'ClubDetailBoardList',
+  components: {
+    EmptyPage,
+    InfiniteScrollTemplate,
+    ClubDetailBoardPost,
+    FixedCreateBtn,
+  },
+  props: {
+    currentUserInfo: Object as PropType<CurrentUserInfo>,
+  },
+  data() {
+    return {
+      clubBoardCreate: null,
+      boardCategoryNames: ['전체보기', ...BoardCategory.getCategoryNames()],
+      selectedCategory: '전체보기',
+    };
+  },
+  computed: {
+    clubSeq: () => routerHelper.clubSeq(),
+    boardList() {
+      return this.$store.state.board.boardList;
     },
-    props: {
-        currentUserInfo: Object as PropType<CurrentUserInfo>,
+    boardPage() {
+      return this.$store.state.board.boardPage;
     },
-    data() {
-        return {
-            clubBoardCreate: null,
-            boardCategoryNames: ['전체보기', ...BoardCategory.getCategoryNames()],
-            selectedCategory: '전체보기',
-        };
+    canCreateBoard() {
+      const { isMaster, isManager, isMember } = this.currentUserInfo;
+      return isMaster || isManager || isMember;
     },
-    computed: {
-        clubSeq: () => routerHelper.clubSeq(),
-        boardList() {
-            return this.$store.state.board.boardList;
-        },
-        boardPage() {
-            return this.$store.state.board.boardPage;
-        },
-        canCreateBoard() {
-            const { isMaster, isManager, isMember } = this.currentUserInfo;
-            return isMaster || isManager || isMember;
-        },
-        categoryType() {
-            return BoardCategory.findCategoryTypeByName(this.selectedCategory);
-        },
-        requestDto() {
-            return {
-                clubSeq: this.clubSeq,
-                category: this.categoryType,
-            };
-        },
+    categoryType() {
+      return BoardCategory.findCategoryTypeByName(this.selectedCategory);
     },
-    watch: {
-        selectedCategory(value) {
-            this.$store.dispatch(BoardActionTypes.REQUEST_FIRST_BOARD_LIST, this.requestDto);
-        },
+    requestDto() {
+      return {
+        clubSeq: this.clubSeq,
+        category: this.categoryType,
+      };
     },
-    mounted() {
-        this.clubBoardCreate = generateParamPath(PATH.CLUB.BOARD_CREATE, [this.clubSeq]);
+  },
+  watch: {
+    selectedCategory(value) {
+      this.$store.dispatch(BoardActionTypes.REQUEST_FIRST_BOARD_LIST, this.requestDto);
     },
-    methods: {
-        clubBoardPath(boardSeq) {
-            return generateParamPath(PATH.CLUB.BOARD_POST, [this.clubSeq, boardSeq]);
-        },
-        fetchFirstPage() {
-            return this.$store.dispatch(BoardActionTypes.REQUEST_FIRST_BOARD_LIST, this.requestDto);
-        },
-        fetchNextPage() {
-            return this.$store.dispatch(BoardActionTypes.REQUEST_NEXT_BOARD_LIST, this.requestDto);
-        },
+  },
+  mounted() {
+    this.clubBoardCreate = generateParamPath(PATH.CLUB.BOARD_CREATE, [this.clubSeq]);
+  },
+  methods: {
+    clubBoardPath(boardSeq) {
+      return generateParamPath(PATH.CLUB.BOARD_POST, [this.clubSeq, boardSeq]);
     },
+    fetchFirstPage() {
+      return this.$store.dispatch(BoardActionTypes.REQUEST_FIRST_BOARD_LIST, this.requestDto);
+    },
+    fetchNextPage() {
+      return this.$store.dispatch(BoardActionTypes.REQUEST_NEXT_BOARD_LIST, this.requestDto);
+    },
+  },
 });
 </script>
 
 <style
-    scoped
-    lang="scss"
+  scoped
+  lang="scss"
 >
 </style>

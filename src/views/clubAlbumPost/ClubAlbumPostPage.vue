@@ -1,11 +1,11 @@
 <template>
-    <div>
-        <CommonHeader
-            title="사진첩"
-            @back="$router.push(clubDetailPath())"
-        />
-        <ClubAlbumPostBody />
-    </div>
+  <div>
+    <CommonHeader
+      title="사진첩"
+      @back="$router.push(clubDetailPath())"
+    />
+    <ClubAlbumPostBody />
+  </div>
 </template>
 
 <script lang="ts">
@@ -16,13 +16,13 @@ import routerHelper from '@/router/RouterHelper.ts';
 import Vue from 'vue';
 
 export default Vue.extend({
-    name: 'ClubAlbumPostPage',
-    components: { ClubAlbumPostBody, CommonHeader },
-    methods: {
-        clubDetailPath() {
-            return generateParamPath(PATH.CLUB.MAIN, routerHelper.clubSeq());
-        },
+  name: 'ClubAlbumPostPage',
+  components: { ClubAlbumPostBody, CommonHeader },
+  methods: {
+    clubDetailPath() {
+      return generateParamPath(PATH.CLUB.MAIN, routerHelper.clubSeq());
     },
+  },
 });
 </script>
 

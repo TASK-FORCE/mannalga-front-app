@@ -1,15 +1,15 @@
 <template>
-    <div>
-        <ImageWithLoading
-            :imgUrl="imgUrl"
-            :height="height"
-            @click="openDialog = true"
-        />
-        <ImageCarouselDialog
-            v-model="openDialog"
-            :imgUrls="[imgUrl]"
-        />
-    </div>
+  <div>
+    <ImageWithLoading
+      :imgUrl="imgUrl"
+      :height="height"
+      @click="openDialog = true"
+    />
+    <ImageCarouselDialog
+      v-model="openDialog"
+      :imgUrls="[imgUrl]"
+    />
+  </div>
 </template>
 
 <script lang="ts">
@@ -18,20 +18,20 @@ import ImageCarouselDialog from '@/components/image/ImageCarouselDialog.vue';
 import Vue from 'vue';
 
 export default Vue.extend({
-    name: 'ImageWithDialog',
-    components: { ImageCarouselDialog, ImageWithLoading },
-    props: {
-        imgUrl: {
-            type: String,
-            required: true,
-        },
-        height: Number,
+  name: 'ImageWithDialog',
+  components: { ImageCarouselDialog, ImageWithLoading },
+  props: {
+    imgUrl: {
+      type: String,
+      required: true,
     },
-    data() {
-        return {
-            openDialog: false,
-        };
-    },
+    height: Number,
+  },
+  data() {
+    return {
+      openDialog: false,
+    };
+  },
 });
 </script>
 

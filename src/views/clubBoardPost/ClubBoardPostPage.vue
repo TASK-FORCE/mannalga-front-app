@@ -1,11 +1,11 @@
 <template>
-    <div>
-        <CommonHeader
-            title="게시판"
-            @back="$router.push(clubDetailPath())"
-        />
-        <ClubBoardPostBody />
-    </div>
+  <div>
+    <CommonHeader
+      title="게시판"
+      @back="$router.push(clubDetailPath())"
+    />
+    <ClubBoardPostBody />
+  </div>
 </template>
 
 <script lang="ts">
@@ -16,13 +16,13 @@ import ClubBoardPostBody from '@/views/clubBoardPost/ClubBoardPostBody.vue';
 import Vue from 'vue';
 
 export default Vue.extend({
-    name: 'ClubBoardPostPage',
-    components: { ClubBoardPostBody, CommonHeader },
-    methods: {
-        clubDetailPath() {
-            return generateParamPath(PATH.CLUB.MAIN, routerHelper.clubSeq());
-        },
+  name: 'ClubBoardPostPage',
+  components: { ClubBoardPostBody, CommonHeader },
+  methods: {
+    clubDetailPath() {
+      return generateParamPath(PATH.CLUB.MAIN, routerHelper.clubSeq());
     },
+  },
 });
 </script>
 

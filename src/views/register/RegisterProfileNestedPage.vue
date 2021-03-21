@@ -1,15 +1,15 @@
 <template>
-    <div>
-        <CommonHeader
-            title="회원가입"
-            @back="clickBack"
-        />
-        <UserProfile />
-        <GoBackBtnFooter
-            :hideBackBtn="true"
-            @clickGoBtn="clickGoBtn"
-        />
-    </div>
+  <div>
+    <CommonHeader
+      title="회원가입"
+      @back="clickBack"
+    />
+    <UserProfile />
+    <GoBackBtnFooter
+      :hideBackBtn="true"
+      @clickGoBtn="clickGoBtn"
+    />
+  </div>
 </template>
 
 <script lang="ts">
@@ -22,19 +22,19 @@ import CommonHeader from '@/components/header/CommonHeader.vue';
 import Vue from 'vue';
 
 export default Vue.extend({
-    name: 'RegisterProfileNestedPage',
-    components: { CommonHeader, GoBackBtnFooter, UserProfile },
-    methods: {
-        clickGoBtn() {
-            const { name } = this.$store.state.user.kakaoProfile;
-            if (validateWithRules(name, RULES.PROFILE_NAME)) {
-                this.$router.push(PATH.REGISTER.REGION);
-            }
-        },
-        clickBack() {
-            this.$router.push(PATH.LOGIN);
-        },
+  name: 'RegisterProfileNestedPage',
+  components: { CommonHeader, GoBackBtnFooter, UserProfile },
+  methods: {
+    clickGoBtn() {
+      const { name } = this.$store.state.user.kakaoProfile;
+      if (validateWithRules(name, RULES.PROFILE_NAME)) {
+        this.$router.push(PATH.REGISTER.REGION);
+      }
     },
+    clickBack() {
+      this.$router.push(PATH.LOGIN);
+    },
+  },
 });
 
 </script>

@@ -1,53 +1,53 @@
 <template>
-    <div>
-        <div v-if="originalImgUrl">
-            <v-dialog
-                :value="openModal"
-                persistent
-                fullscreen
-            >
-                <div class="h-100 d-flex black-bg">
-                    <div class="my-auto w-100 text-center">
-                        <div class="image-cropper-container">
-                            <img
-                                ref="cropImg"
-                                alt="cropImg"
-                                :src="originalImgUrl"
-                                :style="resolveImgStyle"
-                                @load.stop="createCropper"
-                            >
-                        </div>
-                        <v-card-actions class="text-center mt-3">
-                            <v-btn
-                                class="flex-grow-1 white--text font-weight-bold"
-                                color="green darken-2"
-                                @click="destroy"
-                            >
-                                취소
-                            </v-btn>
-                            <v-btn
-                                class="flex-grow-1 white--text font-weight-bold"
-                                color="green darken-2"
-                                :loading="isLoading"
-                                @click="submit"
-                            >
-                                완료
-                            </v-btn>
-                        </v-card-actions>
-                    </div>
-                </div>
-            </v-dialog>
+  <div>
+    <div v-if="originalImgUrl">
+      <v-dialog
+        :value="openModal"
+        persistent
+        fullscreen
+      >
+        <div class="h-100 d-flex black-bg">
+          <div class="my-auto w-100 text-center">
+            <div class="image-cropper-container">
+              <img
+                ref="cropImg"
+                alt="cropImg"
+                :src="originalImgUrl"
+                :style="resolveImgStyle"
+                @load.stop="createCropper"
+              >
+            </div>
+            <v-card-actions class="text-center mt-3">
+              <v-btn
+                class="flex-grow-1 white--text font-weight-bold"
+                color="green darken-2"
+                @click="destroy"
+              >
+                취소
+              </v-btn>
+              <v-btn
+                class="flex-grow-1 white--text font-weight-bold"
+                color="green darken-2"
+                :loading="isLoading"
+                @click="submit"
+              >
+                완료
+              </v-btn>
+            </v-card-actions>
+          </div>
         </div>
-
-        <!--   기존 이미지 오픈 트리거     -->
-        <input
-            ref="originalImg"
-            class="d-none"
-            :accept="mimes"
-            type="file"
-            @change="changeOriginalImage"
-        />
+      </v-dialog>
     </div>
+
+    <!--   기존 이미지 오픈 트리거     -->
+    <input
+      ref="originalImg"
+      class="d-none"
+      :accept="mimes"
+      type="file"
+      @change="changeOriginalImage"
+    />
+  </div>
 </template>
 
 <script lang="ts">
@@ -58,133 +58,133 @@ import { UIActionTypes } from '@/store/type/actionTypes';
 
 
 export default Vue.extend({
-    name: 'ImageCropper',
-    props: {
-        // https://github.com/fengyuanchen/cropperjs#options 참고
-        aspectRatio: {
-            type: Number,
-            default: 16 / 9,
-        },
-        autoCropArea: {
-            type: Number,
-            default: 1,
-        },
-        viewMode: {
-            type: Number,
-            default: 3,
-        },
-        movable: {
-            type: Boolean,
-            default: false,
-        },
-        zoomable: {
-            type: Boolean,
-            default: false,
-        },
-        width: {
-            type: Number,
-            default: 0,
-        },
-        height: {
-            type: Number,
-            default: 0,
-        },
+  name: 'ImageCropper',
+  props: {
+    // https://github.com/fengyuanchen/cropperjs#options 참고
+    aspectRatio: {
+      type: Number,
+      default: 16 / 9,
     },
-    data() {
-        return {
-            originalImgUrl: null,
-            cropper: null,
-            mimes: 'image/png, image/gif, image/jpeg, image/bmp, image/x-icon',
-            isLoading: false,
-        };
+    autoCropArea: {
+      type: Number,
+      default: 1,
     },
-    computed: {
-        openModal() {
-            return !!this.originalImgUrl;
-        },
-        cropperOptions() {
-            return {
-                aspectRatio: this.aspectRatio,
-                autoCropArea: this.autoCropArea,
-                viewMode: this.viewMode,
-                movable: this.movable,
-                zoomable: this.zoomable,
-                minContainerWidth: window.innerWidth,
-            };
-        },
-        resolveImgStyle() {
-            return {
-                maxHeight: `${window.innerHeight - 100}px`,
-            };
-        },
+    viewMode: {
+      type: Number,
+      default: 3,
     },
-    methods: {
-        destroy() {
-            this.originalImgUrl = null;
-            this.cropper = null;
-            this.$refs.originalImg.value = '';
-            this.isLoading = false;
-        },
-        trigger() {
-            this.$refs.originalImg.click();
-        },
-        createCropper() {
-            this.cropper = new Cropper(this.$refs.cropImg, this.cropperOptions);
-            if (this.width !== 0 && this.height !== 0) {
-                const callback = () => {
-                    if (Object.keys(this.cropper.getCropBoxData()).length === 4) {
-                        this.cropper.setCropBoxData({
-                            width: this.width,
-                            height: this.height,
-                        });
-                    } else {
-                        setTimeout(callback, 50);
-                    }
-                };
-                setTimeout(callback, 50);
-            }
-        },
-        changeOriginalImage(e) {
-            const originalImgInput = e.target;
-            if (originalImgInput.files != null && originalImgInput.files[0] != null) {
-                const correctType = this.mimes.split(', ').find(m => m === originalImgInput.files[0].type);
-                if (!correctType) {
-                    this.$emit('error', 'File type not correct.', 'user');
-                    return;
-                }
-                this.loadingOriginalImg(originalImgInput.files[0]);
-                this.filename = originalImgInput.files[0].name || 'unknown';
-            }
-        },
-        loadingOriginalImg(file) {
-            const reader = new FileReader();
-            reader.onload = e => (this.originalImgUrl = e.target.result);
-            reader.readAsDataURL(file);
-        },
-        submit() {
-            const croppedCanvas = this.cropper.getCroppedCanvas();
-            this.isLoading = true;
-            croppedCanvas.toBlob(blob => {
-                const formData = new FormData();
-                formData.append('file', blob, 'test.png');
-                this.$store.dispatch(UIActionTypes.UPLOAD_TEMP_IMAGE, formData)
-                    .then(tempImageDto => {
-                        this.$emit('handleUploadedImgDto', tempImageDto);
-                        this.destroy();
-                    })
-                    .finally(() => (this.isLoading = false));
+    movable: {
+      type: Boolean,
+      default: false,
+    },
+    zoomable: {
+      type: Boolean,
+      default: false,
+    },
+    width: {
+      type: Number,
+      default: 0,
+    },
+    height: {
+      type: Number,
+      default: 0,
+    },
+  },
+  data() {
+    return {
+      originalImgUrl: null,
+      cropper: null,
+      mimes: 'image/png, image/gif, image/jpeg, image/bmp, image/x-icon',
+      isLoading: false,
+    };
+  },
+  computed: {
+    openModal() {
+      return !!this.originalImgUrl;
+    },
+    cropperOptions() {
+      return {
+        aspectRatio: this.aspectRatio,
+        autoCropArea: this.autoCropArea,
+        viewMode: this.viewMode,
+        movable: this.movable,
+        zoomable: this.zoomable,
+        minContainerWidth: window.innerWidth,
+      };
+    },
+    resolveImgStyle() {
+      return {
+        maxHeight: `${window.innerHeight - 100}px`,
+      };
+    },
+  },
+  methods: {
+    destroy() {
+      this.originalImgUrl = null;
+      this.cropper = null;
+      this.$refs.originalImg.value = '';
+      this.isLoading = false;
+    },
+    trigger() {
+      this.$refs.originalImg.click();
+    },
+    createCropper() {
+      this.cropper = new Cropper(this.$refs.cropImg, this.cropperOptions);
+      if (this.width !== 0 && this.height !== 0) {
+        const callback = () => {
+          if (Object.keys(this.cropper.getCropBoxData()).length === 4) {
+            this.cropper.setCropBoxData({
+              width: this.width,
+              height: this.height,
             });
-        },
+          } else {
+            setTimeout(callback, 50);
+          }
+        };
+        setTimeout(callback, 50);
+      }
     },
+    changeOriginalImage(e) {
+      const originalImgInput = e.target;
+      if (originalImgInput.files != null && originalImgInput.files[0] != null) {
+        const correctType = this.mimes.split(', ').find(m => m === originalImgInput.files[0].type);
+        if (!correctType) {
+          this.$emit('error', 'File type not correct.', 'user');
+          return;
+        }
+        this.loadingOriginalImg(originalImgInput.files[0]);
+        this.filename = originalImgInput.files[0].name || 'unknown';
+      }
+    },
+    loadingOriginalImg(file) {
+      const reader = new FileReader();
+      reader.onload = e => (this.originalImgUrl = e.target.result);
+      reader.readAsDataURL(file);
+    },
+    submit() {
+      const croppedCanvas = this.cropper.getCroppedCanvas();
+      this.isLoading = true;
+      croppedCanvas.toBlob(blob => {
+        const formData = new FormData();
+        formData.append('file', blob, 'test.png');
+        this.$store.dispatch(UIActionTypes.UPLOAD_TEMP_IMAGE, formData)
+          .then(tempImageDto => {
+            this.$emit('handleUploadedImgDto', tempImageDto);
+            this.destroy();
+          })
+          .finally(() => (this.isLoading = false));
+      });
+    },
+  },
 });
 </script>
 
 <style
-    scoped
-    lang="scss"
+  scoped
+  lang="scss"
 >
 img {
-    height: auto;
-    width: 100%;
+  height: auto;
+  width: 100%;
 }
 </style>

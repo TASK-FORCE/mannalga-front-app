@@ -1,41 +1,41 @@
 <template>
-    <div>
-        <v-tabs
-            v-model="tab"
-            class="club-main-tab px-5"
-            grow
-        >
-            <v-tab
-                v-for="menu in menus"
-                :key="menu.key"
-                :href="`#${menu.key}`"
-            >
-                {{ menu.name }}
-            </v-tab>
-        </v-tabs>
+  <div>
+    <v-tabs
+      v-model="tab"
+      class="club-main-tab px-5"
+      grow
+    >
+      <v-tab
+        v-for="menu in menus"
+        :key="menu.key"
+        :href="`#${menu.key}`"
+      >
+        {{ menu.name }}
+      </v-tab>
+    </v-tabs>
 
-        <v-tabs-items
-            v-show="!$store.state.ui.loading"
-            v-model="tab"
-        >
-            <v-tab-item value="main">
-                <ClubDetailMain
-                    :clubInfo="clubInfo"
-                    :currentUserInfo="currentUserInfo"
-                    :clubUserList="$store.state.club.clubUserList"
-                />
-            </v-tab-item>
-            <v-tab-item value="meeting">
-                <ClubDetailMeetingList :currentUserInfo="currentUserInfo" />
-            </v-tab-item>
-            <v-tab-item value="board">
-                <ClubDetailBoardList :currentUserInfo="currentUserInfo" />
-            </v-tab-item>
-            <v-tab-item value="album">
-                <ClubDetailAlbumList :currentUserInfo="currentUserInfo" />
-            </v-tab-item>
-        </v-tabs-items>
-    </div>
+    <v-tabs-items
+      v-show="!$store.state.ui.loading"
+      v-model="tab"
+    >
+      <v-tab-item value="main">
+        <ClubDetailMain
+          :clubInfo="clubInfo"
+          :currentUserInfo="currentUserInfo"
+          :clubUserList="$store.state.club.clubUserList"
+        />
+      </v-tab-item>
+      <v-tab-item value="meeting">
+        <ClubDetailMeetingList :currentUserInfo="currentUserInfo" />
+      </v-tab-item>
+      <v-tab-item value="board">
+        <ClubDetailBoardList :currentUserInfo="currentUserInfo" />
+      </v-tab-item>
+      <v-tab-item value="album">
+        <ClubDetailAlbumList :currentUserInfo="currentUserInfo" />
+      </v-tab-item>
+    </v-tabs-items>
+  </div>
 </template>
 
 <script lang="ts">
@@ -51,38 +51,38 @@ import routerHelper from '@/router/RouterHelper.ts';
 import { ClubInfo, CurrentUserInfo } from '@/interfaces/club.ts';
 
 export default Vue.extend({
-    name: 'ClubDetailPageBody',
-    components: { ClubDetailMain, ClubDetailMeetingList, ClubDetailBoardList, ClubDetailAlbumList },
-    data() {
-        return {
-            tab: null,
-            menus: [
-                { name: '메인', key: ClubTab.MAIN },
-                { name: '만남', key: ClubTab.MEETING },
-                { name: '게시판', key: ClubTab.BOARD },
-                { name: '사진첩', key: ClubTab.ALBUM },
-            ],
-        };
+  name: 'ClubDetailPageBody',
+  components: { ClubDetailMain, ClubDetailMeetingList, ClubDetailBoardList, ClubDetailAlbumList },
+  data() {
+    return {
+      tab: null,
+      menus: [
+        { name: '메인', key: ClubTab.MAIN },
+        { name: '만남', key: ClubTab.MEETING },
+        { name: '게시판', key: ClubTab.BOARD },
+        { name: '사진첩', key: ClubTab.ALBUM },
+      ],
+    };
+  },
+  computed: {
+    clubSeq: () => routerHelper.clubSeq(),
+    clubInfo(): ClubInfo {
+      return this.$store.state.club.clubInfo;
     },
-    computed: {
-        clubSeq: () => routerHelper.clubSeq(),
-        clubInfo(): ClubInfo {
-            return this.$store.state.club.clubInfo;
-        },
-        currentUserInfo(): CurrentUserInfo {
-            return this.$store.state.club.currentUserInfo;
-        },
+    currentUserInfo(): CurrentUserInfo {
+      return this.$store.state.club.currentUserInfo;
     },
-    watch: {
-        tab() {
-            lastClubTabCache.save(this.clubSeq, this.tab);
-        },
+  },
+  watch: {
+    tab() {
+      lastClubTabCache.save(this.clubSeq, this.tab);
     },
-    mounted() {
-        this.tab = lastClubTabCache.get(this.clubSeq);
-        if (this.clubInfo.seq === 0) {
-            clubDetailVuexService.dispatch(this.clubSeq, true, PATH.CLUB_LIST);
-        }
-    },
+  },
+  mounted() {
+    this.tab = lastClubTabCache.get(this.clubSeq);
+    if (this.clubInfo.seq === 0) {
+      clubDetailVuexService.dispatch(this.clubSeq, true, PATH.CLUB_LIST);
+    }
+  },
 });
 </script>

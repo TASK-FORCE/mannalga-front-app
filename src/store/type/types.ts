@@ -10,52 +10,52 @@ import { CommonActions, CommonMutations, CommonState } from '@/store/modules/com
 import { MeetingActions, MeetingMutations, MeetingState } from '@/store/modules/meeting';
 
 export type RootState = {
-    ui: UIState;
-    common: CommonState;
-    club: ClubState;
-    clubList: ClubListState;
-    user: UserState;
-    auth: AuthState;
-    album: AlbumState;
-    board: BoardState;
-    meeting: MeetingState;
+  ui: UIState;
+  common: CommonState;
+  club: ClubState;
+  clubList: ClubListState;
+  user: UserState;
+  auth: AuthState;
+  album: AlbumState;
+  board: BoardState;
+  meeting: MeetingState;
 }
 
 export type MergedGetters = AuthGetters
 
 export type MergedMutations =
-    UIMutations & ClubMutations & ClubListMutations &
-    UserMutations & AuthMutations & AlbumMutations &
-    BoardMutations & CommonMutations & MeetingMutations & {
-    [key: string]: any
+  UIMutations & ClubMutations & ClubListMutations &
+  UserMutations & AuthMutations & AlbumMutations &
+  BoardMutations & CommonMutations & MeetingMutations & {
+  [key: string]: any
 }
 export type MergedActions =
-    UIActions & ClubActions & ClubListActions &
-    UserActions & AuthActions & AlbumActions &
-    BoardActions & CommonActions & MeetingActions & {
-    [key: string]: any
+  UIActions & ClubActions & ClubListActions &
+  UserActions & AuthActions & AlbumActions &
+  BoardActions & CommonActions & MeetingActions & {
+  [key: string]: any
 }
 
 type MyGetters = {
-    getters: {
-        [K in keyof MergedGetters]: ReturnType<MergedGetters[K]>
-    }
+  getters: {
+    [K in keyof MergedGetters]: ReturnType<MergedGetters[K]>
+  }
 }
 
 type MyMutations = {
-    commit<K extends keyof MergedMutations, P extends Parameters<MergedMutations[K]>[1]>(
-        key: K,
-        payload?: P,
-        options?: CommitOptions
-    ): ReturnType<MergedMutations[K]>;
+  commit<K extends keyof MergedMutations, P extends Parameters<MergedMutations[K]>[1]>(
+    key: K,
+    payload?: P,
+    options?: CommitOptions
+  ): ReturnType<MergedMutations[K]>;
 }
 
 type MyActions = {
-    dispatch<K extends keyof MergedActions>(
-        key: K,
-        payload?: Parameters<MergedActions[K]>[1],
-        options?: DispatchOptions
-    ): ReturnType<MergedActions[K]>
+  dispatch<K extends keyof MergedActions>(
+    key: K,
+    payload?: Parameters<MergedActions[K]>[1],
+    options?: DispatchOptions
+  ): ReturnType<MergedActions[K]>
 }
 
 

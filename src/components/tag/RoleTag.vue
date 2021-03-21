@@ -1,8 +1,9 @@
 <template>
-    <SquareTag :text="role.name"
-               :bgColor="role.color"
-               @click="$emit('click')"
-    />
+  <SquareTag
+    :text="role.name"
+    :bgColor="role.color"
+    @click="$emit('click')"
+  />
 </template>
 
 <script lang="ts">
@@ -11,34 +12,34 @@ import { CLUB_ROLE } from '@/utils/role.ts';
 import Vue from 'vue';
 
 const ROLES = [
-    {
-        type: CLUB_ROLE.MASTER,
-        name: '모임장',
-        color: '#2883C6',
-    },
-    {
-        type: CLUB_ROLE.MANAGER,
-        name: '매니저',
-        color: '#E8984E',
-    },
-    {
-        type: CLUB_ROLE.MEMBER,
-        name: '모임원',
-        color: '#7CBB72',
-    },
+  {
+    type: CLUB_ROLE.MASTER,
+    name: '모임장',
+    color: '#2883C6',
+  },
+  {
+    type: CLUB_ROLE.MANAGER,
+    name: '매니저',
+    color: '#E8984E',
+  },
+  {
+    type: CLUB_ROLE.MEMBER,
+    name: '모임원',
+    color: '#7CBB72',
+  },
 ];
 
 export default Vue.extend({
-    name: 'RoleTag',
-    components: { SquareTag },
-    props: {
-        roleType: String,
+  name: 'RoleTag',
+  components: { SquareTag },
+  props: {
+    roleType: String,
+  },
+  computed: {
+    role() {
+      return ROLES.find(({ type }) => type === this.roleType);
     },
-    computed: {
-        role() {
-            return ROLES.find(({ type }) => type === this.roleType);
-        },
-    },
+  },
 });
 </script>
 

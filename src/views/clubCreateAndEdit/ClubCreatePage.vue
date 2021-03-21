@@ -1,14 +1,14 @@
 <template>
-    <div>
-        <CommonHeader
-            title="모임 만들기"
-            @back="back"
-        />
-        <ClubCreateAndEditBody
-            btnText="모임 만들기"
-            :submitClickCallback="createClub"
-        />
-    </div>
+  <div>
+    <CommonHeader
+      title="모임 만들기"
+      @back="back"
+    />
+    <ClubCreateAndEditBody
+      btnText="모임 만들기"
+      :submitClickCallback="createClub"
+    />
+  </div>
 </template>
 
 <script lang="ts">
@@ -23,20 +23,20 @@ import { ClubWriteRequest } from '@/interfaces/club';
 import { ClubActionTypes } from '@/store/type/actionTypes';
 
 export default Vue.extend({
-    name: 'ClubCreatePage',
-    components: { CommonHeader, ClubCreateAndEditBody },
-    methods: {
-        back() {
-            this.$router.push(PATH.CLUB_LIST);
-        },
-        createClub(clubWriteRequest: ClubWriteRequest) {
-            return this.$store.dispatch(ClubActionTypes.REQUEST_CLUB_CREATE, clubWriteRequest)
-                .then(() => {
-                    this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_CLUB_CREATE);
-                    this.$router.push(PATH.CLUB_LIST);
-                });
-        },
+  name: 'ClubCreatePage',
+  components: { CommonHeader, ClubCreateAndEditBody },
+  methods: {
+    back() {
+      this.$router.push(PATH.CLUB_LIST);
     },
+    createClub(clubWriteRequest: ClubWriteRequest) {
+      return this.$store.dispatch(ClubActionTypes.REQUEST_CLUB_CREATE, clubWriteRequest)
+        .then(() => {
+          this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_CLUB_CREATE);
+          this.$router.push(PATH.CLUB_LIST);
+        });
+    },
+  },
 });
 </script>
 

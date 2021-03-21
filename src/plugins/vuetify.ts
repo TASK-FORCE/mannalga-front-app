@@ -5,13 +5,13 @@ import { ICONS } from '@/utils/common/constant/icons.ts';
 Vue.use(Vuetify);
 
 export const vuetify = new Vuetify({
-    icons: {
-        iconfont: 'mdiSvg',
-        values: ICONS,
+  icons: {
+    iconfont: 'mdiSvg',
+    values: ICONS,
+  },
+  theme: {
+    themes: {
+      dark: {},
     },
-    theme: {
-        themes: {
-            dark: {},
-        },
-    },
+  },
 });

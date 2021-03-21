@@ -1,11 +1,11 @@
 <template>
-    <div v-show="!$store.state.ui.loading">
-        <CommonHeader
-            title="설정"
-            @back="moveToClubListPage"
-        />
-        <UserSettingPageBody />
-    </div>
+  <div v-show="!$store.state.ui.loading">
+    <CommonHeader
+      title="설정"
+      @back="moveToClubListPage"
+    />
+    <UserSettingPageBody />
+  </div>
 </template>
 
 <script lang="ts">
@@ -16,18 +16,18 @@ import { PATH } from '@/router/route_path_type.ts';
 import { UserActionTypes } from '@/store/type/actionTypes';
 
 export default Vue.extend({
-    name: 'UserSettingPage',
-    components: { CommonHeader, UserSettingPageBody },
-    created() {
-        if (!this.$store.state.user.userProfile.userName) {
-            this.$store.dispatch(UserActionTypes.REQUEST_USER_PROFILE);
-        }
+  name: 'UserSettingPage',
+  components: { CommonHeader, UserSettingPageBody },
+  created() {
+    if (!this.$store.state.user.userProfile.userName) {
+      this.$store.dispatch(UserActionTypes.REQUEST_USER_PROFILE);
+    }
+  },
+  methods: {
+    moveToClubListPage() {
+      this.$router.push(PATH.CLUB_LIST);
     },
-    methods: {
-        moveToClubListPage() {
-            this.$router.push(PATH.CLUB_LIST);
-        },
-    },
+  },
 });
 </script>
 <style scoped>
