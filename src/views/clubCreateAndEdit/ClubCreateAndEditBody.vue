@@ -85,7 +85,7 @@ import Vue from 'vue';
 
 import CommonCenterBtn from '@/components/button/CommonCenterBtn.vue';
 import ImageSelectBox from '@/components/image/ImageSelectBox.vue';
-import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.js';
+import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.ts';
 import { createClubMaximumNumberList } from '@/utils/common/commonUtils.ts';
 import { RULES } from '@/utils/common/constant/rules.ts';
 import RegionSelectDialog from '@/components/region/RegionSelectDialog.vue';

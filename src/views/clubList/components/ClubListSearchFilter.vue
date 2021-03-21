@@ -81,7 +81,7 @@ import BottomSheetInterestCard from '@/components/bottom-sheet/BottomSheetIntere
 import ClubListSearchFilterBtn from '@/views/clubList/components/ClubListSearchFilterBtn.vue';
 import { PATH } from '@/router/route_path_type.ts';
 import gettersHelper from '@/store/helper/GettersHelper.js';
-import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.js';
+import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.ts';
 import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
 import { ClubListMutationTypes } from '@/store/type/mutationTypes.ts';
 import { ClubSearchContext } from '@/interfaces/clubList';

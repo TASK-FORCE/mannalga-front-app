@@ -1,4 +1,4 @@
-import RequestHelper from '@/store/service/helper/RequestHelper.js';
+import RequestHelper from '@/store/service/helper/RequestHelper.ts';
 import actionsHelper from '@/store/helper/ActionsHelper.ts';
 import store from '@/store/index.ts';
 import { MODULE } from '@/store/type/type.js';
@@ -14,13 +14,13 @@ class ClubDetailVuexService {
         this.dispatching = false;
     }
 
-    async dispatch(clubSeq, withLoading, routePathWhenFail) {
+    async dispatch(clubSeq: number, withLoading: boolean, routePathWhenFail: string) {
         if (this.dispatching) {
             return;
         }
         try {
             this.dispatching = true;
-            const promiseList = [
+            const promiseList: Promise<any>[] = [
                 this.dispatchClubInfoAndUserInfo(clubSeq),
                 this.dispatchClubMeetings(clubSeq),
                 this.dispatchClubBoards(clubSeq),
@@ -32,23 +32,23 @@ class ClubDetailVuexService {
         }
     }
 
-    private dispatchClubInfoAndUserInfo(clubSeq: number) {
+    private dispatchClubInfoAndUserInfo(clubSeq: number): Promise<any> {
         return store.dispatch(ClubActionTypes.REQUEST_CLUB_INFO_AND_USER_INFO, clubSeq);
     }
 
-    private dispatchClubMeetings(clubSeq: number) {
+    private dispatchClubMeetings(clubSeq: number): Promise<any> {
         return actionsHelper.requestFirstMeetingGroupList(clubSeq);
     }
 
-    private dispatchClubBoards(clubSeq: number) {
+    private dispatchClubBoards(clubSeq: number): Promise<any> {
         return store.dispatch(BoardActionTypes.REQUEST_FIRST_BOARD_LIST, { clubSeq });
     }
 
-    private dispatchClubAlbums(clubSeq: number) {
+    private dispatchClubAlbums(clubSeq: number): Promise<any> {
         return store.dispatch(AlbumActionTypes.REQUEST_FIRST_ALBUM_LIST, clubSeq)
     }
 
-    public reset() {
+    public reset(): void {
         store.commit(ClubMutationTypes.SET_CLUB_DETAIL_CONTEXT, DefaultBuilder.clubDetailContext());
         store.commit(`${MODULE.MEETING}/initMeetingGroupList`);
         store.commit(AlbumMutationTypes.INIT_ALBUM_LIST);

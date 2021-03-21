@@ -67,7 +67,7 @@
 import Vue from 'vue';
 import { PATH } from '@/router/route_path_type.ts';
 import BottomSheetRegionCard from '@/components/bottom-sheet/BottomSheetRegionCard.vue';
-import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.js';
+import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.ts';
 import CommonHeader from '@/components/header/CommonHeader.vue';
 import { Region } from '@/interfaces/common';
 

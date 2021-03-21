@@ -4,7 +4,11 @@ import store from '@/store/index.ts';
 import { CommonMutationTypes } from '@/store/type/mutationTypes.ts';
 
 class RequestHelper {
-    static async dispatchAll(withLoading, routePathWhenFail, promiseList) {
+    static async dispatchAll(
+        withLoading: boolean,
+        routePathWhenFail: string | null,
+        promiseList: Promise<any>[]
+    ) {
         try {
             if (withLoading) {
                 store.commit(CommonMutationTypes.CHANGE_LOADING, true);

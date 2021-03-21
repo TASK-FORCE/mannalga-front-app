@@ -42,7 +42,7 @@
 
 <script lang="ts">
 import { PATH } from '@/router/route_path_type.ts';
-import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.js';
+import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.ts';
 import CommonHeader from '@/components/header/CommonHeader.vue';
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import { format, MESSAGE } from '@/utils/common/constant/messages.ts';

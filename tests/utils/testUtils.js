@@ -1,7 +1,7 @@
 import gettersHelper from '@/store/helper/GettersHelper.js';
 import mutationsHelper from '@/store/helper/MutationsHelper.ts';
 import actionsHelper from '@/store/helper/ActionsHelper.ts';
-import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.js';
+import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.ts';
 
 function gettersMocking(sandbox) {
     const getterHelperMock = sandbox.mock(gettersHelper);
