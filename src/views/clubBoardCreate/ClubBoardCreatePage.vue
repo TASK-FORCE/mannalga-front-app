@@ -7,13 +7,14 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 
 import CommonHeader from '@/components/header/CommonHeader.vue';
 import ClubBoardCreatePageBody from '@/views/clubBoardCreate/ClubBoardCreatePageBody.vue';
-import { generateParamPath, PATH } from '@/router/route_path_type.js';
+import { generateParamPath, PATH } from '@/router/route_path_type.ts';
+import Vue from 'vue';
 
-export default {
+export default Vue.extend({
     name: 'ClubCreate',
     components: { CommonHeader, ClubBoardCreatePageBody },
     data() {
@@ -25,7 +26,7 @@ export default {
         const { clubSeq } = this.$route.params;
         this.clubPath = generateParamPath(PATH.CLUB.MAIN, [clubSeq]);
     },
-};
+});
 </script>
 
 <style scoped>

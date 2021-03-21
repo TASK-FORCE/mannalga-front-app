@@ -1,10 +1,11 @@
 <template>
     <div>
-        <CommonHeader :title="title"
-                      :isDialog="isDialog"
-                      showSubmitBtn
-                      @back="backCallback"
-                      @submit="submit"
+        <CommonHeader
+            :title="title"
+            :isDialog="isDialog"
+            showSubmitBtn
+            @back="backCallback"
+            @submit="submit"
         />
         <div class="body">
             <div class="header">
@@ -16,18 +17,20 @@
                 </div>
             </div>
             <div class="interest">
-                <div v-for="rootInterest in rootInterests"
-                     :key="rootInterest.groupSeq"
+                <div
+                    v-for="rootInterest in rootInterests"
+                    :key="rootInterest.groupSeq"
                 >
                     <div class="interest-category">
                         {{ rootInterest.name }}
                     </div>
-                    <v-btn v-for="interest in rootInterest.interestList"
-                           :key="interest.seq"
-                           outlined
-                           :class="selectedInterestSeqs.includes(interest.seq) ? 'active' : ''"
-                           class="interest-btn"
-                           @click="toggleInterest(interest)"
+                    <v-btn
+                        v-for="interest in rootInterest.interestList"
+                        :key="interest.seq"
+                        outlined
+                        :class="selectedInterestSeqs.includes(interest.seq) ? 'active' : ''"
+                        class="interest-btn"
+                        @click="toggleInterest(interest)"
                     >
                         {{ interest.name }}
                     </v-btn>
@@ -37,16 +40,17 @@
     </div>
 </template>
 
-<script>
-import { PATH } from '@/router/route_path_type.js';
-import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.js';
+<script lang="ts">
+import { PATH } from '@/router/route_path_type.ts';
+import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.ts';
 import CommonHeader from '@/components/header/CommonHeader.vue';
-import gettersHelper from '@/store/helper/GettersHelper.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
-import { MESSAGE } from '@/utils/common/constant/messages.js';
-import _ from '@/utils/common/lodashWrapper.js';
+import { format, MESSAGE } from '@/utils/common/constant/messages.ts';
+import _ from '@/utils/common/lodashWrapper.ts';
+import { UIMutationTypes } from '@/store/type/mutationTypes.ts';
+import Vue from 'vue';
+import { InterestGroupTree } from '@/interfaces/common';
 
-export default {
+export default Vue.extend({
     name: 'InterestSelect',
     components: { CommonHeader },
     props: {
@@ -81,7 +85,9 @@ export default {
         };
     },
     computed: {
-        rootInterests: () => gettersHelper.rootInterests(),
+        rootInterests(): InterestGroupTree[] {
+            return this.$store.state.common.rootInterests;
+        },
         selectedInterestSeqs() {
             return this.selectedInterest.map(({ seq }) => seq);
         },
@@ -100,7 +106,7 @@ export default {
             }
 
             if (this.selectedInterestSeqs.length >= this.maxSize) {
-                mutationsHelper.openSnackBar(MESSAGE.SELECT_INTEREST_OVER_COUNT(this.maxSize));
+                this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, format(MESSAGE.SELECT_INTEREST_OVER_COUNT, this.maxSize));
                 return;
             }
 
@@ -110,11 +116,12 @@ export default {
             return this.submitCallback(this.selectedInterest);
         },
     },
-};
+});
 </script>
 
-<style scoped
-       lang="scss"
+<style
+    scoped
+    lang="scss"
 >
 .body {
     width: 100%;

@@ -3,8 +3,8 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuex from 'vuex';
 import sinon from 'sinon';
 import RegisterRegionNestedPage from '@/views/register/RegisterRegionNestedPage.vue';
-import { PATH } from '@/router/route_path_type.js';
-import DefaultBuilder from '@/store/utils/DefaultBuilder.js';
+import { PATH } from '@/router/route_path_type.ts';
+import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
 import { testUtils } from '../../../utils/testUtils.js';
 
 const sandbox = sinon.createSandbox();
@@ -36,7 +36,7 @@ describe('RegisterRegionNestedPage.vue', () => {
 
     it('페이지 진입 시 Profile이 비어있다면 Profile 등록화면으로 라우팅 된다..', () => {
         // given
-        gettersHelper.profile.returns(DefaultBuilder.buildKakaoProfile());
+        gettersHelper.profile.returns(DefaultBuilder.kakaoProfile());
 
         // when
         shallowMount(RegisterRegionNestedPage, options);

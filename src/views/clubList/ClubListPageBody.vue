@@ -1,21 +1,24 @@
 <template>
     <div>
-        <v-tabs v-model="currentTab"
-                class="app-main-club-tab-header px-5"
-                centered
-                grow
+        <v-tabs
+            v-model="currentTab"
+            class="app-main-club-tab-header px-5"
+            centered
+            grow
         >
-            <v-tab v-for="menu in menus"
-                   :key="menu.key"
-                   :href="`#${menu.key}`"
+            <v-tab
+                v-for="menu in menus"
+                :key="menu.key"
+                :href="`#${menu.key}`"
             >
                 {{ menu.name }}
             </v-tab>
         </v-tabs>
 
-        <v-tabs-items v-model="currentTab"
-                      touchless
-                      :style="style"
+        <v-tabs-items
+            v-model="currentTab"
+            touchless
+            :style="style"
         >
             <v-tab-item value="club">
                 <ClubList />
@@ -24,31 +27,33 @@
                 <MyClubList />
             </v-tab-item>
         </v-tabs-items>
-        <FixedCreateBtn :path="clubCreatePath"
-                        color="blue"
+        <FixedCreateBtn
+            :path="clubCreatePath"
+            color="blue"
         />
         <FixedScrollToTopBtn color="red" />
     </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
 import ClubList from '@/views/clubList/components/ClubList.vue';
 import MyClubList from '@/views/clubList/components/MyClubList.vue';
-import lastClubListTabCache from '@/utils/cache/LastClubListTabCache.js';
+import lastClubListTabCache from '@/utils/cache/LastClubListTabCache.ts';
 import FixedCreateBtn from '@/components/button/FixedCreateBtn.vue';
 import FixedScrollToTopBtn from '@/components/button/FixedScrollToTopBtn.vue';
-import { PATH } from '@/router/route_path_type.js';
-import actionsHelper from '@/store/helper/ActionsHelper.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
-import gettersHelper from '@/store/helper/GettersHelper.js';
+import { PATH } from '@/router/route_path_type.ts';
+import { ClubMutationTypes } from '@/store/type/mutationTypes.ts';
+import { ClubListPageTab } from '@/interfaces/club';
+import { ClubListActionTypes } from '@/store/type/actionTypes';
 
-export default {
+export default Vue.extend({
     name: 'ClubListPageBody',
     components: { FixedScrollToTopBtn, FixedCreateBtn, MyClubList, ClubList },
     data() {
         return {
             clubCreatePath: PATH.CLUB.CREATE,
-            tab: null,
+            tab: null as ClubListPageTab,
             menus: [
                 { name: '전체 모임', key: 'club' },
                 { name: '내 모임', key: 'myClub' },
@@ -58,22 +63,21 @@ export default {
     },
     computed: {
         currentTab: {
-            get() {
-                return gettersHelper.currentTab();
+            get(): string {
+                return this.$store.state.club.currentTab;
             },
-            set(tab) {
+            set(tab: ClubListPageTab) {
                 lastClubListTabCache.save(tab);
-                mutationsHelper.setCurrentTab(tab);
+                this.$store.commit(ClubMutationTypes.SET_CURRENT_TAB, tab);
             },
         },
     },
     created() {
         this.tab = lastClubListTabCache.get();
-        const disableLoading = true;
-        if (this.tab === 'club') {
-            actionsHelper.requestFirstMyClubList(disableLoading);
-        } else if (this.tab === 'myClub') {
-            actionsHelper.requestFirstClubList(disableLoading);
+        if (this.tab === ClubListPageTab.CLUB) {
+            this.$store.dispatch(ClubListActionTypes.REQUEST_FIRST_MY_CLUB_LIST, true);
+        } else if (this.tab === ClubListPageTab.MY_CLUB) {
+            this.$store.dispatch(ClubListActionTypes.REQUEST_FIRST_CLUB_LIST, true);
         }
     },
     mounted() {
@@ -86,11 +90,12 @@ export default {
             }
         });
     },
-};
+});
 </script>
 
-<style scoped
-       lang="scss"
+<style
+    scoped
+    lang="scss"
 >
 .app-main-club-tab-header {
     position: fixed;

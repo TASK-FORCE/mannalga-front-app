@@ -1,14 +1,16 @@
 <template>
-    <v-dialog :value="value"
-              persistent
-              fullscreen
+    <v-dialog
+        :value="value"
+        persistent
+        fullscreen
     >
         <v-card>
-            <RegionSelect :selectedRegionsCallback="getSelectedRegions"
-                          :submitCallback="submit"
-                          :backCallback="close"
-                          title="지역 설정"
-                          isDialog
+            <RegionSelect
+                :selectedRegionsCallback="getSelectedRegions"
+                :submitCallback="submit"
+                :backCallback="close"
+                title="지역 설정"
+                isDialog
             >
                 <template #header-title>
                     모임 지역을 설정해주세요.
@@ -21,10 +23,12 @@
     </v-dialog>
 </template>
 
-<script>
+<script lang="ts">
+import Vue, { PropType } from 'vue';
 import RegionSelect from '@/components/region/RegionSelect.vue';
+import { Region } from '@/interfaces/common';
 
-export default {
+export default Vue.extend({
     name: 'RegionSelectDialog',
     components: { RegionSelect },
     props: {
@@ -33,7 +37,7 @@ export default {
             required: true,
         },
         selectedRegions: {
-            type: Array,
+            type: Array as PropType<Region[]>,
             required: true,
         },
     },
@@ -49,7 +53,7 @@ export default {
             this.$emit('input', false);
         },
     },
-};
+});
 </script>
 
 <style scoped>

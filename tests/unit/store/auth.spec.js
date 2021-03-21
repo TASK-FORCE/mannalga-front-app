@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
-import authModule from '@/store/modules/auth.js';
-import * as authApi from '@/apis/AuthApi.js';
+import authModule from '@/store/modules/auth.ts';
+import * as authApi from '@/apis/AuthApi.ts';
 
 describe('actions', () => {
     const { actions } = authModule;

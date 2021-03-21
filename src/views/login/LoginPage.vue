@@ -5,34 +5,39 @@
             <!--                   src="../../images/vue.png"-->
             <!--            />-->
             <div class="text-center">
-                <v-icon size="200"
-                        v-text="'$threePeople'"
+                <v-icon
+                    size="200"
+                    v-text="'$threePeople'"
                 />
             </div>
             <div class="text-center">
                 <p class="display-1">모임서비스</p>
             </div>
             <div class="text-center mt-5">
-                <v-btn class="mx-auto font-weight-bold black--text"
-                       color="yellow"
-                       :loading="loading"
-                       @click="login"
+                <v-btn
+                    class="mx-auto font-weight-bold black--text"
+                    color="yellow"
+                    :loading="loading"
+                    @click="login"
                 >
                     Kakao Login
-                    <v-icon right
-                            v-text="'$facebookMessenger'"
+                    <v-icon
+                        right
+                        v-text="'$facebookMessenger'"
                     />
                 </v-btn>
             </div>
             <div class="text-center mt-5">
-                <v-btn class="mx-auto font-weight-bold black--text"
-                       color="green"
-                       :loading="loading"
-                       @click="$router.push(PATH.BACKDOOR_LOGIN)"
+                <v-btn
+                    class="mx-auto font-weight-bold black--text"
+                    color="green"
+                    :loading="loading"
+                    @click="$router.push(PATH.BACKDOOR_LOGIN)"
                 >
                     Backdoor Login
-                    <v-icon right
-                            v-text="'$facebookMessenger'"
+                    <v-icon
+                        right
+                        v-text="'$facebookMessenger'"
                     />
                 </v-btn>
             </div>
@@ -40,15 +45,15 @@
     </v-container>
 </template>
 
-<script>
-import { moveToKakaoLoginPage } from '@/utils/kakao/kakao.js';
-import { PATH } from '@/router/route_path_type.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
-import gettersHelper from '@/store/helper/GettersHelper.js';
-import actionsHelper from '@/store/helper/ActionsHelper.js';
-import { MESSAGE } from '@/utils/common/constant/messages.js';
+<script lang="ts">
+import { moveToKakaoLoginPage } from '@/utils/kakao/kakao.ts';
+import { PATH } from '@/router/route_path_type.ts';
+import { MESSAGE } from '@/utils/common/constant/messages.ts';
+import { UIMutationTypes } from '@/store/type/mutationTypes.ts';
+import Vue from 'vue';
+import { AuthActionTypes, UserActionTypes } from '@/store/type/actionTypes';
 
-export default {
+export default Vue.extend({
     name: 'LoginPage',
     data() {
         return {
@@ -57,9 +62,7 @@ export default {
         };
     },
     computed: {
-        hasToken: () => gettersHelper.hasToken(),
-        appToken: () => gettersHelper.appToken(),
-        code() {
+        code(): string {
             return this.$route.query.code;
         },
         validationFail() {
@@ -68,24 +71,24 @@ export default {
     },
     created() {
         if (this.validationFail) {
-            mutationsHelper.openSnackBar(MESSAGE.LOGIN_REQUIRE);
+            this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.LOGIN_REQUIRE);
             return;
         }
 
-        if (this.hasToken) {
+        if (this.$store.getters.hasToken) {
             if (localStorage.getItem('backdoor') === 'true') {
                 localStorage.removeItem('appToken');
                 localStorage.removeItem('backdoor');
             } else {
-                actionsHelper.requestCheckIsMember()
+                this.$store.dispatch(UserActionTypes.REQUEST_CHECK_IS_MEMBER)
                     .then(isMember => this.$router.push(isMember ? PATH.CLUB_LIST : PATH.REGISTER.PROFILE));
             }
         }
 
         if (this.code) {
             this.startLoading();
-            actionsHelper.requestKakaoTokenByCode(this.code)
-                .then(isRegistered => (isRegistered ? this.$router.push(PATH.CLUB_LIST) : this.$router.push(PATH.REGISTER.PROFILE)))
+            this.$store.dispatch(AuthActionTypes.REQUEST_KAKAO_TOKEN_BY_CODE, this.code)
+                .then((isRegistered: boolean) => (isRegistered ? this.$router.push(PATH.CLUB_LIST) : this.$router.push(PATH.REGISTER.PROFILE)))
                 .finally(() => this.endLoading());
         }
     },
@@ -101,7 +104,7 @@ export default {
             this.loading = false;
         },
     },
-};
+});
 </script>
 <style scoped>
 .login-wrapper {

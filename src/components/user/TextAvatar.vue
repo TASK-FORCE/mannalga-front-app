@@ -10,8 +10,10 @@
     </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue';
+
+export default Vue.extend({
     name: 'TextAvatar',
     props: {
         name: String,
@@ -20,7 +22,7 @@ export default {
             default: 40,
         },
         bgColor: {
-            String,
+            type: String,
             default: 'white',
         },
     },
@@ -39,7 +41,7 @@ export default {
             return style;
         },
     },
-};
+});
 </script>
 
 <style scoped

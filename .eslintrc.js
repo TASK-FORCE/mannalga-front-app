@@ -11,7 +11,9 @@ module.exports = {
     },
     extends: [
         'plugin:vue/essential',
-        '@vue/airbnb',
+        // "eslint:recommended",
+        // "@vue/typescript/recommended",
+        // '@vue/airbnb',
     ],
     parserOptions: {
         parser: 'babel-eslint',
@@ -36,6 +38,7 @@ module.exports = {
             'lines-between-class-members',
             'class-methods-use-this',
             'no-restricted-globals',
+            '@typescript-eslint/no-use-before-define'
         ]),
         'no-plusplus': ['error', { 'allowForLoopAfterthoughts': true }],
         'no-shadow': ['error', { 'allow': ['state'] }],

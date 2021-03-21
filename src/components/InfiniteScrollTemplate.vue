@@ -1,5 +1,5 @@
 <template>
-    <v-list v-show="!isLoading"
+    <v-list v-show="!$store.state.ui.loading"
             class="py-0"
             :class="`${name}-list-wrapper`"
     >
@@ -38,11 +38,11 @@
     </v-list>
 </template>
 
-<script>
-import gettersHelper from '@/store/helper/GettersHelper.js';
-import _ from '@/utils/common/lodashWrapper.js';
+<script lang="ts">
+import _ from '@/utils/common/lodashWrapper.ts';
+import Vue from 'vue';
 
-export default {
+export default Vue.extend({
     name: 'InfiniteScrollTemplate',
     props: {
         firstPageCallback: {
@@ -79,7 +79,6 @@ export default {
         };
     },
     computed: {
-        isLoading: () => gettersHelper.isLoading(),
         isLastPage() {
             return this.pageInfo.isLastPage;
         },
@@ -141,7 +140,7 @@ export default {
             return window.innerHeight - top;
         },
     },
-};
+});
 </script>
 
 <style scoped

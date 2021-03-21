@@ -1,18 +1,21 @@
 <template>
     <div class="text-center">
-        <v-btn :outlined="!!outlined"
-               :color="color || 'blue'"
-               :loading="loading"
-               :width="width"
-               @click="$emit('click');"
+        <v-btn
+            :outlined="!!outlined"
+            :color="color || 'blue'"
+            :loading="loading"
+            :width="width"
+            @click="$emit('click');"
         >
             {{ text }}
         </v-btn>
     </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue';
+
+export default Vue.extend({
     name: 'CommonCenterBtn',
     props: {
         text: {
@@ -35,7 +38,7 @@ export default {
             type: String,
         },
     },
-};
+});
 </script>
 
 <style scoped>

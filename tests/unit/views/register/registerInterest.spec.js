@@ -3,8 +3,8 @@ import Vuex from 'vuex';
 import sinon from 'sinon';
 import { expect } from 'chai';
 import RegisterInterestNestedPage from '@/views/register/RegisterInterestNestedPage.vue';
-import { PATH } from '@/router/route_path_type.js';
-import DefaultBuilder from '@/store/utils/DefaultBuilder.js';
+import { PATH } from '@/router/route_path_type.ts';
+import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
 import { testUtils } from '../../../utils/testUtils.js';
 
 const sandbox = sinon.createSandbox();
@@ -39,7 +39,7 @@ describe('RegisterInterestNestedPage.vue', () => {
 
     it('랜딩 시 user profile이 비어있다면 profile 등록 화면으로 라우팅된다.', () => {
         // given
-        gettersHelper.profile.returns(DefaultBuilder.buildKakaoProfile());
+        gettersHelper.profile.returns(DefaultBuilder.kakaoProfile());
 
         // when
         shallowMount(RegisterInterestNestedPage, options);
@@ -50,7 +50,7 @@ describe('RegisterInterestNestedPage.vue', () => {
 
     it('랜딩 시 selecetedRegions가 비어있다면 region 등록 화면으로 라우팅된다.', () => {
         // given
-        const profile = DefaultBuilder.buildKakaoProfile();
+        const profile = DefaultBuilder.kakaoProfile();
         profile.name = '이동명';
         gettersHelper.profile.returns(profile);
         gettersHelper.selectedRegions.returns({});
@@ -64,7 +64,7 @@ describe('RegisterInterestNestedPage.vue', () => {
 
     it('register 메서드 호출 시 회원가입을 요청하고 회원가입 요청 성공 시 메인 화면으로 라우팅 된 후 스낵바가 호출된다.', async () => {
         // given
-        const profile = DefaultBuilder.buildKakaoProfile();
+        const profile = DefaultBuilder.kakaoProfile();
         profile.name = '이동명';
         gettersHelper.profile.returns(profile);
         gettersHelper.selectedRegions.returns({ 1: { seq: 2 } });
@@ -86,7 +86,7 @@ describe('RegisterInterestNestedPage.vue', () => {
 
     it('register 메서드 호출 시 회원가입을 요청하고 회원가입 요청 실패 시 프로파일 등록화면으로 라우팅 된 후 스낵바가 호출된다.', async () => {
         // given
-        const profile = DefaultBuilder.buildKakaoProfile();
+        const profile = DefaultBuilder.kakaoProfile();
         profile.name = '이동명';
         gettersHelper.profile.returns(profile);
         gettersHelper.selectedRegions.returns({ 1: { seq: 2 } });

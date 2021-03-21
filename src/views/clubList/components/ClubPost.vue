@@ -1,20 +1,24 @@
 <template>
-    <div v-ripple
-         class="club-post"
+    <div
+        v-ripple
+        class="club-post"
     >
         <div class="pa-4 p-relative w-100">
-            <div :key="club.seq"
-                 class="d-flex"
-                 @click="moveToClubDetailPage(club.seq)"
+            <div
+                :key="club.seq"
+                class="d-flex"
+                @click="moveToClubDetailPage(club.seq)"
             >
-                <v-img :src="imgUrl"
-                       height="105"
-                       width="105"
-                       style="border-radius: 5px;"
+                <v-img
+                    :src="imgUrl"
+                    height="105"
+                    width="105"
+                    style="border-radius: 5px;"
                 />
-                <RoleChip v-if="role && role !== 'MEMBER'"
-                          :role="role"
-                          class="role-chip"
+                <RoleChip
+                    v-if="role && role !== 'MEMBER'"
+                    :role="role"
+                    class="role-chip"
                 />
                 <div class="club-info">
                     <div class="club-title">
@@ -24,23 +28,26 @@
                         {{ club.description }}
                     </div>
                     <div class="sub-description">
-                        <v-icon size="12"
-                                class="sub-description-icon"
-                                v-text="'$mapMarker'"
+                        <v-icon
+                            size="12"
+                            class="sub-description-icon"
+                            v-text="'$mapMarker'"
                         />
                         {{ regionNames }}
                     </div>
                     <div class="d-flex sub-description mt-2">
                         <div>
-                            <v-icon class="sub-description-icon"
-                                    v-text="'$monitor'"
+                            <v-icon
+                                class="sub-description-icon"
+                                v-text="'$monitor'"
                             />
                             {{ interestNames }}
                         </div>
                         <v-spacer />
                         <div>
-                            <v-icon small
-                                    v-text="'$twoPeople'"
+                            <v-icon
+                                small
+                                v-text="'$twoPeople'"
                             />
                             {{ club.userCount }}/{{ club.maximumNumber }}
                         </div>
@@ -51,12 +58,14 @@
     </div>
 </template>
 
-<script>
-import { generateParamPath, PATH } from '@/router/route_path_type.js';
+<script lang="ts">
+import Vue, { PropType } from 'vue';
+import { generateParamPath, PATH } from '@/router/route_path_type.ts';
 import RoleChip from '@/components/chip/RoleChip.vue';
-import { CLUB_ROLE } from '@/utils/role.js';
-import clubDetailVuexService from '@/store/service/ClubDetailVuexService.js';
-import _ from '@/utils/common/lodashWrapper.js';
+import { CLUB_ROLE } from '@/utils/role.ts';
+import clubDetailVuexService from '@/store/service/ClubDetailVuexService.ts';
+import _ from '@/utils/common/lodashWrapper.ts';
+import { ClubFeed } from '@/interfaces/clubList';
 
 const regionStore = {
     서울특별시: { name: '서울시' },
@@ -78,12 +87,18 @@ const regionStore = {
     제주특별자치도: { name: '제주도' },
 };
 
-export default {
+export default Vue.extend({
     name: 'ClubPost',
     components: { RoleChip },
     props: {
-        club: Object,
-        role: String,
+        club: {
+            type: Object as PropType<ClubFeed>,
+            required: true,
+        },
+        role: {
+            type: String,
+            required: false,
+        },
         myPost: {
             type: Boolean,
             default: false,
@@ -126,11 +141,11 @@ export default {
             return region.superRegionRoot;
         },
     },
-};
+});
 </script>
-
-<style lang="scss"
-       scoped
+<style
+    lang="scss"
+    scoped
 >
 
 .club-post {

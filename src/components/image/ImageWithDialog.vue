@@ -1,20 +1,23 @@
 <template>
     <div>
-        <ImageWithLoading :imgUrl="imgUrl"
-                          :height="height"
-                          @click="openDialog = true"
+        <ImageWithLoading
+            :imgUrl="imgUrl"
+            :height="height"
+            @click="openDialog = true"
         />
-        <ImageCarouselDialog v-model="openDialog"
-                             :imgUrls="[imgUrl]"
+        <ImageCarouselDialog
+            v-model="openDialog"
+            :imgUrls="[imgUrl]"
         />
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import ImageWithLoading from '@/components/image/ImageWithLoading.vue';
 import ImageCarouselDialog from '@/components/image/ImageCarouselDialog.vue';
+import Vue from 'vue';
 
-export default {
+export default Vue.extend({
     name: 'ImageWithDialog',
     components: { ImageCarouselDialog, ImageWithLoading },
     props: {
@@ -29,7 +32,7 @@ export default {
             openDialog: false,
         };
     },
-};
+});
 </script>
 
 <style scoped>

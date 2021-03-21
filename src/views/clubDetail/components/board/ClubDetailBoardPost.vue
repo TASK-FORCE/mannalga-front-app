@@ -1,21 +1,23 @@
 <template>
     <div>
-        <div v-ripple
-             @click="clickBoard"
+        <div
+            v-ripple
+            @click="clickBoard"
         >
             <div class="d-flex align-center pa-2">
-                <UserProfileAvatar :size="30"
-                                   :imgUrl="board.writerImage"
-                                   :name="board.writerName"
-                                   :appendNumber="board.writerSeq"
+                <UserProfileAvatar
+                    :size="30"
+                    :imgUrl="board.writer.imgUrl"
+                    :name="board.writer.name"
+                    :appendNumber="board.writer.writerUserSeq"
                 />
                 <div class="d-flex align-center">
                     <div class="board-writer-name d-flex">
                         <span class="my-auto">{{ board.writerName }}</span>
                     </div>
                     <!--                    <div>-->
-                    <!--                        <RoleChip v-if="board.writerRole === 'MASTER' || board.writerRole === 'MANAGER'"-->
-                    <!--                                  :role="board.writerRole"-->
+                    <!--                        <RoleChip v-if="board.writer.role[0] === 'MASTER' || board.writer.role[0] === 'MANAGER'"-->
+                    <!--                                  :role="board.writer.role[0]"-->
                     <!--                                  class="ml-1"-->
                     <!--                                  outlined-->
                     <!--                                  style="margin-bottom: 1px; font-size: 0.5rem;"-->
@@ -27,10 +29,11 @@
                     </div>
                 </div>
                 <v-spacer />
-                <Chip :info="getCategoryInfo(board.category)"
-                      color="green"
-                      :radius="7"
-                      class="px-2 py-1"
+                <Chip
+                    :info="getCategoryInfo(board.category)"
+                    color="green"
+                    :radius="7"
+                    class="px-2 py-1"
                 />
             </div>
             <v-divider />
@@ -47,18 +50,20 @@
                     <v-spacer />
                     <div class="d-flex">
                         <div>
-                            <v-icon color="#f50e22"
-                                    small
-                                    v-text="'$heart'"
+                            <v-icon
+                                color="#f50e22"
+                                small
+                                v-text="'$heart'"
                             />
                             <span class="f-09">
                                         {{ board.likeCnt }}
                                     </span>
                         </div>
                         <div class="ml-3">
-                            <v-icon color="#2196f3"
-                                    small
-                                    v-text="'$commentMultiple'"
+                            <v-icon
+                                color="#2196f3"
+                                small
+                                v-text="'$commentMultiple'"
                             />
                             <span class="f-09">
                                         {{ board.commentCnt }}
@@ -67,14 +72,16 @@
                     </div>
                 </div>
                 <v-spacer />
-                <div v-if="board.mainImageUrl"
-                     class="py-2 d-flex"
+                <div
+                    v-if="board.mainImageUrl"
+                    class="py-2 d-flex"
                 >
-                    <v-img :src="board.mainImageUrl"
-                           height="90"
-                           width="110"
-                           class="my-auto"
-                           style="border-radius: 10px"
+                    <v-img
+                        :src="board.mainImageUrl"
+                        height="90"
+                        width="110"
+                        class="my-auto"
+                        style="border-radius: 10px"
                     />
                 </div>
             </div>
@@ -83,16 +90,17 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import MiddleDivider from '@/components/MiddleDivider.vue';
 import Chip from '@/components/chip/Chip.vue';
 import VerticalBarDivider from '@/components/VerticalBarDivider.vue';
-import { BoardUtils } from '@/utils/board.js';
 import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
-import routerHelper from '@/router/RouterHelper.js';
-import { generateParamPath, PATH } from '@/router/route_path_type.js';
+import routerHelper from '@/router/RouterHelper.ts';
+import { generateParamPath, PATH } from '@/router/route_path_type.ts';
+import Vue from 'vue';
+import { BoardCategory } from '@/interfaces/board/BoardCategory';
 
-export default {
+export default Vue.extend({
     name: 'ClubDetailBoardPost',
     components: { UserProfileAvatar, VerticalBarDivider, Chip, MiddleDivider },
     props: {
@@ -103,17 +111,18 @@ export default {
     },
     methods: {
         clickBoard() {
-            this.$router.push(generateParamPath(PATH.CLUB.BOARD_POST, [routerHelper.clubSeq(), this.board.seq]));
+            this.$router.push(generateParamPath(PATH.CLUB.BOARD_POST, [routerHelper.clubSeq(), this.board.boardSeq]));
         },
-        getCategoryInfo(categoryType) {
-            return BoardUtils.findCategoryByType(categoryType);
+        getCategoryInfo(categoryType): BoardCategory {
+            return BoardCategory.findCategoryByType(categoryType);
         },
     },
-};
+});
 </script>
 
-<style scoped
-       lang="scss"
+<style
+    scoped
+    lang="scss"
 >
 .board-writer-name {
     font-size: 0.9rem;

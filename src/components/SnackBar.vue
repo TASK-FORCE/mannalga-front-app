@@ -1,14 +1,15 @@
 <template>
-    <v-snackbar :value="open"
-                v-bind="{[snackBarOptions.location]: true}"
-                :timeout="snackBarOptions.time"
-                @input="value => $emit('input', value)"
+    <v-snackbar
+        :value="open"
+        v-bind="{[snackBarOptions.location]: true}"
+        :timeout="snackBarOptions.time || 2000"
+        @input="value => $emit('input', value)"
     >
         {{ snackBarOptions.message }}
 
         <template v-slot:action="{ attrs }">
             <v-btn
-                :color="snackBarOptions.color"
+                :color="snackBarOptions.color || 'blue'"
                 outlined
                 small
                 v-bind="attrs"
@@ -20,9 +21,11 @@
     </v-snackbar>
 </template>
 
-<script>
+<script lang="ts">
+import Vue, { PropType } from 'vue';
+import { SnackBarOption } from '@/interfaces/common';
 
-export default {
+export default Vue.extend({
     name: 'SnackBar',
     props: {
         open: {
@@ -30,7 +33,7 @@ export default {
             required: true,
         },
         snackBarOptions: {
-            type: Object,
+            type: Object as PropType<SnackBarOption>,
             required: true,
         },
         btnText: {
@@ -38,9 +41,5 @@ export default {
             required: true,
         },
     },
-};
+});
 </script>
-
-<style scoped>
-
-</style>

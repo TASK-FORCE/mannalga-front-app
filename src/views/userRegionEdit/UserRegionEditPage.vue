@@ -1,9 +1,10 @@
 <template>
-    <div v-show="!isLoading">
-        <RegionSelect :selectedRegionsCallback="getSelectedRegions"
-                      :backCallback="moveToSettingPage"
-                      :submitCallback="changeRequest"
-                      title="지역 설정"
+    <div v-show="!$store.state.ui.loading">
+        <RegionSelect
+            :selectedRegionsCallback="getSelectedRegions"
+            :backCallback="moveToSettingPage"
+            :submitCallback="changeRequest"
+            title="지역 설정"
         >
             <template #header-title>
                 참여할 지역을 설정해주세요.
@@ -15,26 +16,23 @@
     </div>
 </template>
 
-<script>
-import gettersHelper from '@/store/helper/GettersHelper.js';
+<script lang="ts">
+import Vue from 'vue';
 import RegionSelect from '@/components/region/RegionSelect.vue';
-import actionsHelper from '@/store/helper/ActionsHelper.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
-import { PATH } from '@/router/route_path_type.js';
-import { MESSAGE } from '@/utils/common/constant/messages.js';
+import { PATH } from '@/router/route_path_type.ts';
+import { MESSAGE } from '@/utils/common/constant/messages.ts';
+import { UIMutationTypes } from '@/store/type/mutationTypes.ts';
+import { UserActionTypes } from '@/store/type/actionTypes';
 
-export default {
+export default Vue.extend({
     name: 'UserRegionEditPage',
     components: { RegionSelect },
-    computed: {
-        isLoading: () => gettersHelper.isLoading(),
-    },
     methods: {
         changeRequest(selectedRegions) {
-            actionsHelper.requestChangeUserRegions(selectedRegions)
+            return this.$store.dispatch(UserActionTypes.REQUEST_CHANGE_USER_REGIONS, selectedRegions)
                 .then(() => {
-                    actionsHelper.requestUserProfile();
-                    mutationsHelper.openSnackBar(MESSAGE.SUCCESS_CHANGE_REGIONS);
+                    this.$store.dispatch(UserActionTypes.REQUEST_USER_PROFILE);
+                    this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_CHANGE_REGIONS);
                     this.$router.push(PATH.USER.SETTINGS);
                 });
         },
@@ -42,9 +40,9 @@ export default {
             this.$router.push(PATH.USER.SETTINGS);
         },
         getSelectedRegions() {
-            return actionsHelper.requestUserRegions()
-                .then(() => [...gettersHelper.selectedRegions()]);
+            return this.$store.dispatch(UserActionTypes.REQUEST_USER_REGIONS)
+                .then(() => [...this.$store.state.user.selectedRegions]);
         },
     },
-};
+});
 </script>

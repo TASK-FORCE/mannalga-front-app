@@ -1,9 +1,10 @@
 <template>
-    <div v-show="!isLoading">
-        <InterestSelect title="관심사 설정"
-                        :backCallback="back"
-                        :submitCallback="submit"
-                        :selectedInterestsCallback="selectedInterestsCallback"
+    <div v-show="!$store.state.ui.loading">
+        <InterestSelect
+            title="관심사 설정"
+            :backCallback="back"
+            :submitCallback="submit"
+            :selectedInterestsCallback="selectedInterestsCallback"
         >
             <template #header-title>
                 관심있는 분야를 선택해주세요.
@@ -15,15 +16,15 @@
     </div>
 </template>
 
-<script>
-import gettersHelper from '@/store/helper/GettersHelper.js';
-import actionsHelper from '@/store/helper/ActionsHelper.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
-import { PATH } from '@/router/route_path_type.js';
-import { MESSAGE } from '@/utils/common/constant/messages.js';
+<script lang="ts">
+import Vue from 'vue';
+import { PATH } from '@/router/route_path_type.ts';
+import { MESSAGE } from '@/utils/common/constant/messages.ts';
 import InterestSelect from '@/components/interest/InterestSelect.vue';
+import { UIMutationTypes } from '@/store/type/mutationTypes.ts';
+import { UserActionTypes } from '@/store/type/actionTypes';
 
-export default {
+export default Vue.extend({
     name: 'UserInterestEditPage',
     components: { InterestSelect },
     data() {
@@ -31,25 +32,22 @@ export default {
             btnLoading: false,
         };
     },
-    computed: {
-        isLoading: () => gettersHelper.isLoading(),
-    },
     methods: {
         submit(selectedInterests) {
-            return actionsHelper.requestChangeUserInterests(selectedInterests)
+            return this.$store.dispatch(UserActionTypes.REQUEST_CHANGE_USER_INTERESTS, selectedInterests)
                 .then(() => {
-                    actionsHelper.requestUserProfile();
+                    this.$store.dispatch(UserActionTypes.REQUEST_USER_PROFILE);
                     this.$router.push(PATH.USER.SETTINGS);
-                    mutationsHelper.openSnackBar(MESSAGE.SUCCESS_CHANGE_REGIONS);
+                    this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_CHANGE_REGIONS);
                 });
         },
         back() {
             this.$router.push(PATH.USER.SETTINGS);
         },
         selectedInterestsCallback() {
-            return actionsHelper.requestUserInterests()
-                .then(() => [...gettersHelper.selectedInterests()]);
+            return this.$store.dispatch(UserActionTypes.REQUEST_USER_INTERESTS)
+                .then(() => [...this.$store.state.user.selectedInterests]);
         },
     },
-};
+});
 </script>

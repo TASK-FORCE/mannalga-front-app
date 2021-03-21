@@ -16,8 +16,10 @@
     </svg>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue';
+
+export default Vue.extend({
     name: 'WindMill',
     props: {
         width: {
@@ -33,7 +35,7 @@ export default {
             default: '#F5F5F5',
         },
     },
-};
+});
 </script>
 
 <style scoped>

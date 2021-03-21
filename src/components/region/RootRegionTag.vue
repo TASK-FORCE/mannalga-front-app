@@ -8,7 +8,9 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
+
 const regionStore = {
     서울특별시: { name: '서울시', color: '#f50e22' },
     대구광역시: { name: '대구시', color: '#4caf50' },
@@ -29,7 +31,7 @@ const regionStore = {
     제주특별자치도: { name: '제주도', color: '#1900dee3' },
 };
 
-export default {
+export default Vue.extend({
     name: 'RootRegionTag',
     props: {
         rootRegionName: {
@@ -58,7 +60,7 @@ export default {
             };
         },
     },
-};
+});
 </script>
 
 <style scoped>

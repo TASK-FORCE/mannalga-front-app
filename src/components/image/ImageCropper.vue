@@ -1,18 +1,20 @@
 <template>
     <div>
         <div v-if="originalImgUrl">
-            <v-dialog :value="openModal"
-                      persistent
-                      fullscreen
+            <v-dialog
+                :value="openModal"
+                persistent
+                fullscreen
             >
                 <div class="h-100 d-flex black-bg">
                     <div class="my-auto w-100 text-center">
                         <div class="image-cropper-container">
-                            <img ref="cropImg"
-                                 alt="cropImg"
-                                 :src="originalImgUrl"
-                                 :style="resolveImgStyle"
-                                 @load.stop="createCropper"
+                            <img
+                                ref="cropImg"
+                                alt="cropImg"
+                                :src="originalImgUrl"
+                                :style="resolveImgStyle"
+                                @load.stop="createCropper"
                             >
                         </div>
                         <v-card-actions class="text-center mt-3">
@@ -38,21 +40,24 @@
         </div>
 
         <!--   기존 이미지 오픈 트리거     -->
-        <input ref="originalImg"
-               class="d-none"
-               :accept="mimes"
-               type="file"
-               @change="changeOriginalImage"
+        <input
+            ref="originalImg"
+            class="d-none"
+            :accept="mimes"
+            type="file"
+            @change="changeOriginalImage"
         />
     </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
 import 'cropperjs/dist/cropper.css';
 import Cropper from 'cropperjs';
-import actionsHelper from '@/store/helper/ActionsHelper.js';
+import { UIActionTypes } from '@/store/type/actionTypes';
 
-export default {
+
+export default Vue.extend({
     name: 'ImageCropper',
     props: {
         // https://github.com/fengyuanchen/cropperjs#options 참고
@@ -162,7 +167,7 @@ export default {
             croppedCanvas.toBlob(blob => {
                 const formData = new FormData();
                 formData.append('file', blob, 'test.png');
-                actionsHelper.uploadTempImage(formData)
+                this.$store.dispatch(UIActionTypes.UPLOAD_TEMP_IMAGE, formData)
                     .then(tempImageDto => {
                         this.$emit('handleUploadedImgDto', tempImageDto);
                         this.destroy();
@@ -171,11 +176,12 @@ export default {
             });
         },
     },
-};
+});
 </script>
 
-<style scoped
-       lang="scss"
+<style
+    scoped
+    lang="scss"
 >
 img {
     height: auto;

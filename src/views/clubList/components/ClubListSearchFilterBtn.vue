@@ -1,20 +1,23 @@
 <template>
-    <v-btn class="btn"
-           small
-           text
-           v-bind="attrs"
-           v-on="on"
-           @click="$emit('click')"
+    <v-btn
+        class="btn"
+        small
+        text
+        v-bind="attrs"
+        v-on="on"
+        @click="$emit('click')"
     >
         {{ text }}
     </v-btn>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue';
+
+export default Vue.extend({
     name: 'ClubListSearchFilterBtn',
     props: ['attrs', 'on', 'text'],
-};
+});
 </script>
 
 <style scoped>

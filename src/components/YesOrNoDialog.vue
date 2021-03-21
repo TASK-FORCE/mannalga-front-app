@@ -32,10 +32,11 @@
     </v-dialog>
 </template>
 
-<script>
-import routerHelper from '@/router/RouterHelper.js';
+<script lang="ts">
+import routerHelper from '@/router/RouterHelper.ts';
+import Vue from 'vue';
 
-export default {
+export default Vue.extend({
     name: 'YesOrNoDialog',
     props: {
         value: {
@@ -83,7 +84,7 @@ export default {
             this.$emit('input', false);
         },
     },
-};
+});
 </script>
 
 <style scoped>

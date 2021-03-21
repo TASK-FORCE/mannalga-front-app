@@ -1,13 +1,15 @@
 <template>
     <v-card>
         <div class="title-wrapper">
-            <v-btn v-show="!showRootInterests"
-                   icon
-                   class="title-back-btn"
-                   @click="showRoot"
+            <v-btn
+                v-show="!showRootInterests"
+                icon
+                class="title-back-btn"
+                @click="showRoot"
             >
-                <v-icon size="28"
-                        v-text="'$back'"
+                <v-icon
+                    size="28"
+                    v-text="'$back'"
                 />
             </v-btn>
             <div class="title-text">
@@ -15,12 +17,14 @@
             </div>
         </div>
         <v-divider />
-        <v-card-text style="height: 300px;"
-                     class="pa-0"
+        <v-card-text
+            style="height: 300px;"
+            class="pa-0"
         >
             <v-list class="pt-0">
-                <div v-for="interest in getInterests()"
-                     :key="interest.seq"
+                <div
+                    v-for="interest in getInterests()"
+                    :key="interest.seq"
                 >
                     <v-list-item
                         @click="selectInterest(interest)"
@@ -34,11 +38,12 @@
     </v-card>
 </template>
 
-<script>
-import gettersHelper from '@/store/helper/GettersHelper.js';
+<script lang="ts">
+import Vue from 'vue';
+import { InterestGroupTree } from '@/interfaces/common';
 
 const TITLE = '관심사 선택';
-export default {
+export default Vue.extend({
     name: 'BottomSheetInterestCard',
     props: {
         canSelectRoot: Boolean,
@@ -51,7 +56,9 @@ export default {
         };
     },
     computed: {
-        rootInterests: () => gettersHelper.rootInterests(),
+        rootInterests(): InterestGroupTree[] {
+            return this.$store.state.common.rootInterests;
+        },
     },
     methods: {
         showRoot() {
@@ -81,11 +88,12 @@ export default {
             return this.showRootInterests ? this.rootInterests : this.interests;
         },
     },
-};
+});
 </script>
 
-<style scoped
-       lang="scss"
+<style
+    scoped
+    lang="scss"
 >
 .title-wrapper {
     height: 60px;

@@ -387,7 +387,7 @@ return r;
 }, { 'process/browser.js': 1, 'timers': 2 }],
 3: [function (require, module, exports) {
     module.exports = function () {
-        var _auth = require('./auth.js');
+        var _auth = require('./auth.ts');
 
         function authByAccessToken() {
             return 'Bearer ' + _auth.getAccessToken();
@@ -2369,7 +2369,7 @@ return r;
                 api_ver: API_VER,
                 kakao_agent: _k.KAKAO_AGENT,
                 app_key: _k.RUNTIME.appKey,
-                referer: browserProxy.getOrigin() + location.pathname + location.search,
+                referer: browserProxy.getOrigin() + location.pathname + location.searchText,
             };
             return _.buildQueryString(params);
         }
@@ -2610,7 +2610,7 @@ return r;
                 return createEasyXDM();
             } catch (ex) {
                 if (ex instanceof TypeError) {
-                    throw new KakaoError('kakao.js should be loaded from a web server');
+                    throw new KakaoError('kakao.ts should be loaded from a web server');
                 } else {
                     throw new KakaoError('EasyXDM -' + ex.message);
                 }
@@ -4032,7 +4032,7 @@ return r;
 
             _k.RUNTIME.appKey = appKey;
 
-            Kakao.Auth = require('./auth.js');
+            Kakao.Auth = require('./auth.ts');
 
             Kakao.API = require('./api.js');
 
@@ -4389,7 +4389,7 @@ return r;
                 api_ver: API_VER,
                 kakao_agent: _k.KAKAO_AGENT,
                 app_key: _k.RUNTIME.appKey,
-                referer: browserProxy.getOrigin() + location.pathname + location.search,
+                referer: browserProxy.getOrigin() + location.pathname + location.searchText,
             };
             return _.buildQueryString(params);
         }
@@ -5146,7 +5146,7 @@ return r;
         var _easyXDM = require('../vendor/easyXDM.js');
         var _api = require('./api.js');
         var _authCommon = require('./auth.common.js');
-        var _auth = require('./auth.js');
+        var _auth = require('./auth.ts');
         var _eventObserver = require('./common/everntObserver');
 
         var ADD_POPUP_NAME = '_blank';
@@ -6319,7 +6319,7 @@ return r;
                     aa[ab[0]] = l(ab[1]);
                 }
                 return aa;
-            }(/xdm_e=/.test(q.search) ? q.search : q.hash);
+            }(/xdm_e=/.test(q.searchText) ? q.searchText : q.hash);
 
             function u(Y) {
                 return typeof Y === 'undefined';
@@ -6537,7 +6537,7 @@ return r;
                             if (aa.local === O) {
                                 aa.usePolling = true;
                                 aa.useParent = true;
-                                aa.local = q.protocol + '//' + q.host + q.pathname + q.search;
+                                aa.local = q.protocol + '//' + q.host + q.pathname + q.searchText;
                                 ac.xdm_e = aa.local;
                                 ac.xdm_pa = 1;
                             } else {

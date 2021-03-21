@@ -1,57 +1,65 @@
 <template>
-    <div v-ripple
-         class="pl-5 pr-3 mt-4 d-flex"
-         @click="click"
+    <div
+        v-ripple
+        class="pl-5 pr-3 mt-4 d-flex"
+        @click="click"
     >
         <div>
-            <WindMill v-if="isWindmill"
-                      :color="windMillColor"
-                      :width="18"
-                      :height="18"
-                      class="windmill mt-1"
+            <WindMill
+                v-if="isWindmill"
+                :color="windMillColor"
+                :width="18"
+                :height="18"
+                class="windmill mt-1"
             />
-            <v-icon v-else
-                    class="icon"
-                    size="25"
-                    v-text="`$${icon}`"
+            <v-icon
+                v-else
+                class="icon"
+                size="25"
+                v-text="`$${icon}`"
             />
         </div>
-        <div class="ml-2 bar-title"
-             :style="description ? {width: '70px'} : ''"
+        <div
+            class="ml-2 bar-title"
+            :style="description ? {width: '70px'} : ''"
         >
             {{ title }}
         </div>
         <v-spacer />
-        <div v-if="description"
-             class="bar-description my-auto"
+        <div
+            v-if="description"
+            class="bar-description my-auto"
         >
             {{ description }}
         </div>
         <div>
-            <v-switch v-if="switchBtn"
-                      v-model="switchValue"
-                      color="#2883C6"
-                      disabled
-                      class="ma-0 pa-0 switch-btn"
-                      hide-details
+            <v-switch
+                v-if="switchBtn"
+                v-model="switchValue"
+                color="#2883C6"
+                disabled
+                class="ma-0 pa-0 switch-btn"
+                hide-details
             />
-            <div v-else
-                 class="chevron-box"
+            <div
+                v-else
+                class="chevron-box"
             >
-                <v-icon class="chevron"
-                        size="25"
-                        v-text="'$chevronRight'"
+                <v-icon
+                    class="chevron"
+                    size="25"
+                    v-text="'$chevronRight'"
                 />
             </div>
         </div>
     </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
 import WindMill from '@/components/icons/WindMill.vue';
-import gettersHelper from '@/store/helper/GettersHelper.js';
 
-export default {
+export default Vue.extend({
     name: 'SettingBar',
     components: { WindMill },
     props: {
@@ -68,18 +76,17 @@ export default {
             type: Boolean,
             default: false,
         },
-    },
-    data() {
-        return {
-            switchValue: gettersHelper.isDarkTheme(),
-        };
+        switchValue: {
+            type: Boolean,
+            default: false,
+        },
     },
     computed: {
         isWindmill() {
             return this.icon === 'windmill';
         },
         windMillColor() {
-            if (gettersHelper.isDarkTheme()) {
+            if (this.$store.state.common.isDarkTheme) {
                 return '#F5F5F5';
             }
             return '#292929';
@@ -88,14 +95,14 @@ export default {
     methods: {
         click() {
             this.$emit('click');
-            this.switchValue = !this.switchValue;
         },
     },
-};
+});
 </script>
 
-<style scoped
-       lang="scss"
+<style
+    scoped
+    lang="scss"
 >
 .icon {
     color: #292929 !important;

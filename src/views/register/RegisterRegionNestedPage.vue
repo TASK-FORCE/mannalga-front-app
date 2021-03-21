@@ -1,8 +1,9 @@
 <template>
     <div>
-        <RegionSelect :backCallback="clickBack"
-                      :submitCallback="goNextStep"
-                      title="회원 가입"
+        <RegionSelect
+            :backCallback="clickBack"
+            :submitCallback="goNextStep"
+            title="회원 가입"
         >
             <template #header-title>
                 참여할 지역을 설정해주세요.
@@ -14,31 +15,28 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import RegionSelect from '@/components/region/RegionSelect.vue';
-import _ from '@/utils/common/lodashWrapper.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
-import gettersHelper from '@/store/helper/GettersHelper.js';
-import { PATH } from '@/router/route_path_type.js';
-import { MESSAGE } from '@/utils/common/constant/messages.js';
+import _ from '@/utils/common/lodashWrapper.ts';
+import { PATH } from '@/router/route_path_type.ts';
+import { MESSAGE } from '@/utils/common/constant/messages.ts';
+import { UIMutationTypes, UserMutationTypes } from '@/store/type/mutationTypes.ts';
+import Vue from 'vue';
 
-export default {
+export default Vue.extend({
     name: 'RegisterRegionNestedPage',
     components: { RegionSelect },
-    computed: {
-        kakaoProfile: () => gettersHelper.kakaoProfile(),
-    },
     created() {
-        if (_.isDeepEmpty(this.kakaoProfile)) {
+        if (_.isDeepEmpty(this.$store.state.user.kakaoProfile)) {
             this.$router.push(PATH.REGISTER.PROFILE);
         }
     },
     methods: {
         goNextStep(selectedRegions) {
             if (_.isEmpty(selectedRegions)) {
-                mutationsHelper.openSnackBar(MESSAGE.SELECT_REGION_REQUIRE);
+                this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.SELECT_REGION_REQUIRE);
             } else {
-                mutationsHelper.setSelectedRegions(selectedRegions);
+                this.$store.commit(UserMutationTypes.SET_SELECTED_REGIONS, selectedRegions);
                 this.$router.push(PATH.REGISTER.INTEREST);
             }
         },
@@ -46,5 +44,5 @@ export default {
             this.$router.push(PATH.REGISTER.PROFILE);
         },
     },
-};
+});
 </script>

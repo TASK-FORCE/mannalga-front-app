@@ -11,10 +11,11 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import SimpleUserProfile from '@/components/user/SimpleUserProfile.vue';
+import Vue from 'vue';
 
-export default {
+export default Vue.extend({
     name: 'SimpleUserProfileList',
     components: { SimpleUserProfile },
     props: {
@@ -26,7 +27,7 @@ export default {
             default: () => [],
         },
     },
-};
+});
 </script>
 
 <style scoped>

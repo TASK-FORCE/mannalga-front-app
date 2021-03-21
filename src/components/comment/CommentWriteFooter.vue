@@ -23,19 +23,22 @@
     </div>
 </template>
 
-<script>
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
-import { MESSAGE } from '@/utils/common/constant/messages.js';
+<script lang="ts">
+import { MESSAGE } from '@/utils/common/constant/messages.ts';
+import { UIMutationTypes } from '@/store/type/mutationTypes.ts';
+import Vue from 'vue';
 
-export default {
+export default Vue.extend({
     name: 'CommentWriteFooter',
     props: {
         requestWriteComment: {
             type: Function,
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
             default: (content) => {},
         },
         postProcessor: {
             type: Function,
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
             default: () => {},
         },
     },
@@ -64,10 +67,10 @@ export default {
                     .finally(() => (this.loading = false));
                 return;
             }
-            mutationsHelper.openSnackBar(this.EMPTY_COMMENT_TEXT);
+            this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, this.EMPTY_COMMENT_TEXT);
         },
     },
-};
+});
 </script>
 
 <style scoped

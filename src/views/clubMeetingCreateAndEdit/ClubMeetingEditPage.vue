@@ -1,28 +1,33 @@
 <template>
     <div>
-        <CommonHeader title="만남 수정"
-                      @back="$router.push(clubDetailPath())"
+        <CommonHeader
+            title="만남 수정"
+            @back="$router.push(clubDetailPath())"
         />
-        <ClubMeetingCreateAndEditBody btnText="만남 수정"
-                                      :context="editContext"
-                                      :submitClickCallback="edit"
+        <ClubMeetingCreateAndEditBody
+            btnText="만남 수정"
+            :context="editContext"
+            :submitClickCallback="edit"
         />
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import CommonHeader from '@/components/header/CommonHeader.vue';
 import ClubMeetingCreateAndEditBody from '@/views/clubMeetingCreateAndEdit/ClubMeetingCreateAndEditBody.vue';
-import { generateParamPath, PATH } from '@/router/route_path_type.js';
-import routerHelper from '@/router/RouterHelper.js';
-import gettersHelper from '@/store/helper/GettersHelper.js';
-import actionsHelper from '@/store/helper/ActionsHelper.js';
+import { generateParamPath, PATH } from '@/router/route_path_type.ts';
+import routerHelper from '@/router/RouterHelper.ts';
+import Vue from 'vue';
+import { MeetingActionTypes } from '@/store/type/actionTypes';
+import { Meeting, MeetingWriteRequest, MeetingWriteRequestWithSeq } from '@/interfaces/meeting';
 
-export default {
+export default Vue.extend({
     name: 'ClubMeetingEditPage',
     components: { ClubMeetingCreateAndEditBody, CommonHeader },
     computed: {
-        meeting: () => gettersHelper.meeting(),
+        meeting(): Meeting {
+            return this.$store.state.meeting.meeting;
+        },
         editContext() {
             if (this.meeting.seq === 0) {
                 this.$router.back();
@@ -45,22 +50,22 @@ export default {
         clubDetailPath() {
             return generateParamPath(PATH.CLUB.MAIN, routerHelper.clubSeq());
         },
-        edit(clubMeetingEditDto) {
+        edit(meetingWriteRequest: MeetingWriteRequest) {
             const clubSeq = routerHelper.clubSeq();
             const meetingSeq = routerHelper.meetingSeq();
-            const clubMeetingEditInfo = {
-                clubMeetingEditDto,
-                clubSeq,
-                meetingSeq,
+            const meetingWriteRequestWithSeq: MeetingWriteRequestWithSeq = {
+                meetingWriteRequest: meetingWriteRequest,
+                clubSeq: clubSeq,
+                meetingSeq: meetingSeq,
             };
-            return actionsHelper.requestMeetingEdit(clubMeetingEditInfo)
+            return this.$store.dispatch(MeetingActionTypes.REQUEST_MEETING_EDIT, meetingWriteRequestWithSeq)
                 .then(() => {
-                    actionsHelper.requestFirstMeetingGroupList(clubMeetingEditInfo.clubSeq);
+                    this.$store.dispatch(MeetingActionTypes.REQUEST_FIRST_MEETING_GROUP_LIST, meetingWriteRequestWithSeq.clubSeq);
                     this.$router.push(generateParamPath(PATH.CLUB.MEETING_POST, [clubSeq, meetingSeq]));
                 });
         },
     },
-};
+});
 </script>
 
 <style scoped>

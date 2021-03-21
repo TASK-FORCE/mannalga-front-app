@@ -1,5 +1,5 @@
 <template>
-    <div v-if="!loading">
+    <div v-if="!$store.state.ui.loading">
         <div class="d-flex px-2 mt-3">
             <UserProfileAvatar :size="40"
                                :imgUrl="boardDto.writerImage"
@@ -68,23 +68,23 @@
                 </template>
             </InfiniteScrollTemplate>
         </div>
-        <CommentWriteFooter v-if="!isFocusingChildCommentInput"
+        <CommentWriteFooter v-if="!$store.state.ui.focusingChildCommentInput"
                             :requestWriteComment="commentContext.requestWriteComment"
                             :postProcessor="callbackAfterCommentWrite"
         />
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
 import MiddleDivider from '@/components/MiddleDivider.vue';
-import gettersHelper from '@/store/helper/GettersHelper.js';
 import Comment from '@/components/comment/Comment.vue';
 import CommentWriteFooter from '@/components/comment/CommentWriteFooter.vue';
 import InfiniteScrollTemplate from '@/components/InfiniteScrollTemplate.vue';
-import { ScrollHelper } from '@/utils/scroll.js';
+import { ScrollHelper } from '@/utils/scroll.ts';
+import Vue from 'vue';
 
-export default {
+export default Vue.extend({
     name: 'BoardTemplate',
     components: {
         InfiniteScrollTemplate,
@@ -135,10 +135,6 @@ export default {
             required: true,
         },
     },
-    computed: {
-        isFocusingChildCommentInput: () => gettersHelper.isFocusingChildCommentInput(),
-        loading: () => gettersHelper.isLoading(),
-    },
     methods: {
         callbackAfterCommentWrite() {
             this.commentContext.commentWritePostProcess()
@@ -152,7 +148,7 @@ export default {
             setTimeout(this.scrollToBottomWhenLastPage, 100);
         },
     },
-};
+});
 </script>
 
 <style scoped>

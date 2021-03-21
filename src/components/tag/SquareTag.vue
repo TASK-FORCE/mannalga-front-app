@@ -10,15 +10,17 @@
     </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue';
+
+export default Vue.extend({
     name: 'SquareTag',
     props: {
         text: String,
         bgColor: String,
         blur: Boolean,
     },
-};
+});
 </script>
 
 <style scoped

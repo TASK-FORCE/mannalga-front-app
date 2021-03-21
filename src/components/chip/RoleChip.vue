@@ -5,9 +5,10 @@
     />
 </template>
 
-<script>
-import { CLUB_ROLE } from '@/utils/role.js';
+<script lang="ts">
+import { CLUB_ROLE } from '@/utils/role.ts';
 import Chip from '@/components/chip/Chip.vue';
+import Vue from 'vue';
 
 const CLUB_CHIP_ROLES = [
     {
@@ -27,7 +28,7 @@ const CLUB_CHIP_ROLES = [
     },
 ];
 
-export default {
+export default Vue.extend({
     name: 'RoleChip',
     components: { Chip },
     props: {
@@ -53,5 +54,5 @@ export default {
             };
         },
     },
-};
+});
 </script>

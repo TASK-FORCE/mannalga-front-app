@@ -1,15 +1,18 @@
 <template>
-    <v-footer fixed
-              app
-              class="pa-0"
+    <v-footer
+        fixed
+        app
+        class="pa-0"
     >
-        <v-bottom-navigation class="text-center pa-0"
-                             grow
-                             horizontal
+        <v-bottom-navigation
+            class="text-center pa-0"
+            grow
+            horizontal
         >
-            <v-btn class="simple-btn-footer"
-                   :loading="loading"
-                   @click="$emit('click')"
+            <v-btn
+                class="simple-btn-footer"
+                :loading="loading"
+                @click="$emit('click')"
             >
                 {{ text }}
             </v-btn>
@@ -17,8 +20,10 @@
     </v-footer>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue';
+
+export default Vue.extend({
     name: 'SimpleBtnFooter',
     props: {
         text: {
@@ -30,7 +35,7 @@ export default {
             default: false,
         },
     },
-};
+});
 </script>
 
 <style scoped>

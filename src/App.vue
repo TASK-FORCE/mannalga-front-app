@@ -1,15 +1,17 @@
 <template>
     <v-app>
         <v-main>
-            <transition name="component-fade"
-                        mode="out-in"
+            <transition
+                name="component-fade"
+                mode="out-in"
             >
-                <router-view :key="$route.fullPath"
-                             class="app-body"
+                <router-view
+                    :key="$route.fullPath"
+                    class="app-body"
                 />
             </transition>
         </v-main>
-        <Progress v-show="isLoading" />
+        <Progress v-show="$store.state.ui.loading" />
         <CommonSnackBar />
         <v-btn
             v-if="isDevEnv"
@@ -19,21 +21,22 @@
             x-small
             @click="changeTheme"
         >
-            <v-icon class="white--text"
-                    v-text="'$plus'"
+            <v-icon
+                class="white--text"
+                v-text="'$plus'"
             />
         </v-btn>
     </v-app>
 </template>
 
-<script>
+<script lang="ts">
 import CommonSnackBar from '@/components/CommonSnackBar.vue';
 import Progress from '@/components/Progress.vue';
-import gettersHelper from '@/store/helper/GettersHelper.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
-import { changeThemeAndLoad } from '@/plugins/vuetify.js';
+import { UIMutationTypes } from '@/store/type/mutationTypes.ts';
+import Vue from 'vue';
+import { loadCurrentTheme } from '@/utils/theme';
 
-export default {
+export default Vue.extend({
     name: 'App',
     components: { CommonSnackBar, Progress },
     data() {
@@ -41,21 +44,15 @@ export default {
             isDevEnv: process.env.NODE_ENV !== 'production',
         };
     },
-    computed: {
-        isLoading: () => gettersHelper.isLoading(),
-    },
-    created() {
-        changeThemeAndLoad();
-    },
     mounted() {
-        mutationsHelper.changeTheme();
+        loadCurrentTheme();
     },
     methods: {
         changeTheme() {
-            mutationsHelper.changeTheme();
+            this.$store.commit(UIMutationTypes.CHANGE_THEME);
         },
     },
-};
+});
 </script>
 
 <style>

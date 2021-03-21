@@ -5,8 +5,10 @@
     </span>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue';
+
+export default Vue.extend({
     name: 'VerticalBarDivider',
     props: {
         margin: {
@@ -19,7 +21,7 @@ export default {
             return `mx-${this.margin}`;
         },
     },
-};
+});
 </script>
 
 <style scoped>

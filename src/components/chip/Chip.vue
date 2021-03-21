@@ -6,8 +6,21 @@
     </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue';
+
+interface ChipStyle {
+    display?: string
+    borderRadius?: string
+    color?: string
+    border?: string
+    backgroundColor?: string
+    padding?: string
+    fontSize?: string
+    fontWeight?: string
+}
+
+export default Vue.extend({
     name: 'Chip',
     props: {
         info: {
@@ -43,7 +56,7 @@ export default {
             return this.info.color;
         },
         resolveStyle() {
-            const style = {};
+            const style: ChipStyle = {};
             style.display = 'flex';
             style.borderRadius = `${this.radius}px`;
             if (this.outlined) {
@@ -69,7 +82,7 @@ export default {
             return style;
         },
     },
-};
+});
 </script>
 
 <style scoped>

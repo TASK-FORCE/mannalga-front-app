@@ -1,29 +1,33 @@
 <template>
     <div>
-        <ClubDetailMainClubInfo :clubInfo="clubInfo"
-                                :currentUserInfo="currentUserInfo"
+        <ClubDetailMainClubInfo
+            :clubInfo="clubInfo"
+            :currentUserInfo="currentUserInfo"
         />
         <MiddleDivider :height="5" />
-        <ClubDetailMainMember :clubInfo="clubInfo"
-                              :clubUserList="clubUserList"
-                              :currentUserInfo="currentUserInfo"
+        <ClubDetailMainMember
+            :clubInfo="clubInfo"
+            :clubUserList="clubUserList"
+            :currentUserInfo="currentUserInfo"
         />
         <div v-if="meetingBtnContext">
             <MiddleDivider :height="1" />
             <div class="pa-3">
-                <v-btn width="100%"
-                       color="#2883c6"
-                       height="60"
-                       class="meeting-btn"
-                       @click="meetingBtnContext.click"
+                <v-btn
+                    width="100%"
+                    color="#2883c6"
+                    height="60"
+                    class="meeting-btn"
+                    @click="meetingBtnContext.click"
                 >
                     {{ meetingBtnContext.text }}
                 </v-btn>
             </div>
         </div>
-        <YesOrNoDialog v-model="showRegisterDialog"
-                       title="모임에 가입하시겠습니까?"
-                       :submitPromiseCallback="requestClubRegister"
+        <YesOrNoDialog
+            v-model="showRegisterDialog"
+            title="모임에 가입하시겠습니까?"
+            :submitPromiseCallback="requestClubRegister"
         >
             <template #description>
                 <div class="ml-2">
@@ -34,23 +38,26 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue, { PropType } from 'vue';
 import ClubDetailMainClubInfo from '@/views/clubDetail/components/main/ClubDetailMainClubInfo.vue';
 import ClubDetailMainMember from '@/views/clubDetail/components/main/ClubDetailMainMember.vue';
 import MiddleDivider from '@/components/MiddleDivider.vue';
 import YesOrNoDialog from '@/components/YesOrNoDialog.vue';
-import actionsHelper from '@/store/helper/ActionsHelper.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
-import routerHelper from '@/router/RouterHelper.js';
-import { generateParamPath, PATH } from '@/router/route_path_type.js';
+import routerHelper from '@/router/RouterHelper.ts';
+import { generateParamPath, PATH } from '@/router/route_path_type.ts';
+import { UIMutationTypes } from '@/store/type/mutationTypes.ts';
+import { MESSAGE } from '@/utils/common/constant/messages.ts';
+import { ClubInfo, ClubUserInfo, CurrentUserInfo } from '../../../../interfaces/club';
+import { ClubActionTypes } from '@/store/type/actionTypes';
 
-export default {
+export default Vue.extend({
     name: 'ClubDetailMain',
     components: { YesOrNoDialog, MiddleDivider, ClubDetailMainClubInfo, ClubDetailMainMember },
     props: {
-        clubInfo: Object,
-        currentUserInfo: Object,
-        clubUserList: Array,
+        clubInfo: Object as PropType<ClubInfo>,
+        currentUserInfo: Object as PropType<CurrentUserInfo>,
+        clubUserList: Array as PropType<ClubUserInfo[]>,
     },
     data() {
         return {
@@ -82,16 +89,15 @@ export default {
     },
     methods: {
         requestClubRegister() {
-            return actionsHelper.requestClubJoin(this.clubSeq)
+            return this.$store.dispatch(ClubActionTypes.REQUEST_CLUB_JOIN, this.clubSeq)
                 .then(() => {
-                    mutationsHelper.openSnackBar('모임 가입 성공');
+                    this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_JOIN_CLUB);
                     this.showRegisterDialog = false;
                 });
         },
     },
-};
+});
 </script>
-
 <style scoped>
 .meeting-btn {
     border-radius: 4px;

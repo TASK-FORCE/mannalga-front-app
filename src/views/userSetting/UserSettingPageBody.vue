@@ -6,7 +6,8 @@
             <SettingBar
                 :title="themeSettingTitle"
                 :icon="themeSettingIcon"
-                switch-btn
+                :switchValue="isDarkTheme"
+                switchBtn
                 @click="changeTheme"
             />
             <SettingBar
@@ -22,21 +23,26 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
 import UserSettingProfile from '@/views/userSetting/components/UserSettingProfile.vue';
-import gettersHelper from '@/store/helper/GettersHelper.js';
-import _ from '@/utils/common/lodashWrapper.js';
-import { PATH } from '@/router/route_path_type.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
+import _ from '@/utils/common/lodashWrapper.ts';
+import { PATH } from '@/router/route_path_type.ts';
 import MiddleDivider from '@/components/MiddleDivider.vue';
 import SettingBar from '@/components/SettingBar.vue';
+import { AuthMutationTypes, UIMutationTypes } from '@/store/type/mutationTypes';
+import { UserProfile } from '@/interfaces/user';
 
-export default {
+export default Vue.extend({
     name: 'UserSettingPageBody',
     components: { SettingBar, MiddleDivider, UserSettingProfile },
     computed: {
-        userProfile: () => gettersHelper.userProfile(),
-        isDarkTheme: () => gettersHelper.isDarkTheme(),
+        userProfile(): UserProfile {
+            return this.$store.state.user.userProfile;
+        },
+        isDarkTheme(): boolean {
+            return this.$store.state.common.isDarkTheme;
+        },
         regionsByPriority() {
             return _.sortBy(this.userProfile.userRegions, ({ priority }) => priority)
                 .map(({ region }) => region);
@@ -56,14 +62,14 @@ export default {
     },
     methods: {
         logout() {
-            mutationsHelper.removeAppToken();
+            this.$store.commit(AuthMutationTypes.REMOVE_APP_TOKEN);
             this.$router.push(PATH.LOGIN);
         },
         changeTheme() {
-            mutationsHelper.changeTheme();
+            this.$store.commit(UIMutationTypes.CHANGE_THEME);
         },
     },
-};
+});
 </script>
 
 <style scoped>

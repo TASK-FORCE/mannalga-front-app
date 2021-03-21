@@ -1,10 +1,11 @@
 <template>
     <div>
-        <CommonHeader :title="title"
-                      :isDialog="isDialog"
-                      showSubmitBtn
-                      @back="backCallback"
-                      @submit="submit"
+        <CommonHeader
+            :title="title"
+            :isDialog="isDialog"
+            showSubmitBtn
+            @back="backCallback"
+            @submit="submit"
         />
         <div class="body">
             <div class="header">
@@ -16,52 +17,61 @@
                 </div>
             </div>
             <div class="mt-5">
-                <div v-for="(region, index) in selectedRegions"
-                     :key="region.seq"
-                     class="mt-5"
+                <div
+                    v-for="(region, index) in selectedRegions"
+                    :key="region.seq"
+                    class="mt-5"
                 >
                     <div class="px-16">
-                        <v-btn class="selected-btn"
-                               text
-                               @click="openSheet(index + 1)"
+                        <v-btn
+                            class="selected-btn"
+                            text
+                            @click="openSheet(index + 1)"
                         >
                             <div>{{ getText(region) }}</div>
                         </v-btn>
                     </div>
                 </div>
-                <div v-if="this.selectedRegions.length < maxSize"
-                     class="px-16 mt-5"
+                <div
+                    v-if="this.selectedRegions.length < maxSize"
+                    class="px-16 mt-5"
                 >
-                    <v-btn class="select-btn"
-                           text
-                           @click="openSheet(null)"
+                    <v-btn
+                        class="select-btn"
+                        text
+                        @click="openSheet(null)"
                     >
-                        <v-icon class="plus"
-                                v-text="'$plus'"
+                        <v-icon
+                            class="plus"
+                            v-text="'$plus'"
                         />
                     </v-btn>
                 </div>
             </div>
         </div>
-        <v-bottom-sheet v-model="sheet"
-                        scrollable
+        <v-bottom-sheet
+            v-model="sheet"
+            scrollable
         >
-            <BottomSheetRegionCard :selectedRegionSeqs="selectedRegionSeqs"
-                                   :showCancelBtn="!!currentIndex"
-                                   @selectSubRegion="selectSubRegion"
-                                   @cancelSelectedRegion="cancelSelectedRegion"
+            <BottomSheetRegionCard
+                :selectedRegionSeqs="selectedRegionSeqs"
+                :showCancelBtn="!!currentIndex"
+                @selectSubRegion="selectSubRegion"
+                @cancelSelectedRegion="cancelSelectedRegion"
             />
         </v-bottom-sheet>
     </div>
 </template>
 
-<script>
-import { PATH } from '@/router/route_path_type.js';
+<script lang="ts">
+import Vue from 'vue';
+import { PATH } from '@/router/route_path_type.ts';
 import BottomSheetRegionCard from '@/components/bottom-sheet/BottomSheetRegionCard.vue';
-import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.js';
+import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.ts';
 import CommonHeader from '@/components/header/CommonHeader.vue';
+import { Region } from '@/interfaces/common';
 
-export default {
+export default Vue.extend({
     name: 'RegionSelect',
     components: { CommonHeader, BottomSheetRegionCard },
     props: {
@@ -89,7 +99,7 @@ export default {
             maxSize: 3,
             sheet: false,
             currentIndex: null,
-            selectedRegions: [],
+            selectedRegions: [] as Region[],
         };
     },
     computed: {
@@ -131,11 +141,12 @@ export default {
             this.currentIndex = null;
         },
     },
-};
-</script>
+});
+;</script>
 
-<style scoped
-       lang="scss"
+<style
+    scoped
+    lang="scss"
 >
 .body {
     width: 100%;
