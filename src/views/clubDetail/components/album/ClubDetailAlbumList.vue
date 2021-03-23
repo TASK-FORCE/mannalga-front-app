@@ -60,7 +60,7 @@ import InfiniteScrollTemplate from '@/components/InfiniteScrollTemplate.vue';
 import routerHelper from '@/router/RouterHelper.ts';
 import FixedScrollToTopBtn from '@/components/button/FixedScrollToTopBtn.vue';
 import EmptyPage from '@/components/EmptyPage.vue';
-import { CurrentUserInfo } from '../../../../interfaces/club';
+import { CurrentUserInfo } from '@/interfaces/club';
 import { AlbumActionTypes } from '@/store/type/actionTypes';
 import { Page } from '@/interfaces/common';
 import { AlbumFeed } from '@/interfaces/album';

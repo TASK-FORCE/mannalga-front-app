@@ -55,7 +55,7 @@ export default Vue.extend({
   components: { ClubDetailMain, ClubDetailMeetingList, ClubDetailBoardList, ClubDetailAlbumList },
   data() {
     return {
-      tab: null,
+      tab: ClubTab.MAIN as ClubTab,
       menus: [
         { name: '메인', key: ClubTab.MAIN },
         { name: '만남', key: ClubTab.MEETING },

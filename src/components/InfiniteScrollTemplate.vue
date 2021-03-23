@@ -45,7 +45,8 @@
 
 <script lang="ts">
 import _ from '@/utils/common/lodashWrapper.ts';
-import Vue from 'vue';
+import Vue, { PropType } from 'vue';
+import { Page } from '@/interfaces/common';
 
 export default Vue.extend({
   name: 'InfiniteScrollTemplate',
@@ -59,11 +60,11 @@ export default Vue.extend({
       required: true,
     },
     pageElements: {
-      type: Array,
+      type: Array as PropType<any[]>,
       default: () => [],
     },
     pageInfo: {
-      type: Object,
+      type: Object as PropType<Page>,
       required: true,
     },
     name: {
@@ -77,23 +78,23 @@ export default Vue.extend({
   },
   data() {
     return {
-      sentinel: null,
-      listGroup: null,
-      listWrapper: null,
-      isRequesting: false,
+      sentinel: undefined as undefined | HTMLElement,
+      listGroup: undefined as undefined | HTMLElement,
+      listWrapper: undefined as undefined | HTMLElement,
+      isRequesting: false as boolean,
     };
   },
   computed: {
-    isLastPage() {
+    isLastPage(): boolean {
       return this.pageInfo.isLastPage;
     },
-    isFirstPage() {
+    isFirstPage(): boolean {
       return this.pageInfo.nextPage === 0;
     },
   },
   mounted() {
-    this.listWrapper = document.querySelector(`.${this.name}-list-wrapper`);
-    this.sentinel = document.querySelector(`.${this.name}-list-sentinel`);
+    this.listWrapper = document.querySelector(`.${this.name}-list-wrapper`) as HTMLElement;
+    this.sentinel = document.querySelector(`.${this.name}-list-sentinel`) as HTMLElement;
     if (_.isEmpty(this.pageElements)) {
       this.requestFirstPage();
     } else {
@@ -117,8 +118,8 @@ export default Vue.extend({
       observer.observe(this.sentinel);
     },
     insertSentinel() {
-      if (this.listGroup === null) {
-        this.listGroup = document.querySelector(`.${this.name}-list-group`);
+      if (!this.listGroup) {
+        this.listGroup = document.querySelector(`.${this.name}-list-group`) as HTMLElement;
       }
       this.listGroup.insertBefore(this.sentinel, this.listGroup.children[this.listGroup.children.length - 2]);
     },

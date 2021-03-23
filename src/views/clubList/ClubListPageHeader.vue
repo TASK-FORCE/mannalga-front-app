@@ -30,8 +30,8 @@ export default Vue.extend({
   data() {
     return {
       clubSearchPagePath: PATH.CLUB.SEARCH,
-      searchText: null,
-      searchCallback: null,
+      searchText: '' as string,
+      searchCallback: () => ({}) as () => void,
     };
   },
   computed: {
@@ -59,7 +59,7 @@ export default Vue.extend({
     }
   },
   methods: {
-    search(searchText): void {
+    search(searchText: string): void {
       this.$store.commit(ClubListMutationTypes.CHANGE_CLUB_SEARCH_TEXT, searchText);
     },
   },

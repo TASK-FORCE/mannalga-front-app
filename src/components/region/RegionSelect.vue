@@ -69,7 +69,7 @@ import { PATH } from '@/router/route_path_type.ts';
 import BottomSheetRegionCard from '@/components/bottom-sheet/BottomSheetRegionCard.vue';
 import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.ts';
 import CommonHeader from '@/components/header/CommonHeader.vue';
-import { Region } from '@/interfaces/common';
+import { Region, RegionTree } from '@/interfaces/common';
 
 export default Vue.extend({
   name: 'RegionSelect',
@@ -98,13 +98,13 @@ export default Vue.extend({
     return {
       maxSize: 3,
       sheet: false,
-      currentIndex: null,
+      currentIndex: undefined as undefined | number,
       selectedRegions: [] as Region[],
     };
   },
   computed: {
     selectedRegionSeqs() {
-      return this.selectedRegions.map(({ seq }) => seq);
+      return this.selectedRegions.map(({ seq }: Region) => seq);
     },
   },
   created() {
@@ -113,14 +113,14 @@ export default Vue.extend({
       .then(selectedRegions => (this.selectedRegions = selectedRegions));
   },
   methods: {
-    getText({ superRegionRoot }) {
+    getText({ superRegionRoot }: RegionTree) {
       const split = superRegionRoot.split('/');
       if (split.length === 2 && split[0] === split[1]) {
         return split[0];
       }
       return superRegionRoot;
     },
-    selectSubRegion(region) {
+    selectSubRegion(region: RegionTree) {
       this.sheet = false;
       if (this.currentIndex) {
         this.selectedRegions.splice(this.currentIndex - 1, 1, region);
@@ -128,7 +128,7 @@ export default Vue.extend({
         this.selectedRegions.push(region);
       }
     },
-    openSheet(index) {
+    openSheet(index: number) {
       this.currentIndex = index;
       this.sheet = true;
     },
@@ -142,7 +142,7 @@ export default Vue.extend({
     },
   },
 });
-;</script>
+</script>
 
 <style
   scoped

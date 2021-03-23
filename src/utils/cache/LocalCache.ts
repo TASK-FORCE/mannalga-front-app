@@ -2,7 +2,7 @@ export class LocalCache<V> {
 
   private store: Store<V>;
   private size: number;
-  private clearSize: number;
+  private readonly clearSize: number;
 
   constructor(clearSize = 10000) {
     this.store = {};
@@ -10,7 +10,7 @@ export class LocalCache<V> {
     this.clearSize = clearSize;
   }
 
-  get(key): V {
+  get(key: Key): V {
     return this.store[key];
   }
 

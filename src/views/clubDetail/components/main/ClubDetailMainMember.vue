@@ -1,16 +1,16 @@
 <template>
   <div class="meeting-members-wrapper">
     <div class="title">
-      모임 멤버 ({{ simpleUsers.length }}/{{ clubInfo.maximumNumber }})
+      모임 멤버 ({{ clubUserList.length }}/{{ clubInfo.maximumNumber }})
     </div>
     <div class="member-infos">
       <div
-        v-for="user in simpleUsers"
-        :key="user.seq"
+        v-for="clubUser in clubUserList"
+        :key="clubUser.seq"
         class="mt-3"
       >
         <ClubMemberInfo
-          :user="user"
+          :user="clubUser"
           :currentUserInfo="currentUserInfo"
           @openWithdrawnDialog="openWithdrawnDialog"
           @openKickDialog="openKickDialog"
@@ -42,9 +42,9 @@
         >
           <UserProfileAvatar
             :size="35"
-            :imgUrl="kickTargetUser.imageUrl"
-            :name="kickTargetUser.name"
-            :appendNumber="kickTargetUser.seq"
+            :imgUrl="kickTargetUser?.imageUrl"
+            :name="kickTargetUser?.name"
+            :appendNumber="kickTargetUser?.seq"
           />
           <div class="member-info">
             {{ kickTargetUser.name }}
@@ -146,32 +146,23 @@ export default Vue.extend({
     return {
       withdrawnDialog: false,
       kickDialog: false,
-      kickTargetUser: null,
+      kickTargetUser: undefined as ClubUserInfo | undefined,
       managementDialog: false,
-      managementTargetUser: null,
+      managementTargetUser: undefined as ClubUserInfo | undefined,
     };
   },
   computed: {
-    clubSeq: () => routerHelper.clubSeq(),
-    simpleUsers() {
-      return this.clubUserList.map(user => ({
-        seq: user.userSeq,
-        clubUserSeq: user.clubUserSeq,
-        imageUrl: user.imgUrl,
-        name: user.name,
-        role: user.role.length > 0 ? user.role[0] : null,
-      }));
-    },
+    clubSeq: (): number => routerHelper.clubSeq(),
   },
   methods: {
     openWithdrawnDialog() {
       this.withdrawnDialog = true;
     },
-    openKickDialog(user) {
+    openKickDialog(user: ClubUserInfo) {
       this.kickTargetUser = user;
       this.kickDialog = true;
     },
-    openManagementDialog(user) {
+    openManagementDialog(user: ClubUserInfo) {
       this.managementTargetUser = user;
       this.managementDialog = true;
     },
@@ -179,14 +170,14 @@ export default Vue.extend({
       return this.$store.dispatch(ClubActionTypes.REQUEST_CLUB_WITHDRAW, this.clubSeq)
         .then(() => {
           this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.WITHDRAW_CLUB);
-          this.$router.go();
+          this.$router.go(0);
         });
     },
     kick() {
       return this.$store.dispatch(ClubActionTypes.REQUEST_KICK_USER,
         {
           clubSeq: this.clubSeq,
-          clubUserSeq: this.kickTargetUser.clubUserSeq,
+          clubUserSeq: this.kickTargetUser?.clubUserSeq,
         }
       ).finally(() => (this.kickDialog = false));
     },
@@ -194,7 +185,7 @@ export default Vue.extend({
       return this.$store.dispatch(ClubActionTypes.REQUEST_KICK_USER,
         {
           clubSeq: this.clubSeq,
-          clubUserSeq: this.managementTargetUser.clubUserSeq,
+          clubUserSeq: this.managementTargetUser?.clubUserSeq,
         }
       ).finally(() => this.closeManagementDialog());
     },
@@ -202,7 +193,7 @@ export default Vue.extend({
       return this.$store.dispatch(ClubActionTypes.REQUEST_CHANGE_USER_ROLE,
         {
           clubSeq: this.clubSeq,
-          clubUserSeq: this.managementTargetUser.clubUserSeq,
+          clubUserSeq: this.managementTargetUser?.clubUserSeq,
           role: CLUB_ROLE.MANAGER,
         }
       ).finally(() => this.closeManagementDialog());
@@ -211,7 +202,7 @@ export default Vue.extend({
       return this.$store.dispatch(ClubActionTypes.REQUEST_CHANGE_USER_ROLE,
         {
           clubSeq: this.clubSeq,
-          clubUserSeq: this.managementTargetUser.clubUserSeq,
+          clubUserSeq: this.managementTargetUser?.clubUserSeq,
           role: CLUB_ROLE.MEMBER,
         }
       ).finally(() => this.closeManagementDialog());

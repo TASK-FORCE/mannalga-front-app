@@ -3,14 +3,14 @@
     <div class="d-flex px-2 mt-3">
       <UserProfileAvatar
         :size="40"
-        :imgUrl="boardDto.writerImage"
-        :name="boardDto.writerName"
-        :appendNumber="boardDto.writerSeq"
+        :imgUrl="boardVo.writerImage"
+        :name="boardVo.writerName"
+        :appendNumber="boardVo.writerSeq"
       />
       <div class="ml-2">
-        <div class="title">{{ boardDto.title }}</div>
+        <div class="title">{{ boardVo.title }}</div>
         <div class="f-09">
-          {{ boardDto.writerName }}
+          {{ boardVo.writerName }}
         </div>
       </div>
     </div>
@@ -18,11 +18,11 @@
     <MiddleDivider :height="2" />
     <div class="d-flex pa-3">
       <v-btn
-        v-if="!boardDto.isLiked"
+        v-if="!boardVo.isLiked"
         outlined
         small
         color="#2196f3"
-        @click="likeContext.requestApplyLike"
+        @click="boardTemplateContext.requestApplyLike"
       >
         <v-icon
           left
@@ -35,7 +35,7 @@
         v-else
         outlined
         small
-        @click="likeContext.requestDeleteLike"
+        @click="boardTemplateContext.requestDeleteLike"
       >
         <v-icon
           left
@@ -47,7 +47,7 @@
       <v-spacer />
       <div class="d-lg-flex my-auto">
         <div>
-          <span class="like-count-text">{{ boardDto.likeCnt }}명</span>이 사진을 좋아합니다.
+          <span class="like-count-text">{{ boardVo.likeCnt }}명</span>이 사진을 좋아합니다.
         </div>
       </div>
     </div>
@@ -56,21 +56,21 @@
     <div class="px-1 h-100">
       <InfiniteScrollTemplate
         name="comment"
-        :firstPageCallback="commentContext.fetchFirstPage"
-        :nextPageCallback="commentContext.fetchNextPage"
-        :pageElements="commentContext.commentList"
-        :pageInfo="commentContext.commentPage"
+        :firstPageCallback="boardTemplateContext.fetchFirstPage"
+        :nextPageCallback="boardTemplateContext.fetchNextPage"
+        :pageElements="boardTemplateContext.commentList"
+        :pageInfo="boardTemplateContext.commentPage"
         :withListGroup="false"
       >
         <template v-slot:list-main>
           <div
-            v-for="(comment, index) in commentContext.commentList"
+            v-for="(comment, index) in boardTemplateContext.commentList"
             :key="index"
           >
             <Comment
               :comment="comment"
-              :requestWriteSubComment="commentContext.requestWriteSubComment"
-              :requestSubCommentList="commentContext.requestSubCommentList"
+              :requestWriteSubComment="boardTemplateContext.requestWriteSubComment"
+              :requestSubCommentList="boardTemplateContext.requestSubCommentList"
             />
           </div>
         </template>
@@ -78,11 +78,12 @@
     </div>
     <CommentWriteFooter
       v-if="!$store.state.ui.focusingChildCommentInput"
-      :requestWriteComment="commentContext.requestWriteComment"
+      :requestWriteComment="boardTemplateContext.requestWriteComment"
       :postProcessor="callbackAfterCommentWrite"
     />
   </div>
 </template>
+
 
 <script lang="ts">
 import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
@@ -91,7 +92,8 @@ import Comment from '@/components/comment/Comment.vue';
 import CommentWriteFooter from '@/components/comment/CommentWriteFooter.vue';
 import InfiniteScrollTemplate from '@/components/InfiniteScrollTemplate.vue';
 import { ScrollHelper } from '@/utils/scroll.ts';
-import Vue from 'vue';
+import Vue, { PropType } from 'vue';
+import { BoardTemplateContext, BoardVo } from '@/interfaces/common';
 
 export default Vue.extend({
   name: 'BoardTemplate',
@@ -103,54 +105,22 @@ export default Vue.extend({
     UserProfileAvatar,
   },
   props: {
-    /**
-     * {
-     *      writerName: '',
-     *      writerSeq: 0,
-     *      writerImage: '',
-     *      title: '',
-     *      isLiked: false,,
-     *      likeCnt: 0,
-     * };
-     */
-    boardDto: {
-      type: Object,
+    boardVo: {
+      type: Object as PropType<BoardVo>,
       required: true,
     },
-    /**
-     * {
-     *     commentList: [],
-     *     commentPage: {},
-     *     fetchFirstPage: Function,
-     *     fetchNextPage: Function,
-     *     requestWriteComment: Function(content),
-     *     requestWriteSubComment: Function(content, parentSeq),
-     *     requestSubCommentList: Function(parentSeq),
-     *     commentWritePostProcess: Function,
-     * }
-     */
-    commentContext: {
-      type: Object,
-      required: true,
-    },
-    /**
-     * {
-     *     requestApplyLike: Function,
-     *     requestDeleteLike: Function,
-     * }
-     */
-    likeContext: {
-      type: Object,
+    boardTemplateContext: {
+      type: Object as PropType<BoardTemplateContext>,
       required: true,
     },
   },
   methods: {
     callbackAfterCommentWrite() {
-      this.commentContext.commentWritePostProcess()
+      this.boardTemplateContext.commentWritePostProcess()
         .then(() => this.scrollToBottomWhenLastPage());
     },
     scrollToBottomWhenLastPage() {
-      if (this.commentContext.commentPage.isLastPage) {
+      if (this.boardTemplateContext.commentPage.isLastPage) {
         ScrollHelper.scrollToBottom();
         return;
       }

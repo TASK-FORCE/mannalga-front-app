@@ -169,15 +169,11 @@ export default Vue.extend({
     },
     requestWriteSubComment: {
       type: Function,
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
-      default: (content, parentSeq) => {
-      },
+      default: (content, parentSeq) => ({}),
     },
     requestSubCommentList: {
       type: Function,
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
-      default: (parentSeq) => {
-      },
+      default: (parentSeq: string) => ({}),
     },
   },
   data() {
@@ -185,7 +181,7 @@ export default Vue.extend({
       EMPTY_COMMENT_TEXT: MESSAGE.EMPTY_COMMENT_TEXT,
       childComments: [],
       subCommentSubmitLoading: false,
-      subCommentLandingLoading: false,
+      subCommentLandingLoading: false as boolean,
       isFolded: true,
       showChildComments: true,
       subCommentContent: null,
@@ -218,7 +214,7 @@ export default Vue.extend({
     focusOutChildCommentInput() {
       this.$store.commit(UIMutationTypes.FOCUS_OUT_CHILD_COMMENT_INPUT);
     },
-    unFold(focusChildInput) {
+    unFold(focusChildInput: boolean) {
       this.isFolded = false;
       this.settingChildComment(focusChildInput);
       if (focusChildInput) {
@@ -228,7 +224,7 @@ export default Vue.extend({
     focusChildInput() {
       this.$nextTick(() => this.$refs.childInput.focus());
     },
-    settingChildComment(focusChildInput) {
+    settingChildComment(focusChildInput: boolean) {
       this.subCommentLandingLoading = true;
       this.requestSubCommentList(this.commentSeq)
         .then(subComments => (this.childComments = subComments))
@@ -239,7 +235,7 @@ export default Vue.extend({
           this.subCommentLandingLoading = false;
         });
     },
-    moveToLastComment(focusChildInput) {
+    moveToLastComment(focusChildInput: boolean) {
       this.$nextTick(() => {
         this.$nextTick(() => {
           const subCommentWrapper: Element = document.querySelector(`.sub-comments-${this.commentSeq}`);

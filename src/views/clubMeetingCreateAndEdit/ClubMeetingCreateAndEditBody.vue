@@ -83,11 +83,12 @@ import DateTimePicker from '@/components/DateTimePicker.vue';
 import moment from 'moment';
 import { toCurrency } from '@/utils/common/commonUtils.ts';
 import { RULES } from '@/utils/common/constant/rules.ts';
-import Vue from 'vue';
+import Vue, { PropType } from 'vue';
+import { DateTime, MeetingWriteContext } from '@/interfaces/meeting';
 
-const toMoment = (localDate) => moment(`${localDate.date} ${localDate.time}`.trim());
-const toTimeStamp = (localDate) => `${localDate.date} ${localDate.time}:00`;
-const isSameDate = (source, other) => {
+const toMoment = (localDate: DateTime): moment.Moment => moment(`${localDate.date} ${localDate.time}`.trim());
+const toTimeStamp = (localDate: DateTime): string => `${localDate.date} ${localDate.time}:00`;
+const isSameDate = (source: DateTime, other: DateTime) => {
   const sourceMoment = toMoment(source);
   const otherMoment = toMoment(other);
   if (sourceMoment.year() === otherMoment.year()) {
@@ -99,14 +100,14 @@ const isSameDate = (source, other) => {
   }
   return false;
 };
-const isAfter = (source, other) => {
+const isAfter = (source: DateTime, other: DateTime) => {
   const sourceMoment = toMoment(source);
   const otherMoment = toMoment(other);
   return sourceMoment.isAfter(otherMoment);
 };
 
 const today = () => moment().format('YYYY-MM-DD');
-const DEFAULT_DATE_TIME = { date: today(), time: '' };
+const DEFAULT_DATE_TIME: DateTime = { date: today(), time: '' };
 
 export default Vue.extend({
   name: 'ClubMeetingCreateAndEditBody',
@@ -128,7 +129,7 @@ export default Vue.extend({
      * }
      */
     context: {
-      type: Object,
+      type: Object as PropType<MeetingWriteContext>,
     },
     submitClickCallback: {
       type: Function, // (dto) => {} : Promise
@@ -139,19 +140,19 @@ export default Vue.extend({
     return {
       RULES,
       loading: false,
-      title: null,
-      content: null,
-      maximumNumber: null,
-      cost: null,
-      region: null,
-      startDateTime: DEFAULT_DATE_TIME,
-      endDateTime: DEFAULT_DATE_TIME,
+      title: '' as string,
+      content: '' as string,
+      maximumNumber: undefined as number | undefined,
+      cost: undefined as string | undefined,
+      region: undefined as string | undefined,
+      startDateTime: DEFAULT_DATE_TIME as DateTime,
+      endDateTime: DEFAULT_DATE_TIME as DateTime,
     };
   },
   computed: {
-    endDateMinTime() {
+    endDateMinTime(): string | undefined {
       if (isSameDate(this.startDateTime, this.endDateTime)) {
-        return this.startDateTime.time;
+        return this.startDateTime.time
       }
       return '';
     },
@@ -169,15 +170,15 @@ export default Vue.extend({
   },
   methods: {
     today,
-    changeStartDateTime(dateTime) {
+    changeStartDateTime(dateTime: any) {
       this.startDateTime = dateTime;
       this.recalculateEndDateTime();
     },
-    changeEndDateTime(dateTime) {
+    changeEndDateTime(dateTime: any) {
       this.endDateTime = dateTime;
       this.recalculateEndDateTime();
     },
-    recalculateEndDateTime() {
+    recalculateEndDateTime(): void {
       if (isAfter(this.startDateTime, this.endDateTime)) {
         if (isSameDate(this.startDateTime, this.endDateTime)) {
           this.endDateTime = { date: this.endDateTime.date, time: '' };
@@ -198,7 +199,7 @@ export default Vue.extend({
           cost: this.cost ? toNumber(this.cost) : this.cost,
           region: this.region,
         };
-        this.submitClickCallback(meetingDto).finally(this.loading = false);
+        this.submitClickCallback(meetingDto).finally(() => (this.loading = false));
       }
     },
     costFocus() {
@@ -214,7 +215,7 @@ export default Vue.extend({
   },
 });
 
-function toNumber(value) {
+function toNumber(value: any) {
   if (typeof value === 'string') {
     return value.replaceAll(',', '');
   }

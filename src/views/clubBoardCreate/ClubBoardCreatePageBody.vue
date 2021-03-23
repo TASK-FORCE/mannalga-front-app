@@ -84,7 +84,7 @@ export default Vue.extend({
       content: null,
       category: null,
       selectedImages: {} as {
-        [index: number]: UploadImageResponse
+        [index: number]: UploadImageResponse;
       },
     };
   },
@@ -127,7 +127,7 @@ export default Vue.extend({
             this.$store.dispatch(BoardActionTypes.REQUEST_FIRST_BOARD_LIST, { clubSeq: this.clubSeq });
             this.$router.push(generateParamPath(PATH.CLUB.MAIN, [this.clubSeq]));
           })
-          .finally(() => this.loading = false);
+          .finally(() => (this.loading = false));
       }
     },
   },

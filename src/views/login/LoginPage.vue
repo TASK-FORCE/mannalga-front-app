@@ -62,8 +62,14 @@ export default Vue.extend({
     };
   },
   computed: {
-    code(): string {
-      return this.$route.query.code;
+    code(): string | null {
+      const code: string | (string | null)[] = this.$route.query.code;
+
+      if (typeof code === 'string') {
+        return code;
+      }
+
+      return null;
     },
     validationFail() {
       return !!this.$route.query.validationFail;

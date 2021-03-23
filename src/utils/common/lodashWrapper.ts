@@ -5,7 +5,7 @@ import { chunk, debounce, findIndex, isEmpty, isEqual, isFunction, isNumber, sor
  *  - 필요에 따라 추가적인 유틸리티 메서드를 작성한다.
  */
 
-function isDeepEmpty(target) {
+function isDeepEmpty(target: any) {
   if (typeof target === 'object') {
     for (const value of Object.values(target)) {
       if (typeof value === 'object' && !isDeepEmpty(value)) {

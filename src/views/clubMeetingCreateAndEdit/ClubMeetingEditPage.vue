@@ -19,7 +19,7 @@ import { generateParamPath, PATH } from '@/router/route_path_type.ts';
 import routerHelper from '@/router/RouterHelper.ts';
 import Vue from 'vue';
 import { MeetingActionTypes } from '@/store/type/actionTypes';
-import { Meeting, MeetingWriteRequest, MeetingWriteRequestWithSeq } from '@/interfaces/meeting';
+import { Meeting, MeetingWriteContext, MeetingWriteRequest, MeetingWriteRequestWithSeq } from '@/interfaces/meeting';
 
 export default Vue.extend({
   name: 'ClubMeetingEditPage',
@@ -28,10 +28,9 @@ export default Vue.extend({
     meeting(): Meeting {
       return this.$store.state.meeting.meeting;
     },
-    editContext() {
+    editContext(): MeetingWriteContext {
       if (this.meeting.seq === 0) {
         this.$router.back();
-        return {};
       }
       const startDateTimeToken = this.meeting.startTimestamp.split(' ');
       const endDateTimeToken = this.meeting.endTimestamp.split(' ');

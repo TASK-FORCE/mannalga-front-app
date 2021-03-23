@@ -113,7 +113,7 @@ export default Vue.extend({
     clickBoard() {
       this.$router.push(generateParamPath(PATH.CLUB.BOARD_POST, [routerHelper.clubSeq(), this.board.boardSeq]));
     },
-    getCategoryInfo(categoryType): BoardCategory {
+    getCategoryInfo(categoryType: string): BoardCategory {
       return BoardCategory.findCategoryByType(categoryType);
     },
   },

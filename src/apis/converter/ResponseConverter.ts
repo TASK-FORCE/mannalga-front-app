@@ -52,14 +52,14 @@ export default class ResponseConverter {
       clubList: data.content,
       clubPage: convertPage(data)
     };
-  };
+  }
 
   static convertMyClubList(data: ServerPageResponse<MyClubFeed[]>): MyClubListResponse {
     return {
       myClubList: data.content,
       myClubPage: convertPage(data)
     };
-  };
+  }
 
   static convertMeetingList(data: ServerPageResponse<ServerMeetingFeedGroup[]>): MeetingGroupListResponse {
     return {
@@ -101,28 +101,28 @@ export default class ResponseConverter {
       boardList: data.content,
       boardPage: convertPage(data),
     };
-  };
+  }
 
   static convertAlbumList(data: ServerPageResponse<AlbumFeed[]>): AlbumListResponse {
     return {
       albumList: data.content,
       albumPage: convertPage(data),
     };
-  };
+  }
 
   static convertAlbumCommentList(data: ServerPageResponse<Comment[]>): AlbumCommentListResponse {
     return {
       albumCommentList: data.content,
       albumCommentPage: convertPage(data)
     };
-  };
+  }
 
   static convertBoardCommentList(data: ServerPageResponse<Comment[]>): BoardCommentListResponse {
     return {
       boardCommentList: data.content,
       boardCommentPage: convertPage(data)
     };
-  };
+  }
 
   static convertUserRegions({ userRegions }: UserRegionsResponse): Region[] {
     return userRegions.map(({ region }) => region)

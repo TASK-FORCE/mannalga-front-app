@@ -22,6 +22,7 @@ import { PATH } from '@/router/route_path_type.ts';
 import { MESSAGE } from '@/utils/common/constant/messages.ts';
 import { UIMutationTypes, UserMutationTypes } from '@/store/type/mutationTypes.ts';
 import Vue from 'vue';
+import { Region } from '@/interfaces/common';
 
 export default Vue.extend({
   name: 'RegisterRegionNestedPage',
@@ -32,7 +33,7 @@ export default Vue.extend({
     }
   },
   methods: {
-    goNextStep(selectedRegions) {
+    goNextStep(selectedRegions: Region[]) {
       if (_.isEmpty(selectedRegions)) {
         this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.SELECT_REGION_REQUIRE);
       } else {

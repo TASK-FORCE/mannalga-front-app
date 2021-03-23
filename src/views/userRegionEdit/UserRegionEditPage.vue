@@ -23,12 +23,13 @@ import { PATH } from '@/router/route_path_type.ts';
 import { MESSAGE } from '@/utils/common/constant/messages.ts';
 import { UIMutationTypes } from '@/store/type/mutationTypes.ts';
 import { UserActionTypes } from '@/store/type/actionTypes';
+import { Region } from '@/interfaces/common';
 
 export default Vue.extend({
   name: 'UserRegionEditPage',
   components: { RegionSelect },
   methods: {
-    changeRequest(selectedRegions) {
+    changeRequest(selectedRegions: Region[]) {
       return this.$store.dispatch(UserActionTypes.REQUEST_CHANGE_USER_REGIONS, selectedRegions)
         .then(() => {
           this.$store.dispatch(UserActionTypes.REQUEST_USER_PROFILE);

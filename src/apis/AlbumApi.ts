@@ -14,7 +14,7 @@ import {
 import { Comment } from '@/interfaces/common';
 
 const albumApi = {
-  getClubAlbum({ clubSeq, albumSeq }): Promise<Album> {
+  getClubAlbum({ clubSeq, albumSeq }: AlbumSeqContext): Promise<Album> {
     return axios.get(`/api/club/${clubSeq}/album/${albumSeq}`)
       .then(ResponseConverter.extractSuperInventionResponseData);
   },

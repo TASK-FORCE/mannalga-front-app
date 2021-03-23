@@ -1,8 +1,7 @@
 <template>
   <BoardTemplate
-    :boardDto="boardDto"
-    :commentContext="commentContext"
-    :likeContext="likeContext"
+    :boardVo="boardVo"
+    :boardTemplateContext="boardTemplateContext"
   >
     <template #content>
       <div class="pa-3">
@@ -23,6 +22,7 @@ import Vue from 'vue';
 import { AlbumMutationTypes } from '@/store/type/mutationTypes';
 import { AlbumActionTypes } from '@/store/type/actionTypes';
 import { Album, AlbumCommentWriteRequest, AlbumSeqContext, AlbumSubCommentRequest } from '@/interfaces/album';
+import { BoardTemplateContext, BoardVo } from '@/interfaces/common';
 
 export default Vue.extend({
   name: 'ClubAlbumPostBody',
@@ -40,7 +40,7 @@ export default Vue.extend({
         albumSeq: routerHelper.albumSeq(),
       };
     },
-    boardDto() {
+    boardVo(): BoardVo {
       return {
         writerName: this.album.writer.name,
         writerSeq: this.album.writer.writerUserSeq,
@@ -50,7 +50,7 @@ export default Vue.extend({
         likeCnt: this.album.likeCnt,
       };
     },
-    commentContext() {
+    boardTemplateContext(): BoardTemplateContext {
       return {
         commentList: this.$store.state.album.albumCommentList,
         commentPage: this.$store.state.album.albumCommentPage,
@@ -60,10 +60,6 @@ export default Vue.extend({
         requestWriteSubComment: this.requestWriteSubComment,
         requestSubCommentList: this.requestSubCommentList,
         commentWritePostProcess: this.commentWritePostProcess,
-      };
-    },
-    likeContext() {
-      return {
         requestApplyLike: this.requestApplyLike,
         requestDeleteLike: this.requestDeleteLike,
       };
@@ -77,21 +73,21 @@ export default Vue.extend({
     this.$store.commit(AlbumMutationTypes.INIT_ALBUM_COMMENT_LIST);
   },
   methods: {
-    fetchFirstPage() {
+    fetchFirstPage(): Promise<void> {
       return this.$store.dispatch(AlbumActionTypes.REQUEST_FIRST_ALBUM_COMMENT_LIST, this.seqContext);
     },
-    fetchNextPage() {
+    fetchNextPage(): Promise<void> {
       return this.$store.dispatch(AlbumActionTypes.REQUEST_NEXT_ALBUM_COMMENT_LIST, this.seqContext);
     },
-    requestWriteComment(content) {
+    requestWriteComment(content: string): Promise<void> {
       const albumCommentWriteRequest: AlbumCommentWriteRequest = {
         albumSeqContext: this.seqContext,
-        content,
+        content: content,
       };
       return this.$store.dispatch(AlbumActionTypes.REQUEST_ALBUM_COMMENT_WRITE, albumCommentWriteRequest)
         .then(() => this.$store.commit(AlbumMutationTypes.COUNT_ALBUM_COMMENT_CNT, this.album.albumSeq));
     },
-    requestWriteSubComment(content, parentSeq) {
+    requestWriteSubComment(content: string, parentSeq: number): Promise<void> {
       const albumCommentWriteRequest: AlbumCommentWriteRequest = {
         albumSeqContext: this.seqContext,
         parentCommentSeq: parentSeq,
@@ -103,20 +99,20 @@ export default Vue.extend({
           this.$store.commit(AlbumMutationTypes.COUNT_ALBUM_COMMENT_CNT, this.album.albumSeq)
         });
     },
-    requestSubCommentList(parentSeq) {
+    requestSubCommentList(parentSeq: number): Promise<void> {
       const albumSubCommentRequest: AlbumSubCommentRequest = {
         ...this.seqContext,
         parentCommentSeq: parentSeq,
       };
       return this.$store.dispatch(AlbumActionTypes.REQUEST_ALL_ALBUM_SUB_COMMENT_LIST, albumSubCommentRequest);
     },
-    commentWritePostProcess() {
+    commentWritePostProcess(): Promise<void> {
       return this.$store.dispatch(AlbumActionTypes.REQUEST_ALL_ALBUM_COMMENT_LIST_WITH_PAGING, this.seqContext);
     },
-    requestApplyLike() {
+    requestApplyLike(): Promise<void> {
       return this.$store.dispatch(AlbumActionTypes.REQUEST_APPLY_LIKE_CLUB_ALBUM, this.seqContext);
     },
-    requestDeleteLike() {
+    requestDeleteLike(): Promise<void> {
       return this.$store.dispatch(AlbumActionTypes.REQUEST_DELETE_LIKE_CLUB_ALBUM, this.seqContext);
     },
   },

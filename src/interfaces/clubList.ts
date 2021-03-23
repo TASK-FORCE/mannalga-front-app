@@ -10,8 +10,8 @@ export interface ClubListRequest {
 }
 
 export interface ClubListResponse {
-  clubList: ClubFeed[]
-  clubPage: Page,
+  clubList: ClubFeed[];
+  clubPage: Page;
 }
 
 export interface ClubFeed {
@@ -37,8 +37,8 @@ export interface MyClubFeed {
 }
 
 export interface MyClubListResponse {
-  myClubList: MyClubFeed[]
-  myClubPage: Page,
+  myClubList: MyClubFeed[];
+  myClubPage: Page;
 }
 
 export interface Role {

@@ -36,12 +36,12 @@ export default class RequestConverter {
     }
   }
 
-  static convertKakaoTokenCode(code): KakaoTokenRequest {
+  static convertKakaoTokenCode(code: string): KakaoTokenRequest {
     return {
       grant_type: 'authorization_code',
       client_id: process.env.VUE_APP_KAKAO_REST_APP_KEY,
       redirect_uri: KAKAO.REDIRECT_URL,
-      code,
+      code: code,
     }
   }
 

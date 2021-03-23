@@ -66,6 +66,7 @@ import { CLUB_ROLE } from '@/utils/role.ts';
 import clubDetailVuexService from '@/store/service/ClubDetailVuexService.ts';
 import _ from '@/utils/common/lodashWrapper.ts';
 import { ClubFeed } from '@/interfaces/clubList';
+import { Interest, InterestWithPriority, Region, RegionWithPriority } from '@/interfaces/common';
 
 const regionStore = {
   서울특별시: { name: '서울시' },
@@ -110,20 +111,20 @@ export default Vue.extend({
     };
   },
   computed: {
-    extractedRegions() {
-      return _.sortBy(this.club.regions, ({ priority }) => priority)
-        .map(({ region }) => region);
+    extractedRegions(): Region[] {
+      return _.sortBy(this.club.regions, ({ priority }: RegionWithPriority) => priority)
+        .map(({ region }: RegionWithPriority) => region);
     },
-    extractedInterests() {
-      return _.sortBy(this.club.interests, ({ priority }) => priority)
-        .map(({ interest }) => interest);
+    extractedInterests(): Interest[] {
+      return _.sortBy(this.club.interests, ({ priority }: InterestWithPriority) => priority)
+        .map(({ interest }: InterestWithPriority) => interest);
     },
-    regionNames() {
+    regionNames(): string {
       return this.extractedRegions
         .map(this.getRegionName)
         .join(', ');
     },
-    interestNames() {
+    interestNames(): string {
       return this.extractedInterests
         .map(interest => interest.name)
         .join(', ');
@@ -133,11 +134,11 @@ export default Vue.extend({
     },
   },
   methods: {
-    moveToClubDetailPage(seq) {
+    moveToClubDetailPage(seq: number) {
       this.$router.push(generateParamPath(PATH.CLUB.MAIN, [seq]))
         .then(() => clubDetailVuexService.dispatch(seq, true, PATH.CLUB_LIST));
     },
-    getRegionName(region) {
+    getRegionName(region: Region) {
       return region.superRegionRoot;
     },
   },

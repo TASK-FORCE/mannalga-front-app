@@ -40,7 +40,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { InterestGroupTree } from '@/interfaces/common';
+import { Interest, InterestGroupTree } from '@/interfaces/common';
 
 const TITLE = '관심사 선택';
 export default Vue.extend({
@@ -52,7 +52,7 @@ export default Vue.extend({
     return {
       showRootInterests: true,
       title: TITLE,
-      interests: null,
+      interests: [] as Interest[] | InterestGroupTree[],
     };
   },
   computed: {
@@ -66,10 +66,10 @@ export default Vue.extend({
       this.interests = this.rootInterests;
       this.title = TITLE;
     },
-    selectInterest(interest) {
+    selectInterest(interest: InterestGroupTree | Interest) {
       this.showRootInterests ? this.selectRootInterest(interest) : this.selectSubInterest(interest);
     },
-    selectRootInterest(rootInterest) {
+    selectRootInterest(rootInterest: InterestGroupTree) {
       this.title = rootInterest.name;
       this.interests = [...rootInterest.interestList];
       if (this.canSelectRoot) {
@@ -77,14 +77,14 @@ export default Vue.extend({
       }
       this.showRootInterests = false;
     },
-    selectSubInterest(interest) {
+    selectSubInterest(interest: InterestGroupTree | Interest) {
       this.$emit('selectSubInterest', interest);
       this.$nextTick(() => {
         this.showRootInterests = true;
         this.title = TITLE;
       });
     },
-    getInterests() {
+    getInterests(): InterestGroupTree[] | Interest[] {
       return this.showRootInterests ? this.rootInterests : this.interests;
     },
   },

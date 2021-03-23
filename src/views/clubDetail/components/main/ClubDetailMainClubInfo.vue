@@ -54,14 +54,14 @@ import SnackBar from '@/components/SnackBar.vue';
 import WindMill from '@/components/icons/WindMill.vue';
 import MiddleDivider from '@/components/MiddleDivider.vue';
 import { MESSAGE } from '@/utils/common/constant/messages.ts';
-import { SnackBarLocation, SnackBarOption } from '../../../../interfaces/common';
+import { InterestWithPriority, RegionWithPriority, SnackBarLocation, SnackBarOption } from '@/interfaces/common';
 import { ClubInfo, ClubWriteRequest, CurrentUserInfo } from '@/interfaces/club';
 import { ClubActionTypes } from '@/store/type/actionTypes';
 import _ from '@/utils/common/lodashWrapper';
 
 const CHANGE_IMAGE_COOL_TIME_MINUTE = 6 * 60;
-const toMillisecond = (minute) => minute * 60 * 1000;
-const checkCoolTime = (clubSeq) => {
+const toMillisecond = (minute: number) => minute * 60 * 1000;
+const checkCoolTime = (clubSeq: number) => {
   const key = 'clubImageChangeSnackbarCoolTime';
   const timer = JSON.parse(localStorage.getItem(key)) || {};
   const time = timer[clubSeq];
@@ -107,13 +107,13 @@ export default Vue.extend({
       return this.clubInfo.description;
     },
     clubInterestsText() {
-      return _.sortBy(this.clubInfo.clubInterest, ({ priority }) => priority)
-        .map(({ interest }) => interest.name)
+      return _.sortBy(this.clubInfo.clubInterest, ({ priority }: InterestWithPriority) => priority)
+        .map(({ interest }: InterestWithPriority) => interest.name)
         .join(', ');
     },
     clubRegionsText() {
-      return _.sortBy(this.clubInfo.clubRegion, ({ priority }) => priority)
-        .map(({ region }) => region.superRegionRoot)
+      return _.sortBy(this.clubInfo.clubRegion, ({ priority }: RegionWithPriority) => priority)
+        .map(({ region }: RegionWithPriority) => region.superRegionRoot)
         .join(', ');
     },
     windMillColor() {
@@ -135,10 +135,7 @@ export default Vue.extend({
         description: this.clubInfo.description,
         maximumNumber: this.clubInfo.maximumNumber,
         mainImageUrl: absolutePath,
-        interestList: this.clubInfo.clubInterest.map(({ interest, priority }) => ({
-          seq: interest.seq,
-          priority,
-        })),
+        interestList: this.clubInfo.clubInterest.map(({ interest, priority }) => ({ seq: interest.seq, priority, })),
         regionList: this.clubInfo.clubRegion.map(({ region, priority }) => ({ seq: region.seq, priority })),
       };
       return this.$store.dispatch(ClubActionTypes.REQUEST_CLUB_CHANGE, {

@@ -131,19 +131,19 @@ export default Vue.extend({
         meetingSeq: routerHelper.meetingSeq(),
       };
     },
-    creatorName() {
+    creatorName(): string {
       if (this.meeting && this.meeting.registerUser) {
         return this.meeting.registerUser.userName;
       }
       return '';
     },
-    appendNumber() {
+    appendNumber(): number {
       if (this.meeting && this.meeting.registerUser) {
         return this.meeting.registerUser.seq;
       }
       return 0;
     },
-    numberInfoText() {
+    numberInfoText(): string {
       const registerNumber = this.meeting.applicationUsers.length.toString();
       if (this.meeting.maximumNumber) {
         return `${registerNumber}/${this.meeting.maximumNumber}`;

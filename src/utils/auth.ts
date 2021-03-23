@@ -2,7 +2,7 @@ const TOKEN_KEY = 'appToken';
 
 export class AuthUtils {
   static getAppToken(): string {
-    return localStorage.getItem(TOKEN_KEY);
+    return localStorage.getItem(TOKEN_KEY) || ''
   };
 
   static saveAppTokenToLocalStorage(appToken: string): void {

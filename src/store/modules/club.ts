@@ -21,7 +21,7 @@ export const state = {
   clubInfo: DefaultBuilder.clubInfo() as ClubInfo,
   currentUserInfo: DefaultBuilder.currentUserInfo() as CurrentUserInfo,
   clubUserList: [] as ClubUserInfo[],
-  currentTab: null as ClubListPageTab,
+  currentTab: ClubListPageTab.CLUB as ClubListPageTab,
 };
 export type ClubState = typeof state
 

@@ -1,10 +1,10 @@
 import { ModuleTree } from 'vuex';
 
-function isObject(value) {
+function isObject(value: any) {
   return value && typeof value === 'object' && value.constructor === Object;
 }
 
-function getModuleName(fileName) {
+function getModuleName(fileName: string) {
   return fileName
     .replace(/^\.\//, '')
     .replace(/\.\w+$/, '');
@@ -18,7 +18,7 @@ function makeModules(): ModuleTree<any> {
     /^((?!index|init).)*\.[jt]s$/,
   );
   requireModule.keys()
-    .forEach(fileName => {
+    .forEach((fileName: string) => {
       const definitions = requireModule(fileName).default || requireModule(fileName);
       if (!definitions || !isObject(definitions)) {
         if (process.env.NODE_ENV === 'test') {

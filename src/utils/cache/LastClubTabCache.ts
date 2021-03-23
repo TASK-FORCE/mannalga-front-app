@@ -14,7 +14,7 @@ class LastClubTabCache {
     this.cache = new LocalCache<ClubTab>(1000);
   }
 
-  get(clubSeq: number | string) {
+  get(clubSeq: number | string): ClubTab {
     const value = this.cache.get(clubSeq);
     if (!value) {
       this.cache.put(clubSeq, ClubTab.MAIN);

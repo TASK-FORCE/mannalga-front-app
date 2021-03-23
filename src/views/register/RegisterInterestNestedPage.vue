@@ -21,7 +21,7 @@ import InterestSelect from '@/components/interest/InterestSelect.vue';
 import _ from '@/utils/common/lodashWrapper.ts';
 import { UIMutationTypes } from '@/store/type/mutationTypes.ts';
 import { KakaoProfile, UserRegisterContext } from '@/interfaces/user';
-import { Region } from '@/interfaces/common';
+import { Interest, Region } from '@/interfaces/common';
 import { UserActionTypes } from '@/store/type/actionTypes';
 
 
@@ -47,11 +47,11 @@ export default Vue.extend({
     }
   },
   methods: {
-    register(selectedInterests) {
+    register(selectedInterests: Interest[]) {
       const userRegisterContext: UserRegisterContext = {
         profile: this.kakaoProfile,
         selectedRegions: this.selectedRegions,
-        selectedInterests,
+        selectedInterests: selectedInterests,
       };
 
       this.$store.dispatch(UserActionTypes.REQUEST_REGISTER, userRegisterContext)

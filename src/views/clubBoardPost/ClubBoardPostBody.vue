@@ -1,8 +1,7 @@
 <template>
   <BoardTemplate
-    :boardDto="boardDto"
-    :commentContext="commentContext"
-    :likeContext="likeContext"
+    :boardVo="boardVo"
+    :boardTemplateContext="boardTemplateContext"
   >
     <template #content>
       <div class="pa-3">
@@ -21,7 +20,8 @@ import BoardTemplate from '@/components/BoardTemplate.vue';
 import Vue from 'vue';
 import { BoardMutationTypes } from '@/store/type/mutationTypes';
 import { BoardActionTypes } from '@/store/type/actionTypes';
-import { BoardCommentWriteRequest, BoardSeqContext, BoardSubCommentRequest } from '@/interfaces/board/board';
+import { Board, BoardCommentWriteRequest, BoardSeqContext, BoardSubCommentRequest } from '@/interfaces/board/board';
+import { BoardTemplateContext, BoardVo } from '@/interfaces/common';
 
 export default Vue.extend({
   name: 'ClubBoardPostBody',
@@ -29,7 +29,7 @@ export default Vue.extend({
     BoardTemplate,
   },
   computed: {
-    board() {
+    board(): Board {
       return this.$store.state.board.board;
     },
     seqContext(): BoardSeqContext {
@@ -38,7 +38,7 @@ export default Vue.extend({
         boardSeq: routerHelper.boardSeq(),
       };
     },
-    boardDto() {
+    boardVo(): BoardVo {
       return {
         writerName: this.board.writer.name,
         writerSeq: this.board.writer.writerUserSeq,
@@ -47,17 +47,8 @@ export default Vue.extend({
         isLiked: this.board.isLiked,
         likeCnt: this.board.likeCnt,
       };
-
-      // return {
-      //     writerName: this.album.writer.name,
-      //     writerSeq: this.album.writer.writerUserSeq,
-      //     writerImage: this.album.writer.imgUrl,
-      //     title: this.album.title,
-      //     isLiked: this.album.isLiked,
-      //     likeCnt: this.album.likeCnt,
-      // };
     },
-    commentContext() {
+    boardTemplateContext(): BoardTemplateContext {
       return {
         commentList: this.$store.state.board.boardCommentList,
         commentPage: this.$store.state.board.boardCommentPage,
@@ -67,10 +58,6 @@ export default Vue.extend({
         requestWriteSubComment: this.requestWriteSubComment,
         requestSubCommentList: this.requestSubCommentList,
         commentWritePostProcess: this.commentWritePostProcess,
-      };
-    },
-    likeContext() {
-      return {
         requestApplyLike: this.requestApplyLike,
         requestDeleteLike: this.requestDeleteLike,
       };
@@ -84,13 +71,13 @@ export default Vue.extend({
     this.$store.commit(BoardMutationTypes.INIT_BOARD_COMMENT_LIST);
   },
   methods: {
-    fetchFirstPage() {
+    fetchFirstPage(): Promise<void> {
       return this.$store.dispatch(BoardActionTypes.REQUEST_FIRST_BOARD_COMMENT_LIST, this.seqContext);
     },
-    fetchNextPage() {
+    fetchNextPage(): Promise<void> {
       return this.$store.dispatch(BoardActionTypes.REQUEST_NEXT_BOARD_COMMENT_LIST, this.seqContext);
     },
-    requestWriteComment(content) {
+    requestWriteComment(content: string): Promise<void> {
       const boardCommentWriteRequest: BoardCommentWriteRequest = {
         boardSeqContext: this.seqContext,
         content
@@ -98,7 +85,7 @@ export default Vue.extend({
       return this.$store.dispatch(BoardActionTypes.REQUEST_BOARD_COMMENT_WRITE, boardCommentWriteRequest)
         .then(() => this.$store.commit(BoardMutationTypes.COUNT_COMMENT_CNT_OF_BOARD, this.board.boardSeq));
     },
-    requestWriteSubComment(content, parentCommentSeq) {
+    requestWriteSubComment(content: string, parentCommentSeq: number): Promise<void> {
       const boardCommentWriteRequest: BoardCommentWriteRequest = {
         boardSeqContext: this.seqContext,
         parentCommentSeq,
@@ -110,7 +97,7 @@ export default Vue.extend({
           this.$store.commit(BoardMutationTypes.COUNT_COMMENT_CNT_OF_PARENT_COMMENT, parentCommentSeq);
         });
     },
-    requestSubCommentList(parentCommentSeq) {
+    requestSubCommentList(parentCommentSeq: number): Promise<void> {
       const boardSubCommentRequest: BoardSubCommentRequest = {
         ...this.seqContext,
         parentCommentSeq,

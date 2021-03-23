@@ -100,7 +100,7 @@ export default Vue.extend({
         width: this.width ? `${this.width}px` : '',
       };
     },
-    resolveImageStyle() {
+    resolveImageStyle(): object {
       return this.fixImage ? this.resolveSelectorStyle : {};
     },
   },

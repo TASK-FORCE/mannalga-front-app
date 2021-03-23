@@ -32,8 +32,8 @@ export interface AlbumListResponse {
 }
 
 export interface AlbumCommentListResponse {
-  albumCommentList: Comment[],
-  albumCommentPage: Page,
+  albumCommentList: Comment[];
+  albumCommentPage: Page;
 }
 
 export interface AlbumCommentPageRequest {

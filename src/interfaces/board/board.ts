@@ -78,8 +78,8 @@ export interface BoardCommentPageRequest {
 }
 
 export interface BoardCommentListResponse {
-  boardCommentList: Comment[],
-  boardCommentPage: Page,
+  boardCommentList: Comment[];
+  boardCommentPage: Page;
 }
 
 export interface BoardLikeChange {

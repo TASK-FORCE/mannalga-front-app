@@ -67,7 +67,7 @@ export default Vue.extend({
     }
   },
   methods: {
-    changeProfileName(name) {
+    changeProfileName(name: string) {
       this.$store.commit(UserMutationTypes.CHANGE_PROFILE_NAME, name);
     },
   },

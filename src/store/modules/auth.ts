@@ -15,7 +15,7 @@ export const state = {
 export type AuthState = typeof state;
 
 export const getters = {
-  hasToken(state): boolean {
+  hasToken(state: AuthState): boolean {
     return !_.isEmpty(state.appToken);
   },
 };

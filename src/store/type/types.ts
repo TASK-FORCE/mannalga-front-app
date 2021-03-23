@@ -55,7 +55,7 @@ type MyActions = {
     key: K,
     payload?: Parameters<MergedActions[K]>[1],
     options?: DispatchOptions
-  ): ReturnType<MergedActions[K]>
+  ): ReturnType<MergedActions[K]>;
 }
 
 

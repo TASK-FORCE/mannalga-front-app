@@ -64,10 +64,10 @@ export default Vue.extend({
     },
   },
   computed: {
-    hasLikeCnt() {
+    hasLikeCnt(): boolean {
       return this.album.likeCnt > 0;
     },
-    hasCommentCnt() {
+    hasCommentCnt(): boolean {
       return this.album.commentCnt > 0;
     },
   },

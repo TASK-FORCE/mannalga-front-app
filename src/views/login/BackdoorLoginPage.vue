@@ -34,11 +34,16 @@ import { PATH } from '@/router/route_path_type.ts';
 import { AuthMutationTypes, UIMutationTypes } from '@/store/type/mutationTypes.ts';
 import Vue from 'vue';
 
+interface User {
+  seq: number;
+  userName: string;
+}
+
 export default Vue.extend({
   name: 'BackdoorLoginPage',
   data() {
     return {
-      users: [], // seq, userName
+      users: [] as User[],
       loadingIndex: -1,
     };
   },
@@ -47,14 +52,14 @@ export default Vue.extend({
     this.users = response.data.data;
   },
   methods: {
-    login({ seq, userName }, index) {
+    login({ seq, userName }: User, index: number) {
       this.loadingIndex = index;
       axios.get(`/api/users/door/${userName}`)
         .then((response) => {
           const appToken = response.data.data;
           this.$store.commit(AuthMutationTypes.SET_APP_TOKEN, appToken);
           this.$router.push(PATH.CLUB_LIST)
-            .then(() => this.$router.go());
+            .then(() => (this.$router.go(0)));
           localStorage.setItem('backdoor', 'true');
         })
         .catch(() => {

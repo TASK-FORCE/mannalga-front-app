@@ -18,8 +18,9 @@ import Vue from 'vue';
 import CommonHeader from '@/components/header/CommonHeader.vue';
 import ClubCreateAndEditBody from '@/views/clubCreateAndEdit/ClubCreateAndEditBody.vue';
 import { generateParamPath, PATH } from '@/router/route_path_type.ts';
-import { ClubInfo, ClubWriteRequest, ClubWriteRequestWithSeq } from '@/interfaces/club.ts';
+import { ClubInfo, ClubWriteContext, ClubWriteRequest, ClubWriteRequestWithSeq } from '@/interfaces/club.ts';
 import { ClubActionTypes } from '@/store/type/actionTypes';
+import { InterestWithPriority, RegionWithPriority } from '@/interfaces/common';
 
 export default Vue.extend({
   name: 'ClubEditPage',
@@ -28,18 +29,17 @@ export default Vue.extend({
     clubInfo(): ClubInfo {
       return this.$store.state.club.clubInfo;
     },
-    editContext() {
+    editContext(): ClubWriteContext {
       if (this.clubInfo.seq === 0) {
         this.$router.back();
-        return {};
       }
       return {
         name: this.clubInfo.name,
         description: this.clubInfo.description,
         maximumNumber: this.clubInfo.maximumNumber,
         imageUrl: this.clubInfo.mainImageUrl,
-        interestList: this.clubInfo.clubInterest.map(({ interest }) => interest),
-        regionList: this.clubInfo.clubRegion.map(({ region }) => region),
+        interestList: this.clubInfo.clubInterest.map(({ interest }: InterestWithPriority) => interest),
+        regionList: this.clubInfo.clubRegion.map(({ region }: RegionWithPriority) => region),
       };
     },
   },
@@ -53,7 +53,7 @@ export default Vue.extend({
         clubWriteRequest
       }
       return this.$store.dispatch(ClubActionTypes.REQUEST_CLUB_CHANGE, clubWriteRequestWithSeq)
-        .then(() => (this.$router.push(generateParamPath(PATH.CLUB.MAIN, [this.clubSeq]))));
+        .then(() => (this.$router.push(generateParamPath(PATH.CLUB.MAIN, [this.clubInfo.seq]))));
     },
   },
 });

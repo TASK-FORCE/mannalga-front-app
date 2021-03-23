@@ -90,7 +90,7 @@ import { createClubMaximumNumberList } from '@/utils/common/commonUtils.ts';
 import { RULES } from '@/utils/common/constant/rules.ts';
 import RegionSelectDialog from '@/components/region/RegionSelectDialog.vue';
 import InterestSelectDialog from '@/components/interest/InterestSelectDialog.vue';
-import { Region, UploadImageResponse } from '../../interfaces/common';
+import { Interest, Region, UploadImageResponse } from '@/interfaces/common';
 import { ClubWriteRequest } from '@/interfaces/club';
 
 export default Vue.extend({
@@ -127,23 +127,23 @@ export default Vue.extend({
       RULES,
       regionDialog: false,
       interestDialog: false,
-      name: null,
-      description: null,
-      maximumNumber: null,
-      imageUrl: null,
-      selectedInterests: [],
+      name: undefined as undefined | string,
+      description: undefined as undefined | string,
+      maximumNumber: undefined as undefined | number,
+      imageUrl: undefined as undefined | string,
+      selectedInterests: [] as Interest[],
       selectedRegions: [] as Region[],
     };
   },
   computed: {
-    selectedClubRegionNames() {
+    selectedClubRegionNames(): string {
       return this.selectedRegions
-        .map(({ superRegionRoot }) => superRegionRoot)
+        .map(({ superRegionRoot }: Region) => superRegionRoot)
         .join(', ');
     },
-    selectedInterestNames() {
+    selectedInterestNames(): string {
       return this.selectedInterests
-        .map(({ name }) => name)
+        .map(({ name }: Interest) => name)
         .join(', ');
     },
   },
@@ -165,10 +165,6 @@ export default Vue.extend({
     openBottomSheetCard() {
       this.sheet = true;
     },
-    selectClubInterest(interest) {
-      this.sheet = false;
-      this.interest = interest;
-    },
     click() {
       if (this.$refs.clubCreateForm.validate()) {
         this.loading = true;
@@ -178,10 +174,10 @@ export default Vue.extend({
     },
     buildClubCreateDto(): ClubWriteRequest {
       return {
-        name: this.name,
-        description: this.description,
-        maximumNumber: this.maximumNumber,
-        mainImageUrl: this.imageUrl,
+        name: this.name as string,
+        description: this.description as string,
+        maximumNumber: this.maximumNumber as number,
+        mainImageUrl: this.imageUrl as string,
         interestList: this.selectedInterests
           .map((interest, index) => ({
             priority: index + 1,

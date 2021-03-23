@@ -32,6 +32,7 @@ import MiddleDivider from '@/components/MiddleDivider.vue';
 import SettingBar from '@/components/SettingBar.vue';
 import { AuthMutationTypes, UIMutationTypes } from '@/store/type/mutationTypes';
 import { UserProfile } from '@/interfaces/user';
+import { Region, RegionWithPriority } from '@/interfaces/common';
 
 export default Vue.extend({
   name: 'UserSettingPageBody',
@@ -43,9 +44,9 @@ export default Vue.extend({
     isDarkTheme(): boolean {
       return this.$store.state.common.isDarkTheme;
     },
-    regionsByPriority() {
-      return _.sortBy(this.userProfile.userRegions, ({ priority }) => priority)
-        .map(({ region }) => region);
+    regionsByPriority(): Region[] {
+      return _.sortBy(this.userProfile.userRegions, ({ priority }: RegionWithPriority) => priority)
+        .map(({ region }: RegionWithPriority) => region);
     },
     themeSettingTitle() {
       if (this.isDarkTheme) {

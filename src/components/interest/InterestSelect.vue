@@ -48,7 +48,7 @@ import { format, MESSAGE } from '@/utils/common/constant/messages.ts';
 import _ from '@/utils/common/lodashWrapper.ts';
 import { UIMutationTypes } from '@/store/type/mutationTypes.ts';
 import Vue from 'vue';
-import { InterestGroupTree } from '@/interfaces/common';
+import { Interest, InterestGroupTree } from '@/interfaces/common';
 
 export default Vue.extend({
   name: 'InterestSelect',
@@ -80,15 +80,15 @@ export default Vue.extend({
   data() {
     return {
       sheet: false,
-      currentIndex: null,
-      selectedInterest: [],
+      currentIndex: undefined as undefined | number,
+      selectedInterest: [] as Interest[],
     };
   },
   computed: {
     rootInterests(): InterestGroupTree[] {
       return this.$store.state.common.rootInterests;
     },
-    selectedInterestSeqs() {
+    selectedInterestSeqs(): number[] {
       return this.selectedInterest.map(({ seq }) => seq);
     },
   },
@@ -98,7 +98,7 @@ export default Vue.extend({
       .then(selectedInterest => (this.selectedInterest = selectedInterest));
   },
   methods: {
-    toggleInterest(interest) {
+    toggleInterest(interest: Interest) {
       const toBeDeletedIndex = _.findIndex(this.selectedInterestSeqs, seq => seq === interest.seq);
       if (toBeDeletedIndex >= 0) {
         this.selectedInterest.splice(toBeDeletedIndex, 1);

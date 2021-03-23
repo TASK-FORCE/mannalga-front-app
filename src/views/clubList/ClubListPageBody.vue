@@ -53,7 +53,7 @@ export default Vue.extend({
   data() {
     return {
       clubCreatePath: PATH.CLUB.CREATE,
-      tab: null as ClubListPageTab,
+      tab: ClubListPageTab.CLUB as ClubListPageTab,
       menus: [
         { name: '전체 모임', key: 'club' },
         { name: '내 모임', key: 'myClub' },

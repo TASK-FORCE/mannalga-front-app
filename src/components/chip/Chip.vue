@@ -10,14 +10,14 @@
 import Vue from 'vue';
 
 interface ChipStyle {
-  display?: string
-  borderRadius?: string
-  color?: string
-  border?: string
-  backgroundColor?: string
-  padding?: string
-  fontSize?: string
-  fontWeight?: string
+  display?: string;
+  borderRadius?: string;
+  color?: string;
+  border?: string;
+  backgroundColor?: string;
+  padding?: string;
+  fontSize?: string;
+  fontWeight?: string;
 }
 
 export default Vue.extend({

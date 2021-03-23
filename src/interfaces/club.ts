@@ -1,4 +1,4 @@
-import { InterestWithPriority, RegionWithPriority } from '@/interfaces/common';
+import { Interest, InterestWithPriority, InterestWriteRequest, Region, RegionWithPriority, RegionWriteRequest } from '@/interfaces/common';
 
 export interface ClubDetailContext {
   clubInfo: ClubInfo;
@@ -22,6 +22,8 @@ export interface ClubUserInfo {
   userSeq: number;
   isLiked: boolean;
   role: string[];
+  name?: string;
+  imgUrl?: string;
 }
 
 export interface CurrentUserInfo {
@@ -37,13 +39,13 @@ export interface ClubWriteRequest {
   description: string;
   maximumNumber: number;
   mainImageUrl: string;
-  interestList: any[];
-  regionList: any[];
+  interestList: InterestWriteRequest[];
+  regionList: RegionWriteRequest[];
 }
 
 export interface ClubWriteRequestWithSeq {
   clubSeq: number;
-  clubWriteRequest: ClubWriteRequest
+  clubWriteRequest: ClubWriteRequest;
 }
 
 export interface ClubUserRoleChangeRequest {
@@ -62,4 +64,11 @@ export enum ClubListPageTab {
   MY_CLUB = 'myClub',
 }
 
-
+export interface ClubWriteContext {
+  name: string;
+  description: string;
+  maximumNumber: number;
+  imageUrl: string;
+  interestList: Interest[];
+  regionList: Region[];
+}

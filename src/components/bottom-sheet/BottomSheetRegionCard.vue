@@ -73,8 +73,8 @@ export default Vue.extend({
     return {
       showRootRegions: true,
       title: TITLE,
-      regions: null,
-      lastSelectedRegion: null,
+      regions: [] as RegionTree[],
+      lastSelectedRegion: undefined as undefined | RegionTree,
     };
   },
   computed: {
@@ -87,13 +87,11 @@ export default Vue.extend({
       this.showRootRegions = true;
       this.title = TITLE;
     },
-    triggerRegion(region) {
-      if (region) {
-        this.lastSelectedRegion = region;
-      }
-      this.showRootRegions ? this.selectRootRegion(this.lastSelectedRegion) : this.selectSubRegion(this.lastSelectedRegion);
+    triggerRegion(region: RegionTree) {
+      this.lastSelectedRegion = region;
+      this.showRootRegions ? this.selectRootRegion(region) : this.selectSubRegion(region);
     },
-    selectRootRegion(region) {
+    selectRootRegion(region: RegionTree) {
       this.title = region.name;
       this.regions = [...region.subRegions];
       if (this.canSelectRoot) {
@@ -103,14 +101,14 @@ export default Vue.extend({
       }
       this.showRootRegions = false;
     },
-    selectSubRegion(region) {
+    selectSubRegion(region: RegionTree) {
       this.$emit('selectSubRegion', region);
       this.$nextTick(() => {
         this.showRootRegions = true;
         this.title = TITLE;
       });
     },
-    getRegions() {
+    getRegions(): RegionTree[] {
       return this.showRootRegions ? this.rootRegions : this.regions;
     },
   },

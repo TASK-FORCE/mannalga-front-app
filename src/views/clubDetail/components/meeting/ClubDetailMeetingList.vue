@@ -56,12 +56,10 @@ import { generateParamPath, PATH } from '@/router/route_path_type.ts';
 import routerHelper from '@/router/RouterHelper.ts';
 import ClubDetailMeetingPost from '@/views/clubDetail/components/meeting/ClubDetailMeetingPost.vue';
 import InfiniteScrollTemplate from '@/components/InfiniteScrollTemplate.vue';
-import { MESSAGE } from '@/utils/common/constant/messages.ts';
 import EmptyPage from '@/components/EmptyPage.vue';
-import { UIMutationTypes } from '@/store/type/mutationTypes.ts';
-import { CurrentUserInfo } from '../../../../interfaces/club';
+import { CurrentUserInfo } from '@/interfaces/club';
 import { MeetingActionTypes } from '@/store/type/actionTypes';
-import { MeetingFeedGroup, MeetingSeqContext } from '@/interfaces/meeting';
+import { MeetingFeedGroup } from '@/interfaces/meeting';
 import { Page } from '@/interfaces/common';
 
 export default Vue.extend({
@@ -92,22 +90,6 @@ export default Vue.extend({
     },
     meetingCreatePath() {
       return generateParamPath(PATH.CLUB.MEETING_CREATE, routerHelper.clubSeq());
-    },
-    registerMeeting() {
-      const meetingSeqContext: MeetingSeqContext = {
-        clubSeq: this.clubSeq,
-        meetingSeq: this.registerTargetMeeting.seq,
-      };
-      return this.$store.dispatch(MeetingActionTypes.REQUEST_MEETING_APPLICATION, meetingSeqContext)
-        .then(() => this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_APPLY_MEETING_APPLICATION));
-    },
-    cancelMeeting() {
-      const meetingSeqContext: MeetingSeqContext = {
-        clubSeq: this.clubSeq,
-        meetingSeq: this.cancelTargetMeeting.seq,
-      };
-      return this.$store.dispatch(MeetingActionTypes.REQUEST_CANCEL_MEETING_APPLICATION, meetingSeqContext)
-        .finally(this.close);
     },
   },
 });

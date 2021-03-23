@@ -37,7 +37,7 @@
     <FixedCreateBtn
       v-if="canCreateBoard"
       color="blue"
-      :path="clubBoardCreate"
+      :path="getClubBoardCreatePath()"
       left
     />
   </div>
@@ -51,9 +51,10 @@ import routerHelper from '@/router/RouterHelper.ts';
 import ClubDetailBoardPost from '@/views/clubDetail/components/board/ClubDetailBoardPost.vue';
 import InfiniteScrollTemplate from '@/components/InfiniteScrollTemplate.vue';
 import EmptyPage from '@/components/EmptyPage.vue';
-import { CurrentUserInfo } from '../../../../interfaces/club';
+import { CurrentUserInfo } from '@/interfaces/club';
 import { BoardActionTypes } from '@/store/type/actionTypes';
 import { BoardCategory } from '@/interfaces/board/BoardCategory';
+import { BoardCategoryType } from '@/interfaces/board/board';
 
 export default Vue.extend({
   name: 'ClubDetailBoardList',
@@ -68,9 +69,8 @@ export default Vue.extend({
   },
   data() {
     return {
-      clubBoardCreate: null,
-      boardCategoryNames: ['전체보기', ...BoardCategory.getCategoryNames()],
-      selectedCategory: '전체보기',
+      boardCategoryNames: ['전체보기', ...BoardCategory.getCategoryNames()] as string[],
+      selectedCategory: '전체보기' as string,
     };
   },
   computed: {
@@ -85,7 +85,7 @@ export default Vue.extend({
       const { isMaster, isManager, isMember } = this.currentUserInfo;
       return isMaster || isManager || isMember;
     },
-    categoryType() {
+    categoryType(): BoardCategoryType {
       return BoardCategory.findCategoryTypeByName(this.selectedCategory);
     },
     requestDto() {
@@ -100,19 +100,17 @@ export default Vue.extend({
       this.$store.dispatch(BoardActionTypes.REQUEST_FIRST_BOARD_LIST, this.requestDto);
     },
   },
-  mounted() {
-    this.clubBoardCreate = generateParamPath(PATH.CLUB.BOARD_CREATE, [this.clubSeq]);
-  },
   methods: {
-    clubBoardPath(boardSeq) {
-      return generateParamPath(PATH.CLUB.BOARD_POST, [this.clubSeq, boardSeq]);
-    },
     fetchFirstPage() {
       return this.$store.dispatch(BoardActionTypes.REQUEST_FIRST_BOARD_LIST, this.requestDto);
     },
     fetchNextPage() {
       return this.$store.dispatch(BoardActionTypes.REQUEST_NEXT_BOARD_LIST, this.requestDto);
     },
+    getClubBoardCreatePath() {
+      return generateParamPath(PATH.CLUB.BOARD_CREATE, [this.clubSeq]);
+    }
+
   },
 });
 </script>

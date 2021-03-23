@@ -23,6 +23,7 @@ import { MESSAGE } from '@/utils/common/constant/messages.ts';
 import InterestSelect from '@/components/interest/InterestSelect.vue';
 import { UIMutationTypes } from '@/store/type/mutationTypes.ts';
 import { UserActionTypes } from '@/store/type/actionTypes';
+import { Interest } from '@/interfaces/common';
 
 export default Vue.extend({
   name: 'UserInterestEditPage',
@@ -33,7 +34,7 @@ export default Vue.extend({
     };
   },
   methods: {
-    submit(selectedInterests) {
+    submit(selectedInterests: Interest[]) {
       return this.$store.dispatch(UserActionTypes.REQUEST_CHANGE_USER_INTERESTS, selectedInterests)
         .then(() => {
           this.$store.dispatch(UserActionTypes.REQUEST_USER_PROFILE);

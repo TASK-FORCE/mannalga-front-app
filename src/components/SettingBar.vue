@@ -86,7 +86,7 @@ export default Vue.extend({
       return this.icon === 'windmill';
     },
     windMillColor() {
-      if (this.$store.state.common.isDarkTheme) {
+      if (this.$store.state.ui.isDarkTheme) {
         return '#F5F5F5';
       }
       return '#292929';

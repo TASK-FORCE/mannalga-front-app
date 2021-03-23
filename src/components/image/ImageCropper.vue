@@ -94,7 +94,7 @@ export default Vue.extend({
     return {
       originalImgUrl: null,
       cropper: null,
-      mimes: 'image/png, image/gif, image/jpeg, image/bmp, image/x-icon',
+      mimes: 'image/png, image/gif, image/jpeg, image/bmp, image/x-icon' as string,
       isLoading: false,
     };
   },
@@ -144,6 +144,11 @@ export default Vue.extend({
         setTimeout(callback, 50);
       }
     },
+    loadingOriginalImg(file) {
+      const reader = new FileReader();
+      reader.onload = e => (this.originalImgUrl = e.target.result);
+      reader.readAsDataURL(file);
+    },
     changeOriginalImage(e) {
       const originalImgInput = e.target;
       if (originalImgInput.files != null && originalImgInput.files[0] != null) {
@@ -155,11 +160,6 @@ export default Vue.extend({
         this.loadingOriginalImg(originalImgInput.files[0]);
         this.filename = originalImgInput.files[0].name || 'unknown';
       }
-    },
-    loadingOriginalImg(file) {
-      const reader = new FileReader();
-      reader.onload = e => (this.originalImgUrl = e.target.result);
-      reader.readAsDataURL(file);
     },
     submit() {
       const croppedCanvas = this.cropper.getCroppedCanvas();

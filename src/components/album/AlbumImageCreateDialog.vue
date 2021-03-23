@@ -103,8 +103,6 @@ export default Vue.extend({
     },
     clear() {
       this.title = null;
-      this.imgUrl = null;
-      this.fileName = null;
       this.$emit('input', false);
       this.$refs.imgSelectBox.clear();
       this.$refs.form.resetValidation();

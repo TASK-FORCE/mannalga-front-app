@@ -83,8 +83,8 @@ import { PATH } from '@/router/route_path_type.ts';
 import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.ts';
 import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
 import { ClubListMutationTypes } from '@/store/type/mutationTypes.ts';
-import { ClubSearchContext } from '@/interfaces/clubList';
-import { InterestGroupTree, RegionTree } from '@/interfaces/common';
+import { ClubSearchContext, InterestForSearch } from '@/interfaces/clubList';
+import { Interest, InterestGroupTree, RegionTree } from '@/interfaces/common';
 
 export default Vue.extend({
   name: 'ClubListSearchFilter',
@@ -97,7 +97,7 @@ export default Vue.extend({
     return {
       sheet: false,
       seq: null,
-      currentBottomSheetCard: null,
+      currentBottomSheetCard: undefined as undefined | string,
     };
   },
   computed: {
@@ -110,13 +110,13 @@ export default Vue.extend({
     clubSearchContext(): ClubSearchContext {
       return this.$store.state.clubList.clubSearchContext;
     },
-    regionName() {
+    regionName(): string {
       return this.clubSearchContext.region.name;
     },
-    interestName() {
+    interestName(): string {
       return this.clubSearchContext.interest.name;
     },
-    searchText() {
+    searchText(): string {
       return this.clubSearchContext.searchText;
     },
   },
@@ -124,20 +124,20 @@ export default Vue.extend({
     regionAndInterestVuexService.dispatch(true, PATH.BACK);
   },
   methods: {
-    selectSearchRegion(region) {
+    selectSearchRegion(region: RegionTree) {
       this.$store.commit(ClubListMutationTypes.CHANGE_CLUB_SEARCH_REGION, {
         name: region.superRegionRoot,
         seq: region.seq,
       });
       this.sheet = false;
     },
-    selectSearchInterest(interest) {
-      const interestDto = {
+    selectSearchInterest(interest: Interest | InterestGroupTree)  {
+      const interestForSearch: InterestForSearch = {
         name: interest.name,
-        seq: interest.seq,
-        groupSeq: interest.groupSeq,
+        seq: ('seq' in interest) ?  interest.seq : undefined,
+        groupSeq: ('groupSeq' in interest) ?  interest.groupSeq : undefined,
       };
-      this.$store.commit(ClubListMutationTypes.CHANGE_CLUB_SEARCH_INTEREST, interestDto);
+      this.$store.commit(ClubListMutationTypes.CHANGE_CLUB_SEARCH_INTEREST, interestForSearch);
       this.sheet = false;
     },
     cancelRegionSelect() {
@@ -149,12 +149,14 @@ export default Vue.extend({
     cancelSearchTextSelect() {
       this.$store.commit(ClubListMutationTypes.CHANGE_CLUB_SEARCH_TEXT, null);
     },
-    changeBottomSheetComponent(cardComponent) {
+    changeBottomSheetComponent(cardComponent: string) {
       this.currentBottomSheetCard = cardComponent;
     },
   },
 });
-;</script>
+
+</script>
+
 <style
   scoped
   lang="scss"

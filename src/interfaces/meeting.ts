@@ -12,7 +12,7 @@ export interface MeetingFeedGroup {
 
 export interface MeetingFeed {
   seq: number;
-  title: string,
+  title: string;
   isOpen: boolean;
   isSameDayMeeting: boolean;
   meetingDay: number;
@@ -23,7 +23,7 @@ export interface MeetingFeed {
   endTime: string;
   isRegistered: boolean;
   isCreator: boolean;
-  maximumNumber: number;
+  maximumNumber?: number;
   cost?: string;
   region?: string;
   applicationUsers: MeetingApplicationUser[];
@@ -48,7 +48,7 @@ export interface ServerMeetingFeed {
   meetingApplications: any[];
   meetingDay: number;
   meetingDayOfWeek: string;
-  regClubUser: object
+  regClubUser: object;
   region: string;
   regionURL: string;
   seq: number;
@@ -63,7 +63,7 @@ export interface ServerMeetingApplication {
   createdAt: string;
   deleteFlag: boolean;
   updatedAt: string;
-  userInfo: ServerMeetingApplicationUser,
+  userInfo: ServerMeetingApplicationUser;
 }
 
 export interface ServerMeetingApplicationUser {
@@ -80,8 +80,8 @@ export interface MeetingApplicationUser {
 }
 
 export interface MeetingGroupListResponse {
-  meetingGroupList: MeetingFeedGroup[],
-  meetingGroupPage: Page,
+  meetingGroupList: MeetingFeedGroup[];
+  meetingGroupPage: Page;
 }
 
 export interface MeetingWriteRequest {
@@ -108,7 +108,7 @@ export interface MeetingSeqContext {
 export interface MeetingApplicationStatus {
   meetingSeq: number;
   isRegistered: boolean;
-  applicationUsers: MeetingApplicationUser[]
+  applicationUsers: MeetingApplicationUser[];
 }
 
 export interface MeetingApplicationChangeResponse {
@@ -125,9 +125,9 @@ export interface Meeting {
   endTimestamp: string;
   title: string;
   content: string;
-  maximumNumber: number;
+  maximumNumber?: number;
   cost: string;
-  region: string;
+  region?: string;
   isCreator: boolean;
   isRegistered: boolean;
   applicationUsers: MeetingApplicationUser[];
@@ -153,7 +153,7 @@ export interface ServerMeeting {
   isCurrentUserRegMeeting: boolean;
   isOpen: boolean;
   maximumNumber?: number;
-  meetingApplications: ServerMeetingApplication[]
+  meetingApplications: ServerMeetingApplication[];
   meetingDay: number;
   meetingDayOfWeek: string;
   regClubUser: ServerMeetingRegisterUser;
@@ -166,5 +166,20 @@ export interface ServerMeeting {
 }
 
 export interface ServerMeetingRegisterUser {
-  user: MeetingRegisterUser
+  user: MeetingRegisterUser;
+}
+
+export interface MeetingWriteContext {
+  title: string;
+  content: string;
+  maximumNumber?: number;
+  cost?: string;
+  region?: string;
+  startDateTime: DateTime;
+  endDateTime: DateTime;
+}
+
+export interface DateTime {
+  date: string;
+  time?: string;
 }

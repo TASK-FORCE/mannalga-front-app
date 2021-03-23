@@ -62,7 +62,7 @@ import ImageSelectorWithConfirm from '@/components/image/ImageSelectorWithConfir
 import _ from '@/utils/common/lodashWrapper.ts';
 import { PATH } from '@/router/route_path_type.ts';
 import SettingBar from '@/components/SettingBar.vue';
-import { UploadImageResponse } from '@/interfaces/common';
+import { Interest, InterestWithPriority, Region, RegionWithPriority, UploadImageResponse } from '@/interfaces/common';
 import { UserProfile } from '@/interfaces/user';
 import { UserActionTypes } from '@/store/type/actionTypes';
 
@@ -79,23 +79,26 @@ export default Vue.extend({
     };
   },
   computed: {
-    regionsByPriority() {
-      return _.sortBy(this.userProfile.userRegions, ({ priority }) => priority)
-        .map(({ region }) => region);
+    regionsByPriority(): Region[] {
+      return _.sortBy(this.userProfile.userRegions, ({ priority }: RegionWithPriority) => priority)
+        .map(({ region }: RegionWithPriority) => region);
     },
-    regionNames() {
+    regionNames(): string {
       if (this.regionsByPriority && this.regionsByPriority.length > 0) {
-        return this.regionsByPriority.map(({ name }) => name).reduce((prev, cur) => `${prev} | ${cur}`);
+        return this.regionsByPriority.map(({ name }: Region) => name)
+          .reduce((prev: string, cur: string) => `${prev} | ${cur}`);
       }
       return '';
     },
-    interestsByPriority() {
-      return _.sortBy(this.userProfile.userInterests, ({ priority }) => priority)
-        .map(({ interest }) => interest);
+    interestsByPriority(): Interest[] {
+      return _.sortBy(this.userProfile.userInterests, ({ priority }: InterestWithPriority) => priority)
+        .map(({ interest }: InterestWithPriority) => interest);
     },
-    interestNames() {
+    interestNames(): string {
       if (this.interestsByPriority && this.interestsByPriority.length > 0) {
-        return this.interestsByPriority.map(({ name }) => name).reduce((prev, cur) => `${prev} | ${cur}`);
+        return this.interestsByPriority
+          .map(({ name }: Interest) => name)
+          .reduce((prev: string, cur: string) => `${prev} | ${cur}`);
       }
       return '';
     },

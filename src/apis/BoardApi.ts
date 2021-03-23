@@ -46,12 +46,12 @@ const boardApi = {
       .then(ResponseConverter.extractSuperInventionResponseData);
   },
 
-  postLikeClubBoard({ clubSeq, boardSeq }) {
+  postLikeClubBoard({ clubSeq, boardSeq }: BoardSeqContext) {
     return axios.post(`/api/club/${clubSeq}/board/${boardSeq}/like`)
       .then(ResponseConverter.extractSuperInventionResponseData);
   },
 
-  deleteLikeClubBoard({ clubSeq, boardSeq }) {
+  deleteLikeClubBoard({ clubSeq, boardSeq }: BoardSeqContext) {
     return axios.delete(`/api/club/${clubSeq}/board/${boardSeq}/like`)
       .then(ResponseConverter.extractSuperInventionResponseData);
   },

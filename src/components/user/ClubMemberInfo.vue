@@ -2,9 +2,9 @@
   <div class="member-info-wrapper">
     <UserProfileAvatar
       :size="35"
-      :imgUrl="user.imageUrl"
+      :imgUrl="user.imgUrl"
       :name="user.name"
-      :appendNumber="user.seq"
+      :appendNumber="user.userSeq"
     />
     <div class="member-info">
       <div
@@ -26,7 +26,7 @@
         @click="managementContext.click"
       />
       <RoleTag
-        :roleType="user.role"
+        :roleType="user.role[0]"
         class="my-auto"
       />
     </div>
@@ -39,14 +39,15 @@ import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
 import SquareTag from '@/components/tag/SquareTag.vue';
 import RoleTag from '@/components/tag/RoleTag.vue';
 import { CLUB_ROLE } from '@/utils/role.ts';
-import { CurrentUserInfo } from '@/interfaces/club';
+import { ClubUserInfo, CurrentUserInfo } from '@/interfaces/club';
+import { ClickWithText } from '@/interfaces/common';
 
 export default Vue.extend({
   name: 'ClubMemberInfo',
   components: { RoleTag, SquareTag, UserProfileAvatar },
   props: {
     user: {
-      type: Object,
+      type: Object as PropType<ClubUserInfo>,
       required: true,
     },
     currentUserInfo: {
@@ -58,7 +59,7 @@ export default Vue.extend({
     isMe() {
       return false;
     },
-    managementContext() {
+    managementContext(): ClickWithText | null {
       if (this.currentUserInfo.isMaster) {
         if (this.isMe) return null;
         return {
@@ -74,7 +75,7 @@ export default Vue.extend({
             click: this.openWithdrawnDialog,
           };
         }
-        if (this.user.role === CLUB_ROLE.MASTER || this.user.role === CLUB_ROLE.MANAGER) {
+        if (this.user.role[0] === CLUB_ROLE.MASTER || this.user.role[0] === CLUB_ROLE.MANAGER) {
           return null;
         }
         return {
@@ -94,16 +95,16 @@ export default Vue.extend({
     },
   },
   methods: {
-    openManagementDialog() {
+    openManagementDialog(): void {
       this.$emit('openManagementDialog', this.user);
     },
-    openWithdrawnDialog() {
+    openWithdrawnDialog(): void {
       this.$emit('openWithdrawnDialog');
     },
-    openKickDialog() {
+    openKickDialog(): void {
       this.$emit('openKickDialog', this.user);
     },
-    closeDialog() {
+    closeDialog(): void {
       this.managementDialog = false;
     },
   },

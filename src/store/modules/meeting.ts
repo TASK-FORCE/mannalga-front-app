@@ -25,23 +25,30 @@ export const mutations = {
     state.meetingGroupList = meetingGroupList;
     state.meetingGroupPage = meetingGroupPage;
   },
-  [MeetingMutationTypes.ADD_NEXT_MEETING_GROUP_LIST_INFO](state: MeetingState, { meetingGroupList, meetingGroupPage }: MeetingGroupListResponse) {
+  [MeetingMutationTypes.ADD_NEXT_MEETING_GROUP_LIST_INFO](state: MeetingState, { meetingGroupList: newMeetingGroupList, meetingGroupPage }: MeetingGroupListResponse) {
     state.meetingGroupPage = meetingGroupPage;
-    if (meetingGroupList.length === 0) {
+    if (newMeetingGroupList.length === 0) {
       return;
     }
-    let lastGroupForPresent = state.meetingGroupList.pop();
-    const firstGroupForNew = meetingGroupList.shift();
+
+    const lastGroupForPresent: MeetingFeedGroup | undefined = state.meetingGroupList.pop()
+    const firstGroupForNew: MeetingFeedGroup | undefined = newMeetingGroupList.shift()
+
+    if (!lastGroupForPresent || !firstGroupForNew) {
+      return;
+    }
+
     if (lastGroupForPresent.groupYearMonth === firstGroupForNew.groupYearMonth) {
-      lastGroupForPresent = {
+      state.meetingGroupList.push({
         groupYearMonth: lastGroupForPresent.groupYearMonth,
         meetings: lastGroupForPresent.meetings.concat(firstGroupForNew.meetings),
-      };
+      });
+      state.meetingGroupList = state.meetingGroupList.concat(newMeetingGroupList);
     } else {
-      meetingGroupList.unshift(firstGroupForNew);
+      state.meetingGroupList.push(lastGroupForPresent);
+      state.meetingGroupList.push(firstGroupForNew);
+      state.meetingGroupList = state.meetingGroupList.concat(newMeetingGroupList);
     }
-    state.meetingGroupList.push(lastGroupForPresent);
-    state.meetingGroupList = state.meetingGroupList.concat(meetingGroupList);
   },
   [MeetingMutationTypes.INIT_MEETING_GROUP_LIST](state: MeetingState) {
     state.meetingGroupList = [];

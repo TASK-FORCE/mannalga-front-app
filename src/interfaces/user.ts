@@ -12,8 +12,8 @@ export interface UserProfile {
   userName: string;
   birthday: string;
   profileImageLink: string;
-  userRegions: Region[];
-  userInterests: Interest[];
+  userRegions: RegionWithPriority[];
+  userInterests: InterestWithPriority[];
 }
 
 export interface IsMember {
@@ -21,11 +21,11 @@ export interface IsMember {
 }
 
 export interface ServerKakaoProfileContext {
-  kakao_account: ServerKakaoAccount
+  kakao_account: ServerKakaoAccount;
 }
 
 export interface ServerKakaoAccount {
-  profile: ServerKakaoProfile
+  profile: ServerKakaoProfile;
 }
 
 export interface ServerKakaoProfile {
@@ -34,22 +34,22 @@ export interface ServerKakaoProfile {
 }
 
 export interface UserRegionsResponse {
-  userRegions: RegionWithPriority[]
+  userRegions: RegionWithPriority[];
 }
 
 export interface UserInterestResponse {
-  interestList: InterestWithPriority[]
+  interestList: InterestWithPriority[];
 }
 
 export interface UserRegisterContext {
-  profile: KakaoProfile
-  selectedRegions: Region[]
-  selectedInterests: Interest[]
+  profile: KakaoProfile;
+  selectedRegions: Region[];
+  selectedInterests: Interest[];
 }
 
 export interface UserRegisterRequest {
   userName: string;
   profileImageLink: string;
-  userRegions: RegionWriteRequest[],
-  userInterests: InterestWriteRequest[],
+  userRegions: RegionWriteRequest[];
+  userInterests: InterestWriteRequest[];
 }

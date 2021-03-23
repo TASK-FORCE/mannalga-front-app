@@ -38,6 +38,7 @@ module.exports = {
       'class-methods-use-this',
       'no-restricted-globals',
       '@typescript-eslint/no-use-before-define',
+      '@typescript-eslint/camelcase',
     ]),
     'no-plusplus': ['error', { 'allowForLoopAfterthoughts': true }],
     'no-shadow': ['error', { 'allow': ['state'] }],
