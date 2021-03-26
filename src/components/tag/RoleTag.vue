@@ -8,22 +8,22 @@
 
 <script lang="ts">
 import SquareTag from '@/components/tag/SquareTag.vue';
-import { CLUB_ROLE } from '@/utils/role.ts';
+import { ClubRole } from '@/utils/role.ts';
 import Vue from 'vue';
 
 const ROLES = [
   {
-    type: CLUB_ROLE.MASTER,
+    type: ClubRole.MASTER,
     name: '모임장',
     color: '#2883C6',
   },
   {
-    type: CLUB_ROLE.MANAGER,
+    type: ClubRole.MANAGER,
     name: '매니저',
     color: '#E8984E',
   },
   {
-    type: CLUB_ROLE.MEMBER,
+    type: ClubRole.MEMBER,
     name: '모임원',
     color: '#7CBB72',
   },

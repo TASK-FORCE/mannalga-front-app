@@ -7,27 +7,39 @@
 </template>
 
 <script lang="ts">
-import { CLUB_ROLE } from '@/utils/role.ts';
+import { ClubRole } from '@/utils/role.ts';
 import Chip from '@/components/chip/Chip.vue';
 import Vue from 'vue';
 
-const CLUB_CHIP_ROLES = [
-  {
-    type: CLUB_ROLE.MASTER,
-    name: '모임장',
-    color: '#e91e63',
-  },
-  {
-    type: CLUB_ROLE.MANAGER,
-    name: '매니저',
-    color: '#009688',
-  },
-  {
-    type: CLUB_ROLE.MEMBER,
-    name: '모임원',
-    color: '#2196f3',
-  },
-];
+class RoleChip {
+
+  static readonly MASTER = new RoleChip(ClubRole.MASTER, '모임장', '#e91e63')
+  static readonly MANAGER = new RoleChip(ClubRole.MANAGER, '매니저', '#009688')
+  static readonly MEMBER = new RoleChip(ClubRole.MEMBER, '모임원', '#2196f3')
+
+  private type: ClubRole;
+  private name: string;
+  private color: string;
+
+  constructor(type: ClubRole, name: string, color: string) {
+    this.type = type;
+    this.name = name;
+    this.color = color;
+  }
+
+  static findByRole(type: string) {
+    if (type === this.MASTER.type) {
+      return this.MASTER;
+    }
+
+    if (type === this.MANAGER.type) {
+      return this.MANAGER;
+    }
+
+    return this.MEMBER
+  }
+
+}
 
 export default Vue.extend({
   name: 'RoleChip',
@@ -47,12 +59,8 @@ export default Vue.extend({
     },
   },
   computed: {
-    chipInfo() {
-      const clubChipRole = CLUB_CHIP_ROLES.find(({ type }) => type === this.role);
-      return {
-        name: clubChipRole.name,
-        color: clubChipRole.color,
-      };
+    chipInfo(): RoleChip {
+      return RoleChip.findByRole(this.role);
     },
   },
 });

@@ -27,6 +27,7 @@
 <script lang="ts">
 import InterestSelect from '@/components/interest/InterestSelect.vue';
 import Vue from 'vue';
+import { Interest } from '@/interfaces/common';
 
 export default Vue.extend({
   name: 'InterestSelectDialog',
@@ -45,7 +46,7 @@ export default Vue.extend({
     getSelectedInterests() {
       return new Promise(resolve => resolve([...this.selectedInterests]));
     },
-    submit(selectedInterests) {
+    submit(selectedInterests: Interest[]) {
       this.$emit('selectInterests', selectedInterests);
       this.close();
     },

@@ -188,7 +188,8 @@ export default Vue.extend({
       }
     },
     click() {
-      if (this.$refs.clubMeetingCreateForm.validate()) {
+      const clubMeetingCreateForm = this.$refs.clubMeetingCreateForm as HTMLFormElement;
+      if (clubMeetingCreateForm.validate()) {
         this.loading = true;
         const meetingDto = {
           title: this.title,

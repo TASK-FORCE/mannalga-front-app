@@ -3,10 +3,10 @@ import { InterestWithPriority, Page, RegionWithPriority } from '@/interfaces/com
 export interface ClubListRequest {
   size: number;
   page: number;
-  regionSeq: number;
-  interestSeq: number;
-  interestGroupSeq: number;
-  text: string;
+  regionSeq?: number;
+  interestSeq?: number;
+  interestGroupSeq?: number;
+  text?: string;
 }
 
 export interface ClubListResponse {
@@ -58,7 +58,7 @@ export interface InterestForSearch {
 }
 
 export interface ClubSearchContext {
-  region: RegionForSearch;
-  interest: InterestForSearch;
-  searchText: string;
+  region?: RegionForSearch;
+  interest?: InterestForSearch;
+  searchText?: string;
 }

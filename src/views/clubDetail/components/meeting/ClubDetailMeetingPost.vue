@@ -131,7 +131,7 @@ export default Vue.extend({
       const paddingWidth = 50;
       const dividerWidth = 34;
       const dateBoxWidth = 50;
-      const { clientWidth } = document.querySelector('#app');
+      const { clientWidth } = document.querySelector('#app') as HTMLElement;
       const width = clientWidth - paddingWidth - dividerWidth - dateBoxWidth;
       return {
         width: `${width}px`,

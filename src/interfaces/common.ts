@@ -128,7 +128,7 @@ export interface BoardTemplateContext {
   fetchNextPage: () => Promise<void>;
   requestWriteComment: (content: string) => Promise<void>;
   requestWriteSubComment: (content: string, parentSeq: number) => Promise<void>;
-  requestSubCommentList: (parentSeq: number) => Promise<void>;
+  requestSubCommentList: (parentSeq: number) => Promise<Comment[]>;
   commentWritePostProcess: () => Promise<void>;
   requestApplyLike: () => Promise<void>;
   requestDeleteLike: () => Promise<void>;

@@ -62,7 +62,7 @@ export interface BoardListRequest {
 
 export interface BoardPageRequest {
   clubSeq: number;
-  category: BoardCategoryType;
+  category?: BoardCategoryType;
   pageRequest: PageRequest;
 }
 

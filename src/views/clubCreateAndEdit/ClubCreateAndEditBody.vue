@@ -166,7 +166,8 @@ export default Vue.extend({
       this.sheet = true;
     },
     click() {
-      if (this.$refs.clubCreateForm.validate()) {
+      const clubCreateForm = this.$refs.clubCreateForm as HTMLFormElement;
+      if (clubCreateForm.validate()) {
         this.loading = true;
         this.submitClickCallback(this.buildClubCreateDto())
           .finally(() => (this.loading = false));

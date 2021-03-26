@@ -2,8 +2,8 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import { ScrollHelper } from '@/utils/scroll.ts';
 import lastScrollPositionCache from '@/utils/cache/LastScrollPositionCache.ts';
-import routes from './routes.js';
 import { PositionResult, Route } from 'vue-router/types/router';
+import routes from '@/router/routes';
 
 if (!process || process.env.NODE_ENV !== 'test') {
   Vue.use(VueRouter);

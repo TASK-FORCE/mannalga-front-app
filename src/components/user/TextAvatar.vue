@@ -29,7 +29,7 @@ export default Vue.extend({
     },
   },
   methods: {
-    getBoxClass(name) {
+    getBoxClass(name: string | undefined) {
       if (!name) return {};
       const style = {
         width: `${this.size}px`,

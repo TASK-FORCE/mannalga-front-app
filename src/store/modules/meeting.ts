@@ -114,7 +114,7 @@ export const actions = {
       },
     );
   },
-  async [MeetingActionTypes.REQUEST_MEETING]({ commit }, meetingSeqContext: MeetingSeqContext) {
+  async [MeetingActionTypes.REQUEST_MEETING]({ commit }: MeetingActionContext, meetingSeqContext: MeetingSeqContext) {
     return actionsLoadingTemplate(async () => {
       const meeting = await meetingApi.getMeeting(meetingSeqContext);
       commit(MeetingMutationTypes.SET_MEETING, meeting);

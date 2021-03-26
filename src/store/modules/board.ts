@@ -115,7 +115,7 @@ export const mutations = {
 export type BoardMutations = typeof mutations;
 
 export const actions = {
-  async [BoardActionTypes.REQUEST_CLUB_BOARD_CREATE]({}: BoardActionContext, boardCreateRequestWishSeq: BoardCreateRequestWishSeq) {
+  async [BoardActionTypes.REQUEST_CLUB_BOARD_CREATE]({ commit }: BoardActionContext, boardCreateRequestWishSeq: BoardCreateRequestWishSeq) {
     return actionsNormalTemplate(async () => {
       await boardApi.postClubBoardCreate(boardCreateRequestWishSeq);
     });
@@ -187,14 +187,14 @@ export const actions = {
       },
     );
   },
-  async [BoardActionTypes.REQUEST_BOARD_COMMENT_WRITE]({}: BoardActionContext, boardCommentWriteRequest: BoardCommentWriteRequest) {
+  async [BoardActionTypes.REQUEST_BOARD_COMMENT_WRITE]({ commit }: BoardActionContext, boardCommentWriteRequest: BoardCommentWriteRequest) {
     return actionsNormalTemplate(
       async () => {
         await boardApi.postClubBoardCommentWrite(boardCommentWriteRequest);
       },
     );
   },
-  async [BoardActionTypes.REQUEST_ALL_BOARD_SUB_COMMENT_LIST]({}: BoardActionContext, boardSubCommentRequest: BoardSubCommentRequest): Promise<Comment[]> {
+  async [BoardActionTypes.REQUEST_ALL_BOARD_SUB_COMMENT_LIST]({ commit }: BoardActionContext, boardSubCommentRequest: BoardSubCommentRequest): Promise<Comment[]> {
     return actionsNormalTemplate(
       async () => boardApi.getClubBoardSubCommentList(boardSubCommentRequest),
     );

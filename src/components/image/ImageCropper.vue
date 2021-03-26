@@ -51,10 +51,11 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import Vue, { PropType } from 'vue';
 import 'cropperjs/dist/cropper.css';
 import Cropper from 'cropperjs';
 import { UIActionTypes } from '@/store/type/actionTypes';
+import ViewMode = Cropper.ViewMode;
 
 
 export default Vue.extend({
@@ -69,8 +70,9 @@ export default Vue.extend({
       type: Number,
       default: 1,
     },
+
     viewMode: {
-      type: Number,
+      type: Number as PropType<ViewMode>,
       default: 3,
     },
     movable: {
@@ -92,21 +94,21 @@ export default Vue.extend({
   },
   data() {
     return {
-      originalImgUrl: null,
-      cropper: null,
+      originalImgUrl: undefined as string | undefined,
+      cropper: undefined as undefined | Cropper,
       mimes: 'image/png, image/gif, image/jpeg, image/bmp, image/x-icon' as string,
-      isLoading: false,
+      isLoading: false as boolean,
     };
   },
   computed: {
-    openModal() {
+    openModal(): boolean {
       return !!this.originalImgUrl;
     },
-    cropperOptions() {
+    cropperOptions(): Cropper.Options<HTMLImageElement> {
       return {
         aspectRatio: this.aspectRatio,
         autoCropArea: this.autoCropArea,
-        viewMode: this.viewMode,
+        viewMode: this.viewMode as ViewMode,
         movable: this.movable,
         zoomable: this.zoomable,
         minContainerWidth: window.innerWidth,
@@ -120,20 +122,24 @@ export default Vue.extend({
   },
   methods: {
     destroy() {
-      this.originalImgUrl = null;
-      this.cropper = null;
-      this.$refs.originalImg.value = '';
+      this.originalImgUrl = undefined;
+      this.cropper = undefined;
+      const originalImg = this.$refs.originalImg as HTMLInputElement;
+      originalImg.value = '';
       this.isLoading = false;
     },
     trigger() {
-      this.$refs.originalImg.click();
+      const originalImg = this.$refs.originalImg as HTMLInputElement;
+      originalImg.click();
     },
     createCropper() {
-      this.cropper = new Cropper(this.$refs.cropImg, this.cropperOptions);
+      const cropImg = this.$refs.cropImg as HTMLImageElement;
+      const cropper = new Cropper(cropImg, this.cropperOptions);
+      this.cropper = cropper;
       if (this.width !== 0 && this.height !== 0) {
         const callback = () => {
-          if (Object.keys(this.cropper.getCropBoxData()).length === 4) {
-            this.cropper.setCropBoxData({
+          if (Object.keys(cropper.getCropBoxData()).length === 4) {
+            cropper.setCropBoxData({
               width: this.width,
               height: this.height,
             });
@@ -144,27 +150,36 @@ export default Vue.extend({
         setTimeout(callback, 50);
       }
     },
-    loadingOriginalImg(file) {
+    loadingOriginalImg(file: File) {
       const reader = new FileReader();
-      reader.onload = e => (this.originalImgUrl = e.target.result);
+      reader.onload = (e: ProgressEvent<FileReader>) => (this.originalImgUrl = (e.target?.result as string));
       reader.readAsDataURL(file);
     },
-    changeOriginalImage(e) {
-      const originalImgInput = e.target;
-      if (originalImgInput.files != null && originalImgInput.files[0] != null) {
-        const correctType = this.mimes.split(', ').find(m => m === originalImgInput.files[0].type);
+    changeOriginalImage(e: InputEvent) {
+      if (!e.target) {
+        return;
+      }
+      const originalImgInput = e.target as HTMLInputElement;
+      if (originalImgInput.files != null && originalImgInput.files.length > 0) {
+        const file: File = originalImgInput.files[0];
+        const correctType = this.mimes.split(', ').find((mime: string) => (mime === file.type));
         if (!correctType) {
           this.$emit('error', 'File type not correct.', 'user');
           return;
         }
-        this.loadingOriginalImg(originalImgInput.files[0]);
-        this.filename = originalImgInput.files[0].name || 'unknown';
+        this.loadingOriginalImg(file);
       }
     },
     submit() {
+      if (!this.cropper) {
+        throw new Error('[submit] cropper should be be undefined.');
+      }
       const croppedCanvas = this.cropper.getCroppedCanvas();
       this.isLoading = true;
-      croppedCanvas.toBlob(blob => {
+      croppedCanvas.toBlob((blob: Blob | null) => {
+        if (blob === null) {
+          throw new Error('[croppedCanvas.toBlob] blob should not be null');
+        }
         const formData = new FormData();
         formData.append('file', blob, 'test.png');
         this.$store.dispatch(UIActionTypes.UPLOAD_TEMP_IMAGE, formData)

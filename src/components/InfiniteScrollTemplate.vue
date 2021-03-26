@@ -52,11 +52,11 @@ export default Vue.extend({
   name: 'InfiniteScrollTemplate',
   props: {
     firstPageCallback: {
-      type: Function,
+      type: Function as PropType<() => Promise<void>>,
       required: true,
     },
     nextPageCallback: {
-      type: Function,
+      type: Function as PropType<() => Promise<void>>,
       required: true,
     },
     pageElements: {
@@ -107,13 +107,14 @@ export default Vue.extend({
       this.requestPage(this.firstPageCallback);
     },
     setInfiniteScrollObserver() {
-      const infiniteScrollCallback = entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting && entry.target === this.sentinel && this.canRequest()) {
-            this.requestPage(this.nextPageCallback);
-          }
-        });
-      };
+      const infiniteScrollCallback: IntersectionObserverCallback =
+        (entries: IntersectionObserverEntry[]) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && entry.target === this.sentinel && this.canRequest()) {
+              this.requestPage(this.nextPageCallback);
+            }
+          });
+        };
       const observer = new IntersectionObserver(infiniteScrollCallback, { threshold: 0.75 });
       observer.observe(this.sentinel);
     },
@@ -123,7 +124,7 @@ export default Vue.extend({
       }
       this.listGroup.insertBefore(this.sentinel, this.listGroup.children[this.listGroup.children.length - 2]);
     },
-    requestPage(callback) {
+    requestPage(callback: () => Promise<any>) {
       this.startRequest();
       callback()
         .then(() => this.insertSentinel())

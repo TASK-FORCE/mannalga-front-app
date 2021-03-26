@@ -74,17 +74,18 @@ export default Vue.extend({
   data() {
     return {
       RULES,
-      title: null,
-      image: null as UploadImageResponse,
+      title: null as null | string,
+      image: null as null | UploadImageResponse,
     };
   },
   methods: {
     requestAlbumCreate() {
-      if (this.$refs.form.validate()) {
+      const form = this.$refs.form as HTMLFormElement;
+      if (form.validate()) {
         if (this.image) {
           const albumWriteRequest: AlbumWriteRequest = {
             clubSeq: routerHelper.clubSeq(),
-            title: this.title,
+            title: this.title || '',
             image: { ...this.image },
           };
           this.$store.dispatch(AlbumActionTypes.REQUEST_ALBUM_CREATE, albumWriteRequest)
@@ -104,8 +105,10 @@ export default Vue.extend({
     clear() {
       this.title = null;
       this.$emit('input', false);
-      this.$refs.imgSelectBox.clear();
-      this.$refs.form.resetValidation();
+      const imgSelectBox: any = this.$refs.imgSelectBox;
+      imgSelectBox.clear();
+      const form = this.$refs.form as HTMLFormElement;
+      form.resetValidation();
     },
   },
 });

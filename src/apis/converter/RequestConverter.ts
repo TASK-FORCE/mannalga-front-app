@@ -22,9 +22,9 @@ export default class RequestConverter {
     return {
       size: clubPage.size,
       page: clubPage.nextPage,
-      regionSeq: clubSearchContext.region.seq,
-      interestSeq: clubSearchContext.interest.seq,
-      interestGroupSeq: clubSearchContext.interest.groupSeq,
+      regionSeq: clubSearchContext.region?.seq,
+      interestSeq: clubSearchContext.interest?.seq,
+      interestGroupSeq: clubSearchContext.interest?.groupSeq,
       text: clubSearchContext.searchText,
     }
   }
@@ -53,7 +53,7 @@ export default class RequestConverter {
       refresh_token,
       refresh_token_expires_in,
     };
-  };
+  }
 
   static convertRegisterInfo({ profile, selectedRegions, selectedInterests }: UserRegisterContext): UserRegisterRequest {
     return {
@@ -62,7 +62,7 @@ export default class RequestConverter {
       userRegions: buildUserRegionsDto(selectedRegions),
       userInterests: buildUserInterestsDto(selectedInterests),
     };
-  };
+  }
 
   static convertAlbumPageRequest(clubSeq: number, page: Page): AlbumPageRequest {
     return {

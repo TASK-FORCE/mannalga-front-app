@@ -1,7 +1,12 @@
 import store from '@/store';
 import { getChildRoutePath, PATH } from '@/router/route_path_type.ts';
+import { NavigationGuardNext, Route, RouteConfig } from 'vue-router/types/router';
 
-function validationAuthentication(to, from, next) {
+function validationAuthentication(
+  to: Route,
+  from: Route,
+  next: NavigationGuardNext
+) {
   if (store.getters.hasToken) {
     next();
   } else {
@@ -9,7 +14,7 @@ function validationAuthentication(to, from, next) {
   }
 }
 
-const routes = [
+const routes: RouteConfig[] = [
   {
     path: '/',
     redirect: PATH.LOGIN,

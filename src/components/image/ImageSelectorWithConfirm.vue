@@ -44,7 +44,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import Vue, { PropType } from 'vue';
 import ImageCropper from '@/components/image/ImageCropper.vue';
 import { UploadImageResponse } from '@/interfaces/common';
 
@@ -63,7 +63,7 @@ export default Vue.extend({
       default: 16 / 9,
     },
     imageChangeCallback: {
-      type: Function, // (dto) => {}: Promise
+      type: Function as PropType<(image: UploadImageResponse) => Promise<any>>,
       required: true,
     },
     title: {
@@ -80,7 +80,8 @@ export default Vue.extend({
   },
   methods: {
     trigger() {
-      this.$refs.cropper.trigger();
+      const cropper = this.$refs.cropper as any;
+      cropper.trigger();
     },
     handleUploadedImgDto(uploadedImage: UploadImageResponse) {
       this.uploadedImage = uploadedImage;

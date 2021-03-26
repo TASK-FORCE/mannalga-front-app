@@ -27,19 +27,16 @@ export class BoardCategory {
     return [this.NORMAL.name];
   }
 
-  static findCategoryByType(type: string): BoardCategory | null {
+  static findCategoryByType(type: string): BoardCategory {
     if (this.NOTICE.type === type) {
       return this.NOTICE;
     }
 
-    if (this.NORMAL.type === type) {
-      return this.NORMAL;
-    }
-    return null;
+    return this.NORMAL;
   }
 
 
-  static findCategoryByName(name: string): BoardCategory {
+  static findCategoryByName(name: string): BoardCategory | undefined {
     if (this.NOTICE.name === name) {
       return this.NOTICE;
     }
@@ -47,12 +44,12 @@ export class BoardCategory {
     if (this.NORMAL.name === name) {
       return this.NORMAL;
     }
-    throw Error(`invalid name: ${name}`);
+    return undefined;
   }
 
-  static findCategoryTypeByName(name: string): BoardCategoryType {
+  static findCategoryTypeByName(name: string): BoardCategoryType | undefined {
     const category = this.findCategoryByName(name);
-    return category.type;
+    return category?.type;
   }
 
   get type(): BoardCategoryType {

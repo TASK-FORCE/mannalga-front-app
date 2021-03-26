@@ -82,10 +82,10 @@ export default Vue.extend({
     },
   },
   computed: {
-    isWindmill() {
+    isWindmill(): boolean {
       return this.icon === 'windmill';
     },
-    windMillColor() {
+    windMillColor(): string {
       if (this.$store.state.ui.isDarkTheme) {
         return '#F5F5F5';
       }

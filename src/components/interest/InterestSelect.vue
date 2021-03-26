@@ -47,7 +47,7 @@ import CommonHeader from '@/components/header/CommonHeader.vue';
 import { format, MESSAGE } from '@/utils/common/constant/messages.ts';
 import _ from '@/utils/common/lodashWrapper.ts';
 import { UIMutationTypes } from '@/store/type/mutationTypes.ts';
-import Vue from 'vue';
+import Vue, { PropType } from 'vue';
 import { Interest, InterestGroupTree } from '@/interfaces/common';
 
 export default Vue.extend({
@@ -55,14 +55,14 @@ export default Vue.extend({
   components: { CommonHeader },
   props: {
     selectedInterestsCallback: {
-      type: Function, // () => Promise(selectedInterest)
-      default: () => new Promise(resolve => resolve([])),
+      type: Function as PropType<() => Promise<Interest[]>>,
+      default: () => () => new Promise<Interest[]>(resolve => resolve([])),
     },
     backCallback: {
       type: Function,
     },
     submitCallback: {
-      type: Function, // (selectedInterest) => ()
+      type: Function as PropType<(selectedInterest: Interest[]) => void>,
     },
     title: {
       type: String,
@@ -95,7 +95,7 @@ export default Vue.extend({
   created() {
     regionAndInterestVuexService.dispatch(true, PATH.BACK);
     this.selectedInterestsCallback()
-      .then(selectedInterest => (this.selectedInterest = selectedInterest));
+      .then((selectedInterest: Interest[]) => (this.selectedInterest = selectedInterest));
   },
   methods: {
     toggleInterest(interest: Interest) {

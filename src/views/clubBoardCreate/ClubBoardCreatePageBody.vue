@@ -69,40 +69,41 @@ import { UploadImageResponse } from '@/interfaces/common';
 import { CurrentUserInfo } from '@/interfaces/club';
 import { BoardActionTypes } from '@/store/type/actionTypes';
 import { BoardCategory } from '@/interfaces/board/BoardCategory';
-import { BoardCreateRequestWishSeq } from '@/interfaces/board/board';
+import { BoardCategoryType, BoardCreateRequestWishSeq } from '@/interfaces/board/board';
 
 export default Vue.extend({
   name: 'ClubBoardCreateBox',
   components: { CommonCenterBtn, ImageSelectBox },
   data() {
     return {
-      RULES,
       enableImageSize: 3,
       loading: false,
-
-      title: null,
-      content: null,
-      category: null,
+      title: undefined as undefined | string,
+      content: undefined as undefined | string,
+      category: undefined as undefined | string,
       selectedImages: {} as {
         [index: number]: UploadImageResponse;
       },
+      RULES,
     };
   },
   computed: {
-    clubSeq: () => routerHelper.clubSeq(),
+    clubSeq(): number {
+      return routerHelper.clubSeq();
+    },
     currentUserInfo(): CurrentUserInfo {
       return this.$store.state.club.currentUserInfo;
     },
-    resolveImageBoxHeight() {
+    resolveImageBoxHeight(): string {
       return `${window.innerHeight / 7}`;
     },
-    resolveImageBoxWidth() {
+    resolveImageBoxWidth(): string {
       return `${(window.innerWidth - 32) / 3 - 8}`;
     },
-    resolveContentHeight() {
+    resolveContentHeight(): string {
       return `${window.innerHeight / 3}`;
     },
-    boardCategoryNames() {
+    boardCategoryNames(): string[] {
       return BoardCategory.findCategoryNamesByCurrentUserInfo(this.currentUserInfo);
     },
   },
@@ -111,14 +112,15 @@ export default Vue.extend({
       this.selectedImages[index] = uploadedImage;
     },
     createClubBoard() {
-      if (this.$refs.clubBoardCreateForm.validate()) {
+      const clubBoardCreateForm = this.$refs.clubBoardCreateForm as HTMLFormElement;
+      if (clubBoardCreateForm.validate()) {
         this.loading = true;
         const boardCreateRequestWishSeq: BoardCreateRequestWishSeq = {
           clubSeq: this.clubSeq,
           boardCreateRequest: {
-            title: this.title,
-            content: this.content,
-            category: BoardCategory.findCategoryTypeByName(this.category),
+            title: this.title as string,
+            content: this.content as string,
+            category: BoardCategory.findCategoryTypeByName(this.category as string) as BoardCategoryType,
             imgList: Object.values(this.selectedImages),
           }
         };

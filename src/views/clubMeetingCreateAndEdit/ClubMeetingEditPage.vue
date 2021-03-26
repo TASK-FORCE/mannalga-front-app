@@ -47,7 +47,7 @@ export default Vue.extend({
   },
   methods: {
     clubDetailPath() {
-      return generateParamPath(PATH.CLUB.MAIN, routerHelper.clubSeq());
+      return generateParamPath(PATH.CLUB.MAIN, [routerHelper.clubSeq()]);
     },
     edit(meetingWriteRequest: MeetingWriteRequest) {
       const clubSeq = routerHelper.clubSeq();

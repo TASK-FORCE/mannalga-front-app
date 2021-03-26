@@ -37,16 +37,9 @@ export default class DefaultBuilder {
 
   static clubSearchContext(): ClubSearchContext {
     return {
-      region: {
-        seq: null,
-        name: null,
-      },
-      interest: {
-        groupSeq: null,
-        seq: null,
-        name: null,
-      },
-      searchText: null,
+      region: undefined,
+      interest: undefined,
+      searchText: undefined,
     }
   }
 
@@ -81,7 +74,7 @@ export default class DefaultBuilder {
       isMaster: false,
       isManager: false,
       isMember: false,
-      roles: null,
+      roles: [],
       isLiked: false,
     };
   }

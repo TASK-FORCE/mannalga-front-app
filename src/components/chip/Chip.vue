@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import Vue, { PropType } from 'vue';
 
 interface ChipStyle {
   display?: string;
@@ -20,15 +20,17 @@ interface ChipStyle {
   fontWeight?: string;
 }
 
+interface ChipInfo {
+  name: string;
+  color: string;
+}
+
 export default Vue.extend({
   name: 'Chip',
   props: {
     info: {
-      type: Object,
-      default: () => ({
-        name: '',
-        color: 'green',
-      }),
+      type: Object as PropType<ChipInfo>,
+      required: true,
     },
     large: {
       type: Boolean,
@@ -52,7 +54,7 @@ export default Vue.extend({
     },
   },
   computed: {
-    color() {
+    color(): string {
       return this.info.color;
     },
     resolveStyle() {

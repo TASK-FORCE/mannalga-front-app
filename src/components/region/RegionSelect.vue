@@ -64,7 +64,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import Vue, { PropType } from 'vue';
 import { PATH } from '@/router/route_path_type.ts';
 import BottomSheetRegionCard from '@/components/bottom-sheet/BottomSheetRegionCard.vue';
 import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.ts';
@@ -76,14 +76,13 @@ export default Vue.extend({
   components: { CommonHeader, BottomSheetRegionCard },
   props: {
     selectedRegionsCallback: {
-      type: Function, // () => Promise(selectedRegions)
-      default: () => new Promise(resolve => resolve([])),
+      type: Function as PropType<() => Promise<Region[]>>,
     },
     backCallback: {
-      type: Function,
+      type: Function as PropType<() => void>,
     },
     submitCallback: {
-      type: Function, // (selectedRegions) => ()
+      type: Function as PropType<(selectedRegions: Region[]) => void>,
     },
     title: {
       type: String,
@@ -103,14 +102,16 @@ export default Vue.extend({
     };
   },
   computed: {
-    selectedRegionSeqs() {
+    selectedRegionSeqs(): number[] {
       return this.selectedRegions.map(({ seq }: Region) => seq);
     },
   },
   created() {
     regionAndInterestVuexService.dispatch(true, PATH.BACK);
-    this.selectedRegionsCallback()
-      .then(selectedRegions => (this.selectedRegions = selectedRegions));
+    if (this.selectedRegionsCallback) {
+      this.selectedRegionsCallback()
+        .then((selectedRegions: Region[]) => (this.selectedRegions = selectedRegions));
+    }
   },
   methods: {
     getText({ superRegionRoot }: RegionTree) {
@@ -136,9 +137,12 @@ export default Vue.extend({
       return this.submitCallback(this.selectedRegions);
     },
     cancelSelectedRegion() {
+      if (!this.currentIndex) {
+        throw Error('[cancelSelectedRegion] crrentIndex should not be undeifined');
+      }
       this.selectedRegions.splice(this.currentIndex - 1, 1);
       this.sheet = false;
-      this.currentIndex = null;
+      this.currentIndex = undefined;
     },
   },
 });

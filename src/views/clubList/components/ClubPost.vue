@@ -62,7 +62,7 @@
 import Vue, { PropType } from 'vue';
 import { generateParamPath, PATH } from '@/router/route_path_type.ts';
 import RoleChip from '@/components/chip/RoleChip.vue';
-import { CLUB_ROLE } from '@/utils/role.ts';
+import { ClubRole } from '@/utils/role.ts';
 import clubDetailVuexService from '@/store/service/ClubDetailVuexService.ts';
 import _ from '@/utils/common/lodashWrapper.ts';
 import { ClubFeed } from '@/interfaces/clubList';
@@ -107,7 +107,7 @@ export default Vue.extend({
   },
   data() {
     return {
-      roles: [CLUB_ROLE.MASTER, CLUB_ROLE.MEMBER, CLUB_ROLE.MANAGER],
+      roles: [ClubRole.MASTER, ClubRole.MEMBER, ClubRole.MANAGER],
     };
   },
   computed: {

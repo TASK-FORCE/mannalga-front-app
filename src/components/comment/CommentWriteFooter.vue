@@ -28,28 +28,24 @@
 <script lang="ts">
 import { MESSAGE } from '@/utils/common/constant/messages.ts';
 import { UIMutationTypes } from '@/store/type/mutationTypes.ts';
-import Vue from 'vue';
+import Vue, { PropType } from 'vue';
 
 export default Vue.extend({
   name: 'CommentWriteFooter',
   props: {
     requestWriteComment: {
-      type: Function,
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
-      default: (content) => {
-      },
+      type: Object as PropType<(content: string) => Promise<any>>,
+      default: () => (content: string) => Promise.resolve(),
     },
     postProcessor: {
-      type: Function,
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
-      default: () => {
-      },
+      type: Object as PropType<() => any>,
+      default: () => () => ({})
     },
   },
   data() {
     return {
       EMPTY_COMMENT_TEXT: MESSAGE.EMPTY_COMMENT_TEXT,
-      content: null,
+      content: undefined as undefined | string,
       loading: false,
     };
   },
@@ -66,7 +62,7 @@ export default Vue.extend({
         this.requestWriteComment(this.content)
           .then(() => {
             this.postProcessor();
-            this.content = null;
+            this.content = undefined;
           })
           .finally(() => (this.loading = false));
         return;

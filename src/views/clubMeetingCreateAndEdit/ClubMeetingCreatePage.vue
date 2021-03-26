@@ -25,7 +25,7 @@ export default Vue.extend({
   components: { ClubMeetingCreateAndEditBody, CommonHeader },
   methods: {
     clubDetailPath() {
-      return generateParamPath(PATH.CLUB.MAIN, routerHelper.clubSeq());
+      return generateParamPath(PATH.CLUB.MAIN, [routerHelper.clubSeq()]);
     },
     create(meetingWriteRequest: MeetingWriteRequest) {
       const meetingWriteRequestWithSeq: MeetingWriteRequestWithSeq = {
@@ -35,7 +35,7 @@ export default Vue.extend({
       return this.$store.dispatch(MeetingActionTypes.REQUEST_MEETING_CREATE, meetingWriteRequestWithSeq)
         .then(() => {
           this.$store.dispatch(MeetingActionTypes.REQUEST_FIRST_MEETING_GROUP_LIST, meetingWriteRequestWithSeq.clubSeq);
-          this.$router.push(generateParamPath(PATH.CLUB.MAIN, routerHelper.clubSeq()));
+          this.$router.push(generateParamPath(PATH.CLUB.MAIN, [routerHelper.clubSeq()]));
         });
     },
   },

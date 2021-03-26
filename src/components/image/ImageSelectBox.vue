@@ -114,7 +114,8 @@ export default Vue.extend({
       this.$emit('handleUploadedImage', uploadedImage);
     },
     triggerCropper() {
-      this.$refs.cropper.trigger();
+      const cropper = this.$refs.cropper as any;
+      cropper.trigger();
     },
     clear() {
       this.imageUrl = '';

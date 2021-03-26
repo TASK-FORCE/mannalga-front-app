@@ -1,14 +1,12 @@
-// eslint-disable-next-line no-extend-native,func-names,@typescript-eslint/ban-ts-ignore
-// @ts-ignore
-String.prototype.hashCode = function () {
+export function hashCode(str: string) {
   let hash = 0;
-  if (this.length === 0) return hash;
-  for (let i = 0; i < this.length; i++) {
-    const char = this.charCodeAt(i);
+  if (str.length === 0) return hash;
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i);
     // eslint-disable-next-line no-bitwise
     hash = ((hash << 5) - hash) + char;
     // eslint-disable-next-line no-bitwise
     hash &= hash; // Convert to 32bit integer
   }
   return hash;
-};
+}

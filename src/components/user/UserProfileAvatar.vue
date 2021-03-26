@@ -36,8 +36,9 @@
 
 import TextAvatar from '@/components/user/TextAvatar.vue';
 import Vue from 'vue';
+import { hashCode } from '@/utils/prototype';
 
-const COLORS = [
+const COLORS: string[] = [
   '#800080',
   '#008000',
   '#008080',
@@ -75,13 +76,13 @@ export default Vue.extend({
     },
   },
   computed: {
-    backgroundColor() {
-      return COLORS[(this.getTruncatedName(this.name).hashCode() + this.appendNumber) % COLORS.length];
+    backgroundColor(): string {
+      return COLORS[(hashCode(this.getTruncatedName(this.name)) + this.appendNumber) % COLORS.length];
     },
   },
   methods: {
-    getTruncatedName(name) {
-      if (!name) return {};
+    getTruncatedName(name: string): string {
+      if (!name) return '';
       return name.length > 1 ? name.substring(name.length - 2, name.length) : name;
     },
   },

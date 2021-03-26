@@ -6,7 +6,7 @@ import { Page } from '@/interfaces/common';
 class BoardHelper {
   static async requestBoardList(
     clubSeq: number,
-    category: BoardCategoryType,
+    category: BoardCategoryType | undefined,
     page: Page,
   ): Promise<BoardListResponse> {
     const boardPageRequest: BoardPageRequest = {

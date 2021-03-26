@@ -32,6 +32,7 @@ export interface CurrentUserInfo {
   isMember: boolean;
   isLiked: boolean;
   roles: string[];
+  userSeq: number;
 }
 
 export interface ClubWriteRequest {

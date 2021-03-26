@@ -90,7 +90,7 @@ export default Vue.extend({
     albumPage(): Page {
       return this.$store.state.album.albumPage;
     },
-    twoAlbumsList(): AlbumFeed[] {
+    twoAlbumsList(): AlbumFeed[][] {
       return _.chunk(this.albumList, 2);
     },
     canCreateAlbum(): boolean {

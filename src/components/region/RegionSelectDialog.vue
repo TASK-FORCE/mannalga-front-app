@@ -42,10 +42,10 @@ export default Vue.extend({
     },
   },
   methods: {
-    getSelectedRegions() {
+    getSelectedRegions(): Promise<Region[]> {
       return new Promise(resolve => resolve([...this.selectedRegions]));
     },
-    submit(selectedRegions) {
+    submit(selectedRegions: Region[]) {
       this.$emit('selectRegions', selectedRegions);
       this.close();
     },

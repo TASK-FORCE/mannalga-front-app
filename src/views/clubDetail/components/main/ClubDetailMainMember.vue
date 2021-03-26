@@ -42,9 +42,9 @@
         >
           <UserProfileAvatar
             :size="35"
-            :imgUrl="kickTargetUser?.imageUrl"
-            :name="kickTargetUser?.name"
-            :appendNumber="kickTargetUser?.seq"
+            :imgUrl="kickTargetUser.imageUrl"
+            :name="kickTargetUser.name"
+            :appendNumber="kickTargetUser.seq"
           />
           <div class="member-info">
             {{ kickTargetUser.name }}
@@ -91,7 +91,7 @@
         <div class="d-flex justify-center">
           <div>
             <v-btn
-              v-if="managementTargetUser.role === 'CLUB_MEMBER'"
+              v-if="managementTargetUser.role[0] === 'CLUB_MEMBER'"
               @click="toManagerFromMember"
             >
               매니저로 지정
@@ -122,7 +122,7 @@ import YesOrNoDialog from '@/components/YesOrNoDialog.vue';
 import { MESSAGE } from '@/utils/common/constant/messages.ts';
 import routerHelper from '@/router/RouterHelper.ts';
 import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
-import { CLUB_ROLE } from '@/utils/role.ts';
+import { ClubRole } from '@/utils/role.ts';
 import MiddleDivider from '@/components/MiddleDivider.vue';
 import { UIMutationTypes } from '@/store/type/mutationTypes.ts';
 import { ClubUserInfo, CurrentUserInfo } from '@/interfaces/club';
@@ -174,6 +174,9 @@ export default Vue.extend({
         });
     },
     kick() {
+      if (!this.kickTargetUser) {
+        throw new Error('[kick] kickTargetUser should not be undefined.');
+      }
       return this.$store.dispatch(ClubActionTypes.REQUEST_KICK_USER,
         {
           clubSeq: this.clubSeq,
@@ -182,28 +185,37 @@ export default Vue.extend({
       ).finally(() => (this.kickDialog = false));
     },
     kickByManagementDialog() {
+      if (!this.managementTargetUser) {
+        throw new Error('[kickByManagementDialog] managementTargetUser should not be undefined.');
+      }
       return this.$store.dispatch(ClubActionTypes.REQUEST_KICK_USER,
         {
           clubSeq: this.clubSeq,
-          clubUserSeq: this.managementTargetUser?.clubUserSeq,
+          clubUserSeq: this.managementTargetUser.clubUserSeq,
         }
       ).finally(() => this.closeManagementDialog());
     },
     toManagerFromMember() {
+      if (!this.managementTargetUser) {
+        throw new Error('[toManagerFromMember] managementTargetUser should not be undefined.');
+      }
       return this.$store.dispatch(ClubActionTypes.REQUEST_CHANGE_USER_ROLE,
         {
           clubSeq: this.clubSeq,
           clubUserSeq: this.managementTargetUser?.clubUserSeq,
-          role: CLUB_ROLE.MANAGER,
+          role: ClubRole.MANAGER,
         }
       ).finally(() => this.closeManagementDialog());
     },
     toMemberFromManager() {
+      if (!this.managementTargetUser) {
+        throw new Error('[toMemberFromManager] managementTargetUser should not be undefined.');
+      }
       return this.$store.dispatch(ClubActionTypes.REQUEST_CHANGE_USER_ROLE,
         {
           clubSeq: this.clubSeq,
           clubUserSeq: this.managementTargetUser?.clubUserSeq,
-          role: CLUB_ROLE.MEMBER,
+          role: ClubRole.MEMBER,
         }
       ).finally(() => this.closeManagementDialog());
     },

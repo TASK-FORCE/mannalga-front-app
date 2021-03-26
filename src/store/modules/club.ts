@@ -1,7 +1,7 @@
 import { actionsNormalTemplate } from '@/store/utils/actionsTemplate.ts';
 import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
 import clubApi from '@/apis/ClubApi.ts';
-import { CLUB_ROLE } from '@/utils/role.ts';
+import { ClubRole } from '@/utils/role.ts';
 import { ClubListMutationTypes, ClubMutationTypes } from '@/store/type/mutationTypes';
 import { ClubActionContext } from '@/store/type/actionContextTypes';
 import {
@@ -29,13 +29,14 @@ export const mutations = {
   [ClubMutationTypes.SET_CLUB_DETAIL_CONTEXT](state: ClubState, { clubInfo, userInfo, userList }: ClubDetailContext) {
     state.clubInfo = clubInfo;
     state.clubUserList = userList;
-    const { role, isLiked } = userInfo || {};
+    const { role, isLiked, userSeq } = userInfo || {};
     state.currentUserInfo = {
-      isMaster: role && !!role.includes(CLUB_ROLE.MASTER),
-      isManager: role && !!role.includes(CLUB_ROLE.MANAGER),
-      isMember: role && !!role.includes(CLUB_ROLE.MEMBER),
+      isMaster: role && !!role.includes(ClubRole.MASTER),
+      isManager: role && !!role.includes(ClubRole.MANAGER),
+      isMember: role && !!role.includes(ClubRole.MEMBER),
       roles: role,
       isLiked,
+      userSeq
     };
   },
   [ClubMutationTypes.SET_CURRENT_TAB](state: ClubState, tab: ClubListPageTab) {

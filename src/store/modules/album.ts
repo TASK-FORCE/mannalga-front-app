@@ -110,7 +110,7 @@ export const mutations = {
 export type AlbumMutations = typeof mutations;
 
 export const actions = {
-  async [AlbumActionTypes.REQUEST_ALBUM_CREATE]({}: AlbumActionContext, albumWriteRequest: AlbumWriteRequest) {
+  async [AlbumActionTypes.REQUEST_ALBUM_CREATE]({ commit }: AlbumActionContext, albumWriteRequest: AlbumWriteRequest) {
     return actionsNormalTemplate(
       async () => {
         await albumApi.postClubAlbumCreate(albumWriteRequest);
@@ -142,7 +142,7 @@ export const actions = {
       },
     );
   },
-  async [AlbumActionTypes.REQUEST_ALBUM_COMMENT_WRITE]({}: AlbumActionContext, albumCommentWriteRequest: AlbumCommentWriteRequest) {
+  async [AlbumActionTypes.REQUEST_ALBUM_COMMENT_WRITE]({ commit }: AlbumActionContext, albumCommentWriteRequest: AlbumCommentWriteRequest) {
     return actionsNormalTemplate(
       async () => {
         await albumApi.postClubAlbumCommentWrite(albumCommentWriteRequest);
@@ -184,7 +184,7 @@ export const actions = {
       },
     );
   },
-  async [AlbumActionTypes.REQUEST_ALL_ALBUM_SUB_COMMENT_LIST]({}: AlbumActionContext, albumSubCommentRequest: AlbumSubCommentRequest): Promise<Comment[]> {
+  async [AlbumActionTypes.REQUEST_ALL_ALBUM_SUB_COMMENT_LIST]({ commit }: AlbumActionContext, albumSubCommentRequest: AlbumSubCommentRequest): Promise<Comment[]> {
     return actionsNormalTemplate(
       async () => albumApi.getClubAlbumSubCommentList(albumSubCommentRequest),
     );
@@ -198,7 +198,7 @@ export const actions = {
       },
     );
   },
-  async [AlbumActionTypes.REQUEST_DELETE_LIKE_CLUB_ALBUM]({ commit }, albumSeqContext: AlbumSeqContext) {
+  async [AlbumActionTypes.REQUEST_DELETE_LIKE_CLUB_ALBUM]({ commit }: AlbumActionContext, albumSeqContext: AlbumSeqContext) {
     return actionsNormalTemplate(
       async () => {
         const { albumSeq } = albumSeqContext;

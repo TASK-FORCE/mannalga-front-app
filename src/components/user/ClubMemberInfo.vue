@@ -38,7 +38,7 @@ import Vue, { PropType } from 'vue';
 import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
 import SquareTag from '@/components/tag/SquareTag.vue';
 import RoleTag from '@/components/tag/RoleTag.vue';
-import { CLUB_ROLE } from '@/utils/role.ts';
+import { ClubRole } from '@/utils/role.ts';
 import { ClubUserInfo, CurrentUserInfo } from '@/interfaces/club';
 import { ClickWithText } from '@/interfaces/common';
 
@@ -57,7 +57,7 @@ export default Vue.extend({
   },
   computed: {
     isMe() {
-      return false;
+      return this.user.userSeq === this.currentUserInfo.userSeq;
     },
     managementContext(): ClickWithText | null {
       if (this.currentUserInfo.isMaster) {
@@ -75,7 +75,7 @@ export default Vue.extend({
             click: this.openWithdrawnDialog,
           };
         }
-        if (this.user.role[0] === CLUB_ROLE.MASTER || this.user.role[0] === CLUB_ROLE.MANAGER) {
+        if (this.user.role[0] === ClubRole.MASTER || this.user.role[0] === ClubRole.MANAGER) {
           return null;
         }
         return {
@@ -103,9 +103,6 @@ export default Vue.extend({
     },
     openKickDialog(): void {
       this.$emit('openKickDialog', this.user);
-    },
-    closeDialog(): void {
-      this.managementDialog = false;
     },
   },
 });

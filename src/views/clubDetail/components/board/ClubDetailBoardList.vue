@@ -54,7 +54,8 @@ import EmptyPage from '@/components/EmptyPage.vue';
 import { CurrentUserInfo } from '@/interfaces/club';
 import { BoardActionTypes } from '@/store/type/actionTypes';
 import { BoardCategory } from '@/interfaces/board/BoardCategory';
-import { BoardCategoryType } from '@/interfaces/board/board';
+import { BoardFeed, BoardListRequest } from '@/interfaces/board/board';
+import { Page } from '@/interfaces/common';
 
 export default Vue.extend({
   name: 'ClubDetailBoardList',
@@ -74,24 +75,23 @@ export default Vue.extend({
     };
   },
   computed: {
-    clubSeq: () => routerHelper.clubSeq(),
-    boardList() {
+    clubSeq(): number {
+      return routerHelper.clubSeq();
+    },
+    boardList(): BoardFeed[] {
       return this.$store.state.board.boardList;
     },
-    boardPage() {
+    boardPage(): Page {
       return this.$store.state.board.boardPage;
     },
-    canCreateBoard() {
+    canCreateBoard(): boolean {
       const { isMaster, isManager, isMember } = this.currentUserInfo;
       return isMaster || isManager || isMember;
     },
-    categoryType(): BoardCategoryType {
-      return BoardCategory.findCategoryTypeByName(this.selectedCategory);
-    },
-    requestDto() {
+    requestDto(): BoardListRequest {
       return {
         clubSeq: this.clubSeq,
-        category: this.categoryType,
+        category: BoardCategory.findCategoryTypeByName(this.selectedCategory),
       };
     },
   },
@@ -101,13 +101,13 @@ export default Vue.extend({
     },
   },
   methods: {
-    fetchFirstPage() {
+    fetchFirstPage(): Promise<void> {
       return this.$store.dispatch(BoardActionTypes.REQUEST_FIRST_BOARD_LIST, this.requestDto);
     },
-    fetchNextPage() {
+    fetchNextPage(): Promise<void> {
       return this.$store.dispatch(BoardActionTypes.REQUEST_NEXT_BOARD_LIST, this.requestDto);
     },
-    getClubBoardCreatePath() {
+    getClubBoardCreatePath(): string {
       return generateParamPath(PATH.CLUB.BOARD_CREATE, [this.clubSeq]);
     }
 

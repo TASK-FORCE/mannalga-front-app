@@ -22,7 +22,7 @@ import Vue from 'vue';
 import { AlbumMutationTypes } from '@/store/type/mutationTypes';
 import { AlbumActionTypes } from '@/store/type/actionTypes';
 import { Album, AlbumCommentWriteRequest, AlbumSeqContext, AlbumSubCommentRequest } from '@/interfaces/album';
-import { BoardTemplateContext, BoardVo } from '@/interfaces/common';
+import { BoardTemplateContext, BoardVo, Comment } from '@/interfaces/common';
 
 export default Vue.extend({
   name: 'ClubAlbumPostBody',
@@ -99,7 +99,7 @@ export default Vue.extend({
           this.$store.commit(AlbumMutationTypes.COUNT_ALBUM_COMMENT_CNT, this.album.albumSeq)
         });
     },
-    requestSubCommentList(parentSeq: number): Promise<void> {
+    requestSubCommentList(parentSeq: number): Promise<Comment[]> {
       const albumSubCommentRequest: AlbumSubCommentRequest = {
         ...this.seqContext,
         parentCommentSeq: parentSeq,

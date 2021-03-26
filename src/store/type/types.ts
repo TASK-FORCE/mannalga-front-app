@@ -27,19 +27,19 @@ export type MergedMutations =
   UIMutations & ClubMutations & ClubListMutations &
   UserMutations & AuthMutations & AlbumMutations &
   BoardMutations & CommonMutations & MeetingMutations & {
-  [key: string]: any
+  [key: string]: any;
 }
 export type MergedActions =
   UIActions & ClubActions & ClubListActions &
   UserActions & AuthActions & AlbumActions &
   BoardActions & CommonActions & MeetingActions & {
-  [key: string]: any
+  [key: string]: any;
 }
 
 type MyGetters = {
   getters: {
     [K in keyof MergedGetters]: ReturnType<MergedGetters[K]>
-  }
+  };
 }
 
 type MyMutations = {

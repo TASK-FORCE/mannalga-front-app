@@ -21,6 +21,7 @@ import _ from '@/utils/common/lodashWrapper.ts';
 import UserSettingPageEnterAvatar from '@/components/UserSettingPageEnterAvatar.vue';
 import { ClubListMutationTypes, ClubMutationTypes, UIMutationTypes } from '@/store/type/mutationTypes.ts';
 import { ClubSearchContext } from '@/interfaces/clubList';
+import { ClubListPageTab } from '@/interfaces/club';
 
 const SEARCH_WAIT_TIME = 500;
 
@@ -30,8 +31,8 @@ export default Vue.extend({
   data() {
     return {
       clubSearchPagePath: PATH.CLUB.SEARCH,
-      searchText: '' as string,
-      searchCallback: () => ({}) as () => void,
+      searchText: undefined as string | undefined,
+      searchCallback: (() => ({})) as () => void,
     };
   },
   computed: {
@@ -44,7 +45,7 @@ export default Vue.extend({
       if (_.isEmpty(value)) {
         return;
       }
-      this.$store.commit(ClubMutationTypes.SET_CURRENT_TAB, 'club');
+      this.$store.commit(ClubMutationTypes.SET_CURRENT_TAB, ClubListPageTab.CLUB);
       this.$store.commit(UIMutationTypes.CHANGE_LOADING, true);
       this.searchCallback();
     },
@@ -55,11 +56,11 @@ export default Vue.extend({
   mounted() {
     this.searchCallback = _.debounce(() => this.search(this.searchText), SEARCH_WAIT_TIME);
     if (process.env.NODE_ENV !== 'production') {
-      this.searchText = '';
+      this.searchText = undefined;
     }
   },
   methods: {
-    search(searchText: string): void {
+    search(searchText: string | undefined): void {
       this.$store.commit(ClubListMutationTypes.CHANGE_CLUB_SEARCH_TEXT, searchText);
     },
   },

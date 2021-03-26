@@ -52,7 +52,7 @@ export default Vue.extend({
     return {
       showRootInterests: true,
       title: TITLE,
-      interests: [] as Interest[] | InterestGroupTree[],
+      interests: [] as (Interest | InterestGroupTree)[] | InterestGroupTree[],
     };
   },
   computed: {
@@ -67,7 +67,11 @@ export default Vue.extend({
       this.title = TITLE;
     },
     selectInterest(interest: InterestGroupTree | Interest) {
-      this.showRootInterests ? this.selectRootInterest(interest) : this.selectSubInterest(interest);
+      if (this.showRootInterests) {
+        this.selectRootInterest(interest as InterestGroupTree);
+      } else {
+        this.selectSubInterest(interest as Interest);
+      }
     },
     selectRootInterest(rootInterest: InterestGroupTree) {
       this.title = rootInterest.name;
@@ -84,7 +88,7 @@ export default Vue.extend({
         this.title = TITLE;
       });
     },
-    getInterests(): InterestGroupTree[] | Interest[] {
+    getInterests(): InterestGroupTree[] | (Interest | InterestGroupTree)[] {
       return this.showRootInterests ? this.rootInterests : this.interests;
     },
   },

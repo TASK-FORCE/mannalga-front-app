@@ -111,13 +111,13 @@ export default Vue.extend({
       return this.$store.state.clubList.clubSearchContext;
     },
     regionName(): string {
-      return this.clubSearchContext.region.name;
+      return this.clubSearchContext.region?.name || '';
     },
     interestName(): string {
-      return this.clubSearchContext.interest.name;
+      return this.clubSearchContext.interest?.name || '';
     },
     searchText(): string {
-      return this.clubSearchContext.searchText;
+      return this.clubSearchContext.searchText || '';
     },
   },
   created() {
@@ -131,11 +131,11 @@ export default Vue.extend({
       });
       this.sheet = false;
     },
-    selectSearchInterest(interest: Interest | InterestGroupTree)  {
+    selectSearchInterest(interest: Interest | InterestGroupTree) {
       const interestForSearch: InterestForSearch = {
         name: interest.name,
-        seq: ('seq' in interest) ?  interest.seq : undefined,
-        groupSeq: ('groupSeq' in interest) ?  interest.groupSeq : undefined,
+        seq: ('seq' in interest) ? interest.seq : undefined,
+        groupSeq: ('groupSeq' in interest) ? interest.groupSeq : undefined,
       };
       this.$store.commit(ClubListMutationTypes.CHANGE_CLUB_SEARCH_INTEREST, interestForSearch);
       this.sheet = false;
@@ -147,7 +147,7 @@ export default Vue.extend({
       this.$store.commit(ClubListMutationTypes.CHANGE_CLUB_SEARCH_INTEREST, DefaultBuilder.clubSearchContext().interest);
     },
     cancelSearchTextSelect() {
-      this.$store.commit(ClubListMutationTypes.CHANGE_CLUB_SEARCH_TEXT, null);
+      this.$store.commit(ClubListMutationTypes.CHANGE_CLUB_SEARCH_TEXT, undefined);
     },
     changeBottomSheetComponent(cardComponent: string) {
       this.currentBottomSheetCard = cardComponent;

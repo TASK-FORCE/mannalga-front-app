@@ -21,7 +21,7 @@ import Vue from 'vue';
 import { BoardMutationTypes } from '@/store/type/mutationTypes';
 import { BoardActionTypes } from '@/store/type/actionTypes';
 import { Board, BoardCommentWriteRequest, BoardSeqContext, BoardSubCommentRequest } from '@/interfaces/board/board';
-import { BoardTemplateContext, BoardVo } from '@/interfaces/common';
+import { BoardTemplateContext, BoardVo, Comment } from '@/interfaces/common';
 
 export default Vue.extend({
   name: 'ClubBoardPostBody',
@@ -93,11 +93,11 @@ export default Vue.extend({
       };
       return this.$store.dispatch(BoardActionTypes.REQUEST_BOARD_COMMENT_WRITE, boardCommentWriteRequest)
         .then(() => {
-          this.$store.commit(BoardMutationTypes.COUNT_COMMENT_CNT_OF_BOARD, this.board.seq);
+          this.$store.commit(BoardMutationTypes.COUNT_COMMENT_CNT_OF_BOARD, this.board.boardSeq);
           this.$store.commit(BoardMutationTypes.COUNT_COMMENT_CNT_OF_PARENT_COMMENT, parentCommentSeq);
         });
     },
-    requestSubCommentList(parentCommentSeq: number): Promise<void> {
+    requestSubCommentList(parentCommentSeq: number): Promise<Comment[]> {
       const boardSubCommentRequest: BoardSubCommentRequest = {
         ...this.seqContext,
         parentCommentSeq,

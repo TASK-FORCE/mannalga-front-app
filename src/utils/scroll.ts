@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// @ts-ignore
 import goTo from 'vuetify/es5/services/goto';
 
 class ScrollHelper {

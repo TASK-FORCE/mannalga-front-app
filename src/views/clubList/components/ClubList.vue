@@ -68,8 +68,8 @@ export default Vue.extend({
     clubSearchContext(): ClubSearchContext {
       return this.$store.state.clubList.clubSearchContext;
     },
-    hasSearchText() {
-      return this.clubSearchContext.searchText;
+    hasSearchText(): boolean {
+      return !!this.clubSearchContext.searchText;
     },
     resolveStyle() {
       return {
@@ -79,7 +79,8 @@ export default Vue.extend({
   },
   watch: {
     clubSearchContext() {
-      this.$refs.clubScrollTemplate.requestFirstPage();
+      const clubScrollTemplate: any = this.$refs.clubScrollTemplate;
+      clubScrollTemplate.requestFirstPage();
     },
   },
   mounted() {

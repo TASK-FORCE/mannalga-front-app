@@ -40,7 +40,7 @@ export default Vue.extend({
     moveToSettingPage() {
       this.$router.push(PATH.USER.SETTINGS);
     },
-    getSelectedRegions() {
+    getSelectedRegions(): Promise<Region[]> {
       return this.$store.dispatch(UserActionTypes.REQUEST_USER_REGIONS)
         .then(() => [...this.$store.state.user.selectedRegions]);
     },

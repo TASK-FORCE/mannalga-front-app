@@ -15,13 +15,13 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import Vue, { PropType } from 'vue';
 
 export default Vue.extend({
   name: 'FixedCreateBtn',
   props: {
     color: String,
-    path: String,
+    path: String as PropType<string>,
     left: {
       type: Boolean,
       default: false,
@@ -37,7 +37,7 @@ export default Vue.extend({
 
   },
   computed: {
-    resolveSize() {
+    resolveSize(): any {
       return {
         width: `${this.size}px !important`,
         height: `${this.size}px !important`,
@@ -45,7 +45,7 @@ export default Vue.extend({
     },
   },
   methods: {
-    click() {
+    click(): void {
       if (this.path) {
         this.$router.push(this.path);
       } else {

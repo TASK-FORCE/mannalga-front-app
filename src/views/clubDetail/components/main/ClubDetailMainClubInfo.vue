@@ -54,7 +54,13 @@ import SnackBar from '@/components/SnackBar.vue';
 import WindMill from '@/components/icons/WindMill.vue';
 import MiddleDivider from '@/components/MiddleDivider.vue';
 import { MESSAGE } from '@/utils/common/constant/messages.ts';
-import { InterestWithPriority, RegionWithPriority, SnackBarLocation, SnackBarOption } from '@/interfaces/common';
+import {
+  InterestWithPriority,
+  RegionWithPriority,
+  SnackBarLocation,
+  SnackBarOption,
+  UploadImageResponse
+} from '@/interfaces/common';
 import { ClubInfo, ClubWriteRequest, CurrentUserInfo } from '@/interfaces/club';
 import { ClubActionTypes } from '@/store/type/actionTypes';
 import _ from '@/utils/common/lodashWrapper';
@@ -63,7 +69,7 @@ const CHANGE_IMAGE_COOL_TIME_MINUTE = 6 * 60;
 const toMillisecond = (minute: number) => minute * 60 * 1000;
 const checkCoolTime = (clubSeq: number) => {
   const key = 'clubImageChangeSnackbarCoolTime';
-  const timer = JSON.parse(localStorage.getItem(key)) || {};
+  const timer = JSON.parse(localStorage.getItem(key) || '{}') || {};
   const time = timer[clubSeq];
   if (!time || time <= Date.now()) {
     timer[clubSeq] = Date.now() + toMillisecond(CHANGE_IMAGE_COOL_TIME_MINUTE);
@@ -117,7 +123,7 @@ export default Vue.extend({
         .join(', ');
     },
     windMillColor() {
-      if (this.$store.state.common.isDarkTheme) {
+      if (this.$store.state.ui.isDarkTheme) {
         return '#F5F5F5';
       }
       return '#666666';
@@ -129,7 +135,7 @@ export default Vue.extend({
     }
   },
   methods: {
-    changeClubMainImage({ absolutePath }) {
+    changeClubMainImage({ absolutePath }: UploadImageResponse) {
       const clubWriteRequest: ClubWriteRequest = {
         name: this.clubInfo.name,
         description: this.clubInfo.description,
@@ -145,7 +151,6 @@ export default Vue.extend({
     },
   },
 });
-</script>
 </script>
 
 <style

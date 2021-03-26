@@ -42,7 +42,7 @@ export default Vue.extend({
       return this.$store.state.user.userProfile;
     },
     isDarkTheme(): boolean {
-      return this.$store.state.common.isDarkTheme;
+      return this.$store.state.ui.isDarkTheme;
     },
     regionsByPriority(): Region[] {
       return _.sortBy(this.userProfile.userRegions, ({ priority }: RegionWithPriority) => priority)

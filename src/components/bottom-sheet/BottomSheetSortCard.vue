@@ -36,7 +36,7 @@ export default Vue.extend({
     };
   },
   methods: {
-    selectSortOption(name) {
+    selectSortOption(name: string) {
       this.$emit('selectSortOption', { name });
     },
   },

@@ -89,7 +89,7 @@ export default Vue.extend({
       return this.$store.dispatch(MeetingActionTypes.REQUEST_NEXT_MEETING_GROUP_LIST, this.clubSeq);
     },
     meetingCreatePath() {
-      return generateParamPath(PATH.CLUB.MEETING_CREATE, routerHelper.clubSeq());
+      return generateParamPath(PATH.CLUB.MEETING_CREATE, [routerHelper.clubSeq()]);
     },
   },
 });

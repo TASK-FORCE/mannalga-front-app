@@ -149,9 +149,10 @@ import routerHelper from '@/router/RouterHelper.ts';
 import _ from '@/utils/common/lodashWrapper.ts';
 import { ScrollHelper } from '@/utils/scroll.ts';
 import { AlbumMutationTypes, UIMutationTypes } from '@/store/type/mutationTypes.ts';
-import Vue from 'vue';
+import Vue, { PropType } from 'vue';
+import { Comment } from '@/interfaces/common';
 
-function getHeightAppender(offsetHeight, hideFooter) {
+function getHeightAppender(offsetHeight: number, hideFooter: boolean) {
   const footerSize = hideFooter ? 0 : 56;
   const foldBtnSize = 28;
   const subCommentWriterSize = 27;
@@ -164,46 +165,50 @@ export default Vue.extend({
   components: { Chip, VerticalBarDivider, UserProfileAvatar },
   props: {
     comment: {
-      type: Object,
+      type: Object as PropType<Comment>,
       required: true,
     },
     requestWriteSubComment: {
-      type: Function,
-      default: (content, parentSeq) => ({}),
+      type: Object as PropType<(content: string, parentSeq: number) => Promise<void>>,
+      required: true,
     },
     requestSubCommentList: {
-      type: Function,
-      default: (parentSeq: string) => ({}),
+      type: Object as PropType<(parentSeq: number) => Promise<Comment[]>>,
+      default: () => (number: number) => Promise.resolve([] as Comment[]),
     },
   },
   data() {
     return {
-      EMPTY_COMMENT_TEXT: MESSAGE.EMPTY_COMMENT_TEXT,
-      childComments: [],
-      subCommentSubmitLoading: false,
+      childComments: [] as Comment[],
+      subCommentSubmitLoading: false as boolean,
       subCommentLandingLoading: false as boolean,
-      isFolded: true,
-      showChildComments: true,
-      subCommentContent: null,
+      isFolded: true as boolean,
+      showChildComments: true as boolean,
+      subCommentContent: '' as string,
+      EMPTY_COMMENT_TEXT: MESSAGE.EMPTY_COMMENT_TEXT as string,
     };
   },
   computed: {
-    clubSeq: () => routerHelper.clubSeq(),
-    albumSeq: () => routerHelper.albumSeq(),
-    isWriter() {
-      return !!this.comment.isWrittenByMe;
+    clubSeq(): number {
+      return routerHelper.clubSeq();
     },
-    hasChildComment() {
+    albumSeq(): number {
+      return routerHelper.albumSeq();
+    },
+    isWriter(): boolean {
+      return this.comment.isWrittenByMe;
+    },
+    hasChildComment(): boolean {
       return this.comment.childCommentCnt > 0;
     },
-    isRootComment() {
+    isRootComment(): boolean {
       return this.comment.depth === 1;
     },
-    registerTime() {
+    registerTime(): string {
       const time = this.comment.registerTime;
       return time ? time.substring(0, 16) : '';
     },
-    commentSeq() {
+    commentSeq(): number {
       return this.comment.commentSeq;
     },
   },
@@ -222,12 +227,13 @@ export default Vue.extend({
       }
     },
     focusChildInput() {
-      this.$nextTick(() => this.$refs.childInput.focus());
+      const childInput = this.$refs.childInput as HTMLElement;
+      this.$nextTick(() => childInput.focus());
     },
     settingChildComment(focusChildInput: boolean) {
       this.subCommentLandingLoading = true;
       this.requestSubCommentList(this.commentSeq)
-        .then(subComments => (this.childComments = subComments))
+        .then((subComments: Comment[]) => (this.childComments = subComments))
         .finally(() => {
           if (this.childComments.length > 0) {
             this.moveToLastComment(focusChildInput);
@@ -238,7 +244,7 @@ export default Vue.extend({
     moveToLastComment(focusChildInput: boolean) {
       this.$nextTick(() => {
         this.$nextTick(() => {
-          const subCommentWrapper: Element = document.querySelector(`.sub-comments-${this.commentSeq}`);
+          const subCommentWrapper = document.querySelector(`.sub-comments-${this.commentSeq}`) as HTMLElement;
           if (!subCommentWrapper) {
             return;
           }
@@ -265,14 +271,14 @@ export default Vue.extend({
         .then(() => {
           this.$store.commit(AlbumMutationTypes.COUNT_CHILD_COMMENT_CNT, this.commentSeq);
           this.settingChildComment(false);
-          this.subCommentContent = null;
+          this.subCommentContent = '';
           this.showChildComments = true;
         })
         .finally(() => (this.subCommentSubmitLoading = false));
     },
     clickShowChildComments() {
       this.showChildComments = true;
-      this.moveToLastComment();
+      this.moveToLastComment(false);
     },
   },
 });

@@ -20,7 +20,7 @@ export default Vue.extend({
   components: { ClubAlbumPostBody, CommonHeader },
   methods: {
     clubDetailPath() {
-      return generateParamPath(PATH.CLUB.MAIN, routerHelper.clubSeq());
+      return generateParamPath(PATH.CLUB.MAIN, [routerHelper.clubSeq()]);
     },
   },
 });

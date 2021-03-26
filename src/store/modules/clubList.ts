@@ -59,10 +59,10 @@ export const mutations = {
       interest,
     };
   },
-  [ClubListMutationTypes.CHANGE_CLUB_SEARCH_TEXT](state: ClubListState, searchText: string) {
+  [ClubListMutationTypes.CHANGE_CLUB_SEARCH_TEXT](state: ClubListState, searchText: string | undefined) {
     state.clubSearchContext = {
       ...state.clubSearchContext,
-      searchText: searchText ? searchText.trim() : null,
+      searchText: searchText ? searchText.trim() : undefined,
     };
   },
 };

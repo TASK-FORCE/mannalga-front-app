@@ -31,7 +31,7 @@ export default Vue.extend({
   data() {
     return {
       active: false,
-      handleScrollEvent: () => ({}) as () => void,
+      handleScrollEvent: null as any,
     };
   },
   created() {

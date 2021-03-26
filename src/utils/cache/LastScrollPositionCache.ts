@@ -17,7 +17,7 @@ class LastScrollPositionCache {
   }
 
   init(key: string) {
-    this.scrollYCache.put(key, null);
+    this.scrollYCache.put(key, 0);
   }
 }
 
