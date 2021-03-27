@@ -34,11 +34,11 @@ export default Vue.extend({
   name: 'CommentWriteFooter',
   props: {
     requestWriteComment: {
-      type: Object as PropType<(content: string) => Promise<any>>,
+      type: Function as PropType<(content: string) => Promise<any>>,
       default: () => (content: string) => Promise.resolve(),
     },
     postProcessor: {
-      type: Object as PropType<() => any>,
+      type: Function as PropType<() => any>,
       default: () => () => ({})
     },
   },

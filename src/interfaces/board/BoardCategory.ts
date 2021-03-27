@@ -17,7 +17,7 @@ export class BoardCategory {
   }
 
   static getCategoryNames(): string[] {
-    return [this.NOTICE.name, this.NOTICE.name];
+    return [this.NOTICE.name, this.NORMAL.name];
   }
 
   static findCategoryNamesByCurrentUserInfo(currentUserInfo: CurrentUserInfo): string[] {

@@ -93,3 +93,29 @@
         text-overflow: ellipsis;
     }
 }
+
+
+.search-text-bar {
+    .v-input__prepend-outer {
+        margin: 0 !important;
+        margin-right: 2px !important;
+
+        .v-icon__svg {
+            width: 16px !important;
+            height: 16px !important;
+            color: #9f9f9f !important;
+        }
+
+    }
+
+    .v-input__control {
+        .v-input__slot {
+            padding: 0 !important;
+        }
+
+        input {
+            padding: 0 !important;
+        }
+    }
+
+}

@@ -58,11 +58,14 @@ export interface BoardCreateRequest {
 export interface BoardListRequest {
   clubSeq: number;
   category?: BoardCategoryType;
+  text?: string;
 }
 
 export interface BoardPageRequest {
   clubSeq: number;
   category?: BoardCategoryType;
+  title?: string;
+  content?: string;
   pageRequest: PageRequest;
 }
 

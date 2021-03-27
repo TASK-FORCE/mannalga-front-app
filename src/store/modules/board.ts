@@ -120,17 +120,23 @@ export const actions = {
       await boardApi.postClubBoardCreate(boardCreateRequestWishSeq);
     });
   },
-  async [BoardActionTypes.REQUEST_FIRST_BOARD_LIST]({ commit, state, dispatch }: BoardActionContext, { clubSeq, category }: BoardListRequest) {
+  async [BoardActionTypes.REQUEST_FIRST_BOARD_LIST]({ commit, state, dispatch }: BoardActionContext, boardListRequest: BoardListRequest) {
     return actionsNormalTemplate(async () => {
       commit(BoardMutationTypes.INIT_BOARD_LIST);
 
-      if (category) {
-        const boardListResponse = await BoardHelper.requestBoardList(clubSeq, category, state.boardPage);
+      if (boardListRequest.category) {
+        const boardListResponse = await BoardHelper.requestBoardList(boardListRequest, state.boardPage);
         commit(BoardMutationTypes.SET_BOARD_LIST, boardListResponse);
       } else {
         // 전체보기로 첫번째 페이지를 조회하는 경우 첫 10개 목록은 공지사항을 보여주고 나머지는 일반 게시판을 보여준다.
-        const noticeBoardListResponsePromise: Promise<BoardListResponse> = BoardHelper.requestBoardList(clubSeq, BoardCategory.NOTICE.type, DefaultBuilder.page(10));
-        const normalBoardListResponsePromise: Promise<BoardListResponse> = BoardHelper.requestBoardList(clubSeq, BoardCategory.NORMAL.type, state.boardPage);
+        const noticeBoardListResponsePromise: Promise<BoardListResponse> = BoardHelper.requestBoardList(
+          { ...boardListRequest, category: BoardCategory.NOTICE.type },
+          DefaultBuilder.page(10)
+        );
+        const normalBoardListResponsePromise: Promise<BoardListResponse> = BoardHelper.requestBoardList(
+          { ...boardListRequest, category: BoardCategory.NORMAL.type }
+          , state.boardPage
+        );
         const noticeBoardListResponse = await noticeBoardListResponsePromise;
         commit(BoardMutationTypes.SET_ONLY_BOARD_LIST, noticeBoardListResponse);
         const normalBoardListResponse = await normalBoardListResponsePromise;
@@ -138,10 +144,10 @@ export const actions = {
       }
     });
   },
-  async [BoardActionTypes.REQUEST_NEXT_BOARD_LIST]({ commit, state }: BoardActionContext, { clubSeq, category }: BoardListRequest) {
+  async [BoardActionTypes.REQUEST_NEXT_BOARD_LIST]({ commit, state }: BoardActionContext, boardListRequest: BoardListRequest) {
     return actionsNormalTemplate(
       async () => {
-        const boardListResponse = await BoardHelper.requestBoardList(clubSeq, category, state.boardPage);
+        const boardListResponse = await BoardHelper.requestBoardList(boardListRequest, state.boardPage);
         commit(BoardMutationTypes.ADD_NEXT_BOARD_LIST, boardListResponse);
       },
     );

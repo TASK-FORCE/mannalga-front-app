@@ -1,7 +1,7 @@
 <template>
   <div
     class="tag"
-    :class="blur ? 'blur' : ''"
+    :class="resolveClass"
     :style="`background-color: ${bgColor}`"
     @click="$emit('click')"
   >
@@ -20,7 +20,16 @@ export default Vue.extend({
     text: String,
     bgColor: String,
     blur: Boolean,
+    small: Boolean,
   },
+  computed: {
+    resolveClass() {
+      return {
+        'blur': this.blur,
+        'small': this.small,
+      };
+    },
+  }
 });
 </script>
 
@@ -34,10 +43,12 @@ export default Vue.extend({
   justify-content: center;
   width: 55px;
   height: 27px;
+  line-height: 27px;
   border-radius: 7px;
 
   .tag-text {
     color: #FFFFFF;
+    margin: auto 0 !important;
     font-size: 13px;
     font-weight: bold;
   }
@@ -64,6 +75,16 @@ export default Vue.extend({
     .tag-text {
       color: #666666;
     }
+  }
+}
+
+.small.tag {
+  width: 40px !important;
+  height: 18px !important;
+  line-height: 18px !important;
+
+  .tag-text {
+    font-size: 10px !important;
   }
 }
 </style>
