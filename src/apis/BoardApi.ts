@@ -14,8 +14,8 @@ import {
 import { Comment } from '@/interfaces/common';
 
 const boardApi = {
-  getClubBoardList({ category, clubSeq, pageRequest }: BoardPageRequest): Promise<BoardListResponse> {
-    return axios.get(`/api/clubs/${clubSeq}/board`, { params: { ...pageRequest, category } })
+  getClubBoardList({ category, title, clubSeq, pageRequest }: BoardPageRequest): Promise<BoardListResponse> {
+    return axios.get(`/api/clubs/${clubSeq}/board`, { params: { ...pageRequest, category, title } })
       .then(ResponseConverter.extractSuperInventionResponseData)
       .then(ResponseConverter.convertBoardList);
   },

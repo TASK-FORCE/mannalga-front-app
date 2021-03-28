@@ -76,6 +76,7 @@ export default class DefaultBuilder {
       isMember: false,
       roles: [],
       isLiked: false,
+      userSeq: 0,
     };
   }
 

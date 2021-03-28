@@ -17,7 +17,8 @@ class LastClubTabCache {
   get(clubSeq: number | string): ClubTab {
     const value = this.cache.get(clubSeq);
     if (!value) {
-      this.cache.put(clubSeq, ClubTab.MAIN);
+      // TODO change it
+      this.cache.put(clubSeq, ClubTab.BOARD);
     }
     return this.cache.get(clubSeq);
   }

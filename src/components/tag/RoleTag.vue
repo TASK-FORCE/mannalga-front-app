@@ -2,6 +2,7 @@
   <SquareTag
     :text="role.name"
     :bgColor="role.color"
+    small
     @click="$emit('click')"
   />
 </template>
@@ -34,6 +35,7 @@ export default Vue.extend({
   components: { SquareTag },
   props: {
     roleType: String,
+    small: Boolean,
   },
   computed: {
     role() {

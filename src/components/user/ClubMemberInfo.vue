@@ -56,7 +56,7 @@ export default Vue.extend({
     },
   },
   computed: {
-    isMe() {
+    isMe(): boolean {
       return this.user.userSeq === this.currentUserInfo.userSeq;
     },
     managementContext(): ClickWithText | null {

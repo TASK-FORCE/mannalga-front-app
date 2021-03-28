@@ -116,13 +116,13 @@ export default Vue.extend({
           });
         };
       const observer = new IntersectionObserver(infiniteScrollCallback, { threshold: 0.75 });
-      observer.observe(this.sentinel);
+      observer.observe(this.sentinel as HTMLElement);
     },
     insertSentinel() {
       if (!this.listGroup) {
         this.listGroup = document.querySelector(`.${this.name}-list-group`) as HTMLElement;
       }
-      this.listGroup.insertBefore(this.sentinel, this.listGroup.children[this.listGroup.children.length - 2]);
+      this.listGroup.insertBefore(this.sentinel as HTMLElement, this.listGroup.children[this.listGroup.children.length - 2]);
     },
     requestPage(callback: () => Promise<any>) {
       this.startRequest();
