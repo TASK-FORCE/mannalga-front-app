@@ -102,6 +102,12 @@ const routes: RouteConfig[] = [
     component: () => import('@/views/clubMeetingPost/ClubMeetingPostPage.vue'),
   },
   {
+    path: PATH.CLUB.ALBUM_CREATE,
+    name: 'ClubAlbumCreate',
+    component: () => import('@/views/clubAlbumCreateAndEdit/ClubAlbumCreatePage.vue'),
+    meta: { disableScrollBehavior: true },
+  },
+  {
     path: PATH.CLUB.ALBUM_POST,
     name: 'ClubAlbumPost',
     component: () => import('@/views/clubAlbumPost/ClubAlbumPostPage.vue'),
