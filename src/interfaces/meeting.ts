@@ -91,7 +91,7 @@ export interface MeetingWriteRequest {
   startTimestamp: string;
   endTimestamp: string;
   cost?: number;
-  region?: number;
+  region?: string;
 }
 
 export interface MeetingWriteRequestWithSeq {

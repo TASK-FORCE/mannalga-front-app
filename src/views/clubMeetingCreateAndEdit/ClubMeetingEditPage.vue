@@ -1,20 +1,14 @@
 <template>
-  <div>
-    <CommonHeader
-      title="만남 수정"
-      @back="$router.push(clubDetailPath())"
-    />
-    <ClubMeetingCreateAndEditBody
-      btnText="만남 수정"
-      :context="editContext"
-      :submitClickCallback="edit"
-    />
-  </div>
+  <ClubMeetingCreateAndEdit
+    headerTitle="만남 수정"
+    :context="editContext"
+    :submitClickCallback="edit"
+    @back="$router.push(clubDetailPath())"
+  />
 </template>
 
 <script lang="ts">
-import CommonHeader from '@/components/header/CommonHeader.vue';
-import ClubMeetingCreateAndEditBody from '@/views/clubMeetingCreateAndEdit/ClubMeetingCreateAndEditBody.vue';
+import ClubMeetingCreateAndEdit from '@/views/clubMeetingCreateAndEdit/ClubMeetingCreateAndEdit.vue';
 import { generateParamPath, PATH } from '@/router/route_path_type.ts';
 import routerHelper from '@/router/RouterHelper.ts';
 import Vue from 'vue';
@@ -23,7 +17,7 @@ import { Meeting, MeetingWriteContext, MeetingWriteRequest, MeetingWriteRequestW
 
 export default Vue.extend({
   name: 'ClubMeetingEditPage',
-  components: { ClubMeetingCreateAndEditBody, CommonHeader },
+  components: { ClubMeetingCreateAndEdit },
   computed: {
     meeting(): Meeting {
       return this.$store.state.meeting.meeting;

@@ -1,7 +1,11 @@
-.app-body, .app-header, .v-app-bar, .footer, .app-main-club-tab-header, .search-filter-bar, .v-dialog {
+.app-body, .app-header, .v-app-bar, .footer, .app-main-club-tab-header, .search-filter-bar {
     max-width: 600px !important;
     margin-left: auto !important;
     margin-right: auto !important;
+}
+
+.v-dialog {
+    max-width: 600px !important;
 }
 
 .component-fade-enter-active, .component-fade-leave-active {

@@ -1,14 +1,20 @@
 <template>
-  <div class="board-create-container">
+  <div>
+    <CommonHeader
+      :title="headerTitle"
+      showSubmitBtn
+      @submit="createClubBoard"
+      @back="$emit('back')"
+    />
     <v-form
       ref="clubBoardCreateForm"
-      class="field-wrapper"
+      class="board-create-and-edit-form"
     >
       <v-text-field
         v-model="title"
         :rules="RULES.CLUB_BOARD_TITLE"
         hide-details
-        class="pa-0 ma-0"
+        outlined
         label="게시글 제목"
       />
       <v-select
@@ -17,7 +23,7 @@
         :rules="RULES.CLUB_BOARD_CATEGORY"
         hide-details
         label="카테고리"
-        class="mt-3"
+        class="mt-4"
         outlined
         dense
       />
@@ -26,42 +32,32 @@
         :height="resolveContentHeight"
         :rules="RULES.CLUB_BOARD_CONTENT"
         label="내용을 작성해주세요."
-        class="mt-3"
+        class="mt-4"
         hide-details
         outlined
       />
-    </v-form>
-    <div class="image-box-wrapper">
-      <div
-        v-for="(_, index) in enableImageSize"
-        :key="index"
-        class="mx-1"
-      >
-        <ImageSelectBox
-          :height="resolveImageBoxHeight"
-          :width="resolveImageBoxWidth"
-          cropFreeSize
-          fixImage
-          @handleUploadedImage="image => addImage(image, index)"
-        />
+      <div class="image-box-wrapper">
+        <div
+          v-for="(_, index) in enableImageSize"
+          :key="index"
+          class="mx-1"
+        >
+          <ImageSelectBox
+            :height="resolveImageBoxHeight"
+            :width="resolveImageBoxWidth"
+            cropFreeSize
+            fixImage
+            @handleUploadedImage="image => addImage(image, index)"
+          />
+        </div>
       </div>
-    </div>
-    <CommonCenterBtn
-      :loading="loading"
-      class="mt-5 mb-2"
-      color="primary"
-      width="120"
-      outlined
-      text="작성"
-      @click="createClubBoard"
-    />
+    </v-form>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import ImageSelectBox from '@/components/image/ImageSelectBox.vue';
-import CommonCenterBtn from '@/components/button/CommonCenterBtn.vue';
 import { generateParamPath, PATH } from '@/router/route_path_type.ts';
 import { RULES } from '@/utils/common/constant/rules.ts';
 import routerHelper from '@/router/RouterHelper.ts';
@@ -70,10 +66,14 @@ import { CurrentUserInfo } from '@/interfaces/club';
 import { BoardActionTypes } from '@/store/type/actionTypes';
 import { BoardCategory } from '@/interfaces/board/BoardCategory';
 import { BoardCategoryType, BoardCreateRequestWishSeq } from '@/interfaces/board/board';
+import CommonHeader from '@/components/header/CommonHeader.vue';
 
 export default Vue.extend({
   name: 'ClubBoardCreateBox',
-  components: { CommonCenterBtn, ImageSelectBox },
+  components: { CommonHeader, ImageSelectBox },
+  props: {
+    headerTitle: String,
+  },
   data() {
     return {
       enableImageSize: 3,
@@ -140,7 +140,7 @@ export default Vue.extend({
   lang="scss"
   scoped
 >
-.board-create-container {
+.board-create-and-edit-form {
   padding-top: 1.5rem;
   padding-left: 1rem;
   padding-right: 1rem;

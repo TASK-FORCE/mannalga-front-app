@@ -1,6 +1,6 @@
 <template>
-  <v-row class="mx-0">
-    <v-col class="pa-0">
+  <v-row class="mx-0 mt-1">
+    <v-col class="pr-3 pl-0">
       <v-menu
         v-model="dateMenu"
         :close-on-content-click="false"
@@ -14,8 +14,9 @@
             v-model="date"
             :label="dateLabel"
             :rules="RULES.DATE"
-            prepend-icon="$calendar"
             readonly
+            outlined
+            hide-details
             v-bind="attrs"
             v-on="on"
           ></v-text-field>
@@ -27,7 +28,7 @@
         ></v-date-picker>
       </v-menu>
     </v-col>
-    <v-col class="py-0">
+    <v-col class="px-0">
       <v-menu
         v-model="timeMenu"
         :close-on-content-click="false"
@@ -41,6 +42,8 @@
             v-model="time"
             :label="timeLabel"
             :rules="RULES.TIME"
+            outlined
+            hide-details
             readonly
             v-bind="attrs"
             v-on="on"

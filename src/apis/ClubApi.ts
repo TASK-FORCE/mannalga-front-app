@@ -32,5 +32,9 @@ const clubApi = {
   deleteWithdraw(clubSeq: number) {
     return axios.delete(`/api/clubs/${clubSeq}/withdraw`);
   },
+
+  deleteClub(clubSeq: number) {
+    return axios.delete(`/api/clubs/${clubSeq}`);
+  }
 }
 export default clubApi;

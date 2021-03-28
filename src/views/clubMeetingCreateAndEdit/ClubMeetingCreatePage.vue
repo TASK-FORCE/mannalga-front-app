@@ -1,19 +1,13 @@
 <template>
-  <div>
-    <CommonHeader
-      title="만남 생성"
-      @back="$router.push(clubDetailPath())"
-    />
-    <ClubMeetingCreateAndEditBody
-      btnText="만남 생성"
-      :submitClickCallback="create"
-    />
-  </div>
+  <ClubMeetingCreateAndEdit
+    headerTitle="만남 만들기"
+    :submitClickCallback="create"
+    @back="$router.push(clubDetailPath())"
+  />
 </template>
 
 <script lang="ts">
-import CommonHeader from '@/components/header/CommonHeader.vue';
-import ClubMeetingCreateAndEditBody from '@/views/clubMeetingCreateAndEdit/ClubMeetingCreateAndEditBody.vue';
+import ClubMeetingCreateAndEdit from '@/views/clubMeetingCreateAndEdit/ClubMeetingCreateAndEdit.vue';
 import { generateParamPath, PATH } from '@/router/route_path_type.ts';
 import routerHelper from '@/router/RouterHelper.ts';
 import Vue from 'vue';
@@ -22,7 +16,7 @@ import { MeetingWriteRequest, MeetingWriteRequestWithSeq } from '@/interfaces/me
 
 export default Vue.extend({
   name: 'ClubMeetingCreatePage',
-  components: { ClubMeetingCreateAndEditBody, CommonHeader },
+  components: { ClubMeetingCreateAndEdit },
   methods: {
     clubDetailPath() {
       return generateParamPath(PATH.CLUB.MAIN, [routerHelper.clubSeq()]);
