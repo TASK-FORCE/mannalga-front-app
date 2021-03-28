@@ -45,7 +45,7 @@ export default class ResponseConverter {
     profile.imgUrl = thumbnail_image_url;
     profile.name = nickname;
     return profile;
-  };
+  }
 
   static convertClubList(data: ServerPageResponse<ClubFeed[]>): ClubListResponse {
     return {

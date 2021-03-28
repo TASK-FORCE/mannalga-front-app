@@ -3,7 +3,7 @@ import { isNumeric } from '@/utils/common/commonUtils.ts';
 
 export type Rule = (value: any) => boolean | string
 export type Rules = {
-  [key: string]: Rule[]
+  [key: string]: Rule[];
 }
 export const RULES: Rules = {
   EMPTY_RULE: [v => !!v],

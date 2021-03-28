@@ -72,7 +72,7 @@ export default Vue.extend({
     },
   },
 });
-;</script>
+</script>
 
 <style scoped>
 
