@@ -76,9 +76,10 @@
     </div>
     <FixedCreateBtn
       v-if="canCreateBoard"
-      color="blue"
       :path="getClubBoardCreatePath()"
-      left
+      color="#E8984E"
+      :size="60"
+      :icon-size="40"
     />
   </div>
 </template>

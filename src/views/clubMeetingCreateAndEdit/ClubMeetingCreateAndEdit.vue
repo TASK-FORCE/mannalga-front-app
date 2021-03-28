@@ -1,12 +1,20 @@
 <template>
-  <div class="meeting-create-container">
+  <div>
+    <CommonHeader
+      :title="headerTitle"
+      showSubmitBtn
+      @submit="submit"
+      @back="$emit('back')"
+    />
     <v-form
       ref="clubMeetingCreateForm"
+      class="meeting-create-and-edit-form"
     >
       <v-text-field
         v-model="title"
         :rules="RULES.CLUB_MEETING_TITLE"
-        class="pa-0"
+        hide-details
+        outlined
         label="만남 제목"
       />
       <DateTimePicker
@@ -24,67 +32,58 @@
         timeLabel="종료시간"
         @changeDateTime="changeEndDateTime"
       />
-      <v-textarea
-        v-model="content"
-        :rules="RULES.EMPTY_RULE"
-        class="mt-2 club-meeting-create-page-body__content"
-        label="내용을 작성해주세요."
-        hide-details
-        outlined
-      ></v-textarea>
-      <div class="d-flex">
-        <div class="d-flex">
-          <v-icon
-            class="mr-2 mt-5"
-            style="padding: 2px;"
-            v-text="'$currencyKrw'"
-          />
+      <v-row class="mx-0 mt-1">
+        <v-col class="pr-3 pl-0">
           <v-text-field
             v-model="cost"
             :rules="RULES.COST"
+            hide-details
+            outlined
             label="비용"
-            suffix="원"
-            style="width: 100px"
-            class="pr-5"
             @focus="costFocus"
             @focusout="costFocusout"
           />
-        </div>
-        <v-text-field
-          v-model="region"
-          label="만남 위치"
-          style="width: 150px"
-          class="pr-3"
-          prepend-icon="$mapMarker"
-        />
-      </div>
-      <v-text-field
-        v-model="maximumNumber"
-        :rules="RULES.CLUB_MEETING_MAXIMUM_NUMBER"
-        label="만남 최대 인원(빈값: 제한 없음)"
-        class="px-10"
-        prepend-icon="$twoPeople"
-      />
+        </v-col>
+        <v-col class="px-0">
+          <v-text-field
+            v-model="maximumNumber"
+            :rules="RULES.CLUB_MEETING_MAXIMUM_NUMBER"
+            label="만남 최대 인원"
+            hide-details
+            outlined
+          />
+        </v-col>
+      </v-row>
+      <v-row class="mx-0 mt-1">
+        <v-col class="px-0">
+          <v-text-field
+            v-model="region"
+            label="만남 위치 정보"
+            hide-details
+            outlined
+          />
+        </v-col>
+      </v-row>
+      <v-textarea
+        v-model="content"
+        :rules="RULES.EMPTY_RULE"
+        class="mt-4"
+        label="만남 내용"
+        hide-details
+        outlined
+      ></v-textarea>
     </v-form>
-    <CommonCenterBtn
-      :loading="loading"
-      class="mt-3"
-      color="primary"
-      outlined
-      :text="btnText"
-      @click="click"
-    />
   </div>
 </template>
 
 <script lang="ts">
-import CommonCenterBtn from '@/components/button/CommonCenterBtn.vue';
 import DateTimePicker from '@/components/DateTimePicker.vue';
 import moment from 'moment';
 import { toCurrency } from '@/utils/common/commonUtils.ts';
 import { RULES } from '@/utils/common/constant/rules.ts';
 import Vue, { PropType } from 'vue';
-import { DateTime, MeetingWriteContext } from '@/interfaces/meeting';
+import { DateTime, MeetingWriteContext, MeetingWriteRequest } from '@/interfaces/meeting';
+import CommonHeader from '@/components/header/CommonHeader.vue';
 
 const toMoment = (localDate: DateTime): moment.Moment => moment(`${localDate.date} ${localDate.time}`.trim());
 const toTimeStamp = (localDate: DateTime): string => `${localDate.date} ${localDate.time}:00`;
@@ -110,29 +109,18 @@ const today = () => moment().format('YYYY-MM-DD');
 const DEFAULT_DATE_TIME: DateTime = { date: today(), time: '' };
 
 export default Vue.extend({
-  name: 'ClubMeetingCreateAndEditBody',
-  components: { DateTimePicker, CommonCenterBtn },
+  name: 'ClubMeetingCreateAndEdit',
+  components: { CommonHeader, DateTimePicker },
   props: {
-    btnText: {
+    headerTitle: {
       type: String,
       required: true,
     },
-    /**
-     * {
-     *     title
-     *     content
-     *     maximumNumber
-     *     cost
-     *     region
-     *     startDateTime
-     *     endDateTime
-     * }
-     */
     context: {
       type: Object as PropType<MeetingWriteContext>,
     },
     submitClickCallback: {
-      type: Function, // (dto) => {} : Promise
+      type: Function as PropType<(meetingWriteRequest: MeetingWriteRequest) => Promise<void>>,
       required: true,
     },
   },
@@ -187,11 +175,11 @@ export default Vue.extend({
         }
       }
     },
-    click() {
+    submit() {
       const clubMeetingCreateForm = this.$refs.clubMeetingCreateForm as HTMLFormElement;
       if (clubMeetingCreateForm.validate()) {
         this.loading = true;
-        const meetingDto = {
+        const meetingDto: MeetingWriteRequest = {
           title: this.title,
           content: this.content,
           maximumNumber: this.maximumNumber,
@@ -228,7 +216,7 @@ function toNumber(value: any) {
   lang="scss"
   scoped
 >
-.meeting-create-container {
+.meeting-create-and-edit-form {
   padding-top: 1.5rem;
   padding-left: 1rem;
   padding-right: 1rem;

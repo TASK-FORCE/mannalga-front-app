@@ -3,27 +3,28 @@
     :value="value"
     @click:outside="$emit('input', false)"
   >
-    <v-card>
-      <div
-        class="pt-3 pb-1 px-4 title"
-      >
+    <v-card class="yes-or-no-dialog">
+      <div class="title">
         {{ title }}
       </div>
       <div class="px-4">
         <slot name="description" />
       </div>
-      <div class="text-center pa-3">
+      <div class="d-flex pb-3 pr-1">
+        <v-spacer />
         <v-btn
-          color="green darken-1"
-          outlined
+          class="btn"
+          text
+          color="#2883C6"
+          max-width="15"
           @click="close"
         >
           {{ cancelText }}
         </v-btn>
         <v-btn
-          class="ml-3"
-          color="green darken-1"
-          outlined
+          class="btn"
+          text
+          color="#2883C6"
           :loading="loading"
           @click="submit"
         >
@@ -36,7 +37,7 @@
 
 <script lang="ts">
 import routerHelper from '@/router/RouterHelper.ts';
-import Vue from 'vue';
+import Vue, { PropType } from 'vue';
 
 export default Vue.extend({
   name: 'YesOrNoDialog',
@@ -58,23 +59,25 @@ export default Vue.extend({
       default: '확인',
     },
     submitPromiseCallback: {
-      type: Function,
+      type: Function as PropType<() => Promise<void>>,
       required: true,
     },
   },
   data() {
     return {
-      loading: false,
+      loading: false as boolean,
     };
   },
   computed: {
-    clubSeq: () => routerHelper.clubSeq(),
+    clubSeq(): number {
+      return routerHelper.clubSeq();
+    }
   },
   beforeDestroy() {
     this.close();
   },
   methods: {
-    submit() {
+    submit(): void {
       this.loading = true;
       this.submitPromiseCallback()
         .finally(() => {
@@ -82,13 +85,39 @@ export default Vue.extend({
           this.close();
         });
     },
-    close() {
+    close(): void {
       this.$emit('input', false);
     },
   },
 });
 </script>
 
-<style scoped>
+<style
+  scoped
+  lang="scss"
+>
+
+.yes-or-no-dialog {
+  .title {
+    color: #292929;
+    font-weight: 500;
+    font-size: 17px !important;
+    padding: 15px 20px 10px 20px;
+  }
+
+  .btn {
+    padding: 0 !important;
+    font-weight: bold;
+    font-size: 15px;
+  }
+}
+
+.theme--dark {
+  .yes-or-no-dialog {
+    .title {
+      color: #F5F5F5;
+    }
+  }
+}
 
 </style>

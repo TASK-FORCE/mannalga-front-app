@@ -10,6 +10,7 @@ export enum ClubActionTypes {
   REQUEST_CHANGE_USER_ROLE = 'club/requestChangeUserRole',
   REQUEST_KICK_USER = 'club/requestKickUser',
   REQUEST_CLUB_WITHDRAW = 'club/requestClubWithdraw',
+  REQUEST_CLUB_DELETE = 'club/requestClubDelete',
 }
 
 export enum ClubListActionTypes {

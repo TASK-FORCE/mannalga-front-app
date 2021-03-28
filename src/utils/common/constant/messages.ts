@@ -12,6 +12,7 @@ export enum MESSAGE {
   SUCCESS_APPLY_MEETING_APPLICATION = '만남 신청 성공!',
   SUCCESS_CANCEL_MEETING_APPLICATION = '만남 취소 성공!',
   SUCCESS_JOIN_CLUB = '모임 가입 성공',
+  SUCCESS_DELETE_CLUB = '모임이 삭제되었습니다.',
   EMPTY_COMMENT_TEXT = '댓글을 작성해주세요.',
   WITHDRAW_CLUB = '모임에 탈퇴되었습니다.',
   CLUB_MAIN_IMAGE_ADD_TEXT = '모임 대표 사진을 추가해보세요!',

@@ -107,5 +107,10 @@ export const actions = {
       await clubApi.deleteWithdraw(clubSeq);
     });
   },
+  async [ClubActionTypes.REQUEST_CLUB_DELETE]({ commit }: ClubActionContext, clubSeq: number) {
+    return actionsNormalTemplate(async () => {
+      await clubApi.deleteClub(clubSeq);
+    })
+  }
 };
 export type ClubActions = typeof actions;

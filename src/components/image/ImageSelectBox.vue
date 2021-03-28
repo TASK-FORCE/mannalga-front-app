@@ -145,4 +145,10 @@ export default Vue.extend({
   }
 }
 
+.theme--dark {
+  .image-selector-container {
+    border-color: #666666;
+  }
+}
+
 </style>

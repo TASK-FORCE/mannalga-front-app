@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
 
-.v-application {
+.v-application, .v-application .title {
     font-family: 'Noto Sans KR', 'Roboto', sans-serif !important;
 }
 
@@ -118,4 +118,32 @@
         }
     }
 
+}
+
+//.club-create-and-edit-form, .board-create-and-edit-form, .meeting-create-and-edit-form {
+//    .v-text-field--outlined > .v-input__control > .v-input__slot {
+//        min-height: 45px !important;
+//    }
+//
+//    .v-text-field--outlined .v-label {
+//        top: 14px !important;
+//    }
+//}
+
+
+.theme--light.v-label {
+    color: #666666 !important;
+}
+
+.theme--light.v-input input, .theme--light.v-input textarea {
+    color: #292929 !important;
+    font-size: 15px !important;
+}
+
+.theme--dark.v-label, .theme--dark .club-delete-btn {
+    color: #9f9f9f !important;
+}
+
+.theme--dark.v-input input, .theme--dark.v-input textarea {
+    color: #F5F5F5 !important;
 }
