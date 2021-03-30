@@ -136,6 +136,11 @@ const routes: RouteConfig[] = [
     component: () => import('@/views/userInterestEdit/UserInterestEditPage.vue'),
   },
   {
+    path: PATH.NOT_SUPPORTED_BROWSER,
+    name: 'NotSupportedBrowserPage',
+    component: () => import('@/views/error/NotSupportedBrowserPage.vue'),
+  },
+  {
     path: '*',
     redirect: PATH.CLUB_LIST,
   },
