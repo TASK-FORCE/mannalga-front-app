@@ -1,27 +1,111 @@
 <template>
-    <div>
-        <ClubDetailMainClubInfo :clubInfo="clubInfo"
-                                :userInfo="userInfo"
-        />
-        <ClubDetailMainMeeting />
-        <ClubDetailMainMember />
+  <div>
+    <ClubDetailMainClubInfo
+      :clubInfo="clubInfo"
+      :currentUserInfo="currentUserInfo"
+    />
+    <MiddleDivider :height="5" />
+    <ClubDetailMainMember
+      :clubInfo="clubInfo"
+      :clubUserList="clubUserList"
+      :currentUserInfo="currentUserInfo"
+    />
+    <div v-if="meetingBtnContext">
+      <MiddleDivider :height="1" />
+      <div class="pa-3">
+        <v-btn
+          width="100%"
+          color="#2883c6"
+          height="60"
+          class="meeting-btn"
+          @click="meetingBtnContext.click"
+        >
+          {{ meetingBtnContext.text }}
+        </v-btn>
+      </div>
     </div>
+    <YesOrNoDialog
+      v-model="showRegisterDialog"
+      title="모임에 가입하시겠습니까?"
+      :submitPromiseCallback="requestClubRegister"
+    >
+      <template #description>
+        <div class="ml-2">
+          확인 시 즉시 모임에 가입됩니다.
+        </div>
+      </template>
+    </YesOrNoDialog>
+  </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue, { PropType } from 'vue';
 import ClubDetailMainClubInfo from '@/views/clubDetail/components/main/ClubDetailMainClubInfo.vue';
-import ClubDetailMainMeeting from '@/views/clubDetail/components/main/ClubDetailMainMeeting.vue';
 import ClubDetailMainMember from '@/views/clubDetail/components/main/ClubDetailMainMember.vue';
+import MiddleDivider from '@/components/MiddleDivider.vue';
+import YesOrNoDialog from '@/components/YesOrNoDialog.vue';
+import { generateParamPath, PATH } from '@/router/route_path_type.ts';
+import { UIMutationTypes } from '@/store/type/mutationTypes.ts';
+import { MESSAGE } from '@/utils/common/constant/messages.ts';
+import { ClubInfo, ClubUserInfo, CurrentUserInfo } from '@/interfaces/club';
+import { ClubActionTypes } from '@/store/type/actionTypes';
+import { ClickWithText } from '@/interfaces/common';
+import routerHelper from '@/router/RouterHelper';
 
-export default {
-    name: 'ClubDetailMain',
-    components: { ClubDetailMainClubInfo, ClubDetailMainMeeting, ClubDetailMainMember },
-    props: {
-        clubInfo: Object,
-        userInfo: Object,
+export default Vue.extend({
+  name: 'ClubDetailMain',
+  components: { YesOrNoDialog, MiddleDivider, ClubDetailMainClubInfo, ClubDetailMainMember },
+  props: {
+    clubInfo: Object as PropType<ClubInfo>,
+    currentUserInfo: Object as PropType<CurrentUserInfo>,
+    clubUserList: Array as PropType<ClubUserInfo[]>,
+  },
+  data() {
+    return {
+      showRegisterDialog: false,
+    };
+  },
+  computed: {
+    clubSeq(): number {
+      return routerHelper.clubSeq();
     },
-};
-</script>
+    isNotMember(): boolean {
+      const { isMaster, isManager, isMember } = this.currentUserInfo;
+      return !(isMaster || isManager || isMember);
+    },
+    meetingBtnContext(): ClickWithText | null {
+      if (this.isNotMember) {
+        return {
+          text: '모임 가입하기',
+          click: () => (this.showRegisterDialog = true),
+        };
+      }
 
+      if (this.currentUserInfo.isMaster || this.currentUserInfo.isManager) {
+        return {
+          text: '모임 수정하기',
+          click: () => (this.$router.push(generateParamPath(PATH.CLUB.EDIT, [this.clubSeq]))),
+        };
+      }
+      return null;
+    },
+  },
+  methods: {
+    requestClubRegister() {
+      return this.$store.dispatch(ClubActionTypes.REQUEST_CLUB_JOIN, this.clubSeq)
+        .then(() => {
+          this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_JOIN_CLUB);
+          this.showRegisterDialog = false;
+        });
+    },
+  },
+});
+</script>
 <style scoped>
+.meeting-btn {
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 18px;
+  color: #FFFFFF;
+}
 </style>

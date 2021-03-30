@@ -1,128 +1,198 @@
 <template>
-    <div>
-        <div v-if="clubInfo.mainImageUrl !== ''">
-            <v-img :src="clubInfo.mainImageUrl"
-                   aspect-ratio="2"
-            />
-        </div>
-        <!--    TODO 사진이 없다면 사진 등록 권고(MASTER role에게만)    -->
-        <v-list-item>
-            <v-list-item-content>
-                <v-row>
-                    <v-col cols="6"
-                           class="py-0"
-                    >
-                        <div class="text-center">
-                            <v-btn fab
-                                   height="20"
-                                   width="20"
-                                   outlined
-                            >
-                                <v-icon class="region-icon">mdi-map-marker-outline</v-icon>
-                            </v-btn>
-                            <div class="title">{{ clubRegionsText }}</div>
-                        </div>
-                    </v-col>
-                    <v-col cols="6"
-                           class="py-0"
-                    >
-                        <div class="text-center">
-                            <InterestIcons :interestListWithPriority="clubInfo.clubInterest" />
-                            <div class="title">{{ clubInterestsText }}</div>
-                        </div>
-                    </v-col>
-                </v-row>
-                <div class="mb-2 club-name">
-                    {{ clubInfo.name }}
-                </div>
-                <v-list-item-subtitle v-html="description" />
-            </v-list-item-content>
-        </v-list-item>
-        <div v-if="needToShowRegisterBtn">
-            <CommonCenterBtn id="registerBtn"
-                             text="가입하기"
-                             outlined
-                             @click="requestClubRegist"
-            />
-            <FixedTextBtnShowByHeight text="가입"
-                                      :heightBoundaryToShow="heightBoundaryToShowRegistBtn"
-                                      @click="requestClubRegist"
-            />
-        </div>
+  <div>
+    <v-img
+      :src="clubInfo.mainImageUrl || require('@/images/default_club_image.png')"
+      aspect-ratio="2"
+    />
+    <div class="club-name">
+      {{ clubInfo.name }}
     </div>
+    <div class="club-interest-region-wrapper">
+      <div class="d-flex align-center">
+        <v-icon
+          size="17"
+          v-text="'$mapMarker'"
+        />
+        <span class="region-title">{{ clubRegionsText }}</span>
+      </div>
+      <div class="d-flex align-center mt-2">
+        <WindMill :color="windMillColor" />
+        <span class="interest-title">{{ clubInterestsText }}</span>
+      </div>
+    </div>
+    <MiddleDivider
+      class="mt-5"
+      :height="1"
+    />
+    <div class="description-wrapper">
+      <div
+        class="description"
+        v-text="description"
+      />
+    </div>
+    <SnackBar
+      :open="imageChangeSnackBarOpen"
+      :snackBarOptions="imageChangeSnackBarOptions"
+      btnText="추가"
+      @click="$refs.imageSelector.trigger()"
+    />
+    <ImageSelectorWithConfirm
+      ref="imageSelector"
+      :imageChangeCallback="changeClubMainImage"
+    >
+      <template #image="{ imageUrl }">
+        <v-img :src="imageUrl" />
+      </template>
+    </ImageSelectorWithConfirm>
+  </div>
 </template>
 
-<script>
-import CommonCenterBtn from '@/components/button/CommonCenterBtn.vue';
-import InterestIcons from '@/components/interest/InterestIcons.vue';
-import FixedTextBtnShowByHeight from '@/components/button/FixedTextBtnShowByHeight.vue';
-import actionsHelper from '@/store/helper/ActionsHelper.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
+<script lang="ts">
+import Vue, { PropType } from 'vue';
+import ImageSelectorWithConfirm from '@/components/image/ImageSelectorWithConfirm.vue';
+import SnackBar from '@/components/SnackBar.vue';
+import WindMill from '@/components/icons/WindMill.vue';
+import MiddleDivider from '@/components/MiddleDivider.vue';
+import { MESSAGE } from '@/utils/common/constant/messages.ts';
+import {
+  InterestWithPriority,
+  RegionWithPriority,
+  SnackBarLocation,
+  SnackBarOption,
+  UploadImageResponse
+} from '@/interfaces/common';
+import { ClubInfo, ClubWriteRequest, CurrentUserInfo } from '@/interfaces/club';
+import { ClubActionTypes } from '@/store/type/actionTypes';
+import _ from '@/utils/common/lodashWrapper';
 
-export default {
-    name: 'ClubDetailMainClubInfo',
-    components: { FixedTextBtnShowByHeight, InterestIcons, CommonCenterBtn },
-    props: {
-        clubInfo: {
-            type: Object,
-            required: true,
-        },
-        userInfo: {
-            type: Object,
-            required: true,
-        },
-    },
-    data() {
-        return {
-            heightBoundaryToShowRegistBtn: 500,
-        };
-    },
-    computed: {
-        description() {
-            return this.clubInfo.description.replaceAll('\n', '<br />');
-        },
-        clubInterestsText() {
-            const interestNames = this.clubInfo.clubInterest.map(({ interest }) => interest).map(({ name }) => name);
-            return interestNames.join(', ');
-        },
-        clubRegionsText() {
-            const clubRegionNames = this.clubInfo.clubRegion.map(({ name }) => name);
-            return clubRegionNames.join(', ');
-        },
-        needToShowRegisterBtn() {
-            const { isMaster, isManager, isMember } = this.userInfo;
-            return !(isMaster || isManager || isMember);
-        },
-    },
-    mounted() {
-        if (this.needToShowRegisterBtn) {
-            const registerBtn = document.getElementById('registerBtn');
-            this.heightBoundaryToShowRegistBtn = registerBtn.offsetTop + (registerBtn.offsetHeight / 2);
-        }
-    },
-    methods: {
-        requestClubRegist() {
-            const { clubSeq } = this.$route.params;
-            actionsHelper.requestClubJoin(clubSeq)
-                .then(() => mutationsHelper.openSnackBar('모임 가입 성공'));
-        },
-    },
+const CHANGE_IMAGE_COOL_TIME_MINUTE = 6 * 60;
+const toMillisecond = (minute: number) => minute * 60 * 1000;
+const checkCoolTime = (clubSeq: number) => {
+  const key = 'clubImageChangeSnackbarCoolTime';
+  const timer = JSON.parse(localStorage.getItem(key) || '{}') || {};
+  const time = timer[clubSeq];
+  if (!time || time <= Date.now()) {
+    timer[clubSeq] = Date.now() + toMillisecond(CHANGE_IMAGE_COOL_TIME_MINUTE);
+    localStorage.setItem(key, JSON.stringify(timer));
+    return true;
+  }
+  return false;
 };
+
+export default Vue.extend({
+  name: 'ClubDetailMainClubInfo',
+  components: {
+    MiddleDivider,
+    WindMill,
+    SnackBar,
+    ImageSelectorWithConfirm,
+  },
+  props: {
+    clubInfo: {
+      type: Object as PropType<ClubInfo>,
+      required: true,
+    },
+    currentUserInfo: {
+      type: Object as PropType<CurrentUserInfo>,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      imageChangeSnackBarOpen: false,
+      imageChangeSnackBarOptions: {
+        message: MESSAGE.CLUB_MAIN_IMAGE_ADD_TEXT,
+        location: SnackBarLocation.BOTTOM,
+        time: 5000,
+        open: true,
+      } as SnackBarOption,
+    };
+  },
+  computed: {
+    description() {
+      return this.clubInfo.description;
+    },
+    clubInterestsText() {
+      return _.sortBy(this.clubInfo.clubInterest, ({ priority }: InterestWithPriority) => priority)
+        .map(({ interest }: InterestWithPriority) => interest.name)
+        .join(', ');
+    },
+    clubRegionsText() {
+      return _.sortBy(this.clubInfo.clubRegion, ({ priority }: RegionWithPriority) => priority)
+        .map(({ region }: RegionWithPriority) => region.superRegionRoot)
+        .join(', ');
+    },
+    windMillColor() {
+      if (this.$store.state.ui.isDarkTheme) {
+        return '#F5F5F5';
+      }
+      return '#666666';
+    },
+  },
+  mounted() {
+    if (!this.clubInfo.mainImageUrl && this.currentUserInfo.isMaster && checkCoolTime(this.clubInfo.seq)) {
+      this.imageChangeSnackBarOpen = true;
+    }
+  },
+  methods: {
+    changeClubMainImage({ absolutePath }: UploadImageResponse) {
+      const clubWriteRequest: ClubWriteRequest = {
+        name: this.clubInfo.name,
+        description: this.clubInfo.description,
+        maximumNumber: this.clubInfo.maximumNumber,
+        mainImageUrl: absolutePath,
+        interestList: this.clubInfo.clubInterest.map(({ interest, priority }) => ({ seq: interest.seq, priority, })),
+        regionList: this.clubInfo.clubRegion.map(({ region, priority }) => ({ seq: region.seq, priority })),
+      };
+      return this.$store.dispatch(ClubActionTypes.REQUEST_CLUB_CHANGE, {
+        clubSeq: this.clubInfo.seq,
+        clubWriteRequest,
+      });
+    },
+  },
+});
 </script>
 
-<style scoped>
+<style
+  scoped
+  lang="scss"
+>
+
 .club-name {
-    font-size: 1.4rem;
-    font-weight: bold;
+  font-size: 22px;
+  font-weight: bold;
+  margin-top: 15px;
+  padding: 0 20px;
+  color: #292929;
 }
 
-.title {
-    font-size: 0.8rem !important;
+.club-interest-region-wrapper {
+  padding: 0 20px;
+  margin-top: 15px;
+
+  .interest-title, .region-title {
+    margin-left: 6px;
+    font-size: .8rem;
+    color: #292929;
+  }
 }
 
-.region-icon {
-    width: 14px !important;
-    height: 14px !important;
-    font-size: 14px !important;
+.description-wrapper {
+
+  padding: 20px 15px;
+
+  .description {
+    font-size: 15px;
+    color: #292929;
+    white-space: pre-wrap;
+    word-break: break-all;
+    width: 100%;
+  }
+}
+
+.theme--dark {
+  .club-name, .interest-title, .region-title, .description {
+    color: #F5F5F5;
+  }
 }
 </style>

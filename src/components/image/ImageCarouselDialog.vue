@@ -1,110 +1,122 @@
 <template>
-    <v-dialog :value="open"
-              persistent
-              max-width="1800"
+  <v-dialog
+    :value="value"
+    fullscreen
+    persistent
+    max-width="1800"
+  >
+    <div class="header">
+      <v-btn
+        class="pl-1 mt-1 white--text"
+        icon
+        @click="close"
+      >
+        <v-icon
+          large
+          v-text="'$close'"
+        />
+      </v-btn>
+    </div>
+    <div class="image-dialog-wrapper black-bg">
+      <v-carousel
+        v-model="carouselNum"
+        :show-arrows="imgUrls.length > 1"
+        hide-delimiters
+        class="image-dialog-carousel"
+      >
+        <v-carousel-item
+          v-for="(path, index) in imgUrls"
+          :key="index"
+        >
+          <v-sheet
+            class="image-dialog__sheet black-bg"
+            height="100%"
+            tile
+          >
+            <v-img
+              :src="path"
+              class="image-dialog__sheet-image"
+            />
+          </v-sheet>
+        </v-carousel-item>
+      </v-carousel>
+    </div>
+    <v-footer
+      fixed
+      class="black-bg"
+      style="height: 60px"
+      app
     >
-        <div class="image-dialog-wrapper dialog-bg">
-            <div class="dialog-bg">
-                <v-btn class="pl-1 mt-1 white--text"
-                       text
-                       @click="$emit('close')"
-                >
-                    <v-icon large>mdi-close</v-icon>
-                </v-btn>
-            </div>
-            <v-carousel v-model="carouselNum"
-                        :show-arrows="paths.length > 1"
-                        hide-delimiters
-            >
-                <v-carousel-item v-for="(path, index) in paths"
-                                 :key="index"
-                >
-                    <v-sheet class="image-dialog__sheet dialog-bg"
-                             height="100%"
-                             tile
-                    >
-                        <v-img :src="path"
-                               class="image-dialog__sheet-image"
-                        />
-                    </v-sheet>
-                </v-carousel-item>
-            </v-carousel>
-            <slot name="footer" />
-        </div>
-    </v-dialog>
+      <slot name="footer" />
+    </v-footer>
+  </v-dialog>
 </template>
 
-<script>
-export default {
-    name: 'ImageCarouselDialog',
-    props: {
-        open: {
-            type: Boolean,
-            default: false,
-        },
-        paths: {
-            type: Array,
-            default: () => [],
-            validator: (array) => array.length > 0,
-        },
-    },
-    data() {
-        return {
-            carouselNum: 0,
-            changedStyle: false,
-        };
-    },
-    watch: {
-        open(cur, _) {
-            if (cur) {
-                if (!this.changedStyle) {
-                    this.changeDialogStyle(0);
-                }
-            }
-        },
-    },
-    mounted() {
-        if (!Array.isArray(this.paths) || this.paths.length < 1) {
-            this.$emit('close');
-        }
-    },
-    methods: {
-        changeDialogStyle(tryCount) {
-            if (tryCount > 20) {
-                return;
-            }
+<script lang="ts">
+import Vue from 'vue';
 
-            const vDialog = document.querySelector('.v-dialog');
-            if (vDialog) {
-                this.changedStyle = true;
-                vDialog.style.setProperty('margin', '0', 'important');
-            } else {
-                setTimeout(() => this.changeDialogStyle(tryCount + 1), 50);
-            }
-        },
-
+export default Vue.extend({
+  name: 'ImageCarouselDialog',
+  props: {
+    value: {
+      type: Boolean,
+      required: true,
     },
-};
+    imgUrls: {
+      type: Array,
+      default: () => [],
+      validator: (array) => array.length > 0,
+    },
+  },
+  data() {
+    return {
+      carouselNum: 0,
+    };
+  },
+  mounted() {
+    if (!Array.isArray(this.imgUrls) || this.imgUrls.length < 1) {
+      this.close();
+    }
+  },
+  methods: {
+    close() {
+      this.$emit('input', false);
+    },
+  },
+});
 </script>
 
-<style scoped
-       lang="scss"
+<style
+  scoped
+  lang="scss"
 >
-.image-dialog-wrapper {
-    .image-dialog__sheet {
-        position: relative;
-
-        .image-dialog__sheet-image {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%;
-        }
-    }
+.header {
+  position: fixed;
+  top: 0;
+  height: 60px;
+  padding: 4px;
+  background-color: #0e0e0e;
+  z-index: 5;
 }
 
-.dialog-bg {
-    background-color: #130f0f;
+.image-dialog-wrapper {
+  height: 100% !important;
+
+  .image-dialog__sheet {
+    position: relative;
+
+    .image-dialog__sheet-image {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+    }
+  }
+
+  .image-dialog-carousel {
+    height: 100% !important;
+    padding: 60px 0;
+  }
 }
 </style>

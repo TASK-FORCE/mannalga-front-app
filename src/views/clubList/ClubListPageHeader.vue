@@ -1,74 +1,76 @@
 <template>
-    <v-app-bar class="elevation-0"
-               app
-    >
-        <v-text-field v-model="searchText"
-                      class="club-search-bar"
-                      placeholder="모임 검색"
-                      prepend-icon="mdi-magnify"
-        />
-
-        <v-spacer />
-
-        <v-btn icon
-               large
-               class="mr-1"
-               @click="changeTheme"
-        >
-            <v-icon v-if="isThemeDark">mdi-water</v-icon>
-            <v-icon v-else>mdi-water-outline</v-icon>
-        </v-btn>
-
-        <v-btn icon
-               large
-               class="mr-1"
-               @click="moveToUserSettings"
-        >
-            <v-icon>mdi-cog-outline</v-icon>
-        </v-btn>
-    </v-app-bar>
+  <v-app-bar
+    class="elevation-0"
+    app
+  >
+    <v-text-field
+      v-model="searchText"
+      class="club-search-bar"
+      placeholder="모임을 검색하세요."
+      prepend-icon="$search"
+    />
+    <v-spacer />
+    <UserSettingPageEnterAvatar />
+  </v-app-bar>
 </template>
 
-<script>
-import { changeThemeAndLoad, isCurrentThemeDark } from '@/plugins/vuetify.js';
-import { PATH } from '@/router/route_path_type.js';
-import _ from '@/utils/common/lodashWrapper.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
+<script lang="ts">
+import Vue from 'vue';
+import { PATH } from '@/router/route_path_type.ts';
+import _ from '@/utils/common/lodashWrapper.ts';
+import UserSettingPageEnterAvatar from '@/components/UserSettingPageEnterAvatar.vue';
+import { ClubListMutationTypes, ClubMutationTypes, UIMutationTypes } from '@/store/type/mutationTypes.ts';
+import { ClubSearchContext } from '@/interfaces/clubList';
+import { ClubListPageTab } from '@/interfaces/club';
 
 const SEARCH_WAIT_TIME = 500;
 
-export default {
-    name: 'ClubListPageHeader',
-    data() {
-        return {
-            isThemeDark: isCurrentThemeDark(),
-            clubSearchPagePath: PATH.CLUB.SEARCH,
-            searchText: null,
-            searchCallback: _.debounce(() => mutationsHelper.changeClubSearchText(this.searchText), SEARCH_WAIT_TIME),
-        };
+export default Vue.extend({
+  name: 'ClubListPageHeader',
+  components: { UserSettingPageEnterAvatar },
+  data() {
+    return {
+      clubSearchPagePath: PATH.CLUB.SEARCH,
+      searchText: undefined as string | undefined,
+      searchCallback: (() => ({})) as () => void,
+    };
+  },
+  computed: {
+    clubSearchContext(): ClubSearchContext {
+      return this.$store.state.clubList.clubSearchContext;
     },
-    watch: {
-        searchText() {
-            mutationsHelper.changeCommonLoading(true);
-            this.searchCallback();
-        },
+  },
+  watch: {
+    searchText(value) {
+      if (_.isEmpty(value)) {
+        return;
+      }
+      this.$store.commit(ClubMutationTypes.SET_CURRENT_TAB, ClubListPageTab.CLUB);
+      this.$store.commit(UIMutationTypes.CHANGE_LOADING, true);
+      this.searchCallback();
     },
-    methods: {
-        moveToUserSettings() {
-            this.$router.push(PATH.USER.SETTINGS);
-        },
-        changeTheme() {
-            changeThemeAndLoad();
-            this.isThemeDark = isCurrentThemeDark();
-        },
+    clubSearchContext() {
+      this.searchText = this.clubSearchContext.searchText;
     },
-};
+  },
+  mounted() {
+    this.searchCallback = _.debounce(() => this.search(this.searchText), SEARCH_WAIT_TIME);
+    if (process.env.NODE_ENV !== 'production') {
+      this.searchText = undefined;
+    }
+  },
+  methods: {
+    search(searchText: string | undefined): void {
+      this.$store.commit(ClubListMutationTypes.CHANGE_CLUB_SEARCH_TEXT, searchText);
+    },
+  },
+});
 </script>
-
-<style lang="scss"
-       scoped
+<style
+  lang="scss"
+  scoped
 >
 .v-toolbar__content {
-    padding: 0 !important;
+  padding: 0 !important;
 }
 </style>

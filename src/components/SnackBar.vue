@@ -1,47 +1,45 @@
 <template>
-    <v-snackbar v-model="safeOpen"
-                v-bind="{[snackBarOptions.location]: true}"
-                :timeout="snackBarOptions.time"
-    >
-        {{ snackBarOptions.message }}
+  <v-snackbar
+    :value="open"
+    v-bind="{[snackBarOptions.location]: true}"
+    :timeout="snackBarOptions.time || 2000"
+    @input="value => $emit('input', value)"
+  >
+    {{ snackBarOptions.message }}
 
-        <template v-slot:action="{ attrs }">
-            <v-btn
-                :color="snackBarOptions.color"
-                text
-                v-bind="attrs"
-                @click="closeSnackBar"
-            >
-                Close
-            </v-btn>
-        </template>
-    </v-snackbar>
+    <template v-slot:action="{ attrs }">
+      <v-btn
+        :color="snackBarOptions.color || 'blue'"
+        outlined
+        small
+        v-bind="attrs"
+        @click="$emit('click')"
+      >
+        {{ btnText }}
+      </v-btn>
+    </template>
+  </v-snackbar>
 </template>
 
-<script>
-import gettersHelper from '@/store/helper/GettersHelper.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
+<script lang="ts">
+import Vue, { PropType } from 'vue';
+import { SnackBarOption } from '@/interfaces/common';
 
-export default {
-    name: 'SnackBar',
-    computed: {
-        snackBarOptions: () => gettersHelper.snackBarOptions(),
-        openSnackBar: () => gettersHelper.openSnackBar(),
-        safeOpen: {
-            get() {
-                return this.openSnackBar;
-            },
-            set() {
-                this.closeSnackBar();
-            },
-        },
+export default Vue.extend({
+  name: 'SnackBar',
+  props: {
+    open: {
+      type: Boolean,
+      required: true,
     },
-    methods: {
-        closeSnackBar: () => mutationsHelper.closeSnackBar(),
+    snackBarOptions: {
+      type: Object as PropType<SnackBarOption>,
+      required: true,
     },
-};
+    btnText: {
+      type: String,
+      required: true,
+    },
+  },
+});
 </script>
-
-<style scoped>
-
-</style>

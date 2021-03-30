@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+
+.v-application, .v-application .title {
+    font-family: 'Noto Sans KR', 'Roboto', sans-serif !important;
+}
+
 .v-snack__wrapper {
     min-width: auto;
 }
@@ -7,8 +13,24 @@
     padding-bottom: 0 !important;
 }
 
-.app-main-club-tab-header > .v-slide-group__content {
+.app-main-club-tab-header, > .v-slide-group__content {
     height: 40px !important;
+}
+
+.app-main-club-tab-header .v-tab, .club-main-tab .v-tab {
+    font-weight: bold;
+}
+
+.v-tabs .v-tab--active:hover::before, .v-tabs .v-tab--active::before {
+    opacity: 0 !important;
+}
+
+.v-tabs > .v-tabs-bar .v-tab:not(.v-tab--active) {
+    color: black !important;
+}
+
+.theme--dark.v-tabs > .v-tabs-bar .v-tab:not(.v-tab--active) {
+    color: white !important;
 }
 
 .theme--light.v-app-bar.v-toolbar.v-sheet {
@@ -32,6 +54,7 @@
 .club-search-bar {
     margin-right: 3px;
     //margin-bottom: 10px;
+    font-size: 18px;
 
     .v-input__prepend-outer {
         margin-top: 10px
@@ -40,12 +63,87 @@
     .v-text-field__details {
         display: none;
     }
+
+    .v-input__slot:before {
+        border-color: transparent !important;
+    }
+
+    .v-input__slot {
+        margin-top: 6px;
+    }
 }
 
-.club-meeting-create-page-body {
-    .club-meeting-create-page-body__content {
-        .v-text-field__details {
-            display: none;
+
+.image-dialog-wrapper {
+    .v-carousel__item {
+        height: 100% !important;
+    }
+}
+
+.child-comment-info-wrapper {
+    .v-input__slot {
+        height: 25px !important;
+        min-height: auto !important;
+        padding: 0 12px !important;
+    }
+}
+
+.club-create-form {
+    input {
+        text-overflow: ellipsis;
+    }
+}
+
+
+.search-text-bar {
+    .v-input__prepend-outer {
+        margin: 0 !important;
+        margin-right: 2px !important;
+
+        .v-icon__svg {
+            width: 16px !important;
+            height: 16px !important;
+            color: #9f9f9f !important;
+        }
+
+    }
+
+    .v-input__control {
+        .v-input__slot {
+            padding: 0 !important;
+        }
+
+        input {
+            padding: 0 !important;
         }
     }
+
+}
+
+//.club-create-and-edit-form, .board-create-and-edit-form, .meeting-create-and-edit-form {
+//    .v-text-field--outlined > .v-input__control > .v-input__slot {
+//        min-height: 45px !important;
+//    }
+//
+//    .v-text-field--outlined .v-label {
+//        top: 14px !important;
+//    }
+//}
+
+
+.theme--light.v-label {
+    color: #666666 !important;
+}
+
+.theme--light.v-input input, .theme--light.v-input textarea {
+    color: #292929 !important;
+    font-size: 15px !important;
+}
+
+.theme--dark.v-label, .theme--dark .club-delete-btn {
+    color: #9f9f9f !important;
+}
+
+.theme--dark.v-input input, .theme--dark.v-input textarea {
+    color: #F5F5F5 !important;
 }

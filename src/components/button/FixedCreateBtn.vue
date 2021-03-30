@@ -1,47 +1,77 @@
 <template>
-    <v-btn class="v-btn--fab darken-2"
-           :class="left ? 'left-btn' : 'right-btn'"
-           :to="path"
-           :color="color || 'green'"
-    >
-        <v-icon class="white--text">mdi-plus</v-icon>
-    </v-btn>
+  <v-btn
+    fab
+    :class="left ? 'left-btn' : 'right-btn'"
+    :color="color || 'green'"
+    :style="resolveSize"
+    @click="click"
+  >
+    <v-icon
+      class="white--text"
+      :size="iconSize"
+      v-text="'$plus'"
+    />
+  </v-btn>
 </template>
 
-<script>
-export default {
-    name: 'FixedCreateBtn',
-    props: {
-        color: String,
-        path: String,
-        left: {
-            type: Boolean,
-            default: false,
-        },
+<script lang="ts">
+import Vue, { PropType } from 'vue';
+
+export default Vue.extend({
+  name: 'FixedCreateBtn',
+  props: {
+    color: String,
+    path: String as PropType<string>,
+    left: {
+      type: Boolean,
+      default: false,
     },
-};
+    size: {
+      type: Number,
+      default: 50,
+    },
+    iconSize: {
+      type: Number,
+      default: 24,
+    },
+
+  },
+  computed: {
+    resolveSize(): any {
+      return {
+        width: `${this.size}px !important`,
+        height: `${this.size}px !important`,
+      };
+    },
+  },
+  methods: {
+    click(): void {
+      if (this.path) {
+        this.$router.push(this.path);
+      } else {
+        this.$emit('click');
+      }
+    },
+  },
+});
 </script>
 
 <style scoped>
 .right-btn {
-    position: fixed;
-    border-radius: 50%;
-    width: 50px !important;
-    height: 50px !important;
-    min-width: auto !important;
-    z-index: 4;
-    right: 16px;
-    bottom: 10px;
+  position: fixed;
+  border-radius: 50%;
+  min-width: auto !important;
+  z-index: 4;
+  right: 16px;
+  bottom: 10px;
 }
 
 .left-btn {
-    position: fixed;
-    border-radius: 50%;
-    width: 50px !important;
-    height: 50px !important;
-    min-width: auto !important;
-    z-index: 4;
-    left: 16px;
-    bottom: 10px;
+  position: fixed;
+  border-radius: 50%;
+  min-width: auto !important;
+  z-index: 4;
+  left: 16px;
+  bottom: 10px;
 }
 </style>

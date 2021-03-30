@@ -1,38 +1,35 @@
 <template>
-    <div v-if="!isLoading">
-        <CommonHeader title="설정"
-                      @click="moveToClubListPage"
-        />
-        <UserSettingPageBody />
-        <SimpleBtnFooter text="회원 탈퇴" />
-    </div>
+  <div v-show="!$store.state.ui.loading">
+    <CommonHeader
+      title="설정"
+      @back="moveToClubListPage"
+    />
+    <UserSettingPageBody />
+  </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
 import CommonHeader from '@/components/header/CommonHeader.vue';
 import UserSettingPageBody from '@/views/userSetting/UserSettingPageBody.vue';
-import SimpleBtnFooter from '@/components/footer/SimpleBtnFooter.vue';
-import gettersHelper from '@/store/helper/GettersHelper.js';
-import actionsHelper from '@/store/helper/ActionsHelper.js';
-import { PATH } from '@/router/route_path_type.js';
+import { PATH } from '@/router/route_path_type.ts';
+import { UserActionTypes } from '@/store/type/actionTypes';
 
-export default {
-    name: 'UserSettingPage',
-    components: { CommonHeader, UserSettingPageBody, SimpleBtnFooter },
-    computed: {
-        isLoading: () => gettersHelper.isLoading(),
+export default Vue.extend({
+  name: 'UserSettingPage',
+  components: { CommonHeader, UserSettingPageBody },
+  created() {
+    if (!this.$store.state.user.userProfile.userName) {
+      this.$store.dispatch(UserActionTypes.REQUEST_USER_PROFILE);
+    }
+  },
+  methods: {
+    moveToClubListPage() {
+      this.$router.push(PATH.CLUB_LIST);
     },
-    created() {
-        actionsHelper.requestUserProfile();
-    },
-    methods: {
-        moveToClubListPage() {
-            this.$router.push(PATH.CLUB_LIST);
-        },
-    },
-};
+  },
+});
 </script>
-
 <style scoped>
 
 </style>

@@ -1,138 +1,153 @@
 <template>
-    <div class="wrapper">
-        <v-form ref="clubBoardCreateForm"
-                class="field-wrapper"
+  <div>
+    <CommonHeader
+      :title="headerTitle"
+      showSubmitBtn
+      @submit="createClubBoard"
+      @back="$emit('back')"
+    />
+    <v-form
+      ref="clubBoardCreateForm"
+      class="board-create-and-edit-form"
+    >
+      <v-text-field
+        v-model="title"
+        :rules="RULES.CLUB_BOARD_TITLE"
+        hide-details
+        outlined
+        label="게시글 제목"
+      />
+      <v-select
+        v-model="category"
+        :items="boardCategoryNames"
+        :rules="RULES.CLUB_BOARD_CATEGORY"
+        hide-details
+        label="카테고리"
+        class="mt-4"
+        outlined
+        dense
+      />
+      <v-textarea
+        v-model="content"
+        :height="resolveContentHeight"
+        :rules="RULES.CLUB_BOARD_CONTENT"
+        label="내용을 작성해주세요."
+        class="mt-4"
+        hide-details
+        outlined
+      />
+      <div class="image-box-wrapper">
+        <div
+          v-for="(_, index) in enableImageSize"
+          :key="index"
+          class="mx-1"
         >
-            <v-text-field v-model="clubBoardCreateInfo.title"
-                          :rules="RULES.CLUB_BOARD_TITLE"
-                          class="pa-0"
-                          label="게시글 제목"
-            />
-            <v-textarea v-model="clubBoardCreateInfo.content"
-                        class="mt-2"
-                        :rules="RULES.CLUB_BOARD_CONTENT"
-                        label="내용을 작성해주세요."
-                        outlined
-            ></v-textarea>
-        </v-form>
-        <div class="image-box-wrapper d-flex">
-            <div v-for="(_, index) in enableImageSize"
-                 :key="index"
-                 class="float-left"
-            >
-                <ImageSelectBox class="image-box"
-                                height="80"
-                                @handleImageDto="dto => addImage(dto, index)"
-                />
-            </div>
+          <ImageSelectBox
+            :height="resolveImageBoxHeight"
+            :width="resolveImageBoxWidth"
+            cropFreeSize
+            fixImage
+            @handleUploadedImage="image => addImage(image, index)"
+          />
         </div>
-        <CommonCenterBtn :loading="loading"
-                         class="mt-5"
-                         color="primary"
-                         outlined
-                         text="작성 완료"
-                         @click="createClubBoard"
-        />
-
-        <v-btn color="primary"
-               dark
-               @click="dialogOpen = true"
-        >
-            Open Dialog
-        </v-btn>
-    </div>
+      </div>
+    </v-form>
+  </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
 import ImageSelectBox from '@/components/image/ImageSelectBox.vue';
-import { RULES } from '@/utils/common/constant/constant.js';
-import CommonCenterBtn from '@/components/button/CommonCenterBtn.vue';
-import actionsHelper from '@/store/helper/ActionsHelper.js';
-import { generateParamPath, PATH } from '@/router/route_path_type.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
+import { generateParamPath, PATH } from '@/router/route_path_type.ts';
+import { RULES } from '@/utils/common/constant/rules.ts';
+import routerHelper from '@/router/RouterHelper.ts';
+import { UploadImageResponse } from '@/interfaces/common';
+import { CurrentUserInfo } from '@/interfaces/club';
+import { BoardActionTypes } from '@/store/type/actionTypes';
+import { BoardCategory } from '@/interfaces/board/BoardCategory';
+import { BoardCategoryType, BoardCreateRequestWishSeq } from '@/interfaces/board/board';
+import CommonHeader from '@/components/header/CommonHeader.vue';
 
-export default {
-    name: 'ClubBoardCreateBox',
-    components: { CommonCenterBtn, ImageSelectBox },
-    data() {
-        return {
-            RULES,
-            enableImageSize: 3,
-            loading: false,
-            clubBoardCreateInfo: {
-                title: null,
-                content: null,
-                isTopFixed: false, // 존재 이유 파악하기
-                isNotifiable: false, // 존재 이유 파악하기
-                imgList: [],
-            },
-            dialogOpen: true,
-            imgPath: 'https://super-invention-static.s3.ap-northeast-2.amazonaws.com/temp/img/20201127015224-0c427f9f-124b-468b-aab0-101b15324995-test.png',
+export default Vue.extend({
+  name: 'ClubBoardCreateBox',
+  components: { CommonHeader, ImageSelectBox },
+  props: {
+    headerTitle: String,
+  },
+  data() {
+    return {
+      enableImageSize: 3,
+      loading: false,
+      title: undefined as undefined | string,
+      content: undefined as undefined | string,
+      category: undefined as undefined | string,
+      selectedImages: {} as {
+        [index: number]: UploadImageResponse;
+      },
+      RULES,
+    };
+  },
+  computed: {
+    clubSeq(): number {
+      return routerHelper.clubSeq();
+    },
+    currentUserInfo(): CurrentUserInfo {
+      return this.$store.state.club.currentUserInfo;
+    },
+    resolveImageBoxHeight(): string {
+      return `${window.innerHeight / 7}`;
+    },
+    resolveImageBoxWidth(): string {
+      return `${(window.innerWidth - 32) / 3 - 8}`;
+    },
+    resolveContentHeight(): string {
+      return `${window.innerHeight / 3}`;
+    },
+    boardCategoryNames(): string[] {
+      return BoardCategory.findCategoryNamesByCurrentUserInfo(this.currentUserInfo);
+    },
+  },
+  methods: {
+    addImage(uploadedImage: UploadImageResponse, index: number) {
+      this.selectedImages[index] = uploadedImage;
+    },
+    createClubBoard() {
+      const clubBoardCreateForm = this.$refs.clubBoardCreateForm as HTMLFormElement;
+      if (clubBoardCreateForm.validate()) {
+        this.loading = true;
+        const boardCreateRequestWishSeq: BoardCreateRequestWishSeq = {
+          clubSeq: this.clubSeq,
+          boardCreateRequest: {
+            title: this.title as string,
+            content: this.content as string,
+            category: BoardCategory.findCategoryTypeByName(this.category as string) as BoardCategoryType,
+            imgList: Object.values(this.selectedImages),
+          }
         };
+        this.$store.dispatch(BoardActionTypes.REQUEST_CLUB_BOARD_CREATE, boardCreateRequestWishSeq)
+          .then(() => {
+            this.$store.dispatch(BoardActionTypes.REQUEST_FIRST_BOARD_LIST, { clubSeq: this.clubSeq });
+            this.$router.push(generateParamPath(PATH.CLUB.MAIN, [this.clubSeq]));
+          })
+          .finally(() => (this.loading = false));
+      }
     },
-    methods: {
-        addImage(imageDto, index) {
-            this.clubBoardCreateInfo.imgList.splice(index, 0, imageDto);
-        },
-        createClubBoard() {
-            if (this.$refs.clubBoardCreateForm.validate()) {
-                const { clubSeq } = this.$route.params;
-                const clubBoardDto = { ...this.clubBoardCreateInfo };
-                this.loading = true;
-                actionsHelper.requestClubCreateBoard({ clubSeq, clubBoardDto })
-                    .then(() => {
-                        mutationsHelper.openSnackBar('게시글 생성 성공!');
-                        this.$router.push(generateParamPath(PATH.CLUB.MAIN, [clubSeq]));
-                    })
-                    .finally(this.loading = false);
-            }
-        },
-    },
-};
+  },
+});
 </script>
 
-<style lang="scss"
-       scoped
+<style
+  lang="scss"
+  scoped
 >
-.wrapper {
-    padding: 0 1rem;
+.board-create-and-edit-form {
+  padding-top: 1.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 
-    .field-wrapper {
-        margin-top: 2rem;
-    }
-
-    .image-box-wrapper {
-        width: 100%;
-
-        .image-box {
-            display: inline-block;
-            margin-right: 10px;
-            width: 80px;
-        }
-    }
-}
-
-.image-dialog-box {
-    background-color: #0d47a1;
-
-    .image-dialog-btn-wrapper {
-        text-align: center;
-        padding: 5px;
-    }
-
-    .image-dialog-sheet {
-        position: relative;
-    }
-
-    .image-dialog-sheet__image {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-}
-
-.bg {
-    background-color: #130f0f;
+  .image-box-wrapper {
+    display: flex;
+    margin-top: 24px;
+  }
 }
 </style>

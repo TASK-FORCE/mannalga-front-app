@@ -1,55 +1,54 @@
 <template>
-    <div v-if="!isLoading">
-        <CommonHeader title="관심사 변경"
-                      @click="moveToSettingPage"
-        />
-        <UserInterestEditPageBody />
-        <SimpleBtnFooter text="변경하기"
-                         :loading="btnLoading"
-                         @click="changeRequest"
-        />
-    </div>
+  <div v-show="!$store.state.ui.loading">
+    <InterestSelect
+      title="관심사 설정"
+      :backCallback="back"
+      :submitCallback="submit"
+      :selectedInterestsCallback="selectedInterestsCallback"
+    >
+      <template #header-title>
+        관심있는 분야를 선택해주세요.
+      </template>
+      <template #header-description>
+        최대 5개까지 선택 가능합니다.
+      </template>
+    </InterestSelect>
+  </div>
 </template>
 
-<script>
-import CommonHeader from '@/components/header/CommonHeader.vue';
-import UserInterestEditPageBody from '@/components/user/UserInterestSelectList.vue';
-import gettersHelper from '@/store/helper/GettersHelper.js';
-import actionsHelper from '@/store/helper/ActionsHelper.js';
-import SimpleBtnFooter from '@/components/footer/SimpleBtnFooter.vue';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
-import { MESSAGE } from '@/utils/common/constant/constant.js';
-import _ from '@/utils/common/lodashWrapper.js';
-import { PATH } from '@/router/route_path_type.js';
+<script lang="ts">
+import Vue from 'vue';
+import { PATH } from '@/router/route_path_type.ts';
+import { MESSAGE } from '@/utils/common/constant/messages.ts';
+import InterestSelect from '@/components/interest/InterestSelect.vue';
+import { UIMutationTypes } from '@/store/type/mutationTypes.ts';
+import { UserActionTypes } from '@/store/type/actionTypes';
+import { Interest } from '@/interfaces/common';
 
-export default {
-    name: 'UserInterestEditPage',
-    components: { CommonHeader, UserInterestEditPageBody, SimpleBtnFooter },
-    data() {
-        return {
-            btnLoading: false,
-        };
+export default Vue.extend({
+  name: 'UserInterestEditPage',
+  components: { InterestSelect },
+  data() {
+    return {
+      btnLoading: false,
+    };
+  },
+  methods: {
+    submit(selectedInterests: Interest[]) {
+      return this.$store.dispatch(UserActionTypes.REQUEST_CHANGE_USER_INTERESTS, selectedInterests)
+        .then(() => {
+          this.$store.dispatch(UserActionTypes.REQUEST_USER_PROFILE);
+          this.$router.push(PATH.USER.SETTINGS);
+          this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_CHANGE_REGIONS);
+        });
     },
-    computed: {
-        isLoading: () => gettersHelper.isLoading(),
-        selectedInterestSeqs: () => gettersHelper.selectedInterestSeqs(),
+    back() {
+      this.$router.push(PATH.USER.SETTINGS);
     },
-    created() {
-        if (_.isEmpty(this.selectedInterestSeqs)) {
-            actionsHelper.requestUserInterests();
-        }
+    selectedInterestsCallback() {
+      return this.$store.dispatch(UserActionTypes.REQUEST_USER_INTERESTS)
+        .then(() => [...this.$store.state.user.selectedInterests]);
     },
-    methods: {
-        changeRequest() {
-            this.btnLoading = true;
-            actionsHelper.requestChangeUserInterests(this.selectedInterestSeqs)
-                .then(this.$router.push(PATH.USER.SETTINGS)
-                    .then(() => mutationsHelper.openSnackBar(MESSAGE.SUCCESS_CHANGE_REGIONS)))
-                .finally(this.btnLoading = false);
-        },
-        moveToSettingPage() {
-            this.$router.push(PATH.USER.SETTINGS);
-        },
-    },
-};
+  },
+});
 </script>

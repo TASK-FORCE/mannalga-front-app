@@ -1,36 +1,29 @@
 <template>
-    <div>
-        <CommonHeader title="만남"
-                      @click="$router.push(clubDetailPath())"
-        />
-        <ClubMeetingPostBody />
-    </div>
+  <div>
+    <CommonHeader
+      title="만남"
+      @back="$router.push(clubDetailPath())"
+    />
+    <ClubMeetingPostBody />
+  </div>
 </template>
 
-<script>
+<script lang="ts">
 import CommonHeader from '@/components/header/CommonHeader.vue';
-import { generateParamPath, PATH } from '@/router/route_path_type.js';
-import routerParamHelper from '@/router/RouterParamHelper.js';
+import { generateParamPath, PATH } from '@/router/route_path_type.ts';
+import routerHelper from '@/router/RouterHelper.ts';
 import ClubMeetingPostBody from '@/views/clubMeetingPost/ClubMeetingPostBody.vue';
-import gettersHelper from '@/store/helper/GettersHelper.js';
+import Vue from 'vue';
 
-export default {
-    name: 'ClubMeetingPostPage',
-    components: { ClubMeetingPostBody, CommonHeader },
-    computed: {
-        meeting: () => gettersHelper.meeting(),
+export default Vue.extend({
+  name: 'ClubMeetingPostPage',
+  components: { ClubMeetingPostBody, CommonHeader },
+  methods: {
+    clubDetailPath() {
+      return generateParamPath(PATH.CLUB.MAIN, [routerHelper.clubSeq()]);
     },
-    beforeMount() {
-        if (this.meeting.seq === 0) {
-            this.$router.push(this.clubDetailPath());
-        }
-    },
-    methods: {
-        clubDetailPath() {
-            return generateParamPath(PATH.CLUB.MAIN, routerParamHelper.clubSeq());
-        },
-    },
-};
+  },
+});
 </script>
 
 <style scoped>

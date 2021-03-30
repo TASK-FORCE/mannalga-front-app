@@ -1,38 +1,41 @@
 <template>
-    <div>
-        <UserProfile />
-        <GoBackBtnFooter :hideBackBtn="true"
-                         @clickGoBtn="clickGoBtn"
-        />
-    </div>
+  <div>
+    <CommonHeader
+      title="회원가입"
+      @back="clickBack"
+    />
+    <UserProfile />
+    <GoBackBtnFooter
+      :hideBackBtn="true"
+      @clickGoBtn="clickGoBtn"
+    />
+  </div>
 </template>
 
-<script>
+<script lang="ts">
 import UserProfile from '@/components/user/UserProfile.vue';
 import GoBackBtnFooter from '@/components/footer/GoBackBtnFooter.vue';
-import { getValidationFailText, ruleValidationSuccess } from '@/utils/common/validationUtils.js';
-import { RULES } from '@/utils/common/constant/constant.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
-import gettersHelper from '@/store/helper/GettersHelper.js';
-import { PATH } from '@/router/route_path_type.js';
+import { validateWithRules } from '@/utils/common/validationUtils.ts';
+import { PATH } from '@/router/route_path_type.ts';
+import { RULES } from '@/utils/common/constant/rules.ts';
+import CommonHeader from '@/components/header/CommonHeader.vue';
+import Vue from 'vue';
 
-export default {
-    name: 'RegisterProfileNestedPage',
-    components: { GoBackBtnFooter, UserProfile },
-    computed: {
-        kakaoProfile: () => gettersHelper.kakaoProfile(),
+export default Vue.extend({
+  name: 'RegisterProfileNestedPage',
+  components: { CommonHeader, GoBackBtnFooter, UserProfile },
+  methods: {
+    clickGoBtn() {
+      const { name } = this.$store.state.user.kakaoProfile;
+      if (validateWithRules(name, RULES.PROFILE_NAME)) {
+        this.$router.push(PATH.REGISTER.REGION);
+      }
     },
-    methods: {
-        clickGoBtn() {
-            const { name } = this.kakaoProfile;
-            if (ruleValidationSuccess(name, RULES.PROFILE_NAME)) {
-                this.$router.push(PATH.REGISTER.REGION);
-                return;
-            }
-            mutationsHelper.openSnackBar(getValidationFailText(name, RULES.PROFILE_NAME));
-        },
+    clickBack() {
+      this.$router.push(PATH.LOGIN);
     },
-};
+  },
+});
 
 </script>
 

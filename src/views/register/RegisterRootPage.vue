@@ -1,19 +1,13 @@
 <template>
-    <v-container>
-        <CommonHeader title="회원가입" />
-        <router-view />
-    </v-container>
+  <v-container>
+    <router-view />
+  </v-container>
 </template>
 
-<script>
-import CommonHeader from '@/components/header/CommonHeader.vue';
+<script lang="ts">
+import Vue from 'vue';
 
-export default {
-    name: 'RegisterRootPage',
-    components: { CommonHeader },
-};
+export default Vue.extend({
+  name: 'RegisterRootPage',
+});
 </script>
-
-<style scoped>
-
-</style>

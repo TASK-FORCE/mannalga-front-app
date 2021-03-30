@@ -1,57 +1,49 @@
 <template>
-    <div v-if="!isLoading">
-        <CommonHeader title="지역변경"
-                      @click="moveToSettingPage"
-        />
-        <UserRegionEditPageBody />
-        <SimpleBtnFooter text="변경하기"
-                         :loading="btnLoading"
-                         @click="changeRequest"
-        />
-    </div>
+  <div v-show="!$store.state.ui.loading">
+    <RegionSelect
+      :selectedRegionsCallback="getSelectedRegions"
+      :backCallback="moveToSettingPage"
+      :submitCallback="changeRequest"
+      title="지역 설정"
+    >
+      <template #header-title>
+        참여할 지역을 설정해주세요.
+      </template>
+      <template #header-description>
+        최대 3개까지 선택 가능합니다.
+      </template>
+    </RegionSelect>
+  </div>
 </template>
 
-<script>
-import gettersHelper from '@/store/helper/GettersHelper.js';
-import UserRegionEditPageBody from '@/components/user/UserRegionSelectList.vue';
-import CommonHeader from '@/components/header/CommonHeader.vue';
-import actionsHelper from '@/store/helper/ActionsHelper.js';
-import SimpleBtnFooter from '@/components/footer/SimpleBtnFooter.vue';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
-import { MESSAGE } from '@/utils/common/constant/constant.js';
-import _ from '@/utils/common/lodashWrapper.js';
-import { PATH } from '@/router/route_path_type.js';
+<script lang="ts">
+import Vue from 'vue';
+import RegionSelect from '@/components/region/RegionSelect.vue';
+import { PATH } from '@/router/route_path_type.ts';
+import { MESSAGE } from '@/utils/common/constant/messages.ts';
+import { UIMutationTypes } from '@/store/type/mutationTypes.ts';
+import { UserActionTypes } from '@/store/type/actionTypes';
+import { Region } from '@/interfaces/common';
 
-export default {
-    name: 'UserRegionEditPage',
-    components: { SimpleBtnFooter, UserRegionEditPageBody, CommonHeader },
-    data() {
-        return {
-            btnLoading: false,
-        };
+export default Vue.extend({
+  name: 'UserRegionEditPage',
+  components: { RegionSelect },
+  methods: {
+    changeRequest(selectedRegions: Region[]) {
+      return this.$store.dispatch(UserActionTypes.REQUEST_CHANGE_USER_REGIONS, selectedRegions)
+        .then(() => {
+          this.$store.dispatch(UserActionTypes.REQUEST_USER_PROFILE);
+          this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_CHANGE_REGIONS);
+          this.$router.push(PATH.USER.SETTINGS);
+        });
     },
-    computed: {
-        isLoading: () => gettersHelper.isLoading(),
-        selectedRegions: () => gettersHelper.selectedRegions(),
+    moveToSettingPage() {
+      this.$router.push(PATH.USER.SETTINGS);
     },
-    created() {
-        if (_.isEmpty(this.selectedRegions)) {
-            actionsHelper.requestUserRegions();
-        }
+    getSelectedRegions(): Promise<Region[]> {
+      return this.$store.dispatch(UserActionTypes.REQUEST_USER_REGIONS)
+        .then(() => [...this.$store.state.user.selectedRegions]);
     },
-    methods: {
-        changeRequest() {
-            this.btnLoading = true;
-            actionsHelper.requestChangeUserRegions(this.selectedRegions)
-                .then(() => {
-                    mutationsHelper.openSnackBar(MESSAGE.SUCCESS_CHANGE_REGIONS);
-                    this.$router.push(PATH.USER.SETTINGS);
-                })
-                .finally(() => (this.btnLoading = false));
-        },
-        moveToSettingPage() {
-            this.$router.push(PATH.USER.SETTINGS);
-        },
-    },
-};
+  },
+});
 </script>

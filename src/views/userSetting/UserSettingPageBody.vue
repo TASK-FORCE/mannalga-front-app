@@ -1,92 +1,76 @@
 <template>
-    <div>
-        <v-list class="py-0 px-2">
-            <v-list-item-group>
-                <v-divider />
-                <UserSettingProfile :userProfile="userProfile" />
-                <div v-for="setting in settings"
-                     :key="setting.name"
-                >
-                    <UserSettingTemplate :setting="setting" />
-                </div>
-            </v-list-item-group>
-        </v-list>
+  <div>
+    <UserSettingProfile :userProfile="userProfile" />
+    <MiddleDivider :height="5" />
+    <div class="mt-7">
+      <SettingBar
+        :title="themeSettingTitle"
+        :icon="themeSettingIcon"
+        :switchValue="isDarkTheme"
+        switchBtn
+        @click="changeTheme"
+      />
+      <SettingBar
+        title="로그아웃"
+        icon="logout"
+        @click="logout"
+      />
+      <SettingBar
+        title="회원 탈퇴"
+        icon="power"
+      />
     </div>
+  </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
 import UserSettingProfile from '@/views/userSetting/components/UserSettingProfile.vue';
-import UserSettingTemplate from '@/views/userSetting/components/UserSettingTemplate.vue';
-import gettersHelper from '@/store/helper/GettersHelper.js';
-import _ from '@/utils/common/lodashWrapper.js';
-import RenderFunction from '@/utils/common/renderFunction.js';
-import InterestIcons from '@/components/interest/InterestIcons.vue';
-import { changeThemeAndLoad } from '@/plugins/vuetify.js';
-import { PATH } from '@/router/route_path_type.js';
+import _ from '@/utils/common/lodashWrapper.ts';
+import { PATH } from '@/router/route_path_type.ts';
+import MiddleDivider from '@/components/MiddleDivider.vue';
+import SettingBar from '@/components/SettingBar.vue';
+import { AuthMutationTypes, UIMutationTypes } from '@/store/type/mutationTypes';
+import { UserProfile } from '@/interfaces/user';
+import { Region, RegionWithPriority } from '@/interfaces/common';
 
-export default {
-    name: 'UserSettingPageBody',
-    components: { UserSettingProfile, UserSettingTemplate },
-    computed: {
-        userProfile: () => gettersHelper.userProfile(),
-        regionsByPriority() {
-            return _.sortBy(this.userProfile.userRegions, ({ priority }) => priority)
-                .map(({ region }) => region);
-        },
-        settings() {
-            return [
-                {
-                    name: '지역',
-                    icon: 'mdi-map-marker',
-                    path: PATH.USER.REGION_EDIT,
-                    text: this.createRegionsNameText(),
-                },
-                {
-                    name: '관심사',
-                    icon: 'mdi-account-heart',
-                    path: PATH.USER.INTEREST_EDIT,
-                    component: this.createInterestIconsComponent(),
-                },
-                {
-                    name: '알림설정',
-                    icon: 'mdi-bell',
-                    path: '',
-                },
-                {
-                    name: '테마 변경(클릭)',
-                    icon: 'mdi-brush',
-                    clickCallback: changeThemeAndLoad,
-                },
-                {
-                    name: '개선사항 요청',
-                    icon: 'mdi-message-draw',
-                    path: '',
-                },
-                {
-                    name: '공지사항',
-                    icon: 'mdi-bullhorn',
-                    path: '',
-                },
-                {
-                    name: '버전정보',
-                    icon: 'mdi-information',
-                    path: '',
-                },
-            ];
-        },
+export default Vue.extend({
+  name: 'UserSettingPageBody',
+  components: { SettingBar, MiddleDivider, UserSettingProfile },
+  computed: {
+    userProfile(): UserProfile {
+      return this.$store.state.user.userProfile;
     },
-    methods: {
-        createInterestIconsComponent() {
-            return RenderFunction.createComponent(InterestIcons, { interests: this.userProfile.userInterests });
-        },
-        createRegionsNameText() {
-            if (this.regionsByPriority && this.regionsByPriority.length > 0) {
-                return this.regionsByPriority.map(({ name }) => name).reduce((prev, cur) => `${prev}, ${cur}`);
-            }
-            return '';
-        },
+    isDarkTheme(): boolean {
+      return this.$store.state.ui.isDarkTheme;
     },
-};
+    regionsByPriority(): Region[] {
+      return _.sortBy(this.userProfile.userRegions, ({ priority }: RegionWithPriority) => priority)
+        .map(({ region }: RegionWithPriority) => region);
+    },
+    themeSettingTitle() {
+      if (this.isDarkTheme) {
+        return '밝은 테마 사용';
+      }
+      return '어두운 테마 사용';
+    },
+    themeSettingIcon() {
+      if (this.isDarkTheme) {
+        return 'waterOut';
+      }
+      return 'water';
+    },
+  },
+  methods: {
+    logout() {
+      this.$store.commit(AuthMutationTypes.REMOVE_APP_TOKEN);
+      this.$router.push(PATH.LOGIN);
+    },
+    changeTheme() {
+      this.$store.commit(UIMutationTypes.CHANGE_THEME);
+    },
+  },
+});
 </script>
 
 <style scoped>

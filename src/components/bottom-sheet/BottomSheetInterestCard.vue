@@ -1,103 +1,118 @@
 <template>
-    <v-card>
-        <div class="title-wrapper">
-            <v-btn v-show="!showRootInterests"
-                   icon
-                   class="title-back-btn"
-                   @click="showRoot"
-            >
-                <v-icon size="28">mdi-keyboard-backspace</v-icon>
-            </v-btn>
-            <div class="title-text">
-                {{ title }}
-            </div>
-        </div>
-        <v-divider />
-        <v-card-text style="height: 300px;"
-                     class="pa-0"
+  <v-card>
+    <div class="title-wrapper">
+      <v-btn
+        v-show="!showRootInterests"
+        icon
+        class="title-back-btn"
+        @click="showRoot"
+      >
+        <v-icon
+          size="28"
+          v-text="'$back'"
+        />
+      </v-btn>
+      <div class="title-text">
+        {{ title }}
+      </div>
+    </div>
+    <v-divider />
+    <v-card-text
+      style="height: 300px;"
+      class="pa-0"
+    >
+      <v-list class="pt-0">
+        <div
+          v-for="interest in getInterests()"
+          :key="interest.seq"
         >
-            <v-list class="pt-0">
-                <v-list-item-group>
-                    <template v-for="interest in interests">
-                        <v-list-item :key="interest.seq"
-                                     @click="selectInterest(interest)"
-                        >
-                            {{ interest.name }}
-                        </v-list-item>
-                    </template>
-                </v-list-item-group>
-            </v-list>
-        </v-card-text>
-        <v-divider />
-    </v-card>
+          <v-list-item
+            @click="selectInterest(interest)"
+          >
+            {{ interest.name }}
+          </v-list-item>
+        </div>
+      </v-list>
+    </v-card-text>
+    <v-divider />
+  </v-card>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
+import { Interest, InterestGroupTree } from '@/interfaces/common';
+
 const TITLE = '관심사 선택';
-export default {
-    name: 'BottomSheetInterestCard',
-    props: {
-        rootInterests: Array,
-        canSelectRoot: Boolean,
+export default Vue.extend({
+  name: 'BottomSheetInterestCard',
+  props: {
+    canSelectRoot: Boolean,
+  },
+  data() {
+    return {
+      showRootInterests: true,
+      title: TITLE,
+      interests: [] as (Interest | InterestGroupTree)[] | InterestGroupTree[],
+    };
+  },
+  computed: {
+    rootInterests(): InterestGroupTree[] {
+      return this.$store.state.common.rootInterests;
     },
-    data() {
-        return {
-            showRootInterests: true,
-            title: TITLE,
-            interests: this.rootInterests,
-        };
+  },
+  methods: {
+    showRoot() {
+      this.showRootInterests = true;
+      this.interests = this.rootInterests;
+      this.title = TITLE;
     },
-    watch: {
-        rootInterests() {
-            this.interests = this.rootInterests;
-        },
+    selectInterest(interest: InterestGroupTree | Interest) {
+      if (this.showRootInterests) {
+        this.selectRootInterest(interest as InterestGroupTree);
+      } else {
+        this.selectSubInterest(interest as Interest);
+      }
     },
-    methods: {
-        showRoot() {
-            this.showRootInterests = true;
-            this.interests = this.rootInterests;
-            this.title = TITLE;
-        },
-        selectInterest(interest) {
-            this.showRootInterests ? this.selectRootInterest(interest) : this.selectSubInterest(interest);
-        },
-        selectRootInterest(rootInterest) {
-            this.title = rootInterest.name;
-            this.interests = [...rootInterest.interestList];
-            if (this.canSelectRoot) {
-                this.interests.unshift({ ...rootInterest });
-            }
-            this.showRootInterests = false;
-        },
-        selectSubInterest(interest) {
-            this.$emit('selectSubInterest', interest);
-            setTimeout(() => {
-                this.showRootInterests = true;
-                this.title = TITLE;
-                this.interests = this.rootInterests;
-            }, 100);
-        },
+    selectRootInterest(rootInterest: InterestGroupTree) {
+      this.title = rootInterest.name;
+      this.interests = [...rootInterest.interestList];
+      if (this.canSelectRoot) {
+        this.interests.unshift({ ...rootInterest });
+      }
+      this.showRootInterests = false;
     },
-};
+    selectSubInterest(interest: InterestGroupTree | Interest) {
+      this.$emit('selectSubInterest', interest);
+      this.$nextTick(() => {
+        this.showRootInterests = true;
+        this.title = TITLE;
+      });
+    },
+    getInterests(): InterestGroupTree[] | (Interest | InterestGroupTree)[] {
+      return this.showRootInterests ? this.rootInterests : this.interests;
+    },
+  },
+});
 </script>
 
-<style scoped
-       lang="scss"
+<style
+  scoped
+  lang="scss"
 >
 .title-wrapper {
-    height: 60px;
-    line-height: 44px;
-    padding: 0.5rem 1rem;
+  height: 60px;
+  line-height: 44px;
+  padding: 0.5rem 1rem;
 
-    .title-back-btn {
-        margin-right: 0.5rem;
-    }
+  .title-back-btn {
+    margin-right: 0.5rem;
+  }
 
-    .title-text {
-        display: inline;
-        align-items: center;
-        font-size: 1.3rem;
-        font-weight: 500;
-    }
+  .title-text {
+    display: inline;
+    align-items: center;
+    font-size: 1.3rem;
+    font-weight: 500;
+  }
 }
 </style>

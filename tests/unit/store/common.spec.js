@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import commonModule from '@/store/modules/common.js';
+import commonModule from '@/store/modules/ui.ts';
 
 describe('mutations', () => {
     const { mutations } = commonModule;

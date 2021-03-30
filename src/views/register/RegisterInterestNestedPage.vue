@@ -1,55 +1,67 @@
 <template>
-    <div>
-        <UserInterestSelectList />
-        <GoBackBtnFooter @clickGoBtn="register" />
-    </div>
+  <InterestSelect
+    title="회원가입"
+    :backCallback="back"
+    :submitCallback="register"
+  >
+    <template #header-title>
+      관심있는 분야를 선택해주세요.
+    </template>
+    <template #header-description>
+      최대 5개까지 선택 가능합니다.
+    </template>
+  </InterestSelect>
 </template>
 
-<script>
-import UserInterestSelectList from '@/components/user/UserInterestSelectList.vue';
-import GoBackBtnFooter from '@/components/footer/GoBackBtnFooter.vue';
-import { MESSAGE } from '@/utils/common/constant/constant.js';
-import _ from '@/utils/common/lodashWrapper.js';
-import { PATH } from '@/router/route_path_type.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
-import gettersHelper from '@/store/helper/GettersHelper.js';
-import actionsHelper from '@/store/helper/ActionsHelper.js';
+<script lang="ts">
+import Vue from 'vue';
+import { PATH } from '@/router/route_path_type.ts';
+import { MESSAGE } from '@/utils/common/constant/messages.ts';
+import InterestSelect from '@/components/interest/InterestSelect.vue';
+import _ from '@/utils/common/lodashWrapper.ts';
+import { UIMutationTypes } from '@/store/type/mutationTypes.ts';
+import { KakaoProfile, UserRegisterContext } from '@/interfaces/user';
+import { Interest, Region } from '@/interfaces/common';
+import { UserActionTypes } from '@/store/type/actionTypes';
 
-export default {
-    name: 'RegisterInterestNestedPage',
-    components: { UserInterestSelectList, GoBackBtnFooter },
-    computed: {
-        kakaoProfile: () => gettersHelper.kakaoProfile(),
-        selectedRegions: () => gettersHelper.selectedRegions(),
-        selectedInterestSeqs: () => gettersHelper.selectedInterestSeqs(),
-    },
-    created() {
-        if (_.isDeepEmpty(this.kakaoProfile)) {
-            this.$router.push(PATH.REGISTER.PROFILE);
-            return;
-        }
 
-        if (_.isEmpty(this.selectedRegions)) {
-            this.$router.push(PATH.REGISTER.REGION);
-        }
+export default Vue.extend({
+  name: 'RegisterInterestNestedPage',
+  components: { InterestSelect },
+  computed: {
+    kakaoProfile(): KakaoProfile {
+      return this.$store.state.user.kakaoProfile;
     },
-    methods: {
-        register() {
-            const registerInfo = {
-                profile: this.kakaoProfile,
-                selectedRegions: this.selectedRegions,
-                selectedInterestSeqs: this.selectedInterestSeqs,
-            };
+    selectedRegions(): Region[] {
+      return this.$store.state.user.selectedRegions;
+    },
+  },
+  created() {
+    if (_.isDeepEmpty(this.kakaoProfile)) {
+      this.$router.push(PATH.REGISTER.PROFILE);
+      return;
+    }
 
-            actionsHelper.postRegister(registerInfo)
-                .then(() => this.$router.push(PATH.CLUB_LIST)
-                    .then(() => mutationsHelper.openSnackBar(MESSAGE.SUCCESS_REGISTER)))
-                .catch(() => this.$router.push(PATH.REGISTER.PROFILE));
-        },
+    if (_.isEmpty(this.selectedRegions)) {
+      this.$router.push(PATH.REGISTER.REGION);
+    }
+  },
+  methods: {
+    register(selectedInterests: Interest[]) {
+      const userRegisterContext: UserRegisterContext = {
+        profile: this.kakaoProfile,
+        selectedRegions: this.selectedRegions,
+        selectedInterests: selectedInterests,
+      };
+
+      this.$store.dispatch(UserActionTypes.REQUEST_REGISTER, userRegisterContext)
+        .then(() => this.$router.push(PATH.CLUB_LIST)
+          .then(() => this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_REGISTER)))
+        .catch(() => this.$router.push(PATH.REGISTER.PROFILE));
     },
-};
+    back() {
+      this.$router.push(PATH.REGISTER.REGION);
+    },
+  },
+});
 </script>
-
-<style scoped>
-
-</style>

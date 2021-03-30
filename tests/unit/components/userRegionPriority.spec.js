@@ -2,14 +2,14 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuex from 'vuex';
 import sinon from 'sinon';
 import { expect } from 'chai';
-import UserRegionPriority from '@/components/user/UserRegionSelectList.vue';
+import UserRegionPriority from '@/components/region/RegionSelect.vue';
 import { testUtils } from '../../utils/testUtils.js';
 
 const sandbox = sinon.createSandbox();
 const localVue = createLocalVue();
 localVue.use(Vuex);
 
-describe('UserRegionSelectList.vue', () => {
+describe('RegionSelect.vue', () => {
     let gettersHelper;
     let options;
     let $router;

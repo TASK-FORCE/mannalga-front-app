@@ -1,46 +1,49 @@
 <template>
-    <div>
-        <UserRegionSelectList />
-        <GoBackBtnFooter @clickGoBtn="clickGoBtn" />
-    </div>
+  <div>
+    <RegionSelect
+      :backCallback="clickBack"
+      :submitCallback="goNextStep"
+      title="회원 가입"
+    >
+      <template #header-title>
+        참여할 지역을 설정해주세요.
+      </template>
+      <template #header-description>
+        최대 3개까지 선택 가능합니다.
+      </template>
+    </RegionSelect>
+  </div>
 </template>
 
-<script>
-import UserRegionSelectList from '@/components/user/UserRegionSelectList.vue';
-import GoBackBtnFooter from '@/components/footer/GoBackBtnFooter.vue';
-import _ from '@/utils/common/lodashWrapper.js';
-import mutationsHelper from '@/store/helper/MutationsHelper.js';
-import gettersHelper from '@/store/helper/GettersHelper.js';
-import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.js';
-import { MESSAGE } from '@/utils/common/constant/constant.js';
-import { PATH } from '@/router/route_path_type.js';
+<script lang="ts">
+import RegionSelect from '@/components/region/RegionSelect.vue';
+import _ from '@/utils/common/lodashWrapper.ts';
+import { PATH } from '@/router/route_path_type.ts';
+import { MESSAGE } from '@/utils/common/constant/messages.ts';
+import { UIMutationTypes, UserMutationTypes } from '@/store/type/mutationTypes.ts';
+import Vue from 'vue';
+import { Region } from '@/interfaces/common';
 
-export default {
-    name: 'RegisterRegionNestedPage',
-    components: { UserRegionSelectList, GoBackBtnFooter },
-    computed: {
-        kakaoProfile: () => gettersHelper.kakaoProfile(),
-        selectedRegions: () => gettersHelper.selectedRegions(),
+export default Vue.extend({
+  name: 'RegisterRegionNestedPage',
+  components: { RegionSelect },
+  created() {
+    if (_.isDeepEmpty(this.$store.state.user.kakaoProfile)) {
+      this.$router.push(PATH.REGISTER.PROFILE);
+    }
+  },
+  methods: {
+    goNextStep(selectedRegions: Region[]) {
+      if (_.isEmpty(selectedRegions)) {
+        this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.SELECT_REGION_REQUIRE);
+      } else {
+        this.$store.commit(UserMutationTypes.SET_SELECTED_REGIONS, selectedRegions);
+        this.$router.push(PATH.REGISTER.INTEREST);
+      }
     },
-    created() {
-        if (_.isDeepEmpty(this.kakaoProfile)) {
-            this.$router.push(PATH.REGISTER.PROFILE);
-        }
-
-        regionAndInterestVuexService.dispatch(false);
+    clickBack() {
+      this.$router.push(PATH.REGISTER.PROFILE);
     },
-    methods: {
-        clickGoBtn() {
-            if (_.isNotEmpty(this.selectedRegions)) {
-                this.$router.push(PATH.REGISTER.INTEREST);
-                return;
-            }
-            mutationsHelper.openSnackBar(MESSAGE.SELECT_REGION_REQUIRE);
-        },
-    },
-};
+  },
+});
 </script>
-
-<style scoped>
-
-</style>
