@@ -5,6 +5,7 @@
     :app="!isDialog"
   >
     <v-btn
+      class="back-btn"
       icon
       @click="$emit('back')"
     >
@@ -20,14 +21,7 @@
             {{ title }}
         </span>
     <v-spacer />
-    <v-btn
-      v-if="showSubmitBtn"
-      text
-      class="header-button"
-      @click="$emit('submit')"
-    >
-      완료
-    </v-btn>
+    <slot name="option" />
   </v-app-bar>
 </template>
 
@@ -39,10 +33,6 @@ export default Vue.extend({
   name: 'CommonHeader',
   props: {
     title: String,
-    showSubmitBtn: {
-      type: Boolean,
-      default: false,
-    },
     isDialog: {
       type: Boolean,
       default: false,
@@ -57,6 +47,10 @@ export default Vue.extend({
 >
 .app-header {
   border-bottom: 1px solid #F5F5F5;
+}
+
+.back-btn {
+  color: #292929 !important;
 }
 
 .header-title {
@@ -84,6 +78,10 @@ export default Vue.extend({
 
   .header-button {
     color: #F5F5F5;
+  }
+
+  .back-btn {
+    color: #F5F5F5 !important;
   }
 }
 </style>

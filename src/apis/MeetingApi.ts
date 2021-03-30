@@ -23,6 +23,10 @@ const meetingApi = {
       .then(ResponseConverter.convertMeeting);
   },
 
+  deleteMeeting({ clubSeq, meetingSeq }: MeetingSeqContext): Promise<Meeting> {
+    return axios.delete(`/api/clubs/${clubSeq}/meetings/${meetingSeq}`)
+  },
+
   postMeetingApplication({ clubSeq, meetingSeq }: MeetingSeqContext): Promise<void> {
     return axios.post(`/api/clubs/${clubSeq}/meetings/${meetingSeq}/applications`)
       .then(ResponseConverter.extractSuperInventionResponseData);

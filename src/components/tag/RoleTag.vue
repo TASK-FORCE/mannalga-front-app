@@ -1,5 +1,6 @@
 <template>
   <SquareTag
+    v-if="role"
     :text="role.name"
     :bgColor="role.color"
     small

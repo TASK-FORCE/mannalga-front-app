@@ -107,6 +107,15 @@ export default class DefaultBuilder {
         userName: '',
         userRoles: [],
       },
+      isOpen: false,
+      registerUserRoles: [],
+      isSameDayMeeting: false,
+      meetingDay: 0,
+      meetingDayOfWeek: '',
+      startDate: '',
+      startTime: '',
+      endDate: '',
+      endTime: '',
     }
   }
 

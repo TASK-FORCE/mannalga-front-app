@@ -81,14 +81,14 @@ export const mutations = {
 export type MeetingMutations = typeof mutations;
 
 export const actions = {
-  async [MeetingActionTypes.REQUEST_MEETING_CREATE]({}: MeetingActionContext, meetingWriteRequestWithSeq: MeetingWriteRequestWithSeq) {
+  async [MeetingActionTypes.REQUEST_MEETING_CREATE]({ commit }: MeetingActionContext, meetingWriteRequestWithSeq: MeetingWriteRequestWithSeq) {
     return actionsNormalTemplate(
       async () => {
         await meetingApi.postClubMeeting(meetingWriteRequestWithSeq);
       },
     );
   },
-  async [MeetingActionTypes.REQUEST_MEETING_EDIT]({}: MeetingActionContext, meetingWriteRequestWithSeq: MeetingWriteRequestWithSeq) {
+  async [MeetingActionTypes.REQUEST_MEETING_EDIT]({ commit }: MeetingActionContext, meetingWriteRequestWithSeq: MeetingWriteRequestWithSeq) {
     return actionsNormalTemplate(
       async () => {
         await meetingApi.putClubMeeting(meetingWriteRequestWithSeq);
@@ -118,6 +118,11 @@ export const actions = {
     return actionsLoadingTemplate(async () => {
       const meeting = await meetingApi.getMeeting(meetingSeqContext);
       commit(MeetingMutationTypes.SET_MEETING, meeting);
+    });
+  },
+  async [MeetingActionTypes.REQUEST_DELETE_MEETING]({ commit }: MeetingActionContext, meetingSeqContext: MeetingSeqContext) {
+    return actionsLoadingTemplate(async () => {
+      await meetingApi.deleteMeeting(meetingSeqContext);
     });
   },
   async [MeetingActionTypes.REQUEST_MEETING_APPLICATION]({ commit, dispatch }: MeetingActionContext, meetingSeqContext: MeetingSeqContext) {

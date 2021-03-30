@@ -14,83 +14,48 @@
       </div>
     </div>
     <div class="divider" />
-    <div class="meeting-box">
-      <div class="d-flex align-center">
-        <div class="meeting-title">
-          {{ meeting.title }}
-        </div>
-        <v-spacer />
-        <div
-          v-if="tagText"
-          class="meeting-tag"
-        >
-          {{ tagText }}
-        </div>
-      </div>
-      <div class="sub-description-wrapper">
-        <div class="sub-description">
-          <v-icon
-            size="12"
-            class="sub-description-icon"
-            v-text="'$clock'"
-          />
-          {{ meetingTime }}
-        </div>
-        <div class="sub-description pt-1">
-          <v-icon
-            size="12"
-            class="sub-description-icon"
-            v-text="'$mapMarker'"
-          />
-          {{ meeting.region ? meeting.region : '미정' }}
-        </div>
-        <div class="sub-description pt-1">
-          <v-icon
-            size="12"
-            class="sub-description-icon"
-            v-text="'$currencyKrw'"
-          />
-          {{ meeting.cost ? meeting.cost : '미정' }}
-        </div>
-      </div>
-      <div class="d-flex align-center">
-        <div
-          v-for="(user, index) in extractedApplicationUsers"
-          :key="user.seq"
-        >
-          <UserProfileAvatar
-            :size="22"
-            :name="user.name"
-            :appendNumber="user.seq"
-            :imgUrl="user.imgUrl"
-            :class="index !== 0 ? 'ml-1' : null"
-          />
-        </div>
-        <div v-if="remainingApplicationUserCount > 0">
-          <TextAvatar
-            :size="22"
-            :name="`+${remainingApplicationUserCount}`"
-            class="ml-1"
-          />
-        </div>
-        <v-spacer />
-        <div class="meeting-application-users-number">
-          <div>
-            <v-icon
-              size="12"
-              class="users-number-icon"
-              v-text="'$twoPeople'"
+    <MeetingBox
+      :meeting="meeting"
+      showTag
+    >
+      <template #footer>
+        <div class="d-flex align-center">
+          <div
+            v-for="(user, index) in extractedApplicationUsers"
+            :key="user.seq"
+          >
+            <UserProfileAvatar
+              :size="22"
+              :name="user.name"
+              :appendNumber="user.seq"
+              :imgUrl="user.imgUrl"
+              :class="index !== 0 ? 'ml-1' : null"
             />
           </div>
-          <div>
-            {{ meeting.applicationUsers.length }}
-            <span v-if="meeting.maximumNumber">
-                            / {{ meeting.maximumNumber }}
-                        </span>
+          <div v-if="remainingApplicationUserCount > 0">
+            <TextAvatar
+              :size="22"
+              :name="`+${remainingApplicationUserCount}`"
+              class="ml-1"
+            />
+          </div>
+          <v-spacer />
+          <div class="meeting-application-users-number">
+            <div>
+              <v-icon
+                size="12"
+                class="users-number-icon"
+                v-text="'$twoPeople'"
+              />
+            </div>
+            <div>
+              {{ meeting.applicationUsers.length }}
+              <span v-if="meeting.maximumNumber">/ {{ meeting.maximumNumber }}</span>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      </template>
+    </MeetingBox>
   </div>
 </template>
 
@@ -100,24 +65,23 @@ import routerHelper from '@/router/RouterHelper.ts';
 import { generateParamPath, PATH } from '@/router/route_path_type.ts';
 import UserProfileAvatar from '@/components/user/UserProfileAvatar.vue';
 import TextAvatar from '@/components/user/TextAvatar.vue';
-import Vue from 'vue';
+import Vue, { PropType } from 'vue';
+import { MeetingApplicationUser, MeetingFeed } from '@/interfaces/meeting';
+import MeetingBox from '@/components/meeting/MeetingBox.vue';
 
 const SHOW_AVATAR_SIZE = 5;
 
 export default Vue.extend({
   name: 'ClubDetailMeetingPost',
-  components: { TextAvatar, UserProfileAvatar },
+  components: { MeetingBox, TextAvatar, UserProfileAvatar },
   props: {
-    meeting: Object,
-  },
-  data() {
-    return {
-      applyLoading: false,
-    };
+    meeting: Object as PropType<MeetingFeed>,
   },
   computed: {
-    clubSeq: () => routerHelper.clubSeq(),
-    resolveClass() {
+    clubSeq(): number {
+      return routerHelper.clubSeq();
+    },
+    resolveClass(): any {
       if (!this.meeting.isOpen) {
         return 'close-meeting';
       }
@@ -127,17 +91,7 @@ export default Vue.extend({
       }
       return null;
     },
-    resolveMeetingBoxStyle() {
-      const paddingWidth = 50;
-      const dividerWidth = 34;
-      const dateBoxWidth = 50;
-      const { clientWidth } = document.querySelector('#app') as HTMLElement;
-      const width = clientWidth - paddingWidth - dividerWidth - dateBoxWidth;
-      return {
-        width: `${width}px`,
-      };
-    },
-    tagText() {
+    tagText(): string | null {
       if (!this.meeting.isOpen) {
         return '종료';
       }
@@ -147,7 +101,7 @@ export default Vue.extend({
       }
       return null;
     },
-    meetingTime() {
+    meetingTime(): string {
       const { isSameDayMeeting, startDate, startTime, endDate, endTime } = this.meeting;
       if (isSameDayMeeting) {
         return `${startDate} ${startTime} - ${endTime}`;
@@ -155,10 +109,10 @@ export default Vue.extend({
 
       return `${startDate} - ${endDate}`;
     },
-    extractedApplicationUsers() {
+    extractedApplicationUsers(): MeetingApplicationUser[] {
       return this.meeting.applicationUsers.slice(0, SHOW_AVATAR_SIZE);
     },
-    remainingApplicationUserCount() {
+    remainingApplicationUserCount(): number {
       return this.meeting.applicationUsers.length - SHOW_AVATAR_SIZE;
     },
   },

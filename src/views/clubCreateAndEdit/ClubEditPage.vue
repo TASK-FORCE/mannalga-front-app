@@ -30,7 +30,7 @@ import { ClubActionTypes } from '@/store/type/actionTypes';
 import { InterestWithPriority, RegionWithPriority } from '@/interfaces/common';
 import ClubCreateAndEdit from '@/views/clubCreateAndEdit/ClubCreateAndEdit.vue';
 import YesOrNoDialog from '@/components/YesOrNoDialog.vue';
-import { UIMutationTypes } from '@/store/type/mutationTypes';
+import { ClubListMutationTypes, UIMutationTypes } from '@/store/type/mutationTypes';
 import { MESSAGE } from '@/utils/common/constant/messages';
 
 export default Vue.extend({
@@ -77,6 +77,8 @@ export default Vue.extend({
     deleteClub() {
       return this.$store.dispatch(ClubActionTypes.REQUEST_CLUB_DELETE, this.clubInfo.seq)
         .then(() => {
+          this.$store.commit(ClubListMutationTypes.INIT_CLUB_LIST_AND_PAGE)
+          this.$store.commit(ClubListMutationTypes.INIT_MY_CLUB_LIST_AND_PAGE)
           this.$router.push(PATH.CLUB_LIST);
           this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_DELETE_CLUB)
         });

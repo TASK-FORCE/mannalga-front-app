@@ -12,6 +12,7 @@
         <ClubMemberInfo
           :user="clubUser"
           :currentUserInfo="currentUserInfo"
+          provideManagement
           @openWithdrawnDialog="openWithdrawnDialog"
           @openKickDialog="openKickDialog"
           @openManagementDialog="openManagementDialog"
@@ -55,7 +56,7 @@
 
     <v-dialog
       :value="managementDialog"
-      persistent
+      @click:outside="closeManagementDialog"
     >
       <v-card
         v-if="managementTargetUser"
@@ -71,17 +72,6 @@
           <div class="member-info">
             {{ managementTargetUser.name }}
           </div>
-          <v-spacer />
-          <v-btn
-            class="white--text mr-1"
-            icon
-            @click="closeManagementDialog"
-          >
-            <v-icon
-              large
-              v-text="'$close'"
-            />
-          </v-btn>
         </div>
 
         <MiddleDivider
@@ -92,19 +82,27 @@
           <div>
             <v-btn
               v-if="managementTargetUser.role[0] === 'CLUB_MEMBER'"
+              class="btn"
+              text
+              color="#2883C6"
               @click="toManagerFromMember"
             >
               매니저로 지정
             </v-btn>
             <v-btn
               v-else
+              class="btn"
+              text
+              color="#2883C6"
               @click="toMemberFromManager"
             >
               모임원으로 강등
             </v-btn>
           </div>
           <v-btn
-            class="ml-3"
+            class="btn"
+            text
+            color="#2883C6"
             @click="kickByManagementDialog"
           >
             추방하기
@@ -243,6 +241,11 @@ export default Vue.extend({
     margin-top: 20px;
   }
 
+}
+
+.btn {
+  font-weight: bold;
+  font-size: 15px;
 }
 
 .member-info-wrapper {

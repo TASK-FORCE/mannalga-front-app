@@ -99,7 +99,7 @@ const routes: RouteConfig[] = [
   {
     path: PATH.CLUB.MEETING_POST,
     name: 'ClubMeetingPost',
-    component: () => import('@/views/clubMeetingPost/ClubMeetingPostPage.vue'),
+    component: () => import('@/views/clubMeetingDetail/ClubMeetingDetailPage.vue'),
   },
   {
     path: PATH.CLUB.ALBUM_CREATE,

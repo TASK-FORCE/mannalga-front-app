@@ -1,4 +1,5 @@
 import { Page, PageRequest } from '@/interfaces/common';
+import { Role } from './clubList';
 
 export interface MeetingPageRequest {
   clubSeq: number;
@@ -126,12 +127,21 @@ export interface Meeting {
   title: string;
   content: string;
   maximumNumber?: number;
-  cost: string;
+  cost?: string;
   region?: string;
   isCreator: boolean;
   isRegistered: boolean;
   applicationUsers: MeetingApplicationUser[];
   registerUser: MeetingRegisterUser;
+  registerUserRoles: Role[];
+  isOpen: boolean;
+  isSameDayMeeting: boolean;
+  meetingDay: number;
+  meetingDayOfWeek: string;
+  startDate: string;
+  startTime: string;
+  endDate: string;
+  endTime: string;
 }
 
 export interface MeetingRegisterUser {
@@ -167,6 +177,7 @@ export interface ServerMeeting {
 
 export interface ServerMeetingRegisterUser {
   user: MeetingRegisterUser;
+  roles: Role[];
 }
 
 export interface MeetingWriteContext {
