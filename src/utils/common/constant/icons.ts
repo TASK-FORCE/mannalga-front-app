@@ -26,6 +26,7 @@ import {
   mdiCommentOutline,
   mdiCurrencyKrw,
   mdiDotsVertical,
+  mdiEarthOff,
   mdiEmoticonCryOutline,
   mdiFacebookMessenger,
   mdiHeart,
@@ -48,7 +49,7 @@ import {
   mdiShareVariant,
   mdiThumbUpOutline,
   mdiWater,
-  mdiWaterOutline,
+  mdiWaterOutline
 } from '@mdi/js';
 
 export const ICONS = {
@@ -102,4 +103,5 @@ export const ICONS = {
   note: mdiNoteTextOutline,
   calendarOut: mdiCalendarTextOutline,
   dotsVertical: mdiDotsVertical,
+  earthOff: mdiEarthOff
 };

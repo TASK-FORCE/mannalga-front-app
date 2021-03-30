@@ -35,6 +35,12 @@ import Progress from '@/components/Progress.vue';
 import { UIMutationTypes } from '@/store/type/mutationTypes.ts';
 import Vue from 'vue';
 import { loadCurrentTheme } from '@/utils/theme';
+import { PATH } from '@/router/route_path_type';
+
+function isIEBrowser() {
+  const agent = navigator.userAgent.toLowerCase();
+  return (navigator.appName == 'Netscape' && agent.indexOf('trident') != -1) || (agent.indexOf('msie') != -1);
+}
 
 export default Vue.extend({
   name: 'App',
@@ -45,6 +51,11 @@ export default Vue.extend({
     };
   },
   mounted() {
+    if (isIEBrowser()) {
+      if (this.$route.path !== PATH.NOT_SUPPORTED_BROWSER) {
+        this.$router.push(PATH.NOT_SUPPORTED_BROWSER);
+      }
+    }
     loadCurrentTheme();
   },
   methods: {

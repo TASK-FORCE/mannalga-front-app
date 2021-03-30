@@ -12,6 +12,7 @@
     </div>
     <div class="description">
       {{ description }}
+      <slot name="description" />
     </div>
   </div>
 </template>

@@ -29,6 +29,7 @@ export const PATH = {
     REGION_EDIT: '/user/region/edit',
     INTEREST_EDIT: '/user/interest/edit',
   },
+  NOT_SUPPORTED_BROWSER: '/notSupportedBrowser',
   BACK: 'back',
 };
 
