@@ -1,8 +1,7 @@
 <template>
   <div>
-    <CommonHeader
+    <SubmitHeader
       :title="title"
-      showSubmitBtn
       @submit="submit"
       @back="$emit('back')"
     />
@@ -90,12 +89,12 @@ import RegionSelectDialog from '@/components/region/RegionSelectDialog.vue';
 import InterestSelectDialog from '@/components/interest/InterestSelectDialog.vue';
 import { Interest, Region, UploadImageResponse } from '@/interfaces/common';
 import { ClubWriteContext, ClubWriteRequest } from '@/interfaces/club';
-import CommonHeader from '@/components/header/CommonHeader.vue';
+import SubmitHeader from '@/components/header/SubmitHeader.vue';
 
 export default Vue.extend({
   name: 'ClubCreateAndEdit',
   components: {
-    CommonHeader,
+    SubmitHeader,
     InterestSelectDialog,
     RegionSelectDialog,
     ImageSelectBox,

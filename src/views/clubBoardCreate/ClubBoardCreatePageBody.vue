@@ -1,8 +1,7 @@
 <template>
   <div>
-    <CommonHeader
+    <SubmitHeader
       :title="headerTitle"
-      showSubmitBtn
       @submit="createClubBoard"
       @back="$emit('back')"
     />
@@ -66,11 +65,11 @@ import { CurrentUserInfo } from '@/interfaces/club';
 import { BoardActionTypes } from '@/store/type/actionTypes';
 import { BoardCategory } from '@/interfaces/board/BoardCategory';
 import { BoardCategoryType, BoardCreateRequestWishSeq } from '@/interfaces/board/board';
-import CommonHeader from '@/components/header/CommonHeader.vue';
+import SubmitHeader from '@/components/header/SubmitHeader.vue';
 
 export default Vue.extend({
   name: 'ClubBoardCreateBox',
-  components: { CommonHeader, ImageSelectBox },
+  components: { SubmitHeader, ImageSelectBox },
   props: {
     headerTitle: String,
   },

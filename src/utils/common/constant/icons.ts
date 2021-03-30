@@ -25,6 +25,7 @@ import {
   mdiCommentMultiple,
   mdiCommentOutline,
   mdiCurrencyKrw,
+  mdiDotsVertical,
   mdiEmoticonCryOutline,
   mdiFacebookMessenger,
   mdiHeart,
@@ -100,4 +101,5 @@ export const ICONS = {
   image: mdiImage,
   note: mdiNoteTextOutline,
   calendarOut: mdiCalendarTextOutline,
+  dotsVertical: mdiDotsVertical,
 };

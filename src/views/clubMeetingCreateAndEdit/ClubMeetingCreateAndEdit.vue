@@ -1,8 +1,7 @@
 <template>
   <div>
-    <CommonHeader
+    <SubmitHeader
       :title="headerTitle"
-      showSubmitBtn
       @submit="submit"
       @back="$emit('back')"
     />
@@ -83,7 +82,7 @@ import { toCurrency } from '@/utils/common/commonUtils.ts';
 import { RULES } from '@/utils/common/constant/rules.ts';
 import Vue, { PropType } from 'vue';
 import { DateTime, MeetingWriteContext, MeetingWriteRequest } from '@/interfaces/meeting';
-import CommonHeader from '@/components/header/CommonHeader.vue';
+import SubmitHeader from '@/components/header/SubmitHeader.vue';
 
 const toMoment = (localDate: DateTime): moment.Moment => moment(`${localDate.date} ${localDate.time}`.trim());
 const toTimeStamp = (localDate: DateTime): string => `${localDate.date} ${localDate.time}:00`;
@@ -110,7 +109,7 @@ const DEFAULT_DATE_TIME: DateTime = { date: today(), time: '' };
 
 export default Vue.extend({
   name: 'ClubMeetingCreateAndEdit',
-  components: { CommonHeader, DateTimePicker },
+  components: { SubmitHeader, DateTimePicker },
   props: {
     headerTitle: {
       type: String,
