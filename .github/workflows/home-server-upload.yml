@@ -1,0 +1,40 @@
+name: '[Deploy] AWS EC2 - nginx'
+
+on:
+  push:
+    branches: [ develop ]
+
+jobs:
+  upload_to_server_nginx:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: install
+        run: yarn install
+
+      - name: build
+        run: yarn build && tar -zcvf build.tar.gz ./dist
+
+      - name: Deploy to nginx-server
+        uses: appleboy/scp-action@master
+        env:
+          HOST: ${{ secrets.HOME_SSH_HOST }}
+          PORT: 22
+          USERNAME: ${{ secrets.HOME_SSH_USER }}
+          KEY: ${{ secrets.HOME_SSH_KEY }}
+        with:
+          source: "./dist/*"
+          target: "~/config-frontend/temp"
+          strip_components: 1
+
+      - name: Launch Script in Remote Server
+        if: ${{ success() }}
+        uses: fifsky/ssh-action@master
+        with:
+          command: |
+            sh ~/config-frontend/deploy-to-nginx.sh
+          host: ${{ secrets.HOME_SSH_HOST }}
+          user: ${{ secrets.HOME_SSH_USER }}
+          key:  ${{ secrets.HOME_SSH_KEY }}
+          args: "-tt"
