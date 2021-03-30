@@ -72,12 +72,13 @@ export enum CommonActionTypes {
 }
 
 export enum MeetingActionTypes {
-  REQUEST_MEETING_CREATE = 'meeting/ REQUEST_MEETING_CREATE',
-  REQUEST_MEETING_EDIT = 'meeting/REQUEST_MEETING_EDIT',
-  REQUEST_FIRST_MEETING_GROUP_LIST = 'meeting/REQUEST_FIRST_MEETING_GROUP_LIST',
-  REQUEST_NEXT_MEETING_GROUP_LIST = 'meeting/REQUEST_NEXT_MEETING_GROUP_LIST',
-  REQUEST_MEETING = 'meeting/REQUEST_MEETING',
-  REQUEST_MEETING_APPLICATION = 'meeting/REQUEST_MEETING_APPLICATION',
-  REQUEST_CANCEL_MEETING_APPLICATION = 'meeting/REQUEST_CANCEL_MEETING_APPLICATION',
-  REQUEST_MEETING_APPLICATION_STATUS = 'meeting/REQUEST_MEETING_APPLICATION_STATUS',
+  REQUEST_MEETING_CREATE = 'meeting/ requestMeetingCreate',
+  REQUEST_MEETING_EDIT = 'meeting/requestMeetingEdit',
+  REQUEST_FIRST_MEETING_GROUP_LIST = 'meeting/requestFirstMeetingGroupList',
+  REQUEST_NEXT_MEETING_GROUP_LIST = 'meeting/requestNextMeetingGroupList',
+  REQUEST_MEETING = 'meeting/requestMeeting',
+  REQUEST_DELETE_MEETING = 'meeting/requestDeleteMeeting',
+  REQUEST_MEETING_APPLICATION = 'meeting/requestMeetingApplication',
+  REQUEST_CANCEL_MEETING_APPLICATION = 'meeting/requestCancelMeetingApplication',
+  REQUEST_MEETING_APPLICATION_STATUS = 'meeting/requestMeetingApplicationStatus',
 }

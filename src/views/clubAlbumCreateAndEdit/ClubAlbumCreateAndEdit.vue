@@ -1,8 +1,7 @@
 <template>
   <div>
-    <CommonHeader
+    <SubmitHeader
       :title="headerTitle"
-      showSubmitBtn
       @submit="requestAlbumCreate"
       @back="$emit('back')"
     />
@@ -38,11 +37,11 @@ import { AlbumWriteRequest } from '@/interfaces/album';
 import routerHelper from '@/router/RouterHelper';
 import { UIMutationTypes } from '@/store/type/mutationTypes';
 import { MESSAGE } from '@/utils/common/constant/messages';
-import CommonHeader from '@/components/header/CommonHeader.vue';
+import SubmitHeader from '@/components/header/SubmitHeader.vue';
 
 export default Vue.extend({
   name: 'ClubAlbumCreateAndEdit',
-  components: { CommonHeader, ImageSelectBox },
+  components: { SubmitHeader, ImageSelectBox },
   props: {
     headerTitle: {
       type: String,

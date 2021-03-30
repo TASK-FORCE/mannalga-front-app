@@ -1,9 +1,8 @@
 <template>
   <div>
-    <CommonHeader
+    <SubmitHeader
       :title="title"
       :isDialog="isDialog"
-      showSubmitBtn
       @back="backCallback"
       @submit="submit"
     />
@@ -43,16 +42,16 @@
 <script lang="ts">
 import { PATH } from '@/router/route_path_type.ts';
 import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.ts';
-import CommonHeader from '@/components/header/CommonHeader.vue';
 import { format, MESSAGE } from '@/utils/common/constant/messages.ts';
 import _ from '@/utils/common/lodashWrapper.ts';
 import { UIMutationTypes } from '@/store/type/mutationTypes.ts';
 import Vue, { PropType } from 'vue';
 import { Interest, InterestGroupTree } from '@/interfaces/common';
+import SubmitHeader from '@/components/header/SubmitHeader.vue';
 
 export default Vue.extend({
   name: 'InterestSelect',
-  components: { CommonHeader },
+  components: { SubmitHeader },
   props: {
     selectedInterestsCallback: {
       type: Function as PropType<() => Promise<Interest[]>>,

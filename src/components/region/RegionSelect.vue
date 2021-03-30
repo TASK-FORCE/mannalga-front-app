@@ -1,9 +1,8 @@
 <template>
   <div>
-    <CommonHeader
+    <SubmitHeader
       :title="title"
       :isDialog="isDialog"
-      showSubmitBtn
       @back="backCallback"
       @submit="submit"
     />
@@ -68,12 +67,12 @@ import Vue, { PropType } from 'vue';
 import { PATH } from '@/router/route_path_type.ts';
 import BottomSheetRegionCard from '@/components/bottom-sheet/BottomSheetRegionCard.vue';
 import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.ts';
-import CommonHeader from '@/components/header/CommonHeader.vue';
 import { Region, RegionTree } from '@/interfaces/common';
+import SubmitHeader from '@/components/header/SubmitHeader.vue';
 
 export default Vue.extend({
   name: 'RegionSelect',
-  components: { CommonHeader, BottomSheetRegionCard },
+  components: { SubmitHeader, BottomSheetRegionCard },
   props: {
     selectedRegionsCallback: {
       type: Function as PropType<() => Promise<Region[]>>,

@@ -18,7 +18,7 @@
     <v-spacer />
     <div class="d-flex">
       <SquareTag
-        v-if="managementContext"
+        v-if="provideManagement && managementContext"
         v-ripple
         :text="managementContext.text"
         blur
@@ -54,6 +54,10 @@ export default Vue.extend({
       type: Object as PropType<CurrentUserInfo>,
       required: true,
     },
+    provideManagement: {
+      type: Boolean,
+      required: false,
+    }
   },
   computed: {
     isMe(): boolean {
