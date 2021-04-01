@@ -168,7 +168,7 @@ export default Vue.extend({
         clubUserSeq: 0,
         userSeq: meetingApplicationUser.seq,
         isLiked: false,
-        role: [], // TODO need to be added
+        role: meetingApplicationUser.roles.map(({ name }) => name),
         name: meetingApplicationUser.name,
         imgUrl: meetingApplicationUser.imgUrl,
       }

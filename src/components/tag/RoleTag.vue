@@ -3,7 +3,7 @@
     v-if="role"
     :text="role.name"
     :bgColor="role.color"
-    small
+    :small="small"
     @click="$emit('click')"
   />
 </template>
@@ -36,7 +36,10 @@ export default Vue.extend({
   components: { SquareTag },
   props: {
     roleType: String,
-    small: Boolean,
+    small: {
+      type: Boolean,
+      default: false,
+    }
   },
   computed: {
     role() {

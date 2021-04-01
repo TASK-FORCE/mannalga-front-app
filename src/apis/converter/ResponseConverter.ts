@@ -175,10 +175,11 @@ function mapMeetingFeed(meeting: ServerMeetingFeed): MeetingFeed {
 }
 
 function convertMeetingApplicationUsers(serverMeetingApplications: ServerMeetingApplication[]): MeetingApplicationUser[] {
-  return serverMeetingApplications.map(({ userInfo }) => ({
+  return serverMeetingApplications.map(({ userInfo, roles }) => ({
     seq: userInfo.userSeq,
     name: userInfo.userName,
-    imgUrl: userInfo.profileImageLink
+    imgUrl: userInfo.profileImageLink,
+    roles: roles,
   }))
 }
 

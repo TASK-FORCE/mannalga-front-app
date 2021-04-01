@@ -65,6 +65,7 @@ export interface ServerMeetingApplication {
   deleteFlag: boolean;
   updatedAt: string;
   userInfo: ServerMeetingApplicationUser;
+  roles: Role[];
 }
 
 export interface ServerMeetingApplicationUser {
@@ -78,6 +79,7 @@ export interface MeetingApplicationUser {
   seq: number;
   name: string;
   imgUrl: string;
+  roles: Role[];
 }
 
 export interface MeetingGroupListResponse {
