@@ -12,13 +12,13 @@ import {
   BoardCommentListResponse,
   BoardCommentPageRequest,
   BoardCommentWriteRequest,
-  BoardCreateRequestWishSeq,
   BoardFeed,
   BoardLikeChange,
   BoardListRequest,
   BoardListResponse,
   BoardSeqContext,
-  BoardSubCommentRequest
+  BoardSubCommentRequest,
+  BoardWriteRequestWishSeq
 } from '@/interfaces/board/board';
 import { BoardCategory } from '@/interfaces/board/BoardCategory';
 import { BoardActionContext } from '@/store/type/actionContextTypes';
@@ -115,9 +115,14 @@ export const mutations = {
 export type BoardMutations = typeof mutations;
 
 export const actions = {
-  async [BoardActionTypes.REQUEST_CLUB_BOARD_CREATE]({ commit }: BoardActionContext, boardCreateRequestWishSeq: BoardCreateRequestWishSeq) {
+  async [BoardActionTypes.REQUEST_CLUB_BOARD_CREATE]({ commit }: BoardActionContext, boardWriteRequestWishSeq: BoardWriteRequestWishSeq) {
     return actionsNormalTemplate(async () => {
-      await boardApi.postClubBoardCreate(boardCreateRequestWishSeq);
+      await boardApi.postClubBoardCreate(boardWriteRequestWishSeq);
+    });
+  },
+  async [BoardActionTypes.REQUEST_CLUB_BOARD_EDIT]({ commit }: BoardActionContext, boardWriteRequestWishSeq: BoardWriteRequestWishSeq) {
+    return actionsNormalTemplate(async () => {
+      await boardApi.putClubBoardEdit(boardWriteRequestWishSeq);
     });
   },
   async [BoardActionTypes.REQUEST_FIRST_BOARD_LIST]({ commit, state, dispatch }: BoardActionContext, boardListRequest: BoardListRequest) {

@@ -5,11 +5,11 @@ import {
   BoardCommentListResponse,
   BoardCommentPageRequest,
   BoardCommentWriteRequest,
-  BoardCreateRequestWishSeq,
   BoardListResponse,
   BoardPageRequest,
   BoardSeqContext,
-  BoardSubCommentRequest
+  BoardSubCommentRequest,
+  BoardWriteRequestWishSeq
 } from '@/interfaces/board/board';
 import { Comment } from '@/interfaces/common';
 
@@ -20,9 +20,14 @@ const boardApi = {
       .then(ResponseConverter.convertBoardList);
   },
 
-  postClubBoardCreate({ clubSeq, boardCreateRequest }: BoardCreateRequestWishSeq) {
-    return axios.post(`/api/clubs/${clubSeq}/board`, boardCreateRequest);
+  postClubBoardCreate({ clubSeq, boardWriteRequest }: BoardWriteRequestWishSeq): Promise<void> {
+    return axios.post(`/api/clubs/${clubSeq}/board`, boardWriteRequest);
   },
+
+  putClubBoardEdit({ clubSeq, boardSeq, boardWriteRequest }: BoardWriteRequestWishSeq): Promise<void> {
+    return axios.put(`/api/clubs/${clubSeq}/meetings/${boardSeq}`, boardWriteRequest);
+  },
+
 
   getClubBoard({ clubSeq, boardSeq }: BoardSeqContext): Promise<Board> {
     return axios.get(`/api/clubs/${clubSeq}/board/${boardSeq}`)

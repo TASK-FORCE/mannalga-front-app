@@ -17,21 +17,25 @@
 <script lang="ts">
 import routerHelper from '@/router/RouterHelper.ts';
 import BoardTemplate from '@/components/BoardTemplate.vue';
-import Vue from 'vue';
+import Vue, { PropType } from 'vue';
 import { BoardMutationTypes } from '@/store/type/mutationTypes';
 import { BoardActionTypes } from '@/store/type/actionTypes';
 import { Board, BoardCommentWriteRequest, BoardSeqContext, BoardSubCommentRequest } from '@/interfaces/board/board';
 import { BoardTemplateContext, BoardVo, Comment } from '@/interfaces/common';
+import { BoardCategory } from '@/interfaces/board/BoardCategory';
 
 export default Vue.extend({
   name: 'ClubBoardPostBody',
   components: {
     BoardTemplate,
   },
+  props: {
+    board: {
+      type: Object as PropType<Board>,
+      required: true,
+    }
+  },
   computed: {
-    board(): Board {
-      return this.$store.state.board.board;
-    },
     seqContext(): BoardSeqContext {
       return {
         clubSeq: routerHelper.clubSeq(),
@@ -40,12 +44,11 @@ export default Vue.extend({
     },
     boardVo(): BoardVo {
       return {
-        writerName: this.board.writer.name,
-        writerSeq: this.board.writer.writerUserSeq,
-        writerImage: this.board.writer.imgUrl,
+        writer: this.board.writer,
         title: this.board.title,
         isLiked: this.board.isLiked,
         likeCnt: this.board.likeCnt,
+        categoryName: BoardCategory.findCategoryByType(this.board.category).name,
       };
     },
     boardTemplateContext(): BoardTemplateContext {

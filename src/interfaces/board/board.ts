@@ -43,12 +43,20 @@ export interface BoardSeqContext {
   boardSeq: number;
 }
 
-export interface BoardCreateRequestWishSeq {
+export interface BoardWriteRequestWishSeq {
   clubSeq: number;
-  boardCreateRequest: BoardCreateRequest;
+  boardSeq?: number;
+  boardWriteRequest: BoardWriteRequest;
 }
 
-export interface BoardCreateRequest {
+export interface BoardWriteRequest {
+  title: string;
+  content: string;
+  category: BoardCategoryType;
+  imgList: UploadImageResponse[];
+}
+
+export interface BoardWriteContext {
   title: string;
   content: string;
   category: BoardCategoryType;

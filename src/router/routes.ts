@@ -79,7 +79,7 @@ const routes: RouteConfig[] = [
   {
     path: PATH.CLUB.BOARD_CREATE,
     name: 'ClubBoardCreate',
-    component: () => import('@/views/clubBoardCreate/ClubBoardCreatePage.vue'),
+    component: () => import('@/views/clubBoardCreateAndEdit/ClubBoardCreatePage.vue'),
   },
   {
     path: PATH.CLUB.BOARD_POST,

@@ -54,6 +54,7 @@ export enum AlbumActionTypes {
 
 export enum BoardActionTypes {
   REQUEST_CLUB_BOARD_CREATE = 'board/requestClubBoardCreate',
+  REQUEST_CLUB_BOARD_EDIT = 'board/requestClubBoardEdit',
   REQUEST_FIRST_BOARD_LIST = 'board/requestFirstBoardList',
   REQUEST_NEXT_BOARD_LIST = 'board/requestNextBoardList',
   REQUEST_BOARD = 'board/requestBoard',

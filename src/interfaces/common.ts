@@ -135,12 +135,11 @@ export interface BoardTemplateContext {
 }
 
 export interface BoardVo {
-  writerName: string;
-  writerSeq: number;
-  writerImage: string;
+  writer: Writer;
   title: string;
   isLiked: boolean;
   likeCnt: number;
+  categoryName?: string;
 }
 
 export interface ClickWithText {

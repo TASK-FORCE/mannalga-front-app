@@ -1,17 +1,30 @@
 <template>
-  <div v-if="!$store.state.ui.loading">
-    <div class="d-flex px-2 mt-3">
+  <div
+    v-if="!$store.state.ui.loading"
+    class="board-template"
+  >
+    <div class="board-header">
       <UserProfileAvatar
-        :size="40"
-        :imgUrl="boardVo.writerImage"
-        :name="boardVo.writerName"
-        :appendNumber="boardVo.writerSeq"
+        :size="30"
+        :imgUrl="boardVo.writer.imgUrl"
+        :name="boardVo.writer.name"
+        :appendNumber="boardVo.writer.writerUserSeq"
       />
-      <div class="ml-2">
-        <div class="title">{{ boardVo.title }}</div>
-        <div class="f-09">
-          {{ boardVo.writerName }}
-        </div>
+      <div class="creator-name ml-2">
+        {{ boardVo.writer.name }}
+      </div>
+      <RoleTag
+        v-if="isNotMember"
+        :roleType="role"
+        small
+        class="ml-2 my-auto"
+      />
+      <v-spacer />
+      <div
+        v-if="boardVo.categoryName"
+        class="category"
+      >
+        {{ boardVo.categoryName }}
       </div>
     </div>
     <slot name="content" />
@@ -94,10 +107,13 @@ import InfiniteScrollTemplate from '@/components/InfiniteScrollTemplate.vue';
 import { ScrollHelper } from '@/utils/scroll.ts';
 import Vue, { PropType } from 'vue';
 import { BoardTemplateContext, BoardVo } from '@/interfaces/common';
+import RoleTag from '@/components/tag/RoleTag.vue';
+import { ClubRole } from '@/utils/role';
 
 export default Vue.extend({
   name: 'BoardTemplate',
   components: {
+    RoleTag,
     InfiniteScrollTemplate,
     CommentWriteFooter,
     Comment,
@@ -112,6 +128,14 @@ export default Vue.extend({
     boardTemplateContext: {
       type: Object as PropType<BoardTemplateContext>,
       required: true,
+    },
+  },
+  computed: {
+    role(): string {
+      return this.boardVo.writer.role[0] || '';
+    },
+    isNotMember(): boolean {
+      return this.role !== ClubRole.MEMBER;
     },
   },
   methods: {
@@ -130,13 +154,38 @@ export default Vue.extend({
 });
 </script>
 
-<style scoped>
-.title {
-  font-weight: 700;
-  font-size: 1.05rem;
+<style
+  scoped
+  lang="scss"
+>
+.board-template {
+
+  .board-header {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+
+    .creator-name {
+      font-weight: bold;
+      color: #292929;
+    }
+
+    .category {
+      font-weight: bold;
+      color: #666666;
+    }
+  }
 }
 
-.like-count-text {
-  font-weight: bold;
+.theme--dark {
+  .board-template {
+    .creator-name {
+      color: #F5F5F5;
+    }
+
+    .category {
+      color: #9f9f9f;
+    }
+  }
 }
 </style>

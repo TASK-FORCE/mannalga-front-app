@@ -42,9 +42,7 @@ export default Vue.extend({
     },
     boardVo(): BoardVo {
       return {
-        writerName: this.album.writer.name,
-        writerSeq: this.album.writer.writerUserSeq,
-        writerImage: this.album.writer.imgUrl,
+        writer: this.album.writer,
         title: this.album.title,
         isLiked: this.album.isLiked,
         likeCnt: this.album.likeCnt,
