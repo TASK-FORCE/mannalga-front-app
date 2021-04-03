@@ -45,7 +45,6 @@
       :icon-size="40"
       @click="moveToClubAlbumCreatePage"
     />
-    <FixedScrollToTopBtn color="red" />
   </div>
 </template>
 
@@ -56,7 +55,6 @@ import ClubDetailAlbumImage from '@/views/clubDetail/components/album/ClubDetail
 import _ from '@/utils/common/lodashWrapper.ts';
 import InfiniteScrollTemplate from '@/components/InfiniteScrollTemplate.vue';
 import routerHelper from '@/router/RouterHelper.ts';
-import FixedScrollToTopBtn from '@/components/button/FixedScrollToTopBtn.vue';
 import EmptyPage from '@/components/EmptyPage.vue';
 import { CurrentUserInfo } from '@/interfaces/club';
 import { AlbumActionTypes } from '@/store/type/actionTypes';
@@ -68,7 +66,6 @@ export default Vue.extend({
   name: 'ClubDetailAlbumList',
   components: {
     EmptyPage,
-    FixedScrollToTopBtn,
     InfiniteScrollTemplate,
     ClubDetailAlbumImage,
     FixedCreateBtn,

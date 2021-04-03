@@ -2,6 +2,8 @@ import axios from 'axios';
 import ResponseConverter from '@/apis/converter/ResponseConverter.ts';
 import {
   Board,
+  BoardCommentDeleteRequest,
+  BoardCommentEditRequest,
   BoardCommentListResponse,
   BoardCommentPageRequest,
   BoardCommentWriteRequest,
@@ -44,6 +46,14 @@ const boardApi = {
     return axios.post(`/api/club/${clubSeq}/board/${boardSeq}/comment`, { content }, {
       params: { parentCommentSeq },
     });
+  },
+
+  patchClubBoardCommentEdit({ boardSeqContext: { clubSeq, boardSeq }, content, commentSeq }: BoardCommentEditRequest) {
+    return axios.patch(`/api/club/${clubSeq}/board/${boardSeq}/${commentSeq}`, { content });
+  },
+
+  deleteClubBoardCommentDelete({ boardSeqContext: { clubSeq, boardSeq }, commentSeq }: BoardCommentDeleteRequest) {
+    return axios.delete(`/api/club/${clubSeq}/board/${boardSeq}/${commentSeq}`);
   },
 
   getClubBoardSubCommentList({ clubSeq, boardSeq, parentCommentSeq }: BoardSubCommentRequest): Promise<Comment[]> {

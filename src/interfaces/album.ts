@@ -59,6 +59,17 @@ export interface AlbumCommentWriteRequest {
   parentCommentSeq?: number;
 }
 
+export interface AlbumCommentEditRequest {
+  albumSeqContext: AlbumSeqContext;
+  commentSeq: number;
+  content: string;
+}
+
+export interface AlbumCommentDeleteRequest {
+  albumSeqContext: AlbumSeqContext;
+  commentSeq: number;
+}
+
 export interface AlbumSubCommentRequest {
   clubSeq: number;
   albumSeq: number;

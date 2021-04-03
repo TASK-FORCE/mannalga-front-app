@@ -187,7 +187,7 @@ export default Vue.extend({
     }
 
     .footer-count {
-      color: #2196f3;
+      color: #2883C6;
       font-weight: bold;
     }
 

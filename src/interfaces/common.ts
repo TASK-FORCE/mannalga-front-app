@@ -127,6 +127,8 @@ export interface BoardTemplateContext {
   fetchFirstPage: () => Promise<void>;
   fetchNextPage: () => Promise<void>;
   requestWriteComment: (content: string) => Promise<void>;
+  requestEditComment: (content: string, commentSeq: number) => Promise<void>;
+  requestDeleteComment: (commentSeq: number, parentSeq?: number) => Promise<void>;
   requestWriteSubComment: (content: string, parentSeq: number) => Promise<void>;
   requestSubCommentList: (parentSeq: number) => Promise<Comment[]>;
   commentWritePostProcess: () => Promise<void>;
@@ -139,7 +141,9 @@ export interface BoardVo {
   title: string;
   isLiked: boolean;
   likeCnt: number;
+  commentCnt: number;
   categoryName?: string;
+  createdAt?: string;
 }
 
 export interface ClickWithText {

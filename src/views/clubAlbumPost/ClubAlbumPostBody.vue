@@ -4,9 +4,9 @@
     :boardTemplateContext="boardTemplateContext"
   >
     <template #content>
-      <div class="pa-3">
+      <div class="content">
         <ImageWithDialog
-          class="elevation-2"
+          class="elevation-1"
           :imgUrl="album.imgUrl"
         />
       </div>
@@ -21,7 +21,14 @@ import BoardTemplate from '@/components/BoardTemplate.vue';
 import Vue from 'vue';
 import { AlbumMutationTypes } from '@/store/type/mutationTypes';
 import { AlbumActionTypes } from '@/store/type/actionTypes';
-import { Album, AlbumCommentWriteRequest, AlbumSeqContext, AlbumSubCommentRequest } from '@/interfaces/album';
+import {
+  Album,
+  AlbumCommentDeleteRequest,
+  AlbumCommentEditRequest,
+  AlbumCommentWriteRequest,
+  AlbumSeqContext,
+  AlbumSubCommentRequest
+} from '@/interfaces/album';
 import { BoardTemplateContext, BoardVo, Comment } from '@/interfaces/common';
 
 export default Vue.extend({
@@ -46,6 +53,7 @@ export default Vue.extend({
         title: this.album.title,
         isLiked: this.album.isLiked,
         likeCnt: this.album.likeCnt,
+        commentCnt: this.album.commentCnt,
       };
     },
     boardTemplateContext(): BoardTemplateContext {
@@ -55,6 +63,8 @@ export default Vue.extend({
         fetchFirstPage: this.fetchFirstPage,
         fetchNextPage: this.fetchNextPage,
         requestWriteComment: this.requestWriteComment,
+        requestEditComment: this.requestEditComment,
+        requestDeleteComment: this.requestDeleteComment,
         requestWriteSubComment: this.requestWriteSubComment,
         requestSubCommentList: this.requestSubCommentList,
         commentWritePostProcess: this.commentWritePostProcess,
@@ -84,6 +94,29 @@ export default Vue.extend({
       };
       return this.$store.dispatch(AlbumActionTypes.REQUEST_ALBUM_COMMENT_WRITE, albumCommentWriteRequest)
         .then(() => this.$store.commit(AlbumMutationTypes.COUNT_ALBUM_COMMENT_CNT, this.album.albumSeq));
+    },
+    requestEditComment(content: string, commentSeq: number): Promise<void> {
+      const albumCommentEditRequest: AlbumCommentEditRequest = {
+        albumSeqContext: this.seqContext,
+        commentSeq: commentSeq,
+        content: content,
+      }
+      return this.$store.dispatch(AlbumActionTypes.REQUEST_ALBUM_COMMENT_EDIT, albumCommentEditRequest);
+    },
+    requestDeleteComment(commentSeq: number, parentSeq?: number): Promise<void> {
+      const albumCommentDeleteRequest: AlbumCommentDeleteRequest = {
+        albumSeqContext: this.seqContext,
+        commentSeq: commentSeq,
+      }
+      return this.$store.dispatch(AlbumActionTypes.REQUEST_ALBUM_COMMENT_DELETE, albumCommentDeleteRequest)
+        .then(() => {
+          const requestForSubComment = !!parentSeq;
+          if (requestForSubComment) {
+            this.$store.commit(AlbumMutationTypes.UN_COUNT_CHILD_COMMENT_CNT, parentSeq);
+          }
+          this.$store.commit(AlbumMutationTypes.REMOVE_COMMENT_OF_COMMENT_LIST, commentSeq);
+          this.$store.commit(AlbumMutationTypes.UN_COUNT_ALBUM_COMMENT_CNT, this.album.albumSeq);
+        });
     },
     requestWriteSubComment(content: string, parentSeq: number): Promise<void> {
       const albumCommentWriteRequest: AlbumCommentWriteRequest = {
@@ -116,3 +149,22 @@ export default Vue.extend({
   },
 });
 </script>
+<style
+  scoped
+  lang="scss"
+>
+.content {
+  padding: 10px 20px;
+  font-size: 15px;
+  color: #292929;
+  width: 100%;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.theme--dark {
+  .content {
+    color: #F5F5F5;
+  }
+}
+</style>

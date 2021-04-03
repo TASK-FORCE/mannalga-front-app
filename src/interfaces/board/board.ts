@@ -105,6 +105,17 @@ export interface BoardCommentWriteRequest {
   parentCommentSeq?: number;
 }
 
+export interface BoardCommentEditRequest {
+  boardSeqContext: BoardSeqContext;
+  commentSeq: number;
+  content: string;
+}
+
+export interface BoardCommentDeleteRequest {
+  boardSeqContext: BoardSeqContext;
+  commentSeq: number;
+}
+
 export interface BoardSubCommentRequest {
   clubSeq: number;
   boardSeq: number;

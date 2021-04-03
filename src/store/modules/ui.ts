@@ -10,7 +10,6 @@ import { changeThemeAndLoad, isDarkTheme } from '@/utils/theme';
 export const state = {
   loading: false as boolean,
   snackBarOptions: DefaultBuilder.snackbarOption() as SnackBarOption,
-  focusingChildCommentInput: false as boolean,
   isDarkTheme: isDarkTheme() as boolean,
 };
 export type UIState = typeof state;
@@ -31,12 +30,6 @@ export const mutations = {
       ...state.snackBarOptions,
       open: false,
     }
-  },
-  [UIMutationTypes.FOCUS_CHILD_COMMENT_INPUT](state: UIState) {
-    state.focusingChildCommentInput = true;
-  },
-  [UIMutationTypes.FOCUS_OUT_CHILD_COMMENT_INPUT](state: UIState) {
-    state.focusingChildCommentInput = false;
   },
   [UIMutationTypes.CHANGE_THEME](state: UIState) {
     changeThemeAndLoad();

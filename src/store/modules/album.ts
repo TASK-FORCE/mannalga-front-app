@@ -9,6 +9,8 @@ import { AlbumActionTypes } from '@/store/type/actionTypes';
 import { AlbumActionContext } from '@/store/type/actionContextTypes';
 import {
   Album,
+  AlbumCommentDeleteRequest,
+  AlbumCommentEditRequest,
   AlbumCommentListResponse,
   AlbumCommentPageRequest,
   AlbumCommentWriteRequest,
@@ -76,6 +78,21 @@ export const mutations = {
         return comment;
       });
   },
+  [AlbumMutationTypes.UN_COUNT_CHILD_COMMENT_CNT](state: AlbumState, commentSeq: number) {
+    state.albumCommentList = state.albumCommentList
+      .map(comment => {
+        if (comment.commentSeq === commentSeq) {
+          return {
+            ...comment,
+            childCommentCnt: comment.childCommentCnt - 1,
+          };
+        }
+        return comment;
+      });
+  },
+  [AlbumMutationTypes.REMOVE_COMMENT_OF_COMMENT_LIST](state: AlbumState, commentSeq: number) {
+    state.albumCommentList = state.albumCommentList.filter(comment => comment.commentSeq !== commentSeq);
+  },
   [AlbumMutationTypes.CHANGE_ALBUM_LIKE](state: AlbumState, { albumSeq, likeCnt, isLiked }: AlbumLikeChange) {
     state.albumList = state.albumList
       .map(album => {
@@ -95,6 +112,18 @@ export const mutations = {
       isLiked,
     };
   },
+  [AlbumMutationTypes.CHANGE_ALBUM_COMMENT](state: AlbumState, { commentSeq, content }: AlbumCommentEditRequest) {
+    state.albumCommentList = state.albumCommentList
+      .map(comment => {
+        if (comment.commentSeq === commentSeq) {
+          return {
+            ...comment,
+            content: content,
+          };
+        }
+        return comment;
+      });
+  },
   [AlbumMutationTypes.COUNT_ALBUM_COMMENT_CNT](state: AlbumState, albumSeq: number) {
     state.albumList = state.albumList.map(album => {
       if (album.albumSeq === albumSeq) {
@@ -105,6 +134,25 @@ export const mutations = {
       }
       return album;
     });
+    state.album = {
+      ...state.album,
+      commentCnt: state.album.commentCnt + 1
+    };
+  },
+  [AlbumMutationTypes.UN_COUNT_ALBUM_COMMENT_CNT](state: AlbumState, albumSeq: number) {
+    state.albumList = state.albumList.map(album => {
+      if (album.albumSeq === albumSeq) {
+        return {
+          ...album,
+          commentCnt: album.commentCnt - 1,
+        };
+      }
+      return album;
+    });
+    state.album = {
+      ...state.album,
+      commentCnt: state.album.commentCnt - 1
+    };
   },
 };
 export type AlbumMutations = typeof mutations;
@@ -149,7 +197,21 @@ export const actions = {
       },
     );
   },
-
+  async [AlbumActionTypes.REQUEST_ALBUM_COMMENT_EDIT]({ commit }: AlbumActionContext, albumCommentEditRequest: AlbumCommentEditRequest) {
+    return actionsNormalTemplate(
+      async () => {
+        await albumApi.patchClubAlbumCommentEdit(albumCommentEditRequest);
+        commit(AlbumMutationTypes.CHANGE_ALBUM_COMMENT, albumCommentEditRequest)
+      },
+    );
+  },
+  async [AlbumActionTypes.REQUEST_ALBUM_COMMENT_DELETE]({ commit }: AlbumActionContext, albumCommentDeleteRequest: AlbumCommentDeleteRequest) {
+    return actionsNormalTemplate(
+      async () => {
+        await albumApi.deleteClubAlbumCommentDelete(albumCommentDeleteRequest);
+      },
+    );
+  },
   async [AlbumActionTypes.REQUEST_FIRST_ALBUM_COMMENT_LIST]({ commit, state }: AlbumActionContext, albumSeqContext: AlbumSeqContext) {
     return actionsNormalTemplate(
       async () => {

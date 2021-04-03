@@ -11,7 +11,13 @@ class CommentHelper {
     // 마지막 페이지면 현재 페이지만 조회
     const page: Page = getPage();
     if (page.isLastPage) {
-      await requestPageForLastPage(pageRequestBuilder(page));
+      const pageForLastPage = {
+        currentPage: page.currentPage - 1,
+        nextPage: page.nextPage - 1,
+        size: page.size,
+        isLastPage: false,
+      }
+      await requestPageForLastPage(pageRequestBuilder(pageForLastPage));
     }
     return actionsNormalTemplate(async () => requestCommentListWithRecursive<T>(pageRequestBuilder, getPage, requestPageForRecursive));
   }

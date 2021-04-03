@@ -15,7 +15,7 @@ class RoleChip {
 
   static readonly MASTER = new RoleChip(ClubRole.MASTER, '모임장', '#e91e63')
   static readonly MANAGER = new RoleChip(ClubRole.MANAGER, '매니저', '#009688')
-  static readonly MEMBER = new RoleChip(ClubRole.MEMBER, '모임원', '#2196f3')
+  static readonly MEMBER = new RoleChip(ClubRole.MEMBER, '모임원', '#2883C6')
 
   private type: ClubRole;
   private name: string;

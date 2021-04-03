@@ -9,6 +9,8 @@ import { BoardActionTypes } from '@/store/type/actionTypes';
 import { Comment, Page } from '@/interfaces/common';
 import {
   Board,
+  BoardCommentDeleteRequest,
+  BoardCommentEditRequest,
   BoardCommentListResponse,
   BoardCommentPageRequest,
   BoardCommentWriteRequest,
@@ -82,6 +84,18 @@ export const mutations = {
         return comment;
       });
   },
+  [BoardMutationTypes.UN_COUNT_COMMENT_CNT_OF_PARENT_COMMENT](state: BoardState, commentSeq: number) {
+    state.boardCommentList = state.boardCommentList
+      .map(comment => {
+        if (comment.commentSeq === commentSeq) {
+          return {
+            ...comment,
+            childCommentCnt: comment.childCommentCnt - 1,
+          };
+        }
+        return comment;
+      });
+  },
   [BoardMutationTypes.CHANGE_BOARD_LIKE](state: BoardState, { boardSeq, likeCnt, isLiked }: BoardLikeChange) {
     state.boardList = state.boardList.map(board => {
       if (board.boardSeq === boardSeq) {
@@ -100,6 +114,18 @@ export const mutations = {
       isLiked,
     };
   },
+  [BoardMutationTypes.CHANGE_BOARD_COMMENT](state: BoardState, { commentSeq, content }: BoardCommentEditRequest) {
+    state.boardCommentList = state.boardCommentList
+      .map(comment => {
+        if (comment.commentSeq === commentSeq) {
+          return {
+            ...comment,
+            content: content,
+          };
+        }
+        return comment;
+      });
+  },
   [BoardMutationTypes.COUNT_COMMENT_CNT_OF_BOARD](state: BoardState, boardSeq: number) {
     state.boardList = state.boardList.map(board => {
       if (board.boardSeq === boardSeq) {
@@ -110,6 +136,28 @@ export const mutations = {
       }
       return board;
     });
+    state.board = {
+      ...state.board,
+      commentCnt: state.board.commentCnt + 1,
+    };
+  },
+  [BoardMutationTypes.UN_COUNT_COMMENT_CNT_OF_BOARD](state: BoardState, boardSeq: number) {
+    state.boardList = state.boardList.map(board => {
+      if (board.boardSeq === boardSeq) {
+        return {
+          ...board,
+          commentCnt: board.commentCnt - 1,
+        };
+      }
+      return board;
+    });
+    state.board = {
+      ...state.board,
+      commentCnt: state.board.commentCnt - 1,
+    };
+  },
+  [BoardMutationTypes.REMOVE_COMMENT_OF_COMMENT_LIST](state: BoardState, commentSeq: number) {
+    state.boardCommentList = state.boardCommentList.filter(comment => comment.commentSeq !== commentSeq);
   },
 };
 export type BoardMutations = typeof mutations;
@@ -202,6 +250,21 @@ export const actions = {
     return actionsNormalTemplate(
       async () => {
         await boardApi.postClubBoardCommentWrite(boardCommentWriteRequest);
+      },
+    );
+  },
+  async [BoardActionTypes.REQUEST_BOARD_COMMENT_EDIT]({ commit }: BoardActionContext, boardCommentEditRequest: BoardCommentEditRequest) {
+    return actionsNormalTemplate(
+      async () => {
+        await boardApi.patchClubBoardCommentEdit(boardCommentEditRequest);
+        commit(BoardMutationTypes.CHANGE_BOARD_COMMENT, boardCommentEditRequest);
+      },
+    );
+  },
+  async [BoardActionTypes.REQUEST_BOARD_COMMENT_DELETE]({ commit }: BoardActionContext, boardCommentDeleteRequest: BoardCommentDeleteRequest) {
+    return actionsNormalTemplate(
+      async () => {
+        await boardApi.deleteClubBoardCommentDelete(boardCommentDeleteRequest);
       },
     );
   },
