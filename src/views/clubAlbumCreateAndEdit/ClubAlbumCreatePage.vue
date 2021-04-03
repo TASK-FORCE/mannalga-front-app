@@ -24,6 +24,7 @@ export default Vue.extend({
       return this.$store.dispatch(AlbumActionTypes.REQUEST_ALBUM_CREATE, albumWriteRequest)
         .then(() => {
           this.$store.dispatch(AlbumActionTypes.REQUEST_FIRST_ALBUM_LIST, routerHelper.clubSeq());
+          this.moveToClubMainPage();
           this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_IMAGE_REGISTER);
         });
     },

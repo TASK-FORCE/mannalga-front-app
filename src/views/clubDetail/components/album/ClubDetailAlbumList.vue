@@ -60,7 +60,7 @@ import { CurrentUserInfo } from '@/interfaces/club';
 import { AlbumActionTypes } from '@/store/type/actionTypes';
 import { Page } from '@/interfaces/common';
 import { AlbumFeed } from '@/interfaces/album';
-import { PATH } from '@/router/route_path_type';
+import { generateParamPath, PATH } from '@/router/route_path_type';
 
 export default Vue.extend({
   name: 'ClubDetailAlbumList',
@@ -96,7 +96,7 @@ export default Vue.extend({
       return this.$store.dispatch(AlbumActionTypes.REQUEST_NEXT_ALBUM_LIST, routerHelper.clubSeq())
     },
     moveToClubAlbumCreatePage() {
-      this.$router.push(PATH.CLUB.ALBUM_CREATE);
+      this.$router.push(generateParamPath(PATH.CLUB.ALBUM_CREATE, [routerHelper.clubSeq()]));
     }
   },
 });
