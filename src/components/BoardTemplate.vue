@@ -1,57 +1,77 @@
 <template>
-  <div v-if="!$store.state.ui.loading">
-    <div class="d-flex px-2 mt-3">
+  <div
+    v-if="!$store.state.ui.loading"
+    class="board-template"
+  >
+    <div class="board-header">
       <UserProfileAvatar
-        :size="40"
-        :imgUrl="boardVo.writerImage"
-        :name="boardVo.writerName"
-        :appendNumber="boardVo.writerSeq"
+        :size="30"
+        :imgUrl="boardVo.writer.imgUrl"
+        :name="boardVo.writer.name"
+        :appendNumber="boardVo.writer.writerUserSeq"
       />
-      <div class="ml-2">
-        <div class="title">{{ boardVo.title }}</div>
-        <div class="f-09">
-          {{ boardVo.writerName }}
-        </div>
+      <div class="creator-name ml-2">
+        {{ boardVo.writer.name }}
+      </div>
+      <RoleTag
+        v-if="isNotMember"
+        :roleType="role"
+        small
+        class="ml-2 my-auto"
+      />
+      <v-spacer />
+      <div
+        v-if="boardVo.categoryName"
+        class="category"
+      >
+        {{ boardVo.categoryName }}
       </div>
     </div>
     <slot name="content" />
-    <MiddleDivider :height="2" />
-    <div class="d-flex pa-3">
-      <v-btn
-        v-if="!boardVo.isLiked"
-        outlined
-        small
-        color="#2196f3"
-        @click="boardTemplateContext.requestApplyLike"
+    <MiddleDivider :height="1" />
+    <div class="count-info">
+      <div
+        v-ripple
+        class="like-count-info"
+        @click="clickLike"
       >
-        <v-icon
-          left
-          small
-          v-text="'$heart'"
-        />
-        <span class="f-09">좋아요</span>
-      </v-btn>
-      <v-btn
-        v-else
-        outlined
-        small
-        @click="boardTemplateContext.requestDeleteLike"
-      >
-        <v-icon
-          left
-          small
-          v-text="'$heart'"
-        />
-        <span class="f-09">좋아요 취소</span>
-      </v-btn>
-      <v-spacer />
-      <div class="d-lg-flex my-auto">
         <div>
-          <span class="like-count-text">{{ boardVo.likeCnt }}명</span>이 사진을 좋아합니다.
+          <v-icon
+            class="like-icon icon"
+            :class="boardVo.isLiked ? 'is-like' : ''"
+            v-text="boardVo.isLiked ? '$heart' : '$heartOut'"
+          />
+        </div>
+        <div
+          class="d-flex ml-1"
+          :class="boardVo.isLiked ? 'is-like' : ''"
+        >
+          <div>좋아요</div>
+          <div
+            class="count"
+            :class="boardVo.isLiked ? 'is-like' : ''"
+          >{{ boardVo.likeCnt }}
+          </div>
         </div>
       </div>
+      <div class="comment-count-info ml-4">
+        <div>
+          <v-icon
+            class="icon"
+            v-text="'$commentOut'"
+          />
+        </div>
+        <div class="d-flex ml-1">
+          <div>댓글</div>
+          <div class="count">{{ boardVo.commentCnt }}</div>
+        </div>
+      </div>
+      <v-spacer />
+      <div class="date">
+        {{ date }}
+      </div>
     </div>
-    <MiddleDivider :height="2" />
+    <MiddleDivider :height="5" />
 
     <div class="px-1 h-100">
       <InfiniteScrollTemplate
@@ -71,13 +91,15 @@
               :comment="comment"
               :requestWriteSubComment="boardTemplateContext.requestWriteSubComment"
               :requestSubCommentList="boardTemplateContext.requestSubCommentList"
+              :requestEditComment="boardTemplateContext.requestEditComment"
+              :requestDeleteComment="boardTemplateContext.requestDeleteComment"
             />
+            <MiddleDivider :height="1" />
           </div>
         </template>
       </InfiniteScrollTemplate>
     </div>
     <CommentWriteFooter
-      v-if="!$store.state.ui.focusingChildCommentInput"
       :requestWriteComment="boardTemplateContext.requestWriteComment"
       :postProcessor="callbackAfterCommentWrite"
     />
@@ -94,10 +116,14 @@ import InfiniteScrollTemplate from '@/components/InfiniteScrollTemplate.vue';
 import { ScrollHelper } from '@/utils/scroll.ts';
 import Vue, { PropType } from 'vue';
 import { BoardTemplateContext, BoardVo } from '@/interfaces/common';
+import RoleTag from '@/components/tag/RoleTag.vue';
+import { ClubRole } from '@/utils/role';
+import { DateUtils } from '@/utils/date';
 
 export default Vue.extend({
   name: 'BoardTemplate',
   components: {
+    RoleTag,
     InfiniteScrollTemplate,
     CommentWriteFooter,
     Comment,
@@ -114,6 +140,17 @@ export default Vue.extend({
       required: true,
     },
   },
+  computed: {
+    role(): string {
+      return this.boardVo.writer.role[0] || '';
+    },
+    isNotMember(): boolean {
+      return this.role !== ClubRole.MEMBER;
+    },
+    date(): string {
+      return this.boardVo.createdAt ? DateUtils.getKoreanLocalDate(this.boardVo.createdAt) : '';
+    },
+  },
   methods: {
     callbackAfterCommentWrite() {
       this.boardTemplateContext.commentWritePostProcess()
@@ -126,17 +163,97 @@ export default Vue.extend({
       }
       setTimeout(this.scrollToBottomWhenLastPage, 100);
     },
+    clickLike() {
+      if (this.boardVo.isLiked) {
+        this.boardTemplateContext.requestDeleteLike();
+      } else {
+        this.boardTemplateContext.requestApplyLike();
+      }
+    }
   },
 });
 </script>
 
-<style scoped>
-.title {
-  font-weight: 700;
-  font-size: 1.05rem;
+<style
+  scoped
+  lang="scss"
+>
+.board-template {
+
+  .board-header {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+
+    .creator-name {
+      font-weight: bold;
+      color: #292929;
+    }
+
+    .category {
+      font-weight: bold;
+      color: #666666;
+    }
+  }
+
+  .count-info {
+    display: flex;
+    padding: 10px 20px;
+    font-size: 13px;
+    align-items: center;
+    color: #666666;
+
+    .like-count-info, .comment-count-info {
+      display: flex;
+
+      .icon {
+        color: #666666;
+        font-size: 15px !important;
+        width: 15px !important;
+        height: 15px !important;
+      }
+
+      .count {
+        margin-left: 2px;
+        color: #2883C6;
+      }
+
+    }
+
+    .like-count-info {
+      .like-icon {
+        padding-bottom: 2px !important;
+      }
+
+      .is-like {
+        color: #E3343C !important;
+      }
+    }
+
+    .date {
+      color: #9f9f9f;
+    }
+  }
 }
 
-.like-count-text {
-  font-weight: bold;
+.theme--dark {
+  .board-template {
+    .creator-name {
+      color: #F5F5F5;
+    }
+
+    .category {
+      color: #9f9f9f;
+    }
+
+    .count-info, .icon {
+      color: #9f9f9f;
+    }
+
+    .date {
+      color: #666666;
+    }
+  }
+
 }
 </style>

@@ -44,7 +44,6 @@ export default Vue.extend({
   },
   methods: {
     clickBoard() {
-      console.log('??')
       this.$router.push(generateParamPath(PATH.CLUB.BOARD_POST, [routerHelper.clubSeq(), this.board.boardSeq]));
     },
   },

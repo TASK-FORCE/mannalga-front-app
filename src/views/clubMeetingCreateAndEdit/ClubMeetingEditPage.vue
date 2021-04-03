@@ -54,7 +54,7 @@ export default Vue.extend({
       return this.$store.dispatch(MeetingActionTypes.REQUEST_MEETING_EDIT, meetingWriteRequestWithSeq)
         .then(() => {
           this.$store.dispatch(MeetingActionTypes.REQUEST_FIRST_MEETING_GROUP_LIST, meetingWriteRequestWithSeq.clubSeq);
-          this.$router.push(generateParamPath(PATH.CLUB.MEETING_POST, [clubSeq, meetingSeq]));
+          this.$router.push(this.meetingPostPagePath());
         });
     },
   },

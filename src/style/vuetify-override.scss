@@ -147,3 +147,9 @@
 .theme--dark.v-input input, .theme--dark.v-input textarea {
     color: #F5F5F5 !important;
 }
+
+.comment-writer-footer {
+    .v-text-field.v-text-field--solo:not(.v-text-field--solo-flat) > .v-input__control > .v-input__slot {
+        box-shadow: none !important;
+    }
+}

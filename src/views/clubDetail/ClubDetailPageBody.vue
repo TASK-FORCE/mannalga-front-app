@@ -35,6 +35,7 @@
         <ClubDetailAlbumList :currentUserInfo="currentUserInfo" />
       </v-tab-item>
     </v-tabs-items>
+    <FixedScrollToTopBtn color="red" />
   </div>
 </template>
 
@@ -49,10 +50,11 @@ import clubDetailVuexService from '@/store/service/ClubDetailVuexService.ts';
 import { PATH } from '@/router/route_path_type.ts';
 import routerHelper from '@/router/RouterHelper.ts';
 import { ClubInfo, CurrentUserInfo } from '@/interfaces/club.ts';
+import FixedScrollToTopBtn from '@/components/button/FixedScrollToTopBtn.vue';
 
 export default Vue.extend({
   name: 'ClubDetailPageBody',
-  components: { ClubDetailMain, ClubDetailMeetingList, ClubDetailBoardList, ClubDetailAlbumList },
+  components: { FixedScrollToTopBtn, ClubDetailMain, ClubDetailMeetingList, ClubDetailBoardList, ClubDetailAlbumList },
   data() {
     return {
       tab: ClubTab.MAIN as ClubTab,

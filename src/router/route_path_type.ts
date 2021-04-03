@@ -16,6 +16,7 @@ export const PATH = {
     EDIT: '/club/edit/:clubSeq',
     MAIN: '/club/:clubSeq',
     BOARD_CREATE: '/club/:clubSeq/create/board',
+    BOARD_EDIT: '/club/:clubSeq/board/edit/:boardSeq',
     BOARD_POST: '/club/:clubSeq/board/:boardSeq',
     MEETING_CREATE: '/club/:clubSeq/create/meeting',
     MEETING_EDIT: '/club/:clubSeq/meeting/edit/:meetingSeq',

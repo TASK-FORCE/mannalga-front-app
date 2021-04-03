@@ -2,6 +2,8 @@ import axios from 'axios';
 import ResponseConverter from '@/apis/converter/ResponseConverter.ts';
 import {
   Album,
+  AlbumCommentDeleteRequest,
+  AlbumCommentEditRequest,
   AlbumCommentListResponse,
   AlbumCommentPageRequest,
   AlbumCommentWriteRequest,
@@ -33,6 +35,15 @@ const albumApi = {
     return axios.post(`/api/club/${clubSeq}/album/${albumSeq}/comment`, { content }, {
       params: { parentCommentSeq },
     });
+  },
+
+  patchClubAlbumCommentEdit({ albumSeqContext: { clubSeq, albumSeq }, content, commentSeq }: AlbumCommentEditRequest) {
+    return axios.patch(`/api/club/${clubSeq}/album/${albumSeq}/${commentSeq}`, { content });
+  },
+
+  // TODO: 존재하는지 체크 필요
+  deleteClubAlbumCommentDelete({ albumSeqContext: { clubSeq, albumSeq }, commentSeq }: AlbumCommentDeleteRequest) {
+    return axios.delete(`/api/club/${clubSeq}/album/${albumSeq}/${commentSeq}`);
   },
 
   getClubAlbumCommentList({ clubSeq, albumSeq, pageRequest }: AlbumCommentPageRequest): Promise<AlbumCommentListResponse> {

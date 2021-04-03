@@ -2,7 +2,7 @@
   <div>
     <SubmitHeader
       :title="headerTitle"
-      @submit="createClubBoard"
+      @submit="submit"
       @back="$emit('back')"
     />
     <v-form
@@ -55,23 +55,28 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import Vue, { PropType } from 'vue';
 import ImageSelectBox from '@/components/image/ImageSelectBox.vue';
-import { generateParamPath, PATH } from '@/router/route_path_type.ts';
 import { RULES } from '@/utils/common/constant/rules.ts';
 import routerHelper from '@/router/RouterHelper.ts';
 import { UploadImageResponse } from '@/interfaces/common';
 import { CurrentUserInfo } from '@/interfaces/club';
-import { BoardActionTypes } from '@/store/type/actionTypes';
 import { BoardCategory } from '@/interfaces/board/BoardCategory';
-import { BoardCategoryType, BoardCreateRequestWishSeq } from '@/interfaces/board/board';
+import { BoardCategoryType, BoardWriteContext, BoardWriteRequest } from '@/interfaces/board/board';
 import SubmitHeader from '@/components/header/SubmitHeader.vue';
 
 export default Vue.extend({
-  name: 'ClubBoardCreateBox',
+  name: 'ClubBoardCreateAndEdit',
   components: { SubmitHeader, ImageSelectBox },
   props: {
     headerTitle: String,
+    context: {
+      type: Object as PropType<BoardWriteContext>,
+    },
+    submitClickCallback: {
+      type: Function as PropType<(boardWriteRequest: BoardWriteRequest) => Promise<void>>,
+      required: true,
+    },
   },
   data() {
     return {
@@ -106,29 +111,30 @@ export default Vue.extend({
       return BoardCategory.findCategoryNamesByCurrentUserInfo(this.currentUserInfo);
     },
   },
+  mounted() {
+    if (this.context) {
+      this.title = this.context.title;
+      this.content = this.context.content;
+      this.category = BoardCategory.findCategoryByType(this.context.category).name;
+      this.selectedImages = {};
+      this.context.imgList.forEach((image: UploadImageResponse, index: number) => (this.selectedImages[index] = image));
+    }
+  },
   methods: {
     addImage(uploadedImage: UploadImageResponse, index: number) {
       this.selectedImages[index] = uploadedImage;
     },
-    createClubBoard() {
+    submit() {
       const clubBoardCreateForm = this.$refs.clubBoardCreateForm as HTMLFormElement;
       if (clubBoardCreateForm.validate()) {
         this.loading = true;
-        const boardCreateRequestWishSeq: BoardCreateRequestWishSeq = {
-          clubSeq: this.clubSeq,
-          boardCreateRequest: {
-            title: this.title as string,
-            content: this.content as string,
-            category: BoardCategory.findCategoryTypeByName(this.category as string) as BoardCategoryType,
-            imgList: Object.values(this.selectedImages),
-          }
+        const boardWriteRequest: BoardWriteRequest = {
+          title: this.title as string,
+          content: this.content as string,
+          category: BoardCategory.findCategoryTypeByName(this.category as string) as BoardCategoryType,
+          imgList: Object.values(this.selectedImages),
         };
-        this.$store.dispatch(BoardActionTypes.REQUEST_CLUB_BOARD_CREATE, boardCreateRequestWishSeq)
-          .then(() => {
-            this.$store.dispatch(BoardActionTypes.REQUEST_FIRST_BOARD_LIST, { clubSeq: this.clubSeq });
-            this.$router.push(generateParamPath(PATH.CLUB.MAIN, [this.clubSeq]));
-          })
-          .finally(() => (this.loading = false));
+        this.submitClickCallback(boardWriteRequest).finally(() => (this.loading = false));
       }
     },
   },

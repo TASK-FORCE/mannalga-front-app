@@ -4,11 +4,24 @@
     :boardTemplateContext="boardTemplateContext"
   >
     <template #content>
-      <div class="pa-3">
+      <div class="content">
         <div
-          class="content"
+          class="font-weight-bold"
+          v-text="board.title"
+        />
+        <div
+          class="description"
           v-text="board.content"
         />
+        <div
+          v-for="image in board.imageList"
+          :key="image.imgSeq"
+        >
+          <ImageWithDialog
+            class="mt-2"
+            :imgUrl="image.imgUrl"
+          />
+        </div>
       </div>
     </template>
   </BoardTemplate>
@@ -17,21 +30,34 @@
 <script lang="ts">
 import routerHelper from '@/router/RouterHelper.ts';
 import BoardTemplate from '@/components/BoardTemplate.vue';
-import Vue from 'vue';
+import Vue, { PropType } from 'vue';
 import { BoardMutationTypes } from '@/store/type/mutationTypes';
 import { BoardActionTypes } from '@/store/type/actionTypes';
-import { Board, BoardCommentWriteRequest, BoardSeqContext, BoardSubCommentRequest } from '@/interfaces/board/board';
+import {
+  Board,
+  BoardCommentDeleteRequest,
+  BoardCommentEditRequest,
+  BoardCommentWriteRequest,
+  BoardSeqContext,
+  BoardSubCommentRequest
+} from '@/interfaces/board/board';
 import { BoardTemplateContext, BoardVo, Comment } from '@/interfaces/common';
+import { BoardCategory } from '@/interfaces/board/BoardCategory';
+import ImageWithDialog from '@/components/image/ImageWithDialog.vue';
 
 export default Vue.extend({
   name: 'ClubBoardPostBody',
   components: {
+    ImageWithDialog,
     BoardTemplate,
   },
+  props: {
+    board: {
+      type: Object as PropType<Board>,
+      required: true,
+    }
+  },
   computed: {
-    board(): Board {
-      return this.$store.state.board.board;
-    },
     seqContext(): BoardSeqContext {
       return {
         clubSeq: routerHelper.clubSeq(),
@@ -40,12 +66,13 @@ export default Vue.extend({
     },
     boardVo(): BoardVo {
       return {
-        writerName: this.board.writer.name,
-        writerSeq: this.board.writer.writerUserSeq,
-        writerImage: this.board.writer.imgUrl,
+        writer: this.board.writer,
         title: this.board.title,
         isLiked: this.board.isLiked,
         likeCnt: this.board.likeCnt,
+        categoryName: BoardCategory.findCategoryByType(this.board.category).name,
+        createdAt: this.board.createdAt,
+        commentCnt: this.board.commentCnt,
       };
     },
     boardTemplateContext(): BoardTemplateContext {
@@ -55,6 +82,8 @@ export default Vue.extend({
         fetchFirstPage: this.fetchFirstPage,
         fetchNextPage: this.fetchNextPage,
         requestWriteComment: this.requestWriteComment,
+        requestEditComment: this.requestEditComment,
+        requestDeleteComment: this.requestDeleteComment,
         requestWriteSubComment: this.requestWriteSubComment,
         requestSubCommentList: this.requestSubCommentList,
         commentWritePostProcess: this.commentWritePostProcess,
@@ -84,6 +113,29 @@ export default Vue.extend({
       };
       return this.$store.dispatch(BoardActionTypes.REQUEST_BOARD_COMMENT_WRITE, boardCommentWriteRequest)
         .then(() => this.$store.commit(BoardMutationTypes.COUNT_COMMENT_CNT_OF_BOARD, this.board.boardSeq));
+    },
+    requestEditComment(content: string, commentSeq: number): Promise<void> {
+      const boardCommentEditRequest: BoardCommentEditRequest = {
+        boardSeqContext: this.seqContext,
+        content: content,
+        commentSeq: commentSeq,
+      };
+      return this.$store.dispatch(BoardActionTypes.REQUEST_BOARD_COMMENT_EDIT, boardCommentEditRequest);
+    },
+    requestDeleteComment(commentSeq: number, parentSeq?: number): Promise<void> {
+      const boardCommentDeleteRequest: BoardCommentDeleteRequest = {
+        boardSeqContext: this.seqContext,
+        commentSeq: commentSeq,
+      };
+      return this.$store.dispatch(BoardActionTypes.REQUEST_BOARD_COMMENT_DELETE, boardCommentDeleteRequest)
+        .then(() => {
+          const requestForSubComment = !!parentSeq;
+          if (requestForSubComment) {
+            this.$store.commit(BoardMutationTypes.UN_COUNT_COMMENT_CNT_OF_PARENT_COMMENT, parentSeq);
+          }
+          this.$store.commit(BoardMutationTypes.REMOVE_COMMENT_OF_COMMENT_LIST, commentSeq);
+          this.$store.commit(BoardMutationTypes.UN_COUNT_COMMENT_CNT_OF_BOARD, this.board.boardSeq);
+        });
     },
     requestWriteSubComment(content: string, parentCommentSeq: number): Promise<void> {
       const boardCommentWriteRequest: BoardCommentWriteRequest = {
@@ -117,10 +169,22 @@ export default Vue.extend({
 });
 </script>
 
-<style scoped>
+<style
+  scoped
+  lang="scss"
+>
 .content {
+  padding: 10px 20px;
+  font-size: 15px;
+  color: #292929;
+  width: 100%;
   white-space: pre-wrap;
   word-break: break-all;
-  width: 100%;
+}
+
+.theme--dark {
+  .content {
+    color: #F5F5F5;
+  }
 }
 </style>

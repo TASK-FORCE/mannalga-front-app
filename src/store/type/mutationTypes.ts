@@ -7,8 +7,6 @@ export enum UIMutationTypes {
   CHANGE_LOADING = 'ui/changeLoading',
   OPEN_SNACK_BAR = 'ui/openSnackBar',
   CLOSE_SNACK_BAR = 'ui/closeSnackBar',
-  FOCUS_CHILD_COMMENT_INPUT = 'ui/focusChildCommentInput',
-  FOCUS_OUT_CHILD_COMMENT_INPUT = 'ui/focusOutChildCommentInput',
   CHANGE_THEME = 'ui/changeTheme',
 }
 
@@ -58,8 +56,12 @@ export enum AlbumMutationTypes {
   ADD_NEXT_ALBUM_COMMENT_LIST_WITH_CHECK_DUPLICATE = 'album/addNextAlbumCommentListWithCheckDuplicate',
   INIT_ALBUM_COMMENT_LIST = 'album/initAlbumCommentList',
   COUNT_CHILD_COMMENT_CNT = 'album/countChildCommentCnt',
+  UN_COUNT_CHILD_COMMENT_CNT = 'album/unCountChildCommentCnt',
+  REMOVE_COMMENT_OF_COMMENT_LIST = 'album/removeCommentOfCommentList',
   CHANGE_ALBUM_LIKE = 'album/changeAlbumLike',
+  CHANGE_ALBUM_COMMENT = 'album/changeAlbumComment',
   COUNT_ALBUM_COMMENT_CNT = 'album/countAlbumCommentCnt',
+  UN_COUNT_ALBUM_COMMENT_CNT = 'album/unCountAlbumCommentCnt',
 }
 
 export enum BoardMutationTypes {
@@ -73,8 +75,12 @@ export enum BoardMutationTypes {
   ADD_NEXT_BOARD_COMMENT_LIST_WITH_CHECK_DUPLICATE = 'board/addNextBoardCommentListWithCheckDuplicate',
   INIT_BOARD_COMMENT_LIST = 'board/initBoardCommentList',
   COUNT_COMMENT_CNT_OF_BOARD = 'board/countCommentCntOfBoard',
+  UN_COUNT_COMMENT_CNT_OF_BOARD = 'board/unCountCommentCntOfBoard',
+  REMOVE_COMMENT_OF_COMMENT_LIST = 'board/removeCommentOfCommentList',
   COUNT_COMMENT_CNT_OF_PARENT_COMMENT = 'board/countCommentCntOfParentComment',
+  UN_COUNT_COMMENT_CNT_OF_PARENT_COMMENT = 'board/unCountCommentCntOfParentComment',
   CHANGE_BOARD_LIKE = 'board/changeBoardLike',
+  CHANGE_BOARD_COMMENT = 'board/changeBoardComment',
 }
 
 export enum CommonMutationTypes {
