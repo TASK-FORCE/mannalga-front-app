@@ -129,6 +129,7 @@ export default class DefaultBuilder {
       commentCnt: 0,
       isLiked: false,
       writer: this.writer(),
+      createdAt: '',
     }
   }
 

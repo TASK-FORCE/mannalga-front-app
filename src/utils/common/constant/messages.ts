@@ -1,6 +1,7 @@
 export enum MESSAGE {
   LOGIN_FAIL = '로그인에 실패했습니다. 다시 한번 더 시도해주세요.',
   LOGIN_REQUIRE = '로그인이 필요합니다.',
+  TOKEN_EXPIRED = '토큰이 만료되었습니다.',
   SERVER_INSTABILITY = '서버가 불안정합니다. 다시 시도해주세요.',
   SELECT_REGION_REQUIRE = '지역을 선택해주세요.',
   SELECT_IMAGE_REQUIRE = '사진을 선택해주세요.',

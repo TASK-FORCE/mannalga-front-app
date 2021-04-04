@@ -1,7 +1,10 @@
-import { MESSAGE } from '@/utils/common/constant/messages.ts';
 import store from '@/store';
+import router from '@/router';
 import { MutationTypes, UIMutationTypes } from '@/store/type/mutationTypes.ts';
 import { AxiosError } from 'axios';
+import { PATH } from '@/router/route_path_type';
+import { MESSAGE } from '@/utils/common/constant/messages';
+import { AuthUtils } from '@/utils/auth';
 
 export const actionsLoadingTemplate = async <T>(
   callback: () => Promise<T>,
@@ -12,7 +15,6 @@ export const actionsLoadingTemplate = async <T>(
     store.commit(mutationTypes, true);
     return await callback();
   } catch (e) {
-    console.log(e);
     handleException(e, failCallback);
     return Promise.reject();
   } finally {
@@ -24,13 +26,46 @@ export const actionsNormalTemplate = async <T>(callback: () => Promise<T>, failC
   try {
     return await callback();
   } catch (e) {
-    console.log(e);
     handleException(e, failCallback);
     return Promise.reject();
   }
 };
 
-function handleException(e: AxiosError, failCallback?: any) {
+function handleException(e: any, failCallback?: any) {
+  if (isUnauthorizedError(e)) {
+    handleForUnauthorized();
+  } else {
+    handleForOthers(e, failCallback);
+  }
+  throw e;
+}
+
+function isUnauthorizedError(e: any): boolean {
+  return !!e.response?.status && e.response?.status === 401;
+}
+
+function handleForUnauthorized(): void {
+  AuthUtils.removeAppToken();
+  if (isLoginPage()) {
+    return;
+  }
+  store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.TOKEN_EXPIRED);
+  router.push(PATH.LOGIN);
+}
+
+
+function isLoginPage() {
+  return router.currentRoute.path === PATH.LOGIN
+}
+
+function extractMessage(e: AxiosError) {
+  if (e && e.response && e.response.data) {
+    return e.response.data.message;
+  }
+  return null;
+}
+
+function handleForOthers(e: any, failCallback?: any) {
   const errorMessageFromServer = extractMessage(e);
   if (errorMessageFromServer) {
     store.commit(UIMutationTypes.OPEN_SNACK_BAR, errorMessageFromServer);
@@ -41,12 +76,5 @@ function handleException(e: AxiosError, failCallback?: any) {
   if (failCallback) {
     failCallback();
   }
-  throw e;
 }
 
-function extractMessage(e: AxiosError) {
-  if (e && e.response && e.response.data) {
-    return e.response.data.message;
-  }
-  return null;
-}
