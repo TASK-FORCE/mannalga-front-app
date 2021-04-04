@@ -33,6 +33,7 @@ import SettingBar from '@/components/SettingBar.vue';
 import { AuthMutationTypes, UIMutationTypes } from '@/store/type/mutationTypes';
 import { UserProfile } from '@/interfaces/user';
 import { Region, RegionWithPriority } from '@/interfaces/common';
+import { AuthUtils } from '@/utils/auth';
 
 export default Vue.extend({
   name: 'UserSettingPageBody',
@@ -63,6 +64,7 @@ export default Vue.extend({
   },
   methods: {
     logout() {
+      AuthUtils.logout();
       this.$store.commit(AuthMutationTypes.REMOVE_APP_TOKEN);
       this.$router.push(PATH.LOGIN);
     },

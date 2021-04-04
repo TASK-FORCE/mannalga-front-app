@@ -12,11 +12,7 @@ import { AxiosUtils } from '@/utils/axios';
 
 Vue.config.productionTip = false;
 
-// s3 proxy를 위해 주석처리
-// axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? '/' : process.env.VUE_APP_SERVER_URL;
-AxiosUtils.setBaseUrl('/');
-AxiosUtils.setTimeout(process.env.VUE_APP_AXIOS_TIMEOUT);
-AxiosUtils.setAppTokenAsDefaultHeader();
+AxiosUtils.init();
 
 new Vue({
   vuetify,

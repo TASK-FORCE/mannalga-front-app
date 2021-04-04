@@ -25,12 +25,12 @@ export type AuthGetters = typeof getters;
 export const mutations = {
   [AuthMutationTypes.SET_APP_TOKEN](state: AuthState, appToken: string) {
     state.appToken = appToken;
-    AuthUtils.saveAppTokenToLocalStorage(appToken);
+    AuthUtils.saveAppToken(appToken);
     AxiosUtils.setAppTokenAsDefaultHeader();
   },
   [AuthMutationTypes.REMOVE_APP_TOKEN](state: AuthState) {
     state.appToken = '';
-    AuthUtils.removeAppTokenToLocalStorage();
+    AuthUtils.removeAppToken();
   },
 };
 export type AuthMutations = typeof mutations;

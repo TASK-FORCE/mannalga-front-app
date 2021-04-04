@@ -5,11 +5,11 @@ export class AuthUtils {
     return localStorage.getItem(TOKEN_KEY) || ''
   }
 
-  static saveAppTokenToLocalStorage(appToken: string): void {
+  static saveAppToken(appToken: string): void {
     localStorage.setItem(TOKEN_KEY, appToken);
   }
 
-  static removeAppTokenToLocalStorage(): void {
+  static removeAppToken(): void {
     localStorage.removeItem(TOKEN_KEY);
   }
 }
