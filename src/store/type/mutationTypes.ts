@@ -8,6 +8,7 @@ export enum UIMutationTypes {
   OPEN_SNACK_BAR = 'ui/openSnackBar',
   CLOSE_SNACK_BAR = 'ui/closeSnackBar',
   CHANGE_THEME = 'ui/changeTheme',
+  CHANGE_WIDTH = 'ui/changeWidth'
 }
 
 

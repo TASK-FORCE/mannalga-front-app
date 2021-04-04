@@ -107,6 +107,5 @@ export default Vue.extend({
   .app-main-club-tab-header {
     background-color: #121212;
   }
-
 }
 </style>

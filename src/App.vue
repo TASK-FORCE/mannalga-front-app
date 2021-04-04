@@ -36,6 +36,7 @@ import { UIMutationTypes } from '@/store/type/mutationTypes.ts';
 import Vue from 'vue';
 import { loadCurrentTheme } from '@/utils/theme';
 import { PATH } from '@/router/route_path_type';
+import _ from '@/utils/common/lodashWrapper';
 
 function isIEBrowser() {
   const agent = navigator.userAgent.toLowerCase();
@@ -48,6 +49,7 @@ export default Vue.extend({
   data() {
     return {
       isDevEnv: process.env.NODE_ENV !== 'production',
+      resizeEventListener: null as any,
     };
   },
   mounted() {
@@ -57,10 +59,18 @@ export default Vue.extend({
       }
     }
     loadCurrentTheme();
+    this.resizeEventListener = _.throttle(this.changeWidth, 500);
+    window.addEventListener('resize', this.resizeEventListener);
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.resizeEventListener);
   },
   methods: {
     changeTheme() {
       this.$store.commit(UIMutationTypes.CHANGE_THEME);
+    },
+    changeWidth() {
+      this.$store.commit(UIMutationTypes.CHANGE_WIDTH, window.innerWidth);
     },
   },
 });

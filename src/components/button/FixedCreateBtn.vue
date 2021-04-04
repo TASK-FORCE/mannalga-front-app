@@ -1,7 +1,7 @@
 <template>
   <v-btn
     fab
-    :class="left ? 'left-btn' : 'right-btn'"
+    class="btn"
     :color="color || 'green'"
     :style="resolveSize"
     @click="click"
@@ -38,11 +38,27 @@ export default Vue.extend({
   },
   computed: {
     resolveSize(): any {
-      return {
+      const style: any = {
         width: `${this.size}px !important`,
         height: `${this.size}px !important`,
       };
+      if (this.left) {
+        style.left = `${this.sideMargin}px`;
+      } else {
+        style.right = `${this.sideMargin}px`;
+      }
+      return style;
     },
+    width(): number {
+      return this.$store.state.ui.width;
+    },
+    sideMargin(): number {
+      if (this.width <= 600) {
+        return 16;
+      }
+      const diff = this.width - 600;
+      return (diff / 2) + 16;
+    }
   },
   methods: {
     click(): void {
@@ -57,21 +73,11 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-.right-btn {
+.btn {
   position: fixed;
   border-radius: 50%;
   min-width: auto !important;
   z-index: 4;
-  right: 16px;
-  bottom: 10px;
-}
-
-.left-btn {
-  position: fixed;
-  border-radius: 50%;
-  min-width: auto !important;
-  z-index: 4;
-  left: 16px;
   bottom: 10px;
 }
 </style>
