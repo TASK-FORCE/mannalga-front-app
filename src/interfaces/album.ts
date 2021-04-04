@@ -9,6 +9,7 @@ export interface Album {
   commentCnt: number;
   isLiked: boolean;
   writer: Writer;
+  createdAt: string;
 }
 
 export interface AlbumPageRequest {

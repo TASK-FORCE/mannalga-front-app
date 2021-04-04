@@ -143,7 +143,7 @@ export interface BoardVo {
   likeCnt: number;
   commentCnt: number;
   categoryName?: string;
-  createdAt?: string;
+  createdAt: string;
 }
 
 export interface ClickWithText {

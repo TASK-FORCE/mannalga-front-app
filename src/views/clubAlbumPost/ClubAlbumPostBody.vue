@@ -61,6 +61,7 @@ export default Vue.extend({
         isLiked: this.album.isLiked,
         likeCnt: this.album.likeCnt,
         commentCnt: this.album.commentCnt,
+        createdAt: this.album.createdAt,
       };
     },
     boardTemplateContext(): BoardTemplateContext {

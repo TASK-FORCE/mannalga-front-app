@@ -1,13 +1,16 @@
 <template>
   <div class="comment-writer-footer">
     <div class="d-flex w-100 h-100 align-center pr-1">
-      <div class="my-auto flex-grow-1">
+      <div
+        class="my-auto flex-grow-1"
+        style="max-width: 520px"
+      >
         <v-text-field
           v-model="content"
           :placeholder="EMPTY_COMMENT_TEXT"
           hide-details
           solo
-          class="pa-0"
+          class="pa-0 w-100"
         />
       </div>
       <div class="my-auto ml-3">
