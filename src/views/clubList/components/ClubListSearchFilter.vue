@@ -168,6 +168,12 @@ export default Vue.extend({
   position: fixed;
   z-index: 6;
   width: 100%;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.search-filter-bar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
 }
 
 .theme--dark .search-filter-bar {

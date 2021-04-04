@@ -8,7 +8,7 @@
       >
         <div class="h-100 d-flex black-bg">
           <div class="my-auto w-100 text-center">
-            <div class="image-cropper-container">
+            <div class="image-cropper-container px-2">
               <img
                 ref="cropImg"
                 alt="cropImg"
@@ -20,14 +20,14 @@
             <v-card-actions class="text-center mt-3">
               <v-btn
                 class="flex-grow-1 white--text font-weight-bold"
-                color="green darken-2"
+                color="#2883C6"
                 @click="destroy"
               >
                 취소
               </v-btn>
               <v-btn
                 class="flex-grow-1 white--text font-weight-bold"
-                color="green darken-2"
+                color="#2883C6"
                 :loading="isLoading"
                 @click="submit"
               >
@@ -65,6 +65,10 @@ export default Vue.extend({
     aspectRatio: {
       type: Number,
       default: 16 / 9,
+    },
+    cropFreeSize: {
+      type: Boolean,
+      default: false,
     },
     autoCropArea: {
       type: Number,
@@ -106,7 +110,7 @@ export default Vue.extend({
     },
     cropperOptions(): Cropper.Options<HTMLImageElement> {
       return {
-        aspectRatio: this.aspectRatio,
+        aspectRatio: this.cropFreeSize ? NaN : this.aspectRatio,
         autoCropArea: this.autoCropArea,
         viewMode: this.viewMode as ViewMode,
         movable: this.movable,
@@ -117,6 +121,7 @@ export default Vue.extend({
     resolveImgStyle() {
       return {
         maxHeight: `${window.innerHeight - 100}px`,
+        maxWidth: '600px',
       };
     },
   },

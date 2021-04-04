@@ -4,6 +4,7 @@
       v-if="active"
       class="create-btn v-btn--fab darken-2"
       :color="color || 'green'"
+      :style="{left: `${sideMargin}px`}"
       @click="scrollToTop"
     >
       <v-icon
@@ -33,6 +34,18 @@ export default Vue.extend({
       handleScrollEvent: null as any,
     };
   },
+  computed: {
+    width(): number {
+      return this.$store.state.ui.width;
+    },
+    sideMargin(): number {
+      if (this.width <= 600) {
+        return 16;
+      }
+      const diff = this.width - 600;
+      return (diff / 2) + 16;
+    }
+  },
   created() {
     this.handleScrollEvent = _.throttle(this.handleScroll, DEFAULT_THROTTLE_DELAY);
     window.addEventListener('scroll', this.handleScrollEvent);
@@ -59,7 +72,6 @@ export default Vue.extend({
   height: 50px !important;
   min-width: auto !important;
   z-index: 4;
-  left: 16px;
   bottom: 10px;
 }
 

@@ -17,6 +17,7 @@
     <v-tabs-items
       v-show="!$store.state.ui.loading"
       v-model="tab"
+      :style="style"
     >
       <v-tab-item value="main">
         <ClubDetailMain
@@ -64,6 +65,7 @@ export default Vue.extend({
         { name: '게시판', key: ClubTab.BOARD },
         { name: '사진첩', key: ClubTab.ALBUM },
       ],
+      style: {},
     };
   },
   computed: {
@@ -85,6 +87,31 @@ export default Vue.extend({
     if (this.clubInfo.seq === 0) {
       clubDetailVuexService.dispatch(this.clubSeq, true, PATH.CLUB_LIST);
     }
+    this.$nextTick(() => {
+      const header = document.querySelector('.club-main-tab');
+      if (header) {
+        this.style = {
+          paddingTop: `${header.clientHeight}px`,
+        };
+      }
+    });
   },
 });
 </script>
+
+<style
+  scoped
+  lang="scss"
+>
+.club-main-tab {
+  position: fixed;
+  z-index: 5;
+  background-color: #FFFFFF;
+}
+
+.theme--dark {
+  .club-main-tab {
+    background-color: #121212;
+  }
+}
+</style>

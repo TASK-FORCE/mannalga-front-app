@@ -11,6 +11,7 @@ export const state = {
   loading: false as boolean,
   snackBarOptions: DefaultBuilder.snackbarOption() as SnackBarOption,
   isDarkTheme: isDarkTheme() as boolean,
+  width: window.innerWidth as number,
 };
 export type UIState = typeof state;
 
@@ -34,6 +35,9 @@ export const mutations = {
   [UIMutationTypes.CHANGE_THEME](state: UIState) {
     changeThemeAndLoad();
     state.isDarkTheme = isDarkTheme();
+  },
+  [UIMutationTypes.CHANGE_WIDTH](state: UIState, width: number) {
+    state.width = width;
   },
 };
 export type UIMutations = typeof mutations;

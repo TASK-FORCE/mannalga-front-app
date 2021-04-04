@@ -32,7 +32,7 @@
     <!--  @handleUploadedImgDto 이벤트에서 파라미터로 저장된 이미지의 URL를 넘겨준다   -->
     <ImageCropper
       ref="cropper"
-      :aspectRatio="cropFreeSize ? NaN : undefined"
+      cropFreeSize
       @handleUploadedImgDto="handleUploadedImgDto"
     />
     <ImageCarouselDialog
