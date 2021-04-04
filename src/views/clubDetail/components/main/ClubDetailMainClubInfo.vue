@@ -144,7 +144,7 @@ export default Vue.extend({
         interestList: this.clubInfo.clubInterest.map(({ interest, priority }) => ({ seq: interest.seq, priority, })),
         regionList: this.clubInfo.clubRegion.map(({ region, priority }) => ({ seq: region.seq, priority })),
       };
-      return this.$store.dispatch(ClubActionTypes.REQUEST_CLUB_CHANGE, {
+      return this.$store.dispatch(ClubActionTypes.REQUEST_CLUB_EDIT, {
         clubSeq: this.clubInfo.seq,
         clubWriteRequest,
       });

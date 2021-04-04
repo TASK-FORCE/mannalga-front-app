@@ -16,10 +16,12 @@ import routerHelper from '@/router/RouterHelper';
 import ClubBoardCreateAndEdit from '@/views/clubBoardCreateAndEdit/ClubBoardCreateAndEdit.vue';
 import { BoardWriteRequest, BoardWriteRequestWishSeq } from '@/interfaces/board/board';
 import { BoardActionTypes } from '@/store/type/actionTypes';
+import { mixin } from '@/mixin/mixin';
 
 export default Vue.extend({
   name: 'ClubCreate',
   components: { ClubBoardCreateAndEdit },
+  mixins: [mixin],
   methods: {
     getClubPath() {
       return generateParamPath(PATH.CLUB.MAIN, [routerHelper.clubSeq()]);

@@ -2,7 +2,7 @@
   <div>
     <SubmitHeader
       :title="headerTitle"
-      @submit="submit"
+      :submitCallback="submit"
       @back="$emit('back')"
     />
     <v-form
@@ -126,7 +126,6 @@ export default Vue.extend({
   data() {
     return {
       RULES,
-      loading: false,
       title: '' as string,
       content: '' as string,
       maximumNumber: undefined as number | undefined,
@@ -177,7 +176,6 @@ export default Vue.extend({
     submit() {
       const clubMeetingCreateForm = this.$refs.clubMeetingCreateForm as HTMLFormElement;
       if (clubMeetingCreateForm.validate()) {
-        this.loading = true;
         const meetingDto: MeetingWriteRequest = {
           title: this.title,
           content: this.content,
@@ -187,7 +185,7 @@ export default Vue.extend({
           cost: this.cost ? toNumber(this.cost) : this.cost,
           region: this.region,
         };
-        this.submitClickCallback(meetingDto).finally(() => (this.loading = false));
+        return this.submitClickCallback(meetingDto);
       }
     },
     costFocus() {

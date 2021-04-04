@@ -53,14 +53,9 @@ export default Vue.extend({
     };
   },
   mounted() {
-    if (isIEBrowser()) {
-      if (this.$route.path !== PATH.NOT_SUPPORTED_BROWSER) {
-        this.$router.push(PATH.NOT_SUPPORTED_BROWSER);
-      }
-    }
+    this.validateBrowser();
+    this.addResizeEvent();
     loadCurrentTheme();
-    this.resizeEventListener = _.throttle(this.changeWidth, 500);
-    window.addEventListener('resize', this.resizeEventListener);
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.resizeEventListener);
@@ -69,8 +64,16 @@ export default Vue.extend({
     changeTheme() {
       this.$store.commit(UIMutationTypes.CHANGE_THEME);
     },
-    changeWidth() {
-      this.$store.commit(UIMutationTypes.CHANGE_WIDTH, window.innerWidth);
+    validateBrowser() {
+      if (isIEBrowser()) {
+        if (this.$route.path !== PATH.NOT_SUPPORTED_BROWSER) {
+          this.$router.push(PATH.NOT_SUPPORTED_BROWSER);
+        }
+      }
+    },
+    addResizeEvent() {
+      this.resizeEventListener = _.throttle(() => this.$store.commit(UIMutationTypes.CHANGE_WIDTH, window.innerWidth), 500);
+      window.addEventListener('resize', this.resizeEventListener);
     },
   },
 });

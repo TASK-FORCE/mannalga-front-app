@@ -13,7 +13,7 @@ const clubApi = {
       .then(ResponseConverter.extractSuperInventionResponseData);
   },
 
-  putClubCreate({ clubSeq, clubWriteRequest }: ClubWriteRequestWithSeq) {
+  putClubEdit({ clubSeq, clubWriteRequest }: ClubWriteRequestWithSeq) {
     return axios.put(`/api/clubs/${clubSeq}`, clubWriteRequest);
   },
 

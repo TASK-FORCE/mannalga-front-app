@@ -2,7 +2,7 @@
   <div>
     <SubmitHeader
       :title="title"
-      @submit="submit"
+      :submitCallback="submit"
       @back="$emit('back')"
     />
     <div v-show="!$store.state.ui.loading">
@@ -114,7 +114,6 @@ export default Vue.extend({
   data() {
     return {
       sheet: false,
-      loading: false,
       items: createClubMaximumNumberList(10, 100, 10),
       RULES,
       regionDialog: false,
@@ -162,10 +161,9 @@ export default Vue.extend({
     submit() {
       const clubCreateForm = this.$refs.clubCreateForm as HTMLFormElement;
       if (clubCreateForm.validate()) {
-        this.loading = true;
-        this.submitClickCallback(this.buildClubCreateDto())
-          .finally(() => (this.loading = false));
+        return this.submitClickCallback(this.buildClubCreateDto());
       }
+      return Promise.resolve();
     },
     buildClubCreateDto(): ClubWriteRequest {
       return {

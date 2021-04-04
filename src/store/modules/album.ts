@@ -14,6 +14,8 @@ import {
   AlbumCommentListResponse,
   AlbumCommentPageRequest,
   AlbumCommentWriteRequest,
+  AlbumDeleteRequest,
+  AlbumEditRequest,
   AlbumFeed,
   AlbumLikeChange,
   AlbumListResponse,
@@ -162,6 +164,24 @@ export const actions = {
     return actionsNormalTemplate(
       async () => {
         await albumApi.postClubAlbumCreate(albumWriteRequest);
+        commit(AlbumMutationTypes.INIT_ALBUM_LIST);
+      },
+    );
+  },
+  async [AlbumActionTypes.REQUEST_ALBUM_EDIT]({ commit }: AlbumActionContext, albumEditRequest: AlbumEditRequest) {
+    return actionsNormalTemplate(
+      async () => {
+        await albumApi.patchClubAlbumEdit(albumEditRequest);
+        commit(AlbumMutationTypes.INIT_ALBUM_LIST);
+        commit(AlbumMutationTypes.SET_ALBUM, DefaultBuilder.album());
+      },
+    );
+  },
+  async [AlbumActionTypes.REQUEST_ALBUM_DELETE]({ commit }: AlbumActionContext, albumDeleteRequest: AlbumDeleteRequest) {
+    return actionsNormalTemplate(
+      async () => {
+        await albumApi.deleteClubAlbumDelete(albumDeleteRequest);
+        commit(AlbumMutationTypes.INIT_ALBUM_LIST);
       },
     );
   },

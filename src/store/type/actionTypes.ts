@@ -5,7 +5,7 @@ export enum UIActionTypes {
 export enum ClubActionTypes {
   REQUEST_CLUB_INFO_AND_USER_INFO = 'club/requestClubInfoAndUserInfo',
   REQUEST_CLUB_CREATE = 'club/requestClubCreate',
-  REQUEST_CLUB_CHANGE = 'club/requestClubChange',
+  REQUEST_CLUB_EDIT = 'club/requestClubEdit',
   REQUEST_CLUB_JOIN = 'club/requestClubJoin',
   REQUEST_CHANGE_USER_ROLE = 'club/requestChangeUserRole',
   REQUEST_KICK_USER = 'club/requestKickUser',
@@ -40,6 +40,8 @@ export enum AuthActionTypes {
 
 export enum AlbumActionTypes {
   REQUEST_ALBUM_CREATE = 'album/requestAlbumCreate',
+  REQUEST_ALBUM_EDIT = 'album/requestAlbumEdit',
+  REQUEST_ALBUM_DELETE = 'album/requestAlbumDelete',
   REQUEST_ALBUM = 'album/requestAlbum',
   REQUEST_FIRST_ALBUM_LIST = 'album/requestFirstAlbumList',
   REQUEST_NEXT_ALBUM_LIST = 'album/requestNextAlbumList',
@@ -82,7 +84,7 @@ export enum MeetingActionTypes {
   REQUEST_FIRST_MEETING_GROUP_LIST = 'meeting/requestFirstMeetingGroupList',
   REQUEST_NEXT_MEETING_GROUP_LIST = 'meeting/requestNextMeetingGroupList',
   REQUEST_MEETING = 'meeting/requestMeeting',
-  REQUEST_DELETE_MEETING = 'meeting/requestDeleteMeeting',
+  REQUEST_MEETING_DELETE = 'meeting/requestMeetingDelete',
   REQUEST_MEETING_APPLICATION = 'meeting/requestMeetingApplication',
   REQUEST_CANCEL_MEETING_APPLICATION = 'meeting/requestCancelMeetingApplication',
   REQUEST_MEETING_APPLICATION_STATUS = 'meeting/requestMeetingApplicationStatus',

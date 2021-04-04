@@ -13,10 +13,12 @@ import routerHelper from '@/router/RouterHelper.ts';
 import Vue from 'vue';
 import { MeetingActionTypes } from '@/store/type/actionTypes';
 import { MeetingWriteRequest, MeetingWriteRequestWithSeq } from '@/interfaces/meeting';
+import { mixin } from '@/mixin/mixin';
 
 export default Vue.extend({
   name: 'ClubMeetingCreatePage',
   components: { ClubMeetingCreateAndEdit },
+  mixins: [mixin],
   methods: {
     clubDetailPath() {
       return generateParamPath(PATH.CLUB.MAIN, [routerHelper.clubSeq()]);
@@ -28,7 +30,6 @@ export default Vue.extend({
       };
       return this.$store.dispatch(MeetingActionTypes.REQUEST_MEETING_CREATE, meetingWriteRequestWithSeq)
         .then(() => {
-          this.$store.dispatch(MeetingActionTypes.REQUEST_FIRST_MEETING_GROUP_LIST, meetingWriteRequestWithSeq.clubSeq);
           this.$router.push(generateParamPath(PATH.CLUB.MAIN, [routerHelper.clubSeq()]));
         });
     },

@@ -8,7 +8,8 @@
       <v-btn
         text
         class="header-button"
-        @click="$emit('submit')"
+        :loading="loading"
+        @click="submit"
       >
         완료
       </v-btn>
@@ -18,7 +19,7 @@
 
 
 <script lang="ts">
-import Vue from 'vue';
+import Vue, { PropType } from 'vue';
 import CommonHeader from '@/components/header/CommonHeader.vue';
 
 export default Vue.extend({
@@ -27,7 +28,27 @@ export default Vue.extend({
   props: {
     title: String,
     isDialog: Boolean,
+    submitCallback: {
+      type: Function as PropType<() => any>,
+      required: true,
+    }
   },
+  data() {
+    return {
+      loading: false,
+    }
+  },
+  methods: {
+    submit() {
+      this.loading = true;
+      const result = this.submitCallback();
+      if (result instanceof Promise) {
+        result.finally(() => (this.loading = false));
+      } else {
+        this.loading = false;
+      }
+    },
+  }
 });
 </script>
 

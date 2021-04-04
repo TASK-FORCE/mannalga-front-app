@@ -85,6 +85,7 @@ export const actions = {
     return actionsNormalTemplate(
       async () => {
         await meetingApi.postClubMeeting(meetingWriteRequestWithSeq);
+        commit(MeetingMutationTypes.INIT_MEETING_GROUP_LIST);
       },
     );
   },
@@ -92,8 +93,16 @@ export const actions = {
     return actionsNormalTemplate(
       async () => {
         await meetingApi.putClubMeeting(meetingWriteRequestWithSeq);
+        commit(MeetingMutationTypes.SET_MEETING, DefaultBuilder.meeting());
+        commit(MeetingMutationTypes.INIT_MEETING_GROUP_LIST);
       },
     );
+  },
+  async [MeetingActionTypes.REQUEST_MEETING_DELETE]({ commit }: MeetingActionContext, meetingSeqContext: MeetingSeqContext) {
+    return actionsLoadingTemplate(async () => {
+      await meetingApi.deleteMeeting(meetingSeqContext);
+      commit(MeetingMutationTypes.INIT_MEETING_GROUP_LIST);
+    });
   },
   async [MeetingActionTypes.REQUEST_FIRST_MEETING_GROUP_LIST]({ commit, state }: MeetingActionContext, clubSeq: number) {
     return actionsNormalTemplate(
@@ -118,11 +127,6 @@ export const actions = {
     return actionsLoadingTemplate(async () => {
       const meeting = await meetingApi.getMeeting(meetingSeqContext);
       commit(MeetingMutationTypes.SET_MEETING, meeting);
-    });
-  },
-  async [MeetingActionTypes.REQUEST_DELETE_MEETING]({ commit }: MeetingActionContext, meetingSeqContext: MeetingSeqContext) {
-    return actionsLoadingTemplate(async () => {
-      await meetingApi.deleteMeeting(meetingSeqContext);
     });
   },
   async [MeetingActionTypes.REQUEST_MEETING_APPLICATION]({ commit, dispatch }: MeetingActionContext, meetingSeqContext: MeetingSeqContext) {

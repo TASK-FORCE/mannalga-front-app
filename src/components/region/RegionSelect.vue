@@ -3,8 +3,8 @@
     <SubmitHeader
       :title="title"
       :isDialog="isDialog"
+      :submitCallback="submit"
       @back="backCallback"
-      @submit="submit"
     />
     <div class="body">
       <div class="header">

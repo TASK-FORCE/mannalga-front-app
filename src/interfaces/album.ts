@@ -53,6 +53,18 @@ export interface AlbumWriteRequest {
   image: UploadImageResponse;
 }
 
+export interface AlbumEditRequest {
+  clubSeq: number;
+  albumSeq: number;
+  title: string;
+  image: UploadImageResponse;
+}
+
+export interface AlbumDeleteRequest {
+  clubSeq: number;
+  albumSeq: number;
+}
+
 export interface AlbumCommentWriteRequest {
   albumSeqContext: AlbumSeqContext;
   content: string;

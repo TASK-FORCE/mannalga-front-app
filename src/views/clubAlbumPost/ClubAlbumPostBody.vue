@@ -5,8 +5,12 @@
   >
     <template #content>
       <div class="content">
+        <div
+          class="font-weight-bold"
+          v-text="album.title"
+        />
         <ImageWithDialog
-          class="elevation-1"
+          class="elevation-1 mt-2"
           :imgUrl="album.imgUrl"
         />
       </div>
@@ -18,7 +22,7 @@
 import ImageWithDialog from '@/components/image/ImageWithDialog.vue';
 import routerHelper from '@/router/RouterHelper.ts';
 import BoardTemplate from '@/components/BoardTemplate.vue';
-import Vue from 'vue';
+import Vue, { PropType } from 'vue';
 import { AlbumMutationTypes } from '@/store/type/mutationTypes';
 import { AlbumActionTypes } from '@/store/type/actionTypes';
 import {
@@ -37,10 +41,13 @@ export default Vue.extend({
     BoardTemplate,
     ImageWithDialog,
   },
+  props: {
+    album: {
+      type: Object as PropType<Album>,
+      required: true,
+    }
+  },
   computed: {
-    album(): Album {
-      return this.$store.state.album.album;
-    },
     seqContext(): AlbumSeqContext {
       return {
         clubSeq: routerHelper.clubSeq(),

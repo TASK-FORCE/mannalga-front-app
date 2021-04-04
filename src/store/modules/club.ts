@@ -75,9 +75,9 @@ export const actions = {
       commit(ClubListMutationTypes.INIT_MY_CLUB_LIST_AND_PAGE, undefined, { root: true });
     });
   },
-  async [ClubActionTypes.REQUEST_CLUB_CHANGE]({ commit, dispatch }: ClubActionContext, clubWriteRequestWishSeq: ClubWriteRequestWithSeq) {
+  async [ClubActionTypes.REQUEST_CLUB_EDIT]({ commit, dispatch }: ClubActionContext, clubWriteRequestWishSeq: ClubWriteRequestWithSeq) {
     return actionsNormalTemplate(async () => {
-      await clubApi.putClubCreate(clubWriteRequestWishSeq);
+      await clubApi.putClubEdit(clubWriteRequestWishSeq);
       commit(ClubListMutationTypes.INIT_CLUB_LIST_AND_PAGE, undefined, { root: true });
       commit(ClubListMutationTypes.INIT_MY_CLUB_LIST_AND_PAGE, undefined, { root: true });
       dispatch(ClubActionTypes.REQUEST_CLUB_INFO_AND_USER_INFO, clubWriteRequestWishSeq.clubSeq);

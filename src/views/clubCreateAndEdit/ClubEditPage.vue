@@ -32,10 +32,12 @@ import ClubCreateAndEdit from '@/views/clubCreateAndEdit/ClubCreateAndEdit.vue';
 import YesOrNoDialog from '@/components/YesOrNoDialog.vue';
 import { ClubListMutationTypes, UIMutationTypes } from '@/store/type/mutationTypes';
 import { MESSAGE } from '@/utils/common/constant/messages';
+import { mixin } from '@/mixin/mixin';
 
 export default Vue.extend({
   name: 'ClubEditPage',
   components: { YesOrNoDialog, ClubCreateAndEdit },
+  mixins: [mixin],
   data() {
     return {
       deleteDialog: false,
@@ -71,7 +73,7 @@ export default Vue.extend({
         clubSeq: this.clubInfo.seq,
         clubWriteRequest
       }
-      return this.$store.dispatch(ClubActionTypes.REQUEST_CLUB_CHANGE, clubWriteRequestWithSeq)
+      return this.$store.dispatch(ClubActionTypes.REQUEST_CLUB_EDIT, clubWriteRequestWithSeq)
         .then(() => (this.$router.push(generateParamPath(PATH.CLUB.MAIN, [this.clubInfo.seq]))));
     },
     deleteClub() {

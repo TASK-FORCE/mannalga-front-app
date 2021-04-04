@@ -26,11 +26,13 @@ import { CurrentUserInfo } from '@/interfaces/club';
 import YesOrNoDialog from '@/components/YesOrNoDialog.vue';
 import { MeetingActionTypes } from '@/store/type/actionTypes';
 import { MESSAGE } from '@/utils/common/constant/messages';
-import { MeetingMutationTypes, UIMutationTypes } from '@/store/type/mutationTypes';
+import { UIMutationTypes } from '@/store/type/mutationTypes';
+import { mixin } from '@/mixin/mixin';
 
 export default Vue.extend({
   name: 'ClubMeetingPostPage',
   components: { YesOrNoDialog, MenuHeader, ClubMeetingDetailBody },
+  mixins: [mixin],
   data() {
     return {
       deleteDialog: false,
@@ -77,12 +79,11 @@ export default Vue.extend({
       this.deleteDialog = true;
     },
     deleteMeeting() {
-      return this.$store.dispatch(MeetingActionTypes.REQUEST_DELETE_MEETING, {
+      return this.$store.dispatch(MeetingActionTypes.REQUEST_MEETING_DELETE, {
         clubSeq: routerHelper.clubSeq(),
         meetingSeq: routerHelper.meetingSeq()
       })
         .then(() => {
-          this.$store.commit(MeetingMutationTypes.INIT_MEETING_GROUP_LIST);
           this.moveToClubDetailPage();
           this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_DELETE_MEETING);
         })

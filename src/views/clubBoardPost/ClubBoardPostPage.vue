@@ -17,10 +17,12 @@ import Vue from 'vue';
 import MenuHeader from '@/components/header/MenuHeader.vue';
 import { ClickWithText } from '@/interfaces/common';
 import { Board } from '@/interfaces/board/board';
+import { mixin } from '@/mixin/mixin';
 
 export default Vue.extend({
   name: 'ClubBoardPostPage',
   components: { MenuHeader, ClubBoardPostBody },
+  mixins: [mixin],
   computed: {
     board(): Board {
       return this.$store.state.board.board;

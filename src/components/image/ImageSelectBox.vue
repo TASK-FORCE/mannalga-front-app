@@ -8,7 +8,8 @@
       <v-img
         :src="imageUrl || initImage"
         :style="resolveImageStyle"
-        max-height="600"
+        max-width="600"
+        height="auto"
       />
     </div>
     <div
@@ -32,7 +33,7 @@
     <!--  @handleUploadedImgDto 이벤트에서 파라미터로 저장된 이미지의 URL를 넘겨준다   -->
     <ImageCropper
       ref="cropper"
-      cropFreeSize
+      :cropFreeSize="cropFreeSize"
       @handleUploadedImgDto="handleUploadedImgDto"
     />
     <ImageCarouselDialog

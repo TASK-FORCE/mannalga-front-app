@@ -14,10 +14,12 @@ import routerHelper from '@/router/RouterHelper.ts';
 import Vue from 'vue';
 import { MeetingActionTypes } from '@/store/type/actionTypes';
 import { Meeting, MeetingWriteContext, MeetingWriteRequest, MeetingWriteRequestWithSeq } from '@/interfaces/meeting';
+import { mixin } from '@/mixin/mixin';
 
 export default Vue.extend({
   name: 'ClubMeetingEditPage',
   components: { ClubMeetingCreateAndEdit },
+  mixins: [mixin],
   computed: {
     meeting(): Meeting {
       return this.$store.state.meeting.meeting;
@@ -53,7 +55,6 @@ export default Vue.extend({
       };
       return this.$store.dispatch(MeetingActionTypes.REQUEST_MEETING_EDIT, meetingWriteRequestWithSeq)
         .then(() => {
-          this.$store.dispatch(MeetingActionTypes.REQUEST_FIRST_MEETING_GROUP_LIST, meetingWriteRequestWithSeq.clubSeq);
           this.$router.push(this.meetingPostPagePath());
         });
     },

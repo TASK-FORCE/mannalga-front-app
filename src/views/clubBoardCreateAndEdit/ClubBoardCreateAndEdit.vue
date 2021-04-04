@@ -2,7 +2,7 @@
   <div>
     <SubmitHeader
       :title="headerTitle"
-      @submit="submit"
+      :submitCallback="submit"
       @back="$emit('back')"
     />
     <v-form
@@ -81,7 +81,6 @@ export default Vue.extend({
   data() {
     return {
       enableImageSize: 3,
-      loading: false,
       title: undefined as undefined | string,
       content: undefined as undefined | string,
       category: undefined as undefined | string,
@@ -127,15 +126,15 @@ export default Vue.extend({
     submit() {
       const clubBoardCreateForm = this.$refs.clubBoardCreateForm as HTMLFormElement;
       if (clubBoardCreateForm.validate()) {
-        this.loading = true;
         const boardWriteRequest: BoardWriteRequest = {
           title: this.title as string,
           content: this.content as string,
           category: BoardCategory.findCategoryTypeByName(this.category as string) as BoardCategoryType,
           imgList: Object.values(this.selectedImages),
         };
-        this.submitClickCallback(boardWriteRequest).finally(() => (this.loading = false));
+        return this.submitClickCallback(boardWriteRequest);
       }
+      return Promise.resolve();
     },
   },
 });

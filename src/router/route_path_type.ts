@@ -22,6 +22,7 @@ export const PATH = {
     MEETING_EDIT: '/club/:clubSeq/meeting/edit/:meetingSeq',
     MEETING_POST: '/club/:clubSeq/meeting/:meetingSeq',
     ALBUM_CREATE: '/club/:clubSeq/create/album',
+    ALBUM_EDIT: '/club/:clubSeq/album/edit/:albumSeq',
     ALBUM_POST: '/club/:clubSeq/album/:albumSeq',
     SEARCH: '/search/club',
   },

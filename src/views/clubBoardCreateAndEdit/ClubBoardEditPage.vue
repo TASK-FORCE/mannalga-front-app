@@ -16,10 +16,12 @@ import routerHelper from '@/router/RouterHelper';
 import ClubBoardCreateAndEdit from '@/views/clubBoardCreateAndEdit/ClubBoardCreateAndEdit.vue';
 import { Board, BoardWriteContext, BoardWriteRequest, BoardWriteRequestWishSeq } from '@/interfaces/board/board';
 import { BoardActionTypes } from '@/store/type/actionTypes';
+import { mixin } from '@/mixin/mixin';
 
 export default Vue.extend({
   name: 'ClubBoardEditPage',
   components: { ClubBoardCreateAndEdit },
+  mixins: [mixin],
   computed: {
     board(): Board {
       return this.$store.state.board.board;

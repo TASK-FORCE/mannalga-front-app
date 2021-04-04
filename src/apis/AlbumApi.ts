@@ -7,6 +7,8 @@ import {
   AlbumCommentListResponse,
   AlbumCommentPageRequest,
   AlbumCommentWriteRequest,
+  AlbumDeleteRequest,
+  AlbumEditRequest,
   AlbumListResponse,
   AlbumPageRequest,
   AlbumSeqContext,
@@ -31,6 +33,14 @@ const albumApi = {
     return axios.post(`/api/club/${clubSeq}/album`, { title, image });
   },
 
+  patchClubAlbumEdit({ clubSeq, albumSeq, title, image }: AlbumEditRequest) {
+    return axios.patch(`/api/club/${clubSeq}/album/${albumSeq}`, { title, image });
+  },
+
+  deleteClubAlbumDelete({ clubSeq, albumSeq }: AlbumDeleteRequest) {
+    return axios.delete(`/api/club/${clubSeq}/album/${albumSeq}`);
+  },
+
   postClubAlbumCommentWrite({ albumSeqContext: { clubSeq, albumSeq }, content, parentCommentSeq }: AlbumCommentWriteRequest) {
     return axios.post(`/api/club/${clubSeq}/album/${albumSeq}/comment`, { content }, {
       params: { parentCommentSeq },
@@ -41,7 +51,6 @@ const albumApi = {
     return axios.patch(`/api/club/${clubSeq}/album/${albumSeq}/${commentSeq}`, { content });
   },
 
-  // TODO: 존재하는지 체크 필요
   deleteClubAlbumCommentDelete({ albumSeqContext: { clubSeq, albumSeq }, commentSeq }: AlbumCommentDeleteRequest) {
     return axios.delete(`/api/club/${clubSeq}/album/${albumSeq}/${commentSeq}`);
   },

@@ -16,10 +16,12 @@ import { UIMutationTypes } from '@/store/type/mutationTypes.ts';
 import { ClubWriteRequest } from '@/interfaces/club';
 import { ClubActionTypes } from '@/store/type/actionTypes';
 import ClubCreateAndEdit from '@/views/clubCreateAndEdit/ClubCreateAndEdit.vue';
+import { mixin } from '@/mixin/mixin';
 
 export default Vue.extend({
   name: 'ClubCreatePage',
   components: { ClubCreateAndEdit },
+  mixins: [mixin],
   methods: {
     back() {
       this.$router.push(PATH.CLUB_LIST);

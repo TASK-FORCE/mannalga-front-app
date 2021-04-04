@@ -2,7 +2,7 @@
   <div>
     <SubmitHeader
       :title="headerTitle"
-      @submit="requestAlbumCreate"
+      :submitCallback="requestAlbumCreate"
       @back="$emit('back')"
     />
     <v-form
@@ -69,11 +69,12 @@ export default Vue.extend({
             title: this.title || '',
             image: { ...this.image },
           };
-          this.submitCallback(albumWriteRequest);
+          return this.submitCallback(albumWriteRequest);
         } else {
           this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.SELECT_IMAGE_REQUIRE);
         }
       }
+      return Promise.resolve();
     },
     changeToUploadedImage(uploadedImage: UploadImageResponse) {
       this.image = uploadedImage;
