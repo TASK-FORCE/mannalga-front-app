@@ -164,6 +164,7 @@ import { ClickWithText, Comment } from '@/interfaces/common';
 import { DateUtils } from '@/utils/date';
 import CommentWriteDialog from '@/components/comment/CommentWriteDialog.vue';
 import YesOrNoDialog from '@/components/YesOrNoDialog.vue';
+import { CurrentUserInfo } from '@/interfaces/club';
 
 function getHeightAppender(offsetHeight: number) {
   const footerSize = 50;
@@ -226,23 +227,34 @@ export default Vue.extend({
     commentSeq(): number {
       return this.comment.commentSeq;
     },
-    menus(): ClickWithText[] {
-      if (this.comment.isWrittenByMe) {
-        return [
-          {
-            text: '수정',
-            click: () => {
-              this.openCommentEditDialog = true;
-            }
-          },
-          {
-            text: '삭제',
-            click: () => {
-              this.openCommentDeleteDialog = true;
-            }
-          }
-        ];
+    editMenu(): ClickWithText {
+      return {
+        text: '수정',
+        click: () => {
+          this.openCommentEditDialog = true;
+        }
+      };
+    },
+    deleteMenu(): ClickWithText {
+      return {
+        text: '삭제',
+        click: () => {
+          this.openCommentDeleteDialog = true;
+        }
       }
+    },
+    currentUserInfo(): CurrentUserInfo {
+      return this.$store.state.club.currentUserInfo;
+    },
+    menus(): ClickWithText[] {
+      if (this.isWriter) {
+        return [this.editMenu, this.deleteMenu];
+      }
+
+      if (this.currentUserInfo.isManager || this.currentUserInfo.isMaster) {
+        return [this.deleteMenu];
+      }
+
       return [];
     }
   },
