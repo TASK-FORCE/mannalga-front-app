@@ -64,6 +64,7 @@ import {
 import { ClubInfo, ClubWriteRequest, CurrentUserInfo } from '@/interfaces/club';
 import { ClubActionTypes } from '@/store/type/actionTypes';
 import _ from '@/utils/common/lodashWrapper';
+import { MyVueRefs } from '@/types';
 
 const CHANGE_IMAGE_COOL_TIME_MINUTE = 6 * 60;
 const toMillisecond = (minute: number) => minute * 60 * 1000;
@@ -79,7 +80,9 @@ const checkCoolTime = (clubSeq: number) => {
   return false;
 };
 
-export default Vue.extend({
+export default (
+  Vue as MyVueRefs<{ imageSelector: HTMLElement }>
+).extend({
   name: 'ClubDetailMainClubInfo',
   components: {
     MiddleDivider,

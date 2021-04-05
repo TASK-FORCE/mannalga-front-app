@@ -75,6 +75,10 @@ export default Vue.extend({
       type: Boolean,
       default: true,
     },
+    callFirstPage: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
     return {
@@ -95,7 +99,7 @@ export default Vue.extend({
   mounted() {
     this.listWrapper = document.querySelector(`.${this.name}-list-wrapper`) as HTMLElement;
     this.sentinel = document.querySelector(`.${this.name}-list-sentinel`) as HTMLElement;
-    if (_.isEmpty(this.pageElements)) {
+    if (_.isEmpty(this.pageElements) && this.callFirstPage) {
       this.requestFirstPage();
     } else {
       this.insertSentinel();

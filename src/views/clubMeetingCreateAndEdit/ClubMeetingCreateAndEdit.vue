@@ -56,10 +56,12 @@
       <v-row class="mx-0 mt-1">
         <v-col class="px-0">
           <v-text-field
-            v-model="region"
             label="만남 위치 정보"
             hide-details
             outlined
+            readonly
+            :value="region"
+            @click="regionSearchDialog = true"
           />
         </v-col>
       </v-row>
@@ -72,6 +74,10 @@
         outlined
       ></v-textarea>
     </v-form>
+    <RegionSearchDialog
+      v-model="regionSearchDialog"
+      @select="selectRegion"
+    />
   </div>
 </template>
 
@@ -83,6 +89,8 @@ import { RULES } from '@/utils/common/constant/rules.ts';
 import Vue, { PropType } from 'vue';
 import { DateTime, MeetingWriteContext, MeetingWriteRequest } from '@/interfaces/meeting';
 import SubmitHeader from '@/components/header/SubmitHeader.vue';
+import RegionSearchDialog from '@/views/clubMeetingCreateAndEdit/RegionSearchDialog.vue';
+import { KakaoMapSearchDocs } from '@/utils/kakao/map/search';
 
 const toMoment = (localDate: DateTime): moment.Moment => moment(`${localDate.date} ${localDate.time}`.trim());
 const toTimeStamp = (localDate: DateTime): string => `${localDate.date} ${localDate.time}:00`;
@@ -109,7 +117,7 @@ const DEFAULT_DATE_TIME: DateTime = { date: today(), time: '' };
 
 export default Vue.extend({
   name: 'ClubMeetingCreateAndEdit',
-  components: { SubmitHeader, DateTimePicker },
+  components: { RegionSearchDialog, SubmitHeader, DateTimePicker },
   props: {
     headerTitle: {
       type: String,
@@ -131,8 +139,10 @@ export default Vue.extend({
       maximumNumber: undefined as number | undefined,
       cost: undefined as string | undefined,
       region: undefined as string | undefined,
+      regionURL: undefined as string | undefined,
       startDateTime: DEFAULT_DATE_TIME as DateTime,
       endDateTime: DEFAULT_DATE_TIME as DateTime,
+      regionSearchDialog: false,
     };
   },
   computed: {
@@ -150,6 +160,7 @@ export default Vue.extend({
       this.maximumNumber = this.context.maximumNumber;
       this.cost = this.context.cost;
       this.region = this.context.region;
+      this.regionURL = this.context.region;
       this.startDateTime = this.context.startDateTime;
       this.endDateTime = this.context.endDateTime;
     }
@@ -184,6 +195,7 @@ export default Vue.extend({
           endTimestamp: toTimeStamp(this.endDateTime),
           cost: this.cost ? toNumber(this.cost) : this.cost,
           region: this.region,
+          regionURL: this.regionURL
         };
         return this.submitClickCallback(meetingDto);
       }
@@ -197,6 +209,10 @@ export default Vue.extend({
       if (this.cost) {
         this.cost = toCurrency(toNumber(this.cost));
       }
+    },
+    selectRegion(selectedRegion: KakaoMapSearchDocs) {
+      this.region = selectedRegion.place_name;
+      this.regionURL = selectedRegion.place_url;
     },
   },
 });

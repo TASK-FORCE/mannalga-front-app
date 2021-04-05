@@ -47,6 +47,7 @@
 import Vue, { PropType } from 'vue';
 import ImageCropper from '@/components/image/ImageCropper.vue';
 import { UploadImageResponse } from '@/interfaces/common';
+import { MyVueRefs } from '@/types';
 
 const EMPTY: UploadImageResponse = {
   absolutePath: '',
@@ -54,7 +55,9 @@ const EMPTY: UploadImageResponse = {
   fileName: '',
 };
 
-export default Vue.extend({
+export default (
+  Vue as MyVueRefs<{ cropper: HTMLElement & { trigger: () => void } }>
+).extend({
   name: 'ImageSelectorWithConfirm',
   components: { ImageCropper },
   props: {
@@ -80,7 +83,7 @@ export default Vue.extend({
   },
   methods: {
     trigger() {
-      const cropper = this.$refs.cropper as any;
+      const cropper = this.$refs.cropper;
       cropper.trigger();
     },
     handleUploadedImgDto(uploadedImage: UploadImageResponse) {

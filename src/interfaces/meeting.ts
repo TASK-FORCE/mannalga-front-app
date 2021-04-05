@@ -95,6 +95,7 @@ export interface MeetingWriteRequest {
   endTimestamp: string;
   cost?: number;
   region?: string;
+  regionURL?: string;
 }
 
 export interface MeetingWriteRequestWithSeq {
@@ -131,6 +132,7 @@ export interface Meeting {
   maximumNumber?: number;
   cost?: string;
   region?: string;
+  regionURL?: string;
   isCreator: boolean;
   isRegistered: boolean;
   applicationUsers: MeetingApplicationUser[];
@@ -188,6 +190,7 @@ export interface MeetingWriteContext {
   maximumNumber?: number;
   cost?: string;
   region?: string;
+  regionURL?: string;
   startDateTime: DateTime;
   endDateTime: DateTime;
 }
