@@ -75,7 +75,8 @@
     <YesOrNoDialog
       v-model="openSelectDialog"
       title="해당 지역을 선택하시겠습니까?"
-      :optionBtnText="'열기'"
+      optionBtnText="열기"
+      submitText="선택"
       :submitPromiseCallback="select"
       @clickOptionBtn="openUrl"
     >
