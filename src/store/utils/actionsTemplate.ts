@@ -1,10 +1,9 @@
 import store from '@/store';
-import router from '@/router';
 import { MutationTypes, UIMutationTypes } from '@/store/type/mutationTypes.ts';
 import { AxiosError } from 'axios';
-import { PATH } from '@/router/route_path_type';
 import { MESSAGE } from '@/utils/common/constant/messages';
 import { AuthUtils } from '@/utils/auth';
+import routerHelper from '@/router/RouterHelper';
 
 export const actionsLoadingTemplate = async <T>(
   callback: () => Promise<T>,
@@ -22,7 +21,7 @@ export const actionsLoadingTemplate = async <T>(
   }
 };
 
-export const actionsNormalTemplate = async <T>(callback: () => Promise<T>, failCallback?: any): Promise<T> => {
+export const actionsNormalTemplate = async <T>(callback: () => Promise<T>, failCallback?: () => any): Promise<T> => {
   try {
     return await callback();
   } catch (e) {
@@ -31,8 +30,8 @@ export const actionsNormalTemplate = async <T>(callback: () => Promise<T>, failC
   }
 };
 
-function handleException(e: any, failCallback?: any) {
-  if (isUnauthorizedError(e)) {
+function handleException(e: any, failCallback?: () => any) {
+  if (AuthUtils.isUnauthorizedError(e)) {
     handleForUnauthorized();
   } else {
     handleForOthers(e, failCallback);
@@ -40,23 +39,12 @@ function handleException(e: any, failCallback?: any) {
   throw e;
 }
 
-function isUnauthorizedError(e: any): boolean {
-  return !!e.response?.status && e.response?.status === 401;
-}
-
 function handleForUnauthorized(): void {
   AuthUtils.removeAppToken();
-  if (isLoginPage()) {
-    return;
-  }
+  routerHelper.pushWhenUnauthorizedError();
   store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.TOKEN_EXPIRED);
-  router.push(PATH.LOGIN);
 }
 
-
-function isLoginPage() {
-  return router.currentRoute.path === PATH.LOGIN
-}
 
 function extractMessage(e: AxiosError) {
   if (e && e.response && e.response.data) {
@@ -65,7 +53,7 @@ function extractMessage(e: AxiosError) {
   return null;
 }
 
-function handleForOthers(e: any, failCallback?: any) {
+function handleForOthers(e: any, failCallback?: () => any) {
   const errorMessageFromServer = extractMessage(e);
   if (errorMessageFromServer) {
     store.commit(UIMutationTypes.OPEN_SNACK_BAR, errorMessageFromServer);

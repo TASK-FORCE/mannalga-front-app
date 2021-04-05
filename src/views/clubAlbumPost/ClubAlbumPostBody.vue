@@ -34,6 +34,7 @@ import {
   AlbumSubCommentRequest
 } from '@/interfaces/album';
 import { BoardTemplateContext, BoardVo, Comment } from '@/interfaces/common';
+import { generateParamPath, PATH } from '@/router/route_path_type';
 
 export default Vue.extend({
   name: 'ClubAlbumPostBody',
@@ -83,7 +84,7 @@ export default Vue.extend({
   },
   created() {
     this.$store.dispatch(AlbumActionTypes.REQUEST_ALBUM, this.seqContext)
-      .catch(() => this.$router.back());
+      .catch((e) => routerHelper.pushWhenException(e, generateParamPath(PATH.CLUB.MAIN, [this.seqContext.clubSeq])));
   },
   beforeDestroy() {
     this.$store.commit(AlbumMutationTypes.INIT_ALBUM_COMMENT_LIST);

@@ -109,6 +109,7 @@ import RoleTag from '@/components/tag/RoleTag.vue';
 import MeetingBox from '@/components/meeting/MeetingBox.vue';
 import ClubMemberInfo from '@/components/user/ClubMemberInfo.vue';
 import { ClubUserInfo, CurrentUserInfo } from '@/interfaces/club';
+import { generateParamPath, PATH } from '@/router/route_path_type';
 
 export default Vue.extend({
   name: 'ClubMeetingPostBody',
@@ -160,7 +161,7 @@ export default Vue.extend({
   },
   created() {
     this.$store.dispatch(MeetingActionTypes.REQUEST_MEETING, this.meetingSeqContext)
-      .catch(() => this.$router.back());
+      .catch((e) => routerHelper.pushWhenException(e, generateParamPath(PATH.CLUB.MAIN, [this.meetingSeqContext.clubSeq])));
   },
   methods: {
     applyMeetingApplication() {

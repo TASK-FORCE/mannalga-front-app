@@ -63,6 +63,7 @@ const routes: RouteConfig[] = [
     path: PATH.CLUB.MAIN,
     name: 'ClubMain',
     component: () => import('@/views/clubDetail/ClubDetailPage.vue'),
+    beforeEnter: validationAuthentication,
   },
   {
     path: PATH.CLUB.CREATE,
@@ -80,43 +81,51 @@ const routes: RouteConfig[] = [
     path: PATH.CLUB.BOARD_CREATE,
     name: 'ClubBoardCreate',
     component: () => import('@/views/clubBoardCreateAndEdit/ClubBoardCreatePage.vue'),
+    beforeEnter: validationAuthentication,
   },
   {
     path: PATH.CLUB.BOARD_POST,
     name: 'ClubBoardPost',
     component: () => import('@/views/clubBoardPost/ClubBoardPostPage.vue'),
+    beforeEnter: validationAuthentication,
   },
   {
     path: PATH.CLUB.MEETING_CREATE,
     name: 'ClubMeetingCreate',
     component: () => import('@/views/clubMeetingCreateAndEdit/ClubMeetingCreatePage.vue'),
+    beforeEnter: validationAuthentication,
   },
   {
     path: PATH.CLUB.MEETING_EDIT,
     name: 'ClubMeetingEdit',
     component: () => import('@/views/clubMeetingCreateAndEdit/ClubMeetingEditPage.vue'),
+    beforeEnter: validationAuthentication,
   },
   {
     path: PATH.CLUB.MEETING_POST,
     name: 'ClubMeetingPost',
     component: () => import('@/views/clubMeetingDetail/ClubMeetingDetailPage.vue'),
+    beforeEnter: validationAuthentication,
   },
   {
     path: PATH.CLUB.ALBUM_CREATE,
     name: 'ClubAlbumCreate',
     component: () => import('@/views/clubAlbumCreateAndEdit/ClubAlbumCreatePage.vue'),
     meta: { disableScrollBehavior: true },
+    beforeEnter: validationAuthentication,
   },
   {
     path: PATH.CLUB.ALBUM_POST,
     name: 'ClubAlbumPost',
     component: () => import('@/views/clubAlbumPost/ClubAlbumPostPage.vue'),
     meta: { disableScrollBehavior: true },
+    beforeEnter: validationAuthentication,
   },
   {
     path: PATH.CLUB.SEARCH,
     name: 'ClubSearch',
     component: () => import('@/views/clubSearch/ClubSearchPage.vue'),
+    beforeEnter: validationAuthentication,
   },
 
   // user
@@ -124,16 +133,19 @@ const routes: RouteConfig[] = [
     path: PATH.USER.SETTINGS,
     name: 'UserSettings',
     component: () => import('@/views/userSetting/UserSettingPage.vue'),
+    beforeEnter: validationAuthentication,
   },
   {
     path: PATH.USER.REGION_EDIT,
     name: 'UserRegionEdit',
     component: () => import('@/views/userRegionEdit/UserRegionEditPage.vue'),
+    beforeEnter: validationAuthentication,
   },
   {
     path: PATH.USER.INTEREST_EDIT,
     name: 'UserInterestEdit',
     component: () => import('@/views/userInterestEdit/UserInterestEditPage.vue'),
+    beforeEnter: validationAuthentication,
   },
   {
     path: PATH.NOT_SUPPORTED_BROWSER,
@@ -142,7 +154,7 @@ const routes: RouteConfig[] = [
   },
   {
     path: '*',
-    redirect: PATH.CLUB_LIST,
+    redirect: PATH.LOGIN,
   },
 ];
 

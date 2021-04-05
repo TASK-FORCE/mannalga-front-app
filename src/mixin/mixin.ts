@@ -9,7 +9,8 @@ const mixin: ComponentOptions<Vue> = {
   async mounted() {
     if (routerHelper.clubSeq()) {
       if (store.state.club.currentUserInfo.userSeq === 0) {
-        clubDetailVuexService.dispatch(routerHelper.clubSeq(), false, PATH.CLUB_LIST);
+        clubDetailVuexService.dispatch(routerHelper.clubSeq(), false)
+          .then((e) => routerHelper.pushWhenException(e, PATH.CLUB_LIST));
       }
     }
   }

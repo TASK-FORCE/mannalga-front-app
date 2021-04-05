@@ -12,4 +12,8 @@ export class AuthUtils {
   static removeAppToken(): void {
     localStorage.removeItem(TOKEN_KEY);
   }
+
+  static isUnauthorizedError(e: any): boolean {
+    return !!e.response?.status && e.response?.status === 401;
+  }
 }

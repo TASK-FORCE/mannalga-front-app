@@ -46,6 +46,7 @@ import { PATH } from '@/router/route_path_type.ts';
 import { UserMutationTypes } from '@/store/type/mutationTypes.ts';
 import { KakaoProfile } from '@/interfaces/user';
 import { UserActionTypes } from '@/store/type/actionTypes';
+import routerHelper from '@/router/RouterHelper';
 
 export default Vue.extend({
   name: 'UserProfile',
@@ -63,7 +64,7 @@ export default Vue.extend({
   created() {
     if (_.isDeepEmpty(this.kakaoProfile)) {
       this.$store.dispatch(UserActionTypes.REQUEST_KAKAO_PROFILE)
-        .catch(() => this.$router.push(PATH.LOGIN));
+        .catch((e) => routerHelper.pushWhenException(e, PATH.LOGIN));
     }
   },
   methods: {

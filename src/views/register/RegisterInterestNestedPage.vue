@@ -23,6 +23,7 @@ import { UIMutationTypes } from '@/store/type/mutationTypes.ts';
 import { KakaoProfile, UserRegisterContext } from '@/interfaces/user';
 import { Interest, Region } from '@/interfaces/common';
 import { UserActionTypes } from '@/store/type/actionTypes';
+import routerHelper from '@/router/RouterHelper';
 
 
 export default Vue.extend({
@@ -57,7 +58,7 @@ export default Vue.extend({
       this.$store.dispatch(UserActionTypes.REQUEST_REGISTER, userRegisterContext)
         .then(() => this.$router.push(PATH.CLUB_LIST)
           .then(() => this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_REGISTER)))
-        .catch(() => this.$router.push(PATH.REGISTER.PROFILE));
+        .catch((e) => routerHelper.pushWhenException(e, PATH.REGISTER.PROFILE));
     },
     back() {
       this.$router.push(PATH.REGISTER.REGION);

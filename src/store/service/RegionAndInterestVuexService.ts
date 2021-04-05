@@ -13,7 +13,7 @@ class RegionAndInterestVuexService {
     this.isDispatching = false;
   }
 
-  async dispatch(withLoading: boolean, routePathWhenFail: string | null) {
+  async dispatch(withLoading: boolean) {
     if (this.isCached() || this.isDispatching) {
       return;
     }
@@ -22,7 +22,7 @@ class RegionAndInterestVuexService {
       this.dispatchRegions(),
       this.dispatchInterests()
     ];
-    await RequestHelper.dispatchAll(withLoading, routePathWhenFail, promiseList);
+    await RequestHelper.dispatchAll(withLoading, promiseList);
     this.isDispatching = false;
   }
 

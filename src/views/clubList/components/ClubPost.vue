@@ -67,6 +67,7 @@ import clubDetailVuexService from '@/store/service/ClubDetailVuexService.ts';
 import _ from '@/utils/common/lodashWrapper.ts';
 import { ClubFeed } from '@/interfaces/clubList';
 import { Interest, InterestWithPriority, Region, RegionWithPriority } from '@/interfaces/common';
+import routerHelper from '@/router/RouterHelper';
 
 const regionStore = {
   서울특별시: { name: '서울시' },
@@ -136,7 +137,10 @@ export default Vue.extend({
   methods: {
     moveToClubDetailPage(seq: number) {
       this.$router.push(generateParamPath(PATH.CLUB.MAIN, [seq]))
-        .then(() => clubDetailVuexService.dispatch(seq, true, PATH.CLUB_LIST));
+        .then(() =>
+          clubDetailVuexService.dispatch(seq, true)
+            .then((e) => routerHelper.pushWhenException(e, PATH.CLUB_LIST))
+        );
     },
     getRegionName(region: Region) {
       return region.superRegionRoot;

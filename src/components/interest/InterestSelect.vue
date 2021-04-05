@@ -48,6 +48,7 @@ import { UIMutationTypes } from '@/store/type/mutationTypes.ts';
 import Vue, { PropType } from 'vue';
 import { Interest, InterestGroupTree } from '@/interfaces/common';
 import SubmitHeader from '@/components/header/SubmitHeader.vue';
+import routerHelper from '@/router/RouterHelper';
 
 export default Vue.extend({
   name: 'InterestSelect',
@@ -92,7 +93,8 @@ export default Vue.extend({
     },
   },
   created() {
-    regionAndInterestVuexService.dispatch(true, PATH.BACK);
+    regionAndInterestVuexService.dispatch(true)
+      .then((e) => routerHelper.pushWhenException(e, PATH.BACK));
     this.selectedInterestsCallback()
       .then((selectedInterest: Interest[]) => (this.selectedInterest = selectedInterest));
   },

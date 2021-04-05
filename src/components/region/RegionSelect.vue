@@ -69,6 +69,7 @@ import BottomSheetRegionCard from '@/components/bottom-sheet/BottomSheetRegionCa
 import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.ts';
 import { Region, RegionTree } from '@/interfaces/common';
 import SubmitHeader from '@/components/header/SubmitHeader.vue';
+import routerHelper from '@/router/RouterHelper';
 
 export default Vue.extend({
   name: 'RegionSelect',
@@ -106,7 +107,8 @@ export default Vue.extend({
     },
   },
   created() {
-    regionAndInterestVuexService.dispatch(true, PATH.BACK);
+    regionAndInterestVuexService.dispatch(true)
+      .then((e) => routerHelper.pushWhenException(e, PATH.BACK));
     if (this.selectedRegionsCallback) {
       this.selectedRegionsCallback()
         .then((selectedRegions: Region[]) => (this.selectedRegions = selectedRegions));

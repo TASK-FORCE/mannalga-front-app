@@ -12,7 +12,7 @@ class ClubDetailVuexService {
     this.dispatching = false;
   }
 
-  async dispatch(clubSeq: number, withLoading: boolean, routePathWhenFail: string) {
+  async dispatch(clubSeq: number, withLoading: boolean) {
     if (this.dispatching) {
       return;
     }
@@ -24,7 +24,7 @@ class ClubDetailVuexService {
         this.dispatchClubBoards(clubSeq),
         this.dispatchClubAlbums(clubSeq),
       ];
-      await RequestHelper.dispatchAll(withLoading, routePathWhenFail, promiseList);
+      await RequestHelper.dispatchAll(withLoading, promiseList);
     } finally {
       this.dispatching = false;
     }

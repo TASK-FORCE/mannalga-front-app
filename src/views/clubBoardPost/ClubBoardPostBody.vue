@@ -44,6 +44,7 @@ import {
 import { BoardTemplateContext, BoardVo, Comment } from '@/interfaces/common';
 import { BoardCategory } from '@/interfaces/board/BoardCategory';
 import ImageWithDialog from '@/components/image/ImageWithDialog.vue';
+import { generateParamPath, PATH } from '@/router/route_path_type';
 
 export default Vue.extend({
   name: 'ClubBoardPostBody',
@@ -94,7 +95,7 @@ export default Vue.extend({
   },
   created() {
     this.$store.dispatch(BoardActionTypes.REQUEST_BOARD, this.seqContext)
-      .catch(() => this.$router.back());
+      .catch((e) => routerHelper.pushWhenException(e, generateParamPath(PATH.CLUB.MAIN, [this.seqContext.clubSeq])));
   },
   beforeDestroy() {
     this.$store.commit(BoardMutationTypes.INIT_BOARD_COMMENT_LIST);
