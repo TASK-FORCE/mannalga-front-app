@@ -60,8 +60,11 @@ import Vue from 'vue';
 import ImageCropper from '@/components/image/ImageCropper.vue';
 import ImageCarouselDialog from '@/components/image/ImageCarouselDialog.vue';
 import { UploadImageResponse } from '@/interfaces/common';
+import { MyVueRefs } from '@/types';
 
-export default Vue.extend({
+export default (
+  Vue as MyVueRefs<{ cropper: HTMLElement & { trigger: () => void } }>
+).extend({
   name: 'ImageSelectBox',
   components: { ImageCarouselDialog, ImageCropper },
   props: {
@@ -115,7 +118,7 @@ export default Vue.extend({
       this.$emit('handleUploadedImage', uploadedImage);
     },
     triggerCropper() {
-      const cropper = this.$refs.cropper as any;
+      const cropper = this.$refs.cropper;
       cropper.trigger();
     },
     clear() {

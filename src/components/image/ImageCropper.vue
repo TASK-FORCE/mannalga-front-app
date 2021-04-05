@@ -55,10 +55,16 @@ import Vue, { PropType } from 'vue';
 import 'cropperjs/dist/cropper.css';
 import Cropper from 'cropperjs';
 import { UIActionTypes } from '@/store/type/actionTypes';
+import { MyVueRefs } from '@/types';
 import ViewMode = Cropper.ViewMode;
 
 
-export default Vue.extend({
+export default (
+  Vue as MyVueRefs<{
+    originalImg: HTMLInputElement;
+    cropImg: HTMLImageElement;
+  }>
+).extend({
   name: 'ImageCropper',
   props: {
     // https://github.com/fengyuanchen/cropperjs#options 참고
@@ -129,16 +135,16 @@ export default Vue.extend({
     destroy() {
       this.originalImgUrl = undefined;
       this.cropper = undefined;
-      const originalImg = this.$refs.originalImg as HTMLInputElement;
+      const originalImg = this.$refs.originalImg;
       originalImg.value = '';
       this.isLoading = false;
     },
     trigger() {
-      const originalImg = this.$refs.originalImg as HTMLInputElement;
+      const originalImg = this.$refs.originalImg;
       originalImg.click();
     },
     createCropper() {
-      const cropImg = this.$refs.cropImg as HTMLImageElement;
+      const cropImg = this.$refs.cropImg;
       const cropper = new Cropper(cropImg, this.cropperOptions);
       this.cropper = cropper;
       if (this.width !== 0 && this.height !== 0) {

@@ -31,6 +31,16 @@
       <v-row class="mt-1">
         <v-col>
           <v-btn
+            v-if="meeting.regionURL"
+            class="w-100 font-weight-bold application-btn"
+            height="45"
+            outlined
+            @click="openUrl"
+          >
+            위치보기
+          </v-btn>
+          <v-btn
+            v-else
             class="w-100 font-weight-bold disable-location-btn"
             height="45"
             disabled
@@ -171,6 +181,11 @@ export default Vue.extend({
         role: meetingApplicationUser.roles.map(({ name }) => name),
         name: meetingApplicationUser.name,
         imgUrl: meetingApplicationUser.imgUrl,
+      }
+    },
+    openUrl() {
+      if (this.meeting.regionURL) {
+        window.open(this.meeting.regionURL);
       }
     }
   },

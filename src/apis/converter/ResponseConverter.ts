@@ -92,6 +92,7 @@ export default class ResponseConverter {
       registerUserRoles: meeting.regClubUser.roles,
       cost: toCurrency(meeting.cost),
       region: meeting.region,
+      regionURL: meeting.regionURL,
       maximumNumber: meeting.maximumNumber,
       applicationUsers: convertMeetingApplicationUsers(meeting.meetingApplications),
     }

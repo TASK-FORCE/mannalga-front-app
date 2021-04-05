@@ -36,6 +36,7 @@ export default Vue.extend({
         maximumNumber: this.meeting.maximumNumber,
         cost: this.meeting.cost,
         region: this.meeting.region,
+        regionURL: this.meeting.regionURL,
         startDateTime: { date: startDateTimeToken[0], time: startDateTimeToken[1].substring(0, 5) },
         endDateTime: { date: endDateTimeToken[0], time: endDateTimeToken[1].substring(0, 5) },
       };
