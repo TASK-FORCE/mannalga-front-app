@@ -9,7 +9,9 @@ class RouterHelper {
   boardSeq = (): number => parseInt(getParams().boardSeq, 10);
   albumSeq = (): number => parseInt(getParams().albumSeq, 10);
 
-  // 401 에러는 actionTemplate에서 login page로 push하므로 push를 진행하지 않는다.
+  /** 에러가 발생하였을 때는 해당 메서드를 통해서만 라우팅을 하도록 한다.
+   *  - 토큰 만료(401) 에러의 경우 actionsTemplate.handleException 에서 login page로 푸시를 하므로 중복 라우팅의 우려가 있다.
+   */
   async pushWhenException(e: any, path: string) {
     if (!AuthUtils.isUnauthorizedError(e)) {
       if (path === PATH.BACK) {
@@ -22,7 +24,12 @@ class RouterHelper {
 
   async pushWhenUnauthorizedError() {
     if (!isLoginPage()) {
-      await router.push(PATH.LOGIN);
+      await router.push(PATH.LOGIN)
+        .catch((e) => {
+          if (e && e.name !== 'NavigationDuplicated') {
+            throw e;
+          }
+        });
     }
   }
 }

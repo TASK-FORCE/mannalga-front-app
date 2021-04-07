@@ -61,7 +61,7 @@
             v-else-if="meeting.isRegistered"
             class="w-100 font-weight-bold already-application-btn"
             height="45"
-            @click="cancelMeetingApplication"
+            @click="cancelMeetingDialog = true"
           >
             참여중
           </v-btn>
@@ -70,6 +70,7 @@
             class="w-100 font-weight-bold application-btn"
             height="45"
             outlined
+            :loading="applicationBtnLoading"
             @click="applyMeetingApplication"
           >
             참여하기
@@ -77,6 +78,13 @@
         </v-col>
       </v-row>
     </div>
+    <YesOrNoDialog
+      v-model="cancelMeetingDialog"
+      title="만남 참여를 취소하시겠습니까?"
+      cancelText="나가기"
+      submitText="취소"
+      :submitPromiseCallback="cancelMeetingApplication"
+    />
     <MiddleDivider :height="5" />
     <div class="meeting-footer">
       <div class="meeting-application-users-title">
@@ -110,10 +118,13 @@ import MeetingBox from '@/components/meeting/MeetingBox.vue';
 import ClubMemberInfo from '@/components/user/ClubMemberInfo.vue';
 import { ClubUserInfo, CurrentUserInfo } from '@/interfaces/club';
 import { generateParamPath, PATH } from '@/router/route_path_type';
+import YesOrNoDialog from '@/components/YesOrNoDialog.vue';
+import { UIMutationTypes } from '@/store/type/mutationTypes';
+import { MESSAGE } from '@/utils/common/constant/messages';
 
 export default Vue.extend({
   name: 'ClubMeetingPostBody',
-  components: { ClubMemberInfo, MeetingBox, RoleTag, MiddleDivider, UserProfileAvatar },
+  components: { YesOrNoDialog, ClubMemberInfo, MeetingBox, RoleTag, MiddleDivider, UserProfileAvatar },
   props: {
     meeting: {
       type: Object as PropType<Meeting>,
@@ -123,6 +134,7 @@ export default Vue.extend({
   data() {
     return {
       applicationBtnLoading: false,
+      cancelMeetingDialog: false,
       isDarkTheme: isDarkTheme(),
     };
   },
@@ -170,9 +182,8 @@ export default Vue.extend({
         .finally(() => (this.applicationBtnLoading = false));
     },
     cancelMeetingApplication() {
-      this.applicationBtnLoading = true;
-      this.$store.dispatch(MeetingActionTypes.REQUEST_CANCEL_MEETING_APPLICATION, this.meetingSeqContext)
-        .finally(() => (this.applicationBtnLoading = false));
+      return this.$store.dispatch(MeetingActionTypes.REQUEST_CANCEL_MEETING_APPLICATION, this.meetingSeqContext)
+        .then(() => (this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_CANCLE_MEETING_APPLICATION)));
     },
     toClubUser(meetingApplicationUser: MeetingApplicationUser): ClubUserInfo {
       return {
