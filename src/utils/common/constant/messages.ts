@@ -9,7 +9,7 @@ export enum MESSAGE {
   SUCCESS_REGISTER = '회원가입 완료!',
   SUCCESS_CLUB_CREATE = '모임생성 완료!',
   SUCCESS_CHANGE_REGIONS = '지역 변경 완료!',
-  SUCCESS_CHANGE_INTERESTS = '관심사 변경 완료!',
+  SUCCESS_CANCLE_MEETING_APPLICATION = '만남 참여가 취소되었습니다.',
   SUCCESS_JOIN_CLUB = '모임 가입 성공',
   SUCCESS_DELETE_CLUB = '모임이 삭제되었습니다.',
   SUCCESS_DELETE_MEETING = '만남이 삭제되었습니다.',
