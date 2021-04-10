@@ -85,6 +85,7 @@ import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
 import { ClubListMutationTypes } from '@/store/type/mutationTypes.ts';
 import { ClubSearchContext, InterestForSearch } from '@/interfaces/clubList';
 import { Interest, InterestGroupTree, RegionTree } from '@/interfaces/common';
+import routerHelper from '@/router/RouterHelper';
 
 export default Vue.extend({
   name: 'ClubListSearchFilter',
@@ -122,7 +123,7 @@ export default Vue.extend({
   },
   created() {
     regionAndInterestVuexService.dispatch(true)
-      .then(() => this.$router.push(PATH.BACK));
+      .catch((e) => routerHelper.pushWhenException(e, PATH.BACK));
   },
   methods: {
     selectSearchRegion(region: RegionTree) {

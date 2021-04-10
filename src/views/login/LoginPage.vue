@@ -75,9 +75,21 @@ export default Vue.extend({
       return !!this.$route.query.validationFail;
     },
   },
-  created() {
+  mounted() {
     if (this.validationFail) {
       this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.LOGIN_REQUIRE);
+      return;
+    }
+
+    if (this.$route.redirectedFrom) {
+      return;
+    }
+
+    if (this.code) {
+      this.startLoading();
+      this.$store.dispatch(AuthActionTypes.REQUEST_KAKAO_TOKEN_BY_CODE, this.code)
+        .then((isRegistered: boolean) => (isRegistered ? this.$router.push(PATH.CLUB_LIST) : this.$router.push(PATH.REGISTER.PROFILE)))
+        .finally(() => this.endLoading());
       return;
     }
 
@@ -89,13 +101,6 @@ export default Vue.extend({
         this.$store.dispatch(UserActionTypes.REQUEST_CHECK_IS_MEMBER)
           .then(isMember => this.$router.push(isMember ? PATH.CLUB_LIST : PATH.REGISTER.PROFILE));
       }
-    }
-
-    if (this.code) {
-      this.startLoading();
-      this.$store.dispatch(AuthActionTypes.REQUEST_KAKAO_TOKEN_BY_CODE, this.code)
-        .then((isRegistered: boolean) => (isRegistered ? this.$router.push(PATH.CLUB_LIST) : this.$router.push(PATH.REGISTER.PROFILE)))
-        .finally(() => this.endLoading());
     }
   },
   methods: {

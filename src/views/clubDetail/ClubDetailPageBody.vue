@@ -86,7 +86,7 @@ export default Vue.extend({
     this.tab = lastClubTabCache.get(this.clubSeq);
     if (this.clubInfo.seq === 0) {
       clubDetailVuexService.dispatch(this.clubSeq, true)
-        .then(() => this.$router.push(PATH.CLUB_LIST));
+        .catch((e) => routerHelper.pushWhenException(e, PATH.CLUB_LIST));
     }
     this.$nextTick(() => {
       const header = document.querySelector('.club-main-tab');
