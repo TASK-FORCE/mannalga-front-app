@@ -1,6 +1,6 @@
 import { actionsLoadingTemplate, actionsNormalTemplate } from '@/store/utils/actionsTemplate.ts';
 import meetingApi from '@/apis/MeetingApi.ts';
-import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
+import StateInitializer from '@/store/utils/StateInitializer.ts';
 import RequestConverter from '@/apis/converter/RequestConverter.ts';
 import { MeetingMutationTypes } from '@/store/type/mutationTypes';
 import { MeetingActionTypes } from '@/store/type/actionTypes';
@@ -8,10 +8,10 @@ import { MeetingActionContext } from '@/store/type/actionContextTypes';
 import { Meeting, MeetingApplicationStatus, MeetingFeedGroup, MeetingGroupListResponse, MeetingSeqContext, MeetingWriteRequestWithSeq } from '@/interfaces/meeting';
 import { Page } from '@/interfaces/common';
 
-const FIRST_PAGE = DefaultBuilder.page(20);
+const FIRST_PAGE = StateInitializer.page(20);
 
 export const state = {
-  meeting: DefaultBuilder.meeting() as Meeting,
+  meeting: StateInitializer.meeting() as Meeting,
   meetingGroupList: [] as MeetingFeedGroup[],
   meetingGroupPage: FIRST_PAGE as Page,
 };
@@ -93,7 +93,7 @@ export const actions = {
     return actionsNormalTemplate(
       async () => {
         await meetingApi.putClubMeeting(meetingWriteRequestWithSeq);
-        commit(MeetingMutationTypes.SET_MEETING, DefaultBuilder.meeting());
+        commit(MeetingMutationTypes.SET_MEETING, StateInitializer.meeting());
         commit(MeetingMutationTypes.INIT_MEETING_GROUP_LIST);
       },
     );

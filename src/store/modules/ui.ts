@@ -1,6 +1,6 @@
 import { actionsNormalTemplate } from '@/store/utils/actionsTemplate.ts';
 import commonApi from '@/apis/CommonApi.ts';
-import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
+import StateInitializer from '@/store/utils/StateInitializer.ts';
 import { UIMutationTypes } from '@/store/type/mutationTypes';
 import { UIActionContext } from '@/store/type/actionContextTypes';
 import { SnackBarOption, UploadImageResponse } from '@/interfaces/common';
@@ -9,7 +9,7 @@ import { changeThemeAndLoad, isDarkTheme } from '@/utils/theme';
 
 export const state = {
   loading: false as boolean,
-  snackBarOptions: DefaultBuilder.snackbarOption() as SnackBarOption,
+  snackBarOptions: StateInitializer.snackbarOption() as SnackBarOption,
   isDarkTheme: isDarkTheme() as boolean,
   width: window.innerWidth as number,
 };

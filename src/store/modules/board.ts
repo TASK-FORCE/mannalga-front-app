@@ -1,6 +1,6 @@
 import { actionsNormalTemplate } from '@/store/utils/actionsTemplate.ts';
 import boardApi from '@/apis/BoardApi.ts';
-import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
+import StateInitializer from '@/store/utils/StateInitializer.ts';
 import RequestConverter from '@/apis/converter/RequestConverter.ts';
 import CommentHelper from '@/store/service/helper/CommentHelper.ts';
 import BoardHelper from '@/store/service/helper/BoardHelper.ts';
@@ -27,10 +27,10 @@ import { BoardActionContext } from '@/store/type/actionContextTypes';
 
 export const state = {
   boardList: [] as BoardFeed[],
-  boardPage: DefaultBuilder.page() as Page,
-  board: DefaultBuilder.board() as Board,
+  boardPage: StateInitializer.page() as Page,
+  board: StateInitializer.board() as Board,
   boardCommentList: [] as Comment[],
-  boardCommentPage: DefaultBuilder.page() as Page,
+  boardCommentPage: StateInitializer.page() as Page,
 };
 export type BoardState = typeof state;
 
@@ -48,7 +48,7 @@ export const mutations = {
   },
   [BoardMutationTypes.INIT_BOARD_LIST](state: BoardState) {
     state.boardList = [];
-    state.boardPage = DefaultBuilder.page();
+    state.boardPage = StateInitializer.page();
   },
   [BoardMutationTypes.SET_BOARD](state: BoardState, board: Board) {
     state.board = board;
@@ -70,7 +70,7 @@ export const mutations = {
   },
   [BoardMutationTypes.INIT_BOARD_COMMENT_LIST](state: BoardState) {
     state.boardCommentList = [];
-    state.boardCommentPage = DefaultBuilder.page();
+    state.boardCommentPage = StateInitializer.page();
   },
   [BoardMutationTypes.COUNT_COMMENT_CNT_OF_PARENT_COMMENT](state: BoardState, commentSeq: number) {
     state.boardCommentList = state.boardCommentList
@@ -184,7 +184,7 @@ export const actions = {
         // 전체보기로 첫번째 페이지를 조회하는 경우 첫 10개 목록은 공지사항을 보여주고 나머지는 일반 게시판을 보여준다.
         const noticeBoardListResponsePromise: Promise<BoardListResponse> = BoardHelper.requestBoardList(
           { ...boardListRequest, category: BoardCategory.NOTICE.type },
-          DefaultBuilder.page(10)
+          StateInitializer.page(10)
         );
         const normalBoardListResponsePromise: Promise<BoardListResponse> = BoardHelper.requestBoardList(
           { ...boardListRequest, category: BoardCategory.NORMAL.type }

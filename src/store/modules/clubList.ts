@@ -1,7 +1,7 @@
 import { actionsLoadingTemplate, actionsNormalTemplate } from '@/store/utils/actionsTemplate.ts';
 import clubListApi from '@/apis/ClubListApi.ts';
 import RequestConverter from '@/apis/converter/RequestConverter.ts';
-import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
+import StateInitializer from '@/store/utils/StateInitializer.ts';
 import { ClubListMutationTypes } from '@/store/type/mutationTypes';
 import { Page } from '@/interfaces/common';
 import { ClubFeed, ClubListResponse, ClubSearchContext, InterestForSearch, MyClubFeed, MyClubListResponse, RegionForSearch } from '@/interfaces/clubList';
@@ -10,10 +10,10 @@ import { ClubListActionTypes } from '@/store/type/actionTypes';
 
 export const state = {
   clubList: [] as ClubFeed[],
-  clubPage: DefaultBuilder.page() as Page,
+  clubPage: StateInitializer.page() as Page,
   myClubList: [] as MyClubFeed[],
-  myClubPage: DefaultBuilder.page() as Page,
-  clubSearchContext: DefaultBuilder.clubSearchContext() as ClubSearchContext,
+  myClubPage: StateInitializer.page() as Page,
+  clubSearchContext: StateInitializer.clubSearchContext() as ClubSearchContext,
   isRequestingNextPage: false as boolean,
 };
 export type ClubListState = typeof state;
@@ -41,11 +41,11 @@ export const mutations = {
   },
   [ClubListMutationTypes.INIT_CLUB_LIST_AND_PAGE](state: ClubListState) {
     state.clubList = [];
-    state.clubPage = DefaultBuilder.page();
+    state.clubPage = StateInitializer.page();
   },
   [ClubListMutationTypes.INIT_MY_CLUB_LIST_AND_PAGE](state: ClubListState) {
     state.myClubList = [];
-    state.myClubPage = DefaultBuilder.page();
+    state.myClubPage = StateInitializer.page();
   },
   [ClubListMutationTypes.CHANGE_CLUB_SEARCH_REGION](state: ClubListState, region: RegionForSearch) {
     state.clubSearchContext = {

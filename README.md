@@ -6,9 +6,14 @@
 
 ## Main Stack
 Project is created with:
-- Vue.js
-- Vuetify
 - Typescript
+- Vue.js
+- Vuex
+- Vuetify
+- Axios
+
+## Architecture
+![Architecture](./super-front-architecture.png)
 
 ## Getting Started
 ### Project setup

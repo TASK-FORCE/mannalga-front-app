@@ -81,7 +81,7 @@ import BottomSheetInterestCard from '@/components/bottom-sheet/BottomSheetIntere
 import ClubListSearchFilterBtn from '@/views/clubList/components/ClubListSearchFilterBtn.vue';
 import { PATH } from '@/router/route_path_type.ts';
 import regionAndInterestVuexService from '@/store/service/RegionAndInterestVuexService.ts';
-import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
+import StateInitializer from '@/store/utils/StateInitializer.ts';
 import { ClubListMutationTypes } from '@/store/type/mutationTypes.ts';
 import { ClubSearchContext, InterestForSearch } from '@/interfaces/clubList';
 import { Interest, InterestGroupTree, RegionTree } from '@/interfaces/common';
@@ -143,10 +143,10 @@ export default Vue.extend({
       this.sheet = false;
     },
     cancelRegionSelect() {
-      this.$store.commit(ClubListMutationTypes.CHANGE_CLUB_SEARCH_REGION, DefaultBuilder.clubSearchContext().region);
+      this.$store.commit(ClubListMutationTypes.CHANGE_CLUB_SEARCH_REGION, StateInitializer.clubSearchContext().region);
     },
     cancelInterestSelect() {
-      this.$store.commit(ClubListMutationTypes.CHANGE_CLUB_SEARCH_INTEREST, DefaultBuilder.clubSearchContext().interest);
+      this.$store.commit(ClubListMutationTypes.CHANGE_CLUB_SEARCH_INTEREST, StateInitializer.clubSearchContext().interest);
     },
     cancelSearchTextSelect() {
       this.$store.commit(ClubListMutationTypes.CHANGE_CLUB_SEARCH_TEXT, undefined);

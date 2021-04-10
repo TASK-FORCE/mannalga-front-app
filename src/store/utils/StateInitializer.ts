@@ -6,7 +6,7 @@ import { Album } from '@/interfaces/album';
 import { Board, BoardCategoryType } from '@/interfaces/board/board';
 import { Meeting } from '@/interfaces/meeting';
 
-export default class DefaultBuilder {
+export default class StateInitializer {
   static snackbarOption(): SnackBarOption {
     return {
       message: '',

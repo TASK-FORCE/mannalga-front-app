@@ -1,7 +1,7 @@
 import userApi from '@/apis/UserApi.ts';
 import { actionsLoadingTemplate, actionsNormalTemplate } from '@/store/utils/actionsTemplate.ts';
 import RequestConverter from '@/apis/converter/RequestConverter.ts';
-import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
+import StateInitializer from '@/store/utils/StateInitializer.ts';
 import { UserMutationTypes } from '@/store/type/mutationTypes';
 import { UserActionContext } from '@/store/type/actionContextTypes';
 import { KakaoProfile, UserProfile, UserRegisterContext } from '@/interfaces/user';
@@ -9,8 +9,8 @@ import { Interest, Region, UploadImageResponse } from '@/interfaces/common';
 import { UserActionTypes } from '@/store/type/actionTypes';
 
 export const state = {
-  kakaoProfile: DefaultBuilder.kakaoProfile() as KakaoProfile,
-  userProfile: DefaultBuilder.userProfile() as UserProfile,
+  kakaoProfile: StateInitializer.kakaoProfile() as KakaoProfile,
+  userProfile: StateInitializer.userProfile() as UserProfile,
   selectedRegions: [] as Region[],
   selectedInterests: [] as Interest[],
 };

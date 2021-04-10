@@ -1,6 +1,6 @@
 import RequestHelper from '@/store/service/helper/RequestHelper.ts';
 import store from '@/store/index.ts';
-import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
+import StateInitializer from '@/store/utils/StateInitializer.ts';
 import { AlbumMutationTypes, BoardMutationTypes, ClubMutationTypes, MeetingMutationTypes } from '@/store/type/mutationTypes';
 import { AlbumActionTypes, BoardActionTypes, ClubActionTypes, MeetingActionTypes } from '@/store/type/actionTypes';
 
@@ -47,7 +47,7 @@ class ClubDetailVuexService {
   }
 
   public reset(): void {
-    store.commit(ClubMutationTypes.SET_CLUB_DETAIL_CONTEXT, DefaultBuilder.clubDetailContext());
+    store.commit(ClubMutationTypes.SET_CLUB_DETAIL_CONTEXT, StateInitializer.clubDetailContext());
     store.commit(MeetingMutationTypes.INIT_MEETING_GROUP_LIST);
     store.commit(AlbumMutationTypes.INIT_ALBUM_LIST);
     store.commit(BoardMutationTypes.INIT_BOARD_LIST);

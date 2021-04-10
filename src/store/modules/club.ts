@@ -1,5 +1,5 @@
 import { actionsNormalTemplate } from '@/store/utils/actionsTemplate.ts';
-import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
+import StateInitializer from '@/store/utils/StateInitializer.ts';
 import clubApi from '@/apis/ClubApi.ts';
 import { ClubRole } from '@/utils/role.ts';
 import { ClubListMutationTypes, ClubMutationTypes } from '@/store/type/mutationTypes';
@@ -18,8 +18,8 @@ import {
 import { ClubActionTypes } from '@/store/type/actionTypes';
 
 export const state = {
-  clubInfo: DefaultBuilder.clubInfo() as ClubInfo,
-  currentUserInfo: DefaultBuilder.currentUserInfo() as CurrentUserInfo,
+  clubInfo: StateInitializer.clubInfo() as ClubInfo,
+  currentUserInfo: StateInitializer.currentUserInfo() as CurrentUserInfo,
   clubUserList: [] as ClubUserInfo[],
   currentTab: ClubListPageTab.CLUB as ClubListPageTab,
 };

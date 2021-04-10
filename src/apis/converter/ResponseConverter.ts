@@ -1,4 +1,4 @@
-import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
+import StateInitializer from '@/store/utils/StateInitializer.ts';
 import { toCurrency } from '@/utils/common/commonUtils.ts';
 import { AxiosResponse } from 'axios';
 import { Comment, Interest, Page, Region, ServerPageResponse, SuperInventionResponse } from '@/interfaces/common';
@@ -41,7 +41,7 @@ export default class ResponseConverter {
 
   static convertProfile({ kakao_account }: ServerKakaoProfileContext): KakaoProfile {
     const { thumbnail_image_url, nickname } = kakao_account.profile;
-    const profile = DefaultBuilder.kakaoProfile();
+    const profile = StateInitializer.kakaoProfile();
     profile.imgUrl = thumbnail_image_url;
     profile.name = nickname;
     return profile;

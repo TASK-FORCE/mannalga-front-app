@@ -1,7 +1,7 @@
 import { actionsLoadingTemplate, actionsNormalTemplate } from '@/store/utils/actionsTemplate.ts';
 import albumApi from '@/apis/AlbumApi.ts';
 import RequestConverter from '@/apis/converter/RequestConverter.ts';
-import DefaultBuilder from '@/store/utils/DefaultBuilder.ts';
+import StateInitializer from '@/store/utils/StateInitializer.ts';
 import CommentHelper from '@/store/service/helper/CommentHelper.ts';
 import { Comment, Page } from '@/interfaces/common';
 import { AlbumMutationTypes } from '@/store/type/mutationTypes';
@@ -25,11 +25,11 @@ import {
 } from '@/interfaces/album';
 
 export const state = {
-  album: DefaultBuilder.album() as Album,
+  album: StateInitializer.album() as Album,
   albumList: [] as AlbumFeed[],
-  albumPage: DefaultBuilder.page() as Page,
+  albumPage: StateInitializer.page() as Page,
   albumCommentList: [] as Comment[],
-  albumCommentPage: DefaultBuilder.page() as Page,
+  albumCommentPage: StateInitializer.page() as Page,
 };
 export type AlbumState = typeof state;
 
@@ -47,7 +47,7 @@ export const mutations = {
   },
   [AlbumMutationTypes.INIT_ALBUM_LIST](state: AlbumState) {
     state.albumList = [];
-    state.albumPage = DefaultBuilder.page();
+    state.albumPage = StateInitializer.page();
   },
   [AlbumMutationTypes.SET_ALBUM_COMMENT_LIST](state: AlbumState, { albumCommentList, albumCommentPage }: AlbumCommentListResponse) {
     state.albumCommentList = albumCommentList;
@@ -66,7 +66,7 @@ export const mutations = {
   },
   [AlbumMutationTypes.INIT_ALBUM_COMMENT_LIST](state: AlbumState) {
     state.albumCommentList = [];
-    state.albumCommentPage = DefaultBuilder.page();
+    state.albumCommentPage = StateInitializer.page();
   },
   [AlbumMutationTypes.COUNT_CHILD_COMMENT_CNT](state: AlbumState, commentSeq: number) {
     state.albumCommentList = state.albumCommentList
@@ -173,7 +173,7 @@ export const actions = {
       async () => {
         await albumApi.patchClubAlbumEdit(albumEditRequest);
         commit(AlbumMutationTypes.INIT_ALBUM_LIST);
-        commit(AlbumMutationTypes.SET_ALBUM, DefaultBuilder.album());
+        commit(AlbumMutationTypes.SET_ALBUM, StateInitializer.album());
       },
     );
   },
