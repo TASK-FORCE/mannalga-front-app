@@ -26,5 +26,5 @@ yarn serve
 yarn build
 ```
 
-- [Frontend repository(this repository)](https://github.com/TASK-FORCE/super-front)
-- [Backend API Server](https://github.com/TASK-FORCE/super-invention)
+## Backend Repository
+- [Super Invention](https://github.com/TASK-FORCE/super-invention)
