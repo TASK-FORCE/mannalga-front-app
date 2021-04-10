@@ -1,6 +1,17 @@
-# super-front
+# SUPER INVENTION
 
-## Project setuap
+## Live Server
+- [mannal.ga](http://mannal.ga)
+- [API Document](http://mannal.ga:8080/docs/index.html)
+
+## Main Stack
+Project is created with:
+- Vue.js
+- Vuetify
+- Typescript
+
+## Getting Started
+### Project setup
 ```
 yarn install
 ```
@@ -15,32 +26,5 @@ yarn serve
 yarn build
 ```
 
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-
-### 네이밍 규칙
-#### 표기법
-- 카멜 표기법 사용
-
-#### 변수명
-- Global Navigation Bar -> Gnb
-- Navigation -> Nav
-- Function -> Fun
-- Message -> Msg
-- Button -> Btn
-- Object -> Obj
-- Length -> Len
-- Number -> Num
-- String -> Str
-- Array -> Arr
-- Count -> Cnt
-- Element -> el
-
-
-#### AWS S3 수동으로 업로드
-aws s3 cp dist/ s3://super-front --recursive --profile taskforce
+- [Frontend repository(this repository)](https://github.com/TASK-FORCE/super-front)
+- [Backend API Server](https://github.com/TASK-FORCE/super-invention)
