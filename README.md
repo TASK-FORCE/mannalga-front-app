@@ -1,4 +1,4 @@
-# SUPER INVENTION
+# SUPER FRONT
 
 ## Live Server
 - [mannal.ga](http://mannal.ga)
