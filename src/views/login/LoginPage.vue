@@ -1,18 +1,10 @@
 <template>
   <v-container>
     <div class="login-wrapper">
-      <!--            <v-img height="200"-->
-      <!--                   src="../../images/vue.png"-->
-      <!--            />-->
-      <div class="text-center">
-        <v-icon
-          size="200"
-          v-text="'$threePeople'"
-        />
-      </div>
-      <div class="text-center">
-        <p class="display-1">모임서비스</p>
-      </div>
+      <v-img
+        :src="require(isDarkTheme ? '@/images/logo-darkmode.png' : '@/images/logo.png')"
+      />
+
       <div class="text-center mt-5">
         <v-btn
           class="mx-auto font-weight-bold black--text"
@@ -73,6 +65,9 @@ export default Vue.extend({
     },
     validationFail() {
       return !!this.$route.query.validationFail;
+    },
+    isDarkTheme(): boolean {
+      return this.$store.state.ui.isDarkTheme;
     },
   },
   mounted() {
