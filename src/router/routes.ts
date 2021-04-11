@@ -24,11 +24,11 @@ const routes: RouteConfig[] = [
     name: 'Login',
     component: () => import('@/views/login/LoginPage.vue'),
   },
-  {
-    path: PATH.BACKDOOR_LOGIN,
-    name: 'BackdoorLogin',
-    component: () => import('@/views/login/BackdoorLoginPage.vue'),
-  },
+  // {
+  //   path: PATH.BACKDOOR_LOGIN,
+  //   name: 'BackdoorLogin',
+  //   component: () => import('@/views/login/BackdoorLoginPage.vue'),
+  // },
   {
     path: PATH.REGISTER.MAIN,
     name: 'Register',

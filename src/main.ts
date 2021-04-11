@@ -5,6 +5,7 @@ import router from './router';
 import store from './store';
 
 import './font/roboto.css';
+import './font/fonts.css';
 import './style/style.scss';
 import './style/vuetify-override.scss';
 import '@/utils/prototype.ts';
