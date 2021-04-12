@@ -5,7 +5,7 @@
         <v-img
           width="270"
           height="58"
-          :src="logo"
+          :src="require(isDarkTheme ? '@/images/logo-darkmode.png' : '@/images/logo.png')"
           class="mx-auto"
         />
       </div>
@@ -68,11 +68,8 @@ export default Vue.extend({
     validationFail() {
       return !!this.$route.query.validationFail;
     },
-    logo() {
-      if (this.$store.state.ui.isDarkTheme) {
-        return require('@/images/logo-for-dark.png');
-      }
-      return require('@/images/logo-for-white.png');
+    isDarkTheme(): boolean {
+      return this.$store.state.ui.isDarkTheme;
     },
   },
   mounted() {
