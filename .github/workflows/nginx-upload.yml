@@ -1,4 +1,4 @@
-name: '[Deploy] AWS EC2 - nginx'
+name: '[Deploy] AWS EC2 - nginx - deprecated'
 
 on:
   push:
