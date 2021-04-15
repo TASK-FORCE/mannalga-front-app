@@ -146,7 +146,7 @@ export default Vue.extend({
     font-weight: bold;
     font-size: 13px;
     color: #000000;
-    margin-top: 20px;
+    margin-top: 30px;
     letter-spacing: -0.03em;
   }
 }
