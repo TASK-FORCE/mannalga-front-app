@@ -8,7 +8,8 @@
     <ClubMeetingDetailBody :meeting="meeting" />
     <YesOrNoDialog
       v-model="deleteDialog"
-      title="정말로 만남을 삭제하시겠습니까?"
+      title="만남을 정말 삭제하시겠습니까?"
+      submitText="삭제"
       :submitPromiseCallback="deleteMeeting"
     />
   </div>

@@ -22,7 +22,9 @@
         class="mt-5 elevation-2"
         height="400"
         cropFreeSize
+        :initImage="imageUrl"
         @handleUploadedImage="changeToUploadedImage"
+        @deleteImage="image = null"
       />
     </v-form>
   </div>
@@ -33,7 +35,7 @@ import Vue, { PropType } from 'vue';
 import ImageSelectBox from '@/components/image/ImageSelectBox.vue';
 import { RULES } from '@/utils/common/constant/rules';
 import { UploadImageResponse } from '@/interfaces/common';
-import { AlbumWriteRequest } from '@/interfaces/album';
+import { AlbumWriteContext, AlbumWriteRequest } from '@/interfaces/album';
 import routerHelper from '@/router/RouterHelper';
 import { UIMutationTypes } from '@/store/type/mutationTypes';
 import { MESSAGE } from '@/utils/common/constant/messages';
@@ -50,6 +52,10 @@ export default Vue.extend({
     submitCallback: {
       type: Function as PropType<(albumWriteRequest: AlbumWriteRequest) => Promise<void>>,
       required: true,
+    },
+    context: {
+      type: Object as PropType<AlbumWriteContext>,
+      required: false,
     }
   },
   data() {
@@ -58,6 +64,17 @@ export default Vue.extend({
       title: null as null | string,
       image: null as null | UploadImageResponse,
     };
+  },
+  computed: {
+    imageUrl(): string | undefined {
+      return this.image?.absolutePath;
+    }
+  },
+  mounted() {
+    if (this.context) {
+      this.title = this.context.title;
+      this.image = this.context.image;
+    }
   },
   methods: {
     requestAlbumCreate() {

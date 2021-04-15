@@ -81,6 +81,7 @@
         :pageElements="boardTemplateContext.commentList"
         :pageInfo="boardTemplateContext.commentPage"
         :withListGroup="false"
+        hideEmptyPage
       >
         <template v-slot:list-main>
           <div

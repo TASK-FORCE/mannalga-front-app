@@ -2,8 +2,9 @@
   <div>
     <ClubBoardCreateAndEdit
       headerTitle="게시글 수정"
-      :submitClickCallback="submit"
-      @back="$router.push(boardPostPagePath())"
+      :submitClickCallback="editBoard"
+      :context="editContext"
+      @back="moveToBoardPostPage()"
     />
   </div>
 </template>
@@ -34,15 +35,15 @@ export default Vue.extend({
         title: this.board.title,
         content: this.board.content,
         category: this.board.category,
-        imgList: [], // TODO check
+        imgList: this.board.imageList.map(({ img }) => img)
       };
     },
   },
   methods: {
-    boardPostPagePath() {
-      return generateParamPath(PATH.CLUB.BOARD_POST, [routerHelper.clubSeq(), routerHelper.boardSeq()]);
+    moveToBoardPostPage() {
+      return this.$router.push(generateParamPath(PATH.CLUB.BOARD_POST, [routerHelper.clubSeq(), routerHelper.boardSeq()]));
     },
-    submit(boardWriteRequest: BoardWriteRequest) {
+    editBoard(boardWriteRequest: BoardWriteRequest) {
       const boardWriteRequestWishSeq: BoardWriteRequestWishSeq = {
         clubSeq: routerHelper.clubSeq(),
         boardSeq: routerHelper.boardSeq(),
@@ -51,7 +52,7 @@ export default Vue.extend({
       return this.$store.dispatch(BoardActionTypes.REQUEST_CLUB_BOARD_EDIT, boardWriteRequestWishSeq)
         .then(() => {
           this.$store.dispatch(BoardActionTypes.REQUEST_FIRST_BOARD_LIST, { clubSeq: routerHelper.clubSeq() });
-          this.$router.push(this.boardPostPagePath());
+          this.moveToBoardPostPage();
         })
     },
   }

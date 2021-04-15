@@ -147,7 +147,7 @@
     <YesOrNoDialog
       v-if="openCommentDeleteDialog"
       v-model="openCommentDeleteDialog"
-      title="댓글을 정말 삭제하겠습니까?"
+      title="댓글을 정말 삭제하시겠습니까?"
       submitText="삭제"
       :submitPromiseCallback="deleteComment"
     />

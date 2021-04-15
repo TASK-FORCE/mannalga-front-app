@@ -11,13 +11,15 @@
           v-if="isRequesting || (pageElements && pageElements.length > 0)"
           name="list-main"
         />
-        <div
-          v-else
-          class="empty"
-          :style="{height: `${calculateEmptyPageHeight()}px`}"
-        >
-          <div class="my-auto">
-            <slot name="empty" />
+        <div v-else>
+          <div
+            v-if="!hideEmptyPage"
+            class="empty"
+            :style="{height: `${calculateEmptyPageHeight()}px`}"
+          >
+            <div class="my-auto">
+              <slot name="empty" />
+            </div>
           </div>
         </div>
       </div>
@@ -29,13 +31,15 @@
           v-if="isRequesting || (pageElements && pageElements.length > 0)"
           name="list-main"
         />
-        <div
-          v-else
-          class="empty"
-          :style="{height: `${calculateEmptyPageHeight()}px`}"
-        >
-          <div class="my-auto">
-            <slot name="empty" />
+        <div v-else>
+          <div
+            v-if="!hideEmptyPage"
+            class="empty"
+            :style="{height: `${calculateEmptyPageHeight()}px`}"
+          >
+            <div class="my-auto">
+              <slot name="empty" />
+            </div>
           </div>
         </div>
       </div>
@@ -79,6 +83,10 @@ export default Vue.extend({
       type: Boolean,
       default: true,
     },
+    hideEmptyPage: {
+      type: Boolean,
+      default: false,
+    }
   },
   data() {
     return {
@@ -145,8 +153,8 @@ export default Vue.extend({
     },
     calculateEmptyPageHeight() {
       let top = 0;
-      if (this.listWrapper) {
-        top = this.listWrapper.getBoundingClientRect().top;
+      if (this.listGroup) {
+        top = this.listGroup.getBoundingClientRect().top;
       }
       return window.innerHeight - top;
     },

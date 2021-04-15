@@ -27,9 +27,12 @@ const boardApi = {
   },
 
   putClubBoardEdit({ clubSeq, boardSeq, boardWriteRequest }: BoardWriteRequestWishSeq): Promise<void> {
-    return axios.put(`/api/clubs/${clubSeq}/meetings/${boardSeq}`, boardWriteRequest);
+    return axios.put(`/api/clubs/${clubSeq}/board/${boardSeq}`, boardWriteRequest);
   },
 
+  deleteClubBoard({ clubSeq, boardSeq }: BoardSeqContext): Promise<void> {
+    return axios.delete(`/api/clubs/${clubSeq}/board/${boardSeq}`);
+  },
 
   getClubBoard({ clubSeq, boardSeq }: BoardSeqContext): Promise<Board> {
     return axios.get(`/api/clubs/${clubSeq}/board/${boardSeq}`)

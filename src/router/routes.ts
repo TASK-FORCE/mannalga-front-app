@@ -84,6 +84,12 @@ const routes: RouteConfig[] = [
     beforeEnter: validationAuthentication,
   },
   {
+    path: PATH.CLUB.BOARD_EDIT,
+    name: 'ClubBoardEdit',
+    component: () => import('@/views/clubBoardCreateAndEdit/ClubBoardEditPage.vue'),
+    beforeEnter: validationAuthentication,
+  },
+  {
     path: PATH.CLUB.BOARD_POST,
     name: 'ClubBoardPost',
     component: () => import('@/views/clubBoardPost/ClubBoardPostPage.vue'),
@@ -111,14 +117,18 @@ const routes: RouteConfig[] = [
     path: PATH.CLUB.ALBUM_CREATE,
     name: 'ClubAlbumCreate',
     component: () => import('@/views/clubAlbumCreateAndEdit/ClubAlbumCreatePage.vue'),
-    meta: { disableScrollBehavior: true },
+    beforeEnter: validationAuthentication,
+  },
+  {
+    path: PATH.CLUB.ALBUM_EDIT,
+    name: 'ClubAlbumEdit',
+    component: () => import('@/views/clubAlbumCreateAndEdit/ClubAlbumEditPage.vue'),
     beforeEnter: validationAuthentication,
   },
   {
     path: PATH.CLUB.ALBUM_POST,
     name: 'ClubAlbumPost',
     component: () => import('@/views/clubAlbumPost/ClubAlbumPostPage.vue'),
-    meta: { disableScrollBehavior: true },
     beforeEnter: validationAuthentication,
   },
   {

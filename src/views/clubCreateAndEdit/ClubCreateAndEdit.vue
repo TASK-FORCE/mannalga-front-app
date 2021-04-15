@@ -12,6 +12,7 @@
         height="140"
         :initImage="imageUrl"
         @handleUploadedImage="changeToUploadedImage"
+        @deleteImage="imageUrl = undefined"
       />
       <v-form
         ref="clubCreateForm"

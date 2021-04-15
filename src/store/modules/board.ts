@@ -171,6 +171,14 @@ export const actions = {
   async [BoardActionTypes.REQUEST_CLUB_BOARD_EDIT]({ commit }: BoardActionContext, boardWriteRequestWishSeq: BoardWriteRequestWishSeq) {
     return actionsNormalTemplate(async () => {
       await boardApi.putClubBoardEdit(boardWriteRequestWishSeq);
+      commit(BoardMutationTypes.INIT_BOARD_LIST);
+      commit(BoardMutationTypes.SET_BOARD, StateInitializer.board());
+    });
+  },
+  async [BoardActionTypes.REQUEST_CLUB_BOARD_DELETE]({ commit }: BoardActionContext, boardSeqContext: BoardSeqContext) {
+    return actionsNormalTemplate(async () => {
+      await boardApi.deleteClubBoard(boardSeqContext);
+      commit(BoardMutationTypes.INIT_BOARD_LIST);
     });
   },
   async [BoardActionTypes.REQUEST_FIRST_BOARD_LIST]({ commit, state, dispatch }: BoardActionContext, boardListRequest: BoardListRequest) {

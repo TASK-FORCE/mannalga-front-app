@@ -3,7 +3,7 @@
     <div
       v-if="imageUrl || initImage"
       class="select-image-wrapper"
-      @click="openDialog = true"
+      @click="openImageDialog = true"
     >
       <v-img
         :src="imageUrl || initImage"
@@ -37,11 +37,18 @@
       @handleUploadedImgDto="handleUploadedImgDto"
     />
     <ImageCarouselDialog
-      v-model="openDialog"
+      v-model="openImageDialog"
       :imgUrls="[imageUrl || initImage]"
     >
       <template v-slot:footer>
         <div class="pa-2 text-center w-100">
+          <v-btn
+            class="white--text mr-4"
+            outlined
+            @click="deleteImageDialog = true"
+          >
+            사진 삭제
+          </v-btn>
           <v-btn
             class="white--text"
             outlined
@@ -52,6 +59,13 @@
         </div>
       </template>
     </ImageCarouselDialog>
+    <YesOrNoDialog
+      v-if="deleteImageDialog"
+      v-model="deleteImageDialog"
+      title="사진을 정말 삭제하시겠습니까?"
+      submitText="삭제"
+      :submitPromiseCallback="deleteImage"
+    />
   </div>
 </template>
 
@@ -61,12 +75,13 @@ import ImageCropper from '@/components/image/ImageCropper.vue';
 import ImageCarouselDialog from '@/components/image/ImageCarouselDialog.vue';
 import { UploadImageResponse } from '@/interfaces/common';
 import { MyVueRefs } from '@/types';
+import YesOrNoDialog from '@/components/YesOrNoDialog.vue';
 
 export default (
   Vue as MyVueRefs<{ cropper: HTMLElement & { trigger: () => void } }>
 ).extend({
   name: 'ImageSelectBox',
-  components: { ImageCarouselDialog, ImageCropper },
+  components: { YesOrNoDialog, ImageCarouselDialog, ImageCropper },
   props: {
     text: {
       type: String,
@@ -94,7 +109,8 @@ export default (
   data() {
     return {
       imageUrl: '',
-      openDialog: false,
+      openImageDialog: false,
+      deleteImageDialog: false,
     };
   },
   computed: {
@@ -113,7 +129,7 @@ export default (
       this.triggerCropper();
     },
     handleUploadedImgDto(uploadedImage: UploadImageResponse) {
-      this.openDialog = false;
+      this.openImageDialog = false;
       this.imageUrl = uploadedImage.absolutePath;
       this.$emit('handleUploadedImage', uploadedImage);
     },
@@ -121,9 +137,14 @@ export default (
       const cropper = this.$refs.cropper;
       cropper.trigger();
     },
+    deleteImage() {
+      this.$emit('deleteImage');
+      this.clear();
+      return Promise.resolve();
+    },
     clear() {
       this.imageUrl = '';
-      this.openDialog = false;
+      this.openImageDialog = false;
     },
   },
 });

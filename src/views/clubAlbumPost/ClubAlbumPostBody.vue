@@ -11,7 +11,7 @@
         />
         <ImageWithDialog
           class="elevation-1 mt-2"
-          :imgUrl="album.imgUrl"
+          :imgUrl="imageUrl"
         />
       </div>
     </template>
@@ -54,6 +54,9 @@ export default Vue.extend({
         clubSeq: routerHelper.clubSeq(),
         albumSeq: routerHelper.albumSeq(),
       };
+    },
+    imageUrl(): string{
+      return this.album.image?.absolutePath || '';
     },
     boardVo(): BoardVo {
       return {

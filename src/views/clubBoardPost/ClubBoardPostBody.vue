@@ -19,7 +19,7 @@
         >
           <ImageWithDialog
             class="mt-2"
-            :imgUrl="image.imgUrl"
+            :imgUrl="image.img.absolutePath"
           />
         </div>
       </div>

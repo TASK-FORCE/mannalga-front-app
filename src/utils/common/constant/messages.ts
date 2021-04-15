@@ -12,6 +12,8 @@ export enum MESSAGE {
   SUCCESS_CANCLE_MEETING_APPLICATION = '만남 참여가 취소되었습니다.',
   SUCCESS_JOIN_CLUB = '모임 가입 성공',
   SUCCESS_DELETE_CLUB = '모임이 삭제되었습니다.',
+  SUCCESS_DELETE_BOARD = '게시판이 삭제되었습니다.',
+  SUCCESS_DELETE_ALBUM = '사진첩이 삭제되었습니다.',
   SUCCESS_DELETE_MEETING = '만남이 삭제되었습니다.',
   EMPTY_COMMENT_TEXT = '댓글을 남겨보세요.',
   WITHDRAW_CLUB = '모임에 탈퇴되었습니다.',

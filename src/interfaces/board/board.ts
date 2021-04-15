@@ -17,8 +17,7 @@ export interface Board {
 export interface BoardImage {
   imgSeq: number;
   createdAt: string;
-  imageName: string;
-  imgUrl: string;
+  img: UploadImageResponse;
 }
 
 export interface BoardFeed {

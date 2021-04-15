@@ -4,7 +4,8 @@ export interface Album {
   albumSeq: number;
   title: string;
   file_name: string;
-  imgUrl: string;
+  imgUrl?: string;
+  image?: UploadImageResponse;
   likeCnt: number;
   commentCnt: number;
   isLiked: boolean;
@@ -46,6 +47,11 @@ export interface AlbumCommentPageRequest {
 export interface AlbumSeqContext {
   clubSeq: number;
   albumSeq: number;
+}
+
+export interface AlbumWriteContext {
+  title: string;
+  image: UploadImageResponse;
 }
 
 export interface AlbumWriteRequest {

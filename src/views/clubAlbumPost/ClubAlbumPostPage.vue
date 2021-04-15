@@ -8,7 +8,7 @@
     <ClubAlbumPostBody :album="album" />
     <YesOrNoDialog
       v-model="openDeleteDialog"
-      title="사진첩을 정말 삭제하겠습니까?"
+      title="사진첩을 정말 삭제하시겠습니까?"
       submitText="삭제"
       :submitPromiseCallback="deleteAlbum"
     />
@@ -21,12 +21,14 @@ import { generateParamPath, PATH } from '@/router/route_path_type.ts';
 import routerHelper from '@/router/RouterHelper.ts';
 import Vue from 'vue';
 import MenuHeader from '@/components/header/MenuHeader.vue';
-import { Album, AlbumDeleteRequest } from '@/interfaces/album';
+import { Album } from '@/interfaces/album';
 import { ClickWithText } from '@/interfaces/common';
 import { AlbumActionTypes } from '@/store/type/actionTypes';
 import YesOrNoDialog from '@/components/YesOrNoDialog.vue';
 import { CurrentUserInfo } from '@/interfaces/club';
 import { mixin } from '@/mixin/mixin';
+import { UIMutationTypes } from '@/store/type/mutationTypes';
+import { MESSAGE } from '@/utils/common/constant/messages';
 
 export default Vue.extend({
   name: 'ClubAlbumPostPage',
@@ -78,12 +80,14 @@ export default Vue.extend({
       this.$router.push(generateParamPath(PATH.CLUB.ALBUM_EDIT, [routerHelper.clubSeq(), routerHelper.albumSeq()]));
     },
     deleteAlbum() {
-      const albumDeleteRequest: AlbumDeleteRequest = {
+      return this.$store.dispatch(AlbumActionTypes.REQUEST_ALBUM_DELETE, {
         clubSeq: routerHelper.clubSeq(),
         albumSeq: routerHelper.albumSeq(),
-      }
-      return this.$store.dispatch(AlbumActionTypes.REQUEST_ALBUM_DELETE, albumDeleteRequest)
-        .then(() => this.moveToClubDetailPath());
+      })
+        .then(() => {
+          this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_DELETE_ALBUM);
+          this.moveToClubDetailPath();
+        });
     }
   },
 });

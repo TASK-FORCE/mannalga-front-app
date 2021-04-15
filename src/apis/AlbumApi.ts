@@ -34,7 +34,7 @@ const albumApi = {
   },
 
   patchClubAlbumEdit({ clubSeq, albumSeq, title, image }: AlbumEditRequest) {
-    return axios.patch(`/api/club/${clubSeq}/album/${albumSeq}`, { title, image });
+    return axios.put(`/api/club/${clubSeq}/album/${albumSeq}`, { title, image });
   },
 
   deleteClubAlbumDelete({ clubSeq, albumSeq }: AlbumDeleteRequest) {
