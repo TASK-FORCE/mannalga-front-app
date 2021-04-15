@@ -24,7 +24,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { generateParamPath, PATH } from '@/router/route_path_type.ts';
+import { PATH } from '@/router/route_path_type.ts';
 import { ClubInfo, ClubWriteContext, ClubWriteRequest, ClubWriteRequestWithSeq } from '@/interfaces/club.ts';
 import { ClubActionTypes } from '@/store/type/actionTypes';
 import { InterestWithPriority, RegionWithPriority } from '@/interfaces/common';
@@ -33,6 +33,7 @@ import YesOrNoDialog from '@/components/YesOrNoDialog.vue';
 import { ClubListMutationTypes, UIMutationTypes } from '@/store/type/mutationTypes';
 import { MESSAGE } from '@/utils/common/constant/messages';
 import { mixin } from '@/mixin/mixin';
+import routerHelper from '@/router/RouterHelper';
 
 export default Vue.extend({
   name: 'ClubEditPage',
@@ -74,7 +75,7 @@ export default Vue.extend({
         clubWriteRequest
       }
       return this.$store.dispatch(ClubActionTypes.REQUEST_CLUB_EDIT, clubWriteRequestWithSeq)
-        .then(() => (this.$router.push(generateParamPath(PATH.CLUB.MAIN, [this.clubInfo.seq]))));
+        .then(() => (routerHelper.moveToClubMainPage()));
     },
     deleteClub() {
       return this.$store.dispatch(ClubActionTypes.REQUEST_CLUB_DELETE, this.clubInfo.seq)

@@ -3,7 +3,7 @@
     <MenuHeader
       title="게시판"
       :menus="menus"
-      @back="$router.push(clubDetailPath())"
+      @back="moveToClubMainPage"
     />
     <ClubBoardPostBody :board="board" />
     <YesOrNoDialog
@@ -74,8 +74,8 @@ export default Vue.extend({
     }
   },
   methods: {
-    clubDetailPath() {
-      return generateParamPath(PATH.CLUB.MAIN, [routerHelper.clubSeq()]);
+    moveToClubMainPage() {
+      routerHelper.moveToClubMainPage();
     },
     deleteBoard() {
       this.$store.dispatch(BoardActionTypes.REQUEST_CLUB_BOARD_DELETE, {
@@ -84,7 +84,7 @@ export default Vue.extend({
       })
         .then(() => {
           this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_DELETE_BOARD)
-          this.$router.push(generateParamPath(PATH.CLUB.MAIN, [routerHelper.clubSeq()]))
+          this.moveToClubMainPage();
         })
     },
     moveToBoardEditPage() {

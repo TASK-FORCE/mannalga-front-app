@@ -14,7 +14,6 @@ import routerHelper from '@/router/RouterHelper';
 import { AlbumActionTypes } from '@/store/type/actionTypes';
 import { UIMutationTypes } from '@/store/type/mutationTypes';
 import { MESSAGE } from '@/utils/common/constant/messages';
-import { generateParamPath, PATH } from '@/router/route_path_type';
 import { mixin } from '@/mixin/mixin';
 
 export default Vue.extend({
@@ -30,7 +29,7 @@ export default Vue.extend({
         });
     },
     moveToClubMainPage() {
-      this.$router.push(generateParamPath(PATH.CLUB.MAIN, [routerHelper.clubSeq()]))
+      routerHelper.moveToClubMainPage();
     },
   },
 });

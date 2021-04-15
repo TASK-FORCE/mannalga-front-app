@@ -1,7 +1,7 @@
 import router from '@/router/index.ts';
 import { Dictionary } from 'vue-router/types/router';
 import { AuthUtils } from '@/utils/auth';
-import { PATH } from '@/router/route_path_type';
+import { generateParamPath, PATH } from '@/router/route_path_type';
 
 class RouterHelper {
   clubSeq = (): number => parseInt(getParams().clubSeq, 10);
@@ -31,6 +31,20 @@ class RouterHelper {
           }
         });
     }
+  }
+
+  moveToClubMainPage() {
+    const clubSeq = this.clubSeq();
+    this.validationSeqs([clubSeq], '[moveToClubDetailPage] seq should be exist.')
+    return router.push(generateParamPath(PATH.CLUB.MAIN, [clubSeq]));
+  }
+
+  private validationSeqs(seqs: number[], message: string) {
+    seqs.forEach(seq => {
+      if (isNaN(seq)) {
+        throw new Error(message);
+      }
+    })
   }
 }
 

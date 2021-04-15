@@ -3,7 +3,7 @@
     <MenuHeader
       title="만남"
       :menus="menus"
-      @back="$router.push(clubDetailPath())"
+      @back="moveToClubMainPage"
     />
     <ClubMeetingDetailBody :meeting="meeting" />
     <YesOrNoDialog
@@ -70,8 +70,8 @@ export default Vue.extend({
     }
   },
   methods: {
-    clubDetailPath() {
-      return generateParamPath(PATH.CLUB.MAIN, [routerHelper.clubSeq()]);
+    moveToClubMainPage() {
+      routerHelper.moveToClubMainPage();
     },
     moveToMeetingEditPage() {
       this.$router.push(generateParamPath(PATH.CLUB.MEETING_EDIT, [routerHelper.clubSeq(), routerHelper.meetingSeq()]));
@@ -85,13 +85,10 @@ export default Vue.extend({
         meetingSeq: routerHelper.meetingSeq()
       })
         .then(() => {
-          this.moveToClubDetailPage();
+          this.moveToClubMainPage();
           this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_DELETE_MEETING);
         })
     },
-    moveToClubDetailPage() {
-      this.$router.push(generateParamPath(PATH.CLUB.MAIN, [routerHelper.clubSeq()]))
-    }
   },
 });
 </script>

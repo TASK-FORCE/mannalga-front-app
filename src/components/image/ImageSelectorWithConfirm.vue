@@ -22,14 +22,14 @@
           </div>
           <div class="mt-2">
             <v-btn
-              color="green darken-2"
+              color="#2883C6"
               class="font-weight-bold"
               @click="dialogOpen = false"
             >
               취소
             </v-btn>
             <v-btn
-              color="green darken-2"
+              color="#2883C6"
               class="font-weight-bold ml-5"
               :loading="loading"
               @click="changeImage"

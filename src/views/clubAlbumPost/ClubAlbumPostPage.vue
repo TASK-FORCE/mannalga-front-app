@@ -3,7 +3,7 @@
     <MenuHeader
       title="사진첩"
       :menus="menus"
-      @back="moveToClubDetailPath"
+      @back="moveToClubMainPage"
     />
     <ClubAlbumPostBody :album="album" />
     <YesOrNoDialog
@@ -73,8 +73,8 @@ export default Vue.extend({
     },
   },
   methods: {
-    moveToClubDetailPath() {
-      this.$router.push(generateParamPath(PATH.CLUB.MAIN, [routerHelper.clubSeq()]));
+    moveToClubMainPage() {
+      routerHelper.moveToClubMainPage();
     },
     moveToEditPagePath() {
       this.$router.push(generateParamPath(PATH.CLUB.ALBUM_EDIT, [routerHelper.clubSeq(), routerHelper.albumSeq()]));
@@ -86,7 +86,7 @@ export default Vue.extend({
       })
         .then(() => {
           this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_DELETE_ALBUM);
-          this.moveToClubDetailPath();
+          this.moveToClubMainPage();
         });
     }
   },
