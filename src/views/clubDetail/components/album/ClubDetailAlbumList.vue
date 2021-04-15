@@ -84,8 +84,8 @@ export default Vue.extend({
       return _.chunk(this.albumList, 2);
     },
     canCreateAlbum(): boolean {
-      const { isMaster, isManager } = this.currentUserInfo;
-      return isMaster || isManager;
+      const { isMaster, isManager, isMember } = this.currentUserInfo;
+      return isMaster || isManager || isMember;
     },
   },
   methods: {
