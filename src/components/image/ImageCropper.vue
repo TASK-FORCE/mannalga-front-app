@@ -29,7 +29,7 @@
                 class="flex-grow-1 white--text font-weight-bold"
                 color="#2883C6"
                 :loading="isLoading"
-                @click="submit"
+                @click="submitCroppedImage"
               >
                 완료
               </v-btn>
@@ -58,6 +58,8 @@ import { UIActionTypes } from '@/store/type/actionTypes';
 import { MyVueRefs } from '@/types';
 import ViewMode = Cropper.ViewMode;
 
+const supportImageTypes = ['image/png', 'image/gif', 'image/jpeg', 'image/bmp', 'image/x-icon'];
+const cropperTargetImageTypes = ['image/png', 'image/jpeg'];
 
 export default (
   Vue as MyVueRefs<{
@@ -105,8 +107,9 @@ export default (
   data() {
     return {
       originalImgUrl: undefined as string | undefined,
+      selectedImageFile: undefined as File | undefined,
       cropper: undefined as undefined | Cropper,
-      mimes: 'image/png, image/gif, image/jpeg, image/bmp, image/x-icon' as string,
+      mimes: supportImageTypes.reduce((prev, cur) => `${prev}, ${cur}`),
       isLoading: false as boolean,
     };
   },
@@ -165,6 +168,7 @@ export default (
       const reader = new FileReader();
       reader.onload = (e: ProgressEvent<FileReader>) => (this.originalImgUrl = (e.target?.result as string));
       reader.readAsDataURL(file);
+      this.selectedImageFile = file;
     },
     changeOriginalImage(e: InputEvent) {
       if (!e.target) {
@@ -173,15 +177,28 @@ export default (
       const originalImgInput = e.target as HTMLInputElement;
       if (originalImgInput.files != null && originalImgInput.files.length > 0) {
         const file: File = originalImgInput.files[0];
-        const correctType = this.mimes.split(', ').find((mime: string) => (mime === file.type));
-        if (!correctType) {
-          this.$emit('error', 'File type not correct.', 'user');
-          return;
+        if (!supportImageTypes.includes(file.type)) {
+          throw new Error(`invalid image type. selected image type: ${file.type}, support image types: ${supportImageTypes}`)
         }
-        this.loadingOriginalImg(file);
+
+        if (cropperTargetImageTypes.includes(file.type)) {
+          this.loadingOriginalImg(file);
+        } else {
+          this.submitOriginalImage(file);
+        }
       }
     },
-    submit() {
+    submitOriginalImage(file: File) {
+      const formData = new FormData();
+      formData.append('file', file, file.name);
+      this.$store.dispatch(UIActionTypes.UPLOAD_TEMP_IMAGE, formData)
+        .then(tempImageDto => {
+          this.$emit('handleUploadedImgDto', tempImageDto);
+          this.destroy();
+        })
+        .finally(() => (this.isLoading = false));
+    },
+    submitCroppedImage() {
       if (!this.cropper) {
         throw new Error('[submit] cropper should be be undefined.');
       }
@@ -192,7 +209,10 @@ export default (
           throw new Error('[croppedCanvas.toBlob] blob should not be null');
         }
         const formData = new FormData();
-        formData.append('file', blob, 'test.png');
+        if (!this.selectedImageFile) {
+          throw new Error('selectedImageFile should exist')
+        }
+        formData.append('file', blob, this.selectedImageFile.name);
         this.$store.dispatch(UIActionTypes.UPLOAD_TEMP_IMAGE, formData)
           .then(tempImageDto => {
             this.$emit('handleUploadedImgDto', tempImageDto);
