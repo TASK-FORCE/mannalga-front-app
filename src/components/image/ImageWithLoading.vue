@@ -1,12 +1,12 @@
 <template>
-  <v-img
+  <MyImage
     :src="imgUrl"
     class="grey lighten-2"
     :max-height="height"
     :aspect-ratio="aspectRatio"
     @click="$emit('click')"
   >
-    <template v-slot:placeholder>
+    <template #placeholder>
       <v-row
         class="fill-height ma-0"
         align="center"
@@ -18,20 +18,22 @@
         ></v-progress-circular>
       </v-row>
     </template>
-  </v-img>
+  </MyImage>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import MyImage from '@/components/image/MyImage.vue';
 
 export default Vue.extend({
   name: 'ImageWithLoading',
+  components: { MyImage },
   props: {
     imgUrl: {
       type: String,
       required: true,
     },
-    aspectRatio: String,
+    aspectRatio: Number,
     height: Number,
   },
 });

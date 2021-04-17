@@ -33,7 +33,7 @@
             height="100%"
             tile
           >
-            <v-img
+            <MyImage
               :src="path"
               class="image-dialog__sheet-image"
             />
@@ -54,9 +54,11 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import MyImage from '@/components/image/MyImage.vue';
 
 export default Vue.extend({
   name: 'ImageCarouselDialog',
+  components: { MyImage },
   props: {
     value: {
       type: Boolean,

@@ -113,7 +113,8 @@ export default Vue.extend({
       return `${window.innerHeight / 7}`;
     },
     resolveImageBoxWidth(): string {
-      return `${(window.innerWidth - 32) / 3 - 8}`;
+      const width = Math.min(window.innerWidth, 600);
+      return `${(width - 32) / 3 - 8}`;
     },
     resolveContentHeight(): string {
       return `${window.innerHeight / 3}`;
