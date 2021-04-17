@@ -35,16 +35,10 @@ class RouterHelper {
 
   moveToClubMainPage() {
     const clubSeq = this.clubSeq();
-    this.validationSeqs([clubSeq], '[moveToClubDetailPage] seq should be exist.')
+    if (isNaN(clubSeq)) {
+      throw new Error('[moveToClubMainPage] seq should not be NaN');
+    }
     return router.push(generateParamPath(PATH.CLUB.MAIN, [clubSeq]));
-  }
-
-  private validationSeqs(seqs: number[], message: string) {
-    seqs.forEach(seq => {
-      if (isNaN(seq)) {
-        throw new Error(message);
-      }
-    })
   }
 }
 

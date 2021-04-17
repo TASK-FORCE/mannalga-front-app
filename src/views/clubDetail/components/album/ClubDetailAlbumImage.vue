@@ -73,7 +73,7 @@ export default Vue.extend({
   },
   methods: {
     goToAlbumImagePostPage() {
-      this.$router.push(generateParamPath(PATH.CLUB.ALBUM_POST, [routerHelper.clubSeq(), this.album.albumSeq || 0]));
+      this.$router.push(generateParamPath(PATH.CLUB.ALBUM_POST, [routerHelper.clubSeq(), this.album.albumSeq]));
     },
   },
 });
