@@ -34,11 +34,19 @@ export default Vue.extend({
   data() {
     return {
       imageUrl: '' as string,
-      image: new Image('') as Image,
+    }
+  },
+  computed: {
+    image(): Image {
+      return new Image(this.src);
+    }
+  },
+  watch: {
+    image() {
+      this.imageUrl = this.image.webpImageUrl;
     }
   },
   mounted() {
-    this.image = new Image(this.src);
     this.imageUrl = this.image.webpImageUrl;
   },
   methods: {
