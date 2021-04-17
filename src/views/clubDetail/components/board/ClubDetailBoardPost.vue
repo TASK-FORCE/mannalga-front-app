@@ -1,20 +1,20 @@
 <template>
   <div>
     <div v-if="isNotice">
-      <MiddleDivider :height="1" />
       <NoticeBoardPost
         v-ripple
         :board="board"
         @click="clickBoard"
       />
+      <MiddleDivider :height="1" />
     </div>
     <div v-else>
-      <MiddleDivider :height="5" />
       <NormalBoardPost
         v-ripple
         :board="board"
         @click="clickBoard"
       />
+      <MiddleDivider :height="5" />
     </div>
   </div>
 </template>

@@ -1,5 +1,6 @@
 <template>
   <div class="comment-writer-footer">
+      <MiddleDivider :height="1" />
     <div class="d-flex w-100 h-100 align-center pr-1">
       <div
         class="my-auto flex-grow-1"
@@ -17,6 +18,7 @@
         <v-btn
           class="submit-btn"
           :loading="loading"
+          depressed
           @click="writeComment"
         >
           등록
@@ -30,9 +32,11 @@
 import { MESSAGE } from '@/utils/common/constant/messages.ts';
 import { UIMutationTypes } from '@/store/type/mutationTypes.ts';
 import Vue, { PropType } from 'vue';
+import MiddleDivider from '@/components/MiddleDivider.vue';
 
 export default Vue.extend({
   name: 'CommentWriteFooter',
+  components: { MiddleDivider },
   props: {
     requestWriteComment: {
       type: Function as PropType<(content: string) => Promise<any>>,
@@ -51,7 +55,7 @@ export default Vue.extend({
     };
   },
   created() {
-    this.$vuetify.application.footer = 60;
+    this.$vuetify.application.footer = 55;
   },
   beforeDestroy() {
     this.$vuetify.application.footer = 0;
@@ -79,7 +83,7 @@ export default Vue.extend({
   lang="scss"
 >
 .comment-writer-footer {
-  height: 60px;
+  height: 55px;
   position: fixed;
   bottom: 0;
   z-index: 5;

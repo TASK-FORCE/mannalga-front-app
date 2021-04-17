@@ -8,6 +8,7 @@
         :size="30"
         :name="creatorName"
         :appendNumber="appendNumber"
+        :imgUrl="meeting.registerUser.profileImageLink"
       />
       <div class="creator-name ml-2">
         {{ creatorName }}
@@ -61,6 +62,7 @@
             v-else-if="meeting.isRegistered"
             class="w-100 font-weight-bold already-application-btn"
             height="45"
+            depressed
             @click="cancelMeetingDialog = true"
           >
             참여중
