@@ -105,6 +105,7 @@ export interface Comment {
   writeClubUserSeq: number;
   writerSeq: number;
   writer: string;
+  isDeleted: boolean;
 }
 
 export interface RegionTree {

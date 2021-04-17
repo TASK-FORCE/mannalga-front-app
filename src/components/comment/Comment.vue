@@ -44,7 +44,10 @@
         </v-menu>
       </div>
     </div>
-    <div class="comment-content">
+    <div
+      class="comment-content"
+      :class="comment.isDeleted ? 'deleted' : ''"
+    >
       {{ comment.content }}
     </div>
     <div class="comment-footer">
@@ -52,8 +55,10 @@
         {{ date }}
       </div>
       <div
-        v-if="isRootComment"
-        class="write-comment-btn font-weight-bold"
+        v-if="isRootComment && !comment.isDeleted"
+        v-ripple
+        class="button write-comment-btn font-weight-bold"
+        role="button"
         @click="openSubCommentWriteDialog = true"
       >
         답글 쓰기
@@ -380,6 +385,10 @@ export default Vue.extend({
     color: #292929;
   }
 
+  .comment-content.deleted {
+    color: #9f9f9f;
+  }
+
   .comment-footer {
     display: flex;
     padding-left: 36px;
@@ -418,6 +427,10 @@ export default Vue.extend({
 .theme--dark {
   .writer, .comment-content, .show-more-text, .show-more-icon {
     color: #F5F5F5 !important;
+  }
+
+  .comment-content.deleted {
+    color: #666666 !important;
   }
 
   .date, .write-comment-btn {
