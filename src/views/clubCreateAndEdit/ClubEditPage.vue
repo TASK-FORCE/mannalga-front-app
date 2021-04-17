@@ -58,8 +58,8 @@ export default Vue.extend({
         description: this.clubInfo.description,
         maximumNumber: this.clubInfo.maximumNumber,
         imageUrl: this.clubInfo.mainImageUrl,
-        interestList: this.clubInfo.clubInterest.map(({ interest }: InterestWithPriority) => interest),
-        regionList: this.clubInfo.clubRegion.map(({ region }: RegionWithPriority) => region),
+        interestList: this.clubInfo.interests.map(({ interest }: InterestWithPriority) => interest),
+        regionList: this.clubInfo.regions.map(({ region }: RegionWithPriority) => region),
       };
     },
     isMaster(): boolean {

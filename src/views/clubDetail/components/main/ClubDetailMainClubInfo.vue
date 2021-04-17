@@ -116,12 +116,12 @@ export default (
       return this.clubInfo.description;
     },
     clubInterestsText() {
-      return _.sortBy(this.clubInfo.clubInterest, ({ priority }: InterestWithPriority) => priority)
+      return _.sortBy(this.clubInfo.interests, ({ priority }: InterestWithPriority) => priority)
         .map(({ interest }: InterestWithPriority) => interest.name)
         .join(', ');
     },
     clubRegionsText() {
-      return _.sortBy(this.clubInfo.clubRegion, ({ priority }: RegionWithPriority) => priority)
+      return _.sortBy(this.clubInfo.regions, ({ priority }: RegionWithPriority) => priority)
         .map(({ region }: RegionWithPriority) => region.superRegionRoot)
         .join(', ');
     },
@@ -144,8 +144,8 @@ export default (
         description: this.clubInfo.description,
         maximumNumber: this.clubInfo.maximumNumber,
         mainImageUrl: absolutePath,
-        interestList: this.clubInfo.clubInterest.map(({ interest, priority }) => ({ seq: interest.seq, priority, })),
-        regionList: this.clubInfo.clubRegion.map(({ region, priority }) => ({ seq: region.seq, priority })),
+        interestList: this.clubInfo.interests.map(({ interest, priority }) => ({ seq: interest.seq, priority, })),
+        regionList: this.clubInfo.regions.map(({ region, priority }) => ({ seq: region.seq, priority })),
       };
       return this.$store.dispatch(ClubActionTypes.REQUEST_CLUB_EDIT, {
         clubSeq: this.clubInfo.seq,

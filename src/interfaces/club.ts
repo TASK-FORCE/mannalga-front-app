@@ -13,8 +13,8 @@ export interface ClubInfo {
   mainImageUrl: string;
   maximumNumber: number;
   userCount: number;
-  clubInterest: InterestWithPriority[];
-  clubRegion: RegionWithPriority[];
+  interests: InterestWithPriority[];
+  regions: RegionWithPriority[];
 }
 
 export interface ClubUserInfo {

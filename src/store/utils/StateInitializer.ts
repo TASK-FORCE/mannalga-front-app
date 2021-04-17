@@ -49,8 +49,8 @@ export default class StateInitializer {
 
   static clubInfo(): ClubInfo {
     return {
-      clubInterest: [],
-      clubRegion: [],
+      interests: [],
+      regions: [],
       description: '',
       mainImageUrl: '',
       maximumNumber: 0,
