@@ -7,6 +7,7 @@
       <div
         :key="club.seq"
         class="d-flex"
+        role="button"
         @click="moveToClubDetailPage(club.seq)"
       >
         <v-img

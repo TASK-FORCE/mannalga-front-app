@@ -9,6 +9,7 @@
     <div
       v-if="isMaster"
       class="club-delete-btn"
+      role="button"
       @click="deleteDialog = true"
     >
       모임을 삭제하고 싶어요.

@@ -101,6 +101,7 @@
             <div
               v-ripple
               class="d-flex align-center"
+              role="button"
               @click="showChildComments = false"
             >
               <div class="show-more-text">
@@ -119,6 +120,7 @@
           <div
             v-ripple
             class="d-flex align-center"
+            role="button"
             @click="clickShowChildComments"
           >
             <div class="show-more-text">

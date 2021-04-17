@@ -3,6 +3,7 @@
     class="tag"
     :class="resolveClass"
     :style="`background-color: ${bgColor}`"
+    role="button"
     @click="$emit('click')"
   >
     <div class="tag-text">

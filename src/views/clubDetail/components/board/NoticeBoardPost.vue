@@ -1,6 +1,7 @@
 <template>
   <div
     class="notice"
+    role="button"
     @click="$emit('click')"
   >
     <div class="notice-text">

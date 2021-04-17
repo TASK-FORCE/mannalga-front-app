@@ -12,6 +12,7 @@
   </v-avatar>
   <div
     v-else-if="name"
+    role="button"
     @click="$emit('click')"
   >
     <TextAvatar

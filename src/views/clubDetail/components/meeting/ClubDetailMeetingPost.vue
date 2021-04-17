@@ -3,6 +3,7 @@
     v-ripple
     class="d-flex"
     :class="resolveClass"
+    role="button"
     @click="goToMeetingDetailPage"
   >
     <div class="meeting-day-info">

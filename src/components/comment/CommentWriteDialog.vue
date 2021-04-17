@@ -20,6 +20,7 @@
         <div
           v-ripple
           class="btn"
+          role="button"
           @click="close"
         >
           취소
@@ -27,6 +28,7 @@
         <div
           v-ripple
           class="btn"
+          role="button"
           @click="submit"
         >
           {{ submitText }}

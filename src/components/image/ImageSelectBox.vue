@@ -3,6 +3,7 @@
     <div
       v-if="imageUrl || initImage"
       class="select-image-wrapper"
+      role="button"
       @click="openImageDialog = true"
     >
       <v-img
@@ -16,6 +17,7 @@
       v-else
       class="image-selector-container"
       :style="resolveSelectorStyle"
+      role="button"
       @click="clickSelectBox"
     >
       <div

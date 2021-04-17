@@ -1,6 +1,7 @@
 <template>
   <div
     class="board"
+    role="button"
     @click="$emit('click')"
   >
     <div class="board-header">

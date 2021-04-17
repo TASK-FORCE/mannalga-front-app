@@ -33,6 +33,7 @@
       <div
         v-ripple
         class="like-count-info"
+        role="button"
         @click="clickLike"
       >
         <div>

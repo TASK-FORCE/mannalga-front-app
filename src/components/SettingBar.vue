@@ -2,6 +2,7 @@
   <div
     v-ripple
     class="pl-5 pr-3 mt-4 d-flex"
+    role="button"
     @click="click"
   >
     <div>

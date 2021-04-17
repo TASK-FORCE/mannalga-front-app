@@ -36,6 +36,7 @@
             <div
               v-for="document in searchDocuments"
               :key="document.id"
+              role="button"
               @click="openDialog(document)"
             >
               <div class="region">
