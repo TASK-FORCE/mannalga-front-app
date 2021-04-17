@@ -6,7 +6,7 @@
     <ImageWithLoading
       :imgUrl="album.imgUrl"
       style="border-radius: 5px"
-      aspect-ratio="1"
+      :aspect-ratio="1"
     />
     <div
       v-if="hasLikeCnt || hasCommentCnt"

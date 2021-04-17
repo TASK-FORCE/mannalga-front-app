@@ -42,10 +42,10 @@
         v-if="board.mainImageUrl"
         class="d-flex"
       >
-        <v-img
+        <MyImage
           :src="board.mainImageUrl"
-          height="73"
-          width="73"
+          :height="73"
+          :width="73"
           class="my-auto"
           style="border-radius: 5px"
         />
@@ -100,10 +100,11 @@ import RoleTag from '@/components/tag/RoleTag.vue';
 import { ClubRole } from '@/utils/role';
 import MiddleDivider from '@/components/MiddleDivider.vue';
 import { DateUtils } from '@/utils/date';
+import MyImage from '@/components/image/MyImage.vue';
 
 export default Vue.extend({
   name: 'NormalBoardPost',
-  components: { MiddleDivider, RoleTag, UserProfileAvatar },
+  components: { MyImage, MiddleDivider, RoleTag, UserProfileAvatar },
   props: {
     board: {
       type: Object as PropType<BoardFeed>,

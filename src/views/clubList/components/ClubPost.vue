@@ -10,10 +10,10 @@
         role="button"
         @click="moveToClubDetailPage(club.seq)"
       >
-        <v-img
+        <MyImage
           :src="imgUrl"
-          height="105"
-          width="105"
+          :height="105"
+          :width="105"
           style="border-radius: 5px;"
         />
         <RoleChip
@@ -69,6 +69,7 @@ import _ from '@/utils/common/lodashWrapper.ts';
 import { ClubFeed } from '@/interfaces/clubList';
 import { Interest, InterestWithPriority, Region, RegionWithPriority } from '@/interfaces/common';
 import routerHelper from '@/router/RouterHelper';
+import MyImage from '@/components/image/MyImage.vue';
 
 const regionStore = {
   서울특별시: { name: '서울시' },
@@ -92,7 +93,7 @@ const regionStore = {
 
 export default Vue.extend({
   name: 'ClubPost',
-  components: { RoleChip },
+  components: { MyImage, RoleChip },
   props: {
     club: {
       type: Object as PropType<ClubFeed>,
