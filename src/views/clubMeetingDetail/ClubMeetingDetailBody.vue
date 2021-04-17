@@ -81,8 +81,8 @@
     <YesOrNoDialog
       v-model="cancelMeetingDialog"
       title="만남 참여를 취소하시겠습니까?"
-      cancelText="나가기"
-      submitText="취소"
+      cancelText="닫기"
+      submitText="만남 취소"
       :submitPromiseCallback="cancelMeetingApplication"
     />
     <MiddleDivider :height="5" />

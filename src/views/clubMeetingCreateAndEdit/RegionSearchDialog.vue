@@ -75,10 +75,8 @@
     <YesOrNoDialog
       v-model="openSelectDialog"
       title="해당 지역을 선택하시겠습니까?"
-      optionBtnText="열기"
       submitText="선택"
       :submitPromiseCallback="select"
-      @clickOptionBtn="openUrl"
     >
       <template #description>
         <div class="mb-2">
@@ -212,11 +210,6 @@ export default Vue.extend({
         this.close();
       }
     },
-    openUrl() {
-      if (this.selectedDocument) {
-        window.open(this.selectedDocument.place_url);
-      }
-    }
   },
 });
 </script>

@@ -13,19 +13,9 @@
       <div class="d-flex pb-3 pr-1">
         <v-spacer />
         <v-btn
-          v-if="optionBtnText"
           class="btn"
           text
           color="#2883C6"
-          @click="$emit('clickOptionBtn')"
-        >
-          {{ optionBtnText }}
-        </v-btn>
-        <v-btn
-          class="btn"
-          text
-          color="#2883C6"
-          max-width="15"
           @click="close"
         >
           {{ cancelText }}
@@ -66,10 +56,6 @@ export default Vue.extend({
     submitText: {
       type: String,
       default: '확인',
-    },
-    optionBtnText: {
-      type: String,
-      required: false,
     },
     submitPromiseCallback: {
       type: Function as PropType<() => Promise<void>>,
@@ -119,7 +105,6 @@ export default Vue.extend({
   }
 
   .btn {
-    padding: 0 !important;
     font-weight: bold;
     font-size: 15px;
   }
