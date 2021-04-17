@@ -139,7 +139,7 @@
     <CommentWriteDialog
       v-if="openSubCommentWriteDialog"
       v-model="openSubCommentWriteDialog"
-      :title="`${comment.writer}님에게 댓글 작성`"
+      :title="`${comment.writer}님에게 답글 작성`"
       submitText="작성"
       :submitPromiseCallback="submitSubComment"
     />
