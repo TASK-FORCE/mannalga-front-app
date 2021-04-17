@@ -3,7 +3,7 @@
     headerTitle="만남 수정"
     :context="editContext"
     :submitClickCallback="edit"
-    @back="$router.push(meetingPostPagePath())"
+    @back="moveToMeetingPostPage"
   />
 </template>
 
@@ -43,8 +43,8 @@ export default Vue.extend({
     },
   },
   methods: {
-    meetingPostPagePath() {
-      return generateParamPath(PATH.CLUB.MEETING_POST, [routerHelper.clubSeq(), routerHelper.meetingSeq()]);
+    moveToMeetingPostPage() {
+      this.$router.push(generateParamPath(PATH.CLUB.MEETING_POST, [routerHelper.clubSeq(), routerHelper.meetingSeq()]));
     },
     edit(meetingWriteRequest: MeetingWriteRequest) {
       const clubSeq = routerHelper.clubSeq();
@@ -55,9 +55,7 @@ export default Vue.extend({
         meetingSeq: meetingSeq,
       };
       return this.$store.dispatch(MeetingActionTypes.REQUEST_MEETING_EDIT, meetingWriteRequestWithSeq)
-        .then(() => {
-          this.$router.push(this.meetingPostPagePath());
-        });
+        .then(() => this.moveToMeetingPostPage());
     },
   },
 });

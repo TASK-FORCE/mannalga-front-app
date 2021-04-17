@@ -24,7 +24,6 @@ export const PATH = {
     ALBUM_CREATE: '/club/:clubSeq/create/album',
     ALBUM_EDIT: '/club/:clubSeq/album/edit/:albumSeq',
     ALBUM_POST: '/club/:clubSeq/album/:albumSeq',
-    SEARCH: '/search/club',
   },
   USER: {
     SETTINGS: '/user/settings',

@@ -16,7 +16,6 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { PATH } from '@/router/route_path_type.ts';
 import _ from '@/utils/common/lodashWrapper.ts';
 import UserSettingPageEnterAvatar from '@/components/UserSettingPageEnterAvatar.vue';
 import { ClubListMutationTypes, ClubMutationTypes, UIMutationTypes } from '@/store/type/mutationTypes.ts';
@@ -30,7 +29,6 @@ export default Vue.extend({
   components: { UserSettingPageEnterAvatar },
   data() {
     return {
-      clubSearchPagePath: PATH.CLUB.SEARCH,
       searchText: undefined as string | undefined,
       searchCallback: (() => ({})) as () => void,
     };

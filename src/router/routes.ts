@@ -131,12 +131,6 @@ const routes: RouteConfig[] = [
     component: () => import('@/views/clubAlbumPost/ClubAlbumPostPage.vue'),
     beforeEnter: validationAuthentication,
   },
-  {
-    path: PATH.CLUB.SEARCH,
-    name: 'ClubSearch',
-    component: () => import('@/views/clubSearch/ClubSearchPage.vue'),
-    beforeEnter: validationAuthentication,
-  },
 
   // user
   {
