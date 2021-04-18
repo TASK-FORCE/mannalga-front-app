@@ -1,4 +1,4 @@
-# SUPER FRONT
+# MANNALGA FRONT APP
 
 ## Live Server
 - [mannal.ga](http://mannal.ga)
@@ -32,4 +32,4 @@ yarn build
 ```
 
 ## Backend Repository
-- [Super Invention](https://github.com/TASK-FORCE/super-invention)
+- [Mannalga Api](https://github.com/TASK-FORCE/mannalga-api)
