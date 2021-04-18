@@ -12,6 +12,9 @@ Project is created with:
 - Vuetify
 - Axios
 
+## UI
+![image](https://user-images.githubusercontent.com/7741589/115144475-ddf85280-a087-11eb-85ae-8f41f6a15a9a.png)
+
 ## Architecture
 ![Architecture](./super-front-architecture.png)
 
