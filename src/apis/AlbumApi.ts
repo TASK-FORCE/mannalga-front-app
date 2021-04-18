@@ -48,11 +48,11 @@ const albumApi = {
   },
 
   patchClubAlbumCommentEdit({ albumSeqContext: { clubSeq, albumSeq }, content, commentSeq }: AlbumCommentEditRequest) {
-    return axios.patch(`/api/club/${clubSeq}/album/${albumSeq}/${commentSeq}`, { content });
+    return axios.patch(`/api/club/${clubSeq}/album/${albumSeq}/comment/${commentSeq}`, { content });
   },
 
   deleteClubAlbumCommentDelete({ albumSeqContext: { clubSeq, albumSeq }, commentSeq }: AlbumCommentDeleteRequest) {
-    return axios.delete(`/api/club/${clubSeq}/album/${albumSeq}/${commentSeq}`);
+    return axios.delete(`/api/club/${clubSeq}/album/${albumSeq}/comment/${commentSeq}`);
   },
 
   getClubAlbumCommentList({ clubSeq, albumSeq, pageRequest }: AlbumCommentPageRequest): Promise<AlbumCommentListResponse> {

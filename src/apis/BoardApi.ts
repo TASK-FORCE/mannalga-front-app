@@ -52,11 +52,11 @@ const boardApi = {
   },
 
   patchClubBoardCommentEdit({ boardSeqContext: { clubSeq, boardSeq }, content, commentSeq }: BoardCommentEditRequest) {
-    return axios.patch(`/api/club/${clubSeq}/board/${boardSeq}/${commentSeq}`, { content });
+    return axios.patch(`/api/club/${clubSeq}/board/${boardSeq}/comment/${commentSeq}`, { content });
   },
 
   deleteClubBoardCommentDelete({ boardSeqContext: { clubSeq, boardSeq }, commentSeq }: BoardCommentDeleteRequest) {
-    return axios.delete(`/api/club/${clubSeq}/board/${boardSeq}/${commentSeq}`);
+    return axios.delete(`/api/club/${clubSeq}/board/${boardSeq}/comment/${commentSeq}`);
   },
 
   getClubBoardSubCommentList({ clubSeq, boardSeq, parentCommentSeq }: BoardSubCommentRequest): Promise<Comment[]> {
