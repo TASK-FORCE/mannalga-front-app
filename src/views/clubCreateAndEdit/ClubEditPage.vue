@@ -8,7 +8,7 @@
     />
     <div
       v-if="isMaster"
-      class="club-delete-btn"
+      class="club-delete-btn mb-3"
       role="button"
       @click="deleteDialog = true"
     >
