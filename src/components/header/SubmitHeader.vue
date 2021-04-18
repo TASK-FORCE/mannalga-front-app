@@ -11,7 +11,7 @@
         :loading="loading"
         @click="submit"
       >
-        완료
+        {{ submitText }}
       </v-btn>
     </template>
   </CommonHeader>
@@ -31,6 +31,10 @@ export default Vue.extend({
     submitCallback: {
       type: Function as PropType<() => any>,
       required: true,
+    },
+    submitText: {
+      type: String,
+      default: '완료',
     }
   },
   data() {

@@ -42,10 +42,10 @@ export default Vue.extend({
   },
   computed: {
     safeHideBackBtn() {
-      return !!this.hideBackBtn;
+      return this.hideBackBtn;
     },
     safeHideGoBtn() {
-      return !!this.hideGoBtn;
+      return this.hideGoBtn;
     },
   },
 });

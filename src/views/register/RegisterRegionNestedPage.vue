@@ -4,6 +4,7 @@
       :backCallback="clickBack"
       :submitCallback="goNextStep"
       title="회원 가입"
+      isRegisterPage
     >
       <template #header-title>
         참여할 지역을 설정해주세요.

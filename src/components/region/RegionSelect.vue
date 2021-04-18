@@ -4,6 +4,7 @@
       :title="title"
       :isDialog="isDialog"
       :submitCallback="submit"
+      :submitText="isRegisterPage ? '다음' : '완료'"
       @back="backCallback"
     />
     <div class="body">
@@ -92,6 +93,10 @@ export default Vue.extend({
       type: Boolean,
       default: false,
     },
+    isRegisterPage: {
+      type: Boolean,
+      default: false,
+    }
   },
   data() {
     return {

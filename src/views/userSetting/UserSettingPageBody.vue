@@ -95,7 +95,7 @@ export default Vue.extend({
     withdraw() {
       return this.$store.dispatch(UserActionTypes.REQUEST_APP_WITHDRAW)
         .then(() => {
-          this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_DELETE_BOARD)
+          this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.WITHDRAW_APP)
           this.$store.commit(AuthMutationTypes.REMOVE_APP_TOKEN);
           this.moveToLoginPage();
         })

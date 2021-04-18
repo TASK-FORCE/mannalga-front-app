@@ -14,7 +14,6 @@
           :size="70"
         />
       </v-col>
-      <!--     변경 가능한 이름만 더 강조?       -->
       <v-col cols="9">
         <v-text-field
           :value="kakaoProfile.name"

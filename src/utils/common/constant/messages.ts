@@ -17,6 +17,7 @@ export enum MESSAGE {
   SUCCESS_DELETE_MEETING = '만남이 삭제되었습니다.',
   EMPTY_COMMENT_TEXT = '댓글을 남겨보세요.',
   WITHDRAW_CLUB = '모임에 탈퇴되었습니다.',
+  WITHDRAW_APP = '탈퇴되었습니다.',
   CLUB_MAIN_IMAGE_ADD_TEXT = '모임 대표 사진을 추가해보세요!',
   SELECT_INTEREST_OVER_COUNT = '관심사는 최대 {0}개까지 선택할 수 있습니다.',
 }
