@@ -15,7 +15,7 @@
           <div
             v-if="!hideEmptyPage"
             class="empty"
-            :style="{height: `${calculateEmptyPageHeight()}px`}"
+            :style="{height: `${emptyPageHeight}px`}"
           >
             <div class="my-auto">
               <slot name="empty" />
@@ -94,6 +94,8 @@ export default Vue.extend({
       listGroup: undefined as undefined | HTMLElement,
       listWrapper: undefined as undefined | HTMLElement,
       isRequesting: false as boolean,
+      emptyPageHeight: 0 as number,
+      resizeEventListener: null as any,
     };
   },
   computed: {
@@ -113,6 +115,12 @@ export default Vue.extend({
       this.insertSentinel();
     }
     this.setInfiniteScrollObserver();
+    this.adjustEmptyPageHeight();
+    this.resizeEventListener = _.throttle(this.adjustEmptyPageHeight, 500);
+    window.addEventListener('resize', this.resizeEventListener);
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.resizeEventListener);
   },
   methods: {
     requestFirstPage() {
@@ -150,6 +158,10 @@ export default Vue.extend({
     },
     canRequest() {
       return !this.isRequesting && !this.isLastPage && !this.isFirstPage;
+    },
+    adjustEmptyPageHeight() {
+      this.emptyPageHeight = this.calculateEmptyPageHeight();
+      console.log('adjustEmptyPageHeight');
     },
     calculateEmptyPageHeight() {
       let top = 0;
