@@ -6,10 +6,11 @@
       role="button"
       @click="openImageDialog = true"
     >
-      <MyImage
+      <v-img
         :src="imageUrl || initImage"
         :style="resolveImageStyle"
-        :max-width="600"
+        max-width="600"
+        height="auto"
       />
     </div>
     <div
@@ -77,13 +78,12 @@ import ImageCarouselDialog from '@/components/image/ImageCarouselDialog.vue';
 import { UploadImageResponse } from '@/interfaces/common';
 import { MyVueRefs } from '@/types';
 import YesOrNoDialog from '@/components/YesOrNoDialog.vue';
-import MyImage from '@/components/image/MyImage.vue';
 
 export default (
   Vue as MyVueRefs<{ cropper: HTMLElement & { trigger: () => void } }>
 ).extend({
   name: 'ImageSelectBox',
-  components: { MyImage, YesOrNoDialog, ImageCarouselDialog, ImageCropper },
+  components: { YesOrNoDialog, ImageCarouselDialog, ImageCropper },
   props: {
     text: {
       type: String,
