@@ -23,6 +23,7 @@ import {
   AlbumSubCommentRequest,
   AlbumWriteRequest
 } from '@/interfaces/album';
+import { CommentUtils } from '@/utils/comment';
 
 export const state = {
   album: StateInitializer.album() as Album,
@@ -92,8 +93,8 @@ export const mutations = {
         return comment;
       });
   },
-  [AlbumMutationTypes.REMOVE_COMMENT_OF_COMMENT_LIST](state: AlbumState, commentSeq: number) {
-    state.albumCommentList = state.albumCommentList.filter(comment => comment.commentSeq !== commentSeq);
+  [AlbumMutationTypes.REFINE_COMMENT_LIST_WHEN_DELETE](state: AlbumState, commentSeq: number) {
+    state.albumCommentList = CommentUtils.refineWhenDelete(state.albumCommentList, commentSeq);
   },
   [AlbumMutationTypes.CHANGE_ALBUM_LIKE](state: AlbumState, { albumSeq, likeCnt, isLiked }: AlbumLikeChange) {
     state.albumList = state.albumList

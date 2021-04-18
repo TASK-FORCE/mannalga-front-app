@@ -18,8 +18,20 @@
       <SettingBar
         title="회원 탈퇴"
         icon="power"
+        @click="withdrawalDialog = true"
       />
     </div>
+    <YesOrNoDialog
+      v-model="withdrawalDialog"
+      title="정말로 탈퇴하시겠습니까?"
+      :submitPromiseCallback="withdraw"
+    >
+      <template #description>
+        <div class="ml-2">
+          확인 시 즉시 탈퇴됩니다.
+        </div>
+      </template>
+    </YesOrNoDialog>
   </div>
 </template>
 
@@ -33,10 +45,18 @@ import SettingBar from '@/components/SettingBar.vue';
 import { AuthMutationTypes, UIMutationTypes } from '@/store/type/mutationTypes';
 import { UserProfile } from '@/interfaces/user';
 import { Region, RegionWithPriority } from '@/interfaces/common';
+import YesOrNoDialog from '@/components/YesOrNoDialog.vue';
+import { UserActionTypes } from '@/store/type/actionTypes';
+import { MESSAGE } from '@/utils/common/constant/messages';
 
 export default Vue.extend({
   name: 'UserSettingPageBody',
-  components: { SettingBar, MiddleDivider, UserSettingProfile },
+  components: { YesOrNoDialog, SettingBar, MiddleDivider, UserSettingProfile },
+  data() {
+    return {
+      withdrawalDialog: false,
+    }
+  },
   computed: {
     userProfile(): UserProfile {
       return this.$store.state.user.userProfile;
@@ -62,12 +82,22 @@ export default Vue.extend({
     },
   },
   methods: {
+    moveToLoginPage() {
+      this.$router.push(PATH.LOGIN);
+    },
     logout() {
       this.$store.commit(AuthMutationTypes.REMOVE_APP_TOKEN);
-      this.$router.push(PATH.LOGIN);
+      this.moveToLoginPage();
     },
     changeTheme() {
       this.$store.commit(UIMutationTypes.CHANGE_THEME);
+    },
+    withdraw() {
+      return this.$store.dispatch(UserActionTypes.REQUEST_APP_WITHDRAW)
+        .then(() => {
+          this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_DELETE_BOARD)
+          this.moveToLoginPage();
+        })
     },
   },
 });

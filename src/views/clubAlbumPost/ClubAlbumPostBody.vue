@@ -126,7 +126,7 @@ export default Vue.extend({
           if (requestForSubComment) {
             this.$store.commit(AlbumMutationTypes.UN_COUNT_CHILD_COMMENT_CNT, parentSeq);
           }
-          this.$store.commit(AlbumMutationTypes.REMOVE_COMMENT_OF_COMMENT_LIST, commentSeq);
+          this.$store.commit(AlbumMutationTypes.REFINE_COMMENT_LIST_WHEN_DELETE, commentSeq);
           this.$store.commit(AlbumMutationTypes.UN_COUNT_ALBUM_COMMENT_CNT, this.album.albumSeq);
         });
     },

@@ -94,5 +94,10 @@ export const actions = {
       dispatch(UserActionTypes.REQUEST_USER_PROFILE);
     });
   },
+  [UserActionTypes.REQUEST_APP_WITHDRAW]({ commit }: UserActionContext) {
+    return actionsNormalTemplate(async () => {
+      await userApi.deleteWithdraw();
+    });
+  },
 };
 export type UserActions = typeof actions;

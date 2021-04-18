@@ -24,6 +24,7 @@ import {
 } from '@/interfaces/board/board';
 import { BoardCategory } from '@/interfaces/board/BoardCategory';
 import { BoardActionContext } from '@/store/type/actionContextTypes';
+import { CommentUtils } from '@/utils/comment';
 
 export const state = {
   boardList: [] as BoardFeed[],
@@ -156,8 +157,8 @@ export const mutations = {
       commentCnt: state.board.commentCnt - 1,
     };
   },
-  [BoardMutationTypes.REMOVE_COMMENT_OF_COMMENT_LIST](state: BoardState, commentSeq: number) {
-    state.boardCommentList = state.boardCommentList.filter(comment => comment.commentSeq !== commentSeq);
+  [BoardMutationTypes.REFINE_COMMENT_LIST_WHEN_DELETE](state: BoardState, commentSeq: number) {
+    state.boardCommentList = CommentUtils.refineWhenDelete(state.boardCommentList, commentSeq);
   },
 };
 export type BoardMutations = typeof mutations;

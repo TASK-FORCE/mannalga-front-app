@@ -161,7 +161,6 @@ export default Vue.extend({
     },
     adjustEmptyPageHeight() {
       this.emptyPageHeight = this.calculateEmptyPageHeight();
-      console.log('adjustEmptyPageHeight');
     },
     calculateEmptyPageHeight() {
       let top = 0;

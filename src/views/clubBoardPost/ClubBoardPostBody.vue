@@ -134,7 +134,7 @@ export default Vue.extend({
           if (requestForSubComment) {
             this.$store.commit(BoardMutationTypes.UN_COUNT_COMMENT_CNT_OF_PARENT_COMMENT, parentSeq);
           }
-          this.$store.commit(BoardMutationTypes.REMOVE_COMMENT_OF_COMMENT_LIST, commentSeq);
+          this.$store.commit(BoardMutationTypes.REFINE_COMMENT_LIST_WHEN_DELETE, commentSeq);
           this.$store.commit(BoardMutationTypes.UN_COUNT_COMMENT_CNT_OF_BOARD, this.board.boardSeq);
         });
     },

@@ -30,6 +30,7 @@ export enum UserActionTypes {
   REQUEST_CHANGE_USER_INTERESTS = 'user/requestChangeUserInterests',
   REQUEST_CHECK_IS_MEMBER = 'user/requestCheckIsMember',
   REQUEST_CHANGE_USER_PROFILE = 'user/requestChangeUserProfile',
+  REQUEST_APP_WITHDRAW = 'user/requestAppWithdraw',
 }
 
 export enum AuthActionTypes {

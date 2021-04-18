@@ -47,6 +47,10 @@ const userApi = {
 
   patchUserProfileImage(profileImage: UploadImageResponse) {
     return axios.patch('/api/users', { profileImage });
+  },
+
+  deleteWithdraw() {
+    return axios.delete('/api/users/withdraw');
   }
 }
 export default userApi;
