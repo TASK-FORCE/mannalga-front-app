@@ -138,12 +138,12 @@ export default (
     }
   },
   methods: {
-    changeClubMainImage({ absolutePath }: UploadImageResponse) {
+    changeClubMainImage(uploadImageResponse: UploadImageResponse) {
       const clubWriteRequest: ClubWriteRequest = {
         name: this.clubInfo.name,
         description: this.clubInfo.description,
         maximumNumber: this.clubInfo.maximumNumber,
-        mainImageUrl: absolutePath,
+        img: uploadImageResponse,
         interestList: this.clubInfo.interests.map(({ interest, priority }) => ({ seq: interest.seq, priority, })),
         regionList: this.clubInfo.regions.map(({ region, priority }) => ({ seq: region.seq, priority })),
       };

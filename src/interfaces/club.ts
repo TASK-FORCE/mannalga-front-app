@@ -1,4 +1,4 @@
-import { Interest, InterestWithPriority, InterestWriteRequest, Region, RegionWithPriority, RegionWriteRequest } from '@/interfaces/common';
+import { Interest, InterestWithPriority, InterestWriteRequest, Region, RegionWithPriority, RegionWriteRequest, UploadImageResponse } from '@/interfaces/common';
 
 export interface ClubDetailContext {
   clubInfo: ClubInfo;
@@ -39,7 +39,7 @@ export interface ClubWriteRequest {
   name: string;
   description: string;
   maximumNumber: number;
-  mainImageUrl: string;
+  img?: UploadImageResponse;
   interestList: InterestWriteRequest[];
   regionList: RegionWriteRequest[];
 }

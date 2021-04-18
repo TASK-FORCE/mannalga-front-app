@@ -124,6 +124,7 @@ export default Vue.extend({
       description: undefined as undefined | string,
       maximumNumber: undefined as undefined | number,
       imageUrl: undefined as undefined | string,
+      image: undefined as undefined | UploadImageResponse,
       selectedInterests: [] as Interest[],
       selectedRegions: [] as Region[],
     };
@@ -171,7 +172,7 @@ export default Vue.extend({
         name: this.name as string,
         description: this.description as string,
         maximumNumber: this.maximumNumber as number,
-        mainImageUrl: this.imageUrl as string,
+        img: this.image,
         interestList: this.selectedInterests
           .map((interest, index) => ({
             priority: index + 1,
@@ -184,8 +185,9 @@ export default Vue.extend({
           })),
       };
     },
-    changeToUploadedImage({ absolutePath }: UploadImageResponse) {
-      this.imageUrl = absolutePath;
+    changeToUploadedImage(uploadImageResponse: UploadImageResponse) {
+      this.image = uploadImageResponse;
+      this.imageUrl = uploadImageResponse.absolutePath;
     }
   },
 });
