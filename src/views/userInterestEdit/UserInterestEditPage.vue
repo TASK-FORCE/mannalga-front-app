@@ -39,7 +39,7 @@ export default Vue.extend({
         .then(() => {
           this.$store.dispatch(UserActionTypes.REQUEST_USER_PROFILE);
           this.$router.push(PATH.USER.SETTINGS);
-          this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_CHANGE_REGIONS);
+          this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_CHANGE_INTERESTS);
         });
     },
     back() {

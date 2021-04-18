@@ -185,7 +185,7 @@ export default Vue.extend({
     },
     cancelMeetingApplication() {
       return this.$store.dispatch(MeetingActionTypes.REQUEST_CANCEL_MEETING_APPLICATION, this.meetingSeqContext)
-        .then(() => (this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_CANCLE_MEETING_APPLICATION)));
+        .then(() => (this.$store.commit(UIMutationTypes.OPEN_SNACK_BAR, MESSAGE.SUCCESS_CANCEL_MEETING_APPLICATION)));
     },
     toClubUser(meetingApplicationUser: MeetingApplicationUser): ClubUserInfo {
       return {
