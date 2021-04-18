@@ -35,7 +35,7 @@
           <div
             v-if="!hideEmptyPage"
             class="empty"
-            :style="{height: `${calculateEmptyPageHeight()}px`}"
+            :style="{height: `${emptyPageHeight}px`}"
           >
             <div class="my-auto">
               <slot name="empty" />
@@ -109,6 +109,7 @@ export default Vue.extend({
   mounted() {
     this.listWrapper = document.querySelector(`.${this.name}-list-wrapper`) as HTMLElement;
     this.sentinel = document.querySelector(`.${this.name}-list-sentinel`) as HTMLElement;
+    this.listGroup = document.querySelector(`.${this.name}-list-group`) as HTMLElement;
     if (_.isEmpty(this.pageElements) && this.callFirstPage) {
       this.requestFirstPage();
     } else {
